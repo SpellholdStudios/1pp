@@ -1,0 +1,116 @@
+// 1ppv4 Female dwarves, BGII
+// finally
+// .exe patching and relevant code courtesy of Mike1072 <3
+// experimental IWD .exe patching to be blamed on me.
+
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ *  ==============================================================================================================================================================================  */
+
+OUTER_SET fail = 0
+
+/* ====================  *
+ *  PATCHING BGMAIN.EXE  *
+ *  ===================  */
+
+ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN	// don't have mac info yet
+	// patch executable to write references to new avatars
+	COPY ~bgmain.exe~ ~bgmain.exe~
+		// determine which version of the game is used, and set the base offset accordingly
+		PATCH_IF (SOURCE_SIZE == 7839790 || SOURCE_SIZE == 7843840) BEGIN	// ToB v26498
+			SET base_off = 0x7524e8
+		END
+		ELSE PATCH_IF (SOURCE_SIZE == 7843886) BEGIN						// ToB v26499
+			SET base_off = 0x7514e8
+		END
+		ELSE PATCH_IF (SOURCE_SIZE == 7417902) BEGIN						// SoA v23037
+			SET base_off = 0x6ecba4
+		END
+		ELSE BEGIN
+			PATCH_PRINT @103008 /* Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only). */
+			SET fail = 1
+		END
+
+		// these are the values that should have been at the relative relative_offs previously
+		SPRINT $old(~0x000~) ~CDMB~
+		SPRINT $old(~0x0d8~) ~CDMB~
+		SPRINT $old(~0x270~) ~CDMB~
+		SPRINT $old(~0x1b0~) ~CDMW~
+		SPRINT $old(~0x1c4~) ~CDMW~
+		SPRINT $old(~0x1d4~) ~CDMW~
+
+		// these are the new values we are assigning
+		SPRINT $new(~0x000~) ~CDFB~ // female dwarf cleric
+		SPRINT $new(~0x0d8~) ~CDFB~ // female dwarf fighter
+		SPRINT $new(~0x270~) ~CDFB~ // female dwarf thief
+		SPRINT $new(~0x1b0~) ~CDFW~ // female dwarf mage
+		//SPRINT $new(~0x1c4~) ~CDMW~ // male gnome mage
+		SPRINT $new(~0x1d4~) ~CDFW~ // female gnome mage
+
+		// update values
+		PATCH_PHP_EACH new AS relative_off => new_val BEGIN
+			PATCH_IF (fail == 0) BEGIN
+				SPRINT old_val $old(~%relative_off%~)
+				SET actual_off = base_off + relative_off
+				READ_ASCII actual_off cur_val (4)
+				PATCH_IF (~%cur_val%~ STRING_EQUAL_CASE ~%old_val%~) BEGIN // ensures we don't write over wrong part of .exe
+					WRITE_ASCIIE actual_off ~%new_val%~ #4
+				END ELSE BEGIN
+					PATCH_PRINT @106000 /* Error: the value we are trying to replace at offset %actual_off% (%cur_val%) in bgmain does not match what was expected (%old_val%). Stopping installation for safety purposes. */
+					SET fail = 1
+				END
+			END
+		END
+END	// of ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~)
+
+ACTION_IF (fail == 1) BEGIN
+	FAIL @106001 /* Could not patch bgmain successfully. */
+END
+
+
+/* =============================================  *
+ *  INSTALLING THE ACTUAL COMPONENT CONTENT, YAY  *
+ *  ============================================  */
+
+PRINT @106002 /* Copying new files */
+
+/* ----------------------------------------------------- *
+ *  CDFB1 - Female unarmoured dwarves                    *
+ *  CDFB2 - Female dwarves with leather armour           *
+ *  CDFB3 - Female dwarves with chain mail               *
+ *  CDFC4 - Female dwarven clerics with plate mail       *
+ *  CDFF4 - Female dwarven fighters with plate mail      *
+ *  CDFT2 - Female dwarven thieves                       *
+ *  CDFW1 - Female dwarven/gnome mage unarmoured         *
+ *  CDFW2 - Female dwarven/gnome mage with light robes   *
+ *  CDFW3 - Female dwarven/gnome mage with medium robes  *
+ *  CDFW4 - Female dwarven/gnome mage with heavy robes   *
+ * ----------------------------------------------------- */
+COPY ~1pp/core/1pp_female_dwarves/CDFB1~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/CDFB2~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/CDFB3~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/CDFC4~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/CDFF4~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/CDFT2~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/CDFW1~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/CDFW2~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/CDFW3~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/CDFW4~ ~override~
+
+
+PRINT @106003 /* Updating paperdolls */
+
+ACTION_FOR_EACH paperdoll IN ~CDFC1INV~ ~CDFC2INV~ ~CDFC3INV~ ~CDFC4INV~ ~CDFF1INV~ ~CDFF2INV~ ~CDFF3INV~ ~CDFF4INV~ ~CDFT1INV~ ~CDFT2INV~ ~CDFW1INV~ ~CDFW2INV~ ~CDFW3INV~ ~CDFW4INV~ BEGIN
+
+	COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+	ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+		COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+	END
+
+END
+
+// END of COMPONENT

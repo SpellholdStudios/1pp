@@ -1,0 +1,315 @@
+// 1ppv4 Female dwarves, IWD HoW
+// finally
+// .exe patching and relevant code courtesy of Mike1072 <3
+// experimental IWD .exe patching to be blamed on me.
+
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ *  ==============================================================================================================================================================================  */
+
+OUTER_SET fail = 0
+OUTER_SET found = 0
+
+/* ====================  *
+ *  PATCHING IDMAIN.EXE  *
+ *  ===================  */
+
+ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN
+
+	COPY ~IDMain.exe~ ~IDMain.exe~
+		PATCH_IF (SOURCE_SIZE == 6873088) BEGIN // is IDMain 142
+			PATCH_PRINT @109000	/* Icewind Dale v1.4.2 found (TotL) */
+			SET found = 1
+			READ_BYTE "0x3D152A" "check_r"
+			PATCH_IF ("%check_r%" = 0x88) BEGIN
+				WRITE_BYTE 0x3D152A 0x30
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3D152A (%check_r%) does not match what was expected (88). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3d152b" "check_r"
+			PATCH_IF ("%check_r%" = 0x85) BEGIN
+				WRITE_BYTE 0x3d152b 0x87
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3d152b (%check_r%) does not match what was expected (85). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3D5D29" "check_r"
+			PATCH_IF ("%check_r%" = 0x4C) BEGIN
+				WRITE_BYTE 0x3D5D29 0x44
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3D5D29 (%check_r%) does not match what was expected (4C). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3D5E55" "check_r"
+			PATCH_IF ("%check_r%" = 0x4C) BEGIN
+				WRITE_BYTE 0x3D5E55 0x44
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3D5E55 (%check_r%) does not match what was expected (4C). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3D60DB" "check_r"
+			PATCH_IF ("%check_r%" = 0x4C) BEGIN
+				WRITE_BYTE 0x3D60DB 0x44
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3D60DB (%check_r%) does not match what was expected (4C). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3D621B" "check_r"
+			PATCH_IF ("%check_r%" = 0x4C) BEGIN
+				WRITE_BYTE 0x3D621B 0x44
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3D621B (%check_r%) does not match what was expected (4C). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3D64AE" "check_r"
+			PATCH_IF ("%check_r%" = 0x88) BEGIN
+				WRITE_BYTE 0x3D64AE 0x30
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3D64AE (%check_r%) does not match what was expected (88). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3d64af" "check_r"
+			PATCH_IF ("%check_r%" = 0x85) BEGIN
+				WRITE_BYTE 0x3d64af 0x87
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3d64af (%check_r%) does not match what was expected (85). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3D6546" "check_r"
+			PATCH_IF ("%check_r%" = 0x88) BEGIN
+				WRITE_BYTE 0x3D6546 0x30
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3D6546 (%check_r%) does not match what was expected (88). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3d6547" "check_r"
+			PATCH_IF ("%check_r%" = 0x85) BEGIN
+				WRITE_BYTE 0x3d6547 0x87
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3d6547 (%check_r%) does not match what was expected (85). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3D67E9" "check_r"
+			PATCH_IF ("%check_r%" = 0x50) BEGIN
+				WRITE_BYTE 0x3D67E9 0x28
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3D67E9 (%check_r%) does not match what was expected (50). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3d67ea" "check_r"
+			PATCH_IF ("%check_r%" = 0x85) BEGIN
+				WRITE_BYTE 0x3d67ea 0x87
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3d67ea (%check_r%) does not match what was expected (85). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3D690F" "check_r"
+			PATCH_IF ("%check_r%" = 0x50) BEGIN
+				WRITE_BYTE 0x3D690F 0x28
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3D690F (%check_r%) does not match what was expected (50). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3d6910" "check_r"
+			PATCH_IF ("%check_r%" = 0x85) BEGIN
+				WRITE_BYTE 0x3d6910 0x87
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3d6910 (%check_r%) does not match what was expected (85). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3EBF49" "check_r"
+			PATCH_IF ("%check_r%" = 0x88) BEGIN
+				WRITE_BYTE 0x3EBF49 0x30
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3EBF49 (%check_r%) does not match what was expected (88). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3ebf4a" "check_r"
+			PATCH_IF ("%check_r%" = 0x85) BEGIN
+				WRITE_BYTE 0x3ebf4a 0x87
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3ebf4a (%check_r%) does not match what was expected (85). Stopping installation.~
+				SET fail = 1
+			END
+		END ELSE BEGIN
+			PATCH_PRINT @109001 /* Warning: Icewind Dale is not patched to 1.4.2; trying 1.4.1 */
+		END
+
+	COPY ~IDMain.exe~ ~IDMain.exe~
+		PATCH_IF (SOURCE_SIZE == 6840320) BEGIN	// is IDMain 141
+			PATCH_PRINT @109002 /* Icewind Dale v1.4.1 found (HoW only) */
+			SET found = 1
+			READ_BYTE "0x3CA71C" "check_r"
+			PATCH_IF ("%check_r%" = 0xE4) BEGIN
+				WRITE_BYTE 0x3CA71C 0x8C
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3CA71C (%check_r%) does not match what was expected (E4). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3ca71d" "check_r"
+			PATCH_IF ("%check_r%" = 0x03) BEGIN
+				WRITE_BYTE 0x3ca71d 0x05
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3ca71d (%check_r%) does not match what was expected (03). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3CEF1B" "check_r"
+			PATCH_IF ("%check_r%" = 0xA8) BEGIN
+				WRITE_BYTE 0x3CEF1B 0xA0
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3CEF1B (%check_r%) does not match what was expected (A8). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3CF047" "check_r"
+			PATCH_IF ("%check_r%" = 0xA8) BEGIN
+				WRITE_BYTE 0x3CF047 0xA0
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3CF047 (%check_r%) does not match what was expected (A8). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3CF2CD" "check_r"
+			PATCH_IF ("%check_r%" = 0xA8) BEGIN
+				WRITE_BYTE 0x3CF2CD 0xA0
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3CF2CD (%check_r%) does not match what was expected (A8). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3CF40D" "check_r"
+			PATCH_IF ("%check_r%" = 0xA8) BEGIN
+				WRITE_BYTE 0x3CF40D 0xA0
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3CF40D (%check_r%) does not match what was expected (A8). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3CF6A0" "check_r"
+			PATCH_IF ("%check_r%" = 0xE4) BEGIN
+				WRITE_BYTE 0x3CF6A0 0x8C
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3CF6A0 (%check_r%) does not match what was expected (E4). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3cf6a1" "check_r"
+			PATCH_IF ("%check_r%" = 0x03) BEGIN
+				WRITE_BYTE 0x3cf6a1 0x05
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3cf6a1 (%check_r%) does not match what was expected (03). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3CF738" "check_r"
+			PATCH_IF ("%check_r%" = 0xE4) BEGIN
+				WRITE_BYTE 0x3CF738 0x8C
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3CF738 (%check_r%) does not match what was expected (E4). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3cf739" "check_r"
+			PATCH_IF ("%check_r%" = 0x03) BEGIN
+				WRITE_BYTE 0x3cf739 0x05
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3cf739 (%check_r%) does not match what was expected (03). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3CF9DB" "check_r"
+			PATCH_IF ("%check_r%" = 0xAC) BEGIN
+				WRITE_BYTE 0x3CF9DB 0x84
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3CF9DB (%check_r%) does not match what was expected (AC). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3cf9dc" "check_r"
+			PATCH_IF ("%check_r%" = 0x03) BEGIN
+				WRITE_BYTE 0x3cf9dc 0x05
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3cf9dc (%check_r%) does not match what was expected (03). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3CFB01" "check_r"
+			PATCH_IF ("%check_r%" = 0xAC) BEGIN
+				WRITE_BYTE 0x3CFB01 0x84
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3CFB01 (%check_r%) does not match what was expected (AC). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3cfb02" "check_r"
+			PATCH_IF ("%check_r%" = 0x03) BEGIN
+				WRITE_BYTE 0x3cfb02 0x05
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3cfb02 (%check_r%) does not match what was expected (03). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3E513B" "check_r"
+			PATCH_IF ("%check_r%" = 0xE4) BEGIN
+				WRITE_BYTE 0x3E513B 0x8C
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3E513B (%check_r%) does not match what was expected (E4). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x3e513c" "check_r"
+			PATCH_IF ("%check_r%" = 0x03) BEGIN
+				WRITE_BYTE 0x3e513c 0x05
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3e513c (%check_r%) does not match what was expected (03). Stopping installation.~
+				SET fail = 1
+			END
+		END ELSE BEGIN
+			PATCH_PRINT @109003 /* Game is not 1.4.1 */
+		END
+
+	ACTION_IF (fail = 1) BEGIN
+		FAIL @103015 /* Could not patch successfully. */
+	END
+
+	ACTION_IF (found != 1) BEGIN
+		FAIL @109004 /* Type of executable is unknown. Make sure your game is patched to 1.4.1 (HoW) or 1.4.2 (TotL). */
+	END
+
+END // of ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~)
+
+
+/* =============================================  *
+ *  INSTALLING THE ACTUAL COMPONENT CONTENT, YAY  *
+ *  ============================================  */
+
+PRINT @106002 /* Copying new files */
+
+/* ----------------------------------------------------- *
+ *  CDFB1 - Female unarmoured dwarves                    *
+ *  CDFB2 - Female dwarves with leather armour           *
+ *  CDFB3 - Female dwarves with chain mail               *
+ *  CDFC4 - Female dwarven clerics with plate mail       *
+ *  CDFF4 - Female dwarven fighters with plate mail      *
+ *  CDFT2 - Female dwarven thieves                       *
+ *  CDFW1 - Female dwarven/gnome mage unarmoured         *
+ *  CDFW2 - Female dwarven/gnome mage with light robes   *
+ *  CDFW3 - Female dwarven/gnome mage with medium robes  *
+ *  CDFW4 - Female dwarven/gnome mage with heavy robes   *
+ * ----------------------------------------------------- */
+COPY ~1pp/core/1pp_female_dwarves/CDFB1~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/CDFB2~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/CDFB3~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/CDFC4~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/CDFF4~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/CDFT2~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/CDFW1~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/CDFW2~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/CDFW3~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/CDFW4~ ~override~
+
+
+PRINT @106003 /* Updating paperdolls */
+
+ACTION_FOR_EACH paperdoll IN ~CDFC1INV~ ~CDFC2INV~ ~CDFC3INV~ ~CDFC4INV~ ~CDFF1INV~ ~CDFF2INV~ ~CDFF3INV~ ~CDFF4INV~ ~CDFT1INV~ ~CDFT2INV~ ~CDFW1INV~ ~CDFW2INV~ ~CDFW3INV~ ~CDFW4INV~ BEGIN
+
+	COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+	ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+		COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+	END
+
+END
+
+// END of COMPONENT

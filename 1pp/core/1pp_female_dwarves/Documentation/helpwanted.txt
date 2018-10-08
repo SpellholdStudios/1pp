@@ -1,0 +1,69 @@
+*** You can help this project by providing any of the following ***
+
+» Porting the patch/es to OSX
+
+
+*** What needs to be done ***
+
+The game(s) have different animation slots for female and male dwarves. However, these are both linked to the same .BAM files in the game data, effectively preventing us from using separate content for female and male dwarves (and gnome mages) unless those references in the executable are patched.
+
+
+*** Technical information that may be useful ***
+
+The files that make up an animation series are named in the following scheme:
+
+C (Player Character)
++
+Race (H = Human, E = Elf, I = Halfling, D = Dwarf, O = Half-Orc, G = Gnome)
++
+Gender (F = Female, M = Male)
++
+Class (F = Fighter, C = Cleric, T = Thief, W = Wizard, M = Monk, B = Uniform)
++
+Armour level (1, 2, 3, 4)
++
+Identifier (this is either an animation sequence, or INV)
+
+The links are hardcoded as follows:
+
+· Fighter and cleric avatars use 'B' animations for the first three armour levels but retain original animations for level 4. Thieves use B1, and their unique animation for second level armour. Paperdolls are unaffected by this though, so they exist for all combinations. (In BG1, all classes used individual avatars for all armour levels)
+· Halflings have no mage animations or paperdolls.
+· Monks for obvious reasons have only one armour level and only exist for human characters.
+· Female dwarves use male dwarf avatars but retain unique paperdolls in the scheme above.
+· Gnomes use halfling animations for all classes except mages where they use male dwarven animations. They, too, retain unique paperdolls.
+
+So the animations linked in question are:
+
+CDMBx 
+CDMC4
+CDMF4
+CDMT2
+CDMWx
+
+These should be both linked to the male and female animation slot (which in turn are linked to BG2 style size categories so if you find the acronyms WQS, WQN, WQM, WQL in the vincinity you may be in the right spot), while the paperdoll entries should be different for the male and female slot (CDMC vs. CDFC. They are linked to BG1 style size categories so you may find these near acronyms along the lines of WPS, WPH, WPN, WPM, WPL)
+
+In an unpatched game we have them linked as:
+
++Female Dwarves **unpatched**
+Animations (all): CDM*
+Paperdolls: CDF*
+
++Female Gnomes **unpatched**
+Fighter, Cleric, Thief: CIF*
+Wizard: CDM*
+Paperdolls: CGF*
+
+The way the patch should change these is, precisely:
+
++Female Dwarves 
+Animations: CDF* ««
+Paperdolls: CDF* ««
+
++Female Gnomes 
+Fighter, Cleric, Thief: CIF*
+Wizard: CDF* ««
+Paperdolls: CGF*
+
+In other words, ONE series of animations will be added (CDF) that is used for female dwarves and female gnome mages. If you do try to make a patch, make sure the male animations still show up normally while the female ones use the different files.
+
+*********************************************************
