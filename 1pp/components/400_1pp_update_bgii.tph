@@ -119,7 +119,7 @@ INCLUDE ~%MOD_FOLDER%/components/400_update_bgii_launchers.tpa~
 /*  ============================================================  *
  *          AXES - DAGGERS - HAMMERS - SPEARS - HALBERDS          *
  *  ============================================================  */
-INCLUDE ~%MOD_FOLDER%/components/400_update_bgii_weapons.tph~
+INCLUDE ~%MOD_FOLDER%/components/400_update_bgii_weapons.tpa~
 
 
 /*  =============================  *
