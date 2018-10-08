@@ -1,0 +1,668 @@
+// softer spell effects
+// improved spell effects with better blending
+
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Replace READLN ~WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS  *
+ *        NOT A GOOD IDEA.~ with reading '3D Acceleration=1' in baldur.ini before running the component.                                                                            *
+ *      - Variables needed for installation (1pp_agannazar_scorcher and 1pp_dispel_magic_effect) are read from 1pp-config-default.ini or 1pp-config.ini files.                      *
+ *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is     *
+ *        installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file    *
+ *        provides a standard installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and   *
+ *        save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini,    *
+ *        the installation process will prevent any installation failure by reverting it back to its default value.                                                                 *
+ *      - #540	==> Function GW_MODIFY_PROJ replaces Lollorian's BWP Fixpack patch (114_effects.tph.patch: modify new projectile values in ALL spell headers) which was inefficient *
+ *					and patched nothing. Moreover, it was using a wrong offset coding for itm files.                                                                                *
+ *  ==============================================================================================================================================================================  */
+
+// BUILDING ARRAYS
+ACTION_DEFINE_ASSOCIATIVE_ARRAY binarycheck BEGIN
+	0x2106df => 0x436a
+	0x2106e1 => 0x6a
+	0x2106e3 => 0x8b
+	0x2106e4 => 0xd04d
+	0x2106e6 => 0xc181
+	0x2106e8 => 0x017a
+	0x2106ea => 0x00
+	0x2106eb => 0x00
+	0x2106ec => 0xd1e8
+	0x2106ee => 0x3b
+	0x2106ef => 0x3e
+	0x2106f0 => 0x00
+	0x2106f1 => 0x558b
+	0x2106f3 => 0xd0
+	0x2106f4 => 0xc281
+	0x2106f6 => 0x017a
+	0x2106f8 => 0x00
+	0x2106f9 => 0x00
+	0x2106fa => 0x8b52
+	0x2106fc => 0x45
+	0x2106fd => 0xd0
+	0x2106ff => 0x7288
+	0x210701 => 0x01
+	0x210702 => 0x00
+	0x210703 => 0x00
+	0x210704 => 0xe6e8
+	0x210706 => 0xbe
+	0x210707 => 0x3b
+	0x210708 => 0x00
+	0x210709 => 0x4d8b
+	0x21070b => 0xd0
+	0x21070c => 0x81c7
+	0x21070e => 0x019e
+	0x210710 => 0x00
+	0x210711 => 0x00
+	0x210712 => 0x00
+	0x210716 => 0x8b
+	0x210717 => 0x55
+	0x210718 => 0xd0
+	0x210719 => 0x82c7
+	0x21071b => 0x01a2
+	0x21071d => 0x00
+	0x21071e => 0x00
+	0x21071f => 0x00
+	0x210723 => 0x8b
+	0x210724 => 0x45
+	0x210725 => 0xd0
+	0x210726 => 0x80c7
+	0x210728 => 0x01a6
+	0x21072a => 0x00
+	0x21072b => 0x00
+	0x21072f => 0x00
+	0x210730 => 0x45c7
+	0x210732 => 0x14e8
+	0x210734 => 0x00
+	0x210735 => 0x00
+	0x210736 => 0x00
+	0x210737 => 0x45c7
+	0x210739 => 0xec
+	0x21073a => 0x0f
+	0x21073b => 0x00
+	0x21073c => 0x00
+	0x21073d => 0x00
+	0x21073e => 0x4d8b
+	0x210740 => 0x8be8
+	0x210742 => 0xec55
+	0x210744 => 0x458b
+	0x210746 => 0x89d0
+	0x210748 => 0xaa88
+	0x21074a => 0x01
+	0x21074b => 0x00
+	0x21074c => 0x00
+	0x21074d => 0x89
+	0x21074f => 0x01ae
+	0x210751 => 0x00
+	0x210752 => 0x00
+	0x210753 => 0x4d8b
+	0x210755 => 0x66d0
+	0x210757 => 0x81c7
+	0x210759 => 0x01b2
+	0x21075b => 0x00
+	0x21075c => 0x00
+	0x21075d => 0x80
+	0x21075e => 0x00
+	0x4b1621 => 0x00
+	0x4b1631 => 0x00
+	0x4b1701 => 0x476a
+	0x4b1703 => 0x6a
+	0x4b1705 => 0x8b
+	0x4b1706 => 0x6c8d
+	0x4b1708 => 0xfffe
+	0x4b170a => 0xff
+	0x4b1736 => 0x41
+	0x4b1858 => 0x476a
+	0x4b185a => 0x6a
+	0x4b185c => 0x8b
+	0x4b185d => 0x6c8d
+	0x4b185f => 0xfffe
+	0x4b1861 => 0xff
+	0x4b188c => 0x41
+	0x4b19b2 => 0x6a
+	0x4b19b3 => 0x00
+	0x4b19b4 => 0x68
+	0x4b19b5 => 0xa0
+	0x4b19b6 => 0x5f
+	0x4b19b7 => 0xb5
+	0x4b19b9 => 0xa868
+	0x4b19bb => 0xb55f
+	0x4b19bd => 0x00
+	0x4b19be => 0x3c68
+	0x4b19c0 => 0x27
+	0x4b19c1 => 0x00
+	0x4b19c3 => 0xe8
+	0x4b19c4 => 0xd6a4
+	0x4b19c6 => 0x0e
+	0x4b19c7 => 0x00
+	0x4b19c8 => 0xc483
+	0x4b19ca => 0x10
+	0x4b19dc => 0x00
+	0x4b19ec => 0x00
+	0x4b1aba => 0x436a
+	0x4b1abc => 0x6a
+	0x4b1abd => 0x00
+	0x4b1abe => 0x8d8b
+	0x4b1ac0 => 0xfe6c
+	0x4b1ac2 => 0xffff
+	0x4b1aee => 0x41
+	0x4b1c10 => 0x436a
+	0x4b1c12 => 0x6a
+	0x4b1c14 => 0x8b
+	0x4b1c15 => 0x6c8d
+	0x4b1c17 => 0xfffe
+	0x4b1c19 => 0xff
+	0x4b1c44 => 0x41
+	0x4b1d6a => 0x6a
+	0x4b1d6b => 0x00
+	0x4b1d6c => 0x68
+	0x4b1d6d => 0xdc
+	0x4b1d6e => 0x5f
+	0x4b1d6f => 0xb5
+	0x4b1d71 => 0xe468
+	0x4b1d73 => 0xb55f
+	0x4b1d75 => 0x00
+	0x4b1d76 => 0x6368
+	0x4b1d78 => 0x27
+	0x4b1d79 => 0x00
+	0x4b1d7a => 0x00
+	0x4b1d7b => 0xece8
+	0x4b1d7d => 0x0ed2
+	0x4b1d7f => 0x00
+	0x4b1d80 => 0xc483
+	0x4b1d82 => 0x10
+	0x4b2475 => 0x00
+	0x4b2476 => 0x1c68
+	0x4b2478 => 0xb560
+	0x4b247b => 0x2468
+	0x4b247d => 0xb560
+	0x4b247f => 0x00
+	0x4b2480 => 0x8868
+	0x4b2482 => 0x27
+	0x4b2483 => 0x00
+	0x4b2484 => 0x00
+	0x4b2485 => 0xe2e8
+	0x4b2487 => 0x0ecb
+	0x4b2489 => 0x00
+	0x4b2498 => 0x6a
+	0x4b2499 => 0x00
+	0x4b249a => 0x68
+	0x4b249b => 0x44
+	0x4b249c => 0x60
+	0x4b249d => 0xb5
+	0x4b249f => 0x4c68
+	0x4b24a1 => 0xb560
+	0x4b24a3 => 0x00
+	0x4b24a4 => 0x8d68
+	0x4b24a6 => 0x27
+	0x4b24a7 => 0x00
+	0x4b24a8 => 0x00
+	0x4b24a9 => 0xbee8
+	0x4b24ab => 0x0ecb
+	0x4b24ad => 0x00
+	0x755f8e => 0x4946
+	0x755f90 => 0x52
+END // binary patch array
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY binarypatch BEGIN
+	0x2106df => 0x9368
+	0x2106e1 => 0x00
+	0x2106e3 => 0x00
+	0x2106e4 => 0x6a
+	0x2106e5 => 0x00
+	0x2106e6 => 0x4d8b
+	0x2106e8 => 0x81d0
+	0x2106ea => 0xc1
+	0x2106eb => 0x7a
+	0x2106ec => 0x01
+	0x2106ed => 0x00
+	0x2106ee => 0x00
+	0x2106ef => 0xcee8
+	0x2106f1 => 0x3e3b
+	0x2106f3 => 0x00
+	0x2106f4 => 0x558b
+	0x2106f6 => 0x81d0
+	0x2106f8 => 0xc2
+	0x2106f9 => 0x7a
+	0x2106fa => 0x01
+	0x2106fb => 0x00
+	0x2106fc => 0x00
+	0x2106fd => 0x52
+	0x2106ff => 0xd045
+	0x210701 => 0x888b
+	0x210703 => 0x72
+	0x210704 => 0x01
+	0x210705 => 0x00
+	0x210706 => 0x00
+	0x210707 => 0xe3e8
+	0x210709 => 0x3bbe
+	0x21070b => 0x00
+	0x21070c => 0x4d8b
+	0x21070e => 0xc7d0
+	0x210710 => 0x81
+	0x210711 => 0x9e
+	0x210712 => 0x01
+	0x210716 => 0x00
+	0x210717 => 0x00
+	0x210718 => 0x00
+	0x210719 => 0x558b
+	0x21071b => 0xc7d0
+	0x21071d => 0x82
+	0x21071e => 0xa2
+	0x21071f => 0x01
+	0x210723 => 0x00
+	0x210724 => 0x00
+	0x210725 => 0x00
+	0x210726 => 0x458b
+	0x210728 => 0x8bd0
+	0x21072a => 0x90
+	0x21072b => 0xcc
+	0x21072f => 0x83
+	0x210730 => 0x08ca
+	0x210732 => 0x458b
+	0x210734 => 0xd0
+	0x210735 => 0x89
+	0x210736 => 0x90
+	0x210737 => 0xcc
+	0x210738 => 0x00
+	0x210739 => 0x00
+	0x21073a => 0x00
+	0x21073b => 0x90
+	0x21073c => 0x90
+	0x21073d => 0x90
+	0x21073e => 0x9090
+	0x210740 => 0x9090
+	0x210742 => 0x9090
+	0x210744 => 0x9090
+	0x210746 => 0x9090
+	0x210748 => 0x9090
+	0x21074a => 0x9090
+	0x21074c => 0x90
+	0x21074d => 0x90
+	0x21074f => 0x9090
+	0x210751 => 0x90
+	0x210752 => 0x90
+	0x210753 => 0x9090
+	0x210755 => 0x9090
+	0x210757 => 0x9090
+	0x210759 => 0x9090
+	0x21075b => 0x90
+	0x21075c => 0x90
+	0x21075d => 0x9090
+	0x4b1621 => 0x08
+	0x4b1631 => 0x08
+	0x4b1701 => 0x6ee9
+	0x4b1703 => 0x0d
+	0x4b1705 => 0x00
+	0x4b1706 => 0x9090
+	0x4b1708 => 0x9090
+	0x4b170a => 0x90
+	0x4b1736 => 0x42
+	0x4b1858 => 0x3be9
+	0x4b185a => 0x0c
+	0x4b185c => 0x00
+	0x4b185d => 0x9090
+	0x4b185f => 0x9090
+	0x4b1861 => 0x90
+	0x4b188c => 0x42
+	0x4b19b2 => 0x9368
+	0x4b19b4 => 0x00
+	0x4b19b5 => 0x00
+	0x4b19b6 => 0x00
+	0x4b19b7 => 0x6a
+	0x4b19b9 => 0x8d8b
+	0x4b19bb => 0xfe6c
+	0x4b19bd => 0xff
+	0x4b19be => 0xe9ff
+	0x4b19c0 => 0x00
+	0x4b19c1 => 0x01
+	0x4b19c3 => 0x00
+	0x4b19c4 => 0x9090
+	0x4b19c6 => 0x9090
+	0x4b19c8 => 0x9090
+	0x4b19ca => 0x90
+	0x4b19dc => 0x08
+	0x4b19ec => 0x08
+	0x4b1aba => 0xf3e9
+	0x4b1abc => 0xfffe
+	0x4b1abe => 0x90ff
+	0x4b1ac0 => 0x9090
+	0x4b1ac2 => 0x9090
+	0x4b1aee => 0x42
+	0x4b1c10 => 0x55e9
+	0x4b1c12 => 0x01
+	0x4b1c14 => 0x00
+	0x4b1c15 => 0x9090
+	0x4b1c17 => 0x9090
+	0x4b1c19 => 0x90
+	0x4b1c44 => 0x42
+	0x4b1d6a => 0xd268
+	0x4b1d6c => 0x00
+	0x4b1d6d => 0x00
+	0x4b1d6e => 0x00
+	0x4b1d6f => 0x6a
+	0x4b1d71 => 0x8d8b
+	0x4b1d73 => 0xfe6c
+	0x4b1d75 => 0xff
+	0x4b1d76 => 0xe9ff
+	0x4b1d78 => 0xfe9e
+	0x4b1d7a => 0xff
+	0x4b1d7b => 0x90ff
+	0x4b1d7d => 0x9090
+	0x4b1d7f => 0x90
+	0x4b1d80 => 0x9090
+	0x4b1d82 => 0x90
+	0x4b2475 => 0x1f
+	0x4b2476 => 0x9090
+	0x4b2478 => 0x6a90
+	0x4b247b => 0x8d8b
+	0x4b247d => 0xfe6c
+	0x4b247f => 0xff
+	0x4b2480 => 0xe9ff
+	0x4b2482 => 0xf285
+	0x4b2484 => 0xff
+	0x4b2485 => 0x90ff
+	0x4b2487 => 0x9090
+	0x4b2489 => 0x90
+	0x4b2498 => 0xc868
+	0x4b249a => 0x00
+	0x4b249b => 0x00
+	0x4b249c => 0x00
+	0x4b249d => 0x6a
+	0x4b249f => 0x8d8b
+	0x4b24a1 => 0xfe6c
+	0x4b24a3 => 0xff
+	0x4b24a4 => 0xe9ff
+	0x4b24a6 => 0xf3b8
+	0x4b24a8 => 0xff
+	0x4b24a9 => 0x90ff
+	0x4b24ab => 0x9090
+	0x4b24ad => 0x90
+	0x755f8e => 0x4349
+	0x755f90 => 0x45
+END // binary patch array
+
+
+/*  =======  *
+ *  BG2-ToB  *
+ *  =======  */
+ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
+	PRINT @114002 /* Installing... */
+
+	OUTER_SET fail = 0
+
+	PRINT @114003 /* Patching executable for alpha blended AoE projectiles... */
+
+	ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN // don't have mac info yet
+		// patch executable to fix area effect transparencies
+		COPY ~bgmain.exe~ ~bgmain.exe~
+			// determine which version of the game is used, and set the base offset accordingly
+			PATCH_IF (SOURCE_SIZE == 7839790 || SOURCE_SIZE == 7843840) BEGIN // ToB v26498
+				READ_LONG 0x16B32B tst_val
+				PATCH_IF (tst_val = 0x0000116E) BEGIN	// 0x6E110000
+					WRITE_LONG 0x16B028 0xFFFFF10D		// 0x0DF1FFFF
+					WRITE_LONG 0x16B32B 0xFFFFEE0A		// 0x0AEEFFFF
+					WRITE_LONG 0x16A4EE 0xFFFFFC47		// 0x47FCFFFF
+				END ELSE BEGIN
+					PATCH_PRINT @103008 /* Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only). */
+					SET fail = 1
+				END
+			END
+			ELSE PATCH_IF (SOURCE_SIZE == 7417902) BEGIN // SoA v23037
+				READ_LONG 0x152C89 tst_val
+				PATCH_IF (tst_val = 0x00000FF2) BEGIN	// 0xF20F0000
+					WRITE_LONG 0x152986 0xFFFFF299		// 0x99F2FFFF
+					WRITE_LONG 0x152C89 0xFFFFEF96		// 0x96EFFFFF
+					WRITE_LONG 0x151FC0 0xFFFFFC5F		// 0x5FFCFFFF
+				END ELSE BEGIN
+					PATCH_PRINT @103008 /* Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only). */
+					SET fail = 1
+				END
+			END
+			ELSE BEGIN
+				PATCH_PRINT @103008 /* Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only). */
+				SET fail = 1
+			END
+	END ELSE BEGIN
+		OUTER_SET fail = 1
+	END
+
+
+	ACTION_IF (fail == 1) BEGIN
+		PRINT @114004 /* Could not patch bgmain successfully, installing only supported effects. */
+	END
+
+	PRINT @114005 /* Copying effects... */
+
+	ACTION_IF (fail != 1) BEGIN
+		ACTION_FOR_EACH effect IN ~SPHORWIL~ ~SPHORPUF~ ~SPWRDFLD~ ~SPICESTM~ BEGIN
+			COPY ~1pp/core/1ppv4_spells/%effect%.BAM~ ~override~
+		END
+	END
+
+	ACTION_FOR_EACH effect IN ~CGINVOCA.BAM~ ~GRNDGLOW.BAM~ ~MINORGLB.BAM~ ~MMAGICH.BAM~ ~SANCTRY.BAM~ ~SHWATER.BAM~ ~SPARMORI.BAM~ ~SPARMOUR.BAM~ ~SPATTCK1.BAM~ ~SPBASERD.BAM~ ~SPBASEWT.BAM~ ~SPBDBUR.BAM~ ~SPBDBURS.BAM~ ~SPBDIMSP.BAM~ ~SPBEHBLA.BAM~ ~SPBEHRAY.BAM~ ~SPBLESHI.BAM~ ~SPBOOM.BAM~ ~SPCAGEMZ.BAM~ ~SPCALLLI.BAM~ ~SPCCOLDE.BAM~ ~SPCCOLDL.BAM~ ~SPCHLGT1.BAM~ ~SPCHLGT2.BAM~ ~SPCHLGT3.BAM~ ~SPCHMPSI.BAM~ ~SPCHRORB.BAM~ ~SPCLKFRI.BAM~ ~SPCMWOUI.BAM~ ~SPCOMEND.BAM~ ~SPCOMETT.BAM~ ~SPCOMSTT.BAM~ ~SPCONTIN.BAM~ ~SPCRTWPN.BAM~ ~SPCSPRA2.BAM~ ~SPCSPRA3.BAM~ ~SPCSWOUI.BAM~ ~SPDEATH3.BAM~ ~SPDIMNDR.BAM~ ~SPENTAAI.BAM~ ~SPENTACI.BAM~ ~SPENTAXI.BAM~ ~SPFDEATH.BAM~ ~SPFDETH3.BAM~ ~SPFINODI.BAM~ ~SPFIREPI.BAM~ ~SPFIRET.BAM~ ~SPFIRETR.BAM~ ~SPFIRSDI.BAM~ ~SPFIRSE2.BAM~ ~SPFIRSED.BAM~ ~SPFLAST1.BAM~ ~SPFLAST2.BAM~ ~SPFLESHS.BAM~ ~SPFLMSTI.BAM~ ~SPFRACTI.BAM~ ~SPGFLSH1.BAM~ ~SPGLYPTI.BAM~ ~SPGREORB.BAM~ ~SPHEALIN.BAM~ ~SPHLYBLS.BAM~ ~SPHLYSM2.BAM~ ~SPHLYSM3.BAM~ ~SPHOLLYW.BAM~ ~SPHOLMIG.BAM~ ~SPHOLYMT.BAM~ ~SPHOLYWD.BAM~ ~SPIMPFR.BAM~ ~SPMAGGLO.BAM~ ~SPMAGGLO.VVC~ ~SPMAGMIS.BAM~ ~SPNWCHRM.BAM~ ~SPPFIRAI.BAM~ ~SPPFIRRI.BAM~ ~SPPFIRXI.BAM~ ~SPPLANAR.BAM~ ~SPPOLYMP.BAM~ ~SPPORTAL.BAM~ ~SPPOWATK.BAM~ ~SPPOWWRD.BAM~ ~SPPRAYRI.BAM~ ~SPPRISM2.BAM~ ~SPPRISMT.BAM~ ~SPRAISEI.BAM~ ~SPRDRABU.BAM~ ~SPRDRAE2.BAM~ ~SPRESURI.BAM~ ~SPRMPARI.BAM~ ~SPROTECT.BAM~ ~SPRWRATI.BAM~ ~SPSCHGI.BAM~ ~SPSDBUR.BAM~ ~SPSDIMPA.BAM~ ~SPSHIELD.BAM~ ~SPSNRAYI.BAM~ ~SPSOHOPI.BAM~ ~SPSPAINI.BAM~ ~SPSPARKS.BAM~ ~SPSPEART.BAM~ ~SPSPMAZE.BAM~ ~SPSTRENH.BAM~ ~SPSTRENI.BAM~ ~SPSUNRAY.BAM~ ~SPTRUSEE.BAM~ ~SPUNHBL2.BAM~ ~SPUNHBL3.BAM~ ~SPUNHOLY.BAM~ ~SPUSEANY.BAM~ ~SPCLCOMP.BAM~ ~SPCLOUD1.BAM~ ~SPCLOUD2.BAM~ ~SPCLOUD3.BAM~ BEGIN
+		COPY ~1pp/core/1ppv4_spells/%effect%~ ~override~
+	END
+
+
+	// FIRE EFFECTS AND HITS
+
+	ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
+
+		PRINT @114006 /* Installing improved fire effects for ToB... */
+
+		// uncomment for game files
+		// ACTION_IF (FILE_EXISTS_IN_GAME ~bgmain.exe~) BEGIN
+		COPY ~bgmain.exe~ ~bgmain.exe~
+			PATCH_IF (SOURCE_SIZE == 0x77a02e || SOURCE_SIZE == 7843840) BEGIN
+				PHP_EACH binarycheck AS value1 => value2 BEGIN
+					PATCH_IF (%value2% <= 0xFF) BEGIN
+						READ_BYTE %value1_0% "check_r"
+						PATCH_IF ("%check_r%" != %value2%) BEGIN
+							SET fail = 1
+							PATCH_PRINT @114007 /* %check_r% is not %value2% at %value1_0% */
+						END
+					END
+
+					PATCH_IF (%value2% <= 0xFFFF AND %value2% >= 0x100) BEGIN
+						READ_SHORT %value1_0% "check_r"
+						PATCH_IF ("%check_r%" != %value2%) BEGIN
+							SET fail = 1
+							PATCH_PRINT @114007 /* %check_r% is not %value2% at %value1_0% */
+						END
+					END
+
+					PATCH_IF (%value2% >= 0x10000) BEGIN
+						READ_LONG %value1_0% "check_r"
+						PATCH_IF ("%check_r%" != %value2%) BEGIN
+							SET fail = 1
+							PATCH_PRINT @114007 /* %check_r% is not %value2% at %value1_0% */
+						END
+					END
+
+				END
+
+			END
+
+
+		// uncomment for game files
+		// ACTION_IF (FILE_EXISTS_IN_GAME ~bgmain.exe~) BEGIN
+		COPY ~bgmain.exe~ ~bgmain.exe~
+			PATCH_IF (SOURCE_SIZE == 0x77a02e || SOURCE_SIZE == 7843840) BEGIN
+				PHP_EACH binarypatch AS value1 => value2 BEGIN
+					PATCH_IF (%value2% <= 0xFF) BEGIN
+						WRITE_BYTE %value1_0%  %value2%
+					END
+
+					PATCH_IF (%value2% <= 0xFFFF AND %value2% >= 0x100) BEGIN
+						WRITE_SHORT %value1_0%  %value2%
+					END
+
+					PATCH_IF (%value2% >= 0x10000) BEGIN
+						WRITE_LONG %value1_0%  %value2%
+					END
+				END
+			END ELSE BEGIN
+				PATCH_PRINT @114008 /* Error: Executable does not seem to be ToB, skipping. */
+			END
+
+		// END// uncomment for game files (end of EXISTS_IN)
+
+		ACTION_IF (fail = 1) BEGIN
+			FAIL @103021 /* Error: Executable does not appear to be compatible. */
+		END
+
+		ACTION_IF (fail != 1) BEGIN
+			COPY ~1pp/core/1ppv4_spells/SPFIRIMP.BAM~ ~override~
+			COPY ~1pp/core/1ppv4_spells/SPICEIMP.BAM~ ~override~
+		END
+
+	END // END FIRE EFFECTS
+
+
+	// Install IWD-style Agannazar's Scorcher or alternate style
+
+	ACTION_IF (1pp_agannazar_scorcher = 1) BEGIN	// IWD-style
+		COPY ~1pp/core/1ppv4_spells/SPSCORCH_iwd.BAM~ ~override/SPSCORCH.BAM~
+	END ELSE BEGIN									// alternate style
+		COPY ~1pp/core/1ppv4_spells/SPSCORCH.BAM~ ~override~
+	END
+
+
+	// Install less obtrusive dispel magic effect
+
+	ACTION_IF (1pp_dispel_magic_effect = 1) BEGIN	// Yes
+		COPY ~1pp/core/1ppv4_spells/SPDISPMA.BAM~ ~override~
+	END ELSE BEGIN									// No (install improved stock effect instead)
+		COPY ~1pp/core/1ppv4_spells/SPDISPMA_bgii.BAM~ ~override/SPDISPMA.BAM~
+	END
+
+
+	// PROJECTILES
+	PRINT @114011 /* Setting up projectiles... */
+
+	ACTION_FOR_EACH proj IN ~BOLT2~ ~CHROMORB~ ~DBFIREBL~ ~DFIREBL~ ~PCOMETT~ ~PFIRE2~ ~PFIRE3~ ~PSPEART~ ~SAFEFIRE~ ~SPGREORB~ ~GOLCLOUD~ ~ACIDBLGR~ ~ACIDBLMU~ ~ACIDBLOB~ ~ACIDBLOC~ ~CLOUD~ ~CLOUDKIL~ ~CLOUDPC~ ~ICESTORM~ ~METSWARM~ ~PFIELD~ ~PWILT~ BEGIN
+		COPY ~1pp/core/1ppv4_pro/%proj%.PRO~ ~override~
+	END
+
+	ADD_PROJECTILE ~1pp/core/1ppv4_pro/1PGSPORE.PRO~
+
+	// Gas Spore
+	ACTION_IF (FILE_EXISTS_IN_GAME ~SPIN897.SPL~) BEGIN
+		COPY_EXISTING ~SPIN897.SPL~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = CLOUDKIL new_proj = 1PGSPORE END
+			END
+		BUT_ONLY
+	END
+
+	// Summon Fungus
+	ACTION_IF (FILE_EXISTS_IN_GAME ~SPIN730.SPL~) BEGIN
+		COPY_EXISTING ~SPIN730.SPL~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = GOLCLOUD new_proj = 1PGSPORE END
+			END
+		BUT_ONLY
+	END
+
+
+	ADD_PROJECTILE ~1pp/core/1ppv4_pro/1PMANEGS.PRO~
+
+	// Mane Gas
+	ACTION_IF (FILE_EXISTS_IN_GAME ~SPIN917.SPL~) BEGIN
+		COPY_EXISTING ~SPIN917.SPL~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = CLOUDKIL new_proj = 1PMANEGS END
+			END
+		BUT_ONLY
+	END
+
+
+	ADD_PROJECTILE ~1pp/core/1ppv4_pro/1PDEATHF.PRO~
+
+	// Death Fog
+	ACTION_IF (FILE_EXISTS_IN_GAME ~SPWI614.SPL~) BEGIN
+		COPY_EXISTING ~SPWI614.SPL~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = CLOUDKIL new_proj = 1PDEATHF END
+			END
+		BUT_ONLY
+	END
+
+
+	ADD_PROJECTILE ~1pp/core/1ppv4_pro/1PINCIND.PRO~
+
+	// Incendiary Cloud
+	ACTION_IF (FILE_EXISTS_IN_GAME ~SPWI810.SPL~) BEGIN
+		COPY_EXISTING ~SPWI810.SPL~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = CLOUDKIL new_proj = 1PINCIND END
+			END
+		BUT_ONLY
+	END
+
+	// Summon Fire Elemental
+	ACTION_IF (FILE_EXISTS_IN_GAME ~SPIN570.SPL~) BEGIN
+		COPY_EXISTING ~SPIN570.SPL~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = GOLCLOUD new_proj = 1PINCIND END
+			END
+		BUT_ONLY
+	END
+
+
+	ADD_PROJECTILE ~1pp/core/1ppv4_pro/1PICECLD.PRO~
+
+	// Summon Ice Salamander
+	ACTION_IF (FILE_EXISTS_IN_GAME ~SPIN569.SPL~) BEGIN
+		COPY_EXISTING ~SPIN569.SPL~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = GOLCLOUD new_proj = 1PICECLD END
+			END
+		BUT_ONLY
+	END
+
+
+	ADD_PROJECTILE ~1pp/core/1ppv4_pro/1PSLEEPC.PRO~
+
+	// Staff of Air +2
+	ACTION_IF (FILE_EXISTS_IN_GAME ~STAF15.ITM~) BEGIN
+		COPY_EXISTING ~STAF15.ITM~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+				LPF ~GW_MODIFY_PROJ~ INT_VAR type_abi = 3 STR_VAR old_proj = CLOUD new_proj = 1PSLEEPC END
+			END
+		BUT_ONLY
+	END
+
+
+END // of BGII
+
+
+
+/*  ===  *
+ *  IWD  *
+ *  ===  */
+ACTION_IF (GAME_IS ~totlm how~) BEGIN
+	PRINT @114002 /* Installing... */
+
+	COPY ~1pp/core/1ppv4_spells/SPFINODI.BAM~ ~override/FODEATH.BAM~
+	COPY ~1pp/core/1ppv4_spells/SPFIRSDI.BAM~ ~override/FSEEDSX.BAM~
+	COPY ~1pp/core/1ppv4_spells/SPHLYSM3.BAM~ ~override/HSMITEA.BAM~
+	COPY ~1pp/core/1ppv4_spells/SPUNHBL3.BAM~ ~override/UBLIGHA.BAM~
+	COPY ~1pp/core/1ppv4_spells/SPSHIELD.BAM~ ~override/SHIELDC.BAM~
+	COPY ~1pp/core/1ppv4_spells/SPBOOM.BAM~ ~override~
+	COPY ~1pp/core/1ppv4_spells/SPMAGMIS.BAM~ ~override~
+
+END // of IWD HoW
+
+
+
+/*  ====  *
+ *  IWD2  *
+ *  ====  */
+ACTION_IF (GAME_IS ~iwd2~) BEGIN
+
+	PRINT @114002 /* Installing... */
+
+END // of IWD II ---- no info yet +++++ PLACEHOLDER
+
+// END of COMPONENT
