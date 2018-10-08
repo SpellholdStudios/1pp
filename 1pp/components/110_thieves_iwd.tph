@@ -1,0 +1,197 @@
+// 1ppv4 Thieves Galore!
+// NOTE: IWD HoW .exe patching is only required if you'd like to have armour and chain mail on thieves.
+// (leather and unarmoured work fine) | IWD II should not need it at all.
+// +Unique animations for different thief armour levels
+
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ *  ==============================================================================================================================================================================  */
+
+/*  =============  *
+ *  EXE PATCH IWD  *
+ *  =============  */
+
+OUTER_SET fail = 0
+OUTER_SET found = 0
+
+ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN
+
+	COPY ~IDMain.exe~ ~IDMain.exe~
+		PATCH_IF (SOURCE_SIZE == 6873088) BEGIN	// is IDMain 142
+			PATCH_PRINT @109000 /* Icewind Dale v 1.4.2 found (TotL) */
+			SET found = 1
+			READ_BYTE "0x3D65DE" "check_r"
+			PATCH_IF ("%check_r%" = 0x32) BEGIN
+				WRITE_BYTE 0x3D65DE 0x34
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3D65DE (%check_r%) does not match what was expected (32). Stopping installation.~
+				SET fail = 1
+			END
+		END ELSE BEGIN
+			PATCH_PRINT @100901 /* Warning: Icewind Dale is not patched to 1.4.2; trying 1.4.1 */
+		END
+
+	COPY ~IDMain.exe~ ~IDMain.exe~
+		PATCH_IF (SOURCE_SIZE == 6840320) BEGIN	// is IDMain 141
+			PATCH_PRINT @109002 /* Icewind Dale v1.4.1 found (HoW only) */
+			SET found = 1
+			READ_BYTE "0x3CF7D0" "check_r"
+			PATCH_IF ("%check_r%" = 0x32) BEGIN
+				WRITE_BYTE 0x3CF7D0 0x34
+			ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3CF7D0 (%check_r%) does not match what was expected (32). Stopping installation.~
+				SET fail = 1
+			END
+		END ELSE BEGIN
+			PATCH_PRINT @109003 /* Game is not v1.4.1 */
+		END
+
+	ACTION_IF (fail = 1) BEGIN
+		FAIL @103015 /* Could not patch successfully. */
+	END
+
+	ACTION_IF (found != 1) BEGIN
+		FAIL @109004 /* Type of executable is unknown. Make sure your game is patched to 1.4.1 (HoW) or 1.4.2 (TotL). */
+	END
+
+END // of ACTION_IF
+
+
+/*  ================  *
+ *  COPY NEW CONTENT  *
+ *  ================  */
+
+PRINT @106002 /* Copying new files... */
+
+/* --------------------------------------------------- *
+ *  CDFT1 - Female unarmoured dwarven thief            *
+ *  CDFT3 - Female dwarven thief with chain mail       *
+ *  CDMT1 - Male unarmoured dwarven thief              *
+ *  CDMT3 - Male dwarven thief with chain mail         *
+ *  CEFT1 - Female unarmoured elven thief              *
+ *  CEFT2 - Female elven thief with leather armour     *
+ *  CEFT3 - Female elven thief with chain mail         *
+ *  CEMT1 - Male unarmoured elven thief                *
+ *  CEMT3 - Male elven thief with chain mail           *
+ *  CHFT1 - Female unarmoured human thief              *
+ *  CHFT2 - Female human thief with leather armour     *
+ *  CHFT3 - Female human thief with chain mail         *
+ *  CHMT1 - Male unarmoured human thief                *
+ *  CHMT3 - Male human thief with chain mail           *
+ *  CIFT1 - Female unarmoured halfling thief           *
+ *  CIFT3 - Female halfling thief with chain mail      *
+ *  CIMT1 - Male unarmoured halfling thief             *
+ *  CIMT2 - Female halfling thief with leather armour  *
+ *  CIMT3 - Male halfling thief with chain mail        *
+ * --------------------------------------------------- */
+COPY ~1pp/core/1pp_thieves_galore/files/CDFT1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CDFT3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CDMT1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CDMT3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CEFT1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CEFT2~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CEFT3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CEMT1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CEMT3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CHFT1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CHFT2~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CHFT3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CHMT1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CHMT3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CIFT1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CIFT3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CIMT1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CIMT2~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CIMT3~ ~override~
+
+
+/*  ==========  *
+ *  PAPERDOLLS  *
+ *  ==========  */
+
+PRINT @110000 /* Paperdolls (IWD install) */
+
+ACTION_FOR_EACH paperdoll IN ~CDFT1INV~ ~CDFT2INV~ ~CDFT3INV~ ~CDMT1INV~ ~CDMT2INV~ ~CDMT3INV~ ~CEFT1INV~ ~CEFT2INV~ ~CEFT3INV~ ~CEMT1INV~ ~CEMT2INV~ ~CEMT3INV~ ~CHMT1INV~ ~CHMT2INV~ ~CHMT3INV~ ~CIFT1INV~ ~CIFT2INV~ ~CIFT3INV~ ~CIMT1INV~ ~CIMT2INV~ ~CIMT3INV~ ~CHFT1INV~ ~CHFT2INV~ ~CHFT3INV~ BEGIN
+
+	COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+	ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+		COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+	END
+
+END
+
+
+/*  ==============================  *
+ *  CLONING PLATE ARMOR ANIMATIONS  *
+ *  ==============================  */
+// We are duplicating the plate armour animations here to avoid massive crashing
+
+PRINT @110001 /* Creating T4 duplicates.. */
+
+ACTION_FOR_EACH category IN ~DF~ ~DM~ ~EF~ ~HF~ ~HM~ ~IF~ ~IM~ BEGIN
+	ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~G11~ ~G12~ ~G13~ ~G14~ ~G15~ ~G16~ ~G17~ ~G18~ ~G19~ ~SA~ ~SS~ ~SX~ BEGIN
+		COPY_EXISTING ~C%category%F4%sequence%.bam~ ~override/C%category%T4%sequence%.bam~
+	END
+END
+
+COPY_EXISTING 	~CEMC4A1.BAM~	~override/CEMT4A1.BAM~
+				~CEMC4A2.BAM~	~override/CEMT4A2.BAM~
+				~CEMC4A3.BAM~	~override/CEMT4A3.BAM~
+				~CEMC4A4.BAM~	~override/CEMT4A4.BAM~
+				~CEMC4A5.BAM~	~override/CEMT4A5.BAM~
+				~CEMC4A6.BAM~	~override/CEMT4A6.BAM~
+				~CEMC4A7.BAM~	~override/CEMT4A7.BAM~
+				~CEMC4A8.BAM~	~override/CEMT4A8.BAM~
+				~CEMC4A9.BAM~	~override/CEMT4A9.BAM~
+				~CEMC4CA.BAM~	~override/CEMT4CA.BAM~
+				~CEMC4G1.BAM~	~override/CEMT4G1.BAM~
+				~CEMC4G11.BAM~	~override/CEMT4G11.BAM~
+				~CEMC4G12.BAM~	~override/CEMT4G12.BAM~
+				~CEMC4G13.BAM~	~override/CEMT4G13.BAM~
+				~CEMC4G14.BAM~	~override/CEMT4G14.BAM~
+				~CEMC4G15.BAM~	~override/CEMT4G15.BAM~
+				~CEMC4G16.BAM~	~override/CEMT4G16.BAM~
+				~CEMC4G17.BAM~	~override/CEMT4G17.BAM~
+				~CEMC4G18.BAM~	~override/CEMT4G18.BAM~
+				~CEMC4G19.BAM~	~override/CEMT4G19.BAM~
+				~CEMC4SA.BAM~	~override/CEMT4SA.BAM~
+				~CEMC4SS.BAM~	~override/CEMT4SS.BAM~
+				~CEMC4SX.BAM~	~override/CEMT4SX.BAM~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~CDFF4INV.BAM~) BEGIN
+	COPY_EXISTING ~CDFF4INV.BAM~ ~override/CDFT4INV.BAM~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~CDMF4INV.BAM~) BEGIN
+	COPY_EXISTING ~CDMF4INV.BAM~ ~override/CDMT4INV.BAM~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~CEFF4INV.BAM~) BEGIN
+	COPY_EXISTING ~CEFF4INV.BAM~ ~override/CEFT4INV.BAM~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~CEMF4INV.BAM~) BEGIN
+	COPY_EXISTING ~CEMC4INV.BAM~ ~override/CEMT4INV.BAM~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~CHFF4INV.BAM~) BEGIN
+	COPY_EXISTING ~CHFF4INV.BAM~ ~override/CHFT4INV.BAM~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~CHMF4INV.BAM~) BEGIN
+	COPY_EXISTING ~CHMF4INV.BAM~ ~override/CHMT4INV.BAM~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~CIFF4INV.BAM~) BEGIN
+	COPY_EXISTING ~CIFF4INV.BAM~ ~override/CIFT4INV.BAM~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~CIMF4INV.BAM~) BEGIN
+	COPY_EXISTING ~CIMF4INV.BAM~ ~override/CIMT4INV.BAM~
+END
+
+// END of COMPONENT

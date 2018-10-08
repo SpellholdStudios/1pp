@@ -1,0 +1,1887 @@
+// 1ppv4 Thieves Galore!
+// NOTE: IWD HoW .exe patching is only required if you'd like to have armour and chain mail on thieves.
+// (leather and unarmoured work fine) | IWD II should not need it at all.
+// +Unique animations for different thief armour levels
+
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ *  ==============================================================================================================================================================================  */
+
+/*  =================  *
+ *  EXE PATCH BG2-ToB  *
+ *  =================  */
+
+OUTER_SET fail = 0
+OUTER_SET found = 0
+
+ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN
+	COPY ~BGMain.exe~ ~BGMain.exe~
+		PATCH_IF (SOURCE_SIZE == 7417902) BEGIN // is BGMain SoA
+			PATCH_PRINT @111000 /* BGII SoA found (v23037) */
+			SET found = 1
+			READ_BYTE "0x40136D" "check_r"
+			PATCH_IF ("%check_r%" = 0xC2) BEGIN
+				WRITE_BYTE 0x40136D 0xED
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x40136D (%check_r%) does not match what was expected (C2). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x40136e" "check_r"
+			PATCH_IF ("%check_r%" = 0x16) BEGIN
+				WRITE_BYTE 0x40136e 0x06
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x40136e (%check_r%) does not match what was expected (16). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401371" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x401371 0x34
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401371 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x40137D" "check_r"
+			PATCH_IF ("%check_r%" = 0xED) BEGIN
+				WRITE_BYTE 0x40137D 0xD3
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x40137D (%check_r%) does not match what was expected (ED). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x40137e" "check_r"
+			PATCH_IF ("%check_r%" = 0x06) BEGIN
+				WRITE_BYTE 0x40137e 0x16
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x40137e (%check_r%) does not match what was expected (06). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401381" "check_r"
+			PATCH_IF ("%check_r%" = 0x32) BEGIN
+				WRITE_BYTE 0x401381 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401381 (%check_r%) does not match what was expected (32). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4013DE" "check_r"
+			PATCH_IF ("%check_r%" = 0xE0) BEGIN
+				WRITE_BYTE 0x4013DE 0xC8
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4013DE (%check_r%) does not match what was expected (E0). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4013df" "check_r"
+			PATCH_IF ("%check_r%" = 0xCD) BEGIN
+				WRITE_BYTE 0x4013df 0xDE
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4013df (%check_r%) does not match what was expected (CD). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401430" "check_r"
+			PATCH_IF ("%check_r%" = 0xEC) BEGIN
+				WRITE_BYTE 0x401430 0xD1
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401430 (%check_r%) does not match what was expected (EC). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401431" "check_r"
+			PATCH_IF ("%check_r%" = 0xCD) BEGIN
+				WRITE_BYTE 0x401431 0xDE
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401431 (%check_r%) does not match what was expected (CD). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401496" "check_r"
+			PATCH_IF ("%check_r%" = 0xF8) BEGIN
+				WRITE_BYTE 0x401496 0xDA
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401496 (%check_r%) does not match what was expected (F8). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401497" "check_r"
+			PATCH_IF ("%check_r%" = 0xCD) BEGIN
+				WRITE_BYTE 0x401497 0xDE
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401497 (%check_r%) does not match what was expected (CD). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4014C0" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x4014C0 0xDF
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4014C0 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4014c1" "check_r"
+			PATCH_IF ("%check_r%" = 0xCE) BEGIN
+				WRITE_BYTE 0x4014c1 0xDE
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4014c1 (%check_r%) does not match what was expected (CE). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401528" "check_r"
+			PATCH_IF ("%check_r%" = 0x0C) BEGIN
+				WRITE_BYTE 0x401528 0xE4
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401528 (%check_r%) does not match what was expected (0C). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401529" "check_r"
+			PATCH_IF ("%check_r%" = 0xCE) BEGIN
+				WRITE_BYTE 0x401529 0xDE
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401529 (%check_r%) does not match what was expected (CE). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401552" "check_r"
+			PATCH_IF ("%check_r%" = 0x14) BEGIN
+				WRITE_BYTE 0x401552 0xE9
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401552 (%check_r%) does not match what was expected (14). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401553" "check_r"
+			PATCH_IF ("%check_r%" = 0xCE) BEGIN
+				WRITE_BYTE 0x401553 0xDE
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401553 (%check_r%) does not match what was expected (CE). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401568" "check_r"
+			PATCH_IF ("%check_r%" = 0x1C) BEGIN
+				WRITE_BYTE 0x401568 0xE9
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401568 (%check_r%) does not match what was expected (1C). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401569" "check_r"
+			PATCH_IF ("%check_r%" = 0xCE) BEGIN
+				WRITE_BYTE 0x401569 0xDE
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401569 (%check_r%) does not match what was expected (CE). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4015BE" "check_r"
+			PATCH_IF ("%check_r%" = 0x28) BEGIN
+				WRITE_BYTE 0x4015BE 0xF2
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4015BE (%check_r%) does not match what was expected (28). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4015bf" "check_r"
+			PATCH_IF ("%check_r%" = 0xCE) BEGIN
+				WRITE_BYTE 0x4015bf 0xDE
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4015bf (%check_r%) does not match what was expected (CE). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4015FE" "check_r"
+			PATCH_IF ("%check_r%" = 0x34) BEGIN
+				WRITE_BYTE 0x4015FE 0xF7
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4015FE (%check_r%) does not match what was expected (34). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4015ff" "check_r"
+			PATCH_IF ("%check_r%" = 0xCE) BEGIN
+				WRITE_BYTE 0x4015ff 0xDE
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4015ff (%check_r%) does not match what was expected (CE). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401664" "check_r"
+			PATCH_IF ("%check_r%" = 0x40) BEGIN
+				WRITE_BYTE 0x401664 0xE4
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401664 (%check_r%) does not match what was expected (40). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401665" "check_r"
+			PATCH_IF ("%check_r%" = 0xCE) BEGIN
+				WRITE_BYTE 0x401665 0xDE
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401665 (%check_r%) does not match what was expected (CE). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x40167A" "check_r"
+			PATCH_IF ("%check_r%" = 0x48) BEGIN
+				WRITE_BYTE 0x40167A 0x05
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x40167A (%check_r%) does not match what was expected (48). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x40167b" "check_r"
+			PATCH_IF ("%check_r%" = 0xCE) BEGIN
+				WRITE_BYTE 0x40167b 0xDF
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x40167b (%check_r%) does not match what was expected (CE). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401692" "check_r"
+			PATCH_IF ("%check_r%" = 0x50) BEGIN
+				WRITE_BYTE 0x401692 0xF7
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401692 (%check_r%) does not match what was expected (50). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401693" "check_r"
+			PATCH_IF ("%check_r%" = 0xCE) BEGIN
+				WRITE_BYTE 0x401693 0xDE
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401693 (%check_r%) does not match what was expected (CE). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4016A8" "check_r"
+			PATCH_IF ("%check_r%" = 0x58) BEGIN
+				WRITE_BYTE 0x4016A8 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4016A8 (%check_r%) does not match what was expected (58). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4016a9" "check_r"
+			PATCH_IF ("%check_r%" = 0xCE) BEGIN
+				WRITE_BYTE 0x4016a9 0xDF
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4016a9 (%check_r%) does not match what was expected (CE). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401714" "check_r"
+			PATCH_IF ("%check_r%" = 0x68) BEGIN
+				WRITE_BYTE 0x401714 0xC8
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401714 (%check_r%) does not match what was expected (68). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401715" "check_r"
+			PATCH_IF ("%check_r%" = 0xCE) BEGIN
+				WRITE_BYTE 0x401715 0xDE
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401715 (%check_r%) does not match what was expected (CE). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x40172A" "check_r"
+			PATCH_IF ("%check_r%" = 0x70) BEGIN
+				WRITE_BYTE 0x40172A 0x0F
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x40172A (%check_r%) does not match what was expected (70). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x40172b" "check_r"
+			PATCH_IF ("%check_r%" = 0xCE) BEGIN
+				WRITE_BYTE 0x40172b 0xDF
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x40172b (%check_r%) does not match what was expected (CE). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x40176A" "check_r"
+			PATCH_IF ("%check_r%" = 0x7C) BEGIN
+				WRITE_BYTE 0x40176A 0xD1
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x40176A (%check_r%) does not match what was expected (7C). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x40176b" "check_r"
+			PATCH_IF ("%check_r%" = 0xCE) BEGIN
+				WRITE_BYTE 0x40176b 0xDE
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x40176b (%check_r%) does not match what was expected (CE). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401780" "check_r"
+			PATCH_IF ("%check_r%" = 0x84) BEGIN
+				WRITE_BYTE 0x401780 0x0A
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401780 (%check_r%) does not match what was expected (84). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x401781" "check_r"
+			PATCH_IF ("%check_r%" = 0xCE) BEGIN
+				WRITE_BYTE 0x401781 0xDF
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x401781 (%check_r%) does not match what was expected (CE). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4160EE" "check_r"
+			PATCH_IF ("%check_r%" = 0xD0) BEGIN
+				WRITE_BYTE 0x4160EE 0xCD
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4160EE (%check_r%) does not match what was expected (D0). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x416118" "check_r"
+			PATCH_IF ("%check_r%" = 0xD4) BEGIN
+				WRITE_BYTE 0x416118 0xD1
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x416118 (%check_r%) does not match what was expected (D4). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x41612E" "check_r"
+			PATCH_IF ("%check_r%" = 0xDC) BEGIN
+				WRITE_BYTE 0x41612E 0xD6
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x41612E (%check_r%) does not match what was expected (DC). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x41616C" "check_r"
+			PATCH_IF ("%check_r%" = 0xE0) BEGIN
+				WRITE_BYTE 0x41616C 0xDA
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x41616C (%check_r%) does not match what was expected (E0). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x416184" "check_r"
+			PATCH_IF ("%check_r%" = 0xE8) BEGIN
+				WRITE_BYTE 0x416184 0xDF
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x416184 (%check_r%) does not match what was expected (E8). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x41619A" "check_r"
+			PATCH_IF ("%check_r%" = 0xF0) BEGIN
+				WRITE_BYTE 0x41619A 0xD6
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x41619A (%check_r%) does not match what was expected (F0). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4161DA" "check_r"
+			PATCH_IF ("%check_r%" = 0xF4) BEGIN
+				WRITE_BYTE 0x4161DA 0xE4
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4161DA (%check_r%) does not match what was expected (F4). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4161F2" "check_r"
+			PATCH_IF ("%check_r%" = 0xFC) BEGIN
+				WRITE_BYTE 0x4161F2 0xE9
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4161F2 (%check_r%) does not match what was expected (FC). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x416208" "check_r"
+			PATCH_IF ("%check_r%" = 0x04) BEGIN
+				WRITE_BYTE 0x416208 0xEE
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x416208 (%check_r%) does not match what was expected (04). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x416209" "check_r"
+			PATCH_IF ("%check_r%" = 0xDF) BEGIN
+				WRITE_BYTE 0x416209 0xDE
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x416209 (%check_r%) does not match what was expected (DF). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x416248" "check_r"
+			PATCH_IF ("%check_r%" = 0x08) BEGIN
+				WRITE_BYTE 0x416248 0xF2
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x416248 (%check_r%) does not match what was expected (08). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x416249" "check_r"
+			PATCH_IF ("%check_r%" = 0xDF) BEGIN
+				WRITE_BYTE 0x416249 0xDE
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x416249 (%check_r%) does not match what was expected (DF). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x416260" "check_r"
+			PATCH_IF ("%check_r%" = 0x10) BEGIN
+				WRITE_BYTE 0x416260 0xF7
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x416260 (%check_r%) does not match what was expected (10). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x416261" "check_r"
+			PATCH_IF ("%check_r%" = 0xDF) BEGIN
+				WRITE_BYTE 0x416261 0xDE
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x416261 (%check_r%) does not match what was expected (DF). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6EDECD" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6EDECD 0x57
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6EDECD (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edece" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edece 0x50
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edece (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edecf" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edecf 0x4C
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edecf (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6eded0" "check_r"
+			PATCH_IF ("%check_r%" = 0x57) BEGIN
+				WRITE_BYTE 0x6eded0 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6eded0 (%check_r%) does not match what was expected (57). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6eded1" "check_r"
+			PATCH_IF ("%check_r%" = 0x50) BEGIN
+				WRITE_BYTE 0x6eded1 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6eded1 (%check_r%) does not match what was expected (50). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6eded2" "check_r"
+			PATCH_IF ("%check_r%" = 0x4C) BEGIN
+				WRITE_BYTE 0x6eded2 0x48
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6eded2 (%check_r%) does not match what was expected (4C). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6eded3" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6eded3 0x46
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6eded3 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6eded4" "check_r"
+			PATCH_IF ("%check_r%" = 0x43) BEGIN
+				WRITE_BYTE 0x6eded4 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6eded4 (%check_r%) does not match what was expected (43). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6eded5" "check_r"
+			PATCH_IF ("%check_r%" = 0x48) BEGIN
+				WRITE_BYTE 0x6eded5 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6eded5 (%check_r%) does not match what was expected (48). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6eded6" "check_r"
+			PATCH_IF ("%check_r%" = 0x46) BEGIN
+				WRITE_BYTE 0x6eded6 0x57
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6eded6 (%check_r%) does not match what was expected (46). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6eded7" "check_r"
+			PATCH_IF ("%check_r%" = 0x54) BEGIN
+				WRITE_BYTE 0x6eded7 0x50
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6eded7 (%check_r%) does not match what was expected (54). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6eded8" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6eded8 0x4D
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6eded8 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6EDEDA" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6EDEDA 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6EDEDA (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6ededb" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6ededb 0x45
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6ededb (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6ededc" "check_r"
+			PATCH_IF ("%check_r%" = 0x57) BEGIN
+				WRITE_BYTE 0x6ededc 0x4D
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6ededc (%check_r%) does not match what was expected (57). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6ededd" "check_r"
+			PATCH_IF ("%check_r%" = 0x50) BEGIN
+				WRITE_BYTE 0x6ededd 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6ededd (%check_r%) does not match what was expected (50). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edede" "check_r"
+			PATCH_IF ("%check_r%" = 0x4D) BEGIN
+				WRITE_BYTE 0x6edede 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edede (%check_r%) does not match what was expected (4D). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6ededf" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6ededf 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6ededf (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edee0" "check_r"
+			PATCH_IF ("%check_r%" = 0x43) BEGIN
+				WRITE_BYTE 0x6edee0 0x45
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edee0 (%check_r%) does not match what was expected (43). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edee1" "check_r"
+			PATCH_IF ("%check_r%" = 0x45) BEGIN
+				WRITE_BYTE 0x6edee1 0x46
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edee1 (%check_r%) does not match what was expected (45). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edee2" "check_r"
+			PATCH_IF ("%check_r%" = 0x4D) BEGIN
+				WRITE_BYTE 0x6edee2 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edee2 (%check_r%) does not match what was expected (4D). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edee3" "check_r"
+			PATCH_IF ("%check_r%" = 0x54) BEGIN
+				WRITE_BYTE 0x6edee3 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edee3 (%check_r%) does not match what was expected (54). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edee4" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edee4 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edee4 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edee5" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edee5 0x44
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edee5 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edee6" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edee6 0x4D
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edee6 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edee7" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edee7 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edee7 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edee8" "check_r"
+			PATCH_IF ("%check_r%" = 0x43) BEGIN
+				WRITE_BYTE 0x6edee8 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edee8 (%check_r%) does not match what was expected (43). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edee9" "check_r"
+			PATCH_IF ("%check_r%" = 0x45) BEGIN
+				WRITE_BYTE 0x6edee9 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edee9 (%check_r%) does not match what was expected (45). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edeea" "check_r"
+			PATCH_IF ("%check_r%" = 0x46) BEGIN
+				WRITE_BYTE 0x6edeea 0x44
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edeea (%check_r%) does not match what was expected (46). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edeeb" "check_r"
+			PATCH_IF ("%check_r%" = 0x54) BEGIN
+				WRITE_BYTE 0x6edeeb 0x46
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edeeb (%check_r%) does not match what was expected (54). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edeec" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edeec 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edeec (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6EDEEE" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6EDEEE 0x57
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6EDEEE (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edeef" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edeef 0x50
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edeef (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edef0" "check_r"
+			PATCH_IF ("%check_r%" = 0x57) BEGIN
+				WRITE_BYTE 0x6edef0 0x53
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edef0 (%check_r%) does not match what was expected (57). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edef1" "check_r"
+			PATCH_IF ("%check_r%" = 0x50) BEGIN
+				WRITE_BYTE 0x6edef1 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edef1 (%check_r%) does not match what was expected (50). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edef2" "check_r"
+			PATCH_IF ("%check_r%" = 0x4D) BEGIN
+				WRITE_BYTE 0x6edef2 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edef2 (%check_r%) does not match what was expected (4D). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edef3" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edef3 0x49
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edef3 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edef4" "check_r"
+			PATCH_IF ("%check_r%" = 0x43) BEGIN
+				WRITE_BYTE 0x6edef4 0x4D
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edef4 (%check_r%) does not match what was expected (43). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edef5" "check_r"
+			PATCH_IF ("%check_r%" = 0x44) BEGIN
+				WRITE_BYTE 0x6edef5 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edef5 (%check_r%) does not match what was expected (44). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edef6" "check_r"
+			PATCH_IF ("%check_r%" = 0x4D) BEGIN
+				WRITE_BYTE 0x6edef6 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edef6 (%check_r%) does not match what was expected (4D). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edef7" "check_r"
+			PATCH_IF ("%check_r%" = 0x54) BEGIN
+				WRITE_BYTE 0x6edef7 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edef7 (%check_r%) does not match what was expected (54). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edef8" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edef8 0x49
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edef8 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edef9" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edef9 0x46
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edef9 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edefa" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edefa 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edefa (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6EDEFC" "check_r"
+			PATCH_IF ("%check_r%" = 0x43) BEGIN
+				WRITE_BYTE 0x6EDEFC 0x57
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6EDEFC (%check_r%) does not match what was expected (43). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edefd" "check_r"
+			PATCH_IF ("%check_r%" = 0x44) BEGIN
+				WRITE_BYTE 0x6edefd 0x50
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edefd (%check_r%) does not match what was expected (44). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edefe" "check_r"
+			PATCH_IF ("%check_r%" = 0x4D) BEGIN
+				WRITE_BYTE 0x6edefe 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edefe (%check_r%) does not match what was expected (4D). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edeff" "check_r"
+			PATCH_IF ("%check_r%" = 0x54) BEGIN
+				WRITE_BYTE 0x6edeff 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edeff (%check_r%) does not match what was expected (54). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edf00" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edf00 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edf00 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edf01" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edf01 0x47
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edf01 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edf02" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edf02 0x46
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edf02 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edf03" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edf03 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edf03 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edf04" "check_r"
+			PATCH_IF ("%check_r%" = 0x57) BEGIN
+				WRITE_BYTE 0x6edf04 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edf04 (%check_r%) does not match what was expected (57). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edf05" "check_r"
+			PATCH_IF ("%check_r%" = 0x50) BEGIN
+				WRITE_BYTE 0x6edf05 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edf05 (%check_r%) does not match what was expected (50). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edf06" "check_r"
+			PATCH_IF ("%check_r%" = 0x53) BEGIN
+				WRITE_BYTE 0x6edf06 0x47
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edf06 (%check_r%) does not match what was expected (53). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edf07" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edf07 0x4D
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edf07 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edf08" "check_r"
+			PATCH_IF ("%check_r%" = 0x43) BEGIN
+				WRITE_BYTE 0x6edf08 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edf08 (%check_r%) does not match what was expected (43). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edf09" "check_r"
+			PATCH_IF ("%check_r%" = 0x49) BEGIN
+				WRITE_BYTE 0x6edf09 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edf09 (%check_r%) does not match what was expected (49). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edf0a" "check_r"
+			PATCH_IF ("%check_r%" = 0x4D) BEGIN
+				WRITE_BYTE 0x6edf0a 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edf0a (%check_r%) does not match what was expected (4D). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edf0b" "check_r"
+			PATCH_IF ("%check_r%" = 0x54) BEGIN
+				WRITE_BYTE 0x6edf0b 0x4F
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edf0b (%check_r%) does not match what was expected (54). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edf0c" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edf0c 0x46
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edf0c (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edf0d" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x6edf0d 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edf0d (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6EDF0F" "check_r"
+			PATCH_IF ("%check_r%" = 0x43) BEGIN
+				WRITE_BYTE 0x6EDF0F 0x4F
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6EDF0F (%check_r%) does not match what was expected (43). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edf10" "check_r"
+			PATCH_IF ("%check_r%" = 0x49) BEGIN
+				WRITE_BYTE 0x6edf10 0x4D
+			END
+			ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edf10 (%check_r%) does not match what was expected (49). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edf11" "check_r"
+			PATCH_IF ("%check_r%" = 0x46) BEGIN
+				WRITE_BYTE 0x6edf11 0x54
+			END
+			ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edf11 (%check_r%) does not match what was expected (46). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x6edf12" "check_r"
+			PATCH_IF ("%check_r%" = 0x54) BEGIN
+				WRITE_BYTE 0x6edf12 0x00
+			END
+			ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x6edf12 (%check_r%) does not match what was expected (54). Stopping installation.~
+				SET fail = 1
+			END
+		END
+
+	COPY ~BGMain.exe~ ~BGMain.exe~
+		PATCH_IF (SOURCE_SIZE == 7839790) BEGIN // is BGMain ToB
+			PATCH_PRINT @111001 /* BGII ToB found (v26498) */
+			SET found = 1
+			READ_BYTE "0x444848" "check_r"
+			PATCH_IF ("%check_r%" = 0xC2) BEGIN
+				WRITE_BYTE 0x444848 0xED
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444848 (%check_r%) does not match what was expected (C2). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444849" "check_r"
+			PATCH_IF ("%check_r%" = 0x16) BEGIN
+				WRITE_BYTE 0x444849 0x06
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444849 (%check_r%) does not match what was expected (16). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x44484C" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x44484C 0x34
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x44484C (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444858" "check_r"
+			PATCH_IF ("%check_r%" = 0xED) BEGIN
+				WRITE_BYTE 0x444858 0xD3
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444858 (%check_r%) does not match what was expected (ED). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444859" "check_r"
+			PATCH_IF ("%check_r%" = 0x06) BEGIN
+				WRITE_BYTE 0x444859 0x16
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444859 (%check_r%) does not match what was expected (06). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x44485C" "check_r"
+			PATCH_IF ("%check_r%" = 0x32) BEGIN
+				WRITE_BYTE 0x44485C 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x44485C (%check_r%) does not match what was expected (32). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4448B9" "check_r"
+			PATCH_IF ("%check_r%" = 0x24) BEGIN
+				WRITE_BYTE 0x4448B9 0x0C
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4448B9 (%check_r%) does not match what was expected (24). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4448ba" "check_r"
+			PATCH_IF ("%check_r%" = 0x27) BEGIN
+				WRITE_BYTE 0x4448ba 0x38
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4448ba (%check_r%) does not match what was expected (27). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x44490B" "check_r"
+			PATCH_IF ("%check_r%" = 0x30) BEGIN
+				WRITE_BYTE 0x44490B 0x15
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x44490B (%check_r%) does not match what was expected (30). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x44490c" "check_r"
+			PATCH_IF ("%check_r%" = 0x27) BEGIN
+				WRITE_BYTE 0x44490c 0x38
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x44490c (%check_r%) does not match what was expected (27). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444971" "check_r"
+			PATCH_IF ("%check_r%" = 0x3C) BEGIN
+				WRITE_BYTE 0x444971 0x1E
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444971 (%check_r%) does not match what was expected (3C). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444972" "check_r"
+			PATCH_IF ("%check_r%" = 0x27) BEGIN
+				WRITE_BYTE 0x444972 0x38
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444972 (%check_r%) does not match what was expected (27). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x44499B" "check_r"
+			PATCH_IF ("%check_r%" = 0x44) BEGIN
+				WRITE_BYTE 0x44499B 0x23
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x44499B (%check_r%) does not match what was expected (44). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x44499c" "check_r"
+			PATCH_IF ("%check_r%" = 0x27) BEGIN
+				WRITE_BYTE 0x44499c 0x38
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x44499c (%check_r%) does not match what was expected (27). Stopping installation.~
+			SET fail = 1
+			END
+			READ_BYTE "0x444A03" "check_r"
+			PATCH_IF ("%check_r%" = 0x50) BEGIN
+				WRITE_BYTE 0x444A03 0x28
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444A03 (%check_r%) does not match what was expected (50). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444a04" "check_r"
+			PATCH_IF ("%check_r%" = 0x27) BEGIN
+				WRITE_BYTE 0x444a04 0x38
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444a04 (%check_r%) does not match what was expected (27). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444A2D" "check_r"
+			PATCH_IF ("%check_r%" = 0x58) BEGIN
+				WRITE_BYTE 0x444A2D 0x2D
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444A2D (%check_r%) does not match what was expected (58). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444a2e" "check_r"
+			PATCH_IF ("%check_r%" = 0x27) BEGIN
+				WRITE_BYTE 0x444a2e 0x38
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444a2e (%check_r%) does not match what was expected (27). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444A43" "check_r"
+			PATCH_IF ("%check_r%" = 0x60) BEGIN
+				WRITE_BYTE 0x444A43 0x2D
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444A43 (%check_r%) does not match what was expected (60). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444a44" "check_r"
+			PATCH_IF ("%check_r%" = 0x27) BEGIN
+				WRITE_BYTE 0x444a44 0x38
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444a44 (%check_r%) does not match what was expected (27). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444A99" "check_r"
+			PATCH_IF ("%check_r%" = 0x6C) BEGIN
+				WRITE_BYTE 0x444A99 0x36
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444A99 (%check_r%) does not match what was expected (6C). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444a9a" "check_r"
+			PATCH_IF ("%check_r%" = 0x27) BEGIN
+				WRITE_BYTE 0x444a9a 0x38
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444a9a (%check_r%) does not match what was expected (27). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444AD9" "check_r"
+			PATCH_IF ("%check_r%" = 0x78) BEGIN
+				WRITE_BYTE 0x444AD9 0x3B
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444AD9 (%check_r%) does not match what was expected (78). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444ada" "check_r"
+			PATCH_IF ("%check_r%" = 0x27) BEGIN
+				WRITE_BYTE 0x444ada 0x38
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444ada (%check_r%) does not match what was expected (27). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444B3F" "check_r"
+			PATCH_IF ("%check_r%" = 0x84) BEGIN
+				WRITE_BYTE 0x444B3F 0x28
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444B3F (%check_r%) does not match what was expected (84). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444b40" "check_r"
+			PATCH_IF ("%check_r%" = 0x27) BEGIN
+				WRITE_BYTE 0x444b40 0x38
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444b40 (%check_r%) does not match what was expected (27). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444B55" "check_r"
+			PATCH_IF ("%check_r%" = 0x8C) BEGIN
+				WRITE_BYTE 0x444B55 0x49
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444B55 (%check_r%) does not match what was expected (8C). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444b56" "check_r"
+			PATCH_IF ("%check_r%" = 0x27) BEGIN
+				WRITE_BYTE 0x444b56 0x38
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444b56 (%check_r%) does not match what was expected (27). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444B6D" "check_r"
+			PATCH_IF ("%check_r%" = 0x94) BEGIN
+				WRITE_BYTE 0x444B6D 0x3B
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444B6D (%check_r%) does not match what was expected (94). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444b6e" "check_r"
+			PATCH_IF ("%check_r%" = 0x27) BEGIN
+				WRITE_BYTE 0x444b6e 0x38
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444b6e (%check_r%) does not match what was expected (27). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444B83" "check_r"
+			PATCH_IF ("%check_r%" = 0x9C) BEGIN
+				WRITE_BYTE 0x444B83 0x44
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444B83 (%check_r%) does not match what was expected (9C). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444b84" "check_r"
+			PATCH_IF ("%check_r%" = 0x27) BEGIN
+				WRITE_BYTE 0x444b84 0x38
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444b84 (%check_r%) does not match what was expected (27). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444BEF" "check_r"
+			PATCH_IF ("%check_r%" = 0xAC) BEGIN
+				WRITE_BYTE 0x444BEF 0x0C
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444BEF (%check_r%) does not match what was expected (AC). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444bf0" "check_r"
+			PATCH_IF ("%check_r%" = 0x27) BEGIN
+				WRITE_BYTE 0x444bf0 0x38
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444bf0 (%check_r%) does not match what was expected (27). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444C05" "check_r"
+			PATCH_IF ("%check_r%" = 0xB4) BEGIN
+				WRITE_BYTE 0x444C05 0x53
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444C05 (%check_r%) does not match what was expected (B4). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444c06" "check_r"
+			PATCH_IF ("%check_r%" = 0x27) BEGIN
+				WRITE_BYTE 0x444c06 0x38
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444c06 (%check_r%) does not match what was expected (27). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444C45" "check_r"
+			PATCH_IF ("%check_r%" = 0xC0) BEGIN
+				WRITE_BYTE 0x444C45 0x15
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444C45 (%check_r%) does not match what was expected (C0). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444c46" "check_r"
+			PATCH_IF ("%check_r%" = 0x27) BEGIN
+				WRITE_BYTE 0x444c46 0x38
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444c46 (%check_r%) does not match what was expected (27). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444C5B" "check_r"
+			PATCH_IF ("%check_r%" = 0xC8) BEGIN
+				WRITE_BYTE 0x444C5B 0x4E
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444C5B (%check_r%) does not match what was expected (C8). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x444c5c" "check_r"
+			PATCH_IF ("%check_r%" = 0x27) BEGIN
+				WRITE_BYTE 0x444c5c 0x38
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x444c5c (%check_r%) does not match what was expected (27). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4595C9" "check_r"
+			PATCH_IF ("%check_r%" = 0x14) BEGIN
+				WRITE_BYTE 0x4595C9 0x11
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4595C9 (%check_r%) does not match what was expected (14). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4595F3" "check_r"
+			PATCH_IF ("%check_r%" = 0x18) BEGIN
+				WRITE_BYTE 0x4595F3 0x15
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4595F3 (%check_r%) does not match what was expected (18). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x459609" "check_r"
+			PATCH_IF ("%check_r%" = 0x20) BEGIN
+				WRITE_BYTE 0x459609 0x1A
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x459609 (%check_r%) does not match what was expected (20). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x459647" "check_r"
+			PATCH_IF ("%check_r%" = 0x24) BEGIN
+				WRITE_BYTE 0x459647 0x1E
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x459647 (%check_r%) does not match what was expected (24). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x45965F" "check_r"
+			PATCH_IF ("%check_r%" = 0x2C) BEGIN
+				WRITE_BYTE 0x45965F 0x23
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x45965F (%check_r%) does not match what was expected (2C). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x459675" "check_r"
+			PATCH_IF ("%check_r%" = 0x34) BEGIN
+				WRITE_BYTE 0x459675 0x1A
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x459675 (%check_r%) does not match what was expected (34). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4596B5" "check_r"
+			PATCH_IF ("%check_r%" = 0x38) BEGIN
+				WRITE_BYTE 0x4596B5 0x28
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4596B5 (%check_r%) does not match what was expected (38). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4596CD" "check_r"
+			PATCH_IF ("%check_r%" = 0x40) BEGIN
+				WRITE_BYTE 0x4596CD 0x2D
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4596CD (%check_r%) does not match what was expected (40). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x4596E3" "check_r"
+			PATCH_IF ("%check_r%" = 0x48) BEGIN
+				WRITE_BYTE 0x4596E3 0x32
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x4596E3 (%check_r%) does not match what was expected (48). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x459723" "check_r"
+			PATCH_IF ("%check_r%" = 0x4C) BEGIN
+				WRITE_BYTE 0x459723 0x36
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x459723 (%check_r%) does not match what was expected (4C). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x45973B" "check_r"
+			PATCH_IF ("%check_r%" = 0x54) BEGIN
+				WRITE_BYTE 0x45973B 0x3B
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x45973B (%check_r%) does not match what was expected (54). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753811" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x753811 0x57
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753811 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753812" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x753812 0x50
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753812 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753813" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x753813 0x4C
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753813 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753814" "check_r"
+			PATCH_IF ("%check_r%" = 0x57) BEGIN
+				WRITE_BYTE 0x753814 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753814 (%check_r%) does not match what was expected (57). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753815" "check_r"
+			PATCH_IF ("%check_r%" = 0x50) BEGIN
+				WRITE_BYTE 0x753815 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753815 (%check_r%) does not match what was expected (50). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753816" "check_r"
+			PATCH_IF ("%check_r%" = 0x4C) BEGIN
+				WRITE_BYTE 0x753816 0x48
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753816 (%check_r%) does not match what was expected (4C). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753817" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x753817 0x46
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753817 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753818" "check_r"
+			PATCH_IF ("%check_r%" = 0x43) BEGIN
+				WRITE_BYTE 0x753818 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753818 (%check_r%) does not match what was expected (43). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753819" "check_r"
+			PATCH_IF ("%check_r%" = 0x48) BEGIN
+				WRITE_BYTE 0x753819 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753819 (%check_r%) does not match what was expected (48). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75381a" "check_r"
+			PATCH_IF ("%check_r%" = 0x46) BEGIN
+				WRITE_BYTE 0x75381a 0x57
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75381a (%check_r%) does not match what was expected (46). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75381b" "check_r"
+			PATCH_IF ("%check_r%" = 0x54) BEGIN
+				WRITE_BYTE 0x75381b 0x50
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75381b (%check_r%) does not match what was expected (54). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75381c" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x75381c 0x4D
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75381c (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75381E" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x75381E 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75381E (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75381f" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x75381f 0x45
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75381f (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753820" "check_r"
+			PATCH_IF ("%check_r%" = 0x57) BEGIN
+				WRITE_BYTE 0x753820 0x4D
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753820 (%check_r%) does not match what was expected (57). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753821" "check_r"
+			PATCH_IF ("%check_r%" = 0x50) BEGIN
+				WRITE_BYTE 0x753821 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753821 (%check_r%) does not match what was expected (50). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753822" "check_r"
+			PATCH_IF ("%check_r%" = 0x4D) BEGIN
+				WRITE_BYTE 0x753822 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753822 (%check_r%) does not match what was expected (4D). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753823" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x753823 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753823 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753824" "check_r"
+			PATCH_IF ("%check_r%" = 0x43) BEGIN
+				WRITE_BYTE 0x753824 0x45
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753824 (%check_r%) does not match what was expected (43). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753825" "check_r"
+			PATCH_IF ("%check_r%" = 0x45) BEGIN
+				WRITE_BYTE 0x753825 0x46
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753825 (%check_r%) does not match what was expected (45). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753826" "check_r"
+			PATCH_IF ("%check_r%" = 0x4D) BEGIN
+				WRITE_BYTE 0x753826 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753826 (%check_r%) does not match what was expected (4D). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753827" "check_r"
+			PATCH_IF ("%check_r%" = 0x54) BEGIN
+				WRITE_BYTE 0x753827 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753827 (%check_r%) does not match what was expected (54). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753828" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x753828 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753828 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753829" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x753829 0x44
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753829 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75382a" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x75382a 0x4D
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75382a (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75382b" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x75382b 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75382b (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75382c" "check_r"
+			PATCH_IF ("%check_r%" = 0x43) BEGIN
+				WRITE_BYTE 0x75382c 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75382c (%check_r%) does not match what was expected (43). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75382d" "check_r"
+			PATCH_IF ("%check_r%" = 0x45) BEGIN
+				WRITE_BYTE 0x75382d 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75382d (%check_r%) does not match what was expected (45). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75382e" "check_r"
+			PATCH_IF ("%check_r%" = 0x46) BEGIN
+				WRITE_BYTE 0x75382e 0x44
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75382e (%check_r%) does not match what was expected (46). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75382f" "check_r"
+			PATCH_IF ("%check_r%" = 0x54) BEGIN
+				WRITE_BYTE 0x75382f 0x46
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75382f (%check_r%) does not match what was expected (54). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753830" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x753830 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753830 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753832" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x753832 0x57
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753832 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753833" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x753833 0x50
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753833 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753834" "check_r"
+			PATCH_IF ("%check_r%" = 0x57) BEGIN
+				WRITE_BYTE 0x753834 0x53
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753834 (%check_r%) does not match what was expected (57). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753835" "check_r"
+			PATCH_IF ("%check_r%" = 0x50) BEGIN
+				WRITE_BYTE 0x753835 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753835 (%check_r%) does not match what was expected (50). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753836" "check_r"
+			PATCH_IF ("%check_r%" = 0x4D) BEGIN
+				WRITE_BYTE 0x753836 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753836 (%check_r%) does not match what was expected (4D). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753837" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x753837 0x49
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753837 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753838" "check_r"
+			PATCH_IF ("%check_r%" = 0x43) BEGIN
+				WRITE_BYTE 0x753838 0x4D
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753838 (%check_r%) does not match what was expected (43). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753839" "check_r"
+			PATCH_IF ("%check_r%" = 0x44) BEGIN
+				WRITE_BYTE 0x753839 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753839 (%check_r%) does not match what was expected (44). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75383a" "check_r"
+			PATCH_IF ("%check_r%" = 0x4D) BEGIN
+				WRITE_BYTE 0x75383a 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75383a (%check_r%) does not match what was expected (4D). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75383b" "check_r"
+			PATCH_IF ("%check_r%" = 0x54) BEGIN
+				WRITE_BYTE 0x75383b 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75383b (%check_r%) does not match what was expected (54). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75383c" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x75383c 0x49
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75383c (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75383d" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x75383d 0x46
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75383d (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75383e" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x75383e 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75383e (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753840" "check_r"
+			PATCH_IF ("%check_r%" = 0x43) BEGIN
+				WRITE_BYTE 0x753840 0x57
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753840 (%check_r%) does not match what was expected (43). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753841" "check_r"
+			PATCH_IF ("%check_r%" = 0x44) BEGIN
+				WRITE_BYTE 0x753841 0x50
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753841 (%check_r%) does not match what was expected (44). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753842" "check_r"
+			PATCH_IF ("%check_r%" = 0x4D) BEGIN
+				WRITE_BYTE 0x753842 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753842 (%check_r%) does not match what was expected (4D). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753843" "check_r"
+			PATCH_IF ("%check_r%" = 0x54) BEGIN
+				WRITE_BYTE 0x753843 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753843 (%check_r%) does not match what was expected (54). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753844" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x753844 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753844 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753845" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x753845 0x47
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753845 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753846" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x753846 0x46
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753846 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753847" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x753847 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753847 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753848" "check_r"
+			PATCH_IF ("%check_r%" = 0x57) BEGIN
+				WRITE_BYTE 0x753848 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753848 (%check_r%) does not match what was expected (57). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753849" "check_r"
+			PATCH_IF ("%check_r%" = 0x50) BEGIN
+				WRITE_BYTE 0x753849 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753849 (%check_r%) does not match what was expected (50). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75384a" "check_r"
+			PATCH_IF ("%check_r%" = 0x53) BEGIN
+				WRITE_BYTE 0x75384a 0x47
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75384a (%check_r%) does not match what was expected (53). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75384b" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x75384b 0x4D
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75384b (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75384c" "check_r"
+			PATCH_IF ("%check_r%" = 0x43) BEGIN
+				WRITE_BYTE 0x75384c 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75384c (%check_r%) does not match what was expected (43). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75384d" "check_r"
+			PATCH_IF ("%check_r%" = 0x49) BEGIN
+				WRITE_BYTE 0x75384d 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75384d (%check_r%) does not match what was expected (49). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75384e" "check_r"
+			PATCH_IF ("%check_r%" = 0x4D) BEGIN
+				WRITE_BYTE 0x75384e 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75384e (%check_r%) does not match what was expected (4D). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x75384f" "check_r"
+			PATCH_IF ("%check_r%" = 0x54) BEGIN
+				WRITE_BYTE 0x75384f 0x4F
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x75384f (%check_r%) does not match what was expected (54). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753850" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x753850 0x46
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753850 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753851" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x753851 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753851 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753853" "check_r"
+			PATCH_IF ("%check_r%" = 0x00) BEGIN
+				WRITE_BYTE 0x753853 0x43
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753853 (%check_r%) does not match what was expected (00). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753854" "check_r"
+			PATCH_IF ("%check_r%" = 0x43) BEGIN
+				WRITE_BYTE 0x753854 0x4F
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753854 (%check_r%) does not match what was expected (43). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753855" "check_r"
+			PATCH_IF ("%check_r%" = 0x49) BEGIN
+				WRITE_BYTE 0x753855 0x4D
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753855 (%check_r%) does not match what was expected (49). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753856" "check_r"
+			PATCH_IF ("%check_r%" = 0x46) BEGIN
+				WRITE_BYTE 0x753856 0x54
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753856 (%check_r%) does not match what was expected (46). Stopping installation.~
+				SET fail = 1
+			END
+			READ_BYTE "0x753857" "check_r"
+			PATCH_IF ("%check_r%" = 0x54) BEGIN
+				WRITE_BYTE 0x753857 0x00
+			END ELSE BEGIN
+				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x753857 (%check_r%) does not match what was expected (54). Stopping installation.~
+				SET fail = 1
+			END
+		END
+
+	ACTION_IF (fail = 1) BEGIN
+		FAIL @103015 /* Could not patch successfully. */
+	END
+
+	ACTION_IF (found != 1) BEGIN
+		FAIL @111002 /* Type of executable is unknown. Make sure your game is patched to v26498 (ToB) or v23037 (SoA). */
+	END
+
+END // of ACTION_IF
+
+
+/*  ================  *
+ *  COPY NEW CONTENT  *
+ *  ================  */
+
+PRINT @106002 /* Copying new files... */
+
+/* --------------------------------------------------- *
+ *  CDFT1 - Female unarmoured dwarven thief            *
+ *  CDFT3 - Female dwarven thief with chain mail       *
+ *  CDMT1 - Male unarmoured dwarven thief              *
+ *  CDMT3 - Male dwarven thief with chain mail         *
+ *  CEFT1 - Female unarmoured elven thief              *
+ *  CEFT2 - Female elven thief with leather armour     *
+ *  CEFT3 - Female elven thief with chain mail         *
+ *  CEMT1 - Male unarmoured elven thief                *
+ *  CEMT3 - Male elven thief with chain mail           *
+ *  CHFT1 - Female unarmoured human thief              *
+ *  CHFT2 - Female human thief with leather armour     *
+ *  CHFT3 - Female human thief with chain mail         *
+ *  CHMT1 - Male unarmoured human thief                *
+ *  CHMT3 - Male human thief with chain mail           *
+ *  CIFT1 - Female unarmoured halfling thief           *
+ *  CIFT3 - Female halfling thief with chain mail      *
+ *  CIMT1 - Male unarmoured halfling thief             *
+ *  CIMT2 - Female halfling thief with leather armour  *
+ *  CIMT3 - Male halfling thief with chain mail        *
+ * --------------------------------------------------- */
+COPY ~1pp/core/1pp_thieves_galore/files/CDFT1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CDFT3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CDMT1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CDMT3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CEFT1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CEFT2~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CEFT3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CEMT1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CEMT3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CHFT1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CHFT2~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CHFT3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CHMT1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CHMT3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CIFT1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CIFT3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CIMT1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CIMT2~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/CIMT3~ ~override~
+
+
+/*  ==========  *
+ *  PAPERDOLLS  *
+ *  ==========  */
+
+PRINT @111003 /* Paperdolls (BGII install) */
+
+ACTION_FOR_EACH paperdoll IN ~CDFT1INV~ ~CDFT2INV~ ~CDFT3INV~ ~CDMT1INV~ ~CDMT2INV~ ~CDMT3INV~ ~CEFT1INV~ ~CEFT2INV~ ~CEFT3INV~ ~CEMT1INV~ ~CEMT2INV~ ~CEMT3INV~ ~CGFT1INV~ ~CGFT2INV~ ~CGFT3INV~ ~CGMT1INV~ ~CGMT2INV~ ~CGMT3INV~ ~CHFT1INV~ ~CHFT2INV~ ~CHFT3INV~ ~CHMT1INV~ ~CHMT2INV~ ~CHMT3INV~ ~CIFT1INV~ ~CIFT2INV~ ~CIFT3INV~ ~CIMT1INV~ ~CIMT2INV~ ~CIMT3INV~ ~COFT1INV~ ~COFT2INV~ ~COFT3INV~ ~COMT1INV~ ~COMT3INV~ BEGIN
+
+	COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+	ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+		COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+	END
+
+END
+
+
+/*  ==============================  *
+ *  CLONING PLATE ARMOR ANIMATIONS  *
+ *  ==============================  */
+// We are duplicating the plate armour animations here to avoid massive crashing
+
+PRINT @110001 /* Creating T4 duplicates.. */
+
+ACTION_FOR_EACH category IN ~DF~ ~DM~ ~EF~ ~HF~ ~HM~ ~IF~ ~IM~ BEGIN
+	ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~G11~ ~G12~ ~G13~ ~G14~ ~G15~ ~G16~ ~G17~ ~G18~ ~G19~ ~SA~ ~SS~ ~SX~ BEGIN
+		COPY_EXISTING ~C%category%F4%sequence%.bam~ ~override/C%category%T4%sequence%.bam~
+	END
+END
+
+COPY_EXISTING 	~CEMC4A1.BAM~	~override/CEMT4A1.BAM~
+				~CEMC4A2.BAM~	~override/CEMT4A2.BAM~
+				~CEMC4A3.BAM~	~override/CEMT4A3.BAM~
+				~CEMC4A4.BAM~	~override/CEMT4A4.BAM~
+				~CEMC4A5.BAM~	~override/CEMT4A5.BAM~
+				~CEMC4A6.BAM~	~override/CEMT4A6.BAM~
+				~CEMC4A7.BAM~	~override/CEMT4A7.BAM~
+				~CEMC4A8.BAM~	~override/CEMT4A8.BAM~
+				~CEMC4A9.BAM~	~override/CEMT4A9.BAM~
+				~CEMC4CA.BAM~	~override/CEMT4CA.BAM~
+				~CEMC4G1.BAM~	~override/CEMT4G1.BAM~
+				~CEMC4G11.BAM~	~override/CEMT4G11.BAM~
+				~CEMC4G12.BAM~	~override/CEMT4G12.BAM~
+				~CEMC4G13.BAM~	~override/CEMT4G13.BAM~
+				~CEMC4G14.BAM~	~override/CEMT4G14.BAM~
+				~CEMC4G15.BAM~	~override/CEMT4G15.BAM~
+				~CEMC4G16.BAM~	~override/CEMT4G16.BAM~
+				~CEMC4G17.BAM~	~override/CEMT4G17.BAM~
+				~CEMC4G18.BAM~	~override/CEMT4G18.BAM~
+				~CEMC4G19.BAM~	~override/CEMT4G19.BAM~
+				~CEMC4SA.BAM~	~override/CEMT4SA.BAM~
+				~CEMC4SS.BAM~	~override/CEMT4SS.BAM~
+				~CEMC4SX.BAM~	~override/CEMT4SX.BAM~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~CDFF4INV.BAM~) BEGIN
+	COPY_EXISTING ~CDFF4INV.BAM~ ~override/CDFT4INV.BAM~
+END ELSE BEGIN
+	COPY_EXISTING ~CDFF4INV.PLT~ ~override/CDFT4INV.PLT~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~CDMF4INV.BAM~) BEGIN
+	COPY_EXISTING ~CDMF4INV.BAM~ ~override/CDMT4INV.BAM~
+END ELSE BEGIN
+	COPY_EXISTING ~CDMF4INV.PLT~ ~override/CDMT4INV.PLT~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~CEFF4INV.BAM~) BEGIN
+	COPY_EXISTING ~CEFF4INV.BAM~ ~override/CEFT4INV.BAM~
+END ELSE BEGIN
+	COPY_EXISTING ~CEFF4INV.PLT~ ~override/CEFT4INV.PLT~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~CEMF4INV.BAM~) BEGIN
+	COPY_EXISTING ~CEMC4INV.BAM~ ~override/CEMT4INV.BAM~
+END ELSE BEGIN
+	COPY_EXISTING ~CEMC4INV.PLT~ ~override/CEMT4INV.PLT~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~CHFF4INV.BAM~) BEGIN
+	COPY_EXISTING ~CHFF4INV.BAM~ ~override/CHFT4INV.BAM~
+END ELSE BEGIN
+	COPY_EXISTING ~CHFF4INV.PLT~ ~override/CHFT4INV.PLT~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~CHMF4INV.BAM~) BEGIN
+	COPY_EXISTING ~CHMF4INV.BAM~ ~override/CHMT4INV.BAM~
+END ELSE BEGIN
+	COPY_EXISTING ~CHMF4INV.PLT~ ~override/CHMT4INV.PLT~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~COFF4INV.BAM~) BEGIN
+	COPY_EXISTING ~COFF4INV.BAM~ ~override/COFT4INV.BAM~
+END ELSE BEGIN
+	COPY_EXISTING ~COFF4INV.PLT~ ~override/COFT4INV.PLT~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~COMF4INV.BAM~) BEGIN
+	COPY_EXISTING ~COMF4INV.BAM~ ~override/COMT4INV.BAM~
+END ELSE BEGIN
+	COPY_EXISTING ~COMF4INV.PLT~ ~override/COMT4INV.PLT~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~CIFF4INV.BAM~) BEGIN
+	COPY_EXISTING ~CIFF4INV.BAM~ ~override/CIFT4INV.BAM~
+END ELSE BEGIN
+	COPY_EXISTING ~CIFF4INV.PLT~ ~override/CIFT4INV.PLT~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~CIMF4INV.BAM~) BEGIN
+	COPY_EXISTING ~CIMF4INV.BAM~ ~override/CIMT4INV.BAM~
+END ELSE BEGIN
+	COPY_EXISTING ~CIMF4INV.PLT~ ~override/CIMT4INV.PLT~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~CGFF4INV.BAM~) BEGIN
+	COPY_EXISTING ~CGFF4INV.BAM~ ~override/CGFT4INV.BAM~
+END ELSE BEGIN
+	COPY_EXISTING ~CGFF4INV.PLT~ ~override/CGFT4INV.PLT~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~CGMF4INV.BAM~) BEGIN
+	COPY_EXISTING ~CGMF4INV.BAM~ ~override/CGMT4INV.BAM~
+END ELSE BEGIN
+	COPY_EXISTING ~CGMF4INV.PLT~ ~override/CGMT4INV.PLT~
+END
+
+// END of COMPONENT
