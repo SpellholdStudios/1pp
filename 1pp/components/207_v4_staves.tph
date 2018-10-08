@@ -1,0 +1,29 @@
+// Two
+
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ *  ==============================================================================================================================================================================  */
+
+PRINT @207000 /* Copying files... */
+COPY ~1pp/additions/obj_anim/GS~ ~override~
+
+
+PRINT @207001 /* Building BG1 animation compatibility... */
+
+ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ BEGIN
+	ACTION_FOR_EACH sequence IN ~A2~ ~A2E~ ~A4~ ~A4E~ ~A6~ ~A6E~ ~G1~ ~G1E~ ~W2~ ~W2E~ BEGIN
+		COPY_EXISTING ~WP%category%QS%sequence%.bam~ ~override/WP%category%GS%sequence%.bam~
+	END
+END
+
+ACTION_IF (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~) BEGIN
+	PRINT @207002 /* Installing paperdoll images... */
+
+	ACTION_FOR_EACH paperdoll IN ~WPLGSINV~ ~WPMGSINV~ ~WPNGSINV~ ~WPSGSINV~ BEGIN
+		COPY ~1pp/additions/obj_1pp/%paperdoll%.bam~ ~override~
+	END
+
+END
