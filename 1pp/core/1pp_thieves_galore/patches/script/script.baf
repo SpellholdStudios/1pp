@@ -1,0 +1,101 @@
+IF
+	!HasItemSlot(Player1,SLOT_ARMOR)
+	!Global("PS1_UNARMOURED","GLOBAL",1)
+THEN
+	RESPONSE #100
+		ActionOverride(Player1,ApplySpellRES("lcuarmrd",Player1))
+		SetGlobal("PS1_UNARMOURED","GLOBAL",1)
+END
+
+IF
+	HasItemSlot(Player1,SLOT_ARMOR)
+	Global("PS1_UNARMOURED","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("PS1_UNARMOURED","GLOBAL",0)
+END
+
+IF
+	!HasItemSlot(Player2,SLOT_ARMOR)
+	!Global("PS2_UNARMOURED","GLOBAL",1)
+THEN
+	RESPONSE #100
+		ActionOverride(Player2,ApplySpellRES("lcuarmrd",Player2))
+		SetGlobal("PS2_UNARMOURED","GLOBAL",1)
+END
+
+IF
+	HasItemSlot(Player2,SLOT_ARMOR)
+	Global("PS2_UNARMOURED","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("PS2_UNARMOURED","GLOBAL",0)
+END
+
+IF
+	!HasItemSlot(Player3,SLOT_ARMOR)
+	!Global("PS3_UNARMOURED","GLOBAL",1)
+THEN
+	RESPONSE #100
+		ActionOverride(Player3,ApplySpellRES("lcuarmrd",Player3))
+		SetGlobal("PS3_UNARMOURED","GLOBAL",1)
+END
+
+IF
+	HasItemSlot(Player3,SLOT_ARMOR)
+	Global("PS3_UNARMOURED","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("PS3_UNARMOURED","GLOBAL",0)
+END
+
+IF
+	!HasItemSlot(Player4,SLOT_ARMOR)
+	!Global("PS4_UNARMOURED","GLOBAL",1)
+THEN
+	RESPONSE #100
+		ActionOverride(Player4,ApplySpellRES("lcuarmrd",Player4))
+		SetGlobal("PS4_UNARMOURED","GLOBAL",1)
+END
+
+IF
+	HasItemSlot(Player4,SLOT_ARMOR)
+	Global("PS4_UNARMOURED","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("PS4_UNARMOURED","GLOBAL",0)
+END
+
+IF
+	!HasItemSlot(Player5,SLOT_ARMOR)
+	!Global("PS5_UNARMOURED","GLOBAL",1)
+THEN
+	RESPONSE #100
+		ActionOverride(Player5,ApplySpellRES("lcuarmrd",Player5))
+		SetGlobal("PS5_UNARMOURED","GLOBAL",1)
+END
+
+IF
+	HasItemSlot(Player5,SLOT_ARMOR)
+	Global("PS5_UNARMOURED","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("PS5_UNARMOURED","GLOBAL",0)
+END
+
+IF
+	!HasItemSlot(Player6,SLOT_ARMOR)
+	!Global("PS6_UNARMOURED","GLOBAL",1)
+THEN
+	RESPONSE #100
+		ActionOverride(Player6,ApplySpellRES("lcuarmrd",Player6))
+		SetGlobal("PS6_UNARMOURED","GLOBAL",1)
+END
+
+IF
+	HasItemSlot(Player6,SLOT_ARMOR)
+	Global("PS6_UNARMOURED","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("PS6_UNARMOURED","GLOBAL",0)
+END
