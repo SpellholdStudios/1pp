@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>1pp Extended Palette Entries - README</title>
+	  
+	  <STYLE TYPE="text/css" MEDIA=screen>
+  body  { background: #101020; color:#545471; font-family: Garamond; font-size: 16px;}
+   h1  { color: #6F7A8C; text-align: center; margin-bottom: 40px; font-variant: small-caps; font-size: 30px; }
+  h2  { color: #7F8A9C; font-size: 25px; font-variant: small-caps; padding-top: 21px; padding-left: 12%; width: 80%; }
+  p { width: 80%; padding-left: 8%}
+  em { font-style: italic; font-variant: small-caps; color:#747481; padding-left: 1%;}
+  p img {margin-left:10%;}
+  a { color: #6F7A8C}
+  a:hover { color: #7F8A9C}
+  a:visited {color: #4F5A6C}
+  </STYLE>
+  </head>
+  <body>
+  <h1>1pp Extended Palette Entries Readme</h1>
+  <h2>I. About</h2>
+  <p>This component adds new colour gradients to Infinity Engine games, raising the count of available colours from 116 to <a href="256.jpg">256</a>. It also includes a new random colour table making use of them for Baldur's Gate II and new colour set files for Icewind Dale II, giving you more skin/hair colour choices for the various races.<br><br>
+  Also fixes a few minor problems with standard gradients.  
+<br><br>
+<img src="tothefloor.jpg">
+<br><br>
+<br>
+<em><strong>Supported:</strong></em>
+<br>
+BGII SoA, BGII ToB, IWD HoW, IWD TotL, IWD II<br><br>
+<em>To Install:</em>
+<br><br>
+Simply extract these files anywhere and run.
+<br><br>
+  </p>
+  <h2>II. Additional Information</h2>
+  <p>
+    <em>How does this work?</em><br>
+  The installation process can be broken down into two parts:<br><br>
+  Infinity Engine games allow you to individually set palettes with some of the prerendered animations - hair, skin, or clothing colour on  your characters for instance. <br><br>
+  These colours are taken from a BMP image line-by-line, where each line represents one gradient. The BMP file is called <em>MPALETTE</em> for the 12 shade BAM images, and <em>MPAL256</em> for PLT images. The original palette files are 120 lines long, the last four of which are uniform grey (not set). If a line that does not exist is called by your game, it will crash. This is not a purely hypothetical situation, as in my own experience I have had mods crash due to invalid colour references.<br><br>
+  The colour gradients are set in character and item files by a single byte, allowing 256 distinct values. If the standard BMPs are expanded to fit this, it is impossible to crash the game with any colour entry you can set. And if that isn't nice enough, the additional entries are actually imported and displayed properly by the game.<br><br>
+  The first part of the install thus is to add palette files which make use of all 256 entries, allowing greater variety in item and character colours while preventing crashes from invalid references.<br><br><br>
+  There is, however, one problem with adding colour entries beyond the standard values, which is not readily apparent. As it happens, the Infinity Engine draws colours from two different sources: Any actual rendered image is taken from the corresponding palette BMPs, while any coloured font rendering (in the dialogue box) - for *some* reason - is hardcoded into the executable.<br><br>
+  The colour values in the executable are read with an absolute offset, so invalid entries will not crash your game, but do lead to unpredictable font colours (a lot appearing black, making the font pretty much impossible to read). There are a few extra entries after the original 116, but they stop well before 256.<br><br>
+  The second part of the install addresses this by patching the executable to have proper font colours for all 256 entries. It does not serve any purpose at all beyond that.<br><br>
+  <em>But.. wait, doesn't the game have random colour entries starting at #200?</em><br>
+  Yes, indeed true. Baldur's Gate II (and only Baldur's Gate II) has a file called <em>RANDCOLR.2da</em> allowing you to set 'random colour entries'. It is essentially a table allowing you to set various colour entries to another entry which are then picked randomly. By default the game uses colours 200 and onward (which do not have any actual colour gradient information).<br><br>
+  Random colours are evaluated for character colours (characters set on CRE or CHR files) only, and do not conflict with the new entries. This means that on a character, colour #200 will use the random colour entry for #200 as usual, while on an item #200 will use the new 1pp colour gradient.<br><br>
+  Interesting side note: If a colour that has an entry in <em>RANDCOLR.2da</em> is set as an entry of a random colour itself, it will show up as the intended colour value. <br><br><br>Apologies if this is confusing, I know. The 1pp palette tool should hopefully keep confusion to a minimum though, as it alerts you of these things.<br><br>
+    </p>
+	<h2>III. Customising the Palette</h2>
+  <p>
+  This installer allows you to easily customise or edit the palette installed.<br><br>
+  You can edit the actual gradients in the files <em>MPAL256</em> and <em>MPALETTE</em> with any image editing tool of your choice.<br>
+  Simply replace them in <em>files/</em> in the install directory.<br><br>
+  <em>RANGES12</em> is actually *not* used by the game whatsoever, but it *is* used by NearInfinity, so it's best to replace it as well to properly support editing in NI.<br><br>
+  Last but not least, the file <em>__setting.bmp</em> contains the colour information that will be written to the executable (for font colours). Please note that in contrast to the mpalette files, the actual image is irrelevant; the colour table of the BMP is what is read and patched. Also note that the file is not used by the game in any way, it is merely read and evaluated by the included installer.<br><br><br><br>
+  </p>
+  <h2>IV. Modding with the extended palette</h2>
+  <p>
+  Keep in mind that if you include a new entry in a mod (120+) it *will* crash installs that do not have extended <em>MPALETTE</em> and <em>MPAL256</em> files (the 1pp palette tool will also warn you if you are setting new gradients).<br><br>
+  Since the content of these files is not touched by any other mods (that I am aware of) and replacing them is as non-intrusive as it gets the easiest way to avoid this is to include them with your mod and install them.<br><br>
+  To avoid unnecessary overwriting of the files it would be best to add a simple file size check: If the file sizes are 9,272 bytes (MPALETTE) and 196,664 bytes (MPAL256) they already contain a full 256 colour set and need no further patching.<br><br>
+ Of course, if you use them for a major character colour (and this is the only situation where it would be noticeable) this will not fix the dialogue font colour.
+  <br><br>
+    <br><br><br><br>
+  </p>
+  <br>
+  <br>
+  <br>
+  </body>

@@ -1,0 +1,10 @@
+// compatibility install for extended palette entries
+// (no .exe patching -- required for following components)
+
+PRINT @103016 /* Copying files... */
+
+COPY ~1pp/core/1pp_ext_pal/files/MPALETTE.bmp~ ~override~
+COPY ~1pp/core/1pp_ext_pal/files/MPAL256.bmp~ ~override~
+COPY ~1pp/core/1pp_ext_pal/files/RANGES12.bmp~ ~override~
+
+// END of COMPONENT
