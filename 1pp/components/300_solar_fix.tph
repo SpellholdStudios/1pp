@@ -1,0 +1,197 @@
+// Alpha blended solars and elementals
+// Half-way implemented in the game, broken upon delivery.
+
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - The Imp's BWP Fixpack fix for Solar swords without graphic artifacts (http://www.shsforums.net/topic/58208-planetar-animation-glitch/ ): Fixed MASLG1S1.BAM and           *
+ *        MSOLG2S1.BAM files. Source: https://github.com/omni-axa/BiG-World-Fixpack/commit/de7b3ce8439d8efa8e7427d1ad66efd0f48e547e                                                 *
+ *      - Variable needed for installation (1pp_solar_weapons) is read from 1pp-config-default.ini or 1pp-config.ini files.                                                         *
+ *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is     *
+ *        installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file    *
+ *        provides a standard installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and   *
+ *        save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini,    *
+ *        the installation process will prevent any installation failure by reverting it back to its default value.                                                                 *
+ *  ==============================================================================================================================================================================  */
+
+OUTER_SET fail = 0
+CLEAR_ARRAYS
+
+ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN
+
+	PRINT @300000 /* Installing patch for Win/nix */
+
+	// BUILDING ARRAYS
+	ACTION_DEFINE_ASSOCIATIVE_ARRAY binarycheck BEGIN
+		0x40824c => 0x0734
+		0x408295 => 0x06eb
+		0x4084dd => 0x04a3
+		0x408718 => 0x0268
+		0x40895b => 0x40e8
+		0x40895d => 0x191c
+		0x40d060 => 0xc7
+		0x40d062 => 0x0b80
+		0x40d067 => 0x0000
+		0x40d069 => 0x6800
+//		0x40d06b => 0x00b4e204
+		0x40d06f => 0x8d8b
+		0x40d071 => 0xf874
+		0x40d073 => 0xffff
+		0x40d075 => 0xc181
+//		0x40d077 => 0x00000b84
+		0x40d07b => 0xd6e8
+		0x40d07d => 0x2439
+		0x40d07f => 0x00
+		0x40d0fc => 0xc7
+		0x40d0fe => 0x0b80
+		0x40d103 => 0x0000
+		0x40d105 => 0x6800
+//		0x40d107 => 0x00b4e214
+		0x40d10b => 0x8d8b
+		0x40d10d => 0xf874
+		0x40d10f => 0xffff
+		0x40d111 => 0xc181
+//		0x40d113 => 0x00000b84
+		0x40d117 => 0x3ae8
+		0x40d119 => 0x2439
+		0x40d11b => 0x00
+	END // binary check array
+
+	COPY ~bgmain.exe~ ~bgmain.exe~
+		PATCH_IF (SOURCE_SIZE == 0x77a02e) BEGIN
+			PHP_EACH binarycheck AS value1 => value2 BEGIN
+				PATCH_IF (%value2% <= 0xFF) BEGIN
+					READ_BYTE %value1_0% "check_r"
+					PATCH_IF ("%check_r%" != %value2%) BEGIN
+						SET fail = 1
+					END
+				END
+
+				PATCH_IF (%value2% <= 0xFFFF AND %value2% >= 0x100) BEGIN
+					READ_SHORT %value1_0% "check_r"
+					PATCH_IF ("%check_r%" != %value2%) BEGIN
+						SET fail = 1
+					END
+				END
+
+				PATCH_IF (%value2% >= 0x10000) BEGIN
+					READ_LONG %value1_0% "check_r"
+					PATCH_IF ("%check_r%" != %value2%) BEGIN
+						SET fail = 1
+					END
+				END
+			END
+		END
+
+	ACTION_DEFINE_ASSOCIATIVE_ARRAY binarypatch BEGIN
+		0x40824c => 0x4e0a
+		0x408295 => 0x4dc1
+		0x4084dd => 0x4b79
+		0x408718 => 0x493e
+		0x40895b => 0x0ce9
+		0x40895d => 0x47
+		0x40895e => 0x00
+		0x40d060 => 0xc6
+		0x40d062 => 0x03d4
+		0x40d067 => 0xcde9
+		0x40d069 => 0x03
+		0x40d06a => 0x00
+		0x40d06b => 0xe800
+		0x40d06d => 0xd52f
+		0x40d06f => 0x18
+		0x40d070 => 0x00
+		0x40d071 => 0xe7eb
+		0x40d073 => 0x9090
+		0x40d075 => 0x9090
+		0x40d077 => 0x9090
+		0x40d079 => 0x9090
+		0x40d07b => 0x9090
+		0x40d07d => 0x9090
+		0x40d07f => 0x90
+		0x40d0fc => 0xc6
+		0x40d0fe => 0x03d4
+		0x40d103 => 0x9090
+		0x40d105 => 0x9090
+		0x40d107 => 0x9090
+		0x40d109 => 0x9090
+		0x40d10b => 0x9090
+		0x40d10d => 0x9090
+		0x40d10f => 0x9090
+		0x40d111 => 0x9090
+		0x40d113 => 0x9090
+		0x40d115 => 0x9090
+		0x40d117 => 0x9090
+		0x40d119 => 0x9090
+		0x40d11b => 0x90
+	END // binary patch array
+
+	// uncomment for game files
+	// ACTION_IF (FILE_EXISTS_IN_GAME ~bgmain.exe~) BEGIN
+	COPY ~bgmain.exe~ ~bgmain.exe~
+		PATCH_IF (SOURCE_SIZE == 0x77a02e) BEGIN
+			PHP_EACH binarypatch AS value1 => value2 BEGIN
+				PATCH_IF (%value2% <= 0xFF) BEGIN
+				WRITE_BYTE %value1_0%  %value2%
+				END
+
+				PATCH_IF (%value2% <= 0xFFFF AND %value2% >= 0x100) BEGIN
+					WRITE_SHORT %value1_0%  %value2%
+				END
+
+				PATCH_IF (%value2% >= 0x10000) BEGIN
+					WRITE_LONG %value1_0%  %value2%
+				END
+			END
+		END ELSE BEGIN
+			PATCH_PRINT @300001 /* Error: the source size does not seem to match. Stopping installation for safety purposes. */
+			PATCH_FAIL @300002 /* Could not patch successfully. */
+		END
+
+	// END// uncomment for game files (end of EXISTS_IN)
+
+	ACTION_IF (fail = 1) BEGIN
+		FAIL @300003 /* Error: Executable does not appear to be compatible. */
+	END
+END
+
+
+ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~osx~) BEGIN
+	FAIL @300004 /* Sorry! This component currently does not support OSX. */
+END
+
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~MSOGG1.BAM~) BEGIN
+
+	// The Imp's BWP Fixpack fix for Solar swords without graphic artifacts: http://www.shsforums.net/topic/58208-planetar-animation-glitch/
+	// Modify MASLG1S1.BAM and MSOLG2S1.BAM files.
+	ACTION_IF (1pp_solar_weapons = 1) BEGIN
+
+		ACTION_FOR_EACH animation IN ~MASLG1~ ~MASLG11~ ~MASLG12~ ~MASLG13~ ~MASLG14~ ~MASLG15~ ~MASLG1BW~ ~MASLG1S1~ ~MASLG2~ ~MASLG21~ ~MASLG22~ ~MASLG23~ ~MASLG24~ ~MASLG25~ ~MASLG26~ ~MASLG2BW~ ~MASLG2S1~ ~MSOLG1~ ~MSOLG11~ ~MSOLG12~ ~MSOLG13~ ~MSOLG14~ ~MSOLG15~ ~MSOLG1BW~ ~MSOLG1S1~ ~MSOLG2~ ~MSOLG21~ ~MSOLG22~ ~MSOLG23~ ~MSOLG24~ ~MSOLG25~ ~MSOLG26~ ~MSOLG2BW~ ~MSOLG2S1~ BEGIN
+			COPY ~1pp/additions/solars/%animation%.bam~ ~override~
+		END
+	END
+
+	ACTION_IF (1pp_solar_weapons = 2) BEGIN
+
+		ACTION_FOR_EACH animation IN ~MASLG1~ ~MASLG11~ ~MASLG12~ ~MASLG13~ ~MASLG14~ ~MASLG15~ ~MASLG1BW~ ~MASLG1S1~ ~MASLG2~ ~MASLG21~ ~MASLG22~ ~MASLG23~ ~MASLG24~ ~MASLG25~ ~MASLG26~ ~MASLG2BW~ ~MASLG2S1~ ~MSOLG1~ ~MSOLG11~ ~MSOLG12~ ~MSOLG13~ ~MSOLG14~ ~MSOLG15~ ~MSOLG2~ ~MSOLG21~ ~MSOLG22~ ~MSOLG23~ ~MSOLG24~ ~MSOLG25~ ~MSOLG26~ BEGIN
+			COPY ~1pp/additions/solars/%animation%.bam~ ~override~
+		END
+		ACTION_FOR_EACH animation IN ~MSOLG1BW~ ~MSOLG1S1~ ~MSOLG2BW~ ~MSOLG2S1~ BEGIN
+			COPY ~1pp/additions/solars/superglowy/%animation%.bam~ ~override~
+		END
+	END
+
+END ELSE BEGIN
+
+	PRINT @300006 /* Game does not appear to have content for solar animations. Skipping. */
+
+END
+
+
+PRINT @300007 /* Installing files for elementals... */
+
+ACTION_FOR_EACH file IN ~MFIEG1.BAM~ ~MFIEG11.bam~ ~MFIEG12.bam~ ~MFIEG13.bam~ ~MFIEG14.bam~ ~MFIEG15.bam~ ~MFIEG1B.BMP~ ~MFIEG2.bam~ ~MFIEG21.BAM~ ~MFIEG22.bam~ ~MFIEG23.bam~ ~MFIEG24.bam~ ~MFIEG25.bam~ ~MFIEG26.bam~ ~MFIEG2B.BMP~ ~MFIEG31.BMP~ ~MFIEG3B.BMP~ ~MFISG1.BAM~ ~MFISG11.bam~ ~MFISG12.bam~ ~MFISG13.bam~ ~MFISG14.bam~ ~MFISG15.bam~ ~MFISG2.bam~ ~MFISG21.BAM~ ~MFISG22.bam~ ~MFISG23.bam~ ~MFISG24.bam~ ~MFISG25.bam~ ~MFISG26.bam~ BEGIN
+	COPY ~1pp/core/misc/%file%~ ~override~
+END
+
+//END of COMPONENT
