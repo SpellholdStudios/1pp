@@ -1,0 +1,63 @@
+// Attachable Wings, 1ppv7!
+// Presented in Aerievision
+
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ *  ==============================================================================================================================================================================  */
+
+PRINT @209000 /* Copying... */
+
+COPY ~1pp/additions/obj_anim/ZW~ ~override~
+
+ACTION_IF (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~) BEGIN
+	COPY ~1pp/additions/obj_1pp/WPMZWINV.BAM~ ~override~
+END
+
+
+PRINT @209001 /* Installing test items... */
+
+COPY ~1pp/additions/1pp_awings/CWINGS01.BAM~ ~override~
+COPY ~1pp/additions/1pp_awings/GWINGS01.BAM~ ~override~
+COPY ~1pp/additions/1pp_awings/IWINGS01.BAM~ ~override~
+COPY ~1pp/additions/1pp_awings/WINGS01.ITM~ ~override~
+	SAY NAME1 @209101				/* Wings */
+	SAY NAME2 @209101
+	SAY UNIDENTIFIED_DESC @209102	/* These soft and feathered wings seem to be fashioned in a celestial design. Upon closer inspection they turn out to be dummies worn on two satin ribbons attached to their base. Though not radiating a noticeable magical aura, the wings do seem to move with their bearer in a way that defies their supposed mechanism.
+
+STATISTICS:
+
+Weight: 2
+Type: Wings
+Not Usable By: Anyone but elves */
+	SAY IDENTIFIED_DESC @209102
+
+COPY ~1pp/additions/1pp_awings/WINGS01B.ITM~ ~override~
+	SAY NAME1 @209101
+	SAY NAME2 @209101
+	SAY UNIDENTIFIED_DESC @209102
+	SAY IDENTIFIED_DESC @209102
+
+
+PRINT @209002 /* Building crash protection for BG1 animations and non-elves... */
+
+ACTION_FOR_EACH set IN ~ZW~ BEGIN
+	ACTION_FOR_EACH category IN ~L~ ~N~ ~S~ BEGIN
+		ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~SA~ ~SS~ ~SX~ BEGIN
+			COPY ~1pp/additions/obj_anim/donotexist/EMPTY%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+		END
+	END
+END
+
+ACTION_FOR_EACH set IN ~ZW~ BEGIN
+	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ ~T~ BEGIN
+			ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A2~ ~A2E~ ~A3~ ~A3E~ ~A4~ ~A4E~ ~A5~ ~A5E~ ~A6~ ~A6E~ ~CA~ ~CAE~ ~G1~ ~G1E~ ~SA~ ~SAE~ ~SX~ ~SXE~ ~W2~ ~W2E~ BEGIN
+		 COPY ~1pp/additions/obj_anim/donotexist_bg1/EMPTY%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+		END
+	END
+END
+
+// NOW SOMEONE WRITE A MOD THAT HAS AERIE LEAVE THE PARTY AS SOON AS PEOPLE TRY AND EQUIP SOME ON HER
+// A WELL-WRITTEN ONE, WITH DIALOGUE
