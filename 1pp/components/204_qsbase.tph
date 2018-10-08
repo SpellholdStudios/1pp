@@ -1,0 +1,1037 @@
+// Colourable Quarterstaves, 1pp beta
+// Presented in Technicolour
+
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *		- Replace macros with functions whenever possible.                                                                                                                          *
+ *		- Coding simplification:                                                                                                                                                    *
+ *			Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ *  ==============================================================================================================================================================================  */
+
+/*  =============================  *
+ *  COLOURABLE QUARTERSTAVES CORE  *
+ *  =============================  */
+
+PRINT @204000 /* Installing Colourable Quarterstaves core */
+
+PRINT @204001 /* Copying... */
+
+COPY ~1pp/additions/obj_anim/QS~ ~override~
+
+ACTION_IF (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~) BEGIN
+	COPY ~1pp/additions/obj_1pp/WPLQSINV.bam~ ~override~
+	COPY ~1pp/additions/obj_1pp/WPMQSINV.bam~ ~override~
+	COPY ~1pp/additions/obj_1pp/WPNQSINV.bam~ ~override~
+	COPY ~1pp/additions/obj_1pp/WPSQSINV.bam~ ~override~
+END
+
+
+/*  =================  *
+ *  CORE ITEM PATCHES  *
+ *  =================  */
+
+PRINT @204002 /* Installing core item patches */
+
+LAM ~Locations~
+
+PRINT @204003 /* Patching... */
+
+// Quaterstaff +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~enstaff.itm~) BEGIN
+	COPY_EXISTING ~enstaff.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 25		// colour index
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 21		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 109		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 27		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 22		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Quarterstaff
+ACTION_IF (FILE_EXISTS_IN_GAME ~hgnya01.itm~) BEGIN
+	COPY_EXISTING ~hgnya01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 23		// Replace colour index 25
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 36		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 25		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 23		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 27		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Quarterstaff
+ACTION_IF (FILE_EXISTS_IN_GAME ~hgwra01.itm~) BEGIN
+	COPY_EXISTING ~hgwra01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET setr = 0x60			// Set Red
+			SET setg = 0x00			// Set Green
+			SET setb = 0x71			// Set Blue
+			SET speed = 0x1E		// Speed
+			SET location = wgrey
+			LPM ~pulse~
+			SET setr = 0x00			// Set Red
+			SET setg = 0x00			// Set Green
+			SET setb = 0xC0			// Set Blue
+			SET speed = 0x14		// Speed
+			SET location = wteal
+			LPM ~pulse~
+			SET setr = 0x63			// Set Red
+			SET setg = 0x63			// Set Green
+			SET setb = 0xE6			// Set Blue
+			SET speed = 0x0C		// Speed
+			SET location = wpink
+			LPM ~pulse~
+			SET setr = 0x6D			// Set Red
+			SET setg = 0x6D			// Set Green
+			SET setb = 0xFF			// Set Blue
+			SET speed = 0x0C		// Speed
+			SET location = wblue
+			LPM ~pulse~
+			SET setr = 0x60			// Set Red
+			SET setg = 0x00			// Set Green
+			SET setb = 0x71			// Set Blue
+			SET speed = 0x1E		// Speed
+			SET location = wred
+			LPM ~pulse~
+		END
+END
+
+// Shaman's Staff
+ACTION_IF (FILE_EXISTS_IN_GAME ~misc5t.itm~) BEGIN
+	COPY_EXISTING ~misc5t.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 11		// Replace colour index 27
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 24		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 19		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 26		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 22		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Staff
+ACTION_IF (FILE_EXISTS_IN_GAME ~misc9o.itm~) BEGIN
+	COPY_EXISTING ~misc9o.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 22		// colour index
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 23		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 22		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 22		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 22		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Rod of Smiting
+ACTION_IF (FILE_EXISTS_IN_GAME ~rods04.itm~) BEGIN
+	COPY_EXISTING ~rods04.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 102		// colour index
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 96		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 91		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 102		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+		END
+END
+
+// Rod of Terror
+ACTION_IF (FILE_EXISTS_IN_GAME ~rods05.itm~) BEGIN
+	COPY_EXISTING ~rods05.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 5		// colour index
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 6		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 5		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 3		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+		END
+END
+
+// Quarterstaff
+ACTION_IF (FILE_EXISTS_IN_GAME ~sahstaff.itm~) BEGIN
+	COPY_EXISTING ~sahstaff.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 22		// Replace colour index 27
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 90		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 22		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 22		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+
+// ORDINARY STAVES
+
+// Quarterstaff
+ACTION_FOR_EACH item IN ~staf01~ ~_staf01~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
+		COPY_EXISTING ~%item%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+				LPM ~clear~
+				SET gradient = 22		// Replace colour index 27
+				SET location = wgrey	// location
+				LPM ~colour~
+				SET gradient = 90		// colour index
+				SET location = wteal	// location
+				LPM ~colour~
+				SET gradient = 22		// colour index
+				SET location = wblue	// location
+				LPM ~colour~
+				SET gradient = 22		// colour index
+				SET location = wred		// location * compatibility
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Quarterstaff +1
+ACTION_FOR_EACH item IN ~staf02~ ~_staf02~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
+		COPY_EXISTING ~%item%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+				LPM ~clear~
+				SET gradient = 25		// colour index
+				SET location = wgrey	// location
+				LPM ~colour~
+				SET gradient = 21		// colour index
+				SET location = wteal	// location
+				LPM ~colour~
+				SET gradient = 25		// colour index
+				SET location = wpink	// location
+				LPM ~colour~
+				SET gradient = 5		// colour index
+				SET location = wblue	// location
+				LPM ~colour~
+				SET gradient = 27		// colour index
+				SET location = wred		// location * compatibility
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Quarterstaff
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf03.itm~) BEGIN
+	COPY_EXISTING ~staf03.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 2		// Replace colour index 27
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 90		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 2		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 22		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Quarterstaff
+ACTION_FOR_EACH item IN ~staf04~ ~_staf04~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
+		COPY_EXISTING ~%item%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+				LPM ~clear~
+				SET gradient = 2		// colour index
+				SET location = wgrey	// location
+				LPM ~colour~
+				SET gradient = 90		// colour index
+				SET location = wteal	// location
+				LPM ~colour~
+				SET gradient = 2		// colour index
+				SET location = wblue	// location
+				LPM ~colour~
+				SET gradient = 22		// colour index
+				SET location = wred		// location * compatibility
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Staff of Striking +3
+ACTION_FOR_EACH item IN ~staf05~ ~_staf05~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
+		COPY_EXISTING ~%item%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+				LPM ~clear~
+				SET gradient = 25		// colour index
+				SET location = wgrey	// location
+				LPM ~colour~
+				SET gradient = 21		// colour index
+				SET location = wteal	// location
+				LPM ~colour~
+				SET gradient = 109		// colour index
+				SET location = wpink	// location
+				LPM ~colour~
+				SET gradient = 27		// colour index
+				SET location = wblue	// location
+				LPM ~colour~
+				SET gradient = 27		// colour index
+				SET location = wred		// location * compatibility
+			END
+		BUT_ONLY
+	END
+END
+
+// Martial Staff +3
+ACTION_FOR_EACH item IN ~staf08~ ~_staf08~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
+		COPY_EXISTING ~%item%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+				LPM ~clear~
+				SET gradient = 81		// Replace colour index 55
+				SET location = wgrey	// location
+				LPM ~colour~
+				SET gradient = 66		// colour index
+				SET location = wteal	// location
+				LPM ~colour~
+				SET gradient = 83		// colour index
+				SET location = wpink	// location
+				LPM ~colour~
+				SET gradient = 85		// colour index
+				SET location = wblue	// location
+				LPM ~colour~
+				SET gradient = 85		// colour index
+				SET location = wred		// location * compatibility
+				LPM ~colour~
+				SET setr = 0x00			// Set Red
+				SET setg = 0x14			// Set Green
+				SET setb = 0x14			// Set Blue
+				SET location = wgrey
+				LPM ~glow~
+				SET setr = 0x00			// Set Red
+				SET setg = 0x19			// Set Green
+				SET setb = 0x19			// Set Blue
+				SET location = wteal
+				LPM ~glow~
+				SET setr = 0x00			// Set Red
+				SET setg = 0x28			// Set Green
+				SET setb = 0x28			// Set Blue
+				SET location = wpink
+				LPM ~glow~
+				SET setr = 0x00			// Set Red
+				SET setg = 0x1E			// Set Green
+				SET setb = 0x1E			// Set Blue
+				SET location = wblue
+				LPM ~glow~
+				SET setr = 0x00			// Set Red
+				SET setg = 0x28			// Set Green
+				SET setb = 0x28			// Set Blue
+				SET location = wred
+				LPM ~glow~
+			END
+		BUT_ONLY
+	END
+END
+
+// Staff of Command
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf09.itm~) BEGIN
+	COPY_EXISTING ~staf09.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 14		// Replace colour index 10
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 19		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 21		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 13		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 10		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Staff of Curing
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf10.itm~) BEGIN
+	COPY_EXISTING ~staf10.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 96		// colour index
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 100		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 96		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 102		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 96		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Staff of the Magi
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf11.itm~) BEGIN
+	COPY_EXISTING ~staf11.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			SET opcode_to_delete = 7
+			LPM DELETE_ITEM_EQEFFECT
+			SET opcode_to_delete = 8
+			LPM DELETE_ITEM_EQEFFECT
+			SET gradient = 112		// Replace colour index 25
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 113		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 93		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 98		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 27		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Staff of Power
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf12.itm~) BEGIN
+	COPY_EXISTING ~staf12.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 25		// colour index
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 21		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 25		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 5		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 27		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Staff of Thunder and Lightning +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf13.itm~) BEGIN
+	COPY_EXISTING ~staf13.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 18		// Replace colour index 104
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 100		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 101		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 96		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 104		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+			SET setr = 0xC6			// Set Red
+			SET setg = 0xD5			// Set Green
+			SET setb = 0xDE			// Set Blue
+			SET speed = 0x14		// Speed
+			SET location = wteal
+			LPM ~pulse~
+		END
+END
+
+// Staff of the Woodlands +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf14.itm~) BEGIN
+	COPY_EXISTING ~staf14.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 16		// Replace colour index 39
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 19		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 22		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 16		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 39		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Staff of Air +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf15.itm~) BEGIN
+	COPY_EXISTING ~staf15.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 14		// Replace colour index 25
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 17		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 28		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 27		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 27		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Staff of Earth +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf16.itm~) BEGIN
+	COPY_EXISTING ~staf16.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 38		// Replace colour index 39
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 20		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 39		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 38		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 39		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Staff of Fire +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf17.itm~) BEGIN
+	COPY_EXISTING ~staf17.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 10		// colour index
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 11		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 111		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 12		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 10		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Quarterstaff +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf18.itm~) BEGIN
+	COPY_EXISTING ~staf18.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 25		// Replace colour index 39
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 66		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 81		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 43		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 39		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Cleric's Staff +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf19.itm~) BEGIN
+	COPY_EXISTING ~staf19.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 105		// Replace colour index 97
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 96		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 97		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 97		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 97		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+			SET setr = 0x00			// Set Red
+			SET setg = 0x8B			// Set Green
+			SET setb = 0xCA			// Set Blue
+			SET location = wgrey
+			LPM ~glow~
+			SET setr = 0x00			// Set Red
+			SET setg = 0x77			// Set Green
+			SET setb = 0xB6			// Set Blue
+			SET location = wteal
+			LPM ~glow~
+			SET setr = 0x00			// Set Red
+			SET setg = 0x90			// Set Green
+			SET setb = 0xD0			// Set Blue
+			SET location = wpink
+			LPM ~glow~
+			SET setr = 0x00			// Set Red
+			SET setg = 0x8B			// Set Green
+			SET setb = 0xCA			// Set Blue
+			SET location = wblue
+			LPM ~glow~
+			SET setr = 0x00			// Set Red
+			SET setg = 0x8B			// Set Green
+			SET setb = 0xCA			// Set Blue
+			SET location = wred
+			LPM ~glow~
+		END
+END
+
+// Staff of Rynn +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf20.itm~) BEGIN
+	COPY_EXISTING ~staf20.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 97		// colour index
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 96		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 97		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 97		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 97		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+			SET setr = 0x00			// Set Red
+			SET setg = 0x8B			// Set Green
+			SET setb = 0xCA			// Set Blue
+			SET location = wgrey
+			LPM ~glow~
+			SET setr = 0x00			// Set Red
+			SET setg = 0x77			// Set Green
+			SET setb = 0xB6			// Set Blue
+			SET location = wteal
+			LPM ~glow~
+			SET setr = 0x00			// Set Red
+			SET setg = 0x90			// Set Green
+			SET setb = 0xD0			// Set Blue
+			SET location = wpink
+			LPM ~glow~
+			SET setr = 0x00			// Set Red
+			SET setg = 0x8B			// Set Green
+			SET setb = 0xCA			// Set Blue
+			SET location = wblue
+			LPM ~glow~
+			SET setr = 0x00			// Set Red
+			SET setg = 0x8B			// Set Green
+			SET setb = 0xCA			// Set Blue
+			SET location = wred
+			LPM ~glow~
+	END
+END
+
+// Staff of the Ram +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf21.itm~) BEGIN
+	COPY_EXISTING ~staf21.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 42		// Replace colour index 36
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 37		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 36		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 42		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 36		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Staff of the Ram +6
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf22.itm~) BEGIN
+	COPY_EXISTING ~staf22.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 42		// Replace colour index 36
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 37		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 36		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 42		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 36		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Serpent Shaft
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf23.itm~) BEGIN
+	COPY_EXISTING ~staf23.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 36		// Replace colour index 53
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 35		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 86		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 37		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 52		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+			SET setr = 0x21			// Set Red
+			SET setg = 0xC0			// Set Green
+			SET setb = 0x00			// Set Blue
+			SET speed = 0x28		// Speed
+			SET location = wgrey
+			LPM ~pulse~
+			SET setr = 0x37			// Set Red
+			SET setg = 0xA6			// Set Green
+			SET setb = 0x00			// Set Blue
+			SET speed = 0x28		// Speed
+			SET location = wteal
+			LPM ~pulse~
+			SET setr = 0x21			// Set Red
+			SET setg = 0xD2			// Set Green
+			SET setb = 0x00			// Set Blue
+			SET speed = 0x28		// Speed
+			SET location = wpink
+			LPM ~pulse~
+			SET setr = 0x21			// Set Red
+			SET setg = 0xC0			// Set Green
+			SET setb = 0x00			// Set Blue
+			SET speed = 0x28		// Speed
+			SET location = wblue
+			LPM ~pulse~
+			SET setr = 0x21			// Set Red
+			SET setg = 0xC0			// Set Green
+			SET setb = 0x00			// Set Blue
+			SET speed = 0x28		// Speed
+			SET location = wred
+			LPM ~pulse~
+		END
+END
+
+// Quarterstaff +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf24.itm~) BEGIN
+	COPY_EXISTING ~staf24.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 25		// Replace colour index 39
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 66		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 81		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 43		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 39		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Staff of Arundel +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~wastaff.itm~) BEGIN
+	COPY_EXISTING ~wastaff.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 10		// Replace colour index 25
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 15		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 10		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 10		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 27		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+			SET setr = 0x4C			// Set Red
+			SET setg = 0xFF			// Set Green
+			SET setb = 0x00			// Set Blue
+			SET location = wteal
+			LPM ~glow~
+		END
+END
+
+
+/*  ===========  *
+ *  MODS STAVES  *
+ *  ===========  */
+
+PRINT @204004 /* Installing mod item patches (if found) */
+
+LAM ~Locations~
+
+PRINT @204003 /* Patching... */
+
+// Herbs and Potions Add-in for BG2 by Baronius
+// Poisonkiss Staff +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~bw02st1.itm~) BEGIN
+	COPY_EXISTING ~bw02st1.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 81		// colour index
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 15		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 25		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 27		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 22		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Firebeard Staff +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~bw02st2.itm~) BEGIN
+COPY_EXISTING ~bw02st2.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 26		// colour index
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 19		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 19		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 24		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 22		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Poisonkiss Staff +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~bw02st3.itm~) BEGIN
+	COPY_EXISTING ~bw02st3.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 81		// colour index
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 15		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 25		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 27		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 22		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Firebeard Staff +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~bw02st4.itm~) BEGIN
+	COPY_EXISTING ~bw02st4.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 26		// colour index
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 19		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 19		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 24		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 22		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Poisonkiss Staff +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~bw02st5.itm~) BEGIN
+	COPY_EXISTING ~bw02st5.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 81		// colour index
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 15		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 25		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 27		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 22		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+// Firebeard Staff +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~bw02st6.itm~) BEGIN
+	COPY_EXISTING ~bw02st6.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			LPM ~clear~
+			SET gradient = 26		// colour index
+			SET location = wgrey	// location
+			LPM ~colour~
+			SET gradient = 19		// colour index
+			SET location = wteal	// location
+			LPM ~colour~
+			SET gradient = 19		// colour index
+			SET location = wpink	// location
+			LPM ~colour~
+			SET gradient = 24		// colour index
+			SET location = wblue	// location
+			LPM ~colour~
+			SET gradient = 22		// colour index
+			SET location = wred		// location * compatibility
+			LPM ~colour~
+		END
+END
+
+//END of COMPONENT
