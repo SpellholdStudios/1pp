@@ -1,0 +1,502 @@
+// More types of inventory BAMs with no unique animations
+// FWIW
+
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - CRE files: READ_LONG 0x28 instead of READ_SHORT 0x28 (dword).                                                                                                             *
+ *		- Coding simplification:                                                                                                                                                    *
+ *			Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *          ITM files: use WRITE_LONG 0x18 (THIS BAND BNOT BIT2) to remove droppable flag instead of writing the offset new value.                                                  *
+ *  ==============================================================================================================================================================================  */
+
+ACTION_FOR_EACH paperdoll IN ~WPHF0OIN~ ~WPHF1OIN~ ~WPHF3OIN~ ~WPHM2OIN~ ~WPHS0OIN~ ~WPLBSINV~ ~WPLF0INV~ ~WPLF0OIN~ ~WPLF1INV~ ~WPLF1OIN~ ~WPLF3INV~ ~WPLF3OIN~ ~WPLM2INV~ ~WPLM2OIN~ ~WPLQ2INV~ ~WPLQ3INV~ ~WPLQ4INV~ ~WPLS0INV~ ~WPLS0OIN~ ~WPMBSINV~ ~WPMF0INV~ ~WPMF0OIN~ ~WPMF1INV~ ~WPMF1OIN~ ~WPMF2INV~ ~WPMF2OIN~ ~WPMF3INV~ ~WPMF3OIN~ ~WPMM2INV~ ~WPMM2OIN~ ~WPMQ2INV~ ~WPMQ3INV~ ~WPMQ4INV~ ~WPMS0INV~ ~WPMS0OIN~ ~WPNBSINV~ ~WPNF0INV~ ~WPNF0OIN~ ~WPNF1INV~ ~WPNF1OIN~ ~WPNF3INV~ ~WPNF3OIN~ ~WPNM2INV~ ~WPNM2OIN~ ~WPNQ2INV~ ~WPNQ3INV~ ~WPNQ4INV~ ~WPNS0INV~ ~WPNS0OIN~ ~WPSBSINV~ ~WPSF0INV~ ~WPSF0OIN~ ~WPSF1INV~ ~WPSF1OIN~ ~WPSF3INV~ ~WPSF3OIN~ ~WPSM2INV~ ~WPSM2OIN~ ~WPSQ2INV~ ~WPSQ3INV~ ~WPSQ4INV~ ~WPSS0INV~ ~WPSS0OIN~ BEGIN
+	COPY ~1pp/additions/obj_1pp/%paperdoll%.bam~ ~override~
+END
+
+
+/*  ========================  *
+ *  CREATE MIRROR ANIMATIONS  *
+ *  ========================  */
+PRINT @210000 /* Creating mirror animations... */
+
+// Flails
+ACTION_FOR_EACH set IN ~F0~ ~F1~ ~F3~ BEGIN
+
+	ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
+		ACTION_FOR_EACH sequence IN ~A1~ ~A3~ ~A5~ ~A7~ ~A8~ ~A9~ ~G1~ ~OA7~ ~OA8~ ~OA9~ ~OG1~ BEGIN
+			COPY_EXISTING ~WQ%category%FL%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+		END
+	END
+
+	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ BEGIN
+		ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A3~ ~A3E~ ~G1~ ~G1E~ ~W2~ ~W2E~ BEGIN
+			COPY_EXISTING ~WP%category%FL%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+		END
+	END
+
+END
+
+// Mace
+ACTION_FOR_EACH set IN ~M2~ BEGIN
+
+	ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
+		ACTION_FOR_EACH sequence IN ~A1~ ~A3~ ~A5~ ~A7~ ~A8~ ~A9~ ~G1~ ~OA7~ ~OA8~ ~OA9~ ~OG1~ BEGIN
+			COPY_EXISTING ~WQ%category%MC%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+		END
+	END
+
+	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ BEGIN
+		ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A3~ ~A3E~ ~G1~ ~G1E~ ~W2~ ~W2E~ BEGIN
+			COPY_EXISTING ~WP%category%MC%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+		END
+	END
+
+END
+
+// Quaterstaves
+ACTION_FOR_EACH set IN ~Q2~ ~Q3~ ~Q4~ BEGIN
+
+	ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
+		ACTION_FOR_EACH sequence IN ~A2~ ~A4~ ~A6~ ~G1~ BEGIN
+			COPY_EXISTING ~WQ%category%QS%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+		END
+	END
+
+	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ BEGIN
+		ACTION_FOR_EACH sequence IN ~A2~ ~A2E~ ~A4~ ~A4E~ ~A6~ ~A6E~ ~G1~ ~G1E~ ~W2~ ~W2E~ BEGIN
+			COPY_EXISTING ~WP%category%QS%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+		END
+	END
+
+END
+
+// Bastard sword
+ACTION_FOR_EACH set IN ~S0~ BEGIN
+
+	ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
+		ACTION_FOR_EACH sequence IN ~A1~ ~A3~ ~A5~ ~A7~ ~A8~ ~A9~ ~G1~ ~OA7~ ~OA8~ ~OA9~ ~OG1~ BEGIN
+			COPY_EXISTING ~WQ%category%S1%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+		END
+	END
+
+	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ BEGIN
+		ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A3~ ~A3E~ ~A5~ ~A5E~ ~G1~ ~G1E~ ~W2~ ~W2E~ BEGIN
+			COPY_EXISTING ~WP%category%S1%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+		END
+	END
+
+END
+
+// Short Bow
+ACTION_FOR_EACH set IN ~BS~ BEGIN
+
+	ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
+		ACTION_FOR_EACH sequence IN ~SA~ ~G1~ BEGIN
+			COPY_EXISTING ~WQ%category%BW%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+		END
+	END
+
+	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ BEGIN
+		ACTION_FOR_EACH sequence IN ~SA~ ~SAE~ ~G1~ ~G1E~ ~W2~ ~W2E~ BEGIN
+			COPY_EXISTING ~WP%category%BW%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+		END
+	END
+
+END
+
+// harmonising morning stars
+ACTION_FOR_EACH set IN ~MS~ BEGIN
+	ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
+		ACTION_FOR_EACH sequence IN ~A1~ ~A3~ ~A5~ ~A7~ ~A8~ ~A9~ ~G1~ ~OA7~ ~OA8~ ~OA9~ ~OG1~ BEGIN
+			COPY_EXISTING ~WQ%category%MC%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+		END
+	END
+END
+
+
+/*  ======================  *
+ *  CREATE WEAPON OVERLAYS  *
+ *  ======================  */
+PRINT @210001 /* Patching creatures for weapon overlays */
+
+// Gwen fix: Create undroppable clones of weapons - code simplification
+// sword clones
+ACTION_FOR_EACH sword IN ~01~ ~02~ ~03~ ~18~ ~34~ ~37~ ~38~ ~39~ ~42~ ~62~ ~63~ ~64~ ~65~ ~72~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h%sword%.itm~) BEGIN
+		COPY_EXISTING ~sw1h%sword%.itm~ ~override/comps%sword%.itm~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN				// protects against invalid files
+				WRITE_LONG 0x18 (THIS BAND BNOT BIT2) END	// removes droppable flag [or WRITE_BYTE 0x18 (THIS BAND `BIT2)]
+			END
+		BUT_ONLY
+	END
+END
+
+// Gwen TODO: check if the code above might apply below (can't check a tutu install...).
+ACTION_IF (FILE_EXISTS_IN_GAME ~_sw1h01.itm~) BEGIN
+	COPY_EXISTING ~_sw1h01.itm~ ~override/_comps01.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+			WRITE_LONG 0x18 0x68
+		END
+	BUT_ONLY
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~_sw1h02.itm~) BEGIN
+	COPY_EXISTING ~_sw1h02.itm~ ~override/_comps02.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+			WRITE_LONG 0x18 0x68
+		END
+	BUT_ONLY
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~_sw1h03.itm~) BEGIN
+	COPY_EXISTING ~_sw1h03.itm~ ~override/_comps03.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+			WRITE_LONG 0x18 0x0368
+		END
+	BUT_ONLY
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~_sw1h18.itm~) BEGIN
+	COPY_EXISTING ~_sw1h18.itm~ ~override/_comps18.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+			WRITE_LONG 0x18 0x0269
+		END
+	BUT_ONLY
+END
+
+
+// bow clones
+ACTION_FOR_EACH ~bow~ IN ~05~ ~06~ ~08~ ~14~ ~15~ ~18~ ~19~ ~20~ ~21~ ~26~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~bow%bow%.itm~) BEGIN
+		COPY_EXISTING ~bow%bow%.itm~ ~override/compb%bow%.itm~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN				// protects against invalid files
+				WRITE_LONG 0x18 (THIS BAND BNOT BIT2) END	// removes droppable flag [or WRITE_BYTE 0x18 (THIS BAND `BIT2)]
+			END
+		BUT_ONLY
+	END
+END
+
+// Gwen TODO: verify if the code above might apply below (can't check a tutu install...).
+ACTION_IF (FILE_EXISTS_IN_GAME ~_bow05.itm~) BEGIN
+	COPY_EXISTING ~_bow05.itm~ ~override/_compb05.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+			WRITE_LONG 0x18 0xaa
+		END
+	BUT_ONLY
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~_bow06.itm~) BEGIN
+	COPY_EXISTING ~_bow06.itm~ ~override/_compb06.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+			WRITE_LONG 0x18 0xea
+		END
+	BUT_ONLY
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~_bow08.itm~) BEGIN
+	COPY_EXISTING ~_bow08.itm~ ~override/_compb08.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+			WRITE_LONG 0x18 0xea
+		END
+	BUT_ONLY
+END
+
+
+/*  =======================================  *
+ *  PATCHING CREATURES WITH WEAPON OVERLAYS  *
+ *  =======================================  */
+ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
+	OUTER_SET itemslot = 0x02b8
+	OUTER_SET itemstart = 0x02bc
+	OUTER_SET wepone = 0x12
+	OUTER_SET weptwo = 0x14
+END
+
+ACTION_IF (GAME_IS ~totlm how~) BEGIN
+	OUTER_SET itemslot = 0x0320
+	OUTER_SET itemstart = 0x324
+	OUTER_SET wepone = 0x12
+	OUTER_SET weptwo = 0x14
+END
+
+ACTION_IF (GAME_IS ~iwd2~) BEGIN
+	OUTER_SET itemslot = 0x0612
+	OUTER_SET itemstart = 0x616
+	OUTER_SET wepone = 0x12
+	OUTER_SET weptwo = 0x16
+END
+
+
+PRINT @210002 /* Patching cre files */
+
+// Gwen notes: 0x8000 = GNOLL - 0x8100 = HOBGOBLIN - 0x8200 = KOBOLD - 0x2000 = SIRINE - 0x2200 = OGRE_MAGE
+
+// Replace primary weapon with undroppable clone and move it to inventory.
+COPY_EXISTING_REGEXP GLOB ~^.+\.cre$~ ~override~
+	READ_SHORT %itemslot% "ritemslot"
+	READ_SHORT %itemstart% "ritemstart"
+	READ_LONG  0x28 "animtype" ELSE 0
+	PATCH_IF ("%animtype%" = 0x8100 || "%animtype%" = 0x8000 || "%animtype%" = 0x2200 || "%animtype%" = 0x8200 || "%animtype%" = 0x2000) BEGIN
+		READ_SHORT (%ritemslot% + %wepone%) "primaryw"
+		PATCH_IF ("%primaryw%" != 0xffff) BEGIN
+			READ_ASCII (%ritemstart% + (0x14 * %primaryw%)) "primitem"
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h01" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~comps01~ #8
+				ADD_CRE_ITEM ~sw1h01~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "_sw1h01" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~_comps01~ #8
+				ADD_CRE_ITEM ~_sw1h01~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h02" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~comps02~ #8
+				ADD_CRE_ITEM ~sw1h02~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "_sw1h02" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~_comps02~ #8
+				ADD_CRE_ITEM ~_sw1h02~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h03" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~comps03~ #8
+				ADD_CRE_ITEM ~sw1h03~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "_sw1h03" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~_comps03~ #8
+				ADD_CRE_ITEM ~_sw1h03~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h18" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~comps18~ #8
+				ADD_CRE_ITEM ~sw1h18~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h34" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~comps34~ #8
+				ADD_CRE_ITEM ~sw1h34~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h37" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~comps37~ #8
+				ADD_CRE_ITEM ~sw1h37~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h38" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~comps38~ #8
+				ADD_CRE_ITEM ~sw1h38~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h39" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~comps39~ #8
+				ADD_CRE_ITEM ~sw1h39~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h42" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~comps42~ #8
+				ADD_CRE_ITEM ~sw1h42~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h62" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~comps62~ #8
+				ADD_CRE_ITEM ~sw1h62~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h63" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~comps63~ #8
+				ADD_CRE_ITEM ~sw1h63~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h64" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~comps64~ #8
+				ADD_CRE_ITEM ~sw1h64~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h65" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~comps65~ #8
+				ADD_CRE_ITEM ~sw1h65~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h72" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~comps72~ #8
+				ADD_CRE_ITEM ~sw1h72~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow05" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~compb05~ #8
+				ADD_CRE_ITEM ~bow05~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "_bow05" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~_compb05~ #8
+				ADD_CRE_ITEM ~_bow05~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow06" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~compb06~ #8
+				ADD_CRE_ITEM ~bow06~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "_bow06" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~_compb06~ #8
+				ADD_CRE_ITEM ~_bow06~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow08" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~compb08~ #8
+				ADD_CRE_ITEM ~bow08~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "_bow08" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~_compb08~ #8
+				ADD_CRE_ITEM ~_bow08~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow14" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~compb14~ #8
+				ADD_CRE_ITEM ~bow14~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow15" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~compb15~ #8
+				ADD_CRE_ITEM ~bow15~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow18" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~compb18~ #8
+				ADD_CRE_ITEM ~bow18~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow19" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~compb19~ #8
+				ADD_CRE_ITEM ~bow19~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow20" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~compb20~ #8
+				ADD_CRE_ITEM ~bow20~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow21" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~compb21~ #8
+				ADD_CRE_ITEM ~bow21~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow26" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~compb26~ #8
+				ADD_CRE_ITEM ~bow26~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+		END
+	END
+BUT_ONLY
+
+
+// Replace secondary weapon with undroppable clone and move it to inventory
+COPY_EXISTING_REGEXP GLOB ~^.+\.cre$~ ~override~
+	READ_SHORT %itemslot% "ritemslot"
+	READ_SHORT %itemstart% "ritemstart"
+	READ_LONG  0x28 "animtype" ELSE 0
+	PATCH_IF ("%animtype%" = 0x8100 || "%animtype%" = 0x8000 || "%animtype%" = 0x2200 || "%animtype%" = 0x8200 || "%animtype%" = 0x2000) BEGIN
+		READ_SHORT (%ritemslot% + %weptwo%) "secondaryw"
+		PATCH_IF ("%secondaryw%" != 0xffff) BEGIN
+			READ_ASCII (%ritemstart% + (0x14 * %secondaryw%)) "primitem"
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h01" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~comps01~ #8
+				ADD_CRE_ITEM ~sw1h01~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "_sw1h01" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~_comps01~ #8
+				ADD_CRE_ITEM ~_sw1h01~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h02" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~comps02~ #8
+				ADD_CRE_ITEM ~sw1h02~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "_sw1h02" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~_comps02~ #8
+				ADD_CRE_ITEM ~_sw1h02~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h03" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~comps03~ #8
+				ADD_CRE_ITEM ~sw1h03~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "_sw1h03" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~_comps03~ #8
+				ADD_CRE_ITEM ~_sw1h03~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h18" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~comps18~ #8
+				ADD_CRE_ITEM ~sw1h18~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h34" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~comps34~ #8
+				ADD_CRE_ITEM ~sw1h34~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h37" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~comps37~ #8
+				ADD_CRE_ITEM ~sw1h37~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h38" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~comps38~ #8
+				ADD_CRE_ITEM ~sw1h38~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h39" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~comps39~ #8
+				ADD_CRE_ITEM ~sw1h39~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h42" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~comps42~ #8
+				ADD_CRE_ITEM ~sw1h42~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h62" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~comps62~ #8
+				ADD_CRE_ITEM ~sw1h62~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h63" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~comps63~ #8
+				ADD_CRE_ITEM ~sw1h63~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h64" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~comps64~ #8
+				ADD_CRE_ITEM ~sw1h64~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h65" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~comps65~ #8
+				ADD_CRE_ITEM ~sw1h65~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h72" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~comps72~ #8
+				ADD_CRE_ITEM ~sw1h72~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow05" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~compb05~ #8
+				ADD_CRE_ITEM ~bow05~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "_bow05" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~_compb05~ #8
+				ADD_CRE_ITEM ~_bow05~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow06" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~compb06~ #8
+				ADD_CRE_ITEM ~bow06~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "_bow06" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~_compb06~ #8
+				ADD_CRE_ITEM ~_bow06~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow08" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~compb08~ #8
+				ADD_CRE_ITEM ~bow08~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "_bow08" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~_compb08~ #8
+				ADD_CRE_ITEM ~_bow08~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow14" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~compb14~ #8
+				ADD_CRE_ITEM ~bow14~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow15" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~compb15~ #8
+				ADD_CRE_ITEM ~bow15~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow18" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~compb18~ #8
+				ADD_CRE_ITEM ~bow18~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow19" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~compb19~ #8
+				ADD_CRE_ITEM ~bow19~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow20" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~compb20~ #8
+				ADD_CRE_ITEM ~bow20~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow21" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~compb21~ #8
+				ADD_CRE_ITEM ~bow21~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "bow26" = 0) BEGIN
+				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~compb26~ #8
+				ADD_CRE_ITEM ~bow26~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+			END
+		END
+	END
+BUT_ONLY
+
+//END of COMPONENT
