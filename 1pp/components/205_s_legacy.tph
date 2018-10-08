@@ -1,0 +1,144 @@
+// Legacy Shields
+// forever unfinished they lived with a sigh
+
+// ... OR DID THEY
+
+// stirring in its grave, here goes version 2
+
+// give your thanks & support to the BG:EE team
+// without who this likely would not have been possible
+// and Trent Oster who has been awesome for sharing ToB development leftovers
+
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *		- Coding simplification:                                                                                                                                                    *
+ *			Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *  ==============================================================================================================================================================================  */
+
+PRINT @205000 /* Copying v2 D1... */
+
+COPY ~1pp/additions/obj_bl/WQLD1A1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQLD1A3.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQLD1A5.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQLD1G1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQLD1SS.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD1A1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD1A3.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD1A5.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD1G1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD1SS.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND1A1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND1A3.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND1A5.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND1G1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND1SS.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD1A1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD1A3.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD1A5.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD1G1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD1SS.BAM~ ~override~
+
+
+PRINT @205001 /* Patching D1 shields... */
+
+// Bucklers
+ACTION_FOR_EACH item IN ~shld08~ ~shld09~ ~shld10~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
+		COPY_EXISTING ~%item%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+				WRITE_ASCII 0x22 ~D1~	// Replace D2 Small shield
+			END
+		BUT_ONLY
+	END
+END
+
+// Buckler +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld17.itm~) BEGIN
+	COPY_EXISTING ~shld17.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			WRITE_ASCII 0x22 ~D1~	// Replace D2 Small shield
+		END
+	BUT_ONLY
+END
+
+// Kiel's Buckler
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld20.itm~) BEGIN
+	COPY_EXISTING ~shld20.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			WRITE_ASCII 0x22 ~D1~	// Replace D2 Small shield
+		END
+	BUT_ONLY
+END
+
+
+PRINT @205002 /* Copying v2 D2... */
+
+COPY ~1pp/additions/obj_bl/WQLD2A1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQLD2A3.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQLD2A5.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQLD2G1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQLD2SS.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD2A1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD2A3.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD2A5.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD2G1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD2SS.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND2A1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND2A3.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND2A5.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND2G1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND2SS.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD2A1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD2A3.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD2A5.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD2G1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD2SS.BAM~ ~override~
+
+PRINT @205003 /* Copying v2 D3... */
+
+COPY ~1pp/additions/obj_bl/WQLD3A1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQLD3A3.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQLD3A5.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQLD3G1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQLD3SS.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD3A1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD3A3.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD3A5.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD3G1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD3SS.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND3A1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND3A3.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND3A5.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND3G1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND3SS.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD3A1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD3A3.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD3A5.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD3G1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD3SS.BAM~ ~override~
+
+PRINT @205004 /* Copying v2 D4... */
+
+COPY ~1pp/additions/obj_bl/WQLD4A1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQLD4A3.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQLD4A5.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQLD4G1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQLD4SS.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD4A1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD4A3.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD4A5.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD4G1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQMD4SS.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND4A1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND4A3.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND4A5.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND4G1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQND4SS.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD4A1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD4A3.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD4A5.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD4G1.BAM~ ~override~
+COPY ~1pp/additions/obj_bl/WQSD4SS.BAM~ ~override~
+
+//END of COMPONENT
