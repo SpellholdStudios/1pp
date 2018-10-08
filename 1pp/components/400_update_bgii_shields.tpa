@@ -1,0 +1,2077 @@
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Replace macros with functions whenever possible.                                                                                                                          *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
+ *  		Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *                                                                                                                                                                                  *
+ *  specific fixes:                                                                                                                                                                 *
+ *  ---------------                                                                                                                                                                 *
+ *      - #92   ==> shld02.itm (Small Shield +1): LPM ~clear~ was missing, and the code stacked opcode #7 global effects.                                                           *
+ *      - #1552 ==> shld31A.itm (Gorm's Arm +3): fix wrong coding (WRITE_SHORT instead of WRITE_BYTE for Minimum strength).                                                         *
+ *      - #1585 ==> shld01P.itm (Buckler +2): fix wrong coding (opcode #0 parameter1 0xfffffe - 16777214??? - should be -3), add opcode #0 with parameter1 = -3 and parameter2 = 4  *
+ *  				to add missing protection vs piercing weapons, add missing price, and fix item description to fit ITM file.                                                     *
+ *      - #1674 ==> X#AJSHLD.itm (Ilvastarr Family Shield - The BG1 NPC Project mod): fix typo (was copying #AJSHLD instead of X#AJSHLD).                                           *
+ *      - #1836 ==> shld06P.itm (Redshield +1, +4 vs. Monstrous): fix wrong coding (opcode #219: switch parameter1 and 2, and parameter2 2 - EA.IDS - should be 3 - GENERAL.IDS),   *
+ *  				add an external effect (shld06P.eff) and replace opcode #178 with opcode #177, otherwise opcode #178 won't work.                                                *
+ *      - #1896 ==> shld07P.itm (Sartessa's Vengeance +1): fix wrong coding for add magical flag [replace WRITE_BYTE 0x1b 0x6c with WRITE_LONG 0x18 (THIS | BIT6)].                 *
+ *      - #1971 ==> shld08P.itm (Tarloc's Contingency +1): code simplified (1tarsp.spl) and fix wrong coding for Casting sound (1tarss.spl).                                        *
+ *      - #2056 ==> shld09P.itm (Shield of Devotion +1): fix wrong coding (#62: parameter2 should be 4, not 3).                                                                     *
+ *  ==============================================================================================================================================================================  */
+
+/*  =============================  *
+ *          SHIELDS BEGIN          *
+ *  =============================  */
+
+ACTION_IF (1pp_shields_shadows = 2) BEGIN	// shadow shields
+
+	ACTION_FOR_EACH resource IN ~WPHC0INV~ ~WPHC1INV~ ~WPHC2INV~ ~WPHC3INV~ ~WPHC4INV~ ~WPHC5INV~ ~WPHC6INV~ ~WPHC7INV~ ~WPLC0INV~ ~WPLC1INV~ ~WPLC2INV~ ~WPLC3INV~ ~WPLC4INV~ ~WPLC5INV~ ~WPLC6INV~ ~WPLC7INV~ ~WPMC0INV~ ~WPMC1INV~ ~WPMC2INV~ ~WPMC3INV~ ~WPMC4INV~ ~WPMC5INV~ ~WPMC6INV~ ~WPMC7INV~ ~WPNC0INV~ ~WPNC1INV~ ~WPNC2INV~ ~WPNC3INV~ ~WPNC4INV~ ~WPNC5INV~ ~WPNC6INV~ ~WPNC7INV~ ~WPSC0INV~ ~WPSC1INV~ ~WPSC2INV~ ~WPSC3INV~ ~WPSC4INV~ ~WPSC5INV~ ~WPSC6INV~ ~WPSC7INV~ BEGIN
+
+		COPY ~1pp/additions/obj_1pp_a/%resource%.bam~ ~override~
+
+	END
+
+END
+
+// Small Shield
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld01.itm~) BEGIN
+	COPY_EXISTING ~shld01.itm~ ~override/shld01A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			SET gradient = 22				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
+				SET gradient = 92			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C0~			// Replace D2 Small shield
+			WRITE_ASCII 0x3A ~ISHLDS01~ #8
+			WRITE_ASCII 0x44 ~GSSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLD25~ #8	// Replace CSHLD28
+			LPM ~clear~
+			SET gradient = 200				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 21				// Replace colour index 42
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 238			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Small Shield +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld02.itm~) BEGIN
+	COPY_EXISTING ~shld02.itm~ ~override/shld02A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 109				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 24				// Replace colour index 42
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 25				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 29			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld02.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C0~			// Replace D2 Small shield
+			WRITE_ASCII 0x3A ~ISHLDS04~ #8	// Replace ISHLDS02
+			WRITE_ASCII 0x44 ~GSSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLD25~ #8	// Replace CSHLD28
+			// Gwen fix: the following line was missing
+			LPM ~clear~
+			SET gradient = 24				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 211				// Replace colour index 42
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 237			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Medium Shield
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld03.itm~) BEGIN
+	COPY_EXISTING ~shld03.itm~ ~override/shld03A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 94				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 100				// Replace colour index 104
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 215				// Replace colour index 27
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
+				SET gradient = 66			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld03.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C1~			// Replace D3 Medium shield
+			WRITE_ASCII 0x3A ~ISHLDM01~ #8
+			WRITE_ASCII 0x44 ~GMSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLDM0~ #8	// Replace CSHLD29
+			LPM ~clear~
+			SET gradient = 226				// Replace colour index 27
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 209				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 226				// Replace colour index 104
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 87			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+			BUT_ONLY
+END
+
+// Medium Shield +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld04.itm~) BEGIN
+	COPY_EXISTING ~shld04.itm~ ~override/shld04A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 81				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 250				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 98				// Replace colour index 91
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 160			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld04.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C1~			// Replace D3 Medium shield
+			WRITE_ASCII 0x3A ~ISHLDM05~ #8	// Replace ISHLDM02
+			WRITE_ASCII 0x44 ~GMSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLDM0~ #8	// Replace CSHLD29
+			LPM ~clear~
+			SET gradient = 208				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 210				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 211				// Replace colour index 91
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 66			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Large Shield
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld05.itm~) BEGIN
+	COPY_EXISTING ~shld05.itm~ ~override/shld05A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 91				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 6				// Replace colour index 91
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 26				// Replace colour index 102
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
+				SET gradient = 87			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld05.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C2~			// Replace D4 Large shield
+			WRITE_ASCII 0x3A ~ISHLDL01~ #8
+			WRITE_ASCII 0x44 ~GLSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLD30~ #8	// Replace CSHLD23
+			LPM ~clear~
+			SET gradient = 239				// Replace colour index 102
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 233				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 234				// Replace colour index 91
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 41			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Large Shield +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld06.itm~) BEGIN
+	COPY_EXISTING ~shld06.itm~ ~override/shld06A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 99				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 30				// Replace colour index 91
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 112				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 237			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld06.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C2~			// Replace D4 Large shield
+			WRITE_ASCII 0x3A ~ISHLDL04~ #8	// Replace ISHLDL02
+			WRITE_ASCII 0x44 ~GLSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLD30~ #8	// Replace CSHLD23
+			LPM ~clear~
+			SET gradient = 226				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 72				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 93				// Replace colour index 91
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 237			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Shield of the Falling Stars +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld07.itm~) BEGIN
+	COPY_EXISTING ~shld07.itm~ ~override/shld07A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 3				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 16				// Replace colour index 91
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 208				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 66			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld07.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C6~			// Replace D4 Large shield
+			WRITE_ASCII 0x3A ~1SHLDL02~ #8
+			WRITE_ASCII 0x44 ~GLSHLD~ #8
+			WRITE_ASCII 0x58 ~1CSHLDL2~ #8	// Replace CSHLD23
+			LPM ~clear~
+			SET gradient = 249				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 66				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 249				// Replace colour index 91
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 51			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Bucklers
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld08.itm~) BEGIN
+	COPY_EXISTING ~shld08.itm~ ~override/shld08A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 27				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 28				// Replace colour index 42
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 30				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
+				SET gradient = 92			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld08.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C4~			// Replace D2 Small shield
+			WRITE_ASCII 0x3A ~ISHLDB01~ #8
+			WRITE_ASCII 0x44 ~GBSHLD~ #8
+			WRITE_ASCII 0x58 ~1CSHLDB1~ #8	// Replace CSHLD28
+			LPM ~clear~
+			SET gradient = 226				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 239				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 226				// Replace colour index 42
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 188			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld09.itm~) BEGIN
+	COPY_EXISTING ~shld09.itm~ ~override/shld09A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 209				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 22				// Replace colour index 42
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 23				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
+				SET gradient = 209			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld09.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C4~			// Replace D2 Small shield
+			WRITE_ASCII 0x3A ~ISHLDB02~ #8	// Replace ISHLDB01
+			WRITE_ASCII 0x44 ~GBSHLD~ #8
+			WRITE_ASCII 0x58 ~1CSHLDB1~ #8	// Replace CSHLD28
+			LPM ~clear~
+			SET gradient = 192				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 186				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 192				// Replace colour index 42
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 184			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld10.itm~) BEGIN
+	COPY_EXISTING ~shld10.itm~ ~override/shld10A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 26				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 28				// Replace colour index 42
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 26				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
+				SET gradient = 179			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld10.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C4~			// Replace D2 Small shield
+			WRITE_ASCII 0x3A ~ISHLDB03~ #8	// Replace ISHLDB01
+			WRITE_ASCII 0x44 ~GBSHLD~ #8
+			WRITE_ASCII 0x58 ~1CSHLDB1~ #8	// Replace CSHLD28
+			LPM ~clear~
+			SET gradient = 226				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 160				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 226				// Replace colour index 42
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 206			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Small Shields
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld11.itm~) BEGIN
+	COPY_EXISTING ~shld11.itm~ ~override/shld11A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 81				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 28				// Replace colour index 42
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 30				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
+				SET gradient = 188			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld11.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C0~			// Replace D2 Small shield
+			WRITE_ASCII 0x3A ~ISHLDS02~ #8	// Replace ISHLDS01
+			WRITE_ASCII 0x44 ~GSSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLD25~ #8	// Replace CSHLD28
+			LPM ~clear~
+			SET gradient = 227				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 232				// Replace colour index 42
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 183			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld12.itm~) BEGIN
+	COPY_EXISTING ~shld12.itm~ ~override/shld12A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 72				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 27				// Replace colour index 42
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 30				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
+				SET gradient = 99			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld12.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C0~			// Replace D2 Small shield
+			WRITE_ASCII 0x3A ~ISHLDS03~ #8	// Replace ISHLDS01
+			WRITE_ASCII 0x44 ~GSSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLD25~ #8	// Replace CSHLD28
+			LPM ~clear~
+			SET gradient = 207				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 209				// Replace colour index 42
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 87			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Medium Shields
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld13.itm~) BEGIN
+	COPY_EXISTING ~shld13.itm~ ~override/shld13A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 174				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 100				// Replace colour index 59
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 176				// Replace colour index 100
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
+				SET gradient = 183			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld13.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C1~			// Replace D3 Medium shield
+			WRITE_ASCII 0x3A ~ISHLDM02~ #8	// Replace ISHLDM01
+			WRITE_ASCII 0x44 ~GMSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLDM0~ #8	// Replace CSHLD29
+			LPM ~clear~
+			SET gradient = 217				// Replace colour index 100
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 231				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 202				// Replace colour index 59
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 186			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld14.itm~) BEGIN
+	COPY_EXISTING ~shld14.itm~ ~override/shld14A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 92				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 30				// Replace colour index 100
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 242				// Replace colour index 59
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
+				SET gradient = 39			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld14.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C1~			// Replace D3 Medium shield
+			WRITE_ASCII 0x3A ~ISHLDM03~ #8	// Replace ISHLDM01
+			WRITE_ASCII 0x44 ~GMSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLDM0~ #8	// Replace CSHLD29
+			LPM ~clear~
+			SET gradient = 226				// Replace colour index 59
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 237				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 209				// Replace colour index 100
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 238			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Large Shields
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld15.itm~) BEGIN
+	COPY_EXISTING ~shld15.itm~ ~override/shld15A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 92				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 27				// Replace colour index 41
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 215				// Replace colour index 102
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
+				SET gradient = 254			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld15.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C2~			// Replace D4 Large shield
+			WRITE_ASCII 0x3A ~ISHLDL02~ #8	// Replace ISHLDL01
+			WRITE_ASCII 0x44 ~GLSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLD30~ #8	// Replace CSHLD23
+			LPM ~clear~
+			SET gradient = 202				// Replace colour index 102
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 235				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 235				// Replace colour index 41
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 204			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld16.itm~) BEGIN
+	COPY_EXISTING ~shld16.itm~ ~override/shld16A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 100				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 248				// Replace colour index 91
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 109				// Replace colour index 102
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
+				SET gradient = 238			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld16.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C2~			// Replace D4 Large shield
+			WRITE_ASCII 0x3A ~ISHLDL03~ #8	// Replace ISHLDL01
+			WRITE_ASCII 0x44 ~GLSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLD30~ #8	// Replace CSHLD23
+			LPM ~clear~
+			SET gradient = 239				// Replace colour index 102
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 208				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 234				// Replace colour index 91
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 238			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Buckler +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld17.itm~) BEGIN
+	COPY_EXISTING ~shld17.itm~ ~override/shld17A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 66				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 90				// Replace colour index 42
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 208				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 66			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld17.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C4~			// Replace D2 Small shield
+			WRITE_ASCII 0x3A ~ISHLDB04~ #8	// Replace ISHLDB02
+			WRITE_ASCII 0x44 ~GBSHLD~ #8
+			WRITE_ASCII 0x58 ~1CSHLDB1~ #8	// Replace CSHLD28
+			LPM ~clear~
+			SET gradient = 250				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 187				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 224				// Replace colour index 42
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 187			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Pellan's Shield +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld19.itm~) BEGIN
+	COPY_EXISTING ~shld19.itm~ ~override/shld19A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 0				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 208				// Replace colour index 91
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 211				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 66			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld19.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C2~			// Replace D4 Large shield
+			WRITE_ASCII 0x3A ~ISHLDL06~ #8	// Replace ISHLDL02
+			WRITE_ASCII 0x44 ~GLSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLD30~ #8	// Replace CSHLD23
+			LPM ~clear~
+			SET gradient = 208				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 209				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 225				// Replace colour index 91
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 183			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Kiel's Buckler
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld20.itm~) BEGIN
+	COPY_EXISTING ~shld20.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 91				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 209				// Replace colour index 42
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 253				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 91			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Dragon Scale Shield +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld21.itm~) BEGIN
+	COPY_EXISTING ~shld21.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C7~			// Replace D3 Medium shield
+			WRITE_ASCII 0x3A ~ISHLD21~ #8
+			WRITE_ASCII 0x44 ~GMSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLD21~ #8
+			LPM ~clear~
+			SET gradient = 26				// colour index 216 - Replace colour index 101
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 101				// colour index 214
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 215				// Replace colour index 101
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 210				// colour index
+			SET location = spink			// colour
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Sentinel +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld22.itm~) BEGIN
+	COPY_EXISTING ~shld22.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C3~			// Replace D3 Medium shield
+			LPM ~clear~
+			SET gradient = 203				// Replace colour index 52
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 201				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 30				// Replace colour index 30
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 182			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Sentinel +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~chalshld.itm~) BEGIN
+	COPY_EXISTING ~chalshld.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C3~			// Replace D3 Medium shield
+			LPM ~clear~
+			SET gradient = 203				// Replace colour index 76
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 201				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 30				// Replace colour index 29
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+			SET gradient = 182				// colour index
+			SET location = spink			// location
+			LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Delryn Family Shield
+ACTION_IF (FILE_EXISTS_IN_GAME ~npshld.itm~) BEGIN
+	COPY_EXISTING ~npshld.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C3~			// Replace D3 Medium shield
+			WRITE_ASCII 0x44 ~GMSHLD~ #8	// Replace GSHLD03
+			LPM ~clear~
+			SET gradient = 218				// Replace colour index 27
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 192				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 217				// Replace colour index 65
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 60			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Fortress Shield +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld23.itm~) BEGIN
+	COPY_EXISTING ~shld23.itm~ ~override/shld23A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 192				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 200				// Replace colour index 60
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 213				// Replace colour index 59
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 220			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld23.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C2~			// Replace D4 Large shield
+			WRITE_ASCII 0x3A ~ISHLD23~ #8
+			WRITE_ASCII 0x44 ~GLSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLD23~ #8
+			LPM ~clear~
+			SET gradient = 217				// Replace colour index 59
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 96				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 184				// Replace colour index 60
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 190			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Reflection Shield +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld24.itm~) BEGIN
+	COPY_EXISTING ~shld24.itm~ ~override/shld24A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 210				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 109				// Replace colour index 43
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 254				// Replace colour index 43
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 255				// colour index
+			SET location = spink			// location
+			LPM ~colour~
+		END
+	COPY_EXISTING ~shld24.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C6~			// Replace D2 Small shield
+			WRITE_ASCII 0x3A ~1SHLDL05~ #8	// Replace ISHLD24
+			WRITE_ASCII 0x44 ~GLSHLD~ #8
+			WRITE_ASCII 0x58 ~1CSHLDL1~ #8	// Replace CSHLD24
+			LPM ~clear~
+			SET gradient = 250				// Replace colour index 43
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 112				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 112				// colour index
+			SET location = spink			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Shield of Harmony +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld25.itm~) BEGIN
+	COPY_EXISTING ~shld25.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~ISHLD25~ #8
+			WRITE_ASCII 0x58 ~CSHLD17~ #8	// Replace CSHLD25
+			LPM ~clear~
+			SET gradient = 231				// Replace colour index 25
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 221				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 203				// Replace colour index 24
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 7			// Replace colour index 29
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Shield of the Lost +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld26.itm~) BEGIN
+	COPY_EXISTING ~shld26.itm~ ~override/shld26A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 211				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 211				// Replace colour index 31
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 218				// Replace colour index 57
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 125			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld26.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C5~			// Replace D3 Medium shield
+			WRITE_ASCII 0x3A ~1SHLDM02~ #8	// Replace ISHLD26
+			WRITE_ASCII 0x44 ~GSSHLD~ #8
+			WRITE_ASCII 0x58 ~1CSHLDM2~ #8	// Replace CSHLD26
+			LPM ~clear~
+			SET gradient = 217				// Replace colour index 57
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 183				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 183				// Replace colour index 31
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 63			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Saving Grace +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld27.itm~) BEGIN
+	COPY_EXISTING ~shld27.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 218				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 217				// Replace colour index 41
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 218				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 58			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld27.itm~ ~override/shld27A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C3~			// Replace D3 Medium shield
+			WRITE_ASCII 0x3A ~ISHLD27~ #8
+			WRITE_ASCII 0x44 ~GMSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLD27~ #8
+			LPM ~clear~
+			SET gradient = 209				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 209				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 6				// Replace colour index 41
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 238			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Small Shield +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld28.itm~) BEGIN
+	COPY_EXISTING ~shld28.itm~ ~override/shld28A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~ISHLD28~ #8
+			LPM ~clear~
+			SET gradient = 210				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 215				// Replace colour index 59
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 210				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 237			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld28.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C0~			// Replace D2 Small shield
+			WRITE_ASCII 0x3A ~ISHLDS05~ #8	// Replace ISHLD28
+			WRITE_ASCII 0x44 ~GSSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLD28~ #8	// Replace CSHLD28
+			LPM ~clear~
+			SET gradient = 212				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 254				// Replace colour index 59
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 244			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Medium Shield +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld29.itm~) BEGIN
+	COPY_EXISTING ~shld29.itm~ ~override/shld29A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~ISHLD29~ #8
+			LPM ~clear~
+			SET gradient = 90				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 211				// Replace colour index 39
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 212				// Replace colour index 27
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 220			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld29.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C3~			// Replace D3 Medium shield
+			WRITE_ASCII 0x3A ~ISHLDM09~ #8	// Replace ISHLD29
+			WRITE_ASCII 0x44 ~GMSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLD29~ #8
+			LPM ~clear~
+			SET gradient = 101				// Replace colour index 27
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 127				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 253				// Replace colour index 39
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 254			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Large Shield +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld30.itm~) BEGIN
+	COPY_EXISTING ~shld30.itm~ ~override/shld30A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 0				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 208				// Replace colour index 91
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 208				// Replace colour index 27
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 66			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld30.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C2~			// Replace D4 Large shield
+			WRITE_ASCII 0x3A ~ISHLDL05~ #8	// Replace ISHLD30
+			WRITE_ASCII 0x44 ~GLSHLD~ #8
+			WRITE_ASCII 0x58 ~CSHLD30~ #8
+			LPM ~clear~
+			SET gradient = 109				// Replace colour index 27
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 216				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 211				// Replace colour index 91
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 2			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Darksteel Shield +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld31.itm~) BEGIN
+	COPY_EXISTING ~shld31.itm~ ~override/shld31A.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 219				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 200				// Replace colour index 60
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 213				// Replace colour index 59
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 199			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	COPY_EXISTING ~shld31.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C6~			// Replace D4 Large shield
+			WRITE_ASCII 0x3A ~1SHLDL03~ #8	// Replace ISHLD32
+			WRITE_ASCII 0x44 ~GLSHLD~ #8
+			WRITE_ASCII 0x58 ~1CSHLDL3~ #8	// Replace PSHLD31
+			LPM ~clear~
+			SET gradient = 192				// Replace colour index 59
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 190				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 192				// Replace colour index 60
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 59			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Shield of the Order +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld32.itm~) BEGIN
+	COPY_EXISTING ~shld32.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C3~			// Replace D3 Medium shield
+			LPM ~clear~
+			SET gradient = 209				// Replace colour index 42
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 93				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 209				// Replace colour index 94
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 127			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Drow Shield +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~dwshld01.itm~) BEGIN
+	COPY_EXISTING ~dwshld01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C7~			// Replace D3 Medium shield
+			WRITE_ASCII 0x44 ~GMSHLD~ #8	// Replace GSHLD03
+			LPM ~clear~
+			SET gradient = 184				// Replace colour index 61
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 186				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 192				// Replace colour index 62
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 199				// colour index
+			SET location = spink			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Shield of Balduran
+ACTION_IF (FILE_EXISTS_IN_GAME ~wa2shiel.itm~) BEGIN
+	COPY_EXISTING ~wa2shiel.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C3~			// Replace D3 Medium shield
+			WRITE_ASCII 0x44 ~GMSHLD~ #8
+			LPM ~clear~
+			SET gradient = 227				// Replace colour index 98
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 66				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 232				// Replace colour index 41
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 254			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+
+
+/*  ==========================================  *
+ *          SWITCH SHIELDS AROUND HERE          *
+ *  ==========================================  */
+
+ACTION_IF (1pp_shields_appearance = 2) BEGIN	// switch to BG1 style shields by exchange
+
+	ACTION_FOR_EACH shield IN ~shld01~ ~shld02~ ~shld03~ ~shld04~ ~shld05~ ~shld06~ ~shld07~ ~shld08~ ~shld09~ ~shld10~ ~shld11~ ~shld12~ ~shld13~ ~shld14~ ~shld15~ ~shld16~ ~shld17~ ~shld19~ ~shld23~ ~shld24~ ~shld26~ ~shld27~ ~shld28~ ~shld29~ ~shld30~ ~shld31~ BEGIN
+		ACTION_IF (FILE_EXISTS_IN_GAME ~%shield%A.itm~) BEGIN
+			COPY_EXISTING ~%shield%A.itm~ ~1pp/temp.itm~
+			COPY_EXISTING ~%shield%.itm~ ~override/%shield%A.itm~
+			COPY ~1pp/temp.itm~ ~override/%shield%.itm~
+		END
+	END
+
+END	// of ACTION_IF (1pp_shields_appearance = 2)
+
+
+
+/*  ===========================  *
+ *          NEW SHIELDS          *
+ *  ===========================  */
+
+// Wall of the North +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~SHLD23A.ITM~) BEGIN
+	COPY_EXISTING ~SHLD23A.ITM~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			SAY NAME2 @400501 /* Wall of the North +2 */
+			SAY DESC  @400502 /* Legend has it that this shield was carved from The Great Glacier by a mischievous spirit and found floating down the Icelace River. Whether true or not, it is easily apparent how such legends may have been conceived. The highly enchanted tower shield is extremely cold to the touch and resists any attempt to warm it. Its defensive properties are such that comparisons to the impenetrable wall of the glacier certainly seem apt.
+
+STATISTICS:
+
+Special:
++15% slashing and piercing resistance
++70% fire resistance
+-20% cold resistance
+Armor Class Bonus: 3, +5 vs missiles
+Weight: 3
+Requires: 15 Strength
+Not Usable By:
+ Bard
+ Druid
+ Mage
+ Thief */
+			SET opcode_to_delete = 0
+			LPM DELETE_ITEM_EQEFFECT
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 0 target = 1 timing = 2 parameter1 = 3 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 0 target = 1 timing = 2 parameter1 = 5 parameter2 = 2 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 86 target = 1 timing = 2 parameter1 = 15 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 88 target = 1 timing = 2 parameter1 = 15 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 84 target = 1 timing = 2 parameter1 = 70 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 30 target = 1 timing = 2 parameter1 = 70 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 85 target = 1 timing = 2 parameter1 = "-20" END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 28 target = 1 timing = 2 parameter1 = "-20" END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 142 target = 1 timing = 2 parameter2 = 16 END
+		END
+END
+
+// Polished Shield +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~SHLD24A.ITM~) BEGIN
+	COPY_EXISTING ~SHLD24A.ITM~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			SAY NAME2 @400503 /* Polished Shield +1 */
+			SAY DESC  @400504 /* This shield is part of a set that was originally forged in Waterdeep to deal with a group of medusas which had taken residence in an ancient temple. Apart from being somewhat more protective than a regular shield through its enchantments, it also shields the user from most gaze attacks and some spells, reflecting them back upon the caster.
+
+STATISTICS:
+
+Special:
+Gaze reflection
+Armor Class Bonus: 2
+Weight: 3
+Requires: 4 Strength
+Not Usable By:
+ Bard
+ Druid
+ Mage
+ Thief */
+			SET opcode_to_delete = 197
+			LPM DELETE_ITEM_EQEFFECT
+			PATCH_FOR_EACH par2_197 IN 64 225 23 248 189 212 92 36 252 41 208 270 218 40 BEGIN
+				LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 197 target = 1 timing = 2 parameter2 = EVAL "%par2_197%" END
+			END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 101 target = 1 timing = 2 parameter2 = 134 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 142 target = 1 timing = 2 parameter2 = 10 END
+		END
+END
+
+// Font of Virtue +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~SHLD26A.ITM~) BEGIN
+	COPY_EXISTING ~SHLD26A.ITM~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			SAY NAME2 @400505 /* Font of Virtue +2 */
+			SAY DESC  @400506 /* Once the shield of a powerful priest of Oghma, this shield imbues the wearer with an aura of patience and a sixth sense for waiting for the right time to strike, allowing them to weather and deflect incoming blows with surprising ease. While designed to protect in combat, the aura of the enchantment extends beyond the confines of battle itself, evoking a deeper sense of perception and measured understanding.
+
+STATISTICS:
+
+Armor Class Bonus: 3
+Special: +1 Wisdom
+Weight: 5
+Requires: 12 Strength
+Not Usable By:
+ Bard
+ Druid
+ Mage
+ Thief */
+			SET opcode_to_delete = 142
+			LPM DELETE_ITEM_EQEFFECT
+			SET opcode_to_delete = 166
+			LPM DELETE_ITEM_EQEFFECT
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 49 target = 1 timing = 2 parameter1 = 1 END
+		END
+END
+
+// Tahcaluss +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~SHLD27A.ITM~) BEGIN
+	COPY_EXISTING ~SHLD27A.ITM~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			SAY NAME2 @400507 /* Tahcaluss +3 */
+			SAY DESC  @400508 /* This highly enchanted shield of Drow origin protects the wielder better than even some full sets of armour could. Enemy blows are led astray and even the heaviest strikes seem to glance off the glistening shield harmlessly. This protection comes at a cost, however, as the shield drains the user's life energy, leading to fatigue and harming the wielder over time.
+
+STATISTICS:
+
+Special: Drains life over time
+Armor Class Bonus: 4
+Weight: 5
+Requires: 12 Strength
+Not Usable By:
+ Bard
+ Druid
+ Mage
+ Thief */
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 78 target = 1 timing = 2 parameter1 = 65 parameter2 = 3 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 10 target = 1 timing = 2 parameter1 = 80 parameter2 = 2 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 142 target = 1 timing = 2 parameter2 = 39 END
+		END
+END
+
+// Gorm's Arm +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~SHLD31A.ITM~) BEGIN
+	COPY_EXISTING ~SHLD31A.ITM~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			SAY NAME2 @400509 /* Gorm's Arm +3 */
+			SAY DESC  @400510 /* This large shield of dwarven darksteel provides more protection than most suits of armor. It was forged and enchanted with one goal, and one goal only: To keep the wielder protected in combat. What might seem a redundant point to make becomes clear when one looks at the sacrifices that have been made towards this aim. Far heavier than most shields of its size and imbued with an antimagical aura, it is somewhat cumbersome to use in battle, and casting with it in hand is virtually impossible.
+
+
+STATISTICS:
+   +50% magical resistance
+   disables spellcasting
+
+Armor Class Bonus: 5
+Weight: 20
+Requires: 17 Strength
+Not Usable By:
+ Bard
+ Druid
+ Mage
+ Thief */
+			WRITE_SHORT 0x26 17	// Minimum strength ==> Gwen fix (wrong coding): WRITE_SHORT instead of WRITE_BYTE
+			WRITE_LONG  0x4c 20	// Weight
+			PATCH_FOR_EACH opcode_to_delete IN 142 27 28 173 30 BEGIN
+				LPM DELETE_ITEM_EQEFFECT
+			END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 166 target = 1 timing = 2 parameter1 = 50 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 142 target = 1 timing = 2 parameter2 = 28 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 145 target = 1 timing = 2 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 145 target = 1 timing = 2 parameter2 = 1 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 145 target = 1 timing = 2 parameter2 = 2 END
+		END
+END
+
+// Buckler +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld17A.itm~) BEGIN
+	COPY_EXISTING ~shld17A.itm~ ~override/shld01P.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			SAY NAME2 @400511 /* Buckler +2 */
+			SAY DESC  @400512 /* This legendary buckler was the property of Kenstrel of Baldur's Gate. A trickster and member of the thieves' guild, it is said that he swindled it off a band of travelling adventurers, 'demonstrating' it to be cursed and an omen of bad luck that would follow them wherever they went. After the third time their inn was invaded by scores of hideous, badger-like creatures, causing significant damage to the establishment, along with other mishaps that began to plague their lives, they eventually agreed to hand it over for Kenstrel to rid it of its curse, which unsurprisingly was the last they ever saw of him.
+
+STATISTICS:
+
+Armor Class Bonus: 3
+Special: +1 vs Missiles
+Weight: 2
+Requires: 4 Strength
+Unusable By:
+ Mage */
+			WRITE_ASCII 0x3A ~1SHLD172~ #8
+			WRITE_ASCII 0x58 ~CSHLD09~ #8
+			WRITE_LONG  0x34 2500			// Gwen fix: add Price
+			SET opcode_to_delete = 0
+			LPM DELETE_ITEM_EQEFFECT
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 0 target = 1 timing = 2 parameter1 = "-3" parameter2 = 4 END // Gwen fix: missing protection vs piercing weapons
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 0 target = 1 timing = 2 parameter1 = "-3" parameter2 = 2 END	// Gwen fix: parameter1 (0xfffffe = 16777214???) should be -3
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 0 target = 1 timing = 2 parameter1 = 3 END
+			LPM ~clear~
+			SET gradient = 210				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 215				// colour index
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 222				// colour index
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 210			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+END
+
+// Skald's Battered Buckler (Mod Song and Silence)
+ACTION_IF (FILE_EXISTS_IN_GAME ~a!brsb.itm~) BEGIN
+	COPY_EXISTING ~a!brsb.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~1SHLD172~ #8	// Replace A!IBRSB
+			WRITE_ASCII 0x44 ~GSHLD08~ #8	// Replace GSSHLD
+			WRITE_ASCII 0x58 ~CSHLD09~ #8	// Replace A!CBRSB
+			LPM ~clear~
+			SET gradient = 210				// colour index
+			SET location = sred				// location
+			LPM ~colour~
+			SET gradient = 215				// colour index
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 222				// colour index
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 210			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+END
+
+// High Quality Large Shield
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld15.itm~) BEGIN
+	COPY_EXISTING ~shld15.itm~ ~override/shld02P.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			SAY NAME2 @400513 /* High Quality Large Shield */
+			SAY DESC  @400514 /* The body shield, also known as the kite or tower shield, is a massive metal or wooden shield reaching nearly from the chin to the toe of the user. It must be firmly fastened to the forearm and the shield hand must firmly grip it at all times. Naturally, this precludes use of the shield hand for anything but holding the body shield in place. This tower shield is of particularly fine craftsmanship, allowing it to be lighter and less cumbersome to wield in combat.
+
+STATISTICS:
+
+Armor Class Bonus: 1
+Special: +1 vs. Missile Weapons
+Weight: 10
+Requires: 10 Strength
+Not Usable By:
+ Bard
+ Druid
+ Mage
+ Thief */
+			WRITE_ASCII 0x22 ~C6~
+			WRITE_ASCII 0x3A ~1SHLDL01~ #8
+			WRITE_ASCII 0x44 ~GLSHLD~ #8
+			WRITE_ASCII 0x58 ~1CSHLDL1~ #8
+			WRITE_SHORT 0x26 10				// Minimum strength
+			WRITE_LONG  0x34 180			// Price
+			WRITE_LONG  0x4c 10				// Weight
+			LPM ~clear~
+			SET gradient = 217				// colour index
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 244				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 217				// colour index
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 244				// colour index
+			SET location = spink			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Ilvastarr Family Shield (The BG1 NPC Project mod): typo fixed (X#AJSHLD instead of #AJSHLD)
+ACTION_IF (FILE_EXISTS_IN_GAME ~X#AJSHLD.itm~) BEGIN
+	COPY_EXISTING ~X#AJSHLD.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C6~
+			WRITE_ASCII 0x3A ~1SHLDAJ~ #8	// Replace X#ISHAJ
+			WRITE_ASCII 0x44 ~GLSHLD~ #8	// Replace _GSHLD03
+			WRITE_ASCII 0x58 ~1CSHLDAJ~ #8	// Replace X#CSHAJ
+			LPM ~clear~
+			SET gradient = 226				// colour index
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 90				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 226				// colour index
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 20			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// High Quality Medium Shield and Medium shield
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld14.itm~) BEGIN
+	COPY_EXISTING ~shld14.itm~ ~override/shld03P.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			SAY NAME2 @400515 /* High Quality Medium Shield */
+			SAY DESC  @400516 /* A medium shield is carried in the same manner as a small shield. Unlike the small shield, however, its weight prevents the character from using his shield hand for anything other than carrying the medium shield. Medium shields are usually made of metal, range from 3'-4' in diameter, and can be of any shape, from round to square to a spread dragon's wings. This medium shield is of particularly refined craftsmanship, allowing it to be somewhat lighter and less cumbersome in battle.
+
+STATISTICS:
+
+Armor Class Bonus: 1
+Weight: 4
+Requires: 8 Strength
+Not Usable By:
+ Bard
+ Druid
+ Mage
+ Thief */
+			WRITE_ASCII 0x22 ~C5~
+			WRITE_ASCII 0x3A ~1SHLDM01~ #8
+			WRITE_ASCII 0x44 ~GLSHLD~ #8
+			WRITE_ASCII 0x58 ~1CSHLDM1~ #8
+			WRITE_SHORT 0x26 8				// Minimum strength
+			WRITE_LONG  0x34 130			// Price
+			WRITE_LONG  0x4c 4				// Weight
+			LPM ~clear~
+			SET gradient = 110				// colour index
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 144				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 144				// colour index
+			SET location = sblue			// location
+			LPM ~colour~
+			SET gradient = 144				// colour index
+			SET location = spink			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+
+	COPY_EXISTING ~shld14.itm~ ~override/shld04P.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C3~
+			WRITE_ASCII 0x3A ~ISHLDM06~ #8
+			WRITE_ASCII 0x58 ~CSHLD29~ #8
+			LPM ~clear~
+			SET gradient = 210				// colour index
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 242				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 102				// colour index
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 93			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Corvyr's Blessing
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld04.itm~) BEGIN
+	COPY_EXISTING ~shld04.itm~ ~override/shld05P.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			SAY NAME2 @400517 /* Corvyr's Blessing */
+			SAY DESC  @400518 /* This shield was carried into battle by high paladin Corvyr in an assault against a notorious undead fortress. Long after his comrades had fallen, for days he tore into their seemingly endless numbers before he was eventually overcome as well. As the tower was later cleared with the help of a certain magical cube, his shield was retrieved. A previously ordinary piece of equipment, it seems to have absorbed some of the resolve and determination of his final days.
+
+STATISTICS:
+
+Special:
+Constitution +1
+150% Save vs. Death
+
+Armor Class Bonus: 1
+Weight: 6
+Requires: 12 Strength
+Not Usable By:
+ Bard
+ Druid
+ Mage
+ Thief */
+			WRITE_ASCII 0x22 ~C3~
+			WRITE_ASCII 0x3A ~ISHLDM07~ #8
+			WRITE_ASCII 0x58 ~CSHLD26~ #8
+			WRITE_LONG  0x34 2400			// Price
+			LPM DELETE_ITEM_EQEFFECT
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 0 target = 1 timing = 2 parameter1 = 1 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 33 target = 1 timing = 2 parameter1 = 150 parameter2 = 2 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 10 target = 1 timing = 2 parameter1 = 1 END
+			LPM ~clear~
+			SET gradient = 213				// colour index
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 232				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 102				// colour index
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 93			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Redshield +1, +4 vs. Monstrous
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld04.itm~) BEGIN
+	COPY_EXISTING ~shld04.itm~ ~override/shld06P.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			SAY NAME2 @400519 /* Redshield +1, +4 vs. Monstrous */
+			SAY DESC  @400520 /* Little is known about this shield, other than the fact it was recovered from the Wealdath and seems to have been enchanted specifically to combat roving monsters. While its superior craftsmanship and enchantment by no means make it a bad piece of equipment in any given situation, its true power becomes evident only upon fighting the more monstrous inhabitants of Faerun.
+
+STATISTICS:
+
+Special:
+THAC0 + 1 and AC + 4 vs. monstrous enemies
+
+Armor Class Bonus: 2
+Weight: 6
+Requires: 12 Strength
+Not Usable By:
+ Bard
+ Druid
+ Mage
+ Thief */
+			WRITE_ASCII 0x22 ~C3~
+			WRITE_ASCII 0x3A ~ISHLDM08~ #8
+			WRITE_ASCII 0x58 ~CSHLD27~ #8
+			WRITE_LONG  0x34 6100			// Price
+			// Gwen fix (wrong coding): switch parameter1 and 2, and parameter2 2 (EA.IDS) should be 3 (GENERAL.IDS)
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 219 target = 1 timing = 2 parameter1 = 255 parameter2 = 3 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 219 target = 1 timing = 2 parameter1 = 255 parameter2 = 3 END
+			// Gwen fix (wrong coding): replace opcode #178 with opcode 177 and add an external effect
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 177 target = 1 timing = 2 parameter2 = 2 STR_VAR resource = SHLD06P END
+			LPM ~clear~
+			SET gradient = 234				// colour index
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 211				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 253				// colour index
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 93			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+	COPY ~1pp/item/1ppv4_update/item/shld06P.eff~ ~override~
+END
+
+// Sartessa's Vengeance +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld05.itm~) BEGIN
+	COPY_EXISTING ~shld05.itm~ ~override/shld07P.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			SAY NAME2 @400521 /* Sartessa's Vengeance +1 */
+			SAY DESC  @400522 /* This was the personal shield of Sartessa, a half-elven ranger of the Wood of Sharp Teeth. Called to a quest by divine intervention at a young age, she travelled the long way to Luskan seeking to restore peace to the Sword Coast in troubled times. Betrayed near the end of her journey by her long time companion and forced to slay him in self-defence she forged this shield, imbued with her grim determination to complete her quest despite knowing that alone, such attempt would likely end in death. Powerful enchantments were placed on this shield to stop it from falling into the wrong hands, and although they have faded somewhat with time, it would be foolhardy of anyone to try and wield it that does not resemble her both in spirit and body.
+
+STATISTICS:
+
+Special:
+aura cleansing
+protection from backstabbing
+protection against permanent death
+improved critical hit chance
+
+Armor Class Bonus: 2, +2 vs. Missiles
++2 against humanoids
++2 against male opponents
++2 against charmed or controlled creatures
+Weight: 5
+Requires: 3 Strength, 12 Charisma
+Only Usable By:
+ Rangers
+ Elves
+ Neutral or Chaotic Good */
+			WRITE_ASCII 0x22 ~C6~
+			WRITE_ASCII 0x3A ~1SHLDL04~ #8
+			WRITE_ASCII 0x58 ~1CSHLDL4~ #8
+			WRITE_SHORT	0x26 3				// Minimum strength
+			WRITE_SHORT	0x32 12				// Minimum charisma
+			WRITE_LONG  0x34 14900			// Price
+			WRITE_SHORT 0x42 100			// Lore to identify
+			WRITE_LONG  0x4c 5				// Weight
+			WRITE_LONG  0x60 7				// Enchantment
+			WRITE_LONG  0x1e 0xfd5ffbda		// Usable by
+			WRITE_LONG  0x18 (THIS | BIT6)	// Gwen fix (wrong coding): add magical flag - replace WRITE_BYTE 0x1b 0x6c
+			SET opcode_to_delete = 0
+			LPM DELETE_ITEM_EQEFFECT
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 175 target = 1 timing = 2 parameter1 = 1 parameter2 = 7 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 0 target = 1 timing = 2 parameter1 = 2 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 0 target = 1 timing = 2 parameter1 = 2 parameter2 = 2 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 219 target = 1 timing = 2 parameter1 = 1 parameter2 = 3 END	// GENERAL = HUMANOID
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 219 target = 1 timing = 2 parameter1 = 1 parameter2 = 7 END	// GENDER = MALE
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 219 target = 1 timing = 2 parameter1 = 5 parameter2 = 2 END	// EA = CONTROLLED
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 219 target = 1 timing = 2 parameter1 = 6 parameter2 = 2 END	// EA = CHARMED
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 188 target = 1 timing = 2 parameter2 = 1 END					// Cleansed aura
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 292 target = 1 timing = 2 parameter2 = 1 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 295 target = 1 timing = 9 parameter2 = 1 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 301 target = 1 timing = 2 parameter1 = 7 END
+			LPM ~clear~
+			SET gradient = 232				// colour index
+			SET location = sgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 54			// colour index
+				SET location = steal		// location
+				LPM ~colour~
+			END
+			SET gradient = 205				// colour index
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 230			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Great shield White Oak (BG1NPC mod)
+ACTION_IF (FILE_EXISTS_IN_GAME ~x#fash01.itm~) BEGIN
+	COPY_EXISTING ~x#fash01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C6~
+			WRITE_ASCII 0x3A ~1SHLDL04~ #8	// Replace ISHLD01
+			WRITE_ASCII 0x44 ~GLSHLD~ #8
+			WRITE_ASCII 0x58 ~1CSHLDL4~ #8	// Replace CSHLD03
+			LPM ~clear~
+			SET gradient = 232				// colour index
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 54				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 205				// colour index
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 230			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Tarloc's Contingency +1 : code simplified
+ACTION_IF (FILE_EXISTS_IN_GAME ~spin737.spl~) BEGIN
+	COPY_EXISTING ~spin737.spl~ ~override/1tarsp.spl~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPF ALTER_EFFECT INT_VAR target = 2 END
+		END
+	BUT_ONLY
+END
+
+// Gwen fix: wrong coding for Casting sound
+ACTION_IF (FILE_EXISTS_IN_GAME ~spwi403.spl~) BEGIN
+	COPY_EXISTING ~spwi403.spl~ ~override/1tarss.spl~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x10 ~~ #8			// Casting sound
+			WRITE_SHORT 0x22 0				// Casting animation
+		END
+	BUT_ONLY
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld04.itm~) BEGIN
+	COPY_EXISTING ~shld04.itm~ ~override/shld08P.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			SAY NAME2 @400523 /* Tarloc's Contingency +1 */
+			SAY DESC  @400524 /* Some say a positive mindset is key to victory. The creator of this shield, a dark elven sorcerer in life and feared lich in undeath clearly had a different idea. Considering the comparative weakness of those concerned with the arcane arts and lack of suitable armour unacceptable, he set out to create the perfect piece of equipment if worst came to worst -- a likely scenario for a mage stuck in close range combat. Ever since, the powerful enchantments on this shield have frequently saved the lives of countless of owners in a pinch or allowed them to escape by the skin of their teeth, equally frequently at the cost of sacrificing their travelling companions.
+
+STATISTICS:
+
+Special:
+Casts Fireshield (blue) on user in combat
+20% chance to recover spells when seriously injured
+5% chance to gain invisibility when hit
+Encases user in Otiluke's Resilient Sphere if critically wounded or rendered helpless
+
+Armor Class Bonus: 2
+Weight: 6
+Requires: 10 Strength
+Only Usable By:
+ Mages */
+			WRITE_ASCII 0x22 ~C5~
+			WRITE_ASCII 0x3A ~1SHLDM03~ #8
+			WRITE_ASCII 0x44 ~GLSHLD~ #8
+			WRITE_ASCII 0x58 ~1CSHLDM3~ #8
+			WRITE_SHORT	0x26 10				// Minimum strength
+			WRITE_LONG  0x1E 0x6073ffc0		// Usable by
+			WRITE_LONG  0x34 24700			// Price
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 232 target = 1 timing = 2 parameter2 = 11 STR_VAR resource = 1TARSS END					// Took damage
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 232 target = 1 timing = 2 probability1 = 20 parameter2 = 2 STR_VAR resource = 1TARSP END	// HP < 50 %
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 232 target = 1 timing = 2 probability1 = 5 STR_VAR resource = SPWI405 END				// Hit
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 232 target = 1 timing = 2 parameter2 = 4 STR_VAR resource = SPWI413 END					// HP < 10 %
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 232 target = 1 timing = 2 parameter2 = 5 STR_VAR resource = SPWI413 END					// Helpless
+			LPM ~clear~
+			SET gradient = 232				// colour index
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 50				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 66				// colour index
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 66			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Shield of Devotion +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld04.itm~) BEGIN
+	COPY_EXISTING ~shld04.itm~ ~override/shld09P.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			SAY NAME2 @400525 /* Shield of Devotion +1 */
+			SAY DESC  @400526 /* This shield can be traced to a line of paladins of Velen, who carried shields like this one into battle on mounted expeditions to the Nelanther Isles under the blessing of Torm. Celebrated in lore for their memorable armour as the Red Riders their ceaseless dedication and resilience was a vital force in esatablishing peace to the region. Although long since dispersed, their legacy is highly sought after as traces of their original blessing still infuse these sets of armour, granting the wearer divine favour and increased stamina.
+
+STATISTICS:
+
+Special:
+Grants an additional spell for spell levels 1-3
++10% hit point modifier
+
+Armor Class Bonus: 2
+Weight: 6
+Requires: 10 Strength
+Only Usable By:
+ Paladins
+ Clerics */
+			WRITE_ASCII 0x22 ~C5~
+			WRITE_ASCII 0x3A ~1SHLDM04~ #8
+			WRITE_ASCII 0x44 ~GLSHLD~ #8
+			WRITE_ASCII 0x58 ~1CSHLDM4~ #8
+			WRITE_LONG  0x1E 0x606ffb40
+			WRITE_SHORT	0x26 10				// Minimum strength
+			WRITE_LONG  0x34 7200			// Price
+			WRITE_SHORT 0x42 65				// Lore to identify
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 62 target = 1 timing = 2 parameter1 = 1 parameter2 = 1 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 62 target = 1 timing = 2 parameter1 = 1 parameter2 = 2 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 62 target = 1 timing = 2 parameter1 = 1 parameter2 = 4 END	// Gwen fix (wrong coding): Level3 should be 4 (not 3)
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 18 target = 1 timing = 2 parameter1 = 110 parameter2 = 2 END
+			LPM ~clear~
+			SET gradient = 194				// colour index
+			SET location = sgrey			// location
+			LPM ~colour~
+			SET gradient = 127				// colour index
+			SET location = steal			// location
+			LPM ~colour~
+			SET gradient = 127				// colour index
+			SET location = sblue			// location
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 167			// colour index
+				SET location = spink		// location
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// END of COMPONENT

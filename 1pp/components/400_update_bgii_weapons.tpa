@@ -1,0 +1,1662 @@
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Adds a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as *
+ *        IHAMM05B), and not to set Borok's Fist's icon to Runehammers.                                                                                                             *
+ *      - Replace macros with functions whenever possible.                                                                                                                          *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
+ *  		Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *                                                                                                                                                                                  *
+ *  specific fixes:                                                                                                                                                                 *
+ *  ---------------                                                                                                                                                                 *
+ *      - #530  ==> dagg12.itm (Firetooth +3): fix typos in LPM ~pulse~ function (redundant setr set to 152 and 189 should be setg and setb, otherwise they overwrite the setr      *
+ *  				value and don't set the correct setg and setb values).                                                                                                          *
+ *      - #1045 ==> hamm10.itm & hamm11.itm (Runehammers): 1pp_hammers_icons setting gives the choice to assign them, or not, the Borok's Fist's icon.                              *
+ *      - #1540 ==> halb08.itm (Duskblade +2): fixes a typo copying halb06 instead of halb08.                                                                                       *
+ *  ==============================================================================================================================================================================  */
+
+// ----------------------------- //
+//  WEAPONS                line  //
+// ----------------------------- //
+//  AXES                 #   30  //
+//  DAGGERS              #  369  //
+//  HAMMERS              #  772  //
+//  SPEARS               # 1170  //
+//  HALBERDS             # 1379  //
+// ----------------------------- //
+
+/*  ====================  *
+ *          AXES          *
+ *  ====================  */
+
+// Battle Axe +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h02.itm~) BEGIN
+	COPY_EXISTING ~ax1h02.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 245				// Replace colour index 94
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 210				// Replace colour index 40
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 202				// Replace colour index 18
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Battle Axe of Mauletar +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h03.itm~) BEGIN
+	COPY_EXISTING ~ax1h03.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 25				// Replace colour index 25
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 27				// Replace colour index 22
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 211				// Replace colour index 99
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Throwing Axe +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h05.itm~) BEGIN
+	COPY_EXISTING ~ax1h05.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 249				// Replace colour index 30
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 40
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 6				// Replace colour index 30
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Throwing Axe +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h06.itm~) BEGIN
+	COPY_EXISTING ~ax1h06.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 249				// Replace colour index 30
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 40
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 6				// Replace colour index 30
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Bala's Axe, Wizard Slayer
+ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h07.itm~) BEGIN
+	COPY_EXISTING ~ax1h07.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 249				// Replace colour index 30
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 243				// Replace colour index 94
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 254				// Replace colour index 94
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Hangard's Axe +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h08.itm~) BEGIN
+	COPY_EXISTING ~ax1h08.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 232				// Replace colour index 96
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 99				// Replace colour index 23
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 202				// Replace colour index 96
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Rifthome Axe +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h09.itm~) BEGIN
+	COPY_EXISTING ~ax1h09.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 245				// Replace colour index 96
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 229				// Replace colour index 96
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 231				// Replace colour index 96
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Azuredge +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h10.itm~) BEGIN
+	COPY_EXISTING ~ax1h10.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 255
+			SET setg = 76
+			SET setb = 106
+			SET speed = 0x14
+			SET location = wgrey			// location
+			LPM ~pulse~
+			SET setr = 122					// Replace colour index 255
+			SET setg = 35					// Replace colour index 76
+			SET setb = 50					// Replace colour index 106
+			SET speed = 0x14
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET setr = 0					// Replace colour index 255
+			SET setg = 0					// Replace colour index 76
+			SET setb = 0					// Replace colour index 106
+			SET speed = 0x14
+			SET location = wred				// location
+			LPM ~pulse~
+			SET gradient = 247				// Replace colour index 101
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 210				// Replace colour index 101
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 227				// Replace colour index 101
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Battle Axe +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h11.itm~) BEGIN
+	COPY_EXISTING ~ax1h11.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 235				// Replace colour index 110
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 23
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 217				// Replace colour index 110
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Stonefire +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h12.itm~) BEGIN
+	COPY_EXISTING ~ax1h12.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 254				// Replace colour index 72
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 201				// Replace colour index 72
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 174				// Replace colour index 72
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Frostreaver +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h13.itm~) BEGIN
+	COPY_EXISTING ~ax1h13.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wgrey			// location
+			LPM ~glow~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wblue			// location
+			LPM ~glow~
+			SET gradient = 231				// Replace colour index 96
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 196				// Replace colour index 96
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 202				// Replace colour index 96
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Axe of the Unyielding +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h14.itm~) BEGIN
+	COPY_EXISTING ~ax1h14.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 221					// Replace colour index 0
+			SET setg = 213					// Replace colour index 159
+			SET setb = 118					// Replace colour index 253
+			SET speed = 0x1e
+			SET location = wgrey			// location
+			LPM ~pulse~
+			SET setr = 221					// Replace colour index 0
+			SET setg = 213					// Replace colour index 159
+			SET setb = 118					// Replace colour index 253
+			SET speed = 0x1e
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET setr = 221					// Replace colour index 0
+			SET setg = 213					// Replace colour index 159
+			SET setb = 118					// Replace colour index 253
+			SET speed = 0x1e
+			SET location = wred				// location
+			LPM ~pulse~
+			SET gradient = 209				// Replace colour index 29
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 237				// Replace colour index 99
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 159				// Replace colour index 98
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Axe of the Unyielding +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h15.itm~) BEGIN
+	COPY_EXISTING ~ax1h15.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 221					// Replace colour index 0
+			SET setg = 213					// Replace colour index 159
+			SET setb = 118					// Replace colour index 253
+			SET speed = 0x1e
+			SET location = wgrey			// location
+			LPM ~pulse~
+			SET setr = 221					// Replace colour index 0
+			SET setg = 213					// Replace colour index 159
+			SET setb = 118					// Replace colour index 253
+			SET speed = 0x1e
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET setr = 221					// Replace colour index 0
+			SET setg = 213					// Replace colour index 159
+			SET setb = 118					// Replace colour index 253
+			SET speed = 0x1e
+			SET location = wred				// location
+			LPM ~pulse~
+			SET gradient = 209				// Replace colour index 29
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 237				// Replace colour index 99
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 159				// Replace colour index 30
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// K'logarath +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h16.itm~) BEGIN
+	COPY_EXISTING ~ax1h16.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 225				// Replace colour index 29
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 51				// Replace colour index 95
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 254				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Battle Axe +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h17.itm~) BEGIN
+	COPY_EXISTING ~ax1h17.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 217				// Replace colour index 96
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 250				// Replace colour index 99
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 212				// Replace colour index 96
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+
+/*  =======================  *
+ *          DAGGERS          *
+ *  =======================  */
+
+// Dagger
+ACTION_FOR_EACH dagger IN ~dagg01~ ~_dagg01~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
+		COPY_EXISTING ~%dagger%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 240				// Replace colour index 30
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 164				// Replace colour index 93
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 27				// Replace colour index 27
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Dagger +1
+ACTION_FOR_EACH dagger IN ~dagg02~ ~_dagg02~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
+		COPY_EXISTING ~%dagger%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 90				// Replace colour index 99
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 210				// Replace colour index 99
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 5				// Replace colour index 27
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Heart of the Golem +2
+ACTION_FOR_EACH dagger IN ~dagg03~ ~_dagg03~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
+		COPY_EXISTING ~%dagger%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 232				// Replace colour index 93
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 247				// Replace colour index 93
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 6				// Replace colour index 30
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// The Grave Binder +2
+ACTION_FOR_EACH dagger IN ~dagg04~ ~_dagg04~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
+		COPY_EXISTING ~%dagger%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 248				// Replace colour index 5
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 225				// Replace colour index 63
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 249				// Replace colour index 5
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Throwing Dagger
+ACTION_FOR_EACH dagger IN ~dagg05~ ~_dagg05~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
+		COPY_EXISTING ~%dagger%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 254				// Replace colour index 29
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 239				// Replace colour index 29
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 27				// Replace colour index 27
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Werebane +1
+ACTION_FOR_EACH dagger IN ~dagg09~ ~_dagg09~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
+		COPY_EXISTING ~%dagger%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 228				// Replace colour index 30
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 248				// Replace colour index 93
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 27				// Replace colour index 27
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Soultaker Dagger
+ACTION_FOR_EACH dagger IN ~dagg10~ ~_dagg10~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
+		COPY_EXISTING ~%dagger%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 236				// Replace colour index 30
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 227				// Replace colour index 93
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 5				// Replace colour index 27
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Boomerang Dagger +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~dagg11.itm~) BEGIN
+	COPY_EXISTING ~dagg11.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 232				// Replace colour index 25
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 225				// Replace colour index 99
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 248				// Replace colour index 30
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Firetooth +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~dagg12.itm~) BEGIN
+	COPY_EXISTING ~dagg12.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 242
+			SET setg = 152					// Gwen fix typo: redondant setr should be setg
+			SET setb = 189					// Gwen fix typo: redondant setr should be setb
+			SET speed = 0x78
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET gradient = 195				// Replace colour index 47
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 47				// Replace colour index 47
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 70				// Replace colour index 33
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Pixie Prick +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~dagg13.itm~) BEGIN
+	COPY_EXISTING ~dagg13.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 241				// Replace colour index 99
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 207				// Replace colour index 99
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 245				// Replace colour index 30
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Boneblade +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~dagg14.itm~) BEGIN
+	COPY_EXISTING ~dagg14.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 236				// Replace colour index 99
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 208				// Replace colour index 99
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 223				// Replace colour index 16
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Dagger +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~dagg15.itm~) BEGIN
+	COPY_EXISTING ~dagg15.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 207				// Replace colour index 25
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 237				// Replace colour index 66
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 226				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Poisoned Throwing Dagger
+ACTION_IF (FILE_EXISTS_IN_GAME ~dagg16.itm~) BEGIN
+	COPY_EXISTING ~dagg16.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 230				// Replace colour index 32
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 201				// Replace colour index 32
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 203				// Replace colour index 32
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Stiletto of Demarchess +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~dagg17.itm~) BEGIN
+	COPY_EXISTING ~dagg17.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 211				// Replace colour index 25
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 237				// Replace colour index 47
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 27				// Replace colour index 30
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Shadow Thief Dagger
+ACTION_IF (FILE_EXISTS_IN_GAME ~dagg18.itm~) BEGIN
+	COPY_EXISTING ~dagg18.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 253				// Replace colour index 29
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 237				// Replace colour index 27
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 209				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Dagger of <CHARNAME>
+ACTION_IF (FILE_EXISTS_IN_GAME ~dagg19.itm~) BEGIN
+	COPY_EXISTING ~dagg19.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 90				// Replace colour index 25
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 238				// Replace colour index 91
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 27				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Life-Stealer +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~dagg20.itm~) BEGIN
+	COPY_EXISTING ~dagg20.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 187				// Replace colour index 99
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 198				// Replace colour index 99
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 6				// Replace colour index 16
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Dagger of the Star +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~dagg21.itm~) BEGIN
+	COPY_EXISTING ~dagg21.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 211				// Replace colour index 99
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 238				// Replace colour index 46
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 212				// Replace colour index 17
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Dagger of the Star +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~dagg22.itm~) BEGIN
+	COPY_EXISTING ~dagg22.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 211				// Replace colour index 99
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 238				// Replace colour index 46
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 212				// Replace colour index 17
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Ixil's Spike
+ACTION_IF (FILE_EXISTS_IN_GAME ~dagg23.itm~) BEGIN
+	COPY_EXISTING ~dagg23.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 225				// Replace colour index 93
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 244				// Replace colour index 46
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 6				// Replace colour index 30
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Dagger +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~dagg24.itm~) BEGIN
+	COPY_EXISTING ~dagg24.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 207				// Replace colour index 50
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 239				// Replace colour index 50
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 27				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+
+/*	=======================  *
+ *          HAMMERS          *
+ *  =======================  */
+
+// War Hammer
+ACTION_FOR_EACH hammer IN ~hamm01~ ~_hamm01~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%hammer%.itm~) BEGIN
+		COPY_EXISTING ~%hammer%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 92				// Replace colour index 40
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 90				// Replace colour index 27
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 30				// Replace colour index 27
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// War Hammer +1
+ACTION_FOR_EACH hammer IN ~hamm02~ ~_hamm02~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%hammer%.itm~) BEGIN
+		COPY_EXISTING ~%hammer%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 90				// Replace colour index 40
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 2				// Replace colour index 29
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 6				// Replace colour index 30
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Ashideena +2
+ACTION_FOR_EACH hammer IN ~hamm03~ ~_hamm03~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%hammer%.itm~) BEGIN
+		COPY_EXISTING ~%hammer%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET setr = 0
+				SET setg = 0
+				SET setb = 0
+				SET location = wblue			// location
+				LPM ~glow~
+				SET setr = 0
+				SET setg = 0
+				SET setb = 0
+				SET location = wred				// location
+				LPM ~glow~
+				SET gradient = 93				// Replace colour index 29
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 211				// Replace colour index 30
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 90				// Replace colour index 99
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// The Kneecapper +1
+	ACTION_IF (FILE_EXISTS_IN_GAME ~hamm04.itm~) BEGIN
+		COPY_EXISTING ~hamm04.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 99				// Replace colour index 32
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 253				// Replace colour index 30
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 232				// Replace colour index 98
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+END
+
+// Gwen fix: adds a new setting allowing to make alternate the overwriting of the Runehammer icon and not to set Borok's Fist's icon to Runehammers.
+// The Kneecapper +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~_hamm04.itm~) BEGIN
+	COPY_EXISTING ~_hamm04.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN			// protects against invalid files
+			PATCH_IF (1pp_hammers_icons = 1) BEGIN	// overwrites the Runehammer icon
+				WRITE_ASCII 0x3A ~IHAMM10~ #8
+				WRITE_ASCII 0x76 ~IHAMM10~ #8
+			END ELSE BEGIN
+				WRITE_ASCII 0x3A ~IHAMM05B~ #8		// Replace IHAMM03
+				WRITE_ASCII 0x76 ~IHAMM05B~ #8
+			END
+			WRITE_ASCII 0x58 ~CHAMM05~ #8			// Replace CHAMM03
+			LPM ~clear~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wblue					// location
+			LPM ~glow~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wred						// location
+			LPM ~glow~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wgrey					// location
+			LPM ~glow~
+			SET gradient = 209						// Replace colour index 32
+			SET location = wgrey					// location
+			LPM ~colour~
+			SET gradient = 252						// Replace colour index 30
+			SET location = wred						// location
+			LPM ~colour~
+			SET gradient = 211						// Replace colour index 98
+			SET location = wblue					// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Gwen fix: adds a new setting allowing to make alternate the overwriting of the Runehammer icon and not to set Borok's Fist's icon to Runehammers.
+// Borok's Fist +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~hamm05.itm~) BEGIN
+	COPY_EXISTING ~hamm05.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN			// protects against invalid files
+			PATCH_IF (1pp_hammers_icons = 1) BEGIN	// overwrites the Runehammer icon
+				WRITE_ASCII 0x3A ~IHAMM10~ #8		// Replace IHAMM03
+				WRITE_ASCII 0x76 ~IHAMM10~ #8
+			END ELSE BEGIN
+				WRITE_ASCII 0x3A ~IHAMM05B~ #8		// Replace IHAMM03
+				WRITE_ASCII 0x76 ~IHAMM05B~ #8
+			END
+			WRITE_ASCII 0x58 ~CHAMM05~ #8			// Replace CHAMM03
+			LPM ~clear~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wblue					// location
+			LPM ~glow~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wred						// location
+			LPM ~glow~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wgrey					// location
+			LPM ~glow~
+			SET gradient = 209						// Replace colour index 29
+			SET location = wgrey					// location
+			LPM ~colour~
+			SET gradient = 252						// Replace colour index 30
+			SET location = wred						// location
+			LPM ~colour~
+			SET gradient = 211						// Replace colour index 99
+			SET location = wblue					// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Dwarven Thrower +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~hamm06.itm~) BEGIN
+	COPY_EXISTING ~hamm06.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wblue			// location
+			LPM ~glow~
+			SET gradient = 6				// Replace colour index 91
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 253				// Replace colour index 27
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 245				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Hammer of Thunderbolts +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~hamm07.itm~) BEGIN
+	COPY_EXISTING ~hamm07.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wblue			// location
+			LPM ~glow~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wgrey			// location
+			LPM ~glow~
+			SET gradient = 235				// Replace colour index 97
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 249				// Replace colour index 40
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 231				// Replace colour index 97
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// War Hammer +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~hamm08.itm~) BEGIN
+	COPY_EXISTING ~hamm08.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 209				// Replace colour index 30
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 186				// Replace colour index 40
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 249				// Replace colour index 30
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Crom Faeyr +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~hamm09.itm~) BEGIN
+	COPY_EXISTING ~hamm09.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 99
+			SET setg = 199
+			SET setb = 222
+			SET speed = 0x32
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wgrey			// location
+			LPM ~glow~
+			SET gradient = 235				// Replace colour index 97
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 249				// Replace colour index 40
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 231				// Replace colour index 97
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Gwen fix: adds a new setting allowing to make alternate the overwriting of the Runehammer icon and not to set Borok's Fist's icon to Runehammers.
+// Runehammer +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~hamm10.itm~) BEGIN
+	COPY_EXISTING ~hamm10.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			PATCH_IF (1pp_hammers_icons = 1) BEGIN	// overwrites the Runehammer icon
+				WRITE_ASCII 0x3A ~IHAMM05~ #8		// Replace IHAMM10
+				WRITE_ASCII 0x76 ~IHAMM05~ #8
+			END
+			LPM ~clear~
+			SET setr = 96
+			SET setg = 160
+			SET setb = 192
+			SET speed = 0x28
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET setr = 46					// Replace colour index 96
+			SET setg = 110					// Replace colour index 160
+			SET setb = 152					// Replace colour index 192
+			SET speed = 0x28
+			SET location = wred				// location
+			LPM ~pulse~
+			SET setr = 96
+			SET setg = 160
+			SET setb = 192
+			SET speed = 0x28
+			SET location = wgrey			// location
+			LPM ~pulse~
+			PATCH_IF (1pp_hammers_icons = 1) BEGIN
+				SET gradient = 209			// Replace colour index 97
+			END ELSE BEGIN
+				SET gradient = 97			// Replace colour index 97
+			END
+			SET location = wgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_hammers_icons = 1) BEGIN
+				SET gradient = 212			// Replace colour index 51
+			END ELSE BEGIN
+				SET gradient = 51			// Replace colour index 51
+			END
+			SET location = wred				// location
+			LPM ~colour~
+			PATCH_IF (1pp_hammers_icons = 1) BEGIN
+				SET gradient = 212			// Replace colour index 97
+			END ELSE BEGIN
+				SET gradient = 97			// Replace colour index 97
+			END
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Runehammer +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~hamm11.itm~) BEGIN
+	COPY_EXISTING ~hamm11.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			PATCH_IF (1pp_hammers_icons = 1) BEGIN	// overwrites the Runehammer icon
+				WRITE_ASCII 0x3A ~IHAMM05~ #8		// Replace IHAMM10
+				WRITE_ASCII 0x76 ~IHAMM05~ #8
+			END
+			LPM ~clear~
+			SET setr = 116					// Replace colour index 96
+			SET setg = 180					// Replace colour index 160
+			SET setb = 212					// Replace colour index 192
+			SET speed = 0x28
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET setr = 46					// Replace colour index 96
+			SET setg = 110					// Replace colour index 160
+			SET setb = 152					// Replace colour index 192
+			SET speed = 0x28
+			SET location = wred				// location
+			LPM ~pulse~
+			SET setr = 96
+			SET setg = 160
+			SET setb = 192
+			SET speed = 0x28
+			SET location = wgrey			// location
+			LPM ~pulse~
+			PATCH_IF (1pp_hammers_icons = 1) BEGIN
+				SET gradient = 209			// Replace colour index 97
+			END ELSE BEGIN
+				SET gradient = 97			// Replace colour index 97
+			END
+			SET location = wgrey			// location
+			LPM ~colour~
+			PATCH_IF (1pp_hammers_icons = 1) BEGIN
+				SET gradient = 212			// Replace colour index 51
+			END ELSE BEGIN
+				SET gradient = 51			// Replace colour index 51
+			END
+			SET location = wred				// location
+			LPM ~colour~
+			PATCH_IF (1pp_hammers_icons = 1) BEGIN
+				SET gradient = 212			// Replace colour index 97
+			END ELSE BEGIN
+				SET gradient = 97			// Replace colour index 97
+			END
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// War Hammer +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~hamm12.itm~) BEGIN
+	COPY_EXISTING ~hamm12.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 209				// Replace colour index 50
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 210				// Replace colour index 99
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 248				// Replace colour index 50
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+
+/*  ======================  *
+ *          SPEARS          *
+ *  ======================  */
+
+// Spear
+ACTION_IF (FILE_EXISTS_IN_GAME ~sper01.itm~) BEGIN
+	COPY_EXISTING ~sper01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 27				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 40				// Replace colour index 40
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Spear +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~sper02.itm~) BEGIN
+	COPY_EXISTING ~sper02.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 93				// Replace colour index 30
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 99				// Replace colour index 93
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Backbiter +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~sper03.itm~) BEGIN
+	COPY_EXISTING ~sper03.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 207				// Replace colour index 99
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 27				// Replace colour index 27
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Spear
+ACTION_IF (FILE_EXISTS_IN_GAME ~sper04.itm~) BEGIN
+	COPY_EXISTING ~sper04.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 27				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 40				// Replace colour index 40
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Spear +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~sper05.itm~) BEGIN
+		COPY_EXISTING ~sper05.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 201				// Replace colour index 16
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 1				// Replace colour index 94
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Spear +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~sper06.itm~) BEGIN
+	COPY_EXISTING ~sper06.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 201				// Replace colour index 25
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 237				// Replace colour index 94
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Spear of the Unicorn +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~sper07.itm~) BEGIN
+	COPY_EXISTING ~sper07.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 174				// Replace colour index 79
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 138				// Replace colour index 25
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Impaler +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~sper08.itm~) BEGIN
+	COPY_EXISTING ~sper08.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 206				// Replace colour index 16
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 241				// Replace colour index 94
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Halcyon +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~sper09.itm~) BEGIN
+	COPY_EXISTING ~sper09.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 223				// Replace colour index 25
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 94
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Spear of Withering +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~sper10.itm~) BEGIN
+	COPY_EXISTING ~sper10.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 173					// Replace colour index 0
+			SET setg = 210					// Replace colour index 205
+			SET setb = 219					// Replace colour index 253
+			SET speed = 0x46
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET gradient = 97				// Replace colour index 97
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 39				// Replace colour index 39
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Ixil's Nail +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~sper11.itm~) BEGIN
+	COPY_EXISTING ~sper11.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 0					// Replace colour index 96
+			SET setg = 0					// Replace colour index 185
+			SET setb = 0					// Replace colour index 205
+			SET location = wblue			// location
+			LPM ~glow~
+			SET gradient = 178				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 220				// Replace colour index 99
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Ixil's Spike +6
+ACTION_IF (FILE_EXISTS_IN_GAME ~sper12.itm~) BEGIN
+	COPY_EXISTING ~sper12.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~ISPER12~ #8	// Replace ISPER11
+			WRITE_ASCII 0x76 ~ISPER12~ #8
+			LPM ~clear~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wblue			// location
+			LPM ~glow~
+			SET setr = 0					// Replace colour index 96
+			SET setg = 0					// Replace colour index 185
+			SET setb = 0					// Replace colour index 205
+			SET speed = 0x46
+			SET location = wred				// location
+			LPM ~pulse~
+			SET gradient = 228				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 220				// Replace colour index 99
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+
+/*  ========================  *
+ *          HALBERDS          *
+ *  ========================  */
+
+// Halberd
+ACTION_IF (FILE_EXISTS_IN_GAME ~halb01.itm~) BEGIN
+	COPY_EXISTING ~halb01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 27				// Replace colour index 27
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 205				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 23
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Halberd +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~halb02.itm~) BEGIN
+	COPY_EXISTING ~halb02.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 96				// Replace colour index 96
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 142				// Replace colour index 96
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 23
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Suryris's Blade +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~halb03.itm~) BEGIN
+	COPY_EXISTING ~halb03.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 207				// Replace colour index 25
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 206				// Replace colour index 30
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 211				// Replace colour index 40
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Dragon's Bane +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~halb04.itm~) BEGIN
+	COPY_EXISTING ~halb04.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 185					// Replace colour index 255
+			SET setg = 91					// Replace colour index 182
+			SET setb = 89					// Replace colour index 189
+			SET speed = 0x28
+			SET location = wgrey			// location
+			LPM ~pulse~
+			SET setr = 47					// Replace colour index 255
+			SET setg = 23					// Replace colour index 182
+			SET setb = 22					// Replace colour index 189
+			SET speed = 0x28
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET gradient = 210				// Replace colour index 33
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 144				// Replace colour index 33
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 227				// Replace colour index 33
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Dragon's Breath +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~halb05.itm~) BEGIN
+	COPY_EXISTING ~halb05.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 255
+			SET setg = 255
+			SET setb = 139
+			SET speed = 0x23
+			SET location = wgrey			// location
+			LPM ~pulse~
+			SET setr = 141					// Replace colour index 255
+			SET setg = 69					// Replace colour index 255
+			SET setb = 55					// Replace colour index 139
+			SET speed = 0x23
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET setr = 10					// Replace colour index 255
+			SET setg = 5					// Replace colour index 255
+			SET setb = 3					// Replace colour index 139
+			SET speed = 0x40				// Replace 0x23
+			SET location = wred				// location
+			LPM ~pulse~
+			SET gradient = 211				// Replace colour index 10
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 210				// Replace colour index 10
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 215				// Replace colour index 10
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Blackmist +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~halb06.itm~) BEGIN
+	COPY_EXISTING ~halb06.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 27				// Replace colour index 27
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 231				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 244				// Replace colour index 29
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Halberd +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~halb07.itm~) BEGIN
+	COPY_EXISTING ~halb07.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~IHALB07~ #8
+			WRITE_ASCII 0x76 ~IHALB07~ #8
+			LPM ~clear~
+			SET gradient = 208				// Replace colour index 30
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 211				// Replace colour index 30
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 2				// Replace colour index 19
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Duskblade +2 - Gwen: fixes a typo copying halb06 instead of halb08
+ACTION_IF (FILE_EXISTS_IN_GAME ~halb08.itm~) BEGIN
+	COPY_EXISTING ~halb08.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 200				// Replace colour index 96
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 96				// Replace colour index 96
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 240				// Replace colour index 96
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Wave +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~halb09.itm~) BEGIN
+	COPY_EXISTING ~halb09.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 0
+			SET setg = 0					// Replace colour index 205
+			SET setb = 0					// Replace colour index 238
+			SET location = wgrey			// location
+			LPM ~glow~
+			SET setr = 0
+			SET setg = 0					// Replace colour index 205
+			SET setb = 0					// Replace colour index 238
+			SET location = wblue			// location
+			LPM ~glow~
+			SET gradient = 231				// Replace colour index 27
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 199				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 90				// Replace colour index 39
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Ravager +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~halb10.itm~) BEGIN
+	COPY_EXISTING ~halb10.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x58 ~CHALB07~ #8	// Replace PHALB10
+			LPM ~clear~
+			SET setr = 241
+			SET setg = 188
+			SET setb = 112
+			SET speed = 0x32
+			SET location = wgrey			// location
+			LPM ~pulse~
+			SET gradient = 240				// Replace colour index 27
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 253				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 237				// Replace colour index 99
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Ravager +6
+ACTION_IF (FILE_EXISTS_IN_GAME ~halb11.itm~) BEGIN
+	COPY_EXISTING ~halb11.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~IHALB11~ #8	// Replace IHALB10
+			WRITE_ASCII 0x76 ~IHALB11~ #8
+			WRITE_ASCII 0x58 ~CHALB07~ #8	// Replace PHALB10
+			LPM ~clear~
+			SET setr = 151
+			SET setg = 183
+			SET setb = 100
+			SET speed = 0x32
+			SET location = wgrey			// location
+			LPM ~pulse~
+			SET setr = 43					// Replace colour index 199
+			SET setg = 48					// Replace colour index 33
+			SET setb = 24					// Replace colour index 36
+			SET speed = 0x32
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET gradient = 201				// Replace colour index 27
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 253				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 246				// Replace colour index 99
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Halberd +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~halb12.itm~) BEGIN
+	COPY_EXISTING ~halb12.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 93				// Replace colour index 27
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 245				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 254				// Replace colour index 19
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+//END of COMPONENT

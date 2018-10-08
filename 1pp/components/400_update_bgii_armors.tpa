@@ -1,0 +1,1779 @@
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Replace macros with functions whenever possible.                                                                                                                          *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
+ *  		Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *                                                                                                                                                                                  *
+ *  specific fixes:                                                                                                                                                                 *
+ *  ---------------                                                                                                                                                                 *
+ *      - #1479 ==> chan03B.itm (Werebane Mail +2): adds missing identified name.                                                                                                   *
+ *      - #1592 ==> plat15.itm (Pride of the Legion +2): reverts its inventory and description icons (set to IPLAT23 and CPLAT05) as EE does not validate this change.              *
+ *      - #1628 ==> plat23.itm (Full Plate Mail +2): removed from the patches as EE does not validate them (this silver and golden full plate was turned into a black one!).        *
+ *  ==============================================================================================================================================================================  */
+
+/*  ==============================  *
+ *          LEATHER ARMORS          *
+ *  ==============================  */
+
+// Leather Armor
+ACTION_FOR_EACH leather IN ~leat01~ ~_leat01~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%leather%.itm~) BEGIN
+		COPY_EXISTING ~%leather%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 30				// colour index
+				SET location = agrey			// location
+				LPM ~colour~
+				SET gradient = 23				// colour index
+				SET location = ared				// location
+				LPM ~colour~
+				SET gradient = 22				// colour index
+				SET location = ablue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Leather Armor +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat02.itm~) BEGIN
+	COPY_EXISTING ~leat02.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 93				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 99				// Replace colour index 23
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 92				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Protector of the Second +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat03.itm~) BEGIN
+	COPY_EXISTING ~leat03.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 27				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 94				// colour index
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 95				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Studded Leather Armor
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat04.itm~) BEGIN
+	COPY_EXISTING ~leat04.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 27				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 92				// colour index
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 91				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Studded Leather Armor +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat05.itm~) BEGIN
+	COPY_EXISTING ~leat05.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 90				// Replace colour index 93
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 2				// Replace colour index 99
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 95				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Armor of Missile Attraction +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat06.itm~) BEGIN
+	COPY_EXISTING ~leat06.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 90				// Replace colour index 25
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 2				// Replace colour index 94
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 95				// Replace colour index 23
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Studded Leather Armor +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat07.itm~) BEGIN
+	COPY_EXISTING ~leat07.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 25				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 114				// Replace colour index 95
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 211				// Replace colour index 94
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Shadow Armor
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat08.itm~) BEGIN
+	COPY_EXISTING ~leat08.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 164				// Replace colour index 27
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 254				// Replace colour index 21
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 209				// Replace colour index 21
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Karajah's Life and Death +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat09.itm~) BEGIN
+	COPY_EXISTING ~leat09.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 27				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 85				// Replace colour index 22
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 95				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Hide Armor
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat10.itm~) BEGIN
+	COPY_EXISTING ~leat10.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 226				// Replace colour index 22
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 137				// Replace colour index 22
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 1				// Replace colour index 16
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Leather Armor +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat11.itm~) BEGIN
+	COPY_EXISTING ~leat11.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 27				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 95				// colour index
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 238				// Replace colour index 95
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Leather Armor +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat12.itm~) BEGIN
+	COPY_EXISTING ~leat12.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 209				// Replace colour index 27
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 87				// Replace colour index 95
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 160				// Replace colour index 95
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// The Night's Gift +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat14.itm~) BEGIN
+	COPY_EXISTING ~leat14.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 209				// Replace colour index 27
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 87				// Replace colour index 91
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 91				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Studded Leather Armor +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat15.itm~) BEGIN
+	COPY_EXISTING ~leat15.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 27				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 114				// Replace colour index 22
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 22				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Bardic Leathers (Mod Song and Silence)
+ACTION_IF (FILE_EXISTS_IN_GAME ~A!BLEAT1.itm~) BEGIN
+	COPY_EXISTING ~A!BLEAT1.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~ILEAT15~ #8	// Replace a!ileat1
+			LPM ~clear~
+			SET gradient = 27				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 114				// colour index
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 22				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Orc Leather +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat16.itm~) BEGIN
+	COPY_EXISTING ~leat16.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 226				// Replace colour index 28
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 1				// Replace colour index 22
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 239				// Replace colour index 94
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Armor of Deep Night +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat17.itm~) BEGIN
+	COPY_EXISTING ~leat17.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 158				// Replace colour index 27
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 199				// Replace colour index 83
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 227				// Replace colour index 83
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+BUT_ONLY
+
+// Armor of the Viper +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat18.itm~) BEGIN
+	COPY_EXISTING ~leat18.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 227				// Replace colour index 27
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 109				// Replace colour index 4
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 238				// Replace colour index 22
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Shadow Dragon Scale
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat19.itm~) BEGIN
+	COPY_EXISTING ~leat19.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 21				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 244				// colour index
+			SET location = apink			// location
+			LPM ~colour~
+			SET gradient = 21				// colour index
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 21				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Aeger's Hide +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat20.itm~) BEGIN
+	COPY_EXISTING ~leat20.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 22				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 138				// Replace colour index 22
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 16				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Studded Leather of Thorns +6
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat23.itm~) BEGIN
+	COPY_EXISTING ~leat23.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 211				// Replace colour index 103
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 230				// Replace colour index 53
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 240				// Replace colour index 103
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Grandmaster's Armor +6
+ACTION_IF (FILE_EXISTS_IN_GAME ~leat24.itm~) BEGIN
+	COPY_EXISTING ~leat24.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 27				// Replace colour index 25
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 201				// Replace colour index 21
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 208				// Replace colour index 21
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Bardic Leathers +1 (Mod Song and Silence)
+ACTION_IF (FILE_EXISTS_IN_GAME ~A!BLEAT2.itm~) BEGIN
+	COPY_EXISTING ~A!BLEAT2.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~ILEAT24~ #8	// Replace a!ileat2
+			LPM ~clear~
+			SET gradient = 27				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 201				// colour index
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 208				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+
+/*  ============================================  *
+ *          CHAIN AND SPLINT MAIL ARMORS          *
+ *  ============================================  */
+
+// Chain Mail Armor
+ACTION_IF (FILE_EXISTS_IN_GAME ~chan01.itm~) BEGIN
+	COPY_EXISTING ~chan01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 27				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 22				// colour index
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 6				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Chain Mail +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~chan02.itm~) BEGIN
+	COPY_EXISTING ~chan02.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 102				// Replace colour index 94
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 99				// Replace colour index 100
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 248				// Replace colour index 97
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Caster's Chain (Mod Song and Silence)
+ACTION_IF (FILE_EXISTS_IN_GAME ~A!BCHAN1.itm~) BEGIN
+	COPY_EXISTING ~A!BCHAN1.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~ICHAN02~ #8	// Replace a!ichan1
+			LPM ~clear~
+			SET gradient = 102				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 99				// colour index
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 248				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Mail of the Dead +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~chan03.itm~) BEGIN
+	COPY_EXISTING ~chan03.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 208				// Replace colour index 25
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 242				// Replace colour index 99
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 205				// Replace colour index 5
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Splint Mail
+ACTION_IF (FILE_EXISTS_IN_GAME ~chan04.itm~) BEGIN
+	COPY_EXISTING ~chan04.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 27				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 94				// colour index
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 27				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Splint Mail +1
+ACTION_FOR_EACH chain IN ~chan05~ ~_chan05~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%chain%.itm~) BEGIN
+		COPY_EXISTING ~%chain%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 90				// Replace colour index 25
+				SET location = agrey			// location
+				LPM ~colour~
+				SET gradient = 238				// Replace colour index 94
+				SET location = ared				// location
+				LPM ~colour~
+				SET gradient = 226				// Replace colour index 14
+				SET location = ablue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Mithral Chain Mail +4
+ACTION_FOR_EACH chain IN ~chan06~ ~_chan06~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%chain%.itm~) BEGIN
+		COPY_EXISTING ~%chain%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 90				// Replace colour index 27
+				SET location = agrey			// location
+				LPM ~colour~
+				SET gradient = 164				// Replace colour index 99
+				SET location = ared				// location
+				LPM ~colour~
+				SET gradient = 202				// Replace colour index 18
+				SET location = ablue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Chain Mail +3
+ACTION_FOR_EACH chain IN ~chan07~ ~_chan07~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%chain%.itm~) BEGIN
+		COPY_EXISTING ~%chain%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 208				// Replace colour index 25
+				SET location = agrey			// location
+				LPM ~colour~
+				SET gradient = 91				// Replace colour index 99
+				SET location = ared				// location
+				LPM ~colour~
+				SET gradient = 112				// Replace colour index 27
+				SET location = ablue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Chain Mail +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~chan08.itm~) BEGIN
+	COPY_EXISTING ~chan08.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 205				// Replace colour index 23
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 100				// Replace colour index 91
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 205				// Replace colour index 6
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Darkmail +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~chan09.itm~) BEGIN
+	COPY_EXISTING ~chan09.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 21				// Replace colour index 24
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 100
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 231				// Replace colour index 27
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Jester's Chain +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~chan10.itm~) BEGIN
+	COPY_EXISTING ~chan10.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 250					// Replace colour index 219
+			SET setg = 200					// Replace colour index 225
+			SET setb = 0
+			SET speed = 0x32				// Replace 0x28
+			SET location = agrey			// location
+			LPM ~pulse~
+			SET setr = 10					// Replace colour index 0
+			SET setg = 50					// Replace colour index 205
+			SET setb = 10					// Replace colour index 0
+			SET speed = 0x28				// Replace 0x32
+			SET location = ared				// location
+			LPM ~pulse~
+			SET setr = 50					// Replace colour index 195
+			SET setg = 0
+			SET setb = 90					// Replace colour index 255
+			SET speed = 0x48				// Replace 0x32
+			SET location = ablue			// location
+			LPM ~pulse~
+			SET gradient = 218				// Replace colour index 24
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 243				// Replace colour index 27
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 178				// Replace colour index 34
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Crimson Chain +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~chan11.itm~) BEGIN
+	COPY_EXISTING ~chan11.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 227				// Replace colour index 101
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 21				// Replace colour index 27
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 210				// Replace colour index 30
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Elven Chain Mail
+ACTION_IF (FILE_EXISTS_IN_GAME ~chan12.itm~) BEGIN
+	COPY_EXISTING ~chan12.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 251				// Replace colour index 32
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 201				// Replace colour index 32
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 236				// Replace colour index 32
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Elven Chain Mail +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~chan13.itm~) BEGIN
+	COPY_EXISTING ~chan13.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 219				// Replace colour index 30
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 192				// Replace colour index 32
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 248				// Replace colour index 112
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Sylvan Chain +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~chan14.itm~) BEGIN
+	COPY_EXISTING ~chan14.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 90				// Replace colour index 27
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 201				// Replace colour index 103
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 203				// Replace colour index 103
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Melodic Chain +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~chan15.itm~) BEGIN
+	COPY_EXISTING ~chan15.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 221				// Replace colour index 27
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 201				// Replace colour index 98
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 213				// Replace colour index 99
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Bladesinger Chain +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~chan16.itm~) BEGIN
+	COPY_EXISTING ~chan16.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = ablue			// location
+			LPM ~glow~
+			SET setr = 90
+			SET setg = 110
+			SET setb = 0
+			SET speed = 0x50
+			SET location = agrey			// location
+			LPM ~pulse~
+			SET gradient = 208				// Replace colour index 25
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 213				// Replace colour index 103
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 246				// Replace colour index 32
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Aslyferund Elven Chain +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~chan19.itm~) BEGIN
+	COPY_EXISTING ~chan19.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 105					// Replace colour index 205
+			SET setg = 99					// Replace colour index 199
+			SET setb = 16					// Replace colour index 56
+			SET speed = 0x80				// Replace 0
+			SET location = ared				// location
+			LPM ~pulse~
+			SET gradient = 208				// Replace colour index 25
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 90				// Replace colour index 103
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 201				// Replace colour index 32
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Ashen Scales +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~chan17.itm~) BEGIN
+	COPY_EXISTING ~chan17.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 187				// Replace colour index 39
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 100				// Replace colour index 107
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 188				// Replace colour index 107
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Armor of Faith +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~chan18.itm~) BEGIN
+	COPY_EXISTING ~chan18.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 167				// Replace colour index 25
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 168				// Replace colour index 94
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 209				// Replace colour index 14
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// White Dragon Scale
+ACTION_IF (FILE_EXISTS_IN_GAME ~chan20.itm~) BEGIN
+	COPY_EXISTING ~chan20.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 202				// Replace colour index 27
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 212				// Replace colour index 13
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 97				// Replace colour index 27
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Chain Mail +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~chan21.itm~) BEGIN
+	COPY_EXISTING ~chan21.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 209				// Replace colour index 92
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 210				// Replace colour index 94
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 90				// Replace colour index 99
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Bardic Chain (The BG1 NPC Project mod)
+ACTION_IF (FILE_EXISTS_IN_GAME ~x#garch.itm~) BEGIN
+	COPY_EXISTING ~x#garch.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 209				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 210				// colour index
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 90				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Bardic Chain (The BG1 NPC Project mod)
+ACTION_IF (FILE_EXISTS_IN_GAME ~x#garch2.itm~) BEGIN
+	COPY_EXISTING ~x#garch2.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 209				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 210				// colour index
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 90				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Drow Elven Chain +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~dwchan01.itm~) BEGIN
+	COPY_EXISTING ~dwchan01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 229				// Replace colour index 27
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 199				// Replace colour index 99
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 212				// Replace colour index 21
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Drow Adamantine Chain +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~dwchan02.itm~) BEGIN
+	COPY_EXISTING ~dwchan02.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 245				// Replace colour index 27
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 190				// Replace colour index 99
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 212				// Replace colour index 21
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Drow Full Plate +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~dwplat01.itm~) BEGIN
+	COPY_EXISTING ~dwplat01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 245				// Replace colour index 30
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 190				// Replace colour index 91
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 212				// Replace colour index 27
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Corthala Family Armor
+ACTION_IF (FILE_EXISTS_IN_GAME ~npchan.itm~) BEGIN
+	COPY_EXISTING ~npchan.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 232				// Replace colour index 25
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 99
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 184				// Replace colour index 29
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Firecam Full-Plate Armor
+ACTION_IF (FILE_EXISTS_IN_GAME ~npplat.itm~) BEGIN
+	COPY_EXISTING ~npplat.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 238				// Replace colour index 26
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 91				// colour index
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 26				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+
+/*  ======================  *
+ *          CLOAKS          *
+ *  ======================  */
+
+// Algernon's Cloak
+ACTION_FOR_EACH clck IN ~clck08~ ~_clck08~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%clck%.itm~) BEGIN
+		COPY_EXISTING ~%clck%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~ICLCK08~ #8	// Replace ICLCK07
+			END
+		BUT_ONLY
+	END
+END
+
+// Holy Cloak
+ACTION_FOR_EACH clck IN ~clck21~ ~_clck21~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%clck%.itm~) BEGIN
+		COPY_EXISTING ~%clck%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~1CLCK07B~ #8	// Replace 1CLCK21
+				WRITE_ASCII 0x58 ~CCLCK07~ #8	// Replace CCLCK06
+			END
+		BUT_ONLY
+	END
+END
+
+// Shandalar's Cloak
+ACTION_FOR_EACH clck IN ~clck22~ ~_clck22~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%clck%.itm~) BEGIN
+		COPY_EXISTING ~%clck%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~ICLCK08~ #8	// Replace ICLCK07
+				WRITE_ASCII 0x58 ~CCLCK05~ #8	// Replace CCLCK07
+			END
+		BUT_ONLY
+	END
+END
+
+// Shadow Thief Cloak
+ACTION_IF (FILE_EXISTS_IN_GAME ~clck28.itm~) BEGIN
+	COPY_EXISTING ~clck28.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x44 ~GCLCK01~ #8	// Replace GCLCK02 + Gwen fix : typo "GCLCKC01"
+		END
+	BUT_ONLY
+END
+
+// Cloak of Bravery
+ACTION_IF (FILE_EXISTS_IN_GAME ~clck30.itm~) BEGIN
+	COPY_EXISTING ~clck30.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~1CLCK27B~ #8	// Replace 1CLCK27
+			WRITE_ASCII 0x44 ~GCLCK01~ #8	// Replace GCLCK02 + Gwen fix : typo "GCLCKC01"
+		END
+	BUT_ONLY
+END
+
+// Montolio's Cloak
+ACTION_IF (FILE_EXISTS_IN_GAME ~clck32.itm~) BEGIN
+	COPY_EXISTING ~clck32.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~ICLCK31~ #8	// Replace ICLCK32
+		END
+	BUT_ONLY
+END
+
+
+/*  ===========================  *
+ *          PLATE MAILS          *
+ *  ===========================  */
+
+// Plate Mail
+ACTION_IF (FILE_EXISTS_IN_GAME ~plat01.itm~) BEGIN
+	COPY_EXISTING ~plat01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 30				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 23				// colour index
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 27				// Replace colour index 28
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Fallorain's Plate +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~plat02.itm~) BEGIN
+	COPY_EXISTING ~plat02.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 30				// Replace colour index 98
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 99				// Replace colour index 94
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 248				// Replace colour index 97
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Full Plate Mail
+ACTION_IF (FILE_EXISTS_IN_GAME ~plat04.itm~) BEGIN
+	COPY_EXISTING ~plat04.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 208				// Replace colour index 30
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 91				// colour index
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 27				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Plate of the Dark +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~plat05.itm~) BEGIN
+	COPY_EXISTING ~plat05.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 248				// Replace colour index 29
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 23
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 6				// Replace colour index 29
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Ankheg Plate Mail
+ACTION_IF (FILE_EXISTS_IN_GAME ~plat06.itm~) BEGIN
+	COPY_EXISTING ~plat06.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 164				// Replace colour index 39
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 10
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 230				// Replace colour index 7
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// vanilla Plate Mail --> Plate Mail +3: 'The Practical Defense'
+ACTION_IF (FILE_EXISTS_IN_GAME ~plat08.itm~) BEGIN
+	COPY_EXISTING ~plat08.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			SAY NAME2 @400805 /* Plate Mail +3 */
+			SAY DESC  @400806 /* Plate Mail +3 : 'The Practical Defense'
+The traveling adventurer could ask for no better a suit of armor in all the land. Specially commissioned by Bolhur "Thunderaxe" at GREAT expense, this suit was his most prized, even if not his most ornate. Eminently practical, Bolhur demanded armor that would offer superior protection while hampering him in the least. By "hampering" he did not just mean in movement or weight, though this suit is just over one-third the weight of normal plate mail: his ideal suit should also be able to withstand the rigors of his wanderings with little maintenance. This is not to say that Bolhur "Thunderaxe" neglected his armors (to say as such would get your ears boxed) but the regime of spit and polish required for a "gentleman's" suit was beyond his caring. Save the tassels and gilding of Full Plate for kings and heads of state; a working dwarf cares more for utility than looks.
+
+STATISTICS:
+
+Armor Class: 0
+Weight: 18
+Requires: 12 Strength
+Not Usable By:
+ Bard
+ Druid
+ Mage
+ Thief */
+			LPM ~clear~
+			SET setr = 27
+			SET setg = 13
+			SET setb = 30
+			SET speed = 0x90
+			SET location = ablue			// location
+			LPM ~pulse~
+			SET setr = 27
+			SET setg = 13
+			SET setb = 30
+			SET speed = 0x90
+			SET location = agrey			// location
+			LPM ~pulse~
+			SET gradient = 25				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 209				// Replace colour index 30
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 99				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Delver's Plate +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~plat11.itm~) BEGIN
+	COPY_EXISTING ~plat11.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 98				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 159				// Replace colour index 94
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 232				// Replace colour index 27
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Doomplate +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~plat12.itm~) BEGIN
+	COPY_EXISTING ~plat12.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 98				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 238				// Replace colour index 19
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 239				// Replace colour index 33
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// T'rachie's Plate +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~plat17.itm~) BEGIN
+	COPY_EXISTING ~plat17.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			//WRITE_ASCII 0x3A ~1plat23B~ #8
+			LPM ~clear~
+			SET gradient = 98				// Replace colour index 99
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 99
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 170				// Replace colour index 109
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Red Dragon Scale
+ACTION_IF (FILE_EXISTS_IN_GAME ~plat18.itm~) BEGIN
+	COPY_EXISTING ~plat18.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 25				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 211				// Replace colour index 25
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 210				// Replace colour index 101
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Blue Dragon Plate
+ACTION_IF (FILE_EXISTS_IN_GAME ~plat20.itm~) BEGIN
+	COPY_EXISTING ~plat20.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 252				// Replace colour index 25
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 244				// Replace colour index 96
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 18				// Replace colour index 58
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Enkidu's Full Plate +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~plat21.itm~) BEGIN
+	COPY_EXISTING ~plat21.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			//WRITE_ASCII 0x3A ~1plat23B~ #8
+			LPM ~clear~
+			SET gradient = 249				// Replace colour index 27
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 138				// Replace colour index 23
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 107				// Replace colour index 27
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+BUT_ONLY
+END
+
+// Shuruppak's Plate
+ACTION_IF (FILE_EXISTS_IN_GAME ~plat22.itm~) BEGIN
+	COPY_EXISTING ~plat22.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			//WRITE_ASCII 0x3A ~1plat23B~ #8
+			LPM ~clear~
+			SET gradient = 159				// Replace colour index 30
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 138				// Replace colour index 25
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 179				// Replace colour index 97
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+
+/*  ==========================  *
+ *          TUTU STUFF          *
+ *  ==========================  */
+
+// Chain Mail Armor
+ACTION_IF (FILE_EXISTS_IN_GAME ~_chan01.itm~) BEGIN
+	COPY_EXISTING ~_chan01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~1chan01B~ #8
+			LPM ~clear~
+			SET gradient = 27				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 22				// colour index
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 6				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Chain Mail +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~_chan02.itm~) BEGIN
+	COPY_EXISTING ~_chan02.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~1chan02B~ #8
+			LPM ~clear~
+			SET gradient = 102				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 226				// colour index
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 232				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Mail of the Dead +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~_chan03.itm~) BEGIN
+	COPY_EXISTING ~_chan03.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~1chan03B~ #8
+			LPM ~clear~
+			SET gradient = 211				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 239				// colour index
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 97				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Splint Mail
+ACTION_IF (FILE_EXISTS_IN_GAME ~_chan04.itm~) BEGIN
+	COPY_EXISTING ~_chan04.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~ichan04~ #8
+			LPM ~clear~
+			SET gradient = 27				// colour index
+			SET location = agrey			// location
+			LPM ~colour~
+			SET gradient = 100				// colour index
+			SET location = ared				// location
+			LPM ~colour~
+			SET gradient = 110				// colour index
+			SET location = ablue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+
+/*  ==================  *
+ *  1ppv4 style ARMORS  *
+ *  ==================  */
+ACTION_IF (1pp_armours_appearance = 1) BEGIN
+	// 1ppv4 STYLE COPY cheaty
+	COPY ~1pp/item/1ppv4_update/bam/1leat05.bam~ ~override/ileat05.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1leat07.bam~ ~override/ileat07.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1leat08.bam~ ~override/ileat08.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1leat10.bam~ ~override/ileat10.bam~
+	COPY ~1pp/item/1ppv4_update/bam/iplat02.bam~ ~override/iplat10.bam~
+	COPY ~1pp/item/1ppv4_update/bam/iplat10.bam~ ~override/iplat02.bam~
+
+	// Chain Mail Armor
+	ACTION_IF (FILE_EXISTS_IN_GAME ~chan01.itm~) BEGIN
+		COPY_EXISTING ~chan01.itm~ ~override/chan01B.itm~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~1chan01B~ #8
+				LPM ~clear~
+				SET gradient = 27				// colour index
+				SET location = agrey			// location
+				LPM ~colour~
+				SET gradient = 22				// colour index
+				SET location = ared				// location
+				LPM ~colour~
+				SET gradient = 232				// Replace colour index 6
+				SET location = ablue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+
+	// Chain Mail +1
+	ACTION_IF (FILE_EXISTS_IN_GAME ~chan02.itm~) BEGIN
+		COPY_EXISTING ~chan02.itm~ ~override/chan02B.itm~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~1chan02B~ #8
+				LPM ~clear~
+				SET gradient = 102				// Replace colour index 94
+				SET location = agrey			// location
+				LPM ~colour~
+				SET gradient = 226				// Replace colour index 100
+				SET location = ared				// location
+				LPM ~colour~
+				SET gradient = 232				// Replace colour index 97
+				SET location = ablue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+
+	// vanilla Mail of the Dead +2 ==> Werebane Mail +2. Gwen fix: add armor name
+	ACTION_IF (FILE_EXISTS_IN_GAME ~chan03.itm~) BEGIN
+		COPY_EXISTING ~chan03.itm~ ~override/chan03B.itm~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				SAY NAME2 @400807 /* Werebane Mail +2*/
+				SAY DESC  @400808 /* Chain mail +2: 'Werebane'
+These magical sets of silver chain mail were commissioned and worn by a virtuous band of paladins who set out to rid the world of the blight of lycanthropy. The continued presence of lycanthropes in the realms and the appearance of these sets of armour in mercantile stocks suggests they were less than successful.
+
+STATISTICS:
+
+Armor Class: 3
+Weight: 10
+Requires: 8 Strength
+Not Usable By:
+ Druid
+ Mage
+ Thief */
+				WRITE_ASCII 0x3A ~1chan03B~ #8
+				LPM ~clear~
+				SET gradient = 211				// Replace colour index 25
+				SET location = agrey			// location
+				LPM ~colour~
+				SET gradient = 239				// Replace colour index 99
+				SET location = ared				// location
+				LPM ~colour~
+				SET gradient = 97				// Replace colour index 5
+				SET location = ablue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+
+	// Splint Mail
+	ACTION_IF (FILE_EXISTS_IN_GAME ~chan04.itm~) BEGIN
+		COPY_EXISTING ~chan04.itm~ ~override/chan04B.itm~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~1chan04B~ #8
+				LPM ~clear~
+				SET gradient = 27				// colour index
+				SET location = agrey			// location
+				LPM ~colour~
+				SET gradient = 100				// Replace colour index 94
+				SET location = ared				// location
+				LPM ~colour~
+				SET gradient = 110				// Replace colour index 27
+				SET location = ablue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+
+	// Mithral Field Plate +2
+	ACTION_IF (FILE_EXISTS_IN_GAME ~plat09.itm~) BEGIN
+		COPY_EXISTING ~plat09.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~1plat02~ #8	// replace IPLAT09
+				WRITE_ASCII 0x58 ~CPLAT02~ #8	// replace CPLAT09 (Gwen fix: moved from a few lines below)
+				LPM ~clear~
+				SET gradient = 208				// Replace colour index 30
+				SET location = agrey			// location
+				LPM ~colour~
+				SET gradient = 99				// Replace colour index 91
+				SET location = ared				// location
+				LPM ~colour~
+				SET gradient = 228				// Replace colour index 97
+				SET location = ablue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+
+	// Gorgon Plate +4
+	ACTION_IF (FILE_EXISTS_IN_GAME ~plat13.itm~) BEGIN
+		COPY_EXISTING ~plat13.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~1plat13~ #8	// replace IPLAT13
+				WRITE_ASCII 0x58 ~CPLAT15~ #8	// replace CPLAT13 (Gwen fix: moved from a few lines below)
+				LPM ~clear~
+				SET gradient = 24				// Replace colour index 98
+				SET location = agrey			// location
+				LPM ~colour~
+				SET gradient = 211				// Replace colour index 94
+				SET location = ared				// location
+				LPM ~colour~
+				SET gradient = 201				// Replace colour index 32
+				SET location = ablue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+
+	// Full Plate Mail +1
+	ACTION_IF (FILE_EXISTS_IN_GAME ~plat14.itm~) BEGIN
+		COPY_EXISTING ~plat14.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~IPLAT09~ #8	// replace IPLAT14
+				WRITE_ASCII 0x58 ~CPLAT04~ #8	// replace CPLAT14 (Gwen fix: moved from a few lines below)
+				LPM ~clear~
+				SET gradient = 226				// Replace colour index 29
+				SET location = agrey			// location
+				LPM ~colour~
+				SET gradient = 24				// Replace colour index 23
+				SET location = ared				// location
+				LPM ~colour~
+				SET gradient = 110				// Replace colour index 27
+				SET location = ablue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+
+	// Pride of the Legion +2
+	ACTION_IF (FILE_EXISTS_IN_GAME ~plat15.itm~) BEGIN
+		COPY_EXISTING ~plat15.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+//				WRITE_ASCII 0x3A ~IPLAT23~ #8	// Gwen fix: seems to be wrong (was set to IPLAT23, but EE does not validate this change).
+//				WRITE_ASCII 0x58 ~CPLAT05~ #8	// Gwen fix: seems to be wrong (replace CPLAT15 - moved from a few lines below, but EE does not validate this change).
+				LPM ~clear~
+				SET gradient = 91				// Replace colour index 25
+				SET location = agrey			// location
+				LPM ~colour~
+				SET gradient = 90				// Replace colour index 25
+				SET location = ared				// location
+				LPM ~colour~
+				SET gradient = 248				// Replace colour index 27
+				SET location = ablue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+
+	// Armor of the Hart +3
+	ACTION_IF (FILE_EXISTS_IN_GAME ~plat16.itm~) BEGIN
+		COPY_EXISTING ~plat16.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~1plat23B~ #8	// replace IPLAT16
+				WRITE_ASCII 0x58 ~CPLAT05~ #8	// replace CPLAT16 (Gwen fix: moved from a few lines below)
+				LPM ~clear~
+				SET gradient = 104				// Replace colour index 27
+				SET location = agrey			// location
+				LPM ~colour~
+				SET gradient = 186				// Replace colour index 23
+				SET location = ared				// location
+				LPM ~colour~
+				SET gradient = 249				// Replace colour index 27
+				SET location = ablue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+
+	/* Full Plate Mail +2 (Gwen fix): remove from the patches as EE does not validate them (this silver and golden full plate was turned into a black one!).
+	ACTION_IF (FILE_EXISTS_IN_GAME ~plat23.itm~) BEGIN
+		COPY_EXISTING ~plat23.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~1plat05~ #8	// replace IPLAT23
+				WRITE_ASCII 0x58 ~CPLAT05~ #8	// replace CPLAT09 (Gwen fix: moved from a few lines below)
+				LPM ~clear~
+				SET gradient = 209				// Replace colour index 27
+				SET location = agrey			// location
+				LPM ~colour~
+				SET gradient = 138				// Replace colour index 25
+				SET location = ared				// location
+				LPM ~colour~
+				SET gradient = 191				// Replace colour index 27
+				SET location = ablue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+
+	// Mithral Field Plate +2 : moved a few lines above (Gwen fix)
+	ACTION_IF (FILE_EXISTS_IN_GAME ~plat09.itm~) BEGIN
+		COPY_EXISTING ~plat09.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x58 ~CPLAT02~ #8	// replace CPLAT09
+			END
+		BUT_ONLY
+	END
+	// Full Plate Mail +2 : moved a few lines above (Gwen fix)
+	ACTION_IF (FILE_EXISTS_IN_GAME ~plat13.itm~) BEGIN
+		COPY_EXISTING ~plat13.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x58 ~CPLAT15~ #8	// replace CPLAT13
+			END
+		BUT_ONLY
+	END
+	// Full Plate Mail +1 : moved a few lines above (Gwen fix)
+	ACTION_IF (FILE_EXISTS_IN_GAME ~plat14.itm~) BEGIN
+		COPY_EXISTING ~plat14.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x58 ~CPLAT04~ #8	// replace CPLAT14
+				END
+			BUT_ONLY
+	END
+	// Pride of the Legion +2 : moved a few lines above (Gwen fix)
+	ACTION_IF (FILE_EXISTS_IN_GAME ~plat15.itm~) BEGIN
+		COPY_EXISTING ~plat15.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x58 ~CPLAT05~ #8	// replace CPLAT15
+			END
+		BUT_ONLY
+	END
+	// Armor of the Hart +3 : moved a few lines above (Gwen fix)
+	ACTION_IF (FILE_EXISTS_IN_GAME ~plat16.itm~) BEGIN
+		COPY_EXISTING ~plat16.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x58 ~CPLAT05~ #8	// replace CPLAT16
+			END
+		BUT_ONLY
+	END
+*/
+	// Shuruppak's Plate
+	ACTION_IF (FILE_EXISTS_IN_GAME ~plat22.itm~) BEGIN
+		COPY_EXISTING ~plat22.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x58 ~CPLAT16~ #8	// replace CPLAT06
+			END
+		BUT_ONLY
+	END
+/*	// Full Plate Mail +2 : moved a few lines above (Gwen fix)
+	ACTION_IF (FILE_EXISTS_IN_GAME ~plat23.itm~) BEGIN
+		COPY_EXISTING ~plat23.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x58 ~CPLAT05~ #8	// replace CPLAT09
+			END
+		BUT_ONLY
+	END
+*/
+
+END // end 1pp style ACTION_IF (1pp_armours_appearance = 1) // 1ppv4 STYLE COPY cheaty
+
+
+/*  ================  *
+ *  BGI style ARMORS  *
+ *  ================  */
+ACTION_IF (1pp_armours_appearance = 2) BEGIN
+	// BGI STYLE COPY
+	COPY ~1pp/item/1ppv4_update/bam/1gleat01.bam~ ~override/gleat01.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1leat02.bam~ ~override/ileat02.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1leat03.bam~ ~override/ileat03.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1leat05.bam~ ~override/ileat05.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1leat06.bam~ ~override/ileat06.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1leat07.bam~ ~override/ileat07.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1leat08.bam~ ~override/ileat08.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1leat10.bam~ ~override/ileat10.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1chan01B.bam~ ~override/ichan01.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1chan02B.bam~ ~override/ichan02.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1chan03B.bam~ ~override/ichan03.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1plat02.bam~ ~override/iplat02.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1plat04.bam~ ~override/iplat04.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1plat05.bam~ ~override/iplat05.bam~
+
+	// Chain Mail +1
+	ACTION_IF (FILE_EXISTS_IN_GAME ~chan02.itm~) BEGIN
+		COPY_EXISTING ~chan02.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				//WRITE_ASCII 0x3A ~1chan01B~ #8
+				LPM ~clear~
+				SET gradient = 102				// Replace colour index 94
+				SET location = agrey			// location
+				LPM ~colour~
+				SET gradient = 226				// Replace colour index 100
+				SET location = ared				// location
+				LPM ~colour~
+				SET gradient = 232				// Replace colour index 97
+				SET location = ablue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+
+	// Mail of the Dead +2
+	ACTION_IF (FILE_EXISTS_IN_GAME ~chan03.itm~) BEGIN
+		COPY_EXISTING ~chan03.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				//WRITE_ASCII 0x3A ~1chan03B~ #8
+				LPM ~clear~
+				SET gradient = 211				// Replace colour index 25
+				SET location = agrey			// location
+				LPM ~colour~
+				SET gradient = 239				// Replace colour index 99
+				SET location = ared				// location
+				LPM ~colour~
+				SET gradient = 97				// Replace colour index 5
+				SET location = ablue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+
+END // end BGI STYLE : ACTION_IF (1pp_armours_appearance = 2)
+
+
+/*  =================  *
+ *  BGII style ARMORS  *
+ *  =================  */
+ACTION_IF (1pp_armours_appearance = 3) BEGIN
+	COPY ~1pp/item/1ppv4_update/bam/1chan04B.bam~ ~override/ichan04.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1plat18B.bam~ ~override/iplat18.bam~
+END
+
+//END of COMPONENT

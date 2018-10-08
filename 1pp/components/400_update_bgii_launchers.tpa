@@ -1,0 +1,473 @@
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Replace macros with functions whenever possible.                                                                                                                          *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
+ *  ==============================================================================================================================================================================  */
+
+/*  ======================  *
+ *          SLINGS          *
+ *  ======================  */
+
+// Sling
+ACTION_IF (FILE_EXISTS_IN_GAME ~slng01.itm~) BEGIN
+	COPY_EXISTING ~slng01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 99				// Replace colour index 22
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 91				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Sling +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~slng02.itm~) BEGIN
+	COPY_EXISTING ~slng02.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 209				// Replace colour index 28
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 90				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Sling +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~slng03.itm~) BEGIN
+	COPY_EXISTING ~slng03.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 236				// Replace colour index 30
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 101				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Sling +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~slng04.itm~) BEGIN
+	COPY_EXISTING ~slng04.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 160				// Replace colour index 28
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 211				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Arla's Dragonbane +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~slng05.itm~) BEGIN
+	COPY_EXISTING ~slng05.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 164				// Replace colour index 28
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 208				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Sling of Arvoreen +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~slng06.itm~) BEGIN
+	COPY_EXISTING ~slng06.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 238				// Replace colour index 28
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 208				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Sling of Seeking +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~slng07.itm~) BEGIN
+	COPY_EXISTING ~slng07.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 237				// Replace colour index 28
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 253				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Sling of Everard +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~wasling.itm~) BEGIN
+	COPY_EXISTING ~wasling.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 237				// Replace colour index 28
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 253				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Erinne Sling +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~slng08.itm~) BEGIN
+	COPY_EXISTING ~slng08.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 6				// Replace colour index 28
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 196				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Erinne Sling +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~slng09.itm~) BEGIN
+	COPY_EXISTING ~slng09.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 6				// Replace colour index 28
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 196				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Sling +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~slng10.itm~) BEGIN
+	COPY_EXISTING ~slng10.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 93				// Replace colour index 58
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 210				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+
+/*  =========================  *
+ *          CROSSBOWS          *
+ *  =========================  */
+
+// Heavy Crossbow
+ACTION_IF (FILE_EXISTS_IN_GAME ~xbow01.itm~) BEGIN
+	COPY_EXISTING ~xbow01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 6				// Replace colour index 27
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 92				// Replace colour index 40
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 28				// Replace colour index 28
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Heavy Crossbow +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~xbow02.itm~) BEGIN
+	COPY_EXISTING ~xbow02.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 159				// Replace colour index 31
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 27				// Replace colour index 27
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 202				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// The Guide +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~xbow03.itm~) BEGIN
+	COPY_EXISTING ~xbow03.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 83				// Replace colour index 25
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 240				// Replace colour index 29
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 25				// Replace colour index 25
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Light Crossbow
+ACTION_IF (FILE_EXISTS_IN_GAME ~xbow04.itm~) BEGIN
+	COPY_EXISTING ~xbow04.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 27				// Replace colour index 27
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 99				// Replace colour index 9
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 10				// Replace colour index 10
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Light Crossbow +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~xbow05.itm~) BEGIN
+	COPY_EXISTING ~xbow05.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 138				// Replace colour index 27
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 184				// Replace colour index 27
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 27				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// The Army Scythe +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~xbow06.itm~) BEGIN
+	COPY_EXISTING ~xbow06.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 91				// Replace colour index 100
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 209				// Replace colour index 27
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 248				// Replace colour index 30
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Heavy Crossbow +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~xbow07.itm~) BEGIN
+	COPY_EXISTING ~xbow07.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 209				// Replace colour index 6
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 159				// Replace colour index 95
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 6				// Replace colour index 6
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Giant Hair Crossbow +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~xbow08.itm~) BEGIN
+	COPY_EXISTING ~xbow08.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 138				// Replace colour index 50
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 209				// Replace colour index 39
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 16				// Replace colour index 50
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Light Crossbow +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~xbow09.itm~) BEGIN
+	COPY_EXISTING ~xbow09.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~IXBOW11~ #8	// Replace IXBOW09
+			WRITE_ASCII 0x76 ~IXBOW11~ #8	// Replace IXBOW09
+			LPM ~clear~
+			SET gradient = 253				// Replace colour index 45
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 205				// Replace colour index 39
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 249				// Replace colour index 95
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Necaradan's Crossbow +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~xbow10.itm~) BEGIN
+	COPY_EXISTING ~xbow10.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 236				// Replace colour index 92
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 212				// Replace colour index 96
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 22				// Replace colour index 92
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Crossbow of Affliction +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~xbow13.itm~) BEGIN
+	COPY_EXISTING ~xbow13.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 159				// Replace colour index 95
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 239				// Replace colour index 61
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 61
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Heavy Crossbow of Searing +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~xbow14.itm~) BEGIN
+	COPY_EXISTING ~xbow14.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 210				// Replace colour index 38
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 247				// Replace colour index 33
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 239				// Replace colour index 23
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Firetooth +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~xbow15.itm~) BEGIN
+	COPY_EXISTING ~xbow15.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 209				// Replace colour index 27
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 195				// Replace colour index 46
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 19				// Replace colour index 47
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Firetooth +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~xbow16.itm~) BEGIN
+	COPY_EXISTING ~xbow16.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 29				// Replace colour index 27
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 195				// Replace colour index 46
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 19				// Replace colour index 47
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Heavy Crossbow +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~xbow17.itm~) BEGIN
+	COPY_EXISTING ~xbow17.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 218				// Replace colour index 31
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 99				// Replace colour index 50
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 90				// Replace colour index 50
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Light Crossbow +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~xbow18.itm~) BEGIN
+	COPY_EXISTING ~xbow18.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 238				// Replace colour index 44
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 47				// Replace colour index 46
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 250				// Replace colour index 50
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+//END of COMPONENT

@@ -1,0 +1,320 @@
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Replace macros with functions whenever possible.                                                                                                                          *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
+ *  ==============================================================================================================================================================================  */
+
+/*  ======================  *
+ *          STAVES          *
+ *  ======================  */
+
+// Staff of Command
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf09.itm~) BEGIN
+	COPY_EXISTING ~staf09.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~Q4~			// Quarterstaff (alternate 3)
+		END
+	BUT_ONLY
+END
+
+// Staff of Curing
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf10.itm~) BEGIN
+	COPY_EXISTING ~staf10.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~Q4~			// Quarterstaff (alternate 3)
+			LPM ~clear~
+			SET gradient = 195				// colour index
+			SET location = wpink			// location
+			LPM ~colour~
+			SET gradient = 100				// colour index
+			SET location = wteal			// location
+			LPM ~colour~
+			SET gradient = 202				// Replace colour index 96
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 96				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 96				// Replace colour index 96
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Staff of the Magi
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf11.itm~) BEGIN
+	COPY_EXISTING ~staf11.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~GS~			// Glowing staff
+			WRITE_ASCII 0x44 ~1GSTAFGS~ #8	// Replace GSTAF01
+			LPM ~clear~
+			SET gradient = 127				// colour index
+			SET location = wpink			// location
+			LPM ~colour~
+			SET gradient = 207				// colour index
+			SET location = wteal			// location
+			LPM ~colour~
+			SET gradient = 192				// Replace colour index 25
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wblue			// location
+			LPM ~glow~
+			SET gradient = 250				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 220				// colour index
+			SET location = wred				// Replace colour index 27
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Staff of Thunder and Lightning +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf13.itm~) BEGIN
+	COPY_EXISTING ~staf13.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~Q4~			// Quarterstaff (alternate 3)
+		END
+	BUT_ONLY
+END
+
+// Staff of the Woodlands +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf14.itm~) BEGIN
+	COPY_EXISTING ~staf14.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~Q3~			// Quarterstaff (alternate 2)
+		END
+	BUT_ONLY
+END
+
+// Shaman's Staff
+ACTION_IF (FILE_EXISTS_IN_GAME ~misc5t.itm~) BEGIN
+	COPY_EXISTING ~misc5t.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~Q3~			// Quarterstaff (alternate 2)
+		END
+	BUT_ONLY
+END
+
+// Staff of Air +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf15.itm~) BEGIN
+	COPY_EXISTING ~staf15.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~Q4~			// Quarterstaff (alternate 3)
+		END
+	BUT_ONLY
+END
+
+// Staff of Fire +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf17.itm~) BEGIN
+	COPY_EXISTING ~staf17.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~Q4~			// Quarterstaff (alternate 3)
+		END
+	BUT_ONLY
+END
+
+// Quarterstaff +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf18.itm~) BEGIN
+	COPY_EXISTING ~staf18.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~Q3~			// Quarterstaff (alternate 2)
+		END
+	BUT_ONLY
+END
+
+// Cleric's Staff +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf19.itm~) BEGIN
+	COPY_EXISTING ~staf19.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~Q3~			// Quarterstaff (alternate 2)
+			LPM ~clear~
+			SET gradient = 209				// colour index
+			SET location = wpink			// location
+			LPM ~colour~
+			SET gradient = 208				// colour index
+			SET location = wteal			// location
+			LPM ~colour~
+			SET gradient = 202				// Replace colour index 97
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 244				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 202				// Replace colour index 97
+			SET location = wred				// location
+			LPM ~colour~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wteal			// location
+			LPM ~glow~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wgrey			// location
+			LPM ~glow~
+		END
+	BUT_ONLY
+END
+
+// Staff of Rynn +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf20.itm~) BEGIN
+	COPY_EXISTING ~staf20.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~Q3~			// Quarterstaff (alternate 2)
+			WRITE_ASCII 0x3A ~ISTAF20~ #8	// Replace ISTAF19
+			WRITE_ASCII 0x76 ~ISTAF20~ #8
+		END
+	BUT_ONLY
+END
+
+// Staff of the Ram +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf21.itm~) BEGIN
+	COPY_EXISTING ~staf21.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~GS~			// Glowing staff
+			WRITE_ASCII 0x44 ~1GSTAFGS~ #8	// Replace GSTAF01
+			LPM ~clear~
+			SET gradient = 220				// colour index
+			SET location = wpink			// location
+			LPM ~colour~
+			SET gradient = 225				// colour index
+			SET location = wteal			// location
+			LPM ~colour~
+			SET gradient = 232				// Replace colour index 36
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wblue			// location
+			LPM ~glow~
+			SET gradient = 239				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 240				// Replace colour index 36
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Staff of the Ram +6
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf22.itm~) BEGIN
+	COPY_EXISTING ~staf22.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~GS~			// Glowing staff
+			WRITE_ASCII 0x3A ~ISTAF22~ #8	// Replace ISTAF21
+			WRITE_ASCII 0x76 ~ISTAF22~ #8
+			WRITE_ASCII 0x44 ~1GSTAFGS~ #8	// Replace GSTAF01
+			LPM ~clear~
+			SET gradient = 220				// colour index
+			SET location = wpink			// location
+			LPM ~colour~
+			SET gradient = 207				// colour index
+			SET location = wteal			// location
+			LPM ~colour~
+			SET gradient = 248				// Replace colour index 36
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wblue			// location
+			LPM ~glow~
+			SET setr = 30
+			SET setg = 30
+			SET setb = 20
+			SET speed = 0x19
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET gradient = 224				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 240				// Replace colour index 36
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Serpent Shaft
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf23.itm~) BEGIN
+	COPY_EXISTING ~staf23.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~Q3~			// Quarterstaff (alternate 2)
+		END
+	BUT_ONLY
+END
+
+// Quarterstaff +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf24.itm~) BEGIN
+	COPY_EXISTING ~staf24.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~Q2~			// Quarterstaff (alternate 1)
+			WRITE_ASCII 0x3A ~ISTAF24~ #8	// Replace ISTAF18
+			WRITE_ASCII 0x76 ~ISTAF24~ #8
+			LPM ~clear~
+			SET gradient = 198				// colour index
+			SET location = wpink			// location
+			LPM ~colour~
+			SET gradient = 216				// colour index
+			SET location = wteal			// location
+			LPM ~colour~
+			SET gradient = 208				// Replace colour index 39
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 254				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 254				// Replace colour index 39
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Quarterstaff +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf02.itm~) BEGIN
+	COPY_EXISTING ~staf02.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~Q2~			// Quarterstaff (alternate 1)
+		END
+	BUT_ONLY
+END
+
+// Staff of Striking +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf05.itm~) BEGIN
+	COPY_EXISTING ~staf05.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~Q2~			// Quarterstaff (alternate 1)
+		END
+	BUT_ONLY
+END
+
+// Martial Staff +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf08.itm~) BEGIN
+	COPY_EXISTING ~staf08.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~Q2~			// Quarterstaff (alternate 1)
+		END
+	BUT_ONLY
+END
+
+// Staff of Power
+ACTION_IF (FILE_EXISTS_IN_GAME ~staf12.itm~) BEGIN
+	COPY_EXISTING ~staf12.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~Q2~			// Quarterstaff (alternate 1)
+		END
+	BUT_ONLY
+END
+
+//END of COMPONENT

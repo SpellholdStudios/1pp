@@ -1,0 +1,1359 @@
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Replace macros with functions whenever possible.                                                                                                                          *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
+ *  		Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *                                                                                                                                                                                  *
+ *  specific fixes:                                                                                                                                                                 *
+ *  ---------------                                                                                                                                                                 *
+ *      - #410  ==> sw1h31.itm (Daystar +2): reverts to its original inventory icon ISW1H31. 1PP (Core content patches) sets it ISW1H34 (Albruin +1), but EE does not validate      *
+ *  				this change. Then switch back its colorisation with Albruin (400_1pp_update).                                                                                   *
+ *      - #471  ==> sw1h34.itm (Albruin +1): reverts to its original inventory icon ISW1H34. 1PP (Core content patches) sets it ISW1H31 (Daystar +2), but EE does not validate      *
+ *  				this change. Then switch back its colorisation with Daystar (400_1pp_update).                                                                                   *
+ *      - #589 ==> sw1h41.itm (Long Sword +2): reverts to its original inventory icon ISW1H41. 1PP (Core content patches) sets it to SW1H06 (Varscona +2 icon), but EE does not     *
+ *  				validate this change. Then remove the colorisation modified by 400_1pp_update and sets it to SW1H73 (Long Sword +3) that deserves those settings.               *
+ *      - #1071 ==> sw2h06.itm and sw1h13.itm (Spider's Bane +2): harmonize both versions. Now they get the same icon and coloration (no change from vanilla SW1H13 as its colors   *
+ *  				fit the new icon installed by 1PP).                                                                                                                             *
+ *      - #1258 ==> SW1P01.itm (Viper's Edge +2): a lot od modifications to make this new sword efficient!                                                                          *
+ *  ==============================================================================================================================================================================  */
+
+/*  ======================  *
+ *          SWORDS          *
+ *  ======================  */
+
+// Bastard Sword
+ACTION_FOR_EACH sword IN ~sw1h01~ ~_sw1h01~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+				LPM ~clear~
+				SET gradient = 99				// colour index
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 248				// Replace colour index 5
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 94				// colour index
+				SET location = wred				// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Bastard Sword +1
+ACTION_FOR_EACH sword IN ~sw1h02~ ~_sw1h02~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+				LPM ~clear~
+				SET gradient = 50				// colour index
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 202				// Replace colour index 97
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 230				// Replace colour index 93
+				SET location = wred				// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Kondar +1
+ACTION_FOR_EACH sword IN ~sw1h03~ ~_sw1h03~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+				LPM ~clear~
+				SET gradient = 232				// Replace colour index 60
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 231				// Replace colour index 59
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 183				// Replace colour index 45
+				SET location = wred				// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Long Sword
+ACTION_FOR_EACH sword IN ~sw1h04~ ~_sw1h04~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 99				// colour index
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 248				// Replace colour index 5
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 22				// Replace colour index 22
+				SET location = wred				// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Long Sword +1
+ACTION_FOR_EACH sword IN ~sw1h05~ ~_sw1h05~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 6				// colour index
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 110				// Replace colour index 27
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 94				// colour index
+				SET location = wred				// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Varscona +2
+ACTION_FOR_EACH sword IN ~sw1h06~ ~_sw1h06~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+ 				LPM ~clear~
+				SET gradient = 207				// Replace colour index 50
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 254				// Replace colour index 6
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 93				// colour index
+				SET location = wred				// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Short Sword +1
+ACTION_FOR_EACH sword IN ~sw1h08~ ~_sw1h08~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 245				// Replace colour index 27
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 27				// colour index
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 138				// Replace colour index 74
+				SET location = wred				// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Short Sword +2
+ACTION_FOR_EACH sword IN ~sw1h09~ ~_sw1h09~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 90				// Replace colour index 99
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 27				// colour index
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 93				// colour index
+				SET location = wred				// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// The Shadow's Blade +3
+ACTION_FOR_EACH sword IN ~sw1h10~ ~_sw1h10~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET setr = 37					// Replace colour index 57
+				SET setg = 0
+				SET setb = 0
+				SET speed = 0x2d
+				SET location = wblue			// location
+				LPM ~pulse~
+				SET gradient = 29				// colour index
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 6				// colour index
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 195				// Replace colour index 76
+				SET location = wred				// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Sword of Balduran
+ACTION_FOR_EACH sword IN ~sw1h18~ ~_sw1h18~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+				LPM ~clear~
+				SET gradient = 67				// Replace colour index 99
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 211				// Replace colour index 99
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 230				// Replace colour index 99
+				SET location = wred				// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Scimitar
+ACTION_FOR_EACH sword IN ~sw1h20~ ~_sw1h20~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 99				// colour index
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 226				// Replace colour index 5
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 94				// colour index
+				SET location = wred				// location
+				LPM ~colour~
+ 			END
+		BUT_ONLY
+	END
+END
+
+// Scimitar +1
+ACTION_FOR_EACH sword IN ~sw1h22~ ~_sw1h22~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~ISW1H22~ #8	// Replace ISW1H20
+				WRITE_ASCII 0x76 ~ISW1H22~ #8
+				LPM ~clear~
+				SET gradient = 245				// Replace colour index 99
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 231				// Replace colour index 5
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 244				// Replace colour index 94
+				SET location = wred				// location
+				LPM ~colour~
+ 			END
+		BUT_ONLY
+	END
+END
+
+// Rashad's Talon +2
+ACTION_FOR_EACH sword IN ~sw1h23~ ~_sw1h23~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET setr = 0
+				SET setg = 0
+				SET setb = 0
+				SET location = wgrey			// location
+				LPM ~glow~
+				SET setr = 0
+				SET setg = 0
+				SET setb = 0
+				SET location = wblue			// location
+				LPM ~glow~
+				SET gradient = 208				// Replace colour index 12
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 212				// Replace colour index 61
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 252				// Replace colour index 90
+				SET location = wred				// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Twinkle +3
+ACTION_FOR_EACH sword IN ~sw1h16~ ~_sw1h16~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET setr = 0
+				SET setg = 75
+				SET setb = 114
+				SET location = wgrey			// location
+				LPM ~glow~
+				SET setr = 0
+				SET setg = 36
+				SET setb = 84
+				SET location = wblue			// location
+				LPM ~glow~
+				SET gradient = 224				// Replace colour index 25
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 232				// Replace colour index 30
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 221				// Replace colour index 30
+				SET location = wred				// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Ilbratha +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h26.itm~) BEGIN
+	COPY_EXISTING ~sw1h26.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 25				// colour index
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 231				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 144				// Replace colour index 93
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Cutthroat +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h28.itm~) BEGIN
+	COPY_EXISTING ~sw1h28.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 99				// colour index
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 212				// Replace colour index 97
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 29				// colour index
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Short Sword +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h29.itm~) BEGIN
+	COPY_EXISTING ~sw1h29.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 210				// Replace colour index 49
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 27				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 196				// Replace colour index 57
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Belm +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h30.itm~) BEGIN
+	COPY_EXISTING ~sw1h30.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 99				// Replace colour index 90
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 226				// Replace colour index 97
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 94				// Replace colour index 29
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Daystar +2
+// Gwen fix: as 1PP (Core content patches) sets its icon to ISW1H34 (Albruin +1), but EE does not validate this change, reverts to its original inventory icon ISW1H31. Then switches back colorisation with Albruin.
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h31.itm~) BEGIN
+	COPY_EXISTING ~sw1h31.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 199					// Replace colour index 0
+			SET setg = 199					// Replace colour index 160
+			SET setb = 39					// Replace colour index 191
+			SET speed = 0x3f
+			SET location = wgrey			// location
+			LPM ~pulse~
+			SET setr = 255
+			SET setg = 255
+			SET setb = 53
+			SET speed = 0x3c
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET setr = 255
+			SET setg = 255
+			SET setb = 53
+			SET speed = 0x3c
+			SET location = wred				// location
+			LPM ~pulse~
+			SET gradient = 250				// Replace colour index 25
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 226				// Replace colour index 16
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 224				// Replace colour index 25
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Peridan +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h32.itm~) BEGIN
+	COPY_EXISTING ~sw1h32.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 255
+			SET setg = 146
+			SET setb = 189
+			SET speed = 0x78
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET gradient = 210				// Replace colour index 47
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 101				// Replace colour index 33
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 47				// colour index
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Albruin +1
+// Gwen fix: as 1PP (Core content patches) sets its icon to ISW1H31 (Daystar +2), but EE does not validate this change, reverts to its original inventory icon ISW1H31. Then switches back colorisation with Daystar.
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h34.itm~) BEGIN
+	COPY_EXISTING ~sw1h34.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			LPM ~clear~
+			SET setr = 0
+			SET setg = 160
+			SET setb = 191
+			SET speed = 0x3f
+			SET location = wgrey			// location
+			LPM ~pulse~
+			SET setr = 255
+			SET setg = 255
+			SET setb = 53
+			SET speed = 0x3c
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET setr = 199
+			SET setg = 199
+			SET setb = 39
+			SET speed = 0x3c
+			SET location = wred				// location
+			LPM ~pulse~
+			SET gradient = 90				// Replace colour index 25
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 179				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 120				// Replace colour index 57
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Taragarth the Bloodbrand +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h37.itm~) BEGIN
+	COPY_EXISTING ~sw1h37.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			LPM ~clear~
+			SET gradient = 246				// Replace colour index 55
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 176				// Replace colour index 103
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 203				// Replace colour index 55
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Jhor the Bleeder +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h38.itm~) BEGIN
+	COPY_EXISTING ~sw1h38.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			LPM ~clear~
+			SET gradient = 59				// colour index
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 104				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 218				// Replace colour index 57
+			SET location = wred				// location
+			LPM ~colour~
+ 		END
+	BUT_ONLY
+END
+
+// Blade of Searing +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h39.itm~) BEGIN
+	COPY_EXISTING ~sw1h39.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			LPM ~clear~
+			SET setr = 25
+			SET setg = 20
+			SET setb = 11
+			SET location = wred				// location
+			LPM ~glow~
+			SET gradient = 30				// colour index
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 27				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 30				// colour index
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Blade of Roses +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h40.itm~) BEGIN
+	COPY_EXISTING ~sw1h40.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 234				// Replace colour index 46
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 27				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 127				// Replace colour index 47
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Gwen fix: Change Long Sword +2 (SW1H41) to Long Sword +3 because of the Core content patches fix that reverts to its original inventory icon ISW1H41. 1PP sets it to SW1H06 (Varscona +2), but EE does not validate this change. Then removes the re-colorisation modified by 400_1pp_update_bgii and sets it to SW1H73 (Long Sword +3) that deserves those settings.
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h73.itm~) BEGIN
+	COPY_EXISTING ~sw1h73.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 6				// Replace colour index 29
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 27				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 57				// Replace colour index 31
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Bastard Sword +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h42.itm~) BEGIN
+	COPY_EXISTING ~sw1h42.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			LPM ~clear~
+			SET gradient = 25				// colour index
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 27				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 121				// Replace colour index 47
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Katana
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h43.itm~) BEGIN
+	COPY_EXISTING ~sw1h43.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 25				// colour index
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 27				// Replace colour index 5
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 25				// colour index
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Katana +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h44.itm~) BEGIN
+	COPY_EXISTING ~sw1h44.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 25				// colour index
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 226				// Replace colour index 5
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 33				// colour index
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Malakar +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h45.itm~) BEGIN
+	COPY_EXISTING ~sw1h45.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 16				// colour index
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 178				// Replace colour index 5
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 111				// Replace colour index 33
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Ninja-To
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h48.itm~) BEGIN
+	COPY_EXISTING ~sw1h48.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 217				// Replace colour index 30
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 100				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 202				// Replace colour index 96
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Ninja-To +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h49.itm~) BEGIN
+	COPY_EXISTING ~sw1h49.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 193				// colour index 30
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 100				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 212				// Replace colour index 29
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Celestial Fury +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h51.itm~) BEGIN
+	COPY_EXISTING ~sw1h51.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 25				// colour index
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 223				// Replace colour index 16
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 47				// colour index
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Water's Edge +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h52.itm~) BEGIN
+	COPY_EXISTING ~sw1h52.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wblue			// location
+			LPM ~glow~
+			SET gradient = 196				// Replace colour index 25
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 231				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 119				// Replace colour index 36
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Katana +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h55.itm~) BEGIN
+	COPY_EXISTING ~sw1h55.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 99				// colour index
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 223				// Replace colour index 5
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 210				// Replace colour index 22
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Scimitar
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h56.itm~) BEGIN
+	COPY_EXISTING ~sw1h56.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 99				// colour index
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 226				// Replace colour index 5
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 94				// colour index
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Foebane +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h62.itm~) BEGIN
+	COPY_EXISTING ~sw1h62.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			LPM ~clear~
+			SET gradient = 81				// Replace colour index 96
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 248				// Replace colour index 5
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 215				// Replace colour index 51
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Foebane +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h63.itm~) BEGIN
+	COPY_EXISTING ~sw1h63.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			LPM ~clear~
+			SET gradient = 81 				// Replace colour index 96
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 202				// Replace colour index 5
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 119				// Replace colour index 51
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Purifier +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h64.itm~) BEGIN
+	COPY_EXISTING ~sw1h64.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			LPM ~clear~
+			SET setr = 172
+			SET setg = 36
+			SET setb = 26
+			SET speed = 0x1e
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET gradient = 229				// Replace colour index 97
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 245				// Replace colour index 97
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 208				// Replace colour index 51
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Purifier +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h65.itm~) BEGIN
+	COPY_EXISTING ~sw1h65.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			LPM ~clear~
+			SET setr = 172
+			SET setg = 36
+			SET setb = 26
+			SET speed = 0x1e
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET gradient = 186				// Replace colour index 97
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 205				// Replace colour index 97
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 248				// Replace colour index 51
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Hindo's Doom +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h71.itm~) BEGIN
+	COPY_EXISTING ~sw1h71.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 120				// Replace colour index 46
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 249				// Replace colour index 5
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 212				// Replace colour index 29
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Bastard Sword +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h72.itm~) BEGIN
+	COPY_EXISTING ~sw1h72.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			LPM ~clear~
+			SET gradient = 29				// colour index
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 27				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 46				// colour index
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Katana +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h75.itm~) BEGIN
+	COPY_EXISTING ~sw1h75.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 218				// Replace colour index 29
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 245				// Replace colour index 16
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 209				// Replace colour index 29
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Scimitar +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h76.itm~) BEGIN
+	COPY_EXISTING ~sw1h76.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 99				// colour index
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 232				// Replace colour index 5
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 209				// Replace colour index 94
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// The Answerer +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h77.itm~) BEGIN
+	COPY_EXISTING ~sw1h77.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 64
+			SET setg = 20
+			SET setb = 20
+			SET speed = 0x14
+			SET location = wgrey			// location
+			LPM ~pulse~
+			SET setr = 64
+			SET setg = 20					// Replace colour index 0
+			SET setb = 20					// Replace colour index 0
+			SET speed = 0x14
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET speed = 0x14
+			SET location = wred				// location
+			LPM ~pulse~
+			SET gradient = 99				// colour index
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 174				// Replace colour index 5
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 221				// Replace colour index 25
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Drow Scimitar +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~dwsw1h01.itm~) BEGIN
+	COPY_EXISTING ~dwsw1h01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 99				// colour index
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 102				// Replace colour index 5
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 202				// Replace colour index 94
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Drow Long Sword +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~dwsw1h02.itm~) BEGIN
+	COPY_EXISTING ~dwsw1h02.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 227				// Replace colour index 99
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 177				// Replace colour index 5
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 180				// Replace colour index 22
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+
+/*  =================================  *
+ *          TWO-HANDED SWORDS          *
+ *  =================================  */
+
+// Two-handed Sword
+ACTION_FOR_EACH sword IN ~sw2h01~ ~_sw2h01~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 249				// Replace colour index 24
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 27				// Replace colour index 5
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 24				// colour index
+				SET location = wred				// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Two-handed Sword +1
+ACTION_FOR_EACH sword IN ~sw2h02~ ~_sw2h02~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 25				// colour index
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 205				// Replace colour index 27
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 254				// Replace colour index 25
+				SET location = wred				// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Spider's Bane +2
+// Gwen fix: harmonizes both versions. Now they get the same icon and colorisation (no change for vanilla SW1H13 as its colors fit the new icon installed by 1PP).
+ACTION_FOR_EACH sword IN ~sw2h06~ ~_sw2h06~ ~sw2h13~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~ISW2H13~ #8	// Replace ISW2H06
+				WRITE_ASCII 0x76 ~ISW2H13~ #8
+				LPM ~clear~
+				SET gradient = 104				// Restore 104 Dark Chrome Purple (1PP was replacing colour index 5 with 186 Dark Plum).
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 27				// Grey Replace colour index 5 (Medium Silver)
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 104				// Restore 104 Dark Chrome Purple (1PP was replacing colour index 66 with 209 Ath Peasant Minot - Ash Grey)
+				SET location = wred				// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Harbinger +3: does not overwrite Harbinger's icon and copy an alternate resource for modding purpose. This way, Harbinger keeps its golden icon which fits to its colors settings.
+ACTION_FOR_EACH sword IN ~sw2h07~ ~_sw2h07~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 211				// Replace colour index 24
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 254				// Replace colour index 16
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 29				// Replace colour index 24
+				SET location = wred				// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Two-handed Sword +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw2h20.itm~) BEGIN
+	COPY_EXISTING ~sw2h20.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~ISW2H20~ #8	// useless ?
+			WRITE_ASCII 0x76 ~ISW2H20~ #8	// useless ?
+			LPM ~clear~
+			SET gradient = 218				// Replace colour index 29
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 27				// Replace colour index 28
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 121				// Replace colour index 58
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Carsomyr +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw2h10.itm~) BEGIN
+	COPY_EXISTING ~sw2h10.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~ISW2H10~ #8	// useless ?
+			WRITE_ASCII 0x76 ~ISW2H10~ #8	// useless ?
+			LPM ~clear~
+			SET setr = 0					// Replace colour index 225
+			SET setg = 0					// Replace colour index 212
+			SET setb = 0
+			SET speed = 0x30				// Replace 0x32
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET gradient = 207				// Replace colour index 25
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 249				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 207				// Replace colour index 47
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Carsomyr +6
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw2h19.itm~) BEGIN
+	COPY_EXISTING ~sw2h19.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~ISW2H10~ #8	// useless ?
+			WRITE_ASCII 0x76 ~ISW2H10~ #8	// useless ?
+			LPM ~clear~
+			SET setr = 61					// Replace colour index 235
+			SET setg = 45					// Replace colour index 242
+			SET setb = 22					// Replace colour index 0
+			SET speed = 0x50				// Replace 0x1e
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET gradient = 211				// Replace colour index 25
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 249				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 198				// Replace colour index 47
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Two-handed Sword +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw2h11.itm~) BEGIN
+	COPY_EXISTING ~sw2h11.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 207				// Replace colour index 61
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 28				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 252				// Replace colour index 104
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Flame of the North +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw2h12.itm~) BEGIN
+	COPY_EXISTING ~sw2h12.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET setr = 179
+			SET setg = 156
+			SET setb = 212
+			SET speed = 0x64
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET gradient = 244				// Replace colour index 60
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 176				// Replace colour index 104
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 202				// Replace colour index 60
+			SET location = wred				// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Gram the Sword of Grief +5
+ACTION_FOR_EACH sword IN ~sw2h17~ ~sw2h18~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET setr = 0
+				SET setg = 0
+				SET setb = 0
+				SET location = wblue			// location
+				LPM ~glow~
+				SET gradient = 210				// Replace colour index 29
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 212				// Replace colour index 50
+				SET location = wblue			// location
+				LPM ~colour~
+				SET gradient = 187				// Replace colour index 50
+				SET location = wred				// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+
+/*  =========================  *
+ *          NEW SWORD          *
+ *  =========================  */
+
+// Viper's Edge +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h04.itm~) BEGIN
+	COPY_EXISTING ~sw1h04.itm~ ~override/SW1P01.ITM~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			SAY NAME2 @400802 /* Viper's Edge +2 */
+			SAY DESC  @400803 /* This immensely powerful relic is just as strongly enchanted as it is cursed. Its blade shimmers in a slick, intoxicating tinge of green, likely literally as well as metaphorically. The sword's grip and hilt are lined by curved thorns which make it hard to see how this weapon could be effectively wielded in battle. Judging by the dried crusts around them, many have still tried, and you cannot deny feeling a tempting curiosity on your part. Said to be originally the weapon of a medusa queen of a long forgotten age bestowed to whom by the gods of old themselves, the exact origins of this blade have been lost to time. Whatever its provenance, it has since travelled through many hands (albeit the majority not of the living persuasion). The common thread running through all these encounters was that their eventual end was rarely of a voluntary nature and nothing good ever came from them.
+
+STATISTICS:
+
+Cursed:
+Reduces maximum HP by 10%
+Loss of 1 point of constitution (permanent)
+Intolerance to common healing potions
+Chance of poisoning the user through contact
+User may become prone to blood rage
+May cause passing wild magic spikes in magic users
+
+Passive abilities:
+Dexterity +2
++1 attack per round
+Improved back stab damage
+Temporary regeneration on critical health
+
+Active abilities:
+Instantly annihilates weak undead
+May petrify target on successful hit
+May inflict knock back
+May badly poison on successful hit
+Poison may paralyse humanoid targets
+Poison may overwhelm simpleminded creatures and temporarily make them pliable to suggestion
+
+STATISTICS:
+
+Damage: 1D8 +2
+THAC0: +2 bonus
+Damage type: slashing
+Weight: 3
+Speed Factor: 3
+Proficiency Type: Long Sword
+Type: 1-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage */
+			WRITE_ASCII 0x3A ~1swh00~ #8
+			WRITE_ASCII 0x58 ~CSW1H06~ #8
+			WRITE_LONG	0x18 0x7c			// Flags
+			WRITE_LONG	0x34 12730			// Price
+			WRITE_SHORT 0x42 170			// Lore to identify
+			WRITE_LONG	0x60 2				// Enchantment
+			LPF ALTER_ITEM_HEADER INT_VAR speed = 2 thac0_bonus = 2 damage_bonus = 2 STR_VAR icon = 1swh00 END
+			LPM ~clear~
+			SET setr = 0
+			SET setg = 0
+			SET setb = 0
+			SET location = wblue			// location
+			LPM ~glow~
+			SET setr = 10
+			SET setg = 21
+			SET setb = 6
+			SET speed = 0x10
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET gradient = 203				// colour index
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 112				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+			SET gradient = 246				// colour index
+			SET location = wred				// location
+			LPM ~colour~
+			// Gwen fix: remove the #134 global effect (Petrification) otherwise it would be impossible to wield the sword.
+//			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 134 target = 1 timing = 2 resist_dispel = 2 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 15 target = 1 timing = 2 parameter1 = 2 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 18 target = 1 timing = 2 parameter1 = 90 parameter2 = 2 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 10 target = 1 timing = 9 parameter1 = "-1" END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 263 target = 1 timing = 2 parameter1 = 150 parameter2 = 2 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 180 target = 1 timing = 2 parameter1 = 9382 STR_VAR resource = POTN08 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 180 target = 1 timing = 2 parameter1 = 9382 STR_VAR resource = POTN52 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 180 target = 1 timing = 2 parameter1 = 9382 STR_VAR resource = POTN55 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 1 target = 1 timing = 2 parameter1 = 1 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 232 target = 1 timing = 2 parameter2 = 4 STR_VAR resource = SPPR711 END
+			// Gwen (fix wrong coding): the extended effects were not implemented.
+			LPF ADD_ITEM_EFFECT INT_VAR type = 1 header = 1 opcode = 134 target = 2 timing = 1    parameter1 = 1 probability1 = 26 probability2 = 10 resist_dispel = 1 savingthrow = 16 END // 0x10
+			LPF ADD_ITEM_EFFECT INT_VAR type = 1 header = 1 opcode = 134 target = 2 timing = 1    parameter1 = 1 probability1 = 30 probability2 = 27 resist_dispel = 1 END	// useless duration = 10
+			LPF ADD_ITEM_EFFECT INT_VAR type = 1 header = 1 opcode = 25  target = 2 duration = 20 parameter1 = 1 probability1 = 15 resist_dispel = 1 END
+			LPF ADD_ITEM_EFFECT INT_VAR type = 1 header = 1 opcode = 235 target = 2 duration = 1  parameter1 = 21 parameter2 = 2 probability1 = 38 probability2 = 28 END
+			LPF ADD_ITEM_EFFECT INT_VAR type = 1 header = 1 opcode = 5   target = 2 duration = 60 parameter1 = 255 parameter2 = 3 probability1 = 47 probability2 = 42 resist_dispel = 1 END
+			LPF ADD_ITEM_EFFECT INT_VAR type = 1 header = 1 opcode = 175 target = 2 duration = 7  parameter1 = 1 parameter2 = 3 probability1 = 45 probability2 = 36 resist_dispel = 1 END
+			LPF ADD_ITEM_EFFECT INT_VAR type = 1 header = 1 opcode = 55  target = 2 timing = 1    parameter1 = 4 parameter2 = 3 resist_dispel = 1 dicenumber = 5 dicesize = 4 END
+			// Gwen fix: modify the cursed effects probabilities, so that they don't stack when not necessary (e.g. why should you be poisoned when petrified?).
+			LPF ADD_ITEM_EFFECT INT_VAR type = 1 header = 1 opcode = 25  target = 1 duration = 20 parameter1 = 1 probability1 = 23 probability2 = 7 resist_dispel = 1 END
+			LPF ADD_ITEM_EFFECT INT_VAR type = 1 header = 1 opcode = 134 target = 1 timing = 1 parameter1 = 1 probability1 = 40 probability2 = 24 resist_dispel = 1 END	// previous probabilities : 7-23
+			LPF ADD_ITEM_EFFECT INT_VAR type = 1 header = 1 opcode = 3   target = 1 duration = 15 probability1 = 85 probability2 = 80 END
+			LPF ADD_ITEM_EFFECT INT_VAR type = 1 header = 1 opcode = 280 target = 1 timing = 1 parameter2 = 1 probability1 = 55 probability2 = 50 resist_dispel = 1 END
+		END
+	BUT_ONLY
+END
+
+//END of COMPONENT

@@ -1,0 +1,285 @@
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Replace macros with functions whenever possible.                                                                                                                          *
+ *      - Avoid copying and overwriting the same files again and again...                                                                                                           *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
+ *  		MACRO GW_ADJUST_TOOLTIP: ADD new colums in tooltip.2da (make sure it contains at least 4 columns, so we can add Narbucchad's Demise ability).                           *
+ *  		FUNCTION GW_ADD_TOOLTIP: ADD new entries in tooltip.2da.                                                                                                                *
+ *  ==============================================================================================================================================================================  */
+
+/*  ==========================  *
+ *          NEW STAVES          *
+ *  ==========================  */
+
+// Gwen fix: move PSSTAFMxx items from automatic copy to avoid overwriting them.
+ACTION_FOR_EACH resource IN ~1STAFM0.BAM~ ~1STAFM0.SPL~ ~1STAFM0B.SPL~ ~1STAFM0C.SPL~ ~1STAFM0D.SPL~ ~1STAFM0E.SPL~ ~1STAFM1.BAM~ ~1STAFM1.SPL~ ~1STAFM2.BAM~ BEGIN
+
+	COPY ~1pp/item/1ppv4_update/item/%resource%~ ~override~
+
+END
+
+
+ADD_PROJECTILE ~1pp/item/1ppv4_update/item/1STAFM1.PRO~
+
+// Narbucchad's Demise +5
+COPY ~1pp/item/1ppv4_update/item/PSTAFM1.ITM~ ~override~
+	PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+		SAY NAME1 @400901				/* Wizard's Staff */
+		SAY NAME2 @400902				/* Narbucchad's Demise +5 */
+		SAY UNIDENTIFIED_DESC @400903	/* It does not take years of study in the arcane to be able to tell that this finely crafted staff is highly enchanted. In shape and construction, it seems almost more reminiscent of a wand than a staff used for striking. Its precise workings however are lost on you, rendering it little more than a decorative bauble.
+
+STATISTICS:
+
+Damage: 1D6
+Damage type: crushing
+Weight: 4
+Speed Factor: 4
+Proficiency Type: Staff
+Type: 2-handed
+Requires: 5 Strength */
+		SAY DESC  @400904	/* This finely crafted staff is the long lost legacy of Narbucchad II, a legendary wizard and tyrant of Tashalar (although perhaps better known for the latter). In some circles known as Narbucchad's Fickle Finger, this weapon represents the culmination of his reign. Driven by paranoia and mistrust, Narbucchad successively eliminated his guard in fear of attempts at assassination, and channelled all of his magic into a weapon after his own that could strike down any foe or number of would-be assailants at a time. Originally devised for such dire circumstances only, he quickly grew fond of its potential to cut all sorts of quarrels short and before long came to rely upon it wholly.
+However, the staff required frequent recharging as its enchantments, albeit powerful, would quickly drain in frequent use and spring the orb of power from its socket, requiring careful reinsertion. Many stories circulated of those who had survived and escaped by whim of his Fickle Finger and thus known, it happened to fail him at rather a crucial moment before long.
+Both the staff and his reign were eventually lost to the annals of history, the former, in absence of his spells reduced to an elaborate bauble. How it ended up here is anyone's guess, but the fact that it appears to be fully charged suggests a tale worthy of its own.
+
+STATISTICS:
+
+Combat Abilities:
+Can be used as a melee or ranged weapon.
+As a ranged weapon, it is alternatively possible for latent magic of the user to be channelled (no charge consumed).
+
+Narbucchad's Demise:
+Release the orb's full potential in an intensely powerful blast that will strike any targets within range of the wielder.
+
+THAC0: +2 bonus
+Damage: 1D6 + 3
+Damage type: Crushing
+Weight: 3
+Speed Factor: 1
+Proficiency Type: Staff
+Type: two handed
+Requires: 5 Strength
+Only Usable By:
+ Mages */
+		WRITE_SHORT 0x144 ~%1STAFM1%~
+	END
+BUT_ONLY
+
+
+ADD_PROJECTILE ~1pp/item/1ppv4_update/item/1STAFM0.PRO~
+
+// Narbucchad's Demise +4
+COPY ~1pp/item/1ppv4_update/item/PSTAFM0.ITM~ ~override~
+	PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+		SAY NAME1 @400901 /* Wizard's Staff */
+		SAY NAME2 @400905 /* Narbucchad's Demise +4 */
+		SAY UNIDENTIFIED_DESC @400903
+		SAY DESC  @400906 /* This finely crafted staff is the long lost legacy of Narbucchad II, a legendary wizard and tyrant of Tashalar (although perhaps better known for the latter). In some circles known as Narbucchad's Fickle Finger, this weapon represents the culmination of his reign. Driven by paranoia and mistrust, Narbucchad successively eliminated his guard in fear of attempts at assassination, and channelled all of his magic into a weapon after his own that could strike down any foe or number of would-be assailants at a time. Originally devised for such dire circumstances only, he quickly grew fond of its potential to cut all sorts of quarrels short and before long came to rely upon it wholly.
+However, the staff required frequent recharging as its enchantments, albeit powerful, would quickly drain in frequent use and spring the orb of power from its socket, requiring careful reinsertion. Many stories circulated of those who had survived and escaped by whim of his Fickle Finger and thus known, it happened to fail him at rather a crucial moment before long.
+Both the staff and his reign were eventually lost to the annals of history, the former, in absence of his spells reduced to an elaborate bauble. How it ended up here is anyone's guess. Its charge seems to have lessened slightly after having replaced the jewel.
+
+STATISTICS:
+
+Combat Abilities:
+Can be used as a melee or ranged weapon.
+As a ranged weapon, it is alternatively possible for latent magic of the user to be channelled (no charge consumed).
+
+Narbucchad's Demise:
+Release the orb's full potential in an intensely powerful blast that will strike any targets within range of the wielder.
+
+THAC0: +2 bonus
+Damage: 1D6 + 3
+Damage type: Crushing
+Weight: 3
+Speed Factor: 1
+Proficiency Type: Staff
+Type: two handed
+Requires: 5 Strength
+Only Usable By:
+ Mages */
+		WRITE_SHORT 0x144 ~%1STAFM0%~
+	END
+BUT_ONLY
+
+// Narbucchad's Demise +3
+COPY ~1pp/item/1ppv4_update/item/PSTAFM0B.ITM~ ~override~
+	PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+		SAY NAME1 @400901 /* Wizard's Staff */
+		SAY NAME2 @400907 /* Narbucchad's Demise +3 */
+		SAY UNIDENTIFIED_DESC @400903
+		SAY DESC  @400908 /* This finely crafted staff is the long lost legacy of Narbucchad II, a legendary wizard and tyrant of Tashalar (although perhaps better known for the latter). In some circles known as Narbucchad's Fickle Finger, this weapon represents the culmination of his reign. Driven by paranoia and mistrust, Narbucchad successively eliminated his guard in fear of attempts at assassination, and channelled all of his magic into a weapon after his own that could strike down any foe or number of would-be assailants at a time. Originally devised for such dire circumstances only, he quickly grew fond of its potential to cut all sorts of quarrels short and before long came to rely upon it wholly.
+However, the staff required frequent recharging as its enchantments, albeit powerful, would quickly drain in frequent use and spring the orb of power from its socket, requiring careful reinsertion. Many stories circulated of those who had survived and escaped by whim of his Fickle Finger and thus known, it happened to fail him at rather a crucial moment before long.
+Both the staff and his reign were eventually lost to the annals of history, the former, in absence of his spells reduced to an elaborate bauble. How it ended up here is anyone's guess. Its charge seems to have lessened after having replaced the jewel.
+
+STATISTICS:
+
+Combat Abilities:
+Can be used as a melee or ranged weapon.
+As a ranged weapon, it is alternatively possible for latent magic of the user to be channelled (no charge consumed).
+
+Narbucchad's Demise:
+Release the orb's full potential in an intensely powerful blast that will strike any targets within range of the wielder.
+
+THAC0: +2 bonus
+Damage: 1D6 + 3
+Damage type: Crushing
+Weight: 3
+Speed Factor: 1
+Proficiency Type: Staff
+Type: two handed
+Requires: 5 Strength
+Only Usable By:
+ Mages */
+		WRITE_SHORT 0x144 ~%1STAFM0%~
+	END
+BUT_ONLY
+
+
+ADD_PROJECTILE ~1pp/item/1ppv4_update/item/1STAFM0C.PRO~
+
+// Narbucchad's Demise +2
+COPY ~1pp/item/1ppv4_update/item/PSTAFM0C.ITM~ ~override~
+	PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+		SAY NAME1 @400901 /* Wizard's Staff */
+		SAY NAME2 @400909 /* Narbucchad's Demise +2 */
+		SAY UNIDENTIFIED_DESC @400903
+		SAY DESC  @400910 /* This finely crafted staff is the long lost legacy of Narbucchad II, a legendary wizard and tyrant of Tashalar (although perhaps better known for the latter). In some circles known as Narbucchad's Fickle Finger, this weapon represents the culmination of his reign. Driven by paranoia and mistrust, Narbucchad successively eliminated his guard in fear of attempts at assassination, and channelled all of his magic into a weapon after his own that could strike down any foe or number of would-be assailants at a time. Originally devised for such dire circumstances only, he quickly grew fond of its potential to cut all sorts of quarrels short and before long came to rely upon it wholly.
+However, the staff required frequent recharging as its enchantments, albeit powerful, would quickly drain in frequent use and spring the orb of power from its socket, requiring careful reinsertion. Many stories circulated of those who had survived and escaped by whim of his Fickle Finger and thus known, it happened to fail him at rather a crucial moment before long.
+Both the staff and his reign were eventually lost to the annals of history, the former, in absence of his spells reduced to an elaborate bauble. How it ended up here is anyone's guess. Once again, the staff seems weaker after replacing the gem. Inopportune timing aside, you begin to see how the staff earned its name.
+
+STATISTICS:
+
+Combat Abilities:
+Can be used as a melee or ranged weapon.
+As a ranged weapon, it is alternatively possible for latent magic of the user to be channelled (no charge consumed).
+
+Narbucchad's Demise:
+Release the orb's full potential in a powerful blast that will strike any targets within range of the wielder.
+
+THAC0: +2 bonus
+Damage: 1D6 + 2
+Damage type: Crushing
+Weight: 3
+Speed Factor: 1
+Proficiency Type: Staff
+Type: two handed
+Requires: 5 Strength
+Only Usable By:
+ Mages */
+		WRITE_SHORT 0x144 ~%1STAFM0C%~
+	END
+BUT_ONLY
+
+// Narbucchad's Demise +1
+COPY ~1pp/item/1ppv4_update/item/PSTAFM0D.ITM~ ~override~
+	PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+		SAY NAME1 @400901 /* Wizard's Staff */
+		SAY NAME2 @400911 /* Narbucchad's Demise +1 */
+		SAY UNIDENTIFIED_DESC @400903
+		SAY DESC  @400912 /* This finely crafted staff is the long lost legacy of Narbucchad II, a legendary wizard and tyrant of Tashalar (although perhaps better known for the latter). In some circles known as Narbucchad's Fickle Finger, this weapon represents the culmination of his reign. Driven by paranoia and mistrust, Narbucchad successively eliminated his guard in fear of attempts at assassination, and channelled all of his magic into a weapon after his own that could strike down any foe or number of would-be assailants at a time. Originally devised for such dire circumstances only, he quickly grew fond of its potential to cut all sorts of quarrels short and before long came to rely upon it wholly.
+However, the staff required frequent recharging as its enchantments, albeit powerful, would quickly drain in frequent use and spring the orb of power from its socket, requiring careful reinsertion. Many stories circulated of those who had survived and escaped by whim of his Fickle Finger and thus known, it happened to fail him at rather a crucial moment before long.
+Both the staff and his reign were eventually lost to the annals of history, the former, in absence of his spells reduced to an elaborate bauble. How it ended up here is anyone's guess. Some residual power remains in the orb.
+
+STATISTICS:
+
+Combat Abilities:
+Can be used as a melee or ranged weapon.
+As a ranged weapon, it is alternatively possible for latent magic of the user to be channelled (no charge consumed).
+
+Narbucchad's Demise:
+Release the orb's full potential in a powerful blast that will strike any targets within range of the wielder.
+
+THAC0: +2 bonus
+Damage: 1D6 + 1
+Damage type: Crushing
+Weight: 3
+Speed Factor: 1
+Proficiency Type: Staff
+Type: two handed
+Requires: 5 Strength
+Only Usable By:
+ Mages */
+		WRITE_SHORT 0x144 ~%1STAFM0C%~
+	END
+BUT_ONLY
+
+// Narbucchad's Demise +1
+COPY ~1pp/item/1ppv4_update/item/PSTAFM0E.ITM~ ~override~
+	PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+		SAY NAME1 @400901 /* Wizard's Staff */
+		SAY NAME2 @400911 /* Narbucchad's Demise +1 */
+		SAY UNIDENTIFIED_DESC @400903
+		SAY DESC  @400913 /* This finely crafted staff is the long lost legacy of Narbucchad II, a legendary wizard and tyrant of Tashalar (although perhaps better known for the latter). In some circles known as Narbucchad's Fickle Finger, this weapon represents the culmination of his reign. Driven by paranoia and mistrust, Narbucchad successively eliminated his guard in fear of attempts at assassination, and channelled all of his magic into a weapon after his own that could strike down any foe or number of would-be assailants at a time. Originally devised for such dire circumstances only, he quickly grew fond of its potential to cut all sorts of quarrels short and before long came to rely upon it wholly.
+However, the staff required frequent recharging as its enchantments, albeit powerful, would quickly drain in frequent use and spring the orb of power from its socket, requiring careful reinsertion. Many stories circulated of those who had survived and escaped by whim of his Fickle Finger and thus known, it happened to fail him at rather a crucial moment before long.
+Both the staff and his reign were eventually lost to the annals of history, the former, in absence of his spells reduced to an elaborate bauble. How it ended up here is anyone's guess. A small trace of power remains in the gem, just barely allowing you to channel your own magic through it.
+
+STATISTICS:
+
+Combat Abilities:
+Can be used as a melee or ranged weapon.
+(No longer contains enough charge to draw on)
+
+Narbucchad's Demise:
+Release the orb's remaining force in one blast that will strike any targets within range of the wielder.
+
+THAC0: +1 bonus
+Damage: 1D6 + 1
+Damage type: Crushing
+Weight: 3
+Speed Factor: 1
+Proficiency Type: Staff
+Type: two handed
+Requires: 5 Strength
+Only Usable By:
+ Mages */
+		WRITE_SHORT 0x144 ~%1STAFM0C%~
+	END
+BUT_ONLY
+
+// Narbucchad's Demise
+COPY ~1pp/item/1ppv4_update/item/PSTAFM2.ITM~ ~override~
+	PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+		SAY NAME1 @400901 /* Wizard's Staff */
+		SAY NAME2 @400914 /* Narbucchad's Demise */
+		SAY UNIDENTIFIED_DESC @400915 /* In shape and construction, this staff seems almost more reminiscent of a wand than a weapon used for striking. Apart from its elegant craftsmanship it appears to be a perfectly ordinary staff.
+
+STATISTICS:
+
+Damage: 1D6
+Damage type: crushing
+Weight: 4
+Speed Factor: 4
+Proficiency Type: Staff
+Type: 2-handed
+Requires: 5 Strength */
+		SAY DESC  @400916 /* This finely crafted staff is the long lost legacy of Narbucchad II, a legendary wizard and tyrant of Tashalar (although perhaps better known for the latter). In some circles known as Narbucchad's Fickle Finger, this weapon represents the culmination of his reign. Driven by paranoia and mistrust, Narbucchad successively eliminated his guard in fear of attempts at assassination, and channelled all of his magic into a weapon after his own that could strike down any foe or number of would-be assailants at a time. Originally devised for such dire circumstances only, he quickly grew fond of its potential to cut all sorts of quarrels short and before long came to rely upon it wholly.
+However, the staff required frequent recharging as its enchantments, albeit powerful, would quickly drain in frequent use and spring the orb of power from its socket, requiring careful reinsertion. Many stories circulated of those who had survived and escaped by whim of his Fickle Finger and thus known, it happened to fail him at rather a crucial moment before long.
+Both the staff and his reign were eventually lost to the annals of history, the former, in absence of his spells reduced to an elaborate bauble. How it ended up here is anyone's guess.
+
+STATISTICS:
+
+Damage: 1D6
+Damage type: Crushing
+Weight: 3
+Speed Factor: 1
+Proficiency Type: Staff
+Type: two handed
+Requires: 5 Strength
+Only Usable By:
+ Mages */
+	END
+BUT_ONLY
+
+
+// Gwen fix: make sure that tooltip contains at least 4 colums, so we can add Narbucchad's Demise ability.
+LAM ~GW_ADJUST_TOOLTIP~
+
+LAF ~GW_ADD_TOOLTIP~ STR_VAR GW_item_tooltip0 = "400917" GW_item_tooltip1 = "400918" GW_item_tooltip2 = "400919" GW_item_tooltip3 = "400914" GW_objet = "PSTAFM1" END
+LAF ~GW_ADD_TOOLTIP~ STR_VAR GW_item_tooltip0 = "400917" GW_item_tooltip1 = "400918" GW_item_tooltip2 = "400919" GW_item_tooltip3 = "400914" GW_objet = "PSTAFM0" END
+LAF ~GW_ADD_TOOLTIP~ STR_VAR GW_item_tooltip0 = "400917" GW_item_tooltip1 = "400918" GW_item_tooltip2 = "400919" GW_item_tooltip3 = "400914" GW_objet = "PSTAFM0B" END
+LAF ~GW_ADD_TOOLTIP~ STR_VAR GW_item_tooltip0 = "400917" GW_item_tooltip1 = "400918" GW_item_tooltip2 = "400919" GW_item_tooltip3 = "400914" GW_objet = "PSTAFM0C" END
+LAF ~GW_ADD_TOOLTIP~ STR_VAR GW_item_tooltip0 = "400917" GW_item_tooltip1 = "400918" GW_item_tooltip2 = "400919" GW_item_tooltip3 = "400914" GW_objet = "PSTAFM0D" END
+LAF ~GW_ADD_TOOLTIP~ STR_VAR GW_item_tooltip0 = "400917" GW_item_tooltip1 = "400920" GW_item_tooltip3 = "400914" GW_objet = "PSTAFM0E" END
+
+//END of COMPONENT

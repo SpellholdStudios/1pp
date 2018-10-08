@@ -1,0 +1,486 @@
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Replace macros with functions whenever possible.                                                                                                                          *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
+ *  		Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *  ==============================================================================================================================================================================  */
+
+/*  ====================  *
+ *          BOWS          *
+ *  ====================  */
+
+// Composite Longbow
+ACTION_FOR_EACH bow IN ~bow01~ ~_bow01~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bow%.itm~) BEGIN
+		COPY_EXISTING ~%bow%.itm~ ~ovveride~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 13				// Replace colour index 13
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 95				// Replace colour index 95
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 164				// colour index
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Composite Longbow +1
+ACTION_FOR_EACH bow IN ~bow02~ ~_bow02~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bow%.itm~) BEGIN
+		COPY_EXISTING ~%bow%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 226				// Replace colour index 13
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 240				// Replace colour index 13
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 174				// colour index
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Longbow
+ACTION_FOR_EACH bow IN ~bow03~ ~_bow03~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bow%.itm~) BEGIN
+		COPY_EXISTING ~%bow%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 209				// Replace colour index 85
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 95				// Replace colour index 95
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 90				// colour index
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Longbow +1
+ACTION_FOR_EACH bow IN ~bow04~ ~_bow04~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bow%.itm~) BEGIN
+		COPY_EXISTING ~%bow%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 228				// Replace colour index 65
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 209				// Replace colour index 65
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 90				// colour index
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Shortbow
+ACTION_FOR_EACH bow IN ~bow05~ ~_bow05~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bow%.itm~) BEGIN
+		COPY_EXISTING ~%bow%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x22 ~BS~			// Shortbow - Replace BW Longbow
+				WRITE_ASCII 0x44 ~GBOW02~ #8	// Replace GBOW01
+				LPM ~clear~
+				SET gradient = 13				// Replace colour index 13
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 95				// Replace colour index 95
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 237				// Replace colour index 95
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Shortbow +1
+ACTION_FOR_EACH bow IN ~bow06~ ~_bow06~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bow%.itm~) BEGIN
+		COPY_EXISTING ~%bow%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x22 ~BS~			// Shortbow - Replace BW Longbow
+				WRITE_ASCII 0x44 ~GBOW02~ #8	// Replace GBOW01
+				WRITE_ASCII 0x3A ~IBOW06~ #8	// Replace IBOW03
+				WRITE_ASCII 0x76 ~IBOW06~ #8
+				LPM ~clear~
+				SET gradient = 13				// Replace colour index 13
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 238				// Replace colour index 95
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 172				// colour index
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// The Dead Shot +2
+ACTION_FOR_EACH bow IN ~bow07~ ~_bow07~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bow%.itm~) BEGIN
+		COPY_EXISTING ~%bow%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 222				// Replace colour index 61
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 6				// Replace colour index 61
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 142				// colour index
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Protector of the Dryads +2
+ACTION_FOR_EACH bow IN ~bow08~ ~_bow08~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bow%.itm~) BEGIN
+		COPY_EXISTING ~%bow%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x22 ~BS~			// Shortbow - Replace BW Longbow
+				WRITE_ASCII 0x44 ~GBOW02~ #8	// Replace GBOW01
+				LPM ~clear~
+				SET gradient = 248				// Replace colour index 13
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 235				// Replace colour index 59
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 250				// colour index
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Ripper +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~bow09.itm~) BEGIN
+	COPY_EXISTING ~bow09.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 13				// Replace colour index 13
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 19
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 207				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Heartseeker +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~bow10.itm~) BEGIN
+	COPY_EXISTING ~bow10.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 168				// Replace colour index 13
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 252				// Replace colour index 35
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 207				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Strong Arm +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~bow11.itm~) BEGIN
+	COPY_EXISTING ~bow11.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 168				// Replace colour index 13
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 242				// Replace colour index 16
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 242				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Elven Court Bow +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~bow12.itm~) BEGIN
+	COPY_EXISTING ~bow12.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 235				// Replace colour index 65
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 246				// Replace colour index 103
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 246				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Mana Bow +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~bow13.itm~) BEGIN
+	COPY_EXISTING ~bow13.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 235				// Replace colour index 65
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 202				// Replace colour index 96
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 183				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Tuigan Bow +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~bow14.itm~) BEGIN
+	COPY_EXISTING ~bow14.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~BS~			// Shortbow - Replace BW Longbow
+			WRITE_ASCII 0x44 ~GBOW02~ #8	// Replace GBOW01
+			LPM ~clear~
+			SET gradient = 247				// Replace colour index 75
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 238				// Replace colour index 95
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 90				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Tansheron's Bow +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~bow15.itm~) BEGIN
+	COPY_EXISTING ~bow15.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~BS~			// Shortbow - Replace BW Longbow
+			WRITE_ASCII 0x44 ~GBOW02~ #8	// Replace GBOW01
+			LPM ~clear~
+			SET gradient = 6				// Replace colour index 75
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 237				// Replace colour index 19
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 90				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Composite Longbow +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~bow16.itm~) BEGIN
+	COPY_EXISTING ~bow16.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 6				// Replace colour index 13
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 159				// Replace colour index 38
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 208				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Longbow +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~bow17.itm~) BEGIN
+	COPY_EXISTING ~bow17.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 6				// Replace colour index 65
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 114				// Replace colour index 95
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 211				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Shortbow +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~bow18.itm~) BEGIN
+	COPY_EXISTING ~bow18.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~BS~			// Shortbow - Replace BW Longbow
+			WRITE_ASCII 0x44 ~GBOW02~ #8	// Replace GBOW01
+			LPM ~clear~
+			SET gradient = 6				// Replace colour index 75
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 113				// Replace colour index 5
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 236				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Shortbow of Gesen
+ACTION_IF (FILE_EXISTS_IN_GAME ~bow19.itm~) BEGIN
+	COPY_EXISTING ~bow19.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~BS~			// Shortbow - Replace BW Longbow
+			WRITE_ASCII 0x44 ~GBOW02~ #8	// Replace GBOW01
+			LPM ~clear~
+			SET gradient = 240				// Replace colour index 14
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 240				// Replace colour index 5
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 254				// Replace colour index 95
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Darkfire Bow +4 - Darkfire Bow +5
+ACTION_FOR_EACH bow IN ~bow20~ ~bow21~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bow%.itm~) BEGIN
+		COPY_EXISTING ~%bow%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x22 ~BS~			// Shortbow - Replace BW Longbow
+				WRITE_ASCII 0x44 ~GBOW02~ #8	// Replace GBOW01
+				LPM ~clear~
+				SET gradient = 6				// Replace colour index 49
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 204				// Replace colour index 104
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 90				// colour index
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Taralash +4 - Taralash +5
+ACTION_FOR_EACH bow IN ~bow22~ ~bow23~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bow%.itm~) BEGIN
+		COPY_EXISTING ~%bow%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 6				// Replace colour index 65
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 90				// Replace colour index 50
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 82				// colour index
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Composite Longbow +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~bow24.itm~) BEGIN
+	COPY_EXISTING ~bow24.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 6				// Replace colour index 72
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 127				// Replace colour index 47
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 90				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Longbow +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~bow25.itm~) BEGIN
+	COPY_EXISTING ~bow25.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 6				// Replace colour index 49
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 211				// Replace colour index 50
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 127				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Shortbow +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~bow26.itm~) BEGIN
+	COPY_EXISTING ~bow26.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~BS~			// Shortbow - Replace BW Longbow
+			WRITE_ASCII 0x44 ~GBOW02~ #8	// Replace GBOW01
+			LPM ~clear~
+			SET gradient = 6				// Replace colour index 46
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 240				// Replace colour index 58
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 237				// colour index
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+//END of COMPONENT

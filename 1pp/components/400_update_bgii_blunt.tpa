@@ -1,0 +1,663 @@
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Variable needed for installation (1pp_sleeper) is read from 1pp-config-default.ini or 1pp-config.ini files. This new setting allows to make alternate the turning of      *
+ *        The Sleeper into a flail. In any case, 1PP does not overwrite its original inventory bam with a new one, but installs a new icon (IBLUN16B) as an alternate, and saves    *
+ *        the vanilla icon for compatibility with other mods purpose.                                                                                                               *
+ *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is     *
+ *        installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file    *
+ *        provides a standard installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and   *
+ *        save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini,    *
+ *        the installation process will prevent any installation failure by reverting it back to its default value.                                                                 *
+ *      - Replace macros with functions whenever possible.                                                                                                                          *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
+ *  		Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *                                                                                                                                                                                  *
+ *  specific fixes:                                                                                                                                                                 *
+ *  ---------------                                                                                                                                                                 *
+ *      - #618  ==> blun16.itm (The Sleeper +2): if turned into a flail, modifies minimum strength value and uses a new icon (IBLUN16B) to avoid overwriting the vanilla one (let's *
+ *  				keep it for modders!).           .                                                                                                                              *
+ *  ==============================================================================================================================================================================  */
+
+/*  =====================  *
+ *  		BLUNT          *
+ *  =====================  */
+// Blunty, the skull that met this:
+
+// Club
+ACTION_FOR_EACH blunt IN ~blun01~ ~_blun01~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%blunt%.itm~) BEGIN
+		COPY_EXISTING ~%blunt%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 22				// colour index
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 209				// colour index
+				SET location = wpink			// location
+				LPM ~colour~
+				SET gradient = 22				// colour index
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 163				// Replace colour index 23
+				SET location = wblue			// location
+				LPM ~colour~
+ 			END
+		BUT_ONLY
+	END
+END
+
+// Flail +1
+ACTION_FOR_EACH blunt IN ~blun03~ ~_blun03~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%blunt%.itm~) BEGIN
+		COPY_EXISTING ~%blunt%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 27				// colour index
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 99				// Replace colour index 23
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 27				// colour index
+				SET location = wblue			// location
+				LPM ~colour~
+ 			END
+		BUT_ONLY
+	END
+END
+
+// Mace +1
+ACTION_FOR_EACH blunt IN ~blun05~ ~_blun05~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%blunt%.itm~) BEGIN
+		COPY_EXISTING ~%blunt%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 202				// Replace colour index 98
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 91				// Replace colour index 27
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 202				// Replace colour index 98
+				SET location = wblue			// location
+				LPM ~colour~
+ 			END
+		BUT_ONLY
+	END
+END
+
+// Kiel's Morning Star
+ACTION_FOR_EACH blunt IN ~blun09~ ~_blun09~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%blunt%.itm~) BEGIN
+		COPY_EXISTING ~%blunt%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 238				// Replace colour index 8
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 238				// Replace colour index 8
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 239				// Replace colour index 4
+				SET location = wblue			// location
+				LPM ~colour~
+ 			END
+		BUT_ONLY
+	END
+END
+
+// The Root of the Problem +1
+ACTION_FOR_EACH blunt IN ~blun10~ ~_blun10~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%blunt%.itm~) BEGIN
+		COPY_EXISTING ~%blunt%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 22				// colour index
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 230				// colour index
+				SET location = wpink			// location
+				LPM ~colour~
+				SET gradient = 22				// colour index
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 23				// colour index
+				SET location = wblue			// location
+				LPM ~colour~
+ 			END
+		BUT_ONLY
+	END
+END
+
+// Wyvern's Tail +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun17.itm~) BEGIN
+	COPY_EXISTING ~blun17.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 213				// Replace colour index 7
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 236				// Replace colour index 7
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 246				// Replace colour index 7
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Skullcrusher +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun18.itm~) BEGIN
+	COPY_EXISTING ~blun18.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~M2~			// Mace (alternate)
+			LPM ~clear~
+			SET gradient = 212				// Replace colour index 28
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 254				// Replace colour index 28
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 231				// Replace colour index 28
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Mauler's Arm +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun19.itm~) BEGIN
+	COPY_EXISTING ~blun19.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			//WRITE_ASCII 0x22 ~M2~
+			WRITE_ASCII 0x3A ~IBLUN11~ #8	// Replace IBLUN05
+			WRITE_ASCII 0x76 ~IBLUN11~ #8	// Replace IBLUN05
+			LPM ~clear~
+			SET gradient = 222				// Replace colour index 96
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 248				// Replace colour index 38
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 2				// Replace colour index 96
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Ardulia's Fall +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun20.itm~) BEGIN
+	COPY_EXISTING ~blun20.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~M2~			// Mace (alternate)
+			LPM ~clear~
+			SET gradient = 238				// Replace colour index 24
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 253				// Replace colour index 24
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 211				// Replace colour index 24
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Blackblood +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun22.itm~) BEGIN
+	COPY_EXISTING ~blun22.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~MS~			// Morning star
+			LPM ~clear~
+			SET gradient = 198				// Replace colour index 47
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 210				// Replace colour index 47
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 243				// Replace colour index 47
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Bone Club +2, +3 vs. undead
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun23.itm~) BEGIN
+	COPY_EXISTING ~blun23.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			//WRITE_ASCII 0x22 ~MS~
+			LPM ~clear~
+			SET gradient = 223				// Replace colour index 10
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 138				// colour index
+			SET location = wpink			// location
+			LPM ~colour~
+			SET gradient = 222				// Replace colour index 22
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 222				// Replace colour index 10
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Gnasher +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun24.itm~) BEGIN
+	COPY_EXISTING ~blun24.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			//WRITE_ASCII 0x22 ~MS~
+			LPM ~clear~
+			SET gradient = 247				// Replace colour index 22
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 211				// colour index
+			SET location = wpink			// location
+			LPM ~colour~
+			SET gradient = 198				// Replace colour index 22
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 247				// Replace colour index 22
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Club of Detonation +3 - Club of Detonation +5
+ACTION_FOR_EACH blunt IN ~blun26~ ~blun27~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%blunt%.itm~) BEGIN
+		COPY_EXISTING ~%blunt%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				//WRITE_ASCII 0x22 ~MS~
+				LPM ~clear~
+				SET gradient = 247				// Replace colour index 6 and 30
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 235				// colour index
+				SET location = wpink			// location
+				LPM ~colour~
+				SET gradient = 210				// Replace colour index 92 and 91
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 247				// Replace colour index 6 and 30
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+// Mace of Disruption +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun12.itm~) BEGIN
+	COPY_EXISTING ~blun12.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~M2~			// Mace (alternate)
+			LPM ~clear~
+			SET gradient = 248				// Replace colour index 97
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 245				// Replace colour index 97
+			SET location = wred				// location
+			LPM ~colour~
+			SET setr = 54					// Replace colour index 0
+			SET setg = 202
+			SET setb = 255
+			SET speed = 0x6e
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET gradient = 231				// Replace colour index 97
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Mace of Disruption +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun25.itm~) BEGIN
+	COPY_EXISTING ~blun25.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~M2~			// Mace (alternate)
+			WRITE_ASCII 0x3A ~IBLUN12~ #8	// Replace IBLUN05
+			WRITE_ASCII 0x76 ~IBLUN12~ #8	// Replace IBLUN05
+			LPM ~clear~
+			SET gradient = 199				// Replace colour index 96
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 245				// Replace colour index 38
+			SET location = wred				// location
+			LPM ~colour~
+			SET setr = 84
+			SET setg = 232
+			SET setb = 255
+			SET speed = 0x7e
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET gradient = 249				// Replace colour index 96
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Flail of Ages +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun14.itm~) BEGIN
+	COPY_EXISTING ~blun14.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~F3~			// Flail (alternate 3)
+			LPM ~clear~
+			SET setr = 229
+			SET setg = 215
+			SET setb = 83
+			SET speed = 0x64
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET gradient = 245				// Replace colour index 25
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 243				// colour index
+			SET location = wpink			// location
+			LPM ~colour~
+			SET gradient = 244				// Replace colour index 99
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 252				// Replace colour index 25
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Flail of Ages +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun14d.itm~) BEGIN
+	COPY_EXISTING ~blun14d.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~F1~			// Flail (alternate 2)
+			LPM ~clear~
+			SET gradient = 243				// Replace colour index 27
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 23
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 245				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Flail of Ages +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun14e.itm~) BEGIN
+	COPY_EXISTING ~blun14e.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~F1~			// Flail (alternate 2)
+			LPM ~clear~
+			SET gradient = 252				// Replace colour index 27
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 23
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 245				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Flail of Ages +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun14f.itm~) BEGIN
+	COPY_EXISTING ~blun14f.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~F1~			// Flail (alternate 2)
+			LPM ~clear~
+			SET gradient = 246				// Replace colour index 27
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 23
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 243				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Flail of Ages +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun14g.itm~) BEGIN
+	COPY_EXISTING ~blun14g.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~F0~			// Flail (alternate 1)
+			LPM ~clear~
+			SET gradient = 246				// Replace colour index 27
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 23
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 245				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Flail of Ages +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun14h.itm~) BEGIN
+	COPY_EXISTING ~blun14h.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~F0~			// Flail (alternate 1)
+			LPM ~clear~
+			SET gradient = 246				// Replace colour index 27
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 23
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 243				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Flail of Ages +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun14i.itm~) BEGIN
+	COPY_EXISTING ~blun14i.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~F0~			// Flail (alternate 1)
+			LPM ~clear~
+			SET gradient = 246				// Replace colour index 27
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 91				// Replace colour index 23
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 246				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Flail +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun13.itm~) BEGIN
+	COPY_EXISTING ~blun13.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~F0~			// Flail (alternate 1)
+			WRITE_ASCII 0x3A ~IBLUN13B~ #8	// Replace IBLUN13
+			WRITE_ASCII 0x76 ~IBLUN13B~ #8	// Replace IBLUN13
+			LPM ~clear~
+			SET gradient = 90				// Replace colour index 27
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 99				// Replace colour index 23
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 247				// Replace colour index 27
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Flail of Ages +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun30.itm~) BEGIN
+	COPY_EXISTING ~blun30.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~F3~			// Flail (alternate 3)
+			LPM ~clear~
+			SET setr = 229
+			SET setg = 215
+			SET setb = 83
+			SET speed = 0x64
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET gradient = 218				// Replace colour index 25
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 216				// colour index
+			SET location = wpink			// location
+			LPM ~colour~
+			SET gradient = 244				// Replace colour index 99
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 228				// Replace colour index 25
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Drow Flail +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~dwblun01.itm~) BEGIN
+	COPY_EXISTING ~dwblun01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~F0~			// Flail (alternate 1)
+			LPM ~clear~
+			SET gradient = 218				// Replace colour index 30
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 183				// Replace colour index 23
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 212				// Replace colour index 30
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Flail of Ages +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun30c.itm~) BEGIN
+	COPY_EXISTING ~blun30c.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~F3~			// Flail (alternate 3)
+			LPM ~clear~
+			SET setr = 229
+			SET setg = 215
+			SET setb = 83
+			SET speed = 0x64
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET gradient = 245				// Replace colour index 25
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 243				// colour index
+			SET location = wpink			// location
+			LPM ~colour~
+			SET gradient = 244				// Replace colour index 99
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 228				// Replace colour index 25
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Flail of Ages +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~blun30d.itm~) BEGIN
+	COPY_EXISTING ~blun30d.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~F3~			// Flail (alternate 3)
+			LPM ~clear~
+			SET setr = 229
+			SET setg = 215
+			SET setb = 83
+			SET speed = 0x64
+			SET location = wblue			// location
+			LPM ~pulse~
+			SET gradient = 245				// Replace colour index 25
+			SET location = wgrey			// location
+			LPM ~colour~
+			SET gradient = 243				// colour index
+			SET location = wpink			// location
+			LPM ~colour~
+			SET gradient = 244				// Replace colour index 99
+			SET location = wred				// location
+			LPM ~colour~
+			SET gradient = 228				// Replace colour index 25
+			SET location = wblue			// location
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// The Sleeper +2
+// Gwen fix: modify minimum strength and use a new icon (IBLUN16B) to avoid overwriting the vanilla one (let's keep it for modders!).
+ACTION_IF (1pp_sleeper = 1) BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~blun16.itm~) BEGIN
+		COPY_EXISTING ~blun16.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				SAY DESC @400804 /* War Flail + 2: The Sleeper
+This belonged to Ssitalc, an uncharacteristically evil elf known as the Slaver of the Sword Coast. Until his sudden death several years ago, Ssitalc commanded a large force of human, dwarf and gnomish brigands, using the Sleeper to keep them in line. It has a chance to incapacitate any human, dwarf, gnome, or halfling by inducing deep slumber, though elves are conveniently immune.
+
+STATISTICS
+
+Combat Ability: Any human or demi-human, excluding elves, hit by the Sleeper must save vs. poison with a +4 bonus or fall asleep for 18 seconds.
+THAC0: +2 bonus
+Damage: 2D4 +2
+Damage type: crushing
+Weight: 9
+Speed Factor: 5
+Proficiency Type: Flail/Morningstar
+Type: 1-handed
+Requires: 11 Strength
+Not Usable By:
+ Druid
+ Mage
+ Thief */
+				WRITE_ASCII 0x22 ~F0~			// Flail (alternate 1) replace MS
+				WRITE_ASCII 0x3A ~IBLUN16B~ #8	// Replace IBLUN16
+				WRITE_ASCII 0x76 ~IBLUN16B~ #8
+				WRITE_ASCII 0x58 ~CBLUN13~ #8	// Replace CBLUN16
+				WRITE_LONG  0x08 6704			// Replace General name
+				WRITE_LONG  0x50 6706			// Replace General description
+				WRITE_SHORT 0x1c 0x17			// Category
+				WRITE_SHORT 0x26 13				// Minimum strength
+				LPM ~clear~
+				SET gradient = 90				// Replace colour index 27
+				SET location = wgrey			// location
+				LPM ~colour~
+				SET gradient = 209				// Replace colour index 27
+				SET location = wred				// location
+				LPM ~colour~
+				SET gradient = 245				// Replace colour index 25
+				SET location = wblue			// location
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+END
+
+//END of COMPONENT

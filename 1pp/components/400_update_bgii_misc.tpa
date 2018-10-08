@@ -1,0 +1,134 @@
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Replace macros with functions whenever possible.                                                                                                                          *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
+ *  		Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *                                                                                                                                                                                  *
+ *  specific fixes:                                                                                                                                                                 *
+ *  ---------------                                                                                                                                                                 *
+ *      - #57	==> misc89.itm (Edwin's Amulet): adds bgmisc89 (BGT and IR compatibility).                                                                                          *
+ *      - #77	==> book06.itm (Tome of Clear Thought), book07.itm (Tome of Leadership and Influence) and book08.itm (Tome of Understanding): harmonizes header icon with new       *
+ *  				inventory icon (IBOOK768) for consistency.                                                                                                                      *
+ *  ==============================================================================================================================================================================  */
+
+/*  =============================  *
+ *          MISCELLANEOUS          *
+ *  =============================  */
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~SW1HWK.ITM~) BEGIN
+	COPY_EXISTING ~SW1HWK.ITM~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+			SAY NAME2 @400801				/* Water's Edge +3 */
+		END
+END
+
+// Harps
+ACTION_FOR_EACH harp IN ~MISC3M~ ~MISC3N~ ~MISC3O~ ~MISCBR~ ~WA2HARP~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%harp%.itm~) BEGIN
+		COPY_EXISTING ~%harp%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x44 ~GMISC2P~ #8	// Replace GSACK01
+			END
+	END
+END
+
+// Periapt of Life Protection
+ACTION_IF (FILE_EXISTS_IN_GAME ~amul23.itm~) BEGIN
+	COPY_EXISTING ~amul23.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~IAMUL23~ #8	// Replace IAMUL22
+			WRITE_ASCII 0x58 ~CAMUL23~ #8	// Replace CAMUL22
+		END
+	BUT_ONLY
+END
+
+// Necklace of Form Stability
+ACTION_IF (FILE_EXISTS_IN_GAME ~amul24.itm~) BEGIN
+	COPY_EXISTING ~amul24.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~IAMUL24~ #8	// Replace IAMUL22
+			WRITE_ASCII 0x58 ~CAMUL24~ #8	// Replace CAMUL22
+		END
+	BUT_ONLY
+END
+
+// Edwin's Amulet --> Gwen fix: adds bgmisc89 (BGT and IR compatibility)
+ACTION_FOR_EACH amul IN ~misc89~ ~bgmisc89~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%amul%.itm~) BEGIN
+		COPY_EXISTING ~%amul%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~1AMUL07B~ #8	// Replace 1AMUL07
+			END
+		BUT_ONLY
+	END
+END
+
+// History of the Nether Scrolls
+ACTION_IF (FILE_EXISTS_IN_GAME ~book68.itm~) BEGIN
+	COPY_EXISTING ~book68.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~IBOOK09~ #8	// Replace IBOOK01
+		END
+	BUT_ONLY
+END
+
+// Tomes (of Clear Thought, of Leadership and Influence, of Understanding)
+ACTION_FOR_EACH book IN ~book06~ ~book07~ ~book08~ ~_book06~ ~_book07~ ~_book08~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%book%.itm~) BEGIN
+		COPY_EXISTING ~%book%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~IBOOK768~ #8	// Replace IBOOK06, IBOOK07 and IBOOK08
+				WRITE_ASCII 0x76 ~IBOOK768~ #8	// Gwen fix for consistency
+			END
+		BUT_ONLY
+	END
+END
+
+// Gauntlets of Extraordinary Specialization
+ACTION_IF (FILE_EXISTS_IN_GAME ~brac21.itm~) BEGIN
+	COPY_EXISTING ~brac21.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~IBRAC21~ #8	// Replace IBRAC10
+		END
+	BUT_ONLY
+END
+
+// Blessed Bracers
+ACTION_IF (FILE_EXISTS_IN_GAME ~brac23.itm~) BEGIN
+	COPY_EXISTING ~brac23.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~IBRAC23~ #8	// Replace IBRAC22
+		END
+	BUT_ONLY
+END
+
+// Quiver of Plenty +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~quiver03.itm~) BEGIN
+	COPY_EXISTING ~quiver03.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~1QUIV02~ #8	// Replace 1QUIV01
+		END
+	BUT_ONLY
+END
+
+// Case of Plenty +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~quiver04.itm~) BEGIN
+	COPY_EXISTING ~quiver04.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~1BOLTS02~ #8	// Replace 1QUIV01
+			END
+	BUT_ONLY
+END
+
+// Bag of Plenty +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~quiver06.itm~) BEGIN
+	COPY_EXISTING ~quiver06.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~1QBULL03~ #8	// Replace 1QUIV05
+		END
+	BUT_ONLY
+END
+
+//END of COMPONENT

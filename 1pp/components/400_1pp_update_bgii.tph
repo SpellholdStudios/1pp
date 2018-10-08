@@ -1,0 +1,182 @@
+// This is where things get... 'interesting'
+// Work with me here, WeiDU
+
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Split this huge component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).                  *
+ *      - Variables needed for installation are read from 1pp-config-default.ini or 1pp-config.ini files.                                                                           *
+ *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is     *
+ *        installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file    *
+ *        provides a standard installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and   *
+ *        save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini,    *
+ *        the installation process will prevent any installation failure by reverting it back to its default value.                                                                 *
+ *      -  Gems sub-component (#110) : code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Builds  *
+ *         an array to define new gems lore values to identify. Same tph used for IWD and BG2 games.                                                                                *
+ *      - Replace macros with functions whenever possible.                                                                                                                          *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
+ *  		Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *                                                                                                                                                                                  *
+ *  specific fixes:                                                                                                                                                                 *
+ *  ---------------                                                                                                                                                                 *
+ *      - #37   ==>	Does not overwrite Varscona's icon with a clone of ISW1H41 (Long Sword +2) because EE does not validate this change.                                            *
+ *      - #41   ==> Adds a new setting (1pp_sleeper) allowing to make alternate the turning of The Sleeper into a flail. In any case, 1PP does not overwrites anymore its original  *
+ *                  inventory bam with a new one, but installs a new icon(IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose.          *
+ *  ==============================================================================================================================================================================  */
+
+/* ============================= *
+ *                               *
+ *         BEGIN INSTALL         *
+ *                               *
+ * ============================= */
+
+PRINT @400002 /* Copying resources... */
+
+// Gwen fix: Does not overwrite Varscona's icon (ISW1H06) with a clone of ISW1H41 (Long Sword +2) because EE does not validate this change.
+ACTION_FOR_EACH resource IN ~1AMUL07B~ ~1AMUL07C~ ~1BAND01~ ~1BAND02~ ~1BAND03~ ~1BAND04~ ~1BAND05~ ~1BAND06~ ~1BOLTS01~ ~1BOLTS02~ ~1CHAN01B~ ~1CHAN02B~ ~1CHAN03B~ ~1CHAN04B~ ~1CLCK07B~ ~1CLCK27B~ ~1CSTAFM~ ~1GLEAT01~ ~1GSTAFGS~ ~1HELM00~ ~1HELM01~ ~1HELM02~ ~1HELM03~ ~1HELM04~ ~1HELM05~ ~1HELM06~ ~1HELM07~ ~1HELM08~ ~1HELM09~ ~1HELM10~ ~1HELM11~ ~1HELM12~ ~1HELM13~ ~1HELM14~ ~1HELM15~ ~1HELM16~ ~1HELM17~ ~1HELM18~ ~1HELM19~ ~1HELM20~ ~1HELM21~ ~1HELM22~ ~1HELM23~ ~1HELM24~ ~1HELM25~ ~1HELM26~ ~1LEAT02~ ~1LEAT05~ ~1LEAT06~ ~1LEAT07~ ~1LEAT08~ ~1LEAT10~ ~1PLAT02~ ~1PLAT04~ ~1PLAT05~ ~1PLAT13~ ~1PLAT18B~ ~1PLAT23B~ ~1QBULL02~ ~1QBULL03~ ~1QUIV01~ ~1QUIV02~ ~1SHLD172~ ~1SHLDL01~ ~1SHLDL02~ ~1SHLDL03~ ~1SHLDL04~ ~1SHLDL05~ ~1SHLDM01~ ~1SHLDM02~ ~1SHLDM03~ ~1SHLDM04~ ~1SWH00~ ~GBOW02~ ~GBSHLD~ ~GLSHLD~ ~GMSHLD~ ~GQUIVER0~ ~GSSHLD~ ~IAMUL19~ ~IAMUL20~ ~IAMUL21~ ~IAMUL22~ ~IAMUL23~ ~IAMUL24~ ~IAMUL25~ ~IAMUL26~ ~IAMUL27~ ~IAMUL28~ ~IAROW01~ ~IAROW15~ ~IBELT10~ ~IBLUN13B~ ~IBLUN30B~ ~IBOLT09~ ~IBOOK09~ ~IBOOK768~ ~IBOOT07~ ~IBOOT12~ ~IBRAC13~ ~IBRAC14~ ~IBRAC15~ ~IBRAC21~ ~IBRAC22~ ~IBRAC23~ ~IBRAC24~ ~IBRAC25~ ~IBRAC26~ ~ICHAN01~ ~ICHAN02~ ~ICHAN03~ ~ICHAN06~ ~ICHAN07~ ~ICHAN08~ ~ICHAN09~ ~ICHAN10~ ~ICHAN11~ ~ICHAN12~ ~ICHAN13~ ~ICHAN14~ ~ICHAN15~ ~ICHAN16~ ~ICHAN17~ ~ICHAN18~ ~ICHAN19~ ~ICHAN20~ ~ICHAN21~ ~ICLCK08~ ~ICLCK31~ ~IDAGG23~ ~IDART01~ ~IDART08~ ~IDCHAN01~ ~IDCHAN02~ ~IDPLAT01~ ~IHALB04~ ~IHALB05~ ~IHALB06~ ~IHALB07~ ~IHALB08~ ~IHALB09~ ~IHALB09A~ ~IHALB09B~ ~IHALB10~ ~IHALB11~ ~IHALB12~ ~IHELM17~ ~IHELM21~ ~IHELM31~ ~IHELM32~ ~IMISC4Y~ ~IMISC5E~ ~IMISC5W~ ~IMISC5X~ ~IMISC7R~ ~IMISC7Y~ ~IMISCA9~ ~IMISCAA~ ~IMISCAD~ ~IMISCAE~ ~INPCHAN~ ~INPPLAT~ ~IPLAT02~ ~IPLAT10~ ~IPLAT11~ ~IPLAT12~ ~IPLAT13~ ~IPLAT14~ ~IPLAT15~ ~IPLAT16~ ~IPLAT17~ ~IPLAT18~ ~IPLAT20~ ~IPLAT21~ ~IPLAT22~ ~IPOTN54~ ~IRING39~ ~IRING43~ ~IRING44~ ~IRING45~ ~ISHLD04~ ~ISHLD14~ ~ISHLD17~ ~ISHLD21~ ~ISHLD22~ ~ISHLD23~ ~ISHLD25~ ~ISHLD27~ ~ISHLD28~ ~ISHLD29~ ~ISHLD32~ ~ISHLDB01~ ~ISHLDB02~ ~ISHLDB03~ ~ISHLDB04~ ~ISHLDL01~ ~ISHLDL02~ ~ISHLDL03~ ~ISHLDL04~ ~ISHLDL05~ ~ISHLDL06~ ~ISHLDM01~ ~ISHLDM02~ ~ISHLDM03~ ~ISHLDM04~ ~ISHLDM05~ ~ISHLDM06~ ~ISHLDM07~ ~ISHLDM08~ ~ISHLDM09~ ~ISHLDS01~ ~ISHLDS02~ ~ISHLDS03~ ~ISHLDS04~ ~ISHLDS05~ ~ISPER11~ ~ISPER12~ ~ISTAF11~ ~ISTAF12~ ~ISTAF19~ ~ISTAF20~ ~ISTAF21~ ~ISTAF22~ ~ISTAF23~ ~ISTAF24~ ~ISW1H02~ ~ISW1H22~ ~ISW1H42~ ~ISW1H51~ ~ISW2H10~ ~ISW2H13~ ~ISW2H15~ ~ISW2H21~ ~IWAND12~ ~IWAND13~ ~IWAND14~ ~IWAND18~ ~IWAND19~ ~ILEAT20~ ~1SHLDAJ~ ~1CBAND01~ ~1CBAND03~ ~1CBAND04~ ~1CBAND05~ ~1CBAND06~ ~1CHELM11~ ~1CHELM17~ ~1CHELM18~ ~1CHELM20~ ~1CHELM21~ ~1CHELMX2~ ~1CHELMX3~ ~1CHELMX4~ ~1CHELMX6~ ~1CHELMX9~ ~1CSHLDAJ~ ~1CSHLDB1~ ~1CSHLDL1~ ~1CSHLDL2~ ~1CSHLDL3~ ~1CSHLDL4~ ~1CSHLDM1~ ~1CSHLDM2~ ~1CSHLDM3~ ~1CSHLDM4~ ~CSHLD30~ ~CSHLDM0~ ~CHELM17~ ~CPLAT08~ BEGIN // ~ISW1H06~ 
+	COPY ~1pp/item/1ppv4_update/bam/%resource%.bam~ ~override~
+END
+
+// Gwen fix: removes the new Sleeper flail bam from the copying process, and installs it as a new icon (IBLUN16B), because EE does not validate this change (overwrite the morning star icon with the flail one).
+COPY ~1pp/item/1ppv4_update/bam/IBLUN16.bam~ ~override/IBLUN16B.bam~
+
+ACTION_FOR_EACH resource IN ~1CHELM01~ ~1CHELM02~ ~1CHELM03~ ~1CHELM04~ ~1CHELM05~ ~1CHELM06~ ~1CHELM07~ BEGIN
+	COPY ~1pp/additions/carried_1pp/%resource%.bam~ ~override~
+END
+
+
+PRINT @400014 /* Patching & expanding base icon references... */
+
+LAM ~Locations~
+
+
+/*  =======================  *
+ *          SHIELDS          *
+ *  =======================  */
+ACTION_IF (1pp_shields_shadows = 2) BEGIN	// shadow shields
+
+	ACTION_FOR_EACH resource IN ~WPHD1INV~ ~WPHD2INV~ ~WPHD3INV~ ~WPHD4INV~ ~WPLD1INV~ ~WPLD2INV~ ~WPLD3INV~ ~WPLD4INV~ ~WPMD1INV~ ~WPMD2INV~ ~WPMD3INV~ ~WPMD4INV~ ~WPND1INV~ ~WPND2INV~ ~WPND3INV~ ~WPND4INV~ ~WPSD1INV~ ~WPSD2INV~ ~WPSD3INV~ ~WPSD4INV~ BEGIN
+		COPY ~1pp/additions/obj_1pp_a/%resource%.bam~ ~override~
+	END
+
+END
+
+/*  ------------------------------------------------------  *
+ *  Content related to Additional Shield Animations (core)  *
+ *  ------------------------------------------------------  */
+ACTION_IF (MOD_IS_INSTALLED ~1pp.tp2~ 206) BEGIN
+
+	INCLUDE ~%MOD_FOLDER%/components/400_update_bgii_shields.tpa~
+
+END
+
+
+/*  =======================  *
+ *          HELMETS          *
+ *  =======================  */
+
+// HELMET SWITCHEROO
+ACTION_IF (1pp_helmets_shadows = 2) BEGIN	// shadow helmets
+
+	ACTION_FOR_EACH resource IN ~WPLH0INV~ ~WPLH1INV~ ~WPLH2INV~ ~WPLH3INV~ ~WPLH4INV~ ~WPLH5INV~ ~WPMH0INV~ ~WPMH1INV~ ~WPMH2INV~ ~WPMH3INV~ ~WPMH4INV~ ~WPMH5INV~ ~WPNH0INV~ ~WPNH1INV~ ~WPNH2INV~ ~WPNH3INV~ ~WPNH4INV~ ~WPNH5INV~ ~WPSH0INV~ ~WPSH1INV~ ~WPSH2INV~ ~WPSH3INV~ ~WPSH4INV~ ~WPSH5INV~ BEGIN
+		COPY ~1pp/additions/obj_1pp_h/%resource%.bam~ ~override~
+	END
+
+END
+
+/*  ------------------------------------------------------  *
+ *  Content related to Additional Helmet Animations (core)  *
+ *  ------------------------------------------------------  */
+ACTION_IF (MOD_IS_INSTALLED ~1pp.tp2~ 208) BEGIN
+
+	ACTION_IF (1pp_helmets_appearance = 2) BEGIN	// Faux Baldur's Gate I style (use BG1 icons but not animations)
+		OUTER_SET 1pp_helmets_compatibility = 2		// based on Baldur's Gate I style
+	END
+
+	INCLUDE ~%MOD_FOLDER%/components/400_update_bgii_helmets.tpa~
+
+END
+
+
+/*  ============================================  *
+ *          AMMO CONTENT  (NOTHING YET!)          *
+ *  ============================================  */
+
+
+/*  ==========================================  *
+ *          GEMS AND OTHER SHENANIGANS          *
+ *  ==========================================  */
+INCLUDE ~%MOD_FOLDER%/components/400_update_gemlore.tpa~
+
+
+/*  ==================================  *
+ *          SLINGS - CROSSBOWS          *
+ *  ==================================  */
+INCLUDE ~%MOD_FOLDER%/components/400_update_bgii_launchers.tpa~
+
+
+/*  ============================================================  *
+ *          AXES - DAGGERS - HAMMERS - SPEARS - HALBERDS          *
+ *  ============================================================  */
+INCLUDE ~%MOD_FOLDER%/components/400_update_bgii_weapons.tph~
+
+
+/*  =============================  *
+ *  		MISCELLANEOUS          *
+ *  =============================  */
+INCLUDE ~%MOD_FOLDER%/components/400_update_bgii_misc.tpa~
+
+
+/*  =====================================  *
+ *          SWORDS - BLUNT - BOWS          *
+ *  =====================================  */
+
+/*  ------------------------------------------------------------  *
+ *  Content related to Increased paperdoll object variety (core)  *
+ *  ------------------------------------------------------------  */
+	ACTION_IF (MOD_IS_INSTALLED ~1pp.tp2~ 210) BEGIN
+
+	INCLUDE ~%MOD_FOLDER%/components/400_update_bgii_swords.tpa~
+	INCLUDE ~%MOD_FOLDER%/components/400_update_bgii_blunt.tpa~
+	INCLUDE ~%MOD_FOLDER%/components/400_update_bgii_bows.tpa~
+
+END
+
+
+/*  =================================================================  *
+ *          STAVES   [If Wizards' Staves (core) is installed]          *
+ *  =================================================================  */
+ACTION_IF (MOD_IS_INSTALLED ~1pp.tp2~ 207) BEGIN
+
+	INCLUDE ~%MOD_FOLDER%/components/400_update_bgii_staves.tpa~
+
+END
+
+
+/*  ======================  *
+ *          ARMORS          *
+ *  ======================  */
+INCLUDE ~%MOD_FOLDER%/components/400_update_bgii_armors.tpa~
+
+
+/*  =====================================================================  *
+ *          NEW STAVES   [If Wizards' Staves (core) is installed]          *
+ *  =====================================================================  */
+ACTION_IF (MOD_IS_INSTALLED ~1pp.tp2~ 207) BEGIN
+
+	PRINT @400017 /* Setting up complicated items... */
+
+	INCLUDE ~%MOD_FOLDER%/components/400_update_bgii_staves2.tpa~
+
+END
+
+
+/*  =============================  *
+ *          PLACING ITEMS          *
+ *  =============================  */
+PRINT @400018 /* Placing items... */
+
+	INCLUDE ~%MOD_FOLDER%/components/400_update_bgii_scatter.tpa~
+
+//END of COMPONENT
