@@ -1,0 +1,452 @@
+// Code by Nythrun!
+
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ *  ==============================================================================================================================================================================  */
+
+/*  =================  *
+ *  FLAME LONG SWORDS  *
+ *  =================  */
+
+PRINT @203000 /* Installing flame long swords... */
+
+PRINT @203001 /* Copying... */
+
+COPY ~1pp/additions/obj_anim/FS~ ~override~
+
+PRINT @203002 /* Patching... */
+
+ACTION_FOR_EACH ~item~ IN ~blakblad~ ~bonedag~ ~morsword~ ~rodsword~ ~sw1h98~ ~_sw1h98~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
+		COPY_EXISTING ~%item%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+				WRITE_ASCII 0x22 ~S1~	// Long sword - Replace FS Flaming sword
+			END
+		BUT_ONLY
+	END
+END
+
+// Sword of Flame +1 - Angurvadal +4 - Angurvadal +5
+ACTION_FOR_EACH item IN ~sw1h53~ ~sw1h60~ ~sw1h61~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
+		COPY_EXISTING ~%item%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+				READ_LONG  0x64 "ho"
+				READ_SHORT 0x68 "hc"
+				READ_LONG  0x6a "eo"
+				READ_SHORT 0x70 "ge"
+				SET "blade" = (~%SOURCE_RES%~ STRING_EQUAL ~sw1h53~ ? 0x9fefff00 :
+							   ~%SOURCE_RES%~ STRING_EQUAL ~sw1h60~ ? 0x9fefff00 :
+							   ~%SOURCE_RES%~ STRING_EQUAL ~sw1h61~ ? 0x9fefff00 : 0x00)
+				SET "grip"  = (~%SOURCE_RES%~ STRING_EQUAL ~sw1h53~ ? 0x20a5da00 :
+							   ~%SOURCE_RES%~ STRING_EQUAL ~sw1h60~ ? 0x20a5da00 :
+							   ~%SOURCE_RES%~ STRING_EQUAL ~sw1h61~ ? 0x20a5da00 : 0x00)
+				SET "minor" = (~%SOURCE_RES%~ STRING_EQUAL ~sw1h53~ ? 0x3f00ff00 :
+							   ~%SOURCE_RES%~ STRING_EQUAL ~sw1h60~ ? 0x3f00ff00 :
+							   ~%SOURCE_RES%~ STRING_EQUAL ~sw1h61~ ? 0x3f00ff00 : 0x00)
+				FOR ("i1" = 0x00 ; "i1" < ("ge" * 0x30) ; "i1" += 0x30) BEGIN
+					READ_SHORT ("eo" + "i1" + 0x00) "op"
+					PATCH_IF (("op" = 0x08) OR ("op" = 0x09)) BEGIN
+						READ_LONG ("eo" + "i1" + 0x08) "lc"
+						PATCH_IF ("lc" = 0x10) BEGIN
+							WRITE_LONG ("eo" + "i1" + 0x04) "blade"
+							SET "blade" = 0x00
+						END ELSE PATCH_IF ("lc" = 0x14) BEGIN
+							WRITE_LONG ("eo" + "i1" + 0x04) "grip"
+							SET "grip"  = 0x00
+						END ELSE PATCH_IF ("lc" = 0x15) BEGIN
+							WRITE_LONG ("eo" + "i1" + 0x04) "minor"
+							SET "minor" = 0x00
+						END
+					END
+				END
+				PATCH_IF ("blade" != 0x00) BEGIN
+					INSERT_BYTES ("eo" + (0x30 * "ge") + 0x00) 0x30
+					WRITE_SHORT  ("eo" + (0x30 * "ge") + 0x00) 0x08
+					WRITE_BYTE   ("eo" + (0x30 * "ge") + 0x02) 0x01
+					WRITE_LONG   ("eo" + (0x30 * "ge") + 0x04) "blade"
+					WRITE_LONG   ("eo" + (0x30 * "ge") + 0x08) 0x10
+					WRITE_BYTE   ("eo" + (0x30 * "ge") + 0x0c) 0x02
+					WRITE_BYTE   ("eo" + (0x30 * "ge") + 0x12) 0x64
+					SET "ge" += 0x01
+				END
+				PATCH_IF ("grip" != 0x00) BEGIN
+					INSERT_BYTES ("eo" + (0x30 * "ge") + 0x00) 0x30
+					WRITE_SHORT  ("eo" + (0x30 * "ge") + 0x00) 0x08
+					WRITE_BYTE   ("eo" + (0x30 * "ge") + 0x02) 0x01
+					WRITE_LONG   ("eo" + (0x30 * "ge") + 0x04) "grip"
+					WRITE_LONG   ("eo" + (0x30 * "ge") + 0x08) 0x14
+					WRITE_BYTE   ("eo" + (0x30 * "ge") + 0x0c) 0x02
+					WRITE_BYTE   ("eo" + (0x30 * "ge") + 0x12) 0x64
+					SET "ge" += 0x01
+				END
+				PATCH_IF ("minor" != 0x00) BEGIN
+					INSERT_BYTES ("eo" + (0x30 * "ge") + 0x00) 0x30
+					WRITE_SHORT  ("eo" + (0x30 * "ge") + 0x00) 0x08
+					WRITE_BYTE   ("eo" + (0x30 * "ge") + 0x02) 0x01
+					WRITE_LONG   ("eo" + (0x30 * "ge") + 0x04) "minor"
+					WRITE_LONG   ("eo" + (0x30 * "ge") + 0x08) 0x15
+					WRITE_BYTE   ("eo" + (0x30 * "ge") + 0x0c) 0x02
+					WRITE_BYTE   ("eo" + (0x30 * "ge") + 0x12) 0x64
+					SET "ge" += 0x01
+				END
+				PATCH_IF (("blade" != 0x00) OR ("grip" != 0x00) OR ("minor" != 0x00)) BEGIN
+					WRITE_SHORT 0x70 "ge"
+					FOR ("i1" = 0x00; "i1" < (0x38 * "hc"); "i1" += 0x38) BEGIN
+						WRITE_SHORT ("ho" + "i1" + 0x20) "ge"
+						READ_SHORT  ("ho" + "i1" + 0x1e) "ec"
+						SET "ge" += "ec"
+					END
+				END
+			END
+		BUT_ONLY
+	END
+END	// of ACTION_FOR_EACH ~item~
+
+// Blackrazor +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~miscbc.itm~) BEGIN
+	COPY_EXISTING ~miscbc.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			WRITE_ASCII 0x22 ~FS~	// Flaming sword - Replace S1 Long sword
+		END
+	BUT_ONLY
+END
+
+
+/*  ==================  *
+ *  FLAME SHORT SWORDS  *
+ *  ==================  */
+
+PRINT @203003 /* Installing flame short swords... */
+
+ACTION_IF (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~) BEGIN
+	COPY ~1pp/additions/obj_1pp/WPLF2INV.bam~ ~override~
+	COPY ~1pp/additions/obj_1pp/WPMF2INV.bam~ ~override~
+	COPY ~1pp/additions/obj_1pp/WPNF2INV.bam~ ~override~
+	COPY ~1pp/additions/obj_1pp/WPSF2INV.bam~ ~override~
+	COPY ~1pp/additions/obj_1pp/WPLF2OIN.bam~ ~override~
+	COPY ~1pp/additions/obj_1pp/WPMF2OIN.bam~ ~override~
+	COPY ~1pp/additions/obj_1pp/WPNF2OIN.bam~ ~override~
+	COPY ~1pp/additions/obj_1pp/WPSF2OIN.bam~ ~override~
+	COPY ~1pp/additions/obj_1pp/WPHF2OIN.bam~ ~override~
+END
+
+COPY ~1pp/additions/obj_anim/F2/fs_s_files~ ~override~
+
+LAM ~Locations~
+
+// Chaos Blade
+ACTION_IF (FILE_EXISTS_IN_GAME ~npsw06.itm~) BEGIN
+	COPY_EXISTING ~npsw06.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			WRITE_ASCII 0x22 ~F2~		// Flaming sword (blue) - Replace SS Short sword
+			LPM ~clear~
+			SET gradient = 99			// colour index
+			SET location = wgrey		// location
+			LPM ~colour~
+			SET gradient = 93			// colour index
+			SET location = wred			// location
+			LPM ~colour~
+			SET gradient = 108			// Replace colour index 27
+			SET location = wblue		// location
+			LPM ~colour~
+			SET setr = 0x4C				// Set Red
+			SET setg = 0x17				// Set Green
+			SET setb = 0x20				// Set Blue
+			SET location = wblue
+			LPM ~glow~
+		END
+END
+
+// Arbane's Sword of Agility +2
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h27.itm~) BEGIN
+	COPY_EXISTING ~sw1h27.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			WRITE_ASCII 0x22 ~F2~		// Flaming sword (blue) - Replace SS Short sword
+			LPM ~clear~
+			SET gradient = 25			// colour index
+			SET location = wgrey		// location
+			LPM ~colour~
+			SET gradient = 89			// Replace colour index 33
+			SET location = wred			// location
+			LPM ~colour~
+			SET gradient = 33			// colour index
+			SET location = wblue		// location
+			LPM ~colour~
+			SET setr = 0x34				// Set Red
+			SET setg = 0x15				// Set Green
+			SET setb = 0x0D				// Set Blue
+			SET location = wblue
+			LPM ~glow~
+		END
+END
+
+// Selûne's Blade
+ACTION_IF (FILE_EXISTS_IN_GAME ~sblade.itm~) BEGIN
+	COPY_EXISTING ~sblade.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			WRITE_ASCII 0x22 ~F2~		// Flaming sword (blue) - Replace FS Flaming sword
+			LPM ~clear~
+			SET gradient = 25			// colour index
+			SET location = wgrey		// location
+			LPM ~colour~
+			SET gradient = 68			// colour index
+			SET location = wred			// location
+			LPM ~colour~
+			SET gradient = 71			// colour index
+			SET location = wblue		// location
+			LPM ~colour~
+			SET setr = 0x00				// Set Red
+			SET setg = 0x00				// Set Green
+			SET setb = 0x00				// Set Blue
+			SET location = wgrey
+			LPM ~glow~
+			SET setr = 0x00				// Set Red
+			SET setg = 0x00				// Set Green
+			SET setb = 0x00				// Set Blue
+			SET location = wred
+			LPM ~glow~
+			SET setr = 0x00				// Set Red
+			SET setg = 0x00				// Set Green
+			SET setb = 0x00				// Set Blue
+			SET location = wblue
+			LPM ~glow~
+		END
+END
+
+// Blade of Searing +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h39.itm~) BEGIN
+	COPY_EXISTING ~sw1h39.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			WRITE_ASCII 0x22 ~FS~		// FS Flaming sword - Replace S1 Long sword
+			LPM ~clear~
+			SET gradient = 30			// colour index
+			SET location = wgrey		// location
+			LPM ~colour~
+			SET gradient = 30			// colour index
+			SET location = wred			// location
+			LPM ~colour~
+			SET gradient = 27			// colour index
+			SET location = wblue		// location
+			LPM ~colour~
+			SET setr = 0x19				// Set Red
+			SET setg = 0x14				// Set Green
+			SET setb = 0x0B				// Set Blue
+			SET location = wred
+			LPM ~glow~
+		END
+END
+
+// Short Sword +1
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h98.itm~) BEGIN
+	COPY_EXISTING ~sw1h98.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			WRITE_ASCII 0x22 ~SS~		// SS Short sword - Replace FS Flaming sword
+		END
+	BUT_ONLY
+END
+
+
+/*  =================  *
+ *  MODS FLAME SWORDS  *
+ *  =================  */
+PRINT @203004 /* Installing flame sword mod item patches (if found) */
+
+LAM ~Locations~
+
+PRINT @203002 /* Patching... */
+
+// Chloe mod
+ACTION_IF (FILE_EXISTS_IN_GAME ~chlosw1.itm~) BEGIN
+
+	COPY ~1pp/additions/obj_anim/F2/fs_s_items/cchak01.bam~ ~override~
+	COPY ~1pp/additions/obj_anim/F2/fs_s_items/cchak02.bam~ ~override~
+	COPY ~1pp/additions/obj_anim/F2/fs_s_items/cchak03.bam~ ~override~
+	COPY ~1pp/additions/obj_anim/F2/fs_s_items/cchla01.bam~ ~override~
+	COPY ~1pp/additions/obj_anim/F2/fs_s_items/cchla02.bam~ ~override~
+	COPY ~1pp/additions/obj_anim/F2/fs_s_items/cchla03.bam~ ~override~
+	COPY ~1pp/additions/obj_anim/F2/fs_s_items/ichak01.bam~ ~override~
+	COPY ~1pp/additions/obj_anim/F2/fs_s_items/ichak02.bam~ ~override~
+	COPY ~1pp/additions/obj_anim/F2/fs_s_items/ichak03.bam~ ~override~
+	COPY ~1pp/additions/obj_anim/F2/fs_s_items/ichla01.bam~ ~override~
+	COPY ~1pp/additions/obj_anim/F2/fs_s_items/ichla02.bam~ ~override~
+	COPY ~1pp/additions/obj_anim/F2/fs_s_items/ichla03.bam~ ~override~
+
+	PRINT @203002 /* Patching... */
+
+	COPY ~1pp/additions/obj_anim/F2/fs_s_items/chlosw1.itm~ ~override~
+		SAY NAME1 @203101				/* Wrath of Akadia */
+		SAY NAME2 @203101
+		SAY UNIDENTIFIED_DESC @203102	/* Chloe growls at you when you try to look at her weapon, but reluctantly agrees to tell you what it does:
+
+Wrath of Akadia
+Weapon type: scimitar
+Speed factor: 3
+THAC0 and damage bonus: +3, hits as +3 weapon
+Damage: (1d8) slashing +3 +(1d2 electrical damage)
+Equipped Effect: Immunity to Blindness
+Effect: Blur once daily
+
+Usable only by Chloe. */
+		SAY IDENTIFIED_DESC @203102
+
+	COPY ~1pp/additions/obj_anim/F2/fs_s_items/chlosw2.itm~ ~override~
+		SAY NAME1 @203103				/* Rage of Akadia */
+		SAY NAME2 @203103
+		SAY UNIDENTIFIED_DESC @203104	/* Chloe growls at you when you try to look at her weapon, but reluctantly agrees to tell you what it does:
+
+Rage of Akadia
+Weapon type: Scimitar
+Speed factor: 2
+Thac0 and damage bonus: +4, hits as +4 weapon
+Damage: (1d8) slashing +4 +(1d4 electrical) +10% of stun
+Equipped Effect: Immunity to blindness, confusion
+Effect: Improved Haste Once daily, Blur 3 times daily
+
+Usable only by Chloe. */
+		SAY IDENTIFIED_DESC @203104
+
+	COPY ~1pp/additions/obj_anim/F2/fs_s_items/chlosw3.itm~ ~Override~
+		SAY NAME1 @203105				/* Fury of Akadia */
+		SAY NAME2 @203105
+		SAY UNIDENTIFIED_DESC @203106	/* Chloe growls at you when you try to look at her weapon, but reluctantly agrees to tell you what it does:
+
+Fury of Akadia
+Weapon type: Scimitar
+Speed factor: 1
+Thac0 and damage bonus: +6, hits as +6 weapon
+Damage: (1d8) slashing +6 +(1d6 electrical) +10% chance of electroshock (1d12 damage) and stun
+Equipped Effect: Immunity to blind, confusion, and hold
+Effect: Improved Haste 3 times daily, blur 3 times daily
+
+Usable only by Chloe. */
+		SAY IDENTIFIED_DESC @203106
+
+	COPY ~1pp/additions/obj_anim/F2/fs_s_items/chlosw4.itm~ ~override~
+		SAY NAME1 @203107				/* Lathandar's Flame */
+		SAY NAME2 @203107
+		SAY UNIDENTIFIED_DESC @203108	/* Chloe growls at you when you try to look at her weapon, but reluctantly agrees to tell you what it does:
+
+Lathandar's Flame
+Weapon type: Short sword
+Speed factor: 2
+Thac0 and damage bonus: +2, hits as +2 weapon
+Damage: (1d6) piercing +2 +(1d2 fire)
+Equipped Effect: 25% Fire resistance
+Effect: Flame Arrow once daily, Protection from the Negative Plane once daily
+
+Usable only by Chloe. */
+		SAY IDENTIFIED_DESC @203108
+
+	COPY ~1pp/additions/obj_anim/F2/fs_s_items/chlosw5.itm~ ~override~
+		SAY NAME1 @203109				/* Lathandar's Blaze */
+		SAY NAME2 @203109
+		SAY UNIDENTIFIED_DESC @203110	/* Chloe growls at you when you try to look at her weapon, but reluctantly agrees to tell you what it does:
+
+Lathandar's Blaze
+Weapon type: Short sword
+Speed factor: 1
+Thac0 and damage bonus: +3, hits as +3 weapon
+Damage: (1d6) piercing +3 +(1d4 fire) + 10% of blinding opponent
+Equipped Effect: Negative Plane Protection, 50% fire resistance
+Effect: Flame strike once daily
+
+Usable only by Chloe. */
+		SAY IDENTIFIED_DESC @203110
+
+	COPY ~1pp/additions/obj_anim/F2/fs_s_items/chlosw6.itm~ ~override~
+		SAY NAME1 @203111				/* Lathandar's Inferno */
+		SAY NAME2 @203111
+		SAY UNIDENTIFIED_DESC @203112	/* Chloe growls at you when you try to look at her weapon, but reluctantly agrees to tell you what it does:
+
+Lathandar's Inferno
+Weapon type: Short sword
+Speed Factor: 0
+Thac0 and damage bonus: +5, hits as +5 weapon
+Damage: (1d6) piercing +5 +(1d6 fire) + 15% chance of 1d12 fire and blinding opponent
+Equipped Effect: Negative Planes Protection, 100% Fire resistance, Luck
+Effect: False Dawn once daily, Sunray once daily
+
+Usable only by Chloe. */
+		SAY IDENTIFIED_DESC @203112
+END
+
+// Yasraena mod
+ACTION_IF (FILE_EXISTS_IN_GAME ~fireflow.itm~) BEGIN
+	COPY_EXISTING ~fireflow.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			WRITE_ASCII 0x22 ~F2~
+			LPM ~clear~
+			SET gradient = 12			// colour index
+			SET location = wgrey		// location
+			LPM ~colour~
+			SET gradient = 115			// colour index
+			SET location = wred			// location
+			LPM ~colour~
+			SET gradient = 70			// colour index
+			SET location = wblue		// location
+			LPM ~colour~
+			SET setr = 0x2B				// Set Red
+			SET setg = 0x00				// Set Green
+			SET setb = 0x00				// Set Blue
+			SET location = wgrey
+			LPM ~glow~
+			SET setr = 0x2C				// Set Red
+			SET setg = 0x05				// Set Green
+			SET setb = 0x05				// Set Blue
+			SET location = wblue
+			LPM ~glow~
+		END
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~fireflo2.itm~) BEGIN
+	COPY_EXISTING ~fireflo2.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+			WRITE_ASCII 0x22 ~F2~
+			LPM ~clear~
+			SET gradient = 96			// colour index
+			SET location = wgrey		// location
+			LPM ~colour~
+			SET gradient = 51			// colour index
+			SET location = wred			// location
+			LPM ~colour~
+			SET gradient = 96			// colour index
+			SET location = wblue		// location
+			LPM ~colour~
+			SET setr = 0x2C				// Set Red
+			SET setg = 0x0C				// Set Green
+			SET setb = 0x02				// Set Blue
+			SET location = wgrey
+			LPM ~glow~
+			SET setr = 0x3C				// Set Red
+			SET setg = 0x32				// Set Green
+			SET setb = 0x18				// Set Blue
+			SET location = wblue
+			LPM ~glow~
+		END
+END
+
+// IWD in BG2 mod
+ACTION_IF (FILE_EXISTS_IN_GAME ~ulswd3a.itm~) BEGIN
+	COPY_EXISTING ~ulswd3a.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+			WRITE_ASCII 0x22 ~FS~
+		END
+	BUT_ONLY
+END
+
+
+PRINT @203005 /* Restoring flame swords for BG1 animations... */
+
+COPY ~1pp/additions/obj_comp~ ~override~
+
+ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ BEGIN
+	ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A3~ ~A3E~ ~A5~ ~A5E~ ~G1~ ~G1E~ ~W2~ ~W2E~ BEGIN
+		COPY_EXISTING ~WP%category%FS%sequence%.bam~ ~override/WP%category%F2%sequence%.bam~
+	END
+END
+
+//END of COMPONENT
