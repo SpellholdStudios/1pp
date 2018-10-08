@@ -1,0 +1,353 @@
+// 1ppv3(4!) Avatar Fixes
+// Like whoa, this is huge.
+// Gwen fix: not anymore, since it now (copies entire folders get rid of copy xxxxxA1... A9, G1... G19, CA, SA, SX, SX!
+
+/*  ====================================  *
+ *  Improved Animation for: Elven Female  *
+ *  ====================================  */
+
+/* ----------------------------------------- *
+ *  Female Elves with leather armour (EFB2)  *
+ * ----------------------------------------- */
+COPY ~1pp/core/1pp_avatars/f/EFB2~ ~override~
+
+ACTION_IF (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~) BEGIN
+
+	ACTION_FOR_EACH paperdoll IN ~CEFC2INV~ ~CEFF2INV~ BEGIN
+
+		COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+		ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		END
+
+	END
+
+END
+
+/* --------------------------------------------- *
+ *  Elven Female with chainmail (EFB3)           *
+ *  Female Elven Cleric with plate mail (EFC4)   *
+ *  Female Elven Fighter with plate mail (EFF4)  *
+ * --------------------------------------------- */
+COPY ~1pp/core/1pp_avatars/f/EFB3~ ~override~
+COPY ~1pp/core/1pp_avatars/f/EFC4~ ~override~
+COPY ~1pp/core/1pp_avatars/f/EFF4~ ~override~
+ 
+
+/*  ====================================  *
+ *  Improved Animation for: Female Human  *
+ *  ====================================  */
+
+/* ----------------------------------------- *
+ *  Female Human unarmoured (HFB1)           *
+ *  Female Human with leather armour (HFB2)  *
+ * ----------------------------------------- */
+COPY ~1pp/core/1pp_avatars/f/HFB1~ ~override~
+COPY ~1pp/core/1pp_avatars/f/HFB2~ ~override~
+
+ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
+
+	ACTION_FOR_EACH paperdoll IN ~CHFC2INV~ ~CHFF2INV~ ~COFC2INV~ ~COFF2INV~ BEGIN
+
+		COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+		ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		END
+
+	END
+
+END
+
+ACTION_IF (GAME_IS ~totlm how~) BEGIN
+
+	ACTION_FOR_EACH paperdoll IN ~CHFC2INV~ ~CHFF2INV~ BEGIN
+
+		COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+		ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		END
+
+	END
+
+END
+
+/* ------------------------------------- *
+ *  Female Human with chain mail (HFB3)  *
+ * ------------------------------------- */
+COPY ~1pp/core/1pp_avatars/f/HFB3~ ~override~
+
+ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
+
+	ACTION_FOR_EACH paperdoll IN ~CHFC3INV~ ~CHFF3INV~ ~COFC3INV~ ~COFF3INV~ BEGIN
+
+		COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+		ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		END
+
+	END
+
+END
+
+ACTION_IF (GAME_IS ~totlm how~) BEGIN
+
+	ACTION_FOR_EACH paperdoll IN ~CHFC3INV~ ~CHFF3INV~ BEGIN
+
+		COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+		ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		END
+
+	END
+
+END
+
+/* -------------------------------------------- *
+ *  Female Human Cleric with plate mail (HFC4)  *
+ * -------------------------------------------- */
+COPY ~1pp/core/1pp_avatars/f/HFC4~ ~override~
+
+ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
+
+	ACTION_FOR_EACH paperdoll IN ~CHFC4INV~ ~COFC4INV~ BEGIN
+
+		COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+		ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		END
+
+	END
+
+END
+
+ACTION_IF (GAME_IS ~totlm how~) BEGIN
+
+	ACTION_FOR_EACH paperdoll IN ~CHFC4INV~ BEGIN
+
+		COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+		ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		END
+
+	END
+
+END
+
+/* --------------------------------------------- *
+ *  Female Human Fighter with plate mail (HFF4)  *
+ * --------------------------------------------- */
+COPY ~1pp/core/1pp_avatars/f/HFF4~ ~override~
+
+ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
+
+	ACTION_FOR_EACH paperdoll IN ~CHFF4INV~ ~COFF4INV~ BEGIN
+
+		COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+		ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		END
+
+	END
+
+END
+
+ACTION_IF (GAME_IS ~totlm how~) BEGIN
+
+	ACTION_FOR_EACH paperdoll IN ~CHFF4INV~ BEGIN
+
+		COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+		ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		END
+
+	END
+
+END
+
+/* ------------------------------------- *
+ *  Female Human unarmoured mage (HFW1)  *
+ * ------------------------------------- */
+COPY ~1pp/core/1pp_avatars/f/HFW1~ ~override~
+
+ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
+
+	ACTION_FOR_EACH paperdoll IN ~CHFW1INV~ ~COFW1INV~ BEGIN
+
+		COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+		ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+
+			COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		END
+
+	END
+
+END
+
+ACTION_IF (GAME_IS ~totlm how~) BEGIN
+	ACTION_FOR_EACH paperdoll IN ~CHFW1INV~ BEGIN
+
+		COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+		ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		END
+
+	END
+
+END
+
+/* ------------------------------------------ *
+ *  Female Human mage with light robe (HFW2)  *
+ * ------------------------------------------ */
+COPY ~1pp/core/1pp_avatars/f/HFW2~ ~override~
+
+ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
+
+	ACTION_FOR_EACH paperdoll IN ~CHFW2INV~ ~COFW2INV~ BEGIN
+
+		COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+		ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		END
+
+	END
+
+END
+
+ACTION_IF (GAME_IS ~totlm how~) BEGIN
+
+	ACTION_FOR_EACH paperdoll IN ~CHFW2INV~ BEGIN
+
+		COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+		ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		END
+
+	END
+
+END
+
+
+/*  ========================================  *
+ *  Improved Animation for: Female Halflings  *
+ *  ========================================  */
+COPY ~1pp/core/1pp_avatars/f/IFB~ ~override~
+
+ACTION_IF (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~) BEGIN
+
+	ACTION_FOR_EACH paperdoll IN ~CIFC1INV~ ~CIFF1INV~ ~CIFC2INV~ ~CIFF2INV~ ~CIFC3INV~ ~CIFF3INV~ BEGIN
+
+		COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+		ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		END
+
+	END
+
+END
+
+/* -------------------------------------------- *
+ *  Fix frame error in halfling clerics (IFC4)  *
+ * -------------------------------------------- */
+COPY ~1pp/core/1pp_avatars/f/IFC~ ~override~
+
+
+COPY ~1pp/core/1pp_avatars/f/EFW4/CEFW4A6.BAM~ ~override~
+
+COPY ~1pp/core/1pp_avatars/m/EMW4/CEMW4A6.BAM~ ~override~
+
+
+/*  ======================================================  *
+ *  Improved Animation for: Dwarves with chain mail (DMB3)  *
+ *  ======================================================  */
+COPY ~1pp/core/1pp_avatars/m/DMB3~ ~override~
+
+ACTION_IF (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~) BEGIN
+
+	ACTION_FOR_EACH paperdoll IN ~CDFC3INV~ ~CDFF3INV~ ~CDMC3INV~ ~CDMF3INV~ BEGIN
+
+		COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+		ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		END
+
+	END
+
+END
+
+
+/*  =========================================================  *
+ *  Improved Animation for: Male Elves with chain mail (EMB3)  *
+ *  =========================================================  */
+COPY ~1pp/core/1pp_avatars/m/EMB3~ ~override~
+
+ACTION_IF (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~) BEGIN
+
+	ACTION_FOR_EACH paperdoll IN ~CEMC3INV~ ~CEMF3INV~ BEGIN
+
+		COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+		ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		END
+
+	END
+
+END
+
+
+/*  =============================================================  *
+ *  Improved Animation for: Male Human with leather armour (HMB2)  *
+ *  =============================================================  */
+COPY ~1pp/core/1pp_avatars/m/HMB2~ ~override~
+
+ACTION_IF (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~) BEGIN
+
+	ACTION_FOR_EACH paperdoll IN ~CHMC2INV~ ~CHMF2INV~ BEGIN
+
+		COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+		ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		END
+
+	END
+
+END
+
+
+/*  =========================================================  *
+ *  Improved Animation for: Male Human with chain mail (HMB3)  *
+ *  =========================================================  */
+COPY ~1pp/core/1pp_avatars/m/HMB3~ ~override~
+
+ACTION_IF (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~) BEGIN
+
+	ACTION_FOR_EACH paperdoll IN ~CHMC3INV~ ~CHMF3INV~ BEGIN
+
+		COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+
+		ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		END
+
+	END
+
+END
+
+
+PRINT @105000 /* The End. */
