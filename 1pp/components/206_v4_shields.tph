@@ -1,0 +1,86 @@
+// One
+
+/*  ==============================================================================================================================================================================  *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Coding simplification:                                                                                                                                                    *
+ *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ *  ==============================================================================================================================================================================  */
+
+PRINT @206000 /* Copying files... */
+
+COPY ~1pp/additions/obj_anim/C0~ ~override~
+COPY ~1pp/additions/obj_anim/C13~ ~override~
+COPY ~1pp/additions/obj_anim/C2~ ~override~
+COPY ~1pp/additions/obj_anim/C4~ ~override~
+COPY ~1pp/additions/obj_anim/C5~ ~override~
+COPY ~1pp/additions/obj_anim/C6~ ~override~
+COPY ~1pp/additions/obj_anim/C7~ ~override~
+
+
+PRINT @206001 /* Expanding C3... */
+
+COPY ~1pp/additions/obj_anim/C13/WQLC1A1.BAM~ ~override/WQLC3A1.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQLC1A3.BAM~ ~override/WQLC3A3.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQLC1A5.BAM~ ~override/WQLC3A5.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQLC1G1.BAM~ ~override/WQLC3G1.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQLC1SS.BAM~ ~override/WQLC3SS.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQMC1A1.BAM~ ~override/WQMC3A1.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQMC1A3.BAM~ ~override/WQMC3A3.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQMC1A5.BAM~ ~override/WQMC3A5.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQMC1G1.BAM~ ~override/WQMC3G1.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQMC1SS.BAM~ ~override/WQMC3SS.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQNC1A1.BAM~ ~override/WQNC3A1.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQNC1A3.BAM~ ~override/WQNC3A3.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQNC1A5.BAM~ ~override/WQNC3A5.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQNC1G1.BAM~ ~override/WQNC3G1.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQNC1SS.BAM~ ~override/WQNC3SS.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQSC1A1.BAM~ ~override/WQSC3A1.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQSC1A3.BAM~ ~override/WQSC3A3.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQSC1A5.BAM~ ~override/WQSC3A5.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQSC1G1.BAM~ ~override/WQSC3G1.BAM~
+COPY ~1pp/additions/obj_anim/C13/WQSC1SS.BAM~ ~override/WQSC3SS.BAM~
+
+
+PRINT @206002 /* Building BG1 animation compatibility... */
+
+ACTION_FOR_EACH set IN ~C0~ ~C5~ BEGIN
+	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ BEGIN
+		ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A3~ ~A3E~ ~A5~ ~A5E~ ~G1~ ~G1E~ ~W2~ ~W2E~ BEGIN
+			COPY_EXISTING ~WP%category%D2%sequence%.bam~ ~override/WP%category%%set%%sequence%.bam~
+		END
+	END
+END
+
+ACTION_FOR_EACH set IN ~C1~ ~C3~ ~C7~ BEGIN
+	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ BEGIN
+		ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A3~ ~A3E~ ~A5~ ~A5E~ ~G1~ ~G1E~ ~W2~ ~W2E~ BEGIN
+			COPY_EXISTING ~WP%category%D3%sequence%.bam~ ~override/WP%category%%set%%sequence%.bam~
+		END
+	END
+END
+
+ACTION_FOR_EACH set IN ~C2~ ~C6~ BEGIN
+	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ BEGIN
+		ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A3~ ~A3E~ ~A5~ ~A5E~ ~G1~ ~G1E~ ~W2~ ~W2E~ BEGIN
+			COPY_EXISTING ~WP%category%D4%sequence%.bam~ ~override/WP%category%%set%%sequence%.bam~
+		END
+	END
+END
+
+ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ BEGIN
+	ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A3~ ~A3E~ ~A5~ ~A5E~ ~G1~ ~G1E~ ~W2~ ~W2E~ BEGIN
+		COPY_EXISTING ~WP%category%D1%sequence%.bam~ ~override/WP%category%C4%sequence%.bam~
+	END
+END
+
+ACTION_IF (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~) BEGIN
+	PRINT @206003 /* Installing paperdoll images... */
+
+	ACTION_FOR_EACH paperdoll IN ~WPHC0INV~ ~WPHC1INV~ ~WPHC2INV~ ~WPHC3INV~ ~WPHC4INV~ ~WPHC5INV~ ~WPHC6INV~ ~WPHC7INV~ ~WPLC0INV~ ~WPLC1INV~ ~WPLC2INV~ ~WPLC3INV~ ~WPLC4INV~ ~WPLC5INV~ ~WPLC6INV~ ~WPLC7INV~ ~WPMC0INV~ ~WPMC1INV~ ~WPMC2INV~ ~WPMC3INV~ ~WPMC4INV~ ~WPMC5INV~ ~WPMC6INV~ ~WPMC7INV~ ~WPNC0INV~ ~WPNC1INV~ ~WPNC2INV~ ~WPNC3INV~ ~WPNC4INV~ ~WPNC5INV~ ~WPNC6INV~ ~WPNC7INV~ ~WPSC0INV~ ~WPSC1INV~ ~WPSC2INV~ ~WPSC3INV~ ~WPSC4INV~ ~WPSC5INV~ ~WPSC6INV~ ~WPSC7INV~ BEGIN
+		COPY ~1pp/additions/obj_1pp/%paperdoll%.bam~ ~override~
+	END
+
+END
+
+//END of COMPONENT
