@@ -1,0 +1,86 @@
+// base and iwd install IWD HoW
+// This includes paperdolls for otherwise still pristine games
+
+ACTION_IF (GAME_IS ~totlm~) BEGIN
+
+	OUTER_SET fail = 0
+
+	PRINT @101400 /* Fixing the train wreck that is half-BG1-half-BG2 paperdoll calls - check */
+
+	ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN	// don't have mac info yet
+		COPY ~IDmain.exe~ ~IDmain.exe~
+			// determine which version of the game is used, and set the base offset accordingly
+			PATCH_IF (SOURCE_SIZE == 6873088) BEGIN	// IWD 1.4.2
+				READ_BYTE 0x3d5c2b tst_val
+				PATCH_IF (tst_val = 0x6c) BEGIN
+					WRITE_BYTE 0x3d5c2b 0x70
+					WRITE_BYTE 0x3d5c41 0x70
+					WRITE_BYTE 0x3d5fdb 0x70
+					WRITE_BYTE 0x3d5ff1 0x70
+					WRITE_BYTE 0x3d63ae 0x70
+					WRITE_BYTE 0x3d63c4 0x70
+					WRITE_BYTE 0x3d66e9 0x70
+					WRITE_BYTE 0x3d66ff 0x70
+				END ELSE BEGIN
+					PATCH_PRINT @101401 /* Error: could not determine which version of IWD you are using. Please double check that you installed TotLM (v1.4.2) */
+					SET fail = 1
+				END
+			END
+	END ELSE BEGIN
+		OUTER_SET fail = 1
+	END
+
+	ACTION_IF (fail == 1) BEGIN
+		PRINT @101402 /* Could not patch idmain successfully, skipping. */
+	END
+
+END
+
+
+ACTION_IF (GAME_IS ~how~) BEGIN
+
+	OUTER_SET fail = 0
+
+	PRINT @101400 /* Fixing the train wreck that is half-BG1-half-BG2 paperdoll calls - check */
+
+	ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN // don't have mac info yet
+		COPY ~IDmain.exe~ ~IDmain.exe~
+			// determine which version of the game is used, and set the base offset accordingly
+			PATCH_IF (SOURCE_SIZE == 6840320) BEGIN // IWD 1.4.1
+				READ_BYTE 0x3cee1d tst_val
+				PATCH_IF (tst_val = 0xc8) BEGIN
+					WRITE_BYTE 0x3cee1d 0xcc
+					WRITE_BYTE 0x3cee33 0xcc
+					WRITE_BYTE 0x3cf1cd 0xcc
+					WRITE_BYTE 0x3cf1e3 0xcc
+					WRITE_BYTE 0x3cf5a0 0xcc
+					WRITE_BYTE 0x3cf5b6 0xcc
+					WRITE_BYTE 0x3cf8db 0xcc
+					WRITE_BYTE 0x3cf8f1 0xcc
+				END ELSE BEGIN
+					PATCH_PRINT @101403 /* Error: could not determine which version of IWD you are using. Please double check that you installed HoW (v1.4.1) */
+					SET fail = 1
+				END
+			END
+	END ELSE BEGIN
+		OUTER_SET fail = 1
+	END
+
+	ACTION_IF (fail == 1) BEGIN
+		PRINT @101402 /* Could not patch idmain successfully, skipping. */
+	END
+
+END
+
+
+ACTION_FOR_EACH paperdoll IN ~CDFC1INV~ ~CDFC2INV~ ~CDFC3INV~ ~CDFC4INV~ ~CDFF1INV~ ~CDFF2INV~ ~CDFF3INV~ ~CDFF4INV~ ~CDFT1INV~ ~CDFT2INV~ ~CDFW1INV~ ~CDFW2INV~ ~CDFW3INV~ ~CDFW4INV~ ~CDMC1INV~ ~CDMC2INV~ ~CDMC3INV~ ~CDMC4INV~ ~CDMF1INV~ ~CDMF2INV~ ~CDMF3INV~ ~CDMF4INV~ ~CDMT1INV~ ~CDMT2INV~ ~CDMW1INV~ ~CDMW2INV~ ~CDMW3INV~ ~CDMW4INV~ ~CEFC1INV~ ~CEFC2INV~ ~CEFC3INV~ ~CEFC4INV~ ~CEFF1INV~ ~CEFF2INV~ ~CEFF3INV~ ~CEFF4INV~ ~CEFT1INV~ ~CEFT2INV~ ~CEFW1INV~ ~CEFW2INV~ ~CEFW3INV~ ~CEFW4INV~ ~CEMC1INV~ ~CEMC2INV~ ~CEMC3INV~ ~CEMC4INV~ ~CEMF1INV~ ~CEMF2INV~ ~CEMF3INV~ ~CEMF4INV~ ~CEMT1INV~ ~CEMT2INV~ ~CEMW1INV~ ~CEMW2INV~ ~CEMW3INV~ ~CEMW4INV~ ~CHFC1INV~ ~CHFC2INV~ ~CHFC3INV~ ~CHFC4INV~ ~CHFF1INV~ ~CHFF2INV~ ~CHFF3INV~ ~CHFF4INV~ ~CHFM1INV~ ~CHFT1INV~ ~CHFT2INV~ ~CHFW1INV~ ~CHFW2INV~ ~CHFW3INV~ ~CHFW4INV~ ~CHMC1INV~ ~CHMC2INV~ ~CHMC3INV~ ~CHMC4INV~ ~CHMF1INV~ ~CHMF2INV~ ~CHMF3INV~ ~CHMF4INV~ ~CHMM1INV~ ~CHMT1INV~ ~CHMT2INV~ ~CHMW1INV~ ~CHMW2INV~ ~CHMW3INV~ ~CHMW4INV~ ~CIFC1INV~ ~CIFC2INV~ ~CIFC3INV~ ~CIFC4INV~ ~CIFF1INV~ ~CIFF2INV~ ~CIFF3INV~ ~CIFF4INV~ ~CIFT1INV~ ~CIFT2INV~ ~CIMC1INV~ ~CIMC2INV~ ~CIMC3INV~ ~CIMC4INV~ ~CIMF1INV~ ~CIMF2INV~ ~CIMF3INV~ ~CIMF4INV~ ~CIMT1INV~ ~CIMT2INV~ ~CHFC1INV~ ~CHFC2INV~ ~CHFC3INV~ ~CHFC4INV~ ~CHFF1INV~ ~CHFF2INV~ ~CHFF3INV~ ~CHFF4INV~ ~CHFT1INV~ ~CHFT2INV~ ~CHFW1INV~ ~CHFW2INV~ ~CHFW3INV~ ~CHFW4INV~ BEGIN
+
+	COPY ~1pp/core/base/%paperdoll%.BAM~ ~override~
+
+	ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
+		COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+	END
+
+END
+
+// END of COMPONENT
