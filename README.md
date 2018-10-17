@@ -1,6 +1,14 @@
 # 1pp
 One Pixel Productions improves the BGII inventory icons.</br></br>
 
+**Author:** Erephine
+
+**Version:** 4.2.0
+
+**Languages:**  English, French
+
+**Platform:** Windows
+
 
 ## Overview
 
@@ -50,7 +58,7 @@ Visit the <a href="http://www.spellholdstudios.net/ie/1pp">website</a> or <a hre
 
 ### <a name="101" id="101"></a>[101] 1ppv4: Core paperdolls
 
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII (placeholder)</span></br>
+Supports: <span style="color:red">SoA</span>, <span style='color:#700'>ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII (placeholder)</span></br>
 
 <img src="1pp/documentation/files/101.jpg"></br>
 
@@ -113,7 +121,7 @@ This component patches Baldur's Gate II engine games to use separate avatar anim
 ### <a name="110" id="110"></a>[110-112] 1ppv4: Thieves Galore
 
 <strong>Requires: <a href="#101">[101]</a> <a href="#106">[106-109]</a></strong></br>
-<strong>Note: Due to the way patching is currently handled, this component will fail if Infinity Animations is already installed. To resolve this issue, install IA after this component.</strong></br>
+###### Note: Due to the way patching is currently handled, this component will fail if Infinity Animations is already installed. To resolve this issue, install IA after this component.</br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span><</br>
 
 <img src="1pp/documentation/files/110.jpg">
@@ -207,7 +215,7 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 Proper reconstruction and re-renders of the Baldur's Gate I shield animations, superseding the old legacy ports; thanks to invaluable support from the BG:EE team.</br></br>
 
 
-### <a name="206" id="206"></a>[206]</span>1ppv4: Additional Shield Animations (core)
+### <a name="206" id="206"></a>[206] 1ppv4: Additional Shield Animations (core)
 
 <strong>Requires: <a href="#101">[101]</a></strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
@@ -218,10 +226,10 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 
 This component includes updated versions of Baldur's Gate II's shield animations, as well as several completely new animation types. Also included is one variant that shares common animations but has distinct paperdolls.</br>
 
-<em>Note that this is a core component; by itself it does not contain any item patches. If installed, the content will instead be used by following 1ppv4 components to give you more options when updating.</em></br></br>
+###### <em>Note that this is a core component; by itself it does not contain any item patches. If installed, the content will instead be used by following 1ppv4 components to give you more options when updating.</em></br></br>
 
 
-### <a name="207" id="207"></a>[207]</span>1ppv4: Wizards' Staves (core)
+### <a name="207" id="207"></a>[207] 1ppv4: Wizards' Staves (core)
 
 <strong>Requires: <a href="#101">[101]</a></strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
@@ -230,10 +238,10 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 
 This component includes one new animation (wizard's staff) as well as several new paperdoll appearances for regular colourable quarterstaves.</br>
 
-<em>Note that this is a core component; by itself it does not contain any item patches. If installed, the content will instead be used by following 1ppv4 components to give you more options when updating.</em></br></br>
+###### <em>Note that this is a core component; by itself it does not contain any item patches. If installed, the content will instead be used by following 1ppv4 components to give you more options when updating.</em></br></br>
 
 
-### <a name="208" id="208"></a>[208]< 1ppv4: Additional Helmet Animations (core)
+### <a name="208" id="208"></a>[208] 1ppv4: Additional Helmet Animations (core)
 
 <strong>Requires: <a href="#101">[101]</a></strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
@@ -243,7 +251,7 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 
 This component includes improved content for Baldur's Gate II's vanilla helmet animations, and introduces five new helmet animations (one not pictured). It also introduces circlets which actually render on model!</br>
 
-<em>Note that this is a core component; by itself it does not contain any item patches. If installed, the content will instead be used by following 1ppv4 components to give you more options when updating.</em></br></br>
+###### <em>Note that this is a core component; by itself it does not contain any item patches. If installed, the content will instead be used by following 1ppv4 components to give you more options when updating.</em></br></br>
 
 
 ### <a name="209" id="209"></a>[209] 1ppv4: Attachable wings (core)
@@ -256,10 +264,10 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 This adds equippable wings for elven characters (with some restrictions).</br></br>
 <a href="files/wings_readme.html">See readme &amp; developer notes »</a></br>
 
-<em>Note that this is a core component; by itself it does not contain any item patches. If installed, the content will instead be used by following 1ppv4 components to give you more options when updating.</em></br></br>
+###### <em>Note that this is a core component; by itself it does not contain any item patches. If installed, the content will instead be used by following 1ppv4 components to give you more options when updating.</em></br></br>
 
 
-### <a name="210" id="210"></a>[210]</span>1ppv4: Increased paperdoll object variety (core)
+### <a name="210" id="210"></a>[210] 1ppv4: Increased paperdoll object variety (core)
 
 <strong>Requires: <a href="#101">[101]</a></strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
@@ -271,7 +279,7 @@ This component increases paperdoll variety by adding various alternates sharing 
 ###### <em>Note that this is a core component; by itself it does not contain any item patches. If installed, the content will instead be used by following 1ppv4 components to give you more options when updating.</em></br></br>
 
 
-### <a name="400" id="400"></a>[400]</span>1ppv4: Core updates and item patches
+### <a name="400" id="400"></a>[400] 1ppv4: Core updates and item patches
 
 <strong>Requires: <a href="#101">[101]</a> <a href="#200">[200]</a> (on SoA/ToB/Tutu)</strong></br>
 <strong>Suggested: <a href="#203">[203]</a> <a href="#204">[204]</a> <a href="#205">[205]</a> <a href="#206">[206]</a> <a href="#207">[207]</a> <a href="#208">[208]</a> <a href="#209">[209]</a> <a href="#210">[210]</a></strong></br>
@@ -292,8 +300,8 @@ Various content choices will be presented to you during installation (depending 
 <strong>Requires: <a href="#200">[200]</a> <a href="#400">[400]</a></strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span></br>
 
-<img src="files/401.jpg">
-<img src="files/401b.jpg">
+<img src="1pp/documentation/files/401.jpg">
+<img src="1pp/documentation/files/401b.jpg">
 
 This component improves projectile effects around Baldur's Gate II. Be able to see what kind of bullets/arrows/bolts are shot at you (or if you're really absent-minded, which <em>you</em> are shooting). Includes coloured bolt and bullet projectiles, axes and darts, and what is even neater, you can actually see the ammunition change on your paperdoll!</br></br>
 
@@ -320,7 +328,7 @@ Contains the following fixes: dog animations (corrupted palette), sitting static
 
 For support or questions, please visit the <a href="http://www.shsforums.net/index.php?showforum=159">mod forum</a>.
 
-#### Installer & content: Erephine</div><br />
+#### Installer & content: Erephine<br />
 
 #### Tools used in creation (among others):
 
@@ -336,6 +344,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 - <a href="http://" target="_blank">1pp dev tools</a>
 - <a href="http://" target="_blank">Hex Editor Neo</a>
 - <a href="http://" target="_blank">ACDSee Pro</a>
+</br></br>
 
 
 ## Version History
