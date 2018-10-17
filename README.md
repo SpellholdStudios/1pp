@@ -15,6 +15,21 @@ One Pixel Productions improves the BGII inventory icons.</br></br>
 Without a doubt the most comprehensive mod when it comes to post-release QA and visuals, 1pp has been a growing work of love for close to 8 years with the aim of providing a refined, polished experience with attention to detail that many felt was lacking in some aspects of Baldur's Gate II compared to its predecessor. </br></br>
 1ppv4 represents the culmination of this effort, bringing together the various previously disjointed graphical and mechanical tweaks and components that have accumulated over the years and many more besides; updated, streamlined and in the form of one coherent installer.</br>
 
+This mod offers the player the option to change the paperdolls and inventory icons of Baldur's Gate II to those of Baldur's Gate, and add a number of completely new fixes, additions and alterations to the original BGII game. Technically speaking, One Pixel Productions is an attempt to fix "cosmetic flaws" that should have never made it through QA, as well as improve upon a number of other of things.
+
+The mod contains many components, including:
+
+    BG1 Paperdoll and inventory item ports, except for potions.
+    BG1 Potion Graphics
+    BG1-style Flaming Swords
+    Flaming Short Swords (with item and mod item patches)
+    New Paperdolls (human, half-orc, elven, halfling, dwarf)
+    Legacy Shields - Bucklers (D1)
+    Legacy Shields - Small Shields (D2)
+    Legacy Shields - Medium Shields (D3)
+    Colourable Quarterstaves (with item patches)
+	...
+
 Visit the <a href="http://www.spellholdstudios.net/ie/1pp">website</a> or <a href="http://www.shsforums.net/index.php?showforum=159">forum</a> for all the latest updates.
 
 
@@ -64,7 +79,7 @@ Supports: <span style="color:#006600">SoA</span>, <span style="color:#770000">To
 
 The component that essentially started it all, this is a port of Baldur's Gate I style paperdolls for the Baldur's Gate II engine (used in SoA/ToB and HoW). Included are reworked 1ppv4 paperdolls for all race/class combinations matching vanilla animations as well as equipped object overlays. New in this version is detection and native support for Infinity Animations, including support for installs of HoW using BG1 animations via the 1pp IWD animation fixpack.
 
-###### Note that this component does not update icon graphics or item colours, so it is not recommended to be installed by itself. It is, however, required for most of the components that follow.</br></br>
+###### <em>Note that this component does not update icon graphics or item colours, so it is not recommended to be installed by itself. It is, however, required for most of the components that follow.</em></br></br>
 
 
 ### <a name="102" id="102"></a>[102,103] 1ppv4: Extended palette entries
@@ -75,14 +90,15 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 <img src="1pp/documentation/files/102.jpg">
 
 This component adds new colour gradients to Infinity Engine games, raising the count of available colours from 116 to 256. It also includes a new random colour table making use of them for Baldur's Gate II and new colour set files for Icewind Dale II, giving you more skin/hair colour choices for the various races.</br>
-It also fixes a few minor problems with standard gradients. <a href="1pp/documentation//files/extpal_readme.html">Read more »</a></br></br>
+It also fixes a few minor problems with standard gradients.</br>
+<a href="1pp/documentation//files/extpal_readme.html">Read more »</a></br></br>
 
-<strong>Compatibility install [102]</strong></br>
+<strong>Compatibility install [102]</strong>
 For installs that do not support the binary patch (OSX), this installs the basic files needed for 1pp to work properly but does not support using the new colours as character colours.</br></br>
 
-<strong>Full install [103]</strong></br>
+<strong>Full install [103]</strong>
 Complete install patching the game executable, enabling full use of the extended colour entries.</br>
-When installing the full version, extra choices for skin and hair colour will automatically become available from the ingame selection.
+When installing the full version, extra choices for skin and hair colour will automatically become available from the ingame selection.</br>
 As for clothing colours, during character creation and from the inventory the standard complement of 34 primary and secondary colours will be offered. To access more clothing colours, choose 'customise' » 'colours' from the character sheet to gain access to yet another set of 34 colours.</br></br>
 
 
@@ -341,7 +357,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 - <a href="http://www.gimp.org/"><acronym title="GNU Image Manipulation Program">GIMP</acronym></a>, by the GIMP team.
 - <a href="http://www.gamani.com/">GIF Movie Gear</a>
 - <a href="https://www.autodesk.com/products/3ds-max/overview">3ds Max</a>
-- <a href="http://" target="_blank">1pp dev tools</a>
+- <a href="http://www.shsforums.net/files/file/552-developer-files-v2/">1pp dev tools</a>, by Erephine
 - <a href="http://" target="_blank">Hex Editor Neo</a>
 - <a href="http://" target="_blank">ACDSee Pro</a>
 </br></br>
@@ -350,15 +366,20 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 ## Version History
 
 ##### Version 4.2.0 - October 1x, 2018
+- Integrated all BWP Fixpack patches: 
+- Updated readme (1pp now supports translated readmes)
+- Added French translation (Gwendolyne)
+- Traification
+- Updated <acronym title="Weimer Dialogue Utility">WeiDU</acronym> installer to v246
 
 
-##### Version 4.1.0
+##### Version 4.1.0 - November 12, 2012
 - Scale shields now have their own animations
 - Improved carried/description images
 - Fixed low resolution GUI overlap
 
 
-##### Version 4.0.0
+##### Version 4.0.0 - August 6, 2012
 - Initial release
 
 
