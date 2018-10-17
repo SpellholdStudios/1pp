@@ -372,9 +372,9 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
   - Split huge [400] Core updates and item patches component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).
   - Code commented as much as possible.
   - Coding simplification:
-    - Replaced macros with functions whenever possible.                                                                                                                          *
+    - Replaced macros with functions whenever possible.
     - Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).
-    - Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+    - Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.
     - Use new and more efficient WeiDU functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. ADD_ITEM_EQEFFECT, ALTER_EFFECT and ALTER_ITEM_HEADER replace so many lines of codes!).                                                                          *
     - Avoid copying and overwriting the same files again and again...
   - Updated readme (1pp now supports translated readmes)
@@ -384,121 +384,120 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 
 - COMPONENTS SPECIFIC CHANGES AND FIXES:
 
-  - 114. 1ppv4: Softer Spell Effects (114_effects.tph)
-    - Replace READLN action ~WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS NOT A GOOD IDEA.~ with reading '3D Acceleration=1' in baldur.ini before running the component.
+  - [114] 1ppv4: Softer Spell Effects (114_effects.tph)
+    - Replaced READLN action ~WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS NOT A GOOD IDEA.~ with reading '3D Acceleration=1' in baldur.ini before running the component.
     - Function GW_MODIFY_PROJ replaces Lollorian's BWP Fixpack patch (114_effects.tph.patch: modify new projectile values in ALL spell headers) which was inefficient and patched nothing. Moreover, it was using a wrong offset coding for ITM files.
 
-  - 200. 1ppv4: Core content patches (200_1ppv2_cut.tph)
+  - [200] 1ppv4: Core content patches (200_1ppv2_cut.tph)
     - Adds a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers.
     - Code simplified or re-written with newer functions to provide automatic process:
-        - Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.
-        - Use DELETE_EFFECT and CLONE_EFFECT combo to add new equiped color effects, which avoids writing lines of codes!
-    - 1ppv2 BAMs: saves a few vanilla inventory icons for modding purpose (Club of Detonation +3, Splint Mail +1, Chain Mail +3, Mage Robe of Cold Resistance, Mage Robe of Fire Resistance, Mage Robe of Electric Resistance, Knave's Robe, Traveler's Robe, Adventurer's Robe, Robes of the Good, Neutral, and Evil Archmagi, Suryris's Blade +2, Ravager +4, Halberd +3, The Eyes of Truth, Helm of the Rock, Helm of the Rock, Leather Armor, Studded Leather Armor, Plate Mail, Mithral Field Plate +2, Quiver of Plenty +1, Bastard Sword +2, Celestial Fury +3, Short Sword of Mask +4, Angurvadal +4, Foebane +3, Purifier +4, Yamato +4, Usuno's Blade +4, Spectral Brand +4, Hindo's Doom +3, Bastard Sword +3, Katana +3, Scimitar +3, The Answerer +4, Gram the Sword of Grief +5). Instead of definitively overwriting them, it now saves them with V suffixe before overwriting them, and does not overwrite anymore the following icons that are irrelevant (EE does not validate this change) : does not replace iax1h14.bam (Axe of the Unyielding +3) with the very inaccurate IWD Celebrant's Blade icon, idagg11.bam (Boomerang Dagger) with a clone of IMISC75 (Dagger of Venom), and isw1h06.bam (Varscona +2) with a clone of ISW1H41 (Long Sword +2). Does not overwrite Harbinger's icon and copies an alternate resource for modding purpose (isw2h07B). This way, Harbinger keeps its golden icon which fits to its colors settings.
- 
+      - Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.
+      - Use DELETE_EFFECT and CLONE_EFFECT combo to add new equiped color effects, which avoids writing lines of codes!
+    - 1ppv2 BAMs: saved a few vanilla inventory icons for modding purpose (Club of Detonation +3, Splint Mail +1, Chain Mail +3, Mage Robe of Cold Resistance, Mage Robe of Fire Resistance, Mage Robe of Electric Resistance, Knave's Robe, Traveler's Robe, Adventurer's Robe, Robes of the Good, Neutral, and Evil Archmagi, Suryris's Blade +2, Ravager +4, Halberd +3, The Eyes of Truth, Helm of the Rock, Helm of the Rock, Leather Armor, Studded Leather Armor, Plate Mail, Mithral Field Plate +2, Quiver of Plenty +1, Bastard Sword +2, Celestial Fury +3, Short Sword of Mask +4, Angurvadal +4, Foebane +3, Purifier +4, Yamato +4, Usuno's Blade +4, Spectral Brand +4, Hindo's Doom +3, Bastard Sword +3, Katana +3, Scimitar +3, The Answerer +4, Gram the Sword of Grief +5). Instead of definitively overwriting them, it now saves them with V suffixe before overwriting them, and does not overwrite anymore the following icons that are irrelevant (EE does not validate this change) : does not replace iax1h14.bam (Axe of the Unyielding +3) with the very inaccurate IWD Celebrant's Blade icon, idagg11.bam (Boomerang Dagger) with a clone of IMISC75 (Dagger of Venom), and isw1h06.bam (Varscona +2) with a clone of ISW1H41 (Long Sword +2). Does not overwrite Harbinger's icon and copies an alternate resource for modding purpose (isw2h07B). This way, Harbinger keeps its golden icon which fits to its colors settings.
     - specific fixes:
-        - dagg21.itm & dagg22.itm (Daggers of the Star): reverts to their original inventory icon IDAGG21. 1PP sets them to IDAGG18 (Shadow Thief Dagger icon), but EE does not validate this change.
-        - halb07.itm (Halberd +2): reverts to its original inventory icon IHALB07. 1PP sets it to IHALB03 (Suryris's Blade +2 icon), but EE does not validate this change.
-        - sw1h31.itm (Daystar +2): reverts to its original inventory icon ISW1H31. 1PP sets it to ISW1H34 (Albruin +1), but EE does not validate this change. Then switches back its colorisation with Albruin (400_update_bgii_swords).
-        - sw1h34.itm (Albruin +1): reverts to its original inventory icon ISW1H34. 1PP sets it to ISW1H31 (Daystar +2), but EE does not validate this change. Then switches back its colorisation with Daystar (400_update_bgii_swords).
-        - sw1h41.itm (Long Sword +2): reverts to its original inventory icon ISW1H41. 1PP sets it to SW1H06 (Varscona +2 icon), but EE does not validate this change. Then removes the colorisation modified by 400_update_bgii_swords and sets it to SW1H73 (Long Sword +3) that deserves those settings.
-        - sw2h10.itm and sw2h19.itm (Carsomyr +5 and +6): reverts to their original inventory icon ISW2H10. 1PP sets them to ISW2H20, but EE does not validate this change.
-        - sw2h11.itm (Two-handed Sword +2): reverts to its original inventory icon ISW2H11. 1PP sets it to ISW2H03, but EE does not validate this change.
-        - sw2h20.itm (Two-handed Sword +3): reverts to its original inventory icon ISW2H20. 1PP sets it to ISW2H06, but EE does not validate this change.
-        - BW Herbs mod patches: fix typo (was copying BW02IPO1_l.BAM instead of BW02IPO1.BAM).                                                                                  *
+      - dagg21.itm & dagg22.itm (Daggers of the Star): reverted to their original inventory icon IDAGG21. 1PP sets them to IDAGG18 (Shadow Thief Dagger icon), but EE does not validate this change.
+      - halb07.itm (Halberd +2): reverted to its original inventory icon IHALB07. 1PP sets it to IHALB03 (Suryris's Blade +2 icon), but EE does not validate this change.
+      - sw1h31.itm (Daystar +2): reverted to its original inventory icon ISW1H31. 1PP sets it to ISW1H34 (Albruin +1), but EE does not validate this change. Then switches back its colorisation with Albruin (400_update_bgii_swords).
+      - sw1h34.itm (Albruin +1): reverted to its original inventory icon ISW1H34. 1PP sets it to ISW1H31 (Daystar +2), but EE does not validate this change. Then switches back its colorisation with Daystar (400_update_bgii_swords).
+      - sw1h41.itm (Long Sword +2): reverted to its original inventory icon ISW1H41. 1PP sets it to SW1H06 (Varscona +2 icon), but EE does not validate this change. Then removes the colorisation modified by 400_update_bgii_swords and sets it to SW1H73 (Long Sword +3) that deserves those settings.
+      - sw2h10.itm and sw2h19.itm (Carsomyr +5 and +6): reverted to their original inventory icon ISW2H10. 1PP sets them to ISW2H20, but EE does not validate this change.
+      - sw2h11.itm (Two-handed Sword +2): reverted to its original inventory icon ISW2H11. 1PP sets it to ISW2H03, but EE does not validate this change.
+      - sw2h20.itm (Two-handed Sword +3): reverted to its original inventory icon ISW2H20. 1PP sets it to ISW2H06, but EE does not validate this change.
+      - BW Herbs mod patches: fixed typo (was copying BW02IPO1_l.BAM instead of BW02IPO1.BAM).
 
-  - 201. 1ppv4: Consistent spell and scroll icons (201_spellsandscrolls.tph)
-    - BWP Fixpack patch: restores Energy Blades spell and scroll icons (SPWI920) overwritten with Black Blade of Disaster's ones.                                                *
+  - [201] 1ppv4: Consistent spell and scroll icons (201_spellsandscrolls.tph)
+    - BWP Fixpack patch: restored Energy Blades spell and scroll icons (SPWI920) overwritten with Black Blade of Disaster's ones.
 
-  - 202. 1ppv4: Spell tweaks (202_spelltweaks.tph)
+  - [202] 1ppv4: Spell tweaks (202_spelltweaks.tph)
     - BWP Fixpack patch for individualised armor effects {202_spelltweaks.tph.patch): modifies opcode #215 visual effect in ALL spell headers.
 
-  - 208. 1ppv4: Additional Helmet Animations (208_v4_helmets.tph)
+  - [208] 1ppv4: Additional Helmet Animations (208_v4_helmets.tph)
     - Lollorian's BWP Fixpack JC Helm animation crash fix for Infinity Animations BG1 animation compatibility (208_v4_helmets.tph.patch): 1ppv4's helmet component seems to cause crashes when helmets using the JC animation are equipped by NPCs using BG1 animations from Infinity Animations. (http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/?p=561441)
 
-  - 210. 1ppv4: Increased paperdoll object variety (210_v4_ppd_variety.tph)
-    - CRE files: use READ_LONG 0x28 instead of READ_SHORT 0x28 (dword).
+  - [210] 1ppv4: Increased paperdoll object variety (210_v4_ppd_variety.tph)
+    - CRE files: used READ_LONG 0x28 instead of READ_SHORT 0x28 (dword).
     - Coding simplification:
-        - ITM files: use WRITE_LONG 0x18 (THIS BAND BNOT BIT2) to remove droppable flag instead of writing the offset new value.
+      - ITM files: used WRITE_LONG 0x18 (THIS BAND BNOT BIT2) to remove droppable flag instead of writing the offset new value.
 
-  - 300. 1ppv4: 1ppv4: Fixed animations for solars and elementals (300_solar_fix.tph)
+  - [300] 1ppv4: 1ppv4: Fixed animations for solars and elementals (300_solar_fix.tph)
     - The Imp's BWP Fixpack fix for Solar swords without graphic artifacts (http://www.shsforums.net/topic/58208-planetar-animation-glitch/ ): Fixed MASLG1S1.BAM and MSOLG2S1.BAM files.
       Source: https://github.com/omni-axa/BiG-World-Fixpack/commit/de7b3ce8439d8efa8e7427d1ad66efd0f48e547e
 
-  - 400. 1ppv4: Core updates and item patches (400_1pp_update_bgii.tph)
+  - [400] 1ppv4: Core updates and item patches (400_1pp_update_bgii.tph)
     - Split this huge component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).
-    - Adds a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers.
-    - Adds a new setting (1pp_sleeper) allowing to make alternate the turning of The Sleeper into a flail. In any case, 1PP does not overwrites its original inventory bam with a new one, but installs a new icon (IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose.
-    - replaces the tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically writes values in tooltip.2da from the tra file.
+    - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers.
+    - Added a new setting (1pp_sleeper) allowing to make alternate the turning of The Sleeper into a flail. In any case, 1PP does not overwrites its original inventory bam with a new one, but installs a new icon (IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose.
+    - Replaced the tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically writes values in tooltip.2da from the tra file.
     - Lollorian's BWP Fixpack patch for Ashes of Embers compatibility (400_1pp_update_bgii.tph.patch): Renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). Source: http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849
     - Gems sub-component: code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Builds an array to define new gems lore values to identify. Same tph used for IWD and BG2 games.
- 
+
     - Code simplified or re-written with newer functions to provide automatic process:
-        - Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.
+       - Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.
 
     - shields specific fixes (400_update_bgii_shields.tpa):
-        - shld02.itm (Small Shield +1): LPM ~clear~ was missing, and the code stacked opcode #7 global effects.
-        - shld31A.itm (Gorm's Arm +3): fixes wrong coding (WRITE_SHORT instead of WRITE_BYTE for Minimum strength).
-        - shld01P.itm (Buckler +2): fixes wrong coding (opcode #0 parameter1 0xfffffe - 16777214??? - should be -3), adds opcode #0 with parameter1 = -3 and parameter2 = 4 to add missing protection vs piercing weapons, adds missing price, and fixes item description to fit ITM file.
-        - X#AJSHLD.itm (Ilvastarr Family Shield - The BG1 NPC Project mod): fixes typo (was copying #AJSHLD instead of X#AJSHLD).
-        - shld06P.itm (Redshield +1, +4 vs. Monstrous): fixes wrong coding (opcode #219: switch parameter1 and 2, and parameter2 2 - EA.IDS - should be 3 - GENERAL.IDS), adds an external effect (shld06P.eff), and replaces opcode #178 with opcode #177, otherwise opcode #178 won't work.
-        - shld07P.itm (Sartessa's Vengeance +1): fixes wrong coding for add magical flag [replace WRITE_BYTE 0x1b 0x6c with WRITE_LONG 0x18 (THIS | BIT6)].
-        - shld08P.itm (Tarloc's Contingency +1): code simplified (1tarsp.spl) and fixes wrong coding for Casting sound (1tarss.spl).
-        - shld09P.itm (Shield of Devotion +1): fixes wrong coding (#62: parameter2 should be 4, not 3).
+      - shld02.itm (Small Shield +1): LPM ~clear~ was missing, and the code stacked opcode #7 global effects.
+      - shld31A.itm (Gorm's Arm +3): fixed wrong coding (WRITE_SHORT instead of WRITE_BYTE for Minimum strength).
+      - shld01P.itm (Buckler +2): fixed wrong coding (opcode #0 parameter1 0xfffffe - 16777214??? - should be -3), adds opcode #0 with parameter1 = -3 and parameter2 = 4 to add missing protection vs piercing weapons, added missing price, and fixed item description to fit ITM file.
+      - X#AJSHLD.itm (Ilvastarr Family Shield - The BG1 NPC Project mod): fixed typo (was copying #AJSHLD instead of X#AJSHLD).
+      - shld06P.itm (Redshield +1, +4 vs. Monstrous): fixed wrong coding (opcode #219: switch parameter1 and 2, and parameter2 2 - EA.IDS - should be 3 - GENERAL.IDS), adds an external effect (shld06P.eff), and replaces opcode #178 with opcode #177, otherwise opcode #178 won't work.
+      - shld07P.itm (Sartessa's Vengeance +1): fixed wrong coding for add magical flag [replace WRITE_BYTE 0x1b 0x6c with WRITE_LONG 0x18 (THIS | BIT6)].
+      - shld08P.itm (Tarloc's Contingency +1): code simplified (1tarsp.spl) and fixed wrong coding for Casting sound (1tarss.spl).
+      - shld09P.itm (Shield of Devotion +1): fixed wrong coding (#62: parameter2 should be 4, not 3).
     - helmets specific fixes (400_update_bgii_helmets.tpa):
-        - helm33.itm (Gold Horned Helm): fixes typo (was copying helm22 instead of helm33).
-        - xoband02.itm (Silver Circlet): fixes wrong coding opcodes #33, 34 & 35 (parameter2 originally set to 1 should be 0) and adds opcodes #36 & 37 to match item description (+1 to saving throws).
-        - xoband03.itm (Eilistraee's Boon +1): same fixes for opcodes #33, 34, 35, 36 & 37. Fixes wrong coding opcode #31: parameter1 originally set to 110, should be 10, and parameter2 switched from 2 to 0 to match item description (+10% magic damage resistance).
-        - xoband04.itm (Circlet of the Archmagi): same fixes for opcodes #33, 34, 35, 36 & 37. Adds one missing equipped effects (LPM ADD_ITEM_EQEFFECT #19).                *
+      - helm33.itm (Gold Horned Helm): fixed typo (was copying helm22 instead of helm33).
+      - xoband02.itm (Silver Circlet): fixed wrong coding opcodes #33, 34 & 35 (parameter2 originally set to 1 should be 0) and added opcodes #36 & 37 to match item description (+1 to saving throws).
+      - xoband03.itm (Eilistraee's Boon +1): same fixes for opcodes #33, 34, 35, 36 & 37. Fixed wrong coding opcode #31: parameter1 originally set to 110, should be 10, and parameter2 switched from 2 to 0 to match item description (+10% magic damage resistance).
+      - xoband04.itm (Circlet of the Archmagi): same fixes for opcodes #33, 34, 35, 36 & 37. Added one missing equipped effects (LPM ADD_ITEM_EQEFFECT #19).
     - weapons specific fixes (400_update_bgii_weapons.tpa):
-        - dagg12.itm (Firetooth +3): fixes typos in LPM ~pulse~ function (redundant setr variable set to 152 and 189 should be setg and setb, otherwise they overwrite the setr value and don't set the correct setg and setb values).
-        - halb08.itm (Duskblade +2): fixes a typo copying halb06 instead of halb08.
-		- hamm10.itm & hamm11.itm (Runehammers): new 1pp_hammers_icons setting gives the choice to assign them, or not, the Borok's Fist's icon.
+      - dagg12.itm (Firetooth +3): fixed typos in LPM ~pulse~ function (redundant setr variable set to 152 and 189 should be setg and setb, otherwise they overwrite the setr value and don't set the correct setg and setb values).
+      - halb08.itm (Duskblade +2): fixed a typo copying halb06 instead of halb08.
+	  - hamm10.itm & hamm11.itm (Runehammers): new 1pp_hammers_icons setting gives the choice to assign them, or not, the Borok's Fist's icon.
     - miscellaneous specific fixes (400_update_bgii_misc.tpa):
-        - misc89.itm (Edwin's Amulet): adds bgmisc89 (BGT and IR compatibility).
-        - book06.itm (Tome of Clear Thought), book07.itm (Tome of Leadership and Influence) and book08.itm (Tome of Understanding): harmonizes header icon with new inventory icon (IBOOK768) for consistency.
+      - misc89.itm (Edwin's Amulet): added bgmisc89 (BGT and IR compatibility).
+      - book06.itm (Tome of Clear Thought), book07.itm (Tome of Leadership and Influence) and book08.itm (Tome of Understanding): harmonized header icon with new inventory icon (IBOOK768) for consistency.
     - swords specific fixes (400_update_bgii_swords.tpa):
-        - Does not overwrite Varscona's icon with a clone of ISW1H41 (Long Sword +2) because EE does not validate this change.
-        - sw1h31.itm (Daystar +2): as 1PP (Core content patches) sets its icon to ISW1H34 (Albruin +1), but EE does not validate this change, this version reverts to its original inventory icon ISW1H31, and this component switches back its colorisation with Albruin.
-        - sw1h34.itm (Albruin +1): as 1PP (Core content patches) sets its icon to ISW1H31 (Daystar +2), but EE does not validate this change, this version reverts to its original inventory icon ISW1H31; and this component switches back colorisation with Daystar.
-        - sw1h41.itm (Long Sword +2): as 1PP (Core content patches) sets its icon to SW1H06 (Varscona +2 icon), but EE does not validate this change, this version reverts to its original inventory icon ISW1H41. Then, this component removes its re-colorisation and sets it to SW1H73 (Long Sword +3) that deserves those settings.
-        - sw2h06.itm and sw1h13.itm (Spider's Bane +2): harmonizes both versions. Now they get the same icon and coloration (no change from vanilla SW1H13 as its colors fit the new icon installed by 1PP).
-        - sw2h07.itm (Harbinger +3): does not overwrite Harbinger's icon and copy an alternate resource for modding purpose. This way, Harbinger keeps its golden icon which fits to its colors settings.
-        - SW1P01.itm (Viper's Edge +2): removes the #134 global effect (Petrification) otherwise it would be impossible to wield the sword. Fixes wrong coding (the extended effects were not implemented) and modifies the cursed effects probabilities, so that they don't stack when not necessary (e.g. why should you be poisoned when petrified?).
+      - Does not overwrite Varscona's icon with a clone of ISW1H41 (Long Sword +2) because EE does not validate this change.
+      - sw1h31.itm (Daystar +2): as 1PP (Core content patches) sets its icon to ISW1H34 (Albruin +1), but EE does not validate this change, this version reverts to its original inventory icon ISW1H31, and this component switches back its colorisation with Albruin.
+      - sw1h34.itm (Albruin +1): as 1PP (Core content patches) sets its icon to ISW1H31 (Daystar +2), but EE does not validate this change, this version reverts to its original inventory icon ISW1H31; and this component switches back colorisation with Daystar.
+      - sw1h41.itm (Long Sword +2): as 1PP (Core content patches) sets its icon to SW1H06 (Varscona +2 icon), but EE does not validate this change, this version reverts to its original inventory icon ISW1H41. Then, this component removes its re-colorisation and sets it to SW1H73 (Long Sword +3) that deserves those settings.
+      - sw2h06.itm and sw1h13.itm (Spider's Bane +2): harmonized both versions. Now they get the same icon and coloration (no change from vanilla SW1H13 as its colors fit the new icon installed by 1PP).
+      - sw2h07.itm (Harbinger +3): does not overwrite Harbinger's icon and copy an alternate resource for modding purpose. This way, Harbinger keeps its golden icon which fits to its colors settings.
+      - SW1P01.itm (Viper's Edge +2): removed the #134 global effect (Petrification) otherwise it would be impossible to wield the sword. Fixed wrong coding (the extended effects were not implemented) and modified the cursed effects probabilities, so that they don't stack when not necessary (e.g. why should you be poisoned when petrified?).
     - blunt weapons specific fixes (400_update_bgii_blunt.tpa):
-        - blun16.itm (The Sleeper +2): new 1pp_sleeper setting gives the choice to turn it into a flail. If turned into a flail, modifies minimum strength value and uses a new icon (IBLUN16B) to avoid overwriting the vanilla one (let's keep it for modders!).
+      - blun16.itm (The Sleeper +2): new 1pp_sleeper setting gives the choice to turn it into a flail. If turned into a flail, modifies minimum strength value and uses a new icon (IBLUN16B) to avoid overwriting the vanilla one (let's keep it for modders!).
     - armors specific fixes (400_update_bgii_armors.tpa):
-        - chan03B.itm (Werebane Mail +2): adds missing identified name.
-        - plat15.itm (Pride of the Legion +2): reverts its inventory and description icons (wrongly set to IPLAT23 and CPLAT05) as EE does not validate this change.
-        - plat23.itm (Full Plate Mail +2): removed from the patches as EE does not validate them (this silver and golden full plate was turned into a black one!).
+      - chan03B.itm (Werebane Mail +2): added missing identified name.
+      - plat15.itm (Pride of the Legion +2): reverted its inventory and description icons (wrongly set to IPLAT23 and CPLAT05) as EE does not validate this change.
+      - plat23.itm (Full Plate Mail +2): removed from the patches as EE does not validate them (this silver and golden full plate was turned into a black one!).
     - new staves specific fixes (400_update_bgii_staves2.tpa):
-        - Avoid copying and overwriting the same files again and again...
-        - MACRO GW_ADJUST_TOOLTIP: ADDS new colums in tooltip.2da (makes sure it contains at least 4 columns, so we can add Narbucchad's Demise ability).
-        - FUNCTION GW_ADD_TOOLTIP: ADDS new entries in tooltip.2da.
+      - Avoid copying and overwriting the same files again and again...
+      - MACRO GW_ADJUST_TOOLTIP: ADDS new colums in tooltip.2da (makes sure it contains at least 4 columns, so we can add Narbucchad's Demise ability).
+      - FUNCTION GW_ADD_TOOLTIP: ADDS new entries in tooltip.2da.
     - scatters items specific fixes (400_update_bgii_scatter.tph):
-        - Coding simplification:                                                                                                                                                    *
-            - Replace combo ADD_STORE_ITEM + REMOVE_STORE_ITEM with LPF REPLACE_STORE_ITEM.
-            - Replace two ADD_STORE_ITEM #1 with one ADD_STORE_ITEM #2.
-        - dmark1.sto (Fovem, Docks merchant) & trmer02.sto (Trademeet merchant): set number_in_stock to 2, otherwise the former code did not work (was supposed to add one Plate and remove the Plate +1, but there was already 1 Plate in the store!
+      - Coding simplification:
+        - Replaced combo ADD_STORE_ITEM + REMOVE_STORE_ITEM with LPF REPLACE_STORE_ITEM.
+        - Replaced two ADD_STORE_ITEM #1 with one ADD_STORE_ITEM #2.
+      - dmark1.sto (Fovem, Docks merchant) & trmer02.sto (Trademeet merchant): set number_in_stock to 2, otherwise the former code don't work (was supposed to add one Plate and remove the Plate +1, but there was already 1 Plate in the store!
 
-  - 401. 1ppv4: Improved projectile effects (401_projectiles.tph)
+  - [401] 1ppv4: Improved projectile effects (401_projectiles.tph)
     - Code fully re-written with new functions to provide automatic process.
-        - Function GW_CLEAR_DUPLICATED_OPCODES: does not stack anymore opcodes #83 and #197, clears duplicated vanilla #89 and #197 effects in SPL and ITM files and checks if protection from SPEAR and/or Bounce SPEAR is already set before adding it.
-        - Function GW_MODIFY_PROJ replaces BWP Fixpack patch (401_projectiles.tph.patch): modifies the projectile value only when needed (does not patch melee headers anymore), replaces ADD_ITEM_EQEFFECT, ADD_ITEM_EFFECT, ADD_SPELL_EFFECT and macros with the newer and more efficient CLONE_EFFECT WeiDU function to give new opcodes #83 and #197 the same settings than existing ones (target, resist_dispel, duration, power...). It modifies all extended headers and avoids writing lines of codes!
-        - Provides partial IR and SR compatibility in a rather soft way.
+      - Function GW_CLEAR_DUPLICATED_OPCODES: does not stack anymore opcodes #83 and #197, clears duplicated vanilla #89 and #197 effects in SPL and ITM files and checks if protection from SPEAR and/or Bounce SPEAR is already set before adding it.
+      - Function GW_MODIFY_PROJ replaces BWP Fixpack patch (401_projectiles.tph.patch): modifies the projectile value only when needed (does not patch melee headers anymore), replaces ADD_ITEM_EQEFFECT, ADD_ITEM_EFFECT, ADD_SPELL_EFFECT and macros with the newer and more efficient CLONE_EFFECT WeiDU function to give new opcodes #83 and #197 the same settings than existing ones (target, resist_dispel, duration, power...). It modifies all extended headers and avoids writing lines of codes!
+      - Provided partial IR and SR compatibility in a rather soft way.
     - specific fixes:
-        - ax1h08.itm (Hangard's Axe +2), ax1h09.itm (Rifthome Axe +3), ax1h10.itm (Azuredge +3) and ax1h16.itm (K'logarath +4): add IR compatibility (patches itemB files).
-        - bolt09.itm (Bolt +3): fixes typo (was patching bolt06 instead of bolt09).
-        - Sets new projectiles to Quivers of Plenty, Cases of Plenty, Bags of Plenty and Sling of Everard: Why quivers and launchers needing no ammo should not get new 1pp projectiles?
-        - dagg11.itm (Boomerang Dagger +2) and dagg12.itm (Firetooth +3): add IR compatibility (patches itemB files).
-        - sper04.itm (Javelin): switches Thrown and Melee strings ref in tooltip.2da.
-        - items aurstaf, dragring, magebra, slayerwp and globblu4 (Blue Globe): adds missing protections from new normal 1pp ammo projectiles (1axe05, 1dagg05 and 1dart01). The code was only providing protection from 1arow01 and 1bolt01 new projectiles.
-        - npshld.itm (Delryn Family Shield): same fix as above + IR compatibility (protection from all types of missiles, including magic ones).
-        - shld24.itm (Reflection Shield +1): same fix as above + clears duplicate entries and adds IR compatibility (IR replaces opcode #197 with opcode #83).
-        - brac18.itm (Gloves of Missile Snaring): Don't forget to add Protection from projectiles if IR is installed.
-        - spin546.spl (Inertial Barrier), spcl721.spl (Storm Shield) & spcl914.spl (Greater Evasion): patches all headers (was patching only the first header), fixes wrong duration, target, power, resist dispel... Adds missing protections from new normal 1pp ammo projectiles (1axe05, 1dagg05 and 1dart01). The code was only providing protection from 1arow01 and 1bolt01 new projectiles.
-        - Protection From Normal Missiles spells (spra303, spwi311, & cdwi311 added from BG2 Fixpack): same fixes as above + SR compatibility (protection from all types of missiles, including magic ones).
-        - sppr613.spl (Physical Mirror): clears duplicate entries and adds SR compatibility (SR replaces opcode #197 with opcode #83).
-        - Includes Entropy Shield spell (protection from new 1pp projectiles) if IWDIfication is installed.
+      - ax1h08.itm (Hangard's Axe +2), ax1h09.itm (Rifthome Axe +3), ax1h10.itm (Azuredge +3) and ax1h16.itm (K'logarath +4): added IR compatibility (patches itemB files).
+      - bolt09.itm (Bolt +3): fixed typo (was patching bolt06 instead of bolt09).
+      - Sets new projectiles to Quivers of Plenty, Cases of Plenty, Bags of Plenty and Sling of Everard: Why quivers and launchers needing no ammo should not get new 1pp projectiles?
+      - dagg11.itm (Boomerang Dagger +2) and dagg12.itm (Firetooth +3): added IR compatibility (patches itemB files).
+      - sper04.itm (Javelin): switched Thrown and Melee strings ref in tooltip.2da.
+      - items aurstaf, dragring, magebra, slayerwp and globblu4 (Blue Globe): added missing protections from new normal 1pp ammo projectiles (1axe05, 1dagg05 and 1dart01). The code was only providing protection from 1arow01 and 1bolt01 new projectiles.
+      - npshld.itm (Delryn Family Shield): same fix as above + IR compatibility (protection from all types of missiles, including magic ones).
+      - shld24.itm (Reflection Shield +1): same fix as above + cleared duplicate entries and adds IR compatibility (IR replaces opcode #197 with opcode #83).
+      - brac18.itm (Gloves of Missile Snaring): Don't forget to add Protection from projectiles if IR is installed.
+      - spin546.spl (Inertial Barrier), spcl721.spl (Storm Shield) & spcl914.spl (Greater Evasion): patched all headers (was patching only the first header), fixes wrong duration, target, power, resist dispel... Added missing protections from new normal 1pp ammo projectiles (1axe05, 1dagg05 and 1dart01). The code was only providing protection from 1arow01 and 1bolt01 new projectiles.
+      - Protection From Normal Missiles spells (spra303, spwi311, & cdwi311 added from BG2 Fixpack): same fixes as above + SR compatibility (protection from all types of missiles, including magic ones).
+      - sppr613.spl (Physical Mirror): cleared duplicate entries and added SR compatibility (SR replaces opcode #197 with opcode #83).
+      - Included Entropy Shield spell (protection from new 1pp projectiles) if IWDIfication is installed.
 
 
 ##### Version 4.1.0 - November 12, 2012
