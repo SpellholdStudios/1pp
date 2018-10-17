@@ -58,9 +58,7 @@ Visit the <a href="http://www.spellholdstudios.net/ie/1pp">website</a> or <a hre
 
 ### <a name="101" id="101"></a>[101] 1ppv4: Core paperdolls
 
-Supports: <span style="color:red">SoA</span>, <span style='color:#700'>ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII (placeholder)</span></br>
-color:red rouge
-color:#700 ToB
+Supports: <span style='color:red'>SoA</span>, <span style='color:#700'>ToB</span>, <span style="color:#080;">Tutu</span>, <span style="color:#088;">HoW</span>, <span style="color:#666;">IWDII (placeholder)</span></br>
 
 <img src="1pp/documentation/files/101.jpg"></br>
 
