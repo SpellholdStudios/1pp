@@ -7,7 +7,7 @@ One Pixel Productions improves the BGII inventory icons.</br></br>
 
 **Languages:**  English, French
 
-**Platform:** Windows
+**Platform:** Windows</br></br>
 
 
 ## Overview
@@ -15,22 +15,9 @@ One Pixel Productions improves the BGII inventory icons.</br></br>
 Without a doubt the most comprehensive mod when it comes to post-release QA and visuals, 1pp has been a growing work of love for close to 8 years with the aim of providing a refined, polished experience with attention to detail that many felt was lacking in some aspects of Baldur's Gate II compared to its predecessor. </br></br>
 1ppv4 represents the culmination of this effort, bringing together the various previously disjointed graphical and mechanical tweaks and components that have accumulated over the years and many more besides; updated, streamlined and in the form of one coherent installer.</br>
 
-This mod offers the player the option to change the paperdolls and inventory icons of Baldur's Gate II to those of Baldur's Gate, and add a number of completely new fixes, additions and alterations to the original BGII game. Technically speaking, One Pixel Productions is an attempt to fix "cosmetic flaws" that should have never made it through QA, as well as improve upon a number of other of things.
+This mod offers the player the option to change the paperdolls and inventory icons of Baldur's Gate II to those of Baldur's Gate, and adds a number of completely new fixes, additions and alterations to the original BGII game. Technically speaking, One Pixel Productions is an attempt to fix "cosmetic flaws" that should have never made it through QA, as well as improve upon a number of other of things. The mod contains many components, including: BG1 Paperdoll and inventory item ports, except for potions, BG1-style Flaming Swords, Flaming Short Swords (with item and mod item patches), new Paperdolls (human, half-orc, elven, halfling, dwarf), legacy Shields, Colourable Quarterstaves (with item patches)...
 
-The mod contains many components, including:
-
-    BG1 Paperdoll and inventory item ports, except for potions.
-    BG1 Potion Graphics
-    BG1-style Flaming Swords
-    Flaming Short Swords (with item and mod item patches)
-    New Paperdolls (human, half-orc, elven, halfling, dwarf)
-    Legacy Shields - Bucklers (D1)
-    Legacy Shields - Small Shields (D2)
-    Legacy Shields - Medium Shields (D3)
-    Colourable Quarterstaves (with item patches)
-	...
-
-Visit the <a href="http://www.spellholdstudios.net/ie/1pp">website</a> or <a href="http://www.shsforums.net/index.php?showforum=159">forum</a> for all the latest updates.
+Visit the <a href="http://www.spellholdstudios.net/ie/1pp">website</a> or <a href="http://www.shsforums.net/index.php?showforum=159">forum</a> for all the latest updates.</br></br>
 
 
 ## Installation
@@ -46,7 +33,7 @@ Visit the <a href="http://www.spellholdstudios.net/ie/1pp">website</a> or <a hre
 ><a href="#106">[106-109] 1ppv4: Female Dwarves</a></br>
 ><a href="#110">[110-112] 1ppv4: Thieves Galore</a></br>
 ><a href="#113">[113] 1ppv4: Smart Avatar & Armour Switching</a></br>
-><a href="#114">[114] 1ppv4: Softer Spell Effects</a></br></br>
+><a href="#114">[114] 1ppv4: Softer Spell Effects</a></br>
 
 &#8258; <strong>Item patches, additions and implementation</strong></br>
 
@@ -60,7 +47,7 @@ Visit the <a href="http://www.spellholdstudios.net/ie/1pp">website</a> or <a hre
 ><a href="#207">[207] 1ppv4: Wizards' Staves (core)</a></br>
 ><a href="#208">[208] 1ppv4: Additional Helmet Animations (core)</a></br>
 ><a href="#209">[209] 1ppv4: Attachable wings (core)</a></br>
-><a href="#210">[210] 1ppv4: Increased paperdoll object variety (core)</a></br></br>
+><a href="#210">[210] 1ppv4: Increased paperdoll object variety (core)</a></br>
 
 ><a href="#400">[400] 1ppv4: Core updates and item patches</a> <em>[main 1ppv4 update component]</em></br>
 ><a href="#401">[401] 1ppv4: Improved projectile effects</a></br></br>
@@ -68,8 +55,10 @@ Visit the <a href="http://www.spellholdstudios.net/ie/1pp">website</a> or <a hre
 &#8258; <strong>Extras and non-character related fixes</strong></br>
 
 ><a href="#300">[300] 1ppv4: Fixed animations for solars and elementals</a></br>
-><a href="#301">[301] 1ppv4: Miscellaneous content fixes</a></br></br>
+><a href="#301">[301] 1ppv4: Miscellaneous content fixes</a></br>
 
+
+------------------------
 
 ### <a name="101" id="101"></a>[101] 1ppv4: Core paperdolls
 
@@ -81,6 +70,8 @@ The component that essentially started it all, this is a port of Baldur's Gate I
 
 ###### <em>Note that this component does not update icon graphics or item colours, so it is not recommended to be installed by itself. It is, however, required for most of the components that follow.</em></br></br>
 
+
+------------------------
 
 ### <a name="102" id="102"></a>[102,103] 1ppv4: Extended palette entries
 
@@ -102,6 +93,8 @@ When installing the full version, extra choices for skin and hair colour will au
 As for clothing colours, during character creation and from the inventory the standard complement of 34 primary and secondary colours will be offered. To access more clothing colours, choose 'customise' » 'colours' from the character sheet to gain access to yet another set of 34 colours.</br></br>
 
 
+------------------------
+
 ### <a name="104" id="104"></a>[104] 1ppv4: GUI additions for BGII
 
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu (if using the BG2 GUI)</span></br>
@@ -111,6 +104,8 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 A reworked graphical user interface for Baldur's Gate II SoA/ToB. This aims to get rid of a lot of the rough edges present in the original while maintaining a similar feel. Major changes include a time dial that is not just a box, getting rid of 'infinite parchment' (see additional screenshots) and an optional choice of updated fonts.</br>
 <a href="1pp/documentation//gui_readme.html">See more »</a></br></br>
 
+
+========================
 
 ### <a name="105" id="105"></a>[105] 1ppv4: Avatar fixes
 
@@ -123,6 +118,8 @@ This component contains fixes and improvements for several avatar series of Bald
 <a href="1pp/documentation/files/avafix_readme.html">See more »</a></br></br>
 
 
+------------------------
+
 ### <a name="106" id="106"></a>[106-109] 1ppv4: Female Dwarves
 
 <strong>Requires: <a href="#101">[101]</a></strong></br>
@@ -133,6 +130,8 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 This component patches Baldur's Gate II engine games to use separate avatar animations for female dwarves and mages of small races, and includes game content for all of these.</br>
 <a href="1pp/documentation/files/dwarf_readme.html">See more »</a></br></br>
 
+
+------------------------
 
 ### <a name="110" id="110"></a>[110-112] 1ppv4: Thieves Galore
 
@@ -147,6 +146,8 @@ This component will patch your executable to support full thief animation sequen
 <a href="1pp/documentation/files/thieves_readme.html">Original readme »</a></br></br>
 
 
+------------------------
+
 ### <a name="113" id="113"></a>[113] 1ppv4: Smart Avatar & Armour Switching
 
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
@@ -156,6 +157,8 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 This component allows armour and robes to properly show up for characters of any class when equipped. While normally robes would not show up for fighter/cleric/thief animations, and armour would not show up for mage animations, this is circumvented by changing the character animation accordingly while such items are equipped.</br>
 <a href="1pp/documentation/files/switch_readme.html">See original readme »</a></br></br>
 
+
+------------------------
 
 ### <a name="114" id="114"></a>[114] 1ppv4: Softer Spell Effects
 
@@ -168,6 +171,8 @@ Substantially improved spell effects with smooth alpha blending for Baldur's Gat
 <a href="1pp/documentation/files/effects_readme.html">See more information »</a></br></br>
 
 
+------------------------
+
 ### <a name="200" id="200"></a>[200] 1ppv4: Core content patches
 
 <strong>Requires: <a href="#101">[101]</a></strong></br>
@@ -179,6 +184,8 @@ This is essentially the inventory icon/item related patches of 1ppv2. In other w
 <a href="1pp/documentation/files/v2_readme.html">See original readme »</a></br></br>
 
 
+------------------------
+
 ### <a name="201" id="201"></a>[201] 1ppv4: Consistent spell and scroll icons
 
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span></br>
@@ -189,6 +196,8 @@ This component harmonises spell icons introduced in Baldur's Gate II with the on
 <a href="1pp/documentation/files/spic_readme.html">See more »</a></br></br>
 
 
+------------------------
+
 ### <a name="202" id="202"></a>[202] 1ppv4: Spell tweaks
 
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span></br>
@@ -197,6 +206,8 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 
 Minor spell tweaks for SoA/ToB, giving armour spells distinct appearances (ghost armour, spirit armour) as well as reworked 'cause wounds' type of spells, bringing them into line with their p&amp;p equivalents and actually making them viable.</br></br>
 
+
+------------------------
 
 ### <a name="203" id="203"></a>[203] 1ppv4: Restored flame sword animations
 
@@ -219,6 +230,8 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 This component makes quarterstaves colourable by segment (as opposed to uniform) to allow more variety in-game and match inventory depictions. It also includes item patches to make use of the new content.</br>
 <a href="1pp/documentation/files/qs_readme.html">See developer reference »</a></br></br>
 
+
+------------------------
 
 ### <a name="205" id="205"></a>[205] 1ppv4: Legacy Shields v2
 
@@ -339,6 +352,7 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 Contains the following fixes: dog animations (corrupted palette), sitting static peasant woman (bad BAM conversion), alternate fire giant animation slot (was useless as the animation had no unified palette, thus impossible to fill). It also fixes an engine related bug on SoA/ToB and IWD:TotLM that will have helmets randomly render wrong sequences when changing equipment, making them 'float' off your character.  Finally, it contains a fix for bugged shield z-buffering on SoA, ToB, IWD:TotLM and IWDII on BGII character animations.</br></br>
 
 
+
 ## Credits
 
 For support or questions, please visit the <a href="http://www.shsforums.net/index.php?showforum=159">mod forum</a>.
@@ -358,13 +372,12 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 - <a href="https://www.autodesk.com/products/3ds-max/overview">3ds Max</a>
 - <a href="http://www.shsforums.net/files/file/552-developer-files-v2/">1pp dev tools</a>, by Erephine
 - <a href="http://" target="_blank">Hex Editor Neo</a>
-- <a href="http://" target="_blank">ACDSee Pro</a>
-</br></br>
+- <a href="http://" target="_blank">ACDSee Pro</a></br></br>
 
 
 ## Version History
 
-##### Version 4.2.0 - October 1x, 2018
+#### Version 4.2.0 - October 1x, 2018
 - GENERAL OVERHAUL AND RE-LOOKING:
   - Variables needed for installation are read from 1pp-config-default.ini or 1pp-config.ini files.
   The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file provides a 'standard' installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini, the installation process will prevent any installation failure by reverting it back to its default value.
@@ -373,7 +386,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
   - Code commented as much as possible.
   - Coding simplification:
     - Replaced macros with functions whenever possible.
-    - Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).
+    - Copy entire folders instead of infinite lines (COPY /~1pp/folder/file.ext\~ \~override\~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).
     - Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.
     - Use new and more efficient WeiDU functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. ADD_ITEM_EQEFFECT, ALTER_EFFECT and ALTER_ITEM_HEADER replace so many lines of codes!).                                                                          *
     - Avoid copying and overwriting the same files again and again...
@@ -500,13 +513,13 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
       - Included Entropy Shield spell (protection from new 1pp projectiles) if IWDIfication is installed.
 
 
-##### Version 4.1.0 - November 12, 2012
+#### Version 4.1.0 - November 12, 2012
 - Scale shields now have their own animations
 - Improved carried/description images
 - Fixed low resolution GUI overlap
 
 
-##### Version 4.0.0 - August 6, 2012
+#### Version 4.0.0 - August 6, 2012
 - Initial release
 
 
