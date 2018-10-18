@@ -4,7 +4,7 @@
 
 **Version:** 4.2.0
 
-**Languages:**  English, French
+**Languages:** English, <a href="README_FR.md">French</a>
 
 **Platform:** Windows</br></br>
 

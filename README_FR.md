@@ -4,9 +4,9 @@
 
 **Version :** 4.2.0
 
-**Langues :**  English, French
+**Langues :** <a href="README.md">anglais</a>, français
 
-**Platrforme :** Windows</br></br>
+**Plateforme :** Windows</br></br>
 
 
 
@@ -15,7 +15,7 @@
 Sans aucun doute le mod le plus complet en matière d'ajustements graphiques, 1pp est le fruit d'un long et ambitieux travail passionné mené pendant près de 8 ans, avec pour objectif d'offrir une expérience de jeu raffinée et plus agréable à tous ceux qui considèrent que les éléments graphiques de Baldur's Gate II laissaient à désirer par rapport à ceux de son prédécesseur.</br></br>
 Mis à jour et simplifié sous la forme d'un programme d'installation unique, 1ppv4 compile en un seul package les divers composants d'amélioration graphique qui se sont accumulés au fil des ans.</br>
 
-Ce mod offers the player the option de change the paperdolls and inventory icons de Baldur's Gate II to those of Baldur's Gate, and adds a number of completely new fixes, additions and alterations to the original BGII game. Technically speaking, One Pixel Productions is an attempt to fix "cosmetic flaws" that should have never made it through QA, as well as improve upon a number of other of things. The mod contains many components, including: BG1 Paperdoll and inventory item ports, except for potions, BG1-style Flaming Swords, Flaming Short Swords (with item and mod item patches), new Paperdolls (human, half-orc, elven, halfling, dwarf), legacy Shields, Colourable Quarterstaves (with item patches)...
+Ce mod transforme certaines icônes d'inventaire d'objets de Baldur's Gate II au style de Baldur's Gate, et remplace certains éléments du jeu par un contenu qui corresponde à la qualité à laquelle nous étions habitués. D'un point de vue technique, One Pixel Productions s'efforce donc de corriger les « défauts cosmétiques » qui n'auraient jamais dû survivre au passage du contrôle qualité. Il comporte de nombreux composants détaillés plus <a href="#components">bas</a>.
 
 Consultez le <a href="http://www.spellholdstudios.net/ie/1pp">site internet du mod</a> ou son <a href="http://www.shsforums.net/index.php?showforum=159">forum</a> pour découvrir toutes les dernières mises à jour.</br></br>
 
@@ -68,7 +68,7 @@ En plus des méthodes détaillées plus haut pour supprimer des composants, il est 
 
 
 
-## Composants
+## <a name="components" id="components"></a>Composants
 
 Le programme d'installation comprend les composants suivants. Chacun possède un numéro distinct et pré-défini qui lui attribue une position déterminée (mot-clé <em>DESIGNATED</em> en langage WeiDU) ; ce qui permet aux autres composants de le détecter et aux utilitaires d'installation automatiques comme le BiG World Setup de préciser quels composants installer.
 
@@ -77,7 +77,7 @@ Le programme d'installation comprend les composants suivants. Chacun possède un 
 ><a href="#102">[102,103] 1ppv4 : Couleurs de palette étendues</a></br>
 ><a href="#104">[104] 1ppv4 : Modification de l'interface graphique pour BGII</a></br>
 ><a href="#105">[105] 1ppv4 : Corrections d'avatars</a></br>
-><a href="#106">[106-109] 1ppv4: : Femmes naines</a></br>
+><a href="#106">[106-109] 1ppv4: Femmes naines</a></br>
 ><a href="#110">[110-112] 1ppv4 : Des voleurs en pagaille</a></br>
 ><a href="#113">[113] 1ppv4 : Avatar intelligent & Changement d'armure</a></br>
 ><a href="#114">[114] 1ppv4 1ppv4 : Rendu des sorts nuancé</a></br>
@@ -148,7 +148,7 @@ Disponible pour : <span style="color:#060">SoA</span>, <span style="color:#700">
 
 <img src="1pp/documentation/files/104.jpg">
 
-Cette interface graphique retravaillée pour Baldur's Gate II SoA/ToB a pour but d'adoucir les arêtes trop prononcées des écrans sans s'éloigner du design d'origine. Parmi les modifications majeures, une horloge remplace la « boîte » d'origine, les « parchemins sans bords » de nombreux écrans font place à des parchemins plus réalistes (voir les captures d'écran dans le lien plus bas), et une option permet de modifier les polices de caractères.</br>
+Cette interface graphique retravaillée pour Baldur's Gate II SoA/ToB a pour but d'adoucir les arêtes trop prononcées des écrans sans s'éloigner du design d'origine. Parmi les modifications majeures, une horloge remplace la « boîte » d'origine, les «&#160;parchemins sans bords » de nombreux écrans font place à des parchemins plus réalistes (voir les captures d'écran dans le lien plus bas), et une option permet de modifier les polices de caractères.</br>
 <a href="1pp/documentation//gui_readme-french.html">Plus d'images »</a></br></br>
 
 
@@ -334,7 +334,7 @@ Disponible pour : <span style="color:#060">SoA</span>, <span style="color:#700">
 
 Ce composant améliore les animations de casques de Baldur's Gate II original, et installe cinq nouvelles animations de casques (dont l'un n'est pas représenté dans les captures d'écran ci-dessus). Il installe également des bandeaux visibles sur la tête des personnages !</br>
 
-####### <em>N'oubliez-pas qu'il s'agit d'un composant basique : il ne modifie aucun objet. Son installation permettra aux composants suivants de vous proposer des options supplémentaires lors de la mise à jour des objets et des sorts.</em></br></br>
+###### <em>N'oubliez-pas qu'il s'agit d'un composant basique : il ne modifie aucun objet. Son installation permettra aux composants suivants de vous proposer des options supplémentaires lors de la mise à jour des objets et des sorts.</em></br></br>
 
 
 ------------------------
@@ -429,15 +429,15 @@ Pour toute question ou demande d'assistance, veuillez consulter le <a href="http
 #### Logiciels et outils utilisés pour la création de ce mod (parmi d'autres) :
 
 - <a href="http://www.weidu.org/%7Ethebigg/"><acronym title="Weimer Dialogue Utility">WeiDU</acronym></a> de Wes Weimer, the bigg et Wisp.
-- <a href="http://notepad-plus-plus.org/">Notepad++</a>, by the Notepad++ team, Don Ho, and the spellcheck plug-in.
-- <a href="http://www.shsforums.net/files/file/1048-weidu-highlighter-for-notepad/">WeiDU Notepad++ Highlighters </a>, by Argent77.
-- <a href="http://www.teambg.eu/?page=tools&amp;cat=32">BAM Workshop</a>, by Glenn Flansburg.
-- <a href="http://www.shsforums.net/topic/57564-bamworkshop/">BAMWorkshop 2</a>, by Andrew Bridges.
+- <a href="http://notepad-plus-plus.org/">Notepad++</a> par l'équipe de Notepad++, Don Ho, et le plug-in de correction orthographique.
+- <a href="http://www.shsforums.net/files/file/1048-weidu-highlighter-for-notepad/">WeiDU Notepad++ Highlighters </a> de Argent77.
+- <a href="http://www.teambg.eu/?page=tools&amp;cat=32">BAM Workshop</a> de Glenn Flansburg.
+- <a href="http://www.shsforums.net/topic/57564-bamworkshop/">BAMWorkshop 2</a> de Andrew Bridges.
 - <a href="https://www.adobe.com/products/photoshop.html">Adobe Photoshop</a>
-- <a href="http://www.gimp.org/"><acronym title="GNU Image Manipulation Program">GIMP</acronym></a>, by the GIMP team.
+- <a href="http://www.gimp.org/"><acronym title="GNU Image Manipulation Program">GIMP</acronym></a> par l'équipe de the GIMP.
 - <a href="http://www.gamani.com/">GIF Movie Gear</a>
 - <a href="https://www.autodesk.com/products/3ds-max/overview">3ds Max</a>
-- <a href="http://www.shsforums.net/files/file/552-developer-files-v2/">1pp dev tools</a>, by Erephine
+- <a href="http://www.shsforums.net/files/file/552-developer-files-v2/">1pp dev tools</a> de Erephine
 - <a href="http://" target="_blank">Hex Editor Neo</a>
 - <a href="http://" target="_blank">ACDSee Pro</a></br></br>
 
