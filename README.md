@@ -45,13 +45,13 @@ BG2 and TOB players are also strongly recommended to download and install the <a
 
 #### Warning: new installation process
 
-**As for version 4.2.0, variables needed for installation are read from 1pp-config-default.ini, or 1pp-config.ini files if it exists.**
+##### As for version 4.2.0, variables needed for installation are read from 1pp-config-default.ini, or 1pp-config.ini files if it exists.
 
 The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is installed for and already installed components). All those variables set during installation have been moved into **_1pp-config-default.ini_** file in 1pp folder. This file provides a '_standard_' installation.
 
 If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and save this file as **_1pp-config.ini_**.
 
-The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini, the installation process will prevent any installation failure by reverting it back to its default value.
+The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini, any installation failure will be prevented by reverting it back to its default value.
 
 
 #### Windows
@@ -443,10 +443,10 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 ## Version History
 
 #### Version 4.2.0 - October 1x, 2018
-  **Général**
-- General overhaul and re-looking:
+
+a. General overhaul and re-looking:
   - Variables needed for installation are read from 1pp-config-default.ini or 1pp-config.ini files.
-  The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file provides a 'standard' installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini, the installation process will prevent any installation failure by reverting it back to its default value.
+  The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file provides a 'standard' installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini, any installation failure will be prevented by reverting it back to its default value.
   - Integrated all BWP Fixpack fixes (thanks Lolorian, The Imp and others!).
   - Split huge [400] Core updates and item patches component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).
   - Code commented as much as possible.
@@ -461,7 +461,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
   - Traification. Feel free to provide me with translations. I will include them as soon as possible.
   - Updated WeiDU installer to v246.
 
-- components specific changes and fixes:
+b. Components specific changes and fixes:
 
   - [114] 1ppv4: Softer Spell Effects (114_effects.tph)
     - Replaced READLN action \~WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS NOT A GOOD IDEA.\~ with reading '3D Acceleration=1' in baldur.ini before running the component.
