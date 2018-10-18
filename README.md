@@ -1,5 +1,4 @@
-# 1pp
-One Pixel Productions improves the BGII inventory icons.</br></br>
+# <center>1pp (One Pixel Productions)</center>
 
 **Author:** Erephine
 
@@ -13,7 +12,7 @@ One Pixel Productions improves the BGII inventory icons.</br></br>
 
 ## Overview
 
-Without a doubt the most comprehensive mod when it comes to post-release QA and visuals, 1pp has been a growing work of love for close to 8 years with the aim of providing a refined, polished experience with attention to detail that many felt was lacking in some aspects of Baldur's Gate II compared to its predecessor. </br></br>
+Without a doubt the most comprehensive mod when it comes to post-release QA and visuals, 1pp has been a growing work of love for close to 8 years with the aim of providing a refined, polished experience with attention to detail that many felt was lacking in some aspects of Baldur's Gate II compared to its predecessor.</br></br>
 1ppv4 represents the culmination of this effort, bringing together the various previously disjointed graphical and mechanical tweaks and components that have accumulated over the years and many more besides; updated, streamlined and in the form of one coherent installer.</br>
 
 This mod offers the player the option to change the paperdolls and inventory icons of Baldur's Gate II to those of Baldur's Gate, and adds a number of completely new fixes, additions and alterations to the original BGII game. Technically speaking, One Pixel Productions is an attempt to fix "cosmetic flaws" that should have never made it through QA, as well as improve upon a number of other of things. The mod contains many components, including: BG1 Paperdoll and inventory item ports, except for potions, BG1-style Flaming Swords, Flaming Short Swords (with item and mod item patches), new Paperdolls (human, half-orc, elven, halfling, dwarf), legacy Shields, Colourable Quarterstaves (with item patches)...
@@ -70,6 +69,8 @@ In addition to the methods above for removing individual components, you can com
 
 
 ## Components
+
+The installer includes the following components. The number of each is the component <em>DESIGNATED</em> number which gives it a fixed install position, lets other components detect it and allows automated installers like the BiG World Setup specify component choices.
 
 &#8258; <strong>Game engine and core related content</strong></br>
 ><a href="#101">[101] 1ppv4: Core paperdolls</a></br>
@@ -266,6 +267,8 @@ This component restores separate flame sword animations for Baldur's Gate II (si
 <a href="1pp/documentation/files/fs_readme.html">See original readme »</a></br></br>
 
 
+------------------------
+
 ### <a name="204" id="204"></a>[204] 1ppv4: Colourable Quarterstaves
 
 <strong>Requires: <a href="#101">[101]</a></strong></br>
@@ -454,15 +457,14 @@ a. General overhaul and re-looking:
     - Replaced macros with functions whenever possible.
     - Copy entire folders instead of infinite lines (COPY \~1pp/folder/file.ext\~ \~override\~ or ACTION_FOR_EACH file IN list BEGIN COPY \~1pp/folder/file.ext\~ \~override\~ END).
     - Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.
-    - Used new and more efficient WeiDU functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. ADD_ITEM_EQEFFECT, ALTER_EFFECT and ALTER_ITEM_HEADER replace so many lines of codes!).                                                                          *
+    - Used new and more efficient WeiDU functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. ADD_ITEM_EQEFFECT, ALTER_EFFECT and ALTER_ITEM_HEADER replace so many lines of codes!).
     - Avoids copying and overwriting the same files again and again...
-  - Updated readme (1pp now supports translated readmes)
-  - Added French translation (Gwendolyne)
+  - Updated readme (1pp now supports translated readmes).
+  - Added French translation (Gwendolyne).
   - Traification. Feel free to provide me with translations. I will include them as soon as possible.
   - Updated WeiDU installer to v246.
 
 b. Components specific changes and fixes:
-
   - [114] 1ppv4: Softer Spell Effects (114_effects.tph)
     - Replaced READLN action \~WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS NOT A GOOD IDEA.\~ with reading '3D Acceleration=1' in baldur.ini before running the component.
     - Function GW_MODIFY_PROJ replaces Lollorian's BWP Fixpack patch (114_effects.tph.patch: modify new projectile values in ALL spell headers) which was inefficient and patched nothing. Moreover, it was using a wrong offset coding for ITM files.
@@ -509,7 +511,6 @@ b. Components specific changes and fixes:
     - Replaced the tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically writes values in tooltip.2da from the tra file.
     - Lollorian's BWP Fixpack patch for Ashes of Embers compatibility (400_1pp_update_bgii.tph.patch): Renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). Source: http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849
     - Gems sub-component: code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Builds an array to define new gems lore values to identify. Same tph used for IWD and BG2 games.
-
     - Code simplified or re-written with newer functions to provide automatic process:
       - Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A \~ISHLDS01\~ with WRITE_ASCII 0x3A \~ISHLDS01\~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.
 
