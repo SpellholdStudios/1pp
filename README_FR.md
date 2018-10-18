@@ -42,16 +42,15 @@ Je vous recommande fortement aux joueurs de BG2 et de ToB d'installer la dernièr
 <em>Par précaution, <strong>Désactivez les antivirus</strong> ou tout logiciel résidant en mémoire avant d'installer ce mod, ou tout autre mod. Certains (en particulier avast et Norton !) ont une fâcheuse tendance à déclarer les exécutables des mods comme des faux positifs, provoquant ainsi l'échec de la procédure d'installation.</em>
 
 
-#### Avertissement : nouvelle procédure d'installation
+#### :warning: Avertissement : nouvelle procédure d'installation
 
-:exclamation: :arrow_forward: :heavy_exclamation_mark: :ballot_box_with_check: :white_check_mark: :warning:
 ##### Depuis la version 4.2.0, les variables nécessaires à l'installation sont lues dans le fichier 1pp-config-default.ini, ou dans le fichier 1pp-config.ini, si ce dernier existe.
 
-Avec les versions prédécentes, pendant la procédure d'installation, de nombreux messages vous permettaient de personnaliser les composants à votre convenance (en fonction de votre jeu IE et des composants que vous aviez installés). Tous ces choix de variables déterminés pendant l'installation du mod ont été externalisés dans le fichier **_1pp-config-default.ini_** situé dans le répertoire 1pp. Ce fichier établit une instalation « _standard_ ».
+Avec les versions prédécentes, pendant la procédure d'installation, de nombreux messages vous permettaient de personnaliser les composants à votre convenance (en fonction de votre jeu IE et des composants que vous aviez installés). Tous ces choix de variables déterminés pendant l'installation du mod ont été externalisés dans le fichier **_1pp-config-default.ini_** situé dans le répertoire 1pp. Ce fichier établit une installation « _standard_ ».
 
-Si vous souhaitez to define their own customized installation, il vous suffit de modifier les variables souhaitées dans le fichier 1pp-config-default.ini, puis de le sauvegarder sous le nom **_1pp-config.ini_**.
+Si vous souhaitez choisir d'autres options d'installation, il vous suffit de modifier les variables souhaitées dans le fichier 1pp-config-default.ini, puis de sauvegarder ce dernier sous le nom **_1pp-config.ini_**.
 
-The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini, any installation failure will be prevented by reverting it back to its default value.
+Le programme d'installation lira les valeurs des variables dans les deux fichiers ini et donnera la priorité aux vôtres. Si le fichier 1pp-config.ini contient une variable non conforme, ou su une variable est manquante, any installation failure will be prevented by reverting it back to its default value.
 
 
 #### Windows
