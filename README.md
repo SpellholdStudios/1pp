@@ -22,14 +22,50 @@ Visit the <a href="http://www.spellholdstudios.net/ie/1pp">website</a> or <a hre
 
 
 
+## Compatibility
+
+This mod is designed to work on the following Infinity Engine games: Baldur's Gate II (BG2, or just SoA), with or without the Throne of Bhaal (ToB) expansion, the conversion projects Baldur's Gate Trilogy (BGT) and Baldur's Gate Tutu (Tutu), Icewind Dale (IWD) with or without either of its expansions, Heart of Winter (HoW) and Trials of the Luremaster (TotLM), and Icewind Dale II (IWD2).
+
+MYMOD is a WeiDU, and therefore should be compatible with all WeiDU mods. However, we cannot test every single one. If you encounter any bugs, please report them on the forum!
+
+BG2 and TOB players are also strongly recommended to download and install the <a href="http://www.gibberlings3.net/bg2fixpack/">BG2 Fixpack</a> before proceeding with the installation of this mod.</br></br>
+
+
+
 ## Installation
 
-Install as any other WeiDU mod.</br>
+#### Notes
 
-During installation, you will be met with various plain text prompts allowing you to customise components to your liking. Please peruse the following to help you understand what is what.</br></br>
+<em>If you've previously installed the mod, remove it before extracting the new version. To do this, run <strong>setup-1pp.exe</strong>, uninstall all previously installed components and delete the 1pp folder.</em>
 
-Variables needed for installation are read from 1pp-config-default.ini or 1pp-config.ini files.
-The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file provides a 'standard' installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini, the installation process will prevent any installation failure by reverting it back to its default value.
+<em>When installing or uninstalling, <strong>do not close the <acronym title="Disk Operating System">DOS</acronym> window</strong> by clicking on the <strong>X</strong> button! Instead, press the <strong>Enter</strong> key whenever instructed to do so.</em>
+
+<em><strong>Disable any antivirus</strong> or other memory-resident software before installing this or any other mod. Some (particularly avast and Norton!) have a tendency to report false positives with mod activity, resulting in failed installs.</em>
+
+
+#### Warning: new installation process
+
+**As for version 4.2.0, variables needed for installation are read from 1pp-config-default.ini, or 1pp-config.ini files if it exists.**
+
+The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is installed for and already installed components). All those variables set during installation have been moved into **_1pp-config-default.ini_** file in 1pp folder. This file provides a '_standard_' installation.
+
+If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and save this file as **_1pp-config.ini_**.
+
+The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini, the installation process will prevent any installation failure by reverting it back to its default value.
+
+
+#### Windows
+
+1pp for Windows is distributed as an extractable compressed archive and includes a <acronym title="Weimer Dialogue Utility">WeiDU</acronym> installer.
+
+Extract the contents of the mod archive into the folder of the game you wish to modify, using <a href="http://www.7-zip.org/download.html">7zip</a>, <a href="http://www.rarlab.com/download.htm">WinRAR</a>, or another file compression utility that handles .zip files. When properly extracted, your game directory will contain <strong>setup-1pp.exe</strong> and the folder <strong>1pp</strong>. To install, double-click <strong>setup-1pp.exe</strong> and follow the instructions on screen.
+
+You can run <strong>setup-1pp.exe</strong> in your game folder to reinstall, uninstall or otherwise change components.
+
+
+#### Note for Complete Uninstallation
+
+In addition to the methods above for removing individual components, you can completely uninstall the mod using <strong>setup-1pp --uninstall</strong> at the command line to remove all components without wading through prompts.</br></br>
 
 
 
@@ -60,7 +96,7 @@ The previous version interrupted installation with plain text prompts allowing p
 ><a href="#210">[210] 1ppv4: Increased paperdoll object variety (core)</a></br>
 
 ><a href="#400">[400] 1ppv4: Core updates and item patches</a> <em>[main 1ppv4 update component]</em></br>
-><a href="#401">[401] 1ppv4: Improved projectile effects</a></br></br>
+><a href="#401">[401] 1ppv4: Improved projectile effects</a></br>
 
 &#8258; <strong>Extras and non-character related fixes</strong></br>
 
@@ -226,7 +262,7 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 
 <img src="1pp/documentation/files/203.jpg">
 
-This component restores separate flame sword animations for Baldur's Gate II (similar to the ones in the original). It also includes flame short swords, adding a new item type to the game.</br></br>
+This component restores separate flame sword animations for Baldur's Gate II (similar to the ones in the original). It also includes flame short swords, adding a new item type to the game.</br>
 <a href="1pp/documentation/files/fs_readme.html">See original readme »</a></br></br>
 
 
@@ -307,7 +343,7 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 
 <img src="1pp/documentation/files/209.jpg">
 
-This adds equippable wings for elven characters (with some restrictions).</br></br>
+This adds equippable wings for elven characters (with some restrictions).</br>
 <a href="files/wings_readme.html">See readme &amp; developer notes »</a></br>
 
 ###### <em>Note that this is a core component; by itself it does not contain any item patches. If installed, the content will instead be used by following 1ppv4 components to give you more options when updating.</em></br></br>
@@ -407,6 +443,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 ## Version History
 
 #### Version 4.2.0 - October 1x, 2018
+  **Général**
 - General overhaul and re-looking:
   - Variables needed for installation are read from 1pp-config-default.ini or 1pp-config.ini files.
   The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file provides a 'standard' installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini, the installation process will prevent any installation failure by reverting it back to its default value.
@@ -454,7 +491,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
     - BWP Fixpack patch for individualised armor effects {202_spelltweaks.tph.patch): modifies opcode #215 visual effect in ALL spell headers.
 
   - [208] 1ppv4: Additional Helmet Animations (208_v4_helmets.tph)
-    - Lollorian's BWP Fixpack JC Helm animation crash fix for Infinity Animations BG1 animation compatibility (208_v4_helmets.tph.patch): 1ppv4's helmet component seems to cause crashes when helmets using the JC animation are equipped by NPCs using BG1 animations from Infinity Animations. (http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/?p=561441)
+    - Lollorian's BWP Fixpack JC Helm animation crash fix for Infinity Animations BG1 animation compatibility (208_v4_helmets.tph.patch): 1ppv4's helmet component seems to cause crashes when helmets using the JC animation are equipped by NPCs using BG1 animations from Infinity Animations (http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/?p=561441).
 
   - [210] 1ppv4: Increased paperdoll object variety (210_v4_ppd_variety.tph)
     - CRE files: used READ_LONG 0x28 instead of READ_SHORT 0x28 (dword).
@@ -462,7 +499,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
       - ITM files: used WRITE_LONG 0x18 (THIS BAND BNOT BIT2) to remove droppable flag instead of writing the offset new value.
 
   - [300] 1ppv4: 1ppv4: Fixed animations for solars and elementals (300_solar_fix.tph)
-    - The Imp's BWP Fixpack fix for Solar swords without graphic artifacts (http://www.shsforums.net/topic/58208-planetar-animation-glitch/ ): fixed MASLG1S1.BAM and MSOLG2S1.BAM files.
+    - The Imp's BWP Fixpack fix for Solar swords without graphic artifacts (http://www.shsforums.net/topic/58208-planetar-animation-glitch/): fixed MASLG1S1.BAM and MSOLG2S1.BAM files.
       Source: https://github.com/omni-axa/BiG-World-Fixpack/commit/de7b3ce8439d8efa8e7427d1ad66efd0f48e547e
 
   - [400] 1ppv4: Core updates and item patches (400_1pp_update_bgii.tph)
@@ -474,7 +511,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
     - Gems sub-component: code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Builds an array to define new gems lore values to identify. Same tph used for IWD and BG2 games.
 
     - Code simplified or re-written with newer functions to provide automatic process:
-       - Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A \~ISHLDS01\~ with WRITE_ASCII 0x3A \~ISHLDS01\~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.
+      - Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A \~ISHLDS01\~ with WRITE_ASCII 0x3A \~ISHLDS01\~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.
 
     - shields specific fixes (400_update_bgii_shields.tpa):
       - shld02.itm (Small Shield +1): LPM \~clear\~ was missing, and the code stacked opcode #7 global effects.
@@ -493,7 +530,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
     - weapons specific fixes (400_update_bgii_weapons.tpa):
       - dagg12.itm (Firetooth +3): fixed typos in LPM \~pulse\~ function (redundant setr variable set to 152 and 189 should be setg and setb, otherwise they overwrite the setr value and don't set the correct setg and setb values).
       - halb08.itm (Duskblade +2): fixed a typo copying halb06 instead of halb08.
-	  - hamm10.itm & hamm11.itm (Runehammers): new 1pp_hammers_icons setting gives the choice to assign them, or not, the Borok's Fist's icon.
+      - hamm10.itm & hamm11.itm (Runehammers): new 1pp_hammers_icons setting gives the choice to assign them, or not, the Borok's Fist's icon.
     - miscellaneous specific fixes (400_update_bgii_misc.tpa):
       - misc89.itm (Edwin's Amulet): added bgmisc89 (BGT and IR compatibility).
       - book06.itm (Tome of Clear Thought), book07.itm (Tome of Leadership and Influence) and book08.itm (Tome of Understanding): harmonized header icon with new inventory icon (IBOOK768) for consistency.
