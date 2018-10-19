@@ -1,9 +1,9 @@
 # <center>1pp (One Pixel Productions)</center>
 
-<p>**Author:** Erephine<br />
-**Version:** 4.2.0<br />
-**Languages:** English, <a href="README_FR.md">French</a><br />
-**Platform:** Windows</p></br></br>
+<p><strong>Author:</strong> Erephine<br />
+<strong>Version:</strong> 4.2.0<br />
+<strong>Languages:</strong> English, <a href="README_FR.md">French</a><br />
+<strong>Platform:</strong> Windows</p></br>
 
 
 
@@ -444,7 +444,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 
 #### Version 4.2.0 - October 1x, 2018
 
-a. General overhaul and re-looking:
+a. General overhaul and re-looking
   - Variables needed for installation are read from 1pp-config-default.ini or 1pp-config.ini files.
   The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file provides a 'standard' installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini, any installation failure will be prevented by reverting it back to its default value.
   - Integrated all BWP Fixpack fixes (thanks Lolorian, The Imp and others!).
@@ -461,12 +461,12 @@ a. General overhaul and re-looking:
   - Traification. Feel free to provide me with translations. I will include them as soon as possible.
   - Updated WeiDU installer to v246.
 
-b. Components specific changes and fixes:
-  - [114] 1ppv4: Softer Spell Effects (114_effects.tph)
+b. Components specific changes and fixes
+  - [114] <u>1ppv4: Softer Spell Effects</u> (114_effects.tph)
     - Replaced READLN action \~WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS NOT A GOOD IDEA.\~ with reading '3D Acceleration=1' in baldur.ini before running the component.
-    - Function GW_MODIFY_PROJ replaces Lollorian's BWP Fixpack patch (114_effects.tph.patch: modify new projectile values in ALL spell headers) which was inefficient and patched nothing. Moreover, it was using a wrong offset coding for ITM files.
+    - Function GW_MODIFY_PROJ replaces Lollorian's BWP Fixpack patch (<a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/114_effects.tph.patch">114_effects.tph.patch</a>: modify new projectile values in ALL spell headers) which was inefficient and patched nothing. Moreover, it was using a wrong offset coding for ITM files. Source: <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">commit</a>.
 
-  - [200] 1ppv4: Core content patches (200_1ppv2_cut.tph)
+  - [200] <u>1ppv4: Core content patches</u> (200_1ppv2_cut.tph)
     - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers.
     - Code simplified or re-written with newer functions to provide automatic process:
       - Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A \~ISHLDS01\~ with WRITE_ASCII 0x3A \~ISHLDS01\~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.
@@ -483,30 +483,29 @@ b. Components specific changes and fixes:
       - sw2h20.itm (Two-handed Sword +3): reverted to its original inventory icon ISW2H20. 1PP sets it to ISW2H06, but EE does not validate this change.
       - BW Herbs mod patches: fixed typo (was copying BW02IPO1_l.BAM instead of BW02IPO1.BAM).
 
-  - [201] 1ppv4: Consistent spell and scroll icons (201_spellsandscrolls.tph)
+  - [201] <u>1ppv4: Consistent spell and scroll icons</u> (201_spellsandscrolls.tph)
     - BWP Fixpack patch: restored Energy Blades spell and scroll icons (SPWI920) overwritten with Black Blade of Disaster's ones.
 
-  - [202] 1ppv4: Spell tweaks (202_spelltweaks.tph)
-    - BWP Fixpack patch for individualised armor effects {202_spelltweaks.tph.patch): modifies opcode #215 visual effect in ALL spell headers.
+  - [202] <u>1ppv4: Spell tweaks</u> (202_spelltweaks.tph)
+    - Lollorian's BWP Fixpack patch for individualised armor effects {<a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/202_spelltweaks.tph.patch">202_spelltweaks.tph.patch</a>): modifies opcode #215 visual effect in ALL spell headers. Source: <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/57211cf3a29cfd8381b62b3df13d3d04ed9f5fb2">commit</a>.
 
-  - [208] 1ppv4: Additional Helmet Animations (208_v4_helmets.tph)
-    - Lollorian's BWP Fixpack JC Helm animation crash fix for Infinity Animations BG1 animation compatibility (208_v4_helmets.tph.patch): 1ppv4's helmet component seems to cause crashes when helmets using the JC animation are equipped by NPCs using BG1 animations from Infinity Animations (http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/?p=561441).
+  - [208] <u>1ppv4: Additional Helmet Animations</u> (208_v4_helmets.tph)
+    - <a href="http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/?p=561441">Lollorian's BWP Fixpack JC Helm animation crash fix for Infinity Animations BG1 animation compatibility</a> (patch <a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/208_v4_helmets.tph.patch">208_v4_helmets.tph.patch</a>): 1ppv4's helmet component seems to cause crashes when helmets using the JC animation are equipped by NPCs using BG1 animations from Infinity Animations.
 
-  - [210] 1ppv4: Increased paperdoll object variety (210_v4_ppd_variety.tph)
+  - [210] <u>1ppv4: Increased paperdoll object variety</u> (210_v4_ppd_variety.tph)
     - CRE files: used READ_LONG 0x28 instead of READ_SHORT 0x28 (dword).
     - Coding simplification:
       - ITM files: used WRITE_LONG 0x18 (THIS BAND BNOT BIT2) to remove droppable flag instead of writing the offset new value.
 
-  - [300] 1ppv4: 1ppv4: Fixed animations for solars and elementals (300_solar_fix.tph)
-    - The Imp's BWP Fixpack fix for Solar swords without graphic artifacts (http://www.shsforums.net/topic/58208-planetar-animation-glitch/): fixed MASLG1S1.BAM and MSOLG2S1.BAM files.
-      Source: https://github.com/omni-axa/BiG-World-Fixpack/commit/de7b3ce8439d8efa8e7427d1ad66efd0f48e547e
+  - [300] <u>1ppv4: 1ppv4: Fixed animations for solars and elementals</u> (300_solar_fix.tph)
+    - <a href="http://www.shsforums.net/topic/58208-planetar-animation-glitch/">The Imp's BWP Fixpack fix for Solar swords without graphic artifacts</a>: fixed MASLG1S1.BAM and MSOLG2S1.BAM files. Source: <a href="https://github.com/omni-axa/BiG-World-Fixpack/commit/de7b3ce8439d8efa8e7427d1ad66efd0f48e547e">commit</a>.
 
-  - [400] 1ppv4: Core updates and item patches (400_1pp_update_bgii.tph)
+  - [400] <u>1ppv4: Core updates and item patches</u> (400_1pp_update_bgii.tph)
     - Split this huge component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).
     - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers.
     - Added a new setting (1pp_sleeper) allowing to make alternate the turning of The Sleeper into a flail. In any case, 1PP does not overwrites its original inventory bam with a new one, but installs a new icon (IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose.
     - Replaced the tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically writes values in tooltip.2da from the tra file.
-    - Lollorian's BWP Fixpack patch for Ashes of Embers compatibility (400_1pp_update_bgii.tph.patch): Renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). Source: http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849
+    - <a href="http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849">Lollorian's BWP Fixpack patch for Ashes of Embers compatibility</a> (400_1pp_update_bgii.tph.patch): Renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">Source</a>.
     - Gems sub-component: code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Builds an array to define new gems lore values to identify. Same tph used for IWD and BG2 games.
     - Code simplified or re-written with newer functions to provide automatic process:
       - Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A \~ISHLDS01\~ with WRITE_ASCII 0x3A \~ISHLDS01\~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.
@@ -556,10 +555,10 @@ b. Components specific changes and fixes:
         - Replaced two ADD_STORE_ITEM #1 with one ADD_STORE_ITEM #2.
       - dmark1.sto (Fovem, Docks merchant) & trmer02.sto (Trademeet merchant): set number_in_stock to 2, otherwise the former code did not work (was supposed to add one Plate and remove the Plate +1, but there was already 1 Plate in the store!
 
-  - [401] 1ppv4: Improved projectile effects (401_projectiles.tph)
+  - [401] <u>1ppv4: Improved projectile effects</u> (401_projectiles.tph)
     - Code fully re-written with new functions to provide automatic process.
       - Function GW_CLEAR_DUPLICATED_OPCODES: does not stack anymore opcodes #83 and #197, clears duplicated vanilla #89 and #197 effects in SPL and ITM files and checks if protection from SPEAR and/or Bounce SPEAR is already set before adding it.
-      - Function GW_MODIFY_PROJ replaces BWP Fixpack patch (401_projectiles.tph.patch): modifies the projectile value only when needed (does not patch melee headers anymore), replaces ADD_ITEM_EQEFFECT, ADD_ITEM_EFFECT, ADD_SPELL_EFFECT and macros with the newer and more efficient CLONE_EFFECT WeiDU function to give new opcodes #83 and #197 the same settings than existing ones (target, resist_dispel, duration, power...). It modifies all extended headers and avoids writing lines of codes!
+      - Function GW_MODIFY_PROJ replaces BWP Fixpack patch (<a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/401_projectiles.tph.patch">401_projectiles.tph.patch</a>): modifies the projectile value only when needed (does not patch melee headers anymore), replaces ADD_ITEM_EQEFFECT, ADD_ITEM_EFFECT, ADD_SPELL_EFFECT and macros with the newer and more efficient CLONE_EFFECT WeiDU function to give new opcodes #83 and #197 the same settings than existing ones (target, resist_dispel, duration, power...). It modifies all extended headers and avoids writing lines of codes!
       - Provided partial IR and SR compatibility in a rather soft way.
     - specific fixes:
       - ax1h08.itm (Hangard's Axe +2), ax1h09.itm (Rifthome Axe +3), ax1h10.itm (Azuredge +3) and ax1h16.itm (K'logarath +4): added IR compatibility (patches itemB files).
