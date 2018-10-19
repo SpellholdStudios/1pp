@@ -1,12 +1,9 @@
 # <center>1pp (One Pixel Productions)</center>
 
-**Author:** Erephine
-
-**Version:** 4.2.0
-
-**Languages:** English, <a href="README_FR.md">French</a>
-
-**Platform:** Windows</br></br>
+<p>**Author:** Erephine<br />
+**Version:** 4.2.0<br />
+**Languages:** English, <a href="README_FR.md">French</a><br />
+**Platform:** Windows</p></br></br>
 
 
 
@@ -42,7 +39,7 @@ BG2 and TOB players are also strongly recommended to download and install the <a
 <em><strong>Disable any antivirus</strong> or other memory-resident software before installing this or any other mod. Some (particularly avast and Norton!) have a tendency to report false positives with mod activity, resulting in failed installs.</em>
 
 
-#### Warning: new installation process
+#### :warning: Warning: new installation process
 
 ##### As for version 4.2.0, variables needed for installation are read from 1pp-config-default.ini, or 1pp-config.ini files if it exists.
 
