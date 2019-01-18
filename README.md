@@ -1,4 +1,4 @@
-# <a name="top" id="top"></a><center>1pp (One Pixel Productions)</center>
+<a name="top" id="top"></a><center># 1pp (One Pixel Productions)</center>
 
 <center><strong>A Spellhold Studios mod for Infinity Engine game</strong></center>
 
