@@ -80,12 +80,11 @@ If players want to define their own customized installation, they have to modify
 The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini, any installation failure will be prevented by reverting it back to its default value.</br>
 
 
-<table style="margin-left: 80px" summary="Liste des variables d'installation">
+<table summary="Liste des variables d'installation">
 	<tr style="font-size: 125%; line-height: 160%;">
 		<th style="border: 1px solid #781808; text-align: center; background-color: #781808; color: #e5e5e5; ">Components<br>Variable</th>
 		<th style="border: 1px solid #781808; text-align: center; background-color: #781808; color: #e5e5e5; ">Games supported<br>Description</th>
 	</tr>
-
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; "><strong><span style="color: #781808;">101 female dwarf paperdolls style</span></strong></td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(only available for <span style="color:#088">Heart of Winter</span> or <span style="color:#088">Trials of the Luremaster</span> if Infinity Animations is installed)</center></td>
@@ -97,7 +96,6 @@ The installation process will read both ini files and prioritize user values. If
 		<span style="padding-left:20px;">1 = IWD</span><br>
 		<span style="color: #781808; padding-left:20px;">2 = 1pp [default]</span></td>
 	</tr>
-
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; "><strong><span style="color: #781808;">104 GUI additions for BGII</span></strong></td>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; padding-left:5px; padding-right:5px; ">(<span style="color:#060">BG2</span>, <span style="color:#700">ToB</span>, <span style="color:#080">tutu</span>, <span style="color:#080">tutu_totsc</span> and ca)</td>
@@ -124,7 +122,6 @@ The installation process will read both ini files and prioritize user values. If
 		<span style="color: #781808; padding-left:20px";>1 = Yes [default]</span><br>
 		<span style="padding-left:20px;">2 = No</span></td>
 	</tr>
-
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; "><strong><span style="color: #781808;">114 Softer Spell Effects</span></strong></td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(<span style="color:#060">BG2</span>, <span style="color:#700">ToB</span>, <span style="color:#080">tutu</span>, <span style="color:#080">tutu_totsc</span> and ca)</center></td>
@@ -143,7 +140,6 @@ The installation process will read both ini files and prioritize user values. If
 		<span style="color: #781808; padding-left:20px;">1 = Yes [default]</span><br>
 		<span style="padding-left:20px;">2 = No (install improved stock effect instead)</span></td>
 	</tr>
-
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; "><strong><span style="color: #781808;">200 Core content patches</span></strong></td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(<span style="color:#060">BG2</span>, <span style="color:#700">ToB</span>, <span style="color:#080">tutu</span>, <span style="color:#080">tutu_totsc</span> and ca)</center></td>
@@ -162,7 +158,6 @@ The installation process will read both ini files and prioritize user values. If
 		<span style="color: #781808; padding-left:20px;">1 = Yes [default]</span><br>
 		<span style="padding-left:20px;">2 = No, everything but Potions!</span></td>
 	</tr>
-
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; "><strong><span style="color: #781808;">202 Spell tweaks</span></strong></td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(<span style="color:#060">BG2</span>, <span style="color:#700">ToB</span>, <span style="color:#080">tutu</span>, <span style="color:#080">tutu_totsc</span> and ca)</center></td>
@@ -181,7 +176,6 @@ The installation process will read both ini files and prioritize user values. If
 		<span style="color: #781808; padding-left:20px;">1 = Yes, install [par défaut]</span><br>
 		<span style="padding-left:20px;">2 = No, cancel installation</span></td>
 	</tr>
-
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; "><strong><span style="color: #781808;">400 Core updates and item patches</span></strong></td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(<span style="color:#060">BG2</span>, <span style="color:#700">ToB</span>, <span style="color:#080">tutu</span>, <span style="color:#080">tutu_totsc</span> and ca). Requires component 200 Core content patches</center></td>
@@ -300,7 +294,6 @@ The installation process will read both ini files and prioritize user values. If
 		<span style="color: #781808; padding-left:20px">1 = Yes [par défaut]</span><br>
 		<span style="padding-left:20px;">2 = No, but install the alternate flail icon IBLUN16B as a new resource for modders.</span></td>
 	</tr>
-
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; "><strong><span style="color: #781808;">400 Core updates and item patches</span></strong></td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(<span style="color:#088">HoW</span> and <span style="color:#088">TotLM</span>)</center></td>
@@ -319,7 +312,6 @@ The installation process will read both ini files and prioritize user values. If
 		<span style="color: #781808; padding-left:20px">1 = No [default]</span><br>
 		<span style="padding-left:20px;">2 = Yes</span></td>
 	</tr>
-
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; "><strong><span style="color: #781808;">300 Fixed animations for solars and elementals</span></strong></td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(<span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#080">tutu_totsc</span> and ca)</center></td>
