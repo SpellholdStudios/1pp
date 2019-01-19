@@ -1,6 +1,6 @@
-<a name="top" id="top"></a><center># 1pp (One Pixel Productions)</center>
+<a name="top" id="top"></a><center><h1> 1pp (One Pixel Productions)</center></h1>
 
-<center><strong>A Spellhold Studios mod for Infinity Engine game</strong></center>
+<center><strong>A Spellhold Studios mod for Infinity Engine game</strong></center><br />
 
 <strong>Author:</strong> Erephine<br />
 <strong>Version:</strong> 4.2.0<br />
