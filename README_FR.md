@@ -1,4 +1,4 @@
-# <a name="top" id="top"></a><center>1pp (One Pixel Productions)</center>
+<a name="top" id="top"></a><center># 1pp (One Pixel Productions)</center>
 
 <center><strong>Un mod de Spellhold Studios pour les jeux Infinity Engine</strong></center>
 
@@ -102,7 +102,7 @@ Le programme d'installation comprend les composants suivants. Chacun possède un 
 
 &#8258; <strong>Modifications d'objets, ajouts et implémentation</strong></br>
 
-><span style="margin-left: 50px;"><a href="#200">[200] 1ppv4 : Corrections de base</a>
+><span style="margin-left: 50px;"><a href="#200">[200] 1ppv4 : Corrections de base</a></br>
 ><span style="margin-left: 50px;"><a href="#201">[201] 1ppv4 : Icônes de sorts et de parchemins uniformes</a></span></br>
 ><span style="margin-left: 50px;"><a href="#202">[202] 1ppv4 : Ajustements de sorts</a></span></br>
 ><span style="margin-left: 50px;"><a href="#203">[203] 1ppv4 : Rétablissement des animations d'épées enflammées</a></span></br>

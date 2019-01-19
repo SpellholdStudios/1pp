@@ -347,7 +347,7 @@ The installer includes the following components. The number of each is the compo
 
 &#8258; <strong>Item patches, additions and implementation</strong></br>
 
-><span style="margin-left: 50px;"><a href="#200">[200] 1ppv4: Core content patches</a>
+><span style="margin-left: 50px;"><a href="#200">[200] 1ppv4: Core content patches</a></br>
 ><span style="margin-left: 50px;"><a href="#201">[201] 1ppv4: Consistent spell and scroll icons</a></span></br>
 ><span style="margin-left: 50px;"><a href="#202">[202] 1ppv4: Spell tweaks</a></span></br>
 ><span style="margin-left: 50px;"><a href="#203">[203] 1ppv4: Restored flame sword animations</a></span></br>
