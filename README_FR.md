@@ -1,6 +1,6 @@
-<a name="top" id="top"></a># 1pp (One Pixel Productions)
+# <a name="top" id="top"></a>1pp (One Pixel Productions)
 
-###Un mod de Spellhold Studios pour les jeux Infinity Engine
+### Un mod de Spellhold Studios pour les jeux Infinity Engine
 
 
 <strong>Auteure :</strong> Erephine<br />
@@ -75,17 +75,17 @@ En plus des méthodes détaillées plus haut pour supprimer des composants, il est 
 
 ## 
 
-#### :warning: Avertissement : nouvelle procédure d'installation
+#### <a name="config" id="config">:warning: Avertissement : nouvelle procédure d'installation
 
-##### Depuis la version 4.2.0, les variables nécessaires à l'installation sont lues dans le fichier 1pp-config-default.ini, ou dans le fichier 1pp-config.ini, si ce dernier existe.
+##### Depuis la version 4.2.0, les variables nécessaires à l'installation sont lues dans le fichier <a href="1pp/1pp-config-default.ini">1pp-config-default.ini</a>, ou dans le fichier 1pp-config.ini, si ce dernier existe.
 
 Dans les versions précédentes, pendant la procédure d'installation, de nombreux messages vous permettaient de personnaliser les composants à votre convenance (en fonction de votre jeu IE et des composants que vous aviez installés). Tous ces choix de variables déterminés pendant l'installation du mod ont été externalisés dans le fichier **_1pp-config-default.ini_** situé dans le répertoire 1pp. Ce fichier établit une installation « _standard_ ».
 
-Si vous souhaitez choisir d'autres options d'installation, il vous suffit de modifier les variables souhaitées dans le fichier 1pp-config-default.ini, puis de sauvegarder ce dernier sous le nom **_1pp-config.ini_**.
+Si vous souhaitez choisir d'autres options d'installation, il vous suffit de modifier les variables concernées dans le fichier 1pp-config-default.iniavec Notepad ou un autre éditeur de texte, puis de le sauvegarder sous le nom **_1pp-config.ini_**.  Chaque ligne comprend une option de configuration, suivie de « = », puis d'un chiffre. Tout ce que vous avez à faire, c'est modifier la valeur du chiffre.
 
-Le programme d'installation lira les valeurs des variables dans les deux fichiers ini et donnera la priorité aux vôtres. Si le fichier 1pp-config.ini contient une variable non conforme, ou si une variable est manquante, il la remplacera par sa valeur par défaut (celle correspondant à l'installation « _standard_ »).
+Le programme d'installation lira les valeurs des variables dans les deux fichiers ini et donnera la priorité aux vôtres. Si le fichier 1pp-config.ini contient une valeur d'option non conforme, ou si une variable est manquante, il la remplacera par sa valeur par défaut (celle correspondant à l'installation « _standard_ »).
 
-Vous trouverez la liste des variables et leur signification dans le fichier <a href="1pp/1pp-config-french.txt">1pp-config-language.txt</a> (« language » correspondant à la langue d'installation du mod). Voici le tableau des variables concernées :</br></br>
+Vous trouverez la liste des options et leur signification dans le fichier <a href="1pp/1pp-config-french.txt">1pp-config-language.txt</a> (« language » correspondant à la langue d'installation du mod). Voici le tableau des options concernées :</br></br>
 
 
 <table summary="Liste des variables d'installation">
@@ -668,9 +668,10 @@ Il s'agit du composant principal de mise à jour de 1ppv4. Avant de l'exécuter, a
 <img src="1pp/documentation/files/400s4.jpg">
 <img src="1pp/documentation/files/400ss.jpg">
 
-Divers choix vous seront proposés pendant d'installation (en fonction de votre jeu IE et des composants que vous avez installés). Pour avoir un aperçu complet des options, veuillez consulter le lien ci-dessous. Si vous souhaitez affecter des couleurs pré-définies aux objets non magiques, choisissez les options 2 ou 3 du réglage 4 (COULEURS DES OBJETS PRÉ-DÉFINIES).</br>
+Dans les versions précédentes, divers choix vous étaient proposés pendant d'installation (en fonction de votre jeu IE et des composants que vous avez installés).</br>
+Depuis la version 4.2.0, les options d'installation sont externalisés dans le fichier 1pp-config-default.ini. Si vous souhaitez les modifier, veuillez lire ce <a href="#config">chapitre</a>.</br></br>
+Pour avoir un aperçu complet des options, veuillez consulter le lien ci-dessous. Si vous souhaitez affecter des couleurs pré-définies aux objets non magiques, choisissez les options 2 ou 3 de l'option COULEURS DES OBJETS PRÉ-DÉFINIES.</br>
 <a href="1pp/documentation/files/v4u_readme-french.html">Autres options d'installation »</a></br>
-
 <div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
@@ -714,7 +715,7 @@ Ce composant apporte des corrections aux éléments suivants : animations de chien
 <hr>
 
 
-## Crésits et remerciements
+## Crédits et remerciements
 
 Pour toute question ou demande d'assistance, veuillez consulter le <a href="http://www.shsforums.net/index.php?showforum=159">forum du mod</a>.
 
@@ -747,28 +748,30 @@ Pour toute question ou demande d'assistance, veuillez consulter le <a href="http
 ##### Version 4.2.0 - xx mm 2019
 
 a. General overhaul and re-looking:
-  - Variables needed for installation are read from 1pp-config-default.ini or 1pp-config.ini files.
-  The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file provides a 'standard' installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini, any installation failure will be prevented by reverting it back to its default value.
-  - Integrated all BWP Fixpack fixes (thanks Lolorian, The Imp and others!).
-  - Split huge [400] Core updates and item patches component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).
-  - Code commented as much as possible.
-  - Coding simplification:
-    - Replaced macros with functions whenever possible.
-    - Copy entire folders instead of infinite lines (COPY \~1pp/folder/file.ext\~ \~override\~ or ACTION_FOR_EACH file IN list BEGIN COPY \~1pp/folder/file.ext\~ \~override\~ END).
-    - Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.
-    - Used new and more efficient WeiDU functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. ADD_ITEM_EQEFFECT, ALTER_EFFECT and ALTER_ITEM_HEADER replace so many lines of codes!).
-    - Avoids copying and overwriting the same files again and again...
-  - Updated readme (1pp now supports translated readmes).
-  - Added French translation (Gwendolyne).
-  - Traification. Feel free to provide me with translations. I will include them as soon as possible.
-  - Updated WeiDU installer to v246.
+  - Les options d'installation sont externalisés dans le fichier 1pp-config-default.ini. Si vous souhaitez les modifier, veuillez consulter ce <a href="#config">chapitre</a>.
+  - Correction et intégration des patches correctifs de Lolorian et intégration des autres patches du BWP Fixpack fixes (merci à The Imp et aux autres !).
+  - Découpage de l'énorme composant principal [400] en plus petits.
+  - Ajout de commentaires dans la mesure du possible.
+  - Compatibilité partielle avec les mods <a href="https://www.gibberlings3.net/files/file/969-item-revisions/">Item Revisions</a>, <a href="https://www.gibberlings3.net/files/file/970-spell-revisions/">Spell Revisions</a> et <a href="https://www.gibberlings3.net/files/file/948-iwdification/">IWDification</a> : comme ces mods sont toujours publiés en version beta, J'ai abandonné toute velléité de fournir un code totalement compatible avec eux. Ce serait une perte de temps puisqu'il serait sans aucun doute obsolète dans quelques semaines.
+  - Correction de fautes de frappe qui empêchaient la modification de certains objets (ou modifiaient d'autres objets à leur place...).
+  - Révision totale du composant Rendu des projectiles amélioré [401] : élimine les doublons des opcodes #83 and #197, clone les effets existants plutôt que d'en ajouter de nouveaux...
+  - Simplification du code :
+    - Remplacement des macros par des fonctions quand c'est pertinent.
+    - Copie des répertoires de fichiers plutôt que chaque fichier un par un (COPY \~1pp/folder/file.ext\~ \~override\~ ou ACTION_FOR_EACH file IN list BEGIN COPY \~1pp/folder/file.ext\~ \~override\~ END).
+    - Regroupement des commandes avec ACTION_FOR_EACH et PATCH_FOR_EACH chaque fois que possible.
+    - Utilisation de nouvelles fonctions de <acronym title="Weimer Dialogue Utility">WeiDU</acronym> (qui n'existaient pas lorsque Erephine a écrit ce mod) et de Gwendolyne qui optimisent le patch des fichiers (par exemple ADD_ITEM_EQEFFECT, ALTER_EFFECT et ALTER_ITEM_HEADER remplacent de nombreuses lignes de codes !).
+    - Les fichiers ne sont plus écrasés plusieurs fois de suite...
+  - Mise à jour de tous les readme (1pp prend désormais en compte la documentation traduite).
+  - Ajout de la traduction française (Gwendolyne).
+  - Traification.
+  - Mise à jour de <acronym title="Weimer Dialogue Utility">WeiDU</acronym> (v246).
 
-b. Components specific changes and fixes:
-  - [114] 1ppv4: Softer Spell Effects (114_effects.tph)
+b. Modifications relatives à chaque composant :
+  - [114] 1ppv4 : Rendu des sorts nuancé (114_effects.tph)
     - Replaced READLN action \~WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS NOT A GOOD IDEA.\~ with reading '3D Acceleration=1' in baldur.ini before running the component.
     - Function GW_MODIFY_PROJ replaces Lollorian's BWP Fixpack patch (114_effects.tph.patch: modify new projectile values in ALL spell headers) which was inefficient and patched nothing. Moreover, it was using a wrong offset coding for ITM files.
 
-  - [200] 1ppv4: Core content patches (200_1ppv2_cut.tph)
+  - [200] 1ppv4 : Corrections de base (200_1ppv2_cut.tph)
     - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers.
     - Code simplified or re-written with newer functions to provide automatic process:
       - Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A \~ISHLDS01\~ with WRITE_ASCII 0x3A \~ISHLDS01\~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.
@@ -785,25 +788,25 @@ b. Components specific changes and fixes:
       - sw2h20.itm (Two-handed Sword +3): reverted to its original inventory icon ISW2H20. 1PP sets it to ISW2H06, but EE does not validate this change.
       - BW Herbs mod patches: fixed typo (was copying BW02IPO1_l.BAM instead of BW02IPO1.BAM).
 
-  - [201] 1ppv4: Consistent spell and scroll icons (201_spellsandscrolls.tph)
+  - [201] 1ppv4 : Icônes de sorts et de parchemins uniformes (201_spellsandscrolls.tph)
     - BWP Fixpack patch: restored Energy Blades spell and scroll icons (SPWI920) overwritten with Black Blade of Disaster's ones.
 
-  - [202] 1ppv4: Spell tweaks (202_spelltweaks.tph)
+  - [202] 1ppv4 : Ajustements de sorts (202_spelltweaks.tph)
     - BWP Fixpack patch for individualised armor effects {202_spelltweaks.tph.patch): modifies opcode #215 visual effect in ALL spell headers.
 
-  - [208] 1ppv4: Additional Helmet Animations (208_v4_helmets.tph)
+  - [208] 1ppv4 : Animations supplémentaires de casques (208_v4_helmets.tph)
     - Lollorian's BWP Fixpack JC Helm animation crash fix for Infinity Animations BG1 animation compatibility (208_v4_helmets.tph.patch): 1ppv4's helmet component seems to cause crashes when helmets using the JC animation are equipped by NPCs using BG1 animations from Infinity Animations (http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/?p=561441).
 
-  - [210] 1ppv4: Increased paperdoll object variety (210_v4_ppd_variety.tph)
+  - [210] 1ppv4 : Plus de diversité de paperdolls d'objets (210_v4_ppd_variety.tph)
     - CRE files: used READ_LONG 0x28 instead of READ_SHORT 0x28 (dword).
     - Coding simplification:
       - ITM files: used WRITE_LONG 0x18 (THIS BAND BNOT BIT2) to remove droppable flag instead of writing the offset new value.
 
-  - [300] 1ppv4: 1ppv4: Fixed animations for solars and elementals (300_solar_fix.tph)
+  - [300] 1ppv4 : Correction des animations des solaires et des élémentaires(300_solar_fix.tph)
     - The Imp's BWP Fixpack fix for Solar swords without graphic artifacts (http://www.shsforums.net/topic/58208-planetar-animation-glitch/): fixed MASLG1S1.BAM and MSOLG2S1.BAM files.
       Source: https://github.com/omni-axa/BiG-World-Fixpack/commit/de7b3ce8439d8efa8e7427d1ad66efd0f48e547e
 
-  - [400] 1ppv4: Core updates and item patches (400_1pp_update_bgii.tph)
+  - [400] 1ppv4 : Mise à jour et modification des objets (400_1pp_update_bgii.tph)
     - Split this huge component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).
     - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers.
     - Added a new setting (1pp_sleeper) allowing to make alternate the turning of The Sleeper into a flail. In any case, 1PP does not overwrites its original inventory bam with a new one, but installs a new icon (IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose.
@@ -858,7 +861,7 @@ b. Components specific changes and fixes:
         - Replaced two ADD_STORE_ITEM #1 with one ADD_STORE_ITEM #2.
       - dmark1.sto (Fovem, Docks merchant) & trmer02.sto (Trademeet merchant): set number_in_stock to 2, otherwise the former code did not work (was supposed to add one Plate and remove the Plate +1, but there was already 1 Plate in the store!
 
-  - [401] 1ppv4: Improved projectile effects (401_projectiles.tph)
+  - [401] 1ppv4 : Rendu des projectiles amélioré (401_projectiles.tph)
     - Code fully re-written with new functions to provide automatic process.
       - Function GW_CLEAR_DUPLICATED_OPCODES: does not stack anymore opcodes #83 and #197, clears duplicated vanilla #89 and #197 effects in SPL and ITM files and checks if protection from SPEAR and/or Bounce SPEAR is already set before adding it.
       - Function GW_MODIFY_PROJ replaces BWP Fixpack patch (401_projectiles.tph.patch): modifies the projectile value only when needed (does not patch melee headers anymore), replaces ADD_ITEM_EQEFFECT, ADD_ITEM_EFFECT, ADD_SPELL_EFFECT and macros with the newer and more efficient CLONE_EFFECT WeiDU function to give new opcodes #83 and #197 the same settings than existing ones (target, resist_dispel, duration, power...). It modifies all extended headers and avoids writing lines of codes!

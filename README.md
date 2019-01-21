@@ -1,6 +1,6 @@
-<a name="top" id="top"></a># 1pp (One Pixel Productions)
+# <a name="top" id="top"></a>1pp (One Pixel Productions)
 
-###A Spellhold Studios mod for Infinity Engine game
+### A Spellhold Studios mod for Infinity Engine game
 
 
 <strong>Author:</strong> Erephine<br />
@@ -75,17 +75,17 @@ In addition to the methods above for removing individual components, you can com
 
 ## 
 
-#### :warning: Warning: new installation process
+#### <a name="config" id="config">:warning: Warning: new installation process
 
-##### As of version 4.2.0, variables needed for installation are read from 1pp-config-default.ini, or 1pp-config.ini files if it exists.
+##### As of version 4.2.0, variables needed for installation are read from <a href="1pp/1pp-config-default.ini">1pp-config-default.ini</a> file, or 1pp-config.ini if it exists.
 
-The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is installed for and already installed components). All those variables set during installation have been moved into **_1pp-config-default.ini_** file in 1pp folder. This file provides a '_standard_' installation.
+The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is installed for and already installed components). All those variables set during installation have been moved into <a href="1pp/1pp-config-default.ini">**_1pp-config-default.ini_**</a> file, found in 1pp folder. This file provides a '_standard_' installation.
 
-If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and save this file as **_1pp-config.ini_**.
+If players want to define their own customized installation, they have to edit the file 1pp-config-default.iniin Notepad or another text editor, then save it as **_1pp-config.ini_**. Each line consists of a configuration option, then '=', then a number (or in one case a string). The only thing you should edit is the number (or string).
 
-The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini, any installation failure will be prevented by reverting it back to its default value.
+The installation process will read both ini files and prioritize user's option values. If a value is not set or mismatched in 1pp-config.ini, any installation failure will be prevented by reverting it back to its default value.
 
-Please read the <a href="1pp/1pp-config-english.txt">1pp-config-language.txt</a> file (with 'language' being the installation language you chose) to check the variables names and their meanings. Here is a chart listing the variables related to the installation process:</br></br>
+Please read the <a href="1pp/1pp-config-english.txt">1pp-config-language.txt</a> file (with 'language' being the installation language you chose) to check the variables names and their meanings. Here is a chart listing the options related to the installation process:</br></br>
 
 
 <table summary="Installation variables list">
@@ -671,9 +671,10 @@ This is the main 1ppv4 update component. Make sure you have all components you w
 <img src="1pp/documentation/files/400s4.jpg">
 <img src="1pp/documentation/files/400ss.jpg">
 
-Various content choices will be presented to you during installation (depending on which IE game you are installing for and installed components). For a full, visual guide to choices see the link below. Consider choosing 'yes' to setting item colours for non-magical items (setting 2/3).</br>
+Before v4.2.0, various content choices were presented to you during installation (depending on which IE game you are installing for and installed components).</br>
+As of version 4.2.0, installation options are moved into 1pp-config-default.ini file. If you want to modify them, please read this <a href="#config">chapter</a>.</br></br>
+For a full, visual guide to choices see the link below. Consider choosing 'yes' to setting ITEM COLOURS FOR NON-MAGICAL ITEMS (setting 2/3).</br>
 <a href="1pp/documentation/files/v4u_readme.html">Alternative install choices »</a></br>
-
 <div style="text-align:right"><a href="#components">Back to components list</a></div>
 
 ------------------------
@@ -750,18 +751,20 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 ##### Version 4.2.0 - Month 1x, 2019
 
 a. General overhaul and re-looking
-  - Variables needed for installation are read from 1pp-config-default.ini or 1pp-config.ini files.
-  The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file provides a 'standard' installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini, any installation failure will be prevented by reverting it back to its default value.
+  - Installation options have been moved into 1pp-config-default.ini file. If you want to modify them, please read this <a href="#config">chapter</a>.
   - Integrated all BWP Fixpack fixes (thanks Lolorian, The Imp and others!).
   - Split huge [400] Core updates and item patches component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).
   - Code commented as much as possible.
+  - Provided partial <a href="https://www.gibberlings3.net/files/file/969-item-revisions/">Item Revisions</a>, <a href="https://www.gibberlings3.net/files/file/970-spell-revisions/">Spell Revisions</a> and <a href="https://www.gibberlings3.net/files/file/948-iwdification/">IWDification</a> compatibility in a rather soft way: As SR, IR and IWDification are still beta versions, I gave up trying to write a plain compatibility with them. It would be certainly obsolete in a few months, therefore a waste of time.
+  - Fixed typos and misspellings preventing a few items to be patched (or patching wrong ones...).
+  - Component Improved projectile effects [401] fully re-written: clears duplicated vanilla #89 and #197 opcodes, clones existing effects existants instead of adding new ones...
   - Coding simplification:
     - Replaced macros with functions whenever possible.
-    - Copy entire folders instead of infinite lines (COPY \~1pp/folder/file.ext\~ \~override\~ or ACTION_FOR_EACH file IN list BEGIN COPY \~1pp/folder/file.ext\~ \~override\~ END).
-    - Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.
+    - Copied entire folders instead of infinite lines (COPY \~1pp/folder/file.ext\~ \~override\~ or ACTION_FOR_EACH file IN list BEGIN COPY \~1pp/folder/file.ext\~ \~override\~ END).
+    - Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.
     - Used new and more efficient <acronym title="Weimer Dialogue Utility">WeiDU</acronym> functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. ADD_ITEM_EQEFFECT, ALTER_EFFECT and ALTER_ITEM_HEADER replace so many lines of codes!).
-    - Avoids copying and overwriting the same files again and again...
-  - Updated readme (1pp now supports translated readmes).
+    - Avoided copying and overwriting the same files again and again...
+  - Updated all readme files (1pp now supports translated readmes).
   - Added French translation (Gwendolyne).
   - Traification. Feel free to provide me with translations. I will include them as soon as possible.
   - Updated <acronym title="Weimer Dialogue Utility">WeiDU</acronym> installer to v246.
