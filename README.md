@@ -1,6 +1,7 @@
-<a name="top" id="top"></a><center><h1> 1pp (One Pixel Productions)</center></h1>
+<a name="top" id="top"></a># 1pp (One Pixel Productions)
 
-<center><strong>A Spellhold Studios mod for Infinity Engine game</strong></center><br />
+###A Spellhold Studios mod for Infinity Engine game
+
 
 <strong>Author:</strong> Erephine<br />
 <strong>Version:</strong> 4.2.0<br />
@@ -19,7 +20,7 @@
 Without a doubt the most comprehensive mod when it comes to post-release QA and visuals, 1pp has been a growing work of love for close to 8 years with the aim of providing a refined, polished experience with attention to detail that many felt was lacking in some aspects of Baldur's Gate II compared to its predecessor.</br></br>
 1ppv4 represents the culmination of this effort, bringing together the various previously disjointed graphical and mechanical tweaks and components that have accumulated over the years and many more besides; updated, streamlined and in the form of one coherent installer.</br>
 
-This mod offers the player the option to change the paperdolls and inventory icons of Baldur's Gate II to those of Baldur's Gate, and adds a number of completely new fixes, additions and alterations to the original BGII game. Technically speaking, One Pixel Productions is an attempt to fix "cosmetic flaws" that should have never made it through QA, as well as improve upon a number of other of things. The mod contains many <a href="#components">components</a>, including: BG1 Paperdoll and inventory item ports, except for potions, BG1-style Flaming Swords, Flaming Short Swords (with item and mod item patches), new Paperdolls (human, half-orc, elven, halfling, dwarf), legacy Shields, Colourable Quarterstaves (with item patches)...
+This mod offers the player the option to change the paperdolls and inventory icons of Baldur's Gate II to those of Baldur's Gate, and adds a number of completely new fixes, additions and alterations to the original BGII game. Technically speaking, One Pixel Productions is an attempt to fix "cosmetic flaws" that should have never made it through QA, as well as improve upon a number of other of things. It contains many <a href="#components">components</a>, including: BG1 Paperdoll and inventory item ports, except for potions, BG1-style Flaming Swords, Flaming Short Swords (with item and mod item patches), new Paperdolls (human, half-orc, elven, halfling, dwarf), legacy Shields, Colourable Quarterstaves (with item patches)...
 
 Visit the <a href="http://www.spellholdstudios.net/ie/1pp">website</a> or <a href="http://www.shsforums.net/index.php?showforum=159">forum</a> for all the latest updates.</br>
 <div style="text-align:right"><a href="#top">Back to top</a></div>
@@ -30,9 +31,14 @@ Visit the <a href="http://www.spellholdstudios.net/ie/1pp">website</a> or <a hre
 
 ## <a name="compat" id="compat"></a>Compatibility
 
-This mod is designed to work on the following Infinity Engine games: Baldur's Gate II (BG2, or just SoA), with or without the Throne of Bhaal (ToB) expansion, the conversion projects Baldur's Gate Trilogy (BGT) and Baldur's Gate Tutu (Tutu), Icewind Dale (IWD) with or without either of its expansions, Heart of Winter (HoW) and Trials of the Luremaster (TotLM), and Icewind Dale II (IWD2).
+This mod is designed to work on the following classical Infinity Engine games:
 
-1pp is a WeiDU, and therefore should be compatible with all WeiDU mods. However, we cannot test every single one. If you encounter any bugs, please report them on the forum!
+- The original Baldur's Gate II (BG2, or just SoA), with or without the Throne of Bhaal (ToB) expansion.
+- The conversion projects Baldur's Gate Trilogy (BGT) and Baldur's Gate Tutu (Tutu).
+- The original Icewind Dale (IWD) with either of its expansions, Heart of Winter (HoW) and Trials of the Luremaster (TotLM).
+- Icewind Dale II (IWD2).
+
+1pp is a <acronym title="Weimer Dialogue Utility">WeiDU</acronym> mod, and therefore should be compatible with all WeiDU mods. However, we cannot test every single one. If you encounter any bugs, please report them on the forum!
 
 BG2 and TOB players are also strongly recommended to download and install the <a href="http://www.gibberlings3.net/bg2fixpack/">BG2 Fixpack</a> before proceeding with the installation of this mod.</br>
 <div style="text-align:right"><a href="#top">Back to top</a></div>
@@ -77,12 +83,14 @@ The previous version interrupted installation with plain text prompts allowing p
 
 If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and save this file as **_1pp-config.ini_**.
 
-The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini, any installation failure will be prevented by reverting it back to its default value.</br>
+The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini, any installation failure will be prevented by reverting it back to its default value.
+
+Please read the <a href="1pp/1pp-config-english.txt">1pp-config-language.txt</a> file (with 'language' being the installation language you chose) to check the variables names and their meanings. Here is a chart listing the variables related to the installation process:</br></br>
 
 
-<table summary="Liste des variables d'installation">
+<table summary="Installation variables list">
 	<tr style="font-size: 125%; line-height: 160%;">
-		<th style="border: 1px solid #781808; text-align: center; background-color: #781808; color: #e5e5e5; ">Components<br>Variable</th>
+		<th style="border: 1px solid #781808; text-align: center; background-color: #781808; color: #e5e5e5; ">Component<br>Variable</th>
 		<th style="border: 1px solid #781808; text-align: center; background-color: #781808; color: #e5e5e5; ">Games supported<br>Description</th>
 	</tr>
 	<tr>
@@ -396,10 +404,10 @@ This component adds new colour gradients to Infinity Engine games, raising the c
 It also fixes a few minor problems with standard gradients.</br>
 <a href="1pp/documentation//files/extpal_readme.html">Read more »</a></br></br>
 
-<strong>Compatibility install [102]</strong></br>
+<strong>[102] Compatibility install</strong></br>
 For installs that do not support the binary patch (OSX), this installs the basic files needed for 1pp to work properly but does not support using the new colours as character colours.</br></br>
 
-<strong>Full install [103]</strong></br>
+<strong>[103] Full install</strong></br>
 Complete install patching the game executable, enabling full use of the extended colour entries.</br>
 When installing the full version, extra choices for skin and hair colour will automatically become available from the ingame selection.</br>
 As for clothing colours, during character creation and from the inventory the standard complement of 34 primary and secondary colours will be offered. To access more clothing colours, choose 'customise' » 'colours' from the character sheet to gain access to yet another set of 34 colours.</br>
@@ -415,7 +423,7 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 <img src="1pp/documentation/files/104.jpg">
 
 A reworked graphical user interface for Baldur's Gate II SoA/ToB. This aims to get rid of a lot of the rough edges present in the original while maintaining a similar feel. Major changes include a time dial that is not just a box, getting rid of 'infinite parchment' (see additional screenshots) and an optional choice of updated fonts.</br>
-<a href="1pp/documentation//gui_readme.html">See more »</a></br>
+<a href="1pp/documentation/files/gui_readme.html">See more »</a></br>
 
 <div style="text-align:right"><a href="#components">Back to components list</a></div>
 
@@ -452,8 +460,8 @@ This component patches Baldur's Gate II engine games to use separate avatar anim
 ### <a name="110" id="110"></a>[110-112] 1ppv4: Thieves Galore
 
 <strong>Requires: <a href="#101">[101]</a> <a href="#106">[106-109]</a></strong>
-###### Note: Due to the way patching is currently handled, this component will fail if Infinity Animations is already installed. To resolve this issue, install IA after this component.
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
+###### Note: Due to the way patching is currently handled, this component will fail if Infinity Animations is already installed. To resolve this issue, install IA after this component.
 
 <img src="1pp/documentation/files/110.jpg">
 
@@ -702,7 +710,7 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 
 <img src="1pp/documentation/files/301.jpg">
 
-Contains the following fixes: dog animations (corrupted palette), sitting static peasant woman (bad BAM conversion), alternate fire giant animation slot (was useless as the animation had no unified palette, thus impossible to fill). It also fixes an engine related bug on SoA/ToB and IWD:TotLM that will have helmets randomly render wrong sequences when changing equipment, making them 'float' off your character.  Finally, it contains a fix for bugged shield z-buffering on SoA, ToB, IWD:TotLM and IWDII on BGII character animations.</br>
+Contains the following fixes: dog animations (corrupted palette), sitting static peasant woman (bad BAM conversion), alternate fire giant animation slot (was useless as the animation had no unified palette, thus impossible to fill). It also fixes an engine related bug on SoA/ToB and IWD:TotLM that will have helmets randomly render wrong sequences when changing equipment, making them 'float' off your character. Finally, it contains a fix for bugged shield z-buffering on SoA, ToB, IWD:TotLM and IWDII on BGII character animations.</br>
 <div style="text-align:right"><a href="#components">Back to components list</a></div>
 
 
@@ -721,12 +729,12 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 - <a href="http://www.weidu.org/%7Ethebigg/"><acronym title="Weimer Dialogue Utility">WeiDU</acronym></a> by Wes Weimer, the bigg and Wisp.
 - <a href="http://notepad-plus-plus.org/">Notepad++</a> by the Notepad++ team, Don Ho, and the spellcheck plug-in.
 - <a href="http://www.shsforums.net/files/file/1048-weidu-highlighter-for-notepad/">WeiDU Notepad++ Highlighters </a> by Argent77.
-- <a href="http://www.teambg.eu/?page=tools&amp;cat=32">BAM Workshop</a> by Glenn Flansburg.
-- <a href="http://www.shsforums.net/topic/57564-bamworkshop/">BAMWorkshop 2</a> by Andrew Bridges.
 - <a href="https://www.adobe.com/products/photoshop.html">Adobe Photoshop</a>.
 - <a href="http://www.gimp.org/"><acronym title="GNU Image Manipulation Program">GIMP</acronym></a> by the GIMP team.
 - <a href="http://www.gamani.com/">GIF Movie Gear</a>.
 - <a href="https://www.autodesk.com/products/3ds-max/overview">3ds Max</a>.
+- <a href="http://www.teambg.eu/?page=tools&amp;cat=32">BAM Workshop</a> by Glenn Flansburg.
+- <a href="http://www.shsforums.net/topic/57564-bamworkshop/">BAMWorkshop 2</a> by Andrew Bridges.
 - <a href="http://www.shsforums.net/files/file/552-developer-files-v2/">1pp dev tools</a> by Erephine.
 - <a href="http://" target="_blank">Hex Editor Neo</a>.
 - <a href="http://" target="_blank">ACDSee Pro</a>.
@@ -751,19 +759,19 @@ a. General overhaul and re-looking
     - Replaced macros with functions whenever possible.
     - Copy entire folders instead of infinite lines (COPY \~1pp/folder/file.ext\~ \~override\~ or ACTION_FOR_EACH file IN list BEGIN COPY \~1pp/folder/file.ext\~ \~override\~ END).
     - Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.
-    - Used new and more efficient WeiDU functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. ADD_ITEM_EQEFFECT, ALTER_EFFECT and ALTER_ITEM_HEADER replace so many lines of codes!).
+    - Used new and more efficient <acronym title="Weimer Dialogue Utility">WeiDU</acronym> functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. ADD_ITEM_EQEFFECT, ALTER_EFFECT and ALTER_ITEM_HEADER replace so many lines of codes!).
     - Avoids copying and overwriting the same files again and again...
   - Updated readme (1pp now supports translated readmes).
   - Added French translation (Gwendolyne).
   - Traification. Feel free to provide me with translations. I will include them as soon as possible.
-  - Updated WeiDU installer to v246.
+  - Updated <acronym title="Weimer Dialogue Utility">WeiDU</acronym> installer to v246.
 
 b. Components specific changes and fixes
-  - [114] <u>1ppv4: Softer Spell Effects</u> (114_effects.tph)
+  - [114] 1ppv4: Softer Spell Effects (114_effects.tph)
     - Replaced READLN action \~WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS NOT A GOOD IDEA.\~ with reading '3D Acceleration=1' in baldur.ini, icewind.ini or icewind2.ini before running the component.
     - Function GW_MODIFY_PROJ replaces Lollorian's BWP Fixpack patch (<a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/114_effects.tph.patch">114_effects.tph.patch</a>: modify new projectile values in ALL spell headers) which was inefficient and patched nothing. Moreover, it was using a wrong offset coding for ITM files. Source: <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">commit</a>.
 
-  - [200] <u>1ppv4: Core content patches</u> (200_1ppv2_cut.tph)
+  - [200] 1ppv4: Core content patches (200_1ppv2_cut.tph)
     - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers.
     - Code simplified or re-written with newer functions to provide automatic process:
       - Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A \~ISHLDS01\~ with WRITE_ASCII 0x3A \~ISHLDS01\~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.
@@ -780,36 +788,35 @@ b. Components specific changes and fixes
       - sw2h20.itm (Two-handed Sword +3): reverted to its original inventory icon ISW2H20. 1PP sets it to ISW2H06, but EE does not validate this change.
       - BW Herbs mod patches: fixed typo (was copying BW02IPO1_l.BAM instead of BW02IPO1.BAM).
 
-  - [201] <u>1ppv4: Consistent spell and scroll icons</u> (201_spellsandscrolls.tph)
-    - BWP Fixpack patch: restored Energy Blades spell and scroll icons (SPWI920) overwritten with Black Blade of Disaster's ones.
+  - [201] 1ppv4: Consistent spell and scroll icons (201_spellsandscrolls.tph)
+    - Integrated BWP Fixpack patch: restored Energy Blades spell and scroll icons (SPWI920) overwritten with Black Blade of Disaster's ones.
 
-  - [202] <u>1ppv4: Spell tweaks</u> (202_spelltweaks.tph)
-    - Lollorian's BWP Fixpack patch for individualised armor effects {<a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/202_spelltweaks.tph.patch">202_spelltweaks.tph.patch</a>): modifies opcode #215 visual effect in ALL spell headers. Source: <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/57211cf3a29cfd8381b62b3df13d3d04ed9f5fb2">commit</a>.
+  - [202] 1ppv4: Spell tweaks (202_spelltweaks.tph)
+    - Integrated Lollorian's BWP Fixpack patch for individualised armor effects {<a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/202_spelltweaks.tph.patch">202_spelltweaks.tph.patch</a>): modifies opcode #215 visual effect in ALL spell headers. Source: <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/57211cf3a29cfd8381b62b3df13d3d04ed9f5fb2">commit</a>.
 
-  - [208] <u>1ppv4: Additional Helmet Animations</u> (208_v4_helmets.tph)
-    - <a href="http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/?p=561441">Lollorian's BWP Fixpack JC Helm animation crash fix for Infinity Animations BG1 animation compatibility</a> (patch <a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/208_v4_helmets.tph.patch">208_v4_helmets.tph.patch</a>): 1ppv4's helmet component seems to cause crashes when helmets using the JC animation are equipped by NPCs using BG1 animations from Infinity Animations.
+  - [208] 1ppv4: Additional Helmet Animations (208_v4_helmets.tph)
+    - Integrated <a href="http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/?p=561441">Lollorian's BWP Fixpack JC Helm animation crash fix for Infinity Animations BG1 animation compatibility</a> (patch <a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/208_v4_helmets.tph.patch">208_v4_helmets.tph.patch</a>): 1ppv4's helmet component seems to cause crashes when helmets using the JC animation are equipped by NPCs using BG1 animations from Infinity Animations. <a ref="http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/?p=561441">Source</a>
 
-  - [210] <u>1ppv4: Increased paperdoll object variety</u> (210_v4_ppd_variety.tph)
+  - [210] 1ppv4: Increased paperdoll object variety (210_v4_ppd_variety.tph)
     - CRE files: used READ_LONG 0x28 instead of READ_SHORT 0x28 (dword).
-    - Coding simplification:
-      - ITM files: used WRITE_LONG 0x18 (THIS BAND BNOT BIT2) to remove droppable flag instead of writing the offset new value.
+    - ITM files: used WRITE_LONG 0x18 (THIS BAND BNOT BIT2) to remove droppable flag instead of writing the offset new value.
 
-  - [300] <u>1ppv4: 1ppv4: Fixed animations for solars and elementals</u> (300_solar_fix.tph)
-    - <a href="http://www.shsforums.net/topic/58208-planetar-animation-glitch/">The Imp's BWP Fixpack fix for Solar swords without graphic artifacts</a>: fixed MASLG1S1.BAM and MSOLG2S1.BAM files. Source: <a href="https://github.com/omni-axa/BiG-World-Fixpack/commit/de7b3ce8439d8efa8e7427d1ad66efd0f48e547e">commit</a>.
+  - [300] 1ppv4: 1ppv4: Fixed animations for solars and elementals (300_solar_fix.tph)
+    - Integrated <a href="http://www.shsforums.net/topic/58208-planetar-animation-glitch/">The Imp's BWP Fixpack fix for Solar swords without graphic artifacts</a>: fixed MASLG1S1.BAM and MSOLG2S1.BAM files. Source: <a href="https://github.com/omni-axa/BiG-World-Fixpack/commit/de7b3ce8439d8efa8e7427d1ad66efd0f48e547e">commit</a>.
 
-  - [400] <u>1ppv4: Core updates and item patches</u> (400_1pp_update_bgii.tph)
+  - [400] 1ppv4: Core updates and item patches (400_1pp_update_bgii.tph)
     - Split this huge component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).
     - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers.
     - Added a new setting (1pp_sleeper) allowing to make alternate the turning of The Sleeper into a flail. In any case, 1PP does not overwrites its original inventory bam with a new one, but installs a new icon (IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose.
     - Replaced the tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically writes values in tooltip.2da from the tra file.
-    - <a href="http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849">Lollorian's BWP Fixpack patch for Ashes of Embers compatibility</a> (400_1pp_update_bgii.tph.patch): Renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">Source</a>.
+    - Integrated <a href="http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849">Lollorian's BWP Fixpack patch for Ashes of Embers compatibility</a> (400_1pp_update_bgii.tph.patch): Renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">Source</a>.
     - Gems sub-component: code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Builds an array to define new gems lore values to identify. Same tph used for IWD and BG2 games.
     - Code simplified or re-written with newer functions to provide automatic process:
       - Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A \~ISHLDS01\~ with WRITE_ASCII 0x3A \~ISHLDS01\~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.
 
     - shields specific fixes (400_update_bgii_shields.tpa):
       - shld02.itm (Small Shield +1): LPM \~clear\~ was missing, and the code stacked opcode #7 global effects.
-      - shld31A.itm (Gorm's Arm +3): fixed wrong coding (WRITE_SHORT instead of WRITE_BYTE for Minimum strength).
+      - shld31A.itm (Gorm's Arm +3): fixed wrong coding (WRITE_SHORT instead of WRITE_BYTE for Minimum strength value).
       - shld01P.itm (Buckler +2): fixed wrong coding (opcode #0 parameter1 0xfffffe - 16777214??? - should be -3), added opcode #0 with parameter1 = -3 and parameter2 = 4 to add missing protection vs piercing weapons, added missing price, and fixed item description to fit ITM file.
       - X#AJSHLD.itm (Ilvastarr Family Shield - The BG1 NPC Project mod): fixed typo (was copying #AJSHLD instead of X#AJSHLD).
       - shld06P.itm (Redshield +1, +4 vs. Monstrous): fixed wrong coding (opcode #219: switch parameter1 and 2, and parameter2 2 - EA.IDS - should be 3 - GENERAL.IDS), added an external effect (shld06P.eff), and replaced opcode #178 with opcode #177, otherwise opcode #178 won't work.
@@ -852,10 +859,10 @@ b. Components specific changes and fixes
         - Replaced two ADD_STORE_ITEM #1 with one ADD_STORE_ITEM #2.
       - dmark1.sto (Fovem, Docks merchant) & trmer02.sto (Trademeet merchant): set number_in_stock to 2, otherwise the former code did not work (was supposed to add one Plate and remove the Plate +1, but there was already 1 Plate in the store!
 
-  - [401] <u>1ppv4: Improved projectile effects</u> (401_projectiles.tph)
+  - [401] 1ppv4: Improved projectile effects (401_projectiles.tph)
     - Code fully re-written with new functions to provide automatic process.
       - Function GW_CLEAR_DUPLICATED_OPCODES: does not stack anymore opcodes #83 and #197, clears duplicated vanilla #89 and #197 effects in SPL and ITM files and checks if protection from SPEAR and/or Bounce SPEAR is already set before adding it.
-      - Function GW_MODIFY_PROJ replaces BWP Fixpack patch (<a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/401_projectiles.tph.patch">401_projectiles.tph.patch</a>): modifies the projectile value only when needed (does not patch melee headers anymore), replaces ADD_ITEM_EQEFFECT, ADD_ITEM_EFFECT, ADD_SPELL_EFFECT and macros with the newer and more efficient CLONE_EFFECT WeiDU function to give new opcodes #83 and #197 the same settings than existing ones (target, resist_dispel, duration, power...). It modifies all extended headers and avoids writing lines of codes!
+      - Function GW_MODIFY_PROJ replaces BWP Fixpack patch (<a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/401_projectiles.tph.patch">401_projectiles.tph.patch</a>): modifies projectile value only when needed (does not patch melee headers anymore), replaces ADD_ITEM_EQEFFECT, ADD_ITEM_EFFECT, ADD_SPELL_EFFECT and macros with the newer and more efficient CLONE_EFFECT <acronym title="Weimer Dialogue Utility">WeiDU</acronym> function to give new opcodes #83 and #197 the same settings than existing ones (target, resist_dispel, duration, power...). It modifies all extended headers and avoids writing lines of codes!
       - Provided partial IR and SR compatibility in a rather soft way.
     - specific fixes:
       - ax1h08.itm (Hangard's Axe +2), ax1h09.itm (Rifthome Axe +3), ax1h10.itm (Azuredge +3) and ax1h16.itm (K'logarath +4): added IR compatibility (patches itemB files).
@@ -867,8 +874,8 @@ b. Components specific changes and fixes
       - npshld.itm (Delryn Family Shield): same fix as above + IR compatibility (protection from all types of missiles, including magic ones).
       - shld24.itm (Reflection Shield +1): same fix as above + cleared duplicate entries and adds IR compatibility (IR replaces opcode #197 with opcode #83).
       - brac18.itm (Gloves of Missile Snaring): Don't forget to add Protection from projectiles if IR is installed.
-      - spin546.spl (Inertial Barrier), spcl721.spl (Storm Shield) & spcl914.spl (Greater Evasion): patched all headers (was patching only the first header), fixed wrong duration, target, power, resist dispel... Added missing protections from new normal 1pp ammo projectiles (1axe05, 1dagg05 and 1dart01). The code was only providing protection from 1arow01 and 1bolt01 new projectiles.
-      - Protection From Normal Missiles spells (spra303, spwi311, & cdwi311 added from BG2 Fixpack): same fixes as above + SR compatibility (protection from all types of missiles, including magic ones).
+      - spin546.spl (Inertial Barrier), spcl721.spl (Storm Shield) & spcl914.spl (Greater Evasion): patched all headers (was patching only the first one), fixed wrong duration, target, power, resist dispel... Added missing protections from new normal 1pp ammo projectiles (1axe05, 1dagg05 and 1dart01). The code was only providing protection from 1arow01 and 1bolt01 new projectiles.
+      - Protection From Normal Missiles spells (spra303, spwi311, & cdwi311 -added from BG2 Fixpack): same fixes as above + SR compatibility (protection from all types of missiles, including magic ones).
       - sppr613.spl (Physical Mirror): cleared duplicate entries and added SR compatibility (SR replaces opcode #197 with opcode #83).
       - Included Entropy Shield spell (protection from new 1pp projectiles) if IWDIfication is installed.
 

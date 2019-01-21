@@ -1,0 +1,563 @@
+﻿<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+/*<![CDATA[*/
+<!-- 
+	body {
+		cursor: default;
+		text-align: center;
+		counter-reset:kman;
+		color: #000;
+		*background-color: #D1D1D1;
+		margin-top: 20px;
+		margin-bottom: -20px;
+		*background: #d1d1d1;
+		background: -moz-radial-gradient(center, ellipse cover,  #d1d1d1 0%, #afafaf 83%, #8e8e8e 100%);
+		background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#d1d1d1), color-stop(83%,#afafaf), color-stop(100%,#8e8e8e));
+		background: -webkit-radial-gradient(center, ellipse cover,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
+		background: -o-radial-gradient(center, ellipse cover,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
+		background: -ms-radial-gradient(center, ellipse cover,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
+		background: radial-gradient(ellipse at center,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1d1d1', endColorstr='#8e8e8e',GradientType=1 );
+		background-size: auto 33.4%;
+		background: #e3e3db url('shsbkgd.jpg');
+	}
+
+	#wrap {
+		text-align: left;
+		margin: 0 auto;
+		margin-top: 20px;
+		width: 88%;
+		font-family: Verdana, Tahoma, Arial, sans-serif;
+		font-size: 12px;
+		color: #333;
+	}
+
+	#headerdiv-top {
+		counter-reset:hman;
+		text-align: center;
+		font-family: Verdana, Tahoma, Arial, sans-serif;
+		font-size: 250%;
+		font-weight: bold;
+		line-height: 73%;
+		color #020F1D;
+		background-color: #e5e5e5;
+		padding: 15px 0px 15px 0px;
+		margin: 0px auto;
+		border-left: solid 1px #781808;
+		border-right: solid 1px #781808;
+		border-bottom: solid 1px #781808;
+		border-top: solid 5px #781808;
+		position: relative;
+		display: block;
+		box-shadow: 6px 6px 9px rgba(0,0,0,.3);
+	}
+	#headerdiv-top-fw {
+		font-size: 40%;
+		color: #750000;
+		margin: 0px;
+		padding-top: 9px;
+		display: block;
+	}
+
+	#headerdiv-bottom {
+		text-align: center;
+		font-family: Verdana, Tahoma, Arial, sans-serif;
+		font-size: 12px;
+		color: #555;
+		padding: 8px 0px 8px 0px;
+		margin: 0px auto;
+		border-left: solid 1px #781808;
+		border-right: solid 1px #781808;
+		border-bottom: solid 5px #781808;
+		border-top: solid 1px #781808;
+		background-color: #e5e5e5;
+		position: relative;
+		display: block;
+		box-shadow: 6px 6px 9px rgba(0,0,0,.3);
+	}
+	#headerdiv-bottom .about {
+		margin: 7px 0 0 0;
+		padding: 0;
+		font-style: italic;
+		color: #555;
+	}
+	#headerdiv-bottom .menu {
+		font-weight: bold;
+		margin: 0;
+		color: #999;
+	}
+
+	#footer {
+		text-align: center;
+		background: #e5e5e5;
+		border: 1px solid #781808;
+		border-top: 5px solid #781808;
+		border-bottom: 5px solid #781808;
+		font-size: 75%;
+		padding: 5px 0 13px 0;
+	}
+
+	#maindiv {
+		margin: 0 auto;
+		margin-top: -20px;
+		width: 80%;
+	}
+	#maindiv .content {
+		counter-increment: kman;
+		counter-reset: h2;
+		background-color: #e8e8e6;
+		padding: 0 0 25px 0;
+		margin: 50px auto;
+		border-width: 1px 1px 4px 10px;
+		border-style: solid;
+		border-color: #781808;
+		position: relative;
+		display: block;
+		box-shadow: 6px 6px 9px rgba(0,0,0,.3);
+	}
+	#maindiv .content::before {
+		content: counter(kman, lower-roman);
+		font-size: 100%;
+		font-weight: bold;
+		text-align: center;
+		color: #eee;
+		background-color: #781808;
+		width: 50px;
+		top: 0px;
+		left: 0px;
+		display: block;
+	}
+
+	#maindiv .important {
+		font-size: 95%;
+		font-family: Verdana;
+		text-align: left;
+		background-color: #deded9;
+		border-width: 1px 4px 1px 4px;
+		border-style: solid;
+		border-color: #781808;
+		padding: 10px;
+		margin: 10px auto;
+		width: 80%;
+		line-height: 160%;
+	}
+	#maindiv .important::before {
+		display: none;
+	}
+	#maindiv .important p {
+		width: 100%;
+		font-size: 100%;
+		text-indent: 0px;
+		margin: 5px 0 5px 0;
+		line-height: 180%;
+	}
+
+	.tocplus{
+		counter-increment:hman;
+	}
+	.toc::before {
+		content: counter(hman, lower-roman) '.';
+		counter-increment:hman;
+		font-size: 100%;
+		color: #781808;
+		font-style:italic;
+		position:absolute
+	}
+
+	#maindiv p {
+		font-size: 100%;
+		font-style: normal;
+		text-align: justify;
+		line-height: 150%;
+		padding: 0px;
+		margin: 10px auto;
+		width: 90%;
+		display: block;
+	}
+
+	#maindiv address {
+		font-size: 95%;
+		font-style: normal;
+		font-weight: bold;
+		text-decoration: none;
+		color: #BBB;
+		background-color: #781808;
+		padding: 3px 0px 0px;
+		margin: 0px;
+		width: 100%;
+		position: absolute;
+		bottom: -1px;
+		left: 0px;
+		display: block;
+		text-align: right;
+	}
+
+
+	/*	Lists  */
+	#maindiv ul {
+		line-height: 170%;
+		margin-left: 4%;
+		width: 87%;
+	}
+	#maindiv ul li {
+		line-height: 150%;
+	}
+	#maindiv ul li ul {
+		margin: 0px;
+		width: 96%;
+	}
+	#maindiv ul li ul li {
+	}
+	#maindiv ul li ul li ul {
+		margin-left: -1%;
+		width: 98%;
+	}
+	#maindiv ul li ul li ul li {
+	}
+	ul.c1 {margin-left: 32px;}
+
+
+	/*	Liens internet  */
+	a:hover,
+	a:active {
+		color: #222;
+		border-bottom: 1px solid black;
+	}
+	a:link,
+	a:visited {
+		color: #781808;
+		font-weight: bold;
+		text-decoration: none;
+	}
+
+	#headerdiv-bottom .menu a:link,
+	#headerdiv-bottom .menu a:visited {
+		color: #333;
+	}
+	#headerdiv-bottom .menu a:focus,
+	#headerdiv-bottom .menu a:hover {
+		color: #781808;
+	}
+
+	#maindiv address a:active {
+		color: #fff;
+		text-decoration: line-through;
+		border: none;
+	}
+	#maindiv address a:link,
+	#maindiv address a:visited {
+		font-weight: bold;
+		text-decoration: underline;
+		background-color: transparent;
+		color: #eaeaea !important;
+		padding-right: 5px;
+		padding-left: 6px;
+	}
+	#maindiv address a:focus,
+	#maindiv address a:hover {
+		text-decoration: none;
+		color: #F1F1F1;
+		border: 0;
+	}
+
+
+	h2 {
+		display: block;
+		font-family: Verdana, Trebuchet MS, Arial, serif;
+		text-align: left;
+		text-indent: 30px;
+		padding: 0px;
+		margin: 20px 0 0 0;
+		border-bottom: dotted 2px #d0d0d0;
+		border-top: dotted 2px #d0d0d0;
+		background: #deded9;
+		font-size: 160%;
+	}
+	h2::first-letter {
+		color: #781808;
+		background-color: transparent;
+	}
+	h2 .com {
+		color: #781808;
+		background-color: transparent;
+		margin-right:30px;
+	}
+
+	h3,
+	h4,
+	h5 {
+		margin: 10px 40px 10px 40px;
+		padding: 0;
+	}
+
+	h3 {
+		font-size: 125%;
+		font-style: italic;
+		margin: 10px 40px 10px 40px;
+		padding: 0;
+	}
+
+	h4 {
+		font-size: 125%;
+	}
+
+	h5 {
+		margin: 10px 40px 10px 40px;
+		padding: 0;
+		font-size: 100%;
+	}
+
+	h6 {
+		width: 100%;
+		margin: 10px 0 15px 0;
+		background-color: #ECECEC;
+		text-align: left;
+		text-indent: 30px;
+		font-size: 100%;
+		font-style: italic;
+		padding-top: 1px;
+		padding-bottom: 1px;
+		border-bottom: solid 1px #bbb;
+		border-top: solid 1px #bbb;
+	}
+
+	.com {
+		color: #781808;
+		background-color: transparent;
+	}
+
+
+	/* Additional stuff */
+
+	.t1 {
+		font-weight: bold;
+		width: 26%;
+		text-align: right;
+		clear: right;
+		float: left;
+		line-height: 22px;
+	}
+	.t2 {
+		text-align: left;
+		width: 73%;
+		float: right;
+		line-height: 22px;
+	}
+
+	.one {
+		position: relative;
+	}
+	.one:before {
+		content: '1';
+		display: block;
+		position: absolute;
+		bottom: -.45em; 
+		font-size:100%;font-family:palatino;line-height:100%;color: #750000;
+		left: 0;
+		right: 0;
+		opacity: .5;
+		-webkit-transform: scaleY(-.5);
+		-moz-transform: scaleY(-.5);
+		-o-transform: scaleY(-.5);
+		transform: scaleY(-.5);
+	}
+	.one:after {
+		background: -webkit-gradient(linear, left top, left center, from(rgba(229,229,229,0)), to(rgb(229,229,229)));
+		background: -moz-linear-gradient(top, rgba(229,229,229,0), rgb(229,229,229));
+		content: ' ';
+		height: 2em;
+		display: block;
+		position: absolute;
+		bottom: -.6em; /* You should change this value to fit your font */
+		left: 0;
+		right: 0;
+	}
+
+	.pp {
+		position: relative;
+	}
+	.pp:before {
+		content: 'pp';
+		display: block;
+		position: absolute;
+		bottom: -.90em; 
+		left: 0.25em;
+		right: 0;
+		opacity: .5;
+		-webkit-transform: scaleY(-.5);
+		-moz-transform: scaleY(-.5);
+		-o-transform: scaleY(-.5);
+		transform: scaleY(-.5);
+	}
+	.pp:after {
+		background: -webkit-gradient(linear, left top, left center, from(rgba(229,229,229,0)), to(rgb(229,229,229)));
+		background: -moz-linear-gradient(top, rgba(229,229,229,0), rgb(229,229,229));
+		content: ' ';
+		height: 2em;
+		display: block;
+		position: absolute;
+		bottom: -.9em; /* You should change this value to fit your font */
+		left: 0.25em;
+		right: 0;
+	}
+
+	.screen {background-size:contain;background-repeat:no-repeat}
+	.screen img{max-width:100%; opacity:1;transition: opacity 1.25s ease-in-out;
+		-moz-transition: opacity 1.25s ease-in-out;
+		-webkit-transition: opacity 1.25s ease-in-out;
+	}
+	.screen img:hover{max-width:100%; opacity:0}
+
+	.v4 {
+		position: relative;
+	}
+	.v4:before {
+		content: 'VERSION 4';
+		display: block;
+		position: absolute;
+		bottom: -4em; 
+		left: 0em;
+		right: 0;
+		opacity: .5;
+		-webkit-transform: scaleY(-.5);
+		-moz-transform: scaleY(-.5);
+		-o-transform: scaleY(-.5);
+		transform: scaleY(-.5);
+	}
+	.v4:after {
+		background: -webkit-gradient(linear, left top, left center, from(rgba(229,229,229,0)), to(rgb(229,229,229)));
+		background: -moz-linear-gradient(top, rgba(229,229,229,0), rgb(229,229,229));
+		content: ' ';
+		height: 2em;
+		display: block;
+		position: absolute;
+		bottom: -4em; /* You should change this value to fit your font */
+		left: 0em;
+		right: 0;
+	}
+
+-->
+/*]]>*/
+</style>
+	<title>
+		Spellhold Studios - 1ppv4 [1pp Extended Palette Entries]
+	</title>
+	<link href="shsweb.ico" rel="icon" type="bmp" />
+  </head>
+
+  <body>
+	<div id="wrap">
+
+	  <a name="top" id="top"></a>
+	  <div id="headerdiv-top" style="padding-bottom:1em">
+		<span class="one" style="font-size:400%;font-family:palatino;line-height:100%;color: #781808">1</span><span class="pp" style="font-size:200%;font-family:palatino;line-height:100%;vertical-align:0.3em;margin-left:-.25em"> pp</span><span class="v4" style="font-size:52%;font-family:helvetica neue, helvetica;line-height:100%;vertical-align:3.3em;margin-left:-.25em; color: #686868">VERSION 4</span><br />
+		<span id="headerdiv-top-fw" style="position:relative"><p>Un mod de Spellhold Studios pour les jeux Infinity Engine</p></span>
+	  </div>
+
+	  <div id="headerdiv-bottom">
+		<p class="about">
+			Auteure : Erephine
+		</p>
+		<p class="about">
+			<a href="http://www.spellholdstudios.net/ie/1pp">Site internet du mod</a> &#8226; <a href="http://www.shsforums.net/index.php?showforum=159">Forum du mod</a> &#8226; <a href="http://www.shsforums.net/index.php?app=downloads&showcat=98">Téléchargement</a> &#8226; Version : 4.2.0
+		</p>
+		<hr style="color: #781808; background-color: #781808;">
+		<p class="menu">
+			<a href="#intro">Présentation</a> &#x2B25; <a href="#information">Informations supplémentaires</a> &#x2B25; <a href="#modding">Personnalisation & Modding</a>
+		</p>
+	  </div>
+
+	<div id="maindiv">
+<!-- ================== I n t r o d u c t i o n ================== -->
+	  <a name="intro" id="intro"></a>
+	  <div class="content">
+
+		<h2>Présentation</h2><br>
+
+		<p>
+			<strong><span style="font-variant:small-caps">Disponible pour :&nbsp;&nbsp;&nbsp;</span> <span style="color:#060">BGII SoA</span>, <span style="color:#700">BGII ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">IWD HoW</span>, <span style="color:#088">IWD TotL</span>, <span style="color:#666">IWDII</span></strong></br></br>
+		</p>
+
+		<p>
+			Ce composant ajoute de nouvelles nuances de couleurs [<em>NdT : dégradés</em>] aux jeux Infinity Engine, en faisant passer le nombre de couleurs disponibles de 116 à <a href="256.jpg">256</a>. Il implante aussi une nouvelle table de couleurs aléatoires utilisables par Baldur's Gate II et de nouveaux fichiers de jeux de couleurs pour Icewind Dale II, offrant un choix plus important de couleurs pour définir la peau et les cheveux des différentes races.<br><br>
+			Il corrige aussi quelques problèmes mineurs liés aux nuances standard.<br><br>
+			<img src="tothefloor.jpg"><br><br>
+		</p>
+		<p>
+			Consultez le <a href="http://www.spellholdstudios.net/ie/1pp">site du mod</a> ou son <a href="http://www.shsforums.net/index.php?showforum=159">forum</a> pour obtenir les dernières mises à jour.
+		</p><br>
+
+		<address>
+			<span class="footer">1ppv4 &gt; Présentation</span> &#8226;<a href="#top">HAUT DE PAGE</a>
+		</address>
+	  </div>
+
+<!-- ================== I n f o r m a t i o n ================== -->
+	  <a name="information" id="information"></a>
+	  <div class="content">
+
+		<h2>Informations supplémentaires</h2><br>
+
+ 		<p>
+			<strong><em>Comment ça marche ?</em></strong><br><br>
+			L'installation peut se décomposer en deux parties :<br><br>
+
+			<strong>1.</strong> Les jeux Infinity Engine vous permettent de définir individuellement la couleur des parties de certaines animations à l'aide de palettes - par exemple les cheveux, la peau ou la couleur des vêtements de vos personnages.<br><br>
+			Ces couleurs proviennent d'une image BMP, dessinée ligne par ligne, où chaque ligne représente un dégradé de couleur. Ce fichier BMP s'appelle <em>MPALETTE</em> pour les images des fichiers BAM composés de 12 nuances, et <em>MPAL256</em> pour les images PLT. Les fichiers de la palette d'origine comportent 120 lignes, les quatre dernières étant d'un gris uniforme (non défini). Si le jeu doit utiliser une ligne qui n'existe pas, il crashe. Ce n’est pas une situation purement hypothétique, car, par expérience, j’ai vu de nombreux mods planter le jeu parce que certains de leurs fichiers utilisaient des références de couleurs non valides.<br><br>
+			Les nuances de couleurs sont enregistrées dans les fichiers de personnages et d’objets sur un seul octet, ce qui autorise l'utilisation de 256 valeurs distinctes. Si l'on augmente le nombre de lignes des fichiers BMP standard pour correspondre à ce nombre, il sera impossible de planter le jeu en utilisant n'importe quelle valeur de couleur possible [<em>NdT : de 0 à 255</em>]. Et si cela ne suffisait pas, les entrées supplémentaires sont effectivement importées et affichées correctement par le jeu.<br><br>
+			La première partie de l'installation consiste donc à ajouter des fichiers de palette qui utilisent tous 256 valeurs, ce qui permet d'attribuer une plus grande variété de couleurs aux objets et aux personnages, tout en empêchant les références non valides de planter le jeu.<br><br><br>
+
+			<strong>2.</strong> L'ajout de nouvelles couleurs au-delà des valeurs standard pose cependant un problème, qu'il n'est pas facile de constater de visu. En l'occurrence, le moteur Infinity Engine affiche les couleurs en utilisant deux sources : Chaque image affichée utilise des couleurs provenant des fichiers BMP correspondant à sa palettes, alors que - pour une raison quelconque - l'affichage des polices de caractères colorées (dans la boîte de dialogue) est codé en dur dans l'exécutable.<br><br>
+			Les valeurs des couleurs de l'exécutable sont lues à des adresses fixes [<em>NdT : offset</em>], de sorte que les entrées non valides ne provoqueront pas le crash du jeu, mais afficheront des couleurs de police imprévisibles (beaucoup apparaissant en noir, rendant la lecture impossible). Il existe quelques entrées supplémentaires après les 116 premières, mais leur nombre est bien inférieur à 256.<br><br>
+			La deuxième partie de l'installation résout ce problème en modifiant le fichier exécutable pour disposer de couleurs de police appropriées pour les 256 entrées. Elle ne sert à rien d'autre qu'à cela.<br><br><br>
+		</p>
+
+		<p>
+			<strong><em>Mais... attendez, le jeu ne dispose-t-il pas de valeurs de couleurs aléatoires commençant à #200 ?</em></strong><br><br>
+
+			Oui, c'est exact. Dans Baldur's Gate II (et uniquement dans Baldur's Gate II), le fichier <em>RANDCOLR.2da</em> vous permet de définir des « valeurs de couleurs aléatoires ». Il s'agit essentiellement d'un tableau permettant de définir différents jeux de couleurs, composés de valeurs de couleurs existantes, qui sont ensuite sélectionnés de manière aléatoire. Par défaut, le jeu utilise les couleurs 200 et suivantes (qui ne contiennent aucune information sur leur dégradé de couleur).<br><br>
+			Les couleurs aléatoires sont utilisées uniquement pour paramétrer les couleurs des personnages (définis par les fichiers CRE ou CHR) et n'entrent pas en conflit avec les nouvelles valeurs de couleurs des palettes. Cela signifie que sur un personnage, la couleur #200 continuera d'utiliser la valeur de couleur aléatoire #200, tandis que sur un objet, la couleur #200 utilisera le nouveau dégradé de couleur introduit par 1pp.<br><br>
+			Détail intéressant : si une couleur disposant d'une entrée dans <em>RANDCOLR.2da</em> est définie elle-même comme entrée d'une couleur aléatoire, elle apparaîtra comme la valeur de couleur souhaitée.<br><br><br>
+			Veuillez m'excuser si tout cela vous paraît un peu confus, je ne le sais que trop bien. J'espère que l’outil de création de palette de 1pp contribuera à atténuer cette confusion, car il vous alertera sur ces problèmes, si nécessaire.<br><br>
+		</p>
+
+		<address>
+			<span class="footer">1ppv4 &gt; Informations supplémentaires</span> &#8226;<a href="#top">BACK TO TOP</a>
+		</address>
+	  </div>
+
+<!-- ================== M o d d i n g ================== -->
+	  <a name="modding" id="modding"></a>
+	  <div class="content">
+
+		<h2>Personnalisation & Modding</h2><br>
+
+		<p>
+			<strong>Personnaliser la palette.</strong></br></br>
+			Ce programme d'installation vous permet de personnaliser ou de modifier facilement la palette installée.<br><br>
+			Vous pouvez modifier les nuances de couleurs dans les fichiers <em>MPAL256</em> et <em>MPALETTE</em> avec n'importe quel logiciel de retouche d'image.<br>
+			Il vous suffit de les remplacer dans le sous-répertoire <em>/files</em> du répertoire d'installation [<em>NdT : 1pp\core\1pp_ext_pal\files</em>].<br><br>
+			Le fichier <em>RANGES12</em> n'est en fait * absolument pas * utilisé par le jeu, mais comme NearInfinity l'utilise, il est préférable de le remplacer également pour que NI puisse correctement lire et modifier les fichiers d'objets et de créatures.<br><br>
+			Enfin et surtout, le fichier <em>__setting.bmp</em> contient les informations sur les couleurs qui seront transférées dans l'exécutable (pour les couleurs de police). Veuillez noter que, contrairement aux fichiers mpalette, l'image réelle n'a aucun intérêt. La table des couleurs du fichier BMP contient les informations qui sont lues et transférées dans l'exécutable. Notez également qu'il n'est en aucune manière utilisé par le jeu, il est simplement lu et utilisé par le programme d'installation.<br><br><br>
+		</p>
+		<p>
+			<strong>Modder avec la palette étendue.</strong></br></br>
+			Gardez à l'esprit que si vous utilisez une nouvelle valeur de couleur dans un mod (à partir du numéro 120), cela * plantera * les jeux qui ne disposent pas des fichiers MPALETTE et MPAL256 étendus (l'outil de palette 1pp vous avertira également si vous définissez de nouvelles nuances).<br><br>
+			Étant donné que le contenu de ces fichiers n’est pas affecté par d’autres mods (à ma connaissance) et que leur remplacement est aussi peu intrusif que possible, le moyen le plus simple d’éviter cela est de les inclure dans votre mod et de les installer.<br><br>
+			Pour éviter d'écraser inutilement ces fichiers, il est préférable d'ajouter une simple vérification de la taille du fichier à votre procédure d'installation : Si la taille des fichiers existants est de 9 272 octets (MPALETTE) et de 196 664 octets (MPAL256), ils contiennent déjà un jeu complet de 256 couleurs.<br><br>
+			Bien entendu, si vous les utilisez pour définir la couleur principale d'un personnage (et c'est la seule situation où cela pourrait être perceptible), cela ne corrigera pas la couleur de la police de dialogue.<br><br>
+		</p>
+
+		<address>
+			<span class="footer">1ppv4 &gt; Personnalisation & Modding</span> &#8226;<a href="#top">BACK TO TOP</a>
+		</address>
+	  </div>
+
+	</div>
+	</div>
+  </body>
+</html>

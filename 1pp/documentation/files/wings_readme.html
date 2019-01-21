@@ -1,0 +1,605 @@
+﻿<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+/*<![CDATA[*/
+<!-- 
+	body {
+		cursor: default;
+		text-align: center;
+		counter-reset:kman;
+		color: #000;
+		*background-color: #D1D1D1;
+		margin-top: 20px;
+		margin-bottom: -20px;
+		*background: #d1d1d1;
+		background: -moz-radial-gradient(center, ellipse cover,  #d1d1d1 0%, #afafaf 83%, #8e8e8e 100%);
+		background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#d1d1d1), color-stop(83%,#afafaf), color-stop(100%,#8e8e8e));
+		background: -webkit-radial-gradient(center, ellipse cover,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
+		background: -o-radial-gradient(center, ellipse cover,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
+		background: -ms-radial-gradient(center, ellipse cover,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
+		background: radial-gradient(ellipse at center,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1d1d1', endColorstr='#8e8e8e',GradientType=1 );
+		background-size: auto 33.4%;
+		background: #e3e3db url('shsbkgd.jpg');
+	}
+
+	#wrap {
+		text-align: left;
+		margin: 0 auto;
+		margin-top: 20px;
+		width: 88%;
+		font-family: Verdana, Tahoma, Arial, sans-serif;
+		font-size: 12px;
+		color: #333;
+	}
+
+	#headerdiv-top {
+		counter-reset:hman;
+		text-align: center;
+		font-family: Verdana, Tahoma, Arial, sans-serif;
+		font-size: 250%;
+		font-weight: bold;
+		line-height: 73%;
+		color #020F1D;
+		background-color: #e5e5e5;
+		padding: 15px 0px 15px 0px;
+		margin: 0px auto;
+		border-left: solid 1px #781808;
+		border-right: solid 1px #781808;
+		border-bottom: solid 1px #781808;
+		border-top: solid 5px #781808;
+		position: relative;
+		display: block;
+		box-shadow: 6px 6px 9px rgba(0,0,0,.3);
+	}
+	#headerdiv-top-fw {
+		font-size: 40%;
+		color: #750000;
+		margin: 0px;
+		padding-top: 9px;
+		display: block;
+	}
+
+	#headerdiv-bottom {
+		text-align: center;
+		font-family: Verdana, Tahoma, Arial, sans-serif;
+		font-size: 12px;
+		color: #555;
+		padding: 8px 0px 8px 0px;
+		margin: 0px auto;
+		border-left: solid 1px #781808;
+		border-right: solid 1px #781808;
+		border-bottom: solid 5px #781808;
+		border-top: solid 1px #781808;
+		background-color: #e5e5e5;
+		position: relative;
+		display: block;
+		box-shadow: 6px 6px 9px rgba(0,0,0,.3);
+	}
+	#headerdiv-bottom .about {
+		margin: 7px 0 0 0;
+		padding: 0;
+		font-style: italic;
+		color: #555;
+	}
+	#headerdiv-bottom .menu {
+		font-weight: bold;
+		margin: 0;
+		color: #999;
+	}
+
+	#footer {
+		text-align: center;
+		background: #e5e5e5;
+		border: 1px solid #781808;
+		border-top: 5px solid #781808;
+		border-bottom: 5px solid #781808;
+		font-size: 75%;
+		padding: 5px 0 13px 0;
+	}
+
+	#maindiv {
+		margin: 0 auto;
+		margin-top: -20px;
+		width: 80%;
+	}
+	#maindiv .content {
+		counter-increment: kman;
+		counter-reset: h2;
+		background-color: #e8e8e6;
+		padding: 0 0 25px 0;
+		margin: 50px auto;
+		border-width: 1px 1px 4px 10px;
+		border-style: solid;
+		border-color: #781808;
+		position: relative;
+		display: block;
+		box-shadow: 6px 6px 9px rgba(0,0,0,.3);
+	}
+	#maindiv .content::before {
+		content: counter(kman, lower-roman);
+		font-size: 100%;
+		font-weight: bold;
+		text-align: center;
+		color: #eee;
+		background-color: #781808;
+		width: 50px;
+		top: 0px;
+		left: 0px;
+		display: block;
+	}
+
+	#maindiv .important {
+		font-size: 95%;
+		font-family: Verdana;
+		text-align: left;
+		background-color: #deded9;
+		border-width: 1px 4px 1px 4px;
+		border-style: solid;
+		border-color: #781808;
+		padding: 10px;
+		margin: 10px auto;
+		width: 80%;
+		line-height: 160%;
+	}
+	#maindiv .important::before {
+		display: none;
+	}
+	#maindiv .important p {
+		width: 100%;
+		font-size: 100%;
+		text-indent: 0px;
+		margin: 5px 0 5px 0;
+		line-height: 180%;
+	}
+
+	.tocplus{
+		counter-increment:hman;
+	}
+	.toc::before {
+		content: counter(hman, lower-roman) '.';
+		counter-increment:hman;
+		font-size: 100%;
+		color: #781808;
+		font-style:italic;
+		position:absolute
+	}
+
+	#maindiv p {
+		font-size: 100%;
+		font-style: normal;
+		text-align: justify;
+		line-height: 150%;
+		padding: 0px;
+		margin: 10px auto;
+		width: 90%;
+		display: block;
+	}
+
+	#maindiv address {
+		font-size: 95%;
+		font-style: normal;
+		font-weight: bold;
+		text-decoration: none;
+		color: #BBB;
+		background-color: #781808;
+		padding: 3px 0px 0px;
+		margin: 0px;
+		width: 100%;
+		position: absolute;
+		bottom: -1px;
+		left: 0px;
+		display: block;
+		text-align: right;
+	}
+
+
+	/*	Lists  */
+	#maindiv ul {
+		line-height: 170%;
+		margin-left: 4%;
+		width: 87%;
+	}
+	#maindiv ul li {
+		line-height: 150%;
+	}
+	#maindiv ul li ul {
+		margin: 0px;
+		width: 96%;
+	}
+	#maindiv ul li ul li {
+	}
+	#maindiv ul li ul li ul {
+		margin-left: -1%;
+		width: 98%;
+	}
+	#maindiv ul li ul li ul li {
+	}
+	ul.c1 {margin-left: 32px;}
+
+
+	/*	Liens internet  */
+	a:hover,
+	a:active {
+		color: #222;
+		border-bottom: 1px solid black;
+	}
+	a:link,
+	a:visited {
+		color: #781808;
+		font-weight: bold;
+		text-decoration: none;
+	}
+
+	#headerdiv-bottom .menu a:link,
+	#headerdiv-bottom .menu a:visited {
+		color: #333;
+	}
+	#headerdiv-bottom .menu a:focus,
+	#headerdiv-bottom .menu a:hover {
+		color: #781808;
+	}
+
+	#maindiv address a:active {
+		color: #fff;
+		text-decoration: line-through;
+		border: none;
+	}
+	#maindiv address a:link,
+	#maindiv address a:visited {
+		font-weight: bold;
+		text-decoration: underline;
+		background-color: transparent;
+		color: #eaeaea !important;
+		padding-right: 5px;
+		padding-left: 6px;
+	}
+	#maindiv address a:focus,
+	#maindiv address a:hover {
+		text-decoration: none;
+		color: #F1F1F1;
+		border: 0;
+	}
+
+
+	h2 {
+		display: block;
+		font-family: Verdana, Trebuchet MS, Arial, serif;
+		text-align: left;
+		text-indent: 30px;
+		padding: 0px;
+		margin: 20px 0 0 0;
+		border-bottom: dotted 2px #d0d0d0;
+		border-top: dotted 2px #d0d0d0;
+		background: #deded9;
+		font-size: 160%;
+	}
+	h2::first-letter {
+		color: #781808;
+		background-color: transparent;
+	}
+	h2 .com {
+		color: #781808;
+		background-color: transparent;
+		margin-right:30px;
+	}
+
+	h3,
+	h4,
+	h5 {
+		margin: 10px 40px 10px 40px;
+		padding: 0;
+	}
+
+	h3 {
+		font-size: 125%;
+		font-style: italic;
+		margin: 10px 40px 10px 40px;
+		padding: 0;
+	}
+
+	h4 {
+		font-size: 125%;
+	}
+
+	h5 {
+		margin: 10px 40px 10px 40px;
+		padding: 0;
+		font-size: 100%;
+	}
+
+	h6 {
+		width: 100%;
+		margin: 10px 0 15px 0;
+		background-color: #ECECEC;
+		text-align: left;
+		text-indent: 30px;
+		font-size: 100%;
+		font-style: italic;
+		padding-top: 1px;
+		padding-bottom: 1px;
+		border-bottom: solid 1px #bbb;
+		border-top: solid 1px #bbb;
+	}
+
+	.com {
+		color: #781808;
+		background-color: transparent;
+	}
+
+
+	/* Additional stuff */
+
+	.t1 {
+		font-weight: bold;
+		width: 26%;
+		text-align: right;
+		clear: right;
+		float: left;
+		line-height: 22px;
+	}
+	.t2 {
+		text-align: left;
+		width: 73%;
+		float: right;
+		line-height: 22px;
+	}
+
+	.one {
+		position: relative;
+	}
+	.one:before {
+		content: '1';
+		display: block;
+		position: absolute;
+		bottom: -.45em; 
+		font-size:100%;font-family:palatino;line-height:100%;color: #750000;
+		left: 0;
+		right: 0;
+		opacity: .5;
+		-webkit-transform: scaleY(-.5);
+		-moz-transform: scaleY(-.5);
+		-o-transform: scaleY(-.5);
+		transform: scaleY(-.5);
+	}
+	.one:after {
+		background: -webkit-gradient(linear, left top, left center, from(rgba(229,229,229,0)), to(rgb(229,229,229)));
+		background: -moz-linear-gradient(top, rgba(229,229,229,0), rgb(229,229,229));
+		content: ' ';
+		height: 2em;
+		display: block;
+		position: absolute;
+		bottom: -.6em; /* You should change this value to fit your font */
+		left: 0;
+		right: 0;
+	}
+
+	.pp {
+		position: relative;
+	}
+	.pp:before {
+		content: 'pp';
+		display: block;
+		position: absolute;
+		bottom: -.90em; 
+		left: 0.25em;
+		right: 0;
+		opacity: .5;
+		-webkit-transform: scaleY(-.5);
+		-moz-transform: scaleY(-.5);
+		-o-transform: scaleY(-.5);
+		transform: scaleY(-.5);
+	}
+	.pp:after {
+		background: -webkit-gradient(linear, left top, left center, from(rgba(229,229,229,0)), to(rgb(229,229,229)));
+		background: -moz-linear-gradient(top, rgba(229,229,229,0), rgb(229,229,229));
+		content: ' ';
+		height: 2em;
+		display: block;
+		position: absolute;
+		bottom: -.9em; /* You should change this value to fit your font */
+		left: 0.25em;
+		right: 0;
+	}
+
+	.screen {background-size:contain;background-repeat:no-repeat}
+	.screen img{max-width:100%; opacity:1;transition: opacity 1.25s ease-in-out;
+		-moz-transition: opacity 1.25s ease-in-out;
+		-webkit-transition: opacity 1.25s ease-in-out;
+	}
+	.screen img:hover{max-width:100%; opacity:0}
+
+	.v4 {
+		position: relative;
+	}
+	.v4:before {
+		content: 'VERSION 4';
+		display: block;
+		position: absolute;
+		bottom: -4em; 
+		left: 0em;
+		right: 0;
+		opacity: .5;
+		-webkit-transform: scaleY(-.5);
+		-moz-transform: scaleY(-.5);
+		-o-transform: scaleY(-.5);
+		transform: scaleY(-.5);
+	}
+	.v4:after {
+		background: -webkit-gradient(linear, left top, left center, from(rgba(229,229,229,0)), to(rgb(229,229,229)));
+		background: -moz-linear-gradient(top, rgba(229,229,229,0), rgb(229,229,229));
+		content: ' ';
+		height: 2em;
+		display: block;
+		position: absolute;
+		bottom: -4em; /* You should change this value to fit your font */
+		left: 0em;
+		right: 0;
+	}
+
+-->
+/*]]>*/
+</style>
+	<title>
+		Spellhold Studios - 1ppv4 [Attachable wings readme &amp; development reference]
+	</title>
+	<link href="shsweb.ico" rel="icon" type="bmp" />
+  </head>
+
+  <body>
+	<div id="wrap">
+
+	  <a name="top" id="top"></a>
+	  <div id="headerdiv-top" style="padding-bottom:1em">
+		<span class="one" style="font-size:400%;font-family:palatino;line-height:100%;color: #781808">1</span><span class="pp" style="font-size:200%;font-family:palatino;line-height:100%;vertical-align:0.3em;margin-left:-.25em"> pp</span><span class="v4" style="font-size:52%;font-family:helvetica neue, helvetica;line-height:100%;vertical-align:3.3em;margin-left:-.25em; color: #686868">VERSION 4</span><br />
+		<span id="headerdiv-top-fw" style="position:relative"><p>A Spellhold Studios mod for Infinity Engine games</p></span>
+	  </div>
+
+	  <div id="headerdiv-bottom">
+		<p class="about">
+			Author: Erephine
+		</p>
+		<p class="about">
+			<a href="http://www.spellholdstudios.net/ie/1pp">Mod Website</a> &#8226; <a href="http://www.shsforums.net/index.php?showforum=159">Mod Forum</a> &#8226; <a href="http://www.shsforums.net/index.php?app=downloads&showcat=98">Download</a> &#8226; Version : 7.0.0
+		</p>
+		<hr style="color: #781808; background-color: #781808;">
+		<p class="menu">
+			<a href="#intro">Information</a>
+		</p>
+	  </div>
+
+	<div id="maindiv">
+<!-- ================== I n t r o d u c t i o n ================== -->
+	  <a name="intro" id="intro"></a>
+	  <div class="content">
+
+		<h2>Information</h2><br>
+
+
+		<p style ="font-size: 160%;text-align: center;"><strong>1ppv7 attachable wings!</strong></br></br>
+
+
+		<h4>Includes:</h4>
+
+		<p>
+			Complete set of feathery wing animations (ZW). ELVES ONLY.
+		</p></br>
+
+
+		<h4>How to get them?</h4>
+
+		<p>
+			Add the test item WINGS01.ITM to your inventory either by editing your savegame or the CLUA Console. Equip it.
+		</p></br>
+
+
+		<h4>What this is:</h4>
+
+		<p>
+			This is a mod to add attachable wings to your game. They are an equipped item (such as a sword) and thus do not modify any animation slot whatsoever. They have the identifier 'ZW'.
+		</p></br>
+
+
+		<h4>What this is not:</h4>
+
+		<p>
+			In its current form this implementation is not perfect. There are a few limitations concerned with using them. These are:
+		</p>
+		  <ul style="width: 92%">
+			<li>Elves only</br>
+				The supplied item is only usable by elves. If you circumvent this, you'll be dismayed to find out they do not display for non-elves. In fact, they will crash your game.</li>
+			<li>Do not mix with</li>
+				<ul>
+					<li style="margin-left:-4%">Swooshy robes</br>
+					(I highly discourage putting these on a character who will wear robes with a cloak. If you know basic anatomy, you'll see why this makes sense. It will look very odd)</li>
+					<li style="margin-left:-4%">Shields, bows and weapons in your left hand</br>
+					(This will not crash your game, but these three will look glitched. Conversely, two handed swords, halberds, staves, etc. work fine. Crossbows have a minor issue on the paperdoll but otherwise are fine as well.)</li>
+				</ul>
+		  </ul></br>
+
+		<p>
+			If you are a developer and would like to use this content, or if you'd like to know just why the above won't work, read the following 'extended' readme.
+		</p></br>
+
+
+		<hr style="width: 90%; color: #781808; background-color: #781808; " /><br>
+
+
+		<h4>IF YOU'D LIKE TO SET UP A MOD USING THESE:</h4>
+
+		<p>
+			Alter an item to use the 'inventory icon' (field name in NI) ZW. It must be a helmet, and equipped in the according slot. Yes, this means you cannot wear a helmet at the same time.</br></br>
+
+			The included test item does not specify a colour. If no colour is set, these wings default to your character's hair colour. Should you need them to be different, you can set this as you would any other item colour with NI.</br></br>
+
+			Just set a 'set item colour' for location code 54. You will have to type this in as it is 'unknown' to NI - it does not correspond to any existing helmet locations, as logically no helmets are made of hair.</br></br>
+
+			I would recommend preventing the item from being dropped upon death, or unequipped in any way. As per the readme your character should not wield shields, bows, or two weapons. They also should not wear Robes set to inventory icon 3W or 4W (those with cloaks).</br></br>
+
+			How you ensure these limitations is up to you.
+		</p></br>
+
+
+		<hr style="width: 90%; color: #781808; background-color: #781808; " /><br>
+
+
+		<h4>THAT OTHER THING</h4>
+
+		<p>
+			The wings installed by default are optimised for female elves (if you couldn't tell from the screenshots). This is true for both the animation and the paperdoll image.</br></br>
+
+			The animation will look mostly fine, but the wings appear a little displaced along the right arm on the male paperdoll. If you specifically need a male character and this is unacceptable to you, I have supplied an extra set with a paperdoll optimised for male elves. The animations are the same, so it's not all-optimised but the only really noticeable thing is the paperdoll anyway.</br></br>
+
+			To use these, copy the contents of the folder 'male ppd' to your override (or install them with your mod). They use a different identifier, namely YW instead of ZW. This means they coexist with the female version peaceably. If you bother to use them be sure to set your item to the right one!</br></br>
+
+			(I've also included a copy of the test item set to YW - it is WINGS01B.ITM.)</br></br>
+
+			Before I get asked why these aren't installed by default, it is mainly to save clutter. The only noticeable difference is if it's a player character (i.e. you have a paperdoll) and even then it's minor. It doesn't warrant installing yet another entire animation. </br></br>
+
+			Why the female ones by default? The answer begins with an A.
+		</p></br>
+
+
+		<hr style="width: 90%; color: #781808; background-color: #781808; " /><br>
+
+
+		<h4>WHY DO THESE LIMITATIONS EXIST?</h4>
+
+		<p>
+			<em>1. Why can't I have wings on my human/half-orc/dwarf?</em></br></br>
+
+			Because I made no content for them. No, you cannot just copy it.</br></br>
+
+			<em>2. Why does it have to be a helmet? Can't I just make it any other item?</em></br></br>
+
+			Of all items that have inventory/avatar rendering in the game, only helmets qualify for this purpose. This is mainly because helmets render for all animation sequences (while casting, for instance) and because they render properly for all directions. </br></br>
+
+			<em>3. Why no swooshy robes?</em></br></br>
+
+			By making these an equippable item as opposed to an altered avatar they are, in fact, merely 'bolted on'. Obviously this does not end up looking well with a cloak in the way.</br></br>
+
+			<em>4. Why can't I dual wield / use shields or bows?</em></br></br>
+
+			or some reason, the game seems to render bows differently compared to all other two handed items. This means they may render on top of your wings when they shouldn't (making them appear transparent). The same is true for anything equipped in your second hand. </br></br>
+
+			It is possible to fix this to an extent (and I may for bows) but requires a new animation for that purpose, with the wings 'cut out': In other words, your winged character will never be able to wield the *same* bow that anyone else could.</br></br>
+
+			This was tested on exactly one (1) install with one (1) configuration. Hopefully this should be consistent behaviour, but the rendering order of the Infinity Engine is not really trustworthy. It regularly screws up vanilla items, and it does it with no detectable cause or method.</br></br>
+
+			<em>5. What is wrong with the crossbows?</em></br></br>
+
+			The inventory paperdoll image is rendered partly above it. This isn't fixable, and the wings would look odd if accomodated in a space that doesn't clash with anything else. For the most part things should look fine (I haven't encountered any problems with any other items in my test so far) but crossbows will look a bit off where they intersect with the wing. They render correctly in-game though.
+		</p></br>
+
+		<address>
+			<span class="footer">1ppv4 &gt; Information</span> &#8226;<a href="#top">BACK TO TOP</a>
+		</address>
+	  </div>
+
+	</div>
+	</div>
+  </body>
+</html>

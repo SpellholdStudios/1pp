@@ -1,0 +1,605 @@
+﻿<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+/*<![CDATA[*/
+<!-- 
+	body {
+		cursor: default;
+		text-align: center;
+		counter-reset:kman;
+		color: #000;
+		*background-color: #D1D1D1;
+		margin-top: 20px;
+		margin-bottom: -20px;
+		*background: #d1d1d1;
+		background: -moz-radial-gradient(center, ellipse cover,  #d1d1d1 0%, #afafaf 83%, #8e8e8e 100%);
+		background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#d1d1d1), color-stop(83%,#afafaf), color-stop(100%,#8e8e8e));
+		background: -webkit-radial-gradient(center, ellipse cover,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
+		background: -o-radial-gradient(center, ellipse cover,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
+		background: -ms-radial-gradient(center, ellipse cover,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
+		background: radial-gradient(ellipse at center,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1d1d1', endColorstr='#8e8e8e',GradientType=1 );
+		background-size: auto 33.4%;
+		background: #e3e3db url('shsbkgd.jpg');
+	}
+
+	#wrap {
+		text-align: left;
+		margin: 0 auto;
+		margin-top: 20px;
+		width: 88%;
+		font-family: Verdana, Tahoma, Arial, sans-serif;
+		font-size: 12px;
+		color: #333;
+	}
+
+	#headerdiv-top {
+		counter-reset:hman;
+		text-align: center;
+		font-family: Verdana, Tahoma, Arial, sans-serif;
+		font-size: 250%;
+		font-weight: bold;
+		line-height: 73%;
+		color #020F1D;
+		background-color: #e5e5e5;
+		padding: 15px 0px 15px 0px;
+		margin: 0px auto;
+		border-left: solid 1px #781808;
+		border-right: solid 1px #781808;
+		border-bottom: solid 1px #781808;
+		border-top: solid 5px #781808;
+		position: relative;
+		display: block;
+		box-shadow: 6px 6px 9px rgba(0,0,0,.3);
+	}
+	#headerdiv-top-fw {
+		font-size: 40%;
+		color: #750000;
+		margin: 0px;
+		padding-top: 9px;
+		display: block;
+	}
+
+	#headerdiv-bottom {
+		text-align: center;
+		font-family: Verdana, Tahoma, Arial, sans-serif;
+		font-size: 12px;
+		color: #555;
+		padding: 8px 0px 8px 0px;
+		margin: 0px auto;
+		border-left: solid 1px #781808;
+		border-right: solid 1px #781808;
+		border-bottom: solid 5px #781808;
+		border-top: solid 1px #781808;
+		background-color: #e5e5e5;
+		position: relative;
+		display: block;
+		box-shadow: 6px 6px 9px rgba(0,0,0,.3);
+	}
+	#headerdiv-bottom .about {
+		margin: 7px 0 0 0;
+		padding: 0;
+		font-style: italic;
+		color: #555;
+	}
+	#headerdiv-bottom .menu {
+		font-weight: bold;
+		margin: 0;
+		color: #999;
+	}
+
+	#footer {
+		text-align: center;
+		background: #e5e5e5;
+		border: 1px solid #781808;
+		border-top: 5px solid #781808;
+		border-bottom: 5px solid #781808;
+		font-size: 75%;
+		padding: 5px 0 13px 0;
+	}
+
+	#maindiv {
+		margin: 0 auto;
+		margin-top: -20px;
+		width: 80%;
+	}
+	#maindiv .content {
+		counter-increment: kman;
+		counter-reset: h2;
+		background-color: #e8e8e6;
+		padding: 0 0 25px 0;
+		margin: 50px auto;
+		border-width: 1px 1px 4px 10px;
+		border-style: solid;
+		border-color: #781808;
+		position: relative;
+		display: block;
+		box-shadow: 6px 6px 9px rgba(0,0,0,.3);
+	}
+	#maindiv .content::before {
+		content: counter(kman, lower-roman);
+		font-size: 100%;
+		font-weight: bold;
+		text-align: center;
+		color: #eee;
+		background-color: #781808;
+		width: 50px;
+		top: 0px;
+		left: 0px;
+		display: block;
+	}
+
+	#maindiv .important {
+		font-size: 95%;
+		font-family: Verdana;
+		text-align: left;
+		background-color: #deded9;
+		border-width: 1px 4px 1px 4px;
+		border-style: solid;
+		border-color: #781808;
+		padding: 10px;
+		margin: 10px auto;
+		width: 80%;
+		line-height: 160%;
+	}
+	#maindiv .important::before {
+		display: none;
+	}
+	#maindiv .important p {
+		width: 100%;
+		font-size: 100%;
+		text-indent: 0px;
+		margin: 5px 0 5px 0;
+		line-height: 180%;
+	}
+
+	.tocplus{
+		counter-increment:hman;
+	}
+	.toc::before {
+		content: counter(hman, lower-roman) '.';
+		counter-increment:hman;
+		font-size: 100%;
+		color: #781808;
+		font-style:italic;
+		position:absolute
+	}
+
+	#maindiv p {
+		font-size: 100%;
+		font-style: normal;
+		text-align: justify;
+		line-height: 150%;
+		padding: 0px;
+		margin: 10px auto;
+		width: 90%;
+		display: block;
+	}
+
+	#maindiv address {
+		font-size: 95%;
+		font-style: normal;
+		font-weight: bold;
+		text-decoration: none;
+		color: #BBB;
+		background-color: #781808;
+		padding: 3px 0px 0px;
+		margin: 0px;
+		width: 100%;
+		position: absolute;
+		bottom: -1px;
+		left: 0px;
+		display: block;
+		text-align: right;
+	}
+
+
+	/*	Lists  */
+	#maindiv ul {
+		line-height: 170%;
+		margin-left: 4%;
+		width: 87%;
+	}
+	#maindiv ul li {
+		line-height: 150%;
+	}
+	#maindiv ul li ul {
+		margin: 0px;
+		width: 96%;
+	}
+	#maindiv ul li ul li {
+	}
+	#maindiv ul li ul li ul {
+		margin-left: -1%;
+		width: 98%;
+	}
+	#maindiv ul li ul li ul li {
+	}
+	ul.c1 {margin-left: 32px;}
+
+
+	/*	Liens internet  */
+	a:hover,
+	a:active {
+		color: #222;
+		border-bottom: 1px solid black;
+	}
+	a:link,
+	a:visited {
+		color: #781808;
+		font-weight: bold;
+		text-decoration: none;
+	}
+
+	#headerdiv-bottom .menu a:link,
+	#headerdiv-bottom .menu a:visited {
+		color: #333;
+	}
+	#headerdiv-bottom .menu a:focus,
+	#headerdiv-bottom .menu a:hover {
+		color: #781808;
+	}
+
+	#maindiv address a:active {
+		color: #fff;
+		text-decoration: line-through;
+		border: none;
+	}
+	#maindiv address a:link,
+	#maindiv address a:visited {
+		font-weight: bold;
+		text-decoration: underline;
+		background-color: transparent;
+		color: #eaeaea !important;
+		padding-right: 5px;
+		padding-left: 6px;
+	}
+	#maindiv address a:focus,
+	#maindiv address a:hover {
+		text-decoration: none;
+		color: #F1F1F1;
+		border: 0;
+	}
+
+
+	h2 {
+		display: block;
+		font-family: Verdana, Trebuchet MS, Arial, serif;
+		text-align: left;
+		text-indent: 30px;
+		padding: 0px;
+		margin: 20px 0 0 0;
+		border-bottom: dotted 2px #d0d0d0;
+		border-top: dotted 2px #d0d0d0;
+		background: #deded9;
+		font-size: 160%;
+	}
+	h2::first-letter {
+		color: #781808;
+		background-color: transparent;
+	}
+	h2 .com {
+		color: #781808;
+		background-color: transparent;
+		margin-right:30px;
+	}
+
+	h3,
+	h4,
+	h5 {
+		margin: 10px 40px 10px 40px;
+		padding: 0;
+	}
+
+	h3 {
+		font-size: 125%;
+		font-style: italic;
+		margin: 10px 40px 10px 40px;
+		padding: 0;
+	}
+
+	h4 {
+		font-size: 125%;
+	}
+
+	h5 {
+		margin: 10px 40px 10px 40px;
+		padding: 0;
+		font-size: 100%;
+	}
+
+	h6 {
+		width: 100%;
+		margin: 10px 0 15px 0;
+		background-color: #ECECEC;
+		text-align: left;
+		text-indent: 30px;
+		font-size: 100%;
+		font-style: italic;
+		padding-top: 1px;
+		padding-bottom: 1px;
+		border-bottom: solid 1px #bbb;
+		border-top: solid 1px #bbb;
+	}
+
+	.com {
+		color: #781808;
+		background-color: transparent;
+	}
+
+
+	/* Additional stuff */
+
+	.t1 {
+		font-weight: bold;
+		width: 26%;
+		text-align: right;
+		clear: right;
+		float: left;
+		line-height: 22px;
+	}
+	.t2 {
+		text-align: left;
+		width: 73%;
+		float: right;
+		line-height: 22px;
+	}
+
+	.one {
+		position: relative;
+	}
+	.one:before {
+		content: '1';
+		display: block;
+		position: absolute;
+		bottom: -.45em; 
+		font-size:100%;font-family:palatino;line-height:100%;color: #750000;
+		left: 0;
+		right: 0;
+		opacity: .5;
+		-webkit-transform: scaleY(-.5);
+		-moz-transform: scaleY(-.5);
+		-o-transform: scaleY(-.5);
+		transform: scaleY(-.5);
+	}
+	.one:after {
+		background: -webkit-gradient(linear, left top, left center, from(rgba(229,229,229,0)), to(rgb(229,229,229)));
+		background: -moz-linear-gradient(top, rgba(229,229,229,0), rgb(229,229,229));
+		content: ' ';
+		height: 2em;
+		display: block;
+		position: absolute;
+		bottom: -.6em; /* You should change this value to fit your font */
+		left: 0;
+		right: 0;
+	}
+
+	.pp {
+		position: relative;
+	}
+	.pp:before {
+		content: 'pp';
+		display: block;
+		position: absolute;
+		bottom: -.90em; 
+		left: 0.25em;
+		right: 0;
+		opacity: .5;
+		-webkit-transform: scaleY(-.5);
+		-moz-transform: scaleY(-.5);
+		-o-transform: scaleY(-.5);
+		transform: scaleY(-.5);
+	}
+	.pp:after {
+		background: -webkit-gradient(linear, left top, left center, from(rgba(229,229,229,0)), to(rgb(229,229,229)));
+		background: -moz-linear-gradient(top, rgba(229,229,229,0), rgb(229,229,229));
+		content: ' ';
+		height: 2em;
+		display: block;
+		position: absolute;
+		bottom: -.9em; /* You should change this value to fit your font */
+		left: 0.25em;
+		right: 0;
+	}
+
+	.screen {background-size:contain;background-repeat:no-repeat}
+	.screen img{max-width:100%; opacity:1;transition: opacity 1.25s ease-in-out;
+		-moz-transition: opacity 1.25s ease-in-out;
+		-webkit-transition: opacity 1.25s ease-in-out;
+	}
+	.screen img:hover{max-width:100%; opacity:0}
+
+	.v4 {
+		position: relative;
+	}
+	.v4:before {
+		content: 'VERSION 4';
+		display: block;
+		position: absolute;
+		bottom: -4em; 
+		left: 0em;
+		right: 0;
+		opacity: .5;
+		-webkit-transform: scaleY(-.5);
+		-moz-transform: scaleY(-.5);
+		-o-transform: scaleY(-.5);
+		transform: scaleY(-.5);
+	}
+	.v4:after {
+		background: -webkit-gradient(linear, left top, left center, from(rgba(229,229,229,0)), to(rgb(229,229,229)));
+		background: -moz-linear-gradient(top, rgba(229,229,229,0), rgb(229,229,229));
+		content: ' ';
+		height: 2em;
+		display: block;
+		position: absolute;
+		bottom: -4em; /* You should change this value to fit your font */
+		left: 0em;
+		right: 0;
+	}
+
+-->
+/*]]>*/
+</style>
+	<title>
+		Spellhold Studios - 1ppv4 [Attachable wings readme &amp; development reference]
+	</title>
+	<link href="shsweb.ico" rel="icon" type="bmp" />
+  </head>
+
+  <body>
+	<div id="wrap">
+
+	  <a name="top" id="top"></a>
+	  <div id="headerdiv-top" style="padding-bottom:1em">
+		<span class="one" style="font-size:400%;font-family:palatino;line-height:100%;color: #781808">1</span><span class="pp" style="font-size:200%;font-family:palatino;line-height:100%;vertical-align:0.3em;margin-left:-.25em"> pp</span><span class="v4" style="font-size:52%;font-family:helvetica neue, helvetica;line-height:100%;vertical-align:3.3em;margin-left:-.25em; color: #686868">VERSION 4</span><br />
+		<span id="headerdiv-top-fw" style="position:relative"><p>Un mod de Spellhold Studios pour les jeux Infinity Engine</p></span>
+	  </div>
+
+	  <div id="headerdiv-bottom">
+		<p class="about">
+			Auteure : Erephine
+		</p>
+		<p class="about">
+			<a href="http://www.spellholdstudios.net/ie/1pp">Site internet du mod</a> &#8226; <a href="http://www.shsforums.net/index.php?showforum=159">Forum du mod</a> &#8226; <a href="http://www.shsforums.net/index.php?app=downloads&showcat=98">Téléchargement</a> &#8226; Version : 7.0.0
+		</p>
+		<hr style="color: #781808; background-color: #781808;">
+		<p class="menu">
+			<a href="#intro">Documentation</a>
+		</p>
+	  </div>
+
+	<div id="maindiv">
+<!-- ================== I n t r o d u c t i o n ================== -->
+	  <a name="intro" id="intro"></a>
+	  <div class="content">
+
+		<h2>Documentation</h2><br>
+
+
+		<p style ="font-size: 160%;text-align: center;"><strong>1ppv7 Ailes amovibles</strong></br></br>
+
+
+		<h4>Contenu</h4>
+
+		<p>
+			Un jeu complet d'animations d'ailes de plumes (ZW) UNIQUEMEN POUR LES ELFES.
+		</p></br>
+
+
+		<h4>Comment les obtenir ?</h4>
+
+		<p>
+			Ajouter l'objet WINGS01.ITM dans votre inventaire soit en éditant une de vos sauvegarde, soit en utilisant le <acronym title="NdT : CLUA Console">panneau de débogage</acronym>. Équipez-vous-en.
+		</p></br>
+
+
+		<h4>De quoi s'agit-il ?</h4>
+
+		<p>
+			Ce mod ajoute des ailes amovibles dans votre jeu. Ce sont des objets dont on peut s'équiper (comme une épée) et qui, par conséquent, ne modifient aucun slot d'animation. Leur identifiant d'animation d'objet est « ZW » [<em>NdT : champ « Equipped appearance » dans NI</em>].
+		</p></br>
+
+
+		<h4>Restrictions</h4>
+
+		<p>
+			Dans sa forme actuelle, leur installation n'est pas parfaite. Il existe quelques limitations concernant leur utilisation. Les voici :
+		</p>
+		  <ul style="width: 92%">
+			<li>Uniquement pour les elfes</br>
+				L'objet fourni n'est utilisable que par les elfes. Si vous contrevenez à cette règle, vous serez consterné(e) de constater que les ailes n'apparaissent pas sur les personnages non-elfes. En fait, l'objet fera crasher votre partie.</li>
+			<li>Ne pas associer avec</li>
+				<ul>
+					<li style="margin-left:-4%">des robes flottantes</br>
+					(Je déconseille fortement de les mettre sur un personnage qui portera des robes avec une cape. Si vous avez des notions basiques d'anatomie, vous comprendrez pourquoi. Cela aura l'air très étrange.)</li>
+					<li style="margin-left:-4%">des boucliers, des arcs et des armes dans la main secondaire</br>
+					(Cela ne plantera pas le jeu, mais le rendu visuel de ce type d'objet ne s'effectuera pas correctement. Inversement, les épées à deux mains, les hallebardes, les bâtons, etc., fonctionnent correctement. Quant aux arbalètes, elles produisent un effet désagréable mineur sur le parperdoll, mais fonctionnent parfaitement sur l'avatar.)</li>
+				</ul>
+		  </ul></br>
+
+		<p>
+			Si vous êtes moddeur et si vous souhaitez utiliser ce contenu, ou si vous voulez savoir pourquoi ce qui précède ne fonctionnera pas, lisez la suite de ce document.
+		</p></br>
+
+
+		<hr style="width: 90%; color: #781808; background-color: #781808; " /><br>
+
+
+		<h4>SI VOUS SOUHAITEZ UTILISER CES AILES DANS UN MOD</h4>
+
+		<p>
+			Choisissez un objet et modifiez son champ « animation d'objet » (Equipped appearance dans NI) par « ZW ». Ce doit être un casque, et il doit être placé dans le slot d'équipement adéquat. Et oui, cela signifie que vous ne pouvez pas porter un casque en même temps que les ailes.</br></br>
+
+			L'objet fourni n'a pas de couleur pré-définie. Si aucune couleur ne leur est attribuée, ces ailes héritent par défaut de la couleur des cheveux de votre personnage. Si vous le souhaitez, vous pouvez leur attribuer une couleur spécifique comme vous le feriez pour toute autre couleur d'objet, en utilisant NI.</br></br>
+
+			Il suffit de définir une couleur à l'emplacement 54 [<em>NdT : location dans NI</em>] avec un effet « set item colour ». Vous devrez saisir cette valeur (54) telle quelle car NI ne la reconnait pas et l'affiche sous le libellé « unknown » - Elle ne correspond à aucun emplacement de couleur de casque existant, puisque par définition, aucun casque n'est fabriqué à partir de cheveux. [<em>NdT : ce n'est plus valable depuis la parution des dernières versions de NI. Dorénavant, NearInfinity intègre toutes les valeurs de « location », en l'occurrence 54 correspond à Helmet Green.</em>]</br></br>
+
+			Je recommande d'empêcher l'objet de tomber lors de la mort du personnage, ou de s'en séparer de quelque manière que ce soit. Conformément au readme, votre personnage ne doit pas être équipé de boucliers, d'arcs ou de deux armes. Il ne doit pas non plus porter des robes dotées de l'identifiant d'animation 3W ou 4W (celles dotées de capes).</br></br>
+
+			Je vous laisse le soin de gérer ces restrictions de la manière dont vous le souhaitez.
+		</p></br>
+
+
+		<hr style="width: 90%; color: #781808; background-color: #781808; " /><br>
+
+
+		<h4>UNE AUTRE VERSION DES AILES</h4>
+
+		<p>
+			Les ailes installées par défaut sont optimisées pour les femmes elfes (si vous ne l'aviez pas remarqué sur les captures d'écran). Cela concerne à la fois l'animation de l'avatar et son paperdoll.</br></br>
+
+			Sur un personnage mâle, l'animation rendra plutôt bien la plupart du temps, mais les ailes apparaitront un peu décalées le long de son bras droit sur le paperdoll. Si vous avez spécifiquement besoin d'un personnage masculin et que ce rendu ne vous convient pas, je fournis une série supplémentaire d'animations et un paperdoll optimisés pour les elfes de sexe masculin. Les animations sont identiques, de sorte qu’elles ne sont pas toutes optimisées, mais, de toute façon, le seul élément vraiment appréciable, c'est le paperdoll.</br></br>
+
+			Pour les utiliser, copiez le contenu du dossier « male ppd » dans le dossier override (ou installez-le avec votre mod). Ces ailes utilisent un identifiant différent, à savoir YW au lieu de ZW. Cela signifie qu'elles coexistent sans problème avec leur version féminine. Si vous vous donnez la peine de les utiliser, assurez-vous d'attribuer le bon identifiant d'animation à votre objet !</br></br>
+
+			(J'ai également inclus une copie de l'objet basique doté de l'identifiant YW : WINGS01B.ITM.)</br></br>
+
+			La seule différence notable entre les deux versions est que la version masculine s'adresse à un personnage joueur (c’est-à-dire ayant besoin d'un paperdoll). Et même dans ce cas, elle est insignifiante. Cela ne justifie pas l'installation d'une autre série d'animations complète.</br></br>
+
+			Pourquoi installer par défaut la version des femmes ? La réponse commence par un R [<em>NdT : je vous laisse deviner le texte en VO !</em>].
+		</p></br>
+
+
+		<hr style="width: 90%; color: #781808; background-color: #781808; " /><br>
+
+
+		<h4>POURQUOI TOUTES CES RESTRICTIONS ?</h4>
+
+		<p>
+			<em>1. Pourquoi mon humain, mon demi-orque et mon nain ne peuvent-ils pas porter d'ailes ?</em></br></br>
+
+			Parce que je n'ai pas créé de contenu pour eux. Et non, vous ne pouvez pas simplement faire des copies des fichiers.</br></br>
+
+			<em>2. Pourquoi doit-il s'agir d'un casque ? N'est-il pas possible d'utiliser un autre type d'objet ?</em></br></br>
+
+			De tous les objets qui disposent d'animations sur les avatars et de paperpolls, seuls les casques remplissent les conditions nécessaires. C'est principalement dû au fait qu'ils disposent d'animations  pour toutes les séquences d’action (pour lancer des sorts, par exemple) et parce qu’ils sont affichés correctement dans toutes les directions. </br></br>
+
+			<em>3. Pourquoi ne peut-on pas utiliser de robes flottantes ?</em></br></br>
+
+			En décidant de simuler les ailes avec un objet pouvant être équipé, par opposition à un avatar modifié, elles sont, en fait, tout simplement « rivées » sur le dos de l'avatar. Il va de soit que leur disposition ne se marie pas très bien avec une cape sur le dos.</br></br>
+
+			<em>4. Pourquoi ne puis-je pas porter deux armes, des boucliers ou des arcs ?</em></br></br>
+
+			Pour une raison quelconque, le jeu affiche les arcs différemment que toutes les autres armes à deux mains. Cela signifie qu'ils peuvent s'afficher sur vos ailes lorsqu'ils ne le devraient pas (ce qui les rend transparents). La même chose se produit pour tout objet porté par la main secondaire.</br></br>
+
+			Il est possible de corriger cela dans une certaine mesure (et je peux le faire pour les arcs), mais ça nécessite une nouvelle animation utilisant des ailes « découpées ». En d'autres termes, votre personnage ailé ne pourra jamais porter les * mêmes * arcs que n'importe quel autre personnage pourrait utiliser.</br></br>
+
+			J'ai testé ceci sur exactement une (1) installation avec une (1) configuration. J'espère que ce comportement est constant, mais l'ordre dans lequel le moteur Infinity Engine affiche les animations n'est pas vraiment fiable. Il lui arrive régulièrement de s'emmêler les pinceaux avec l'affichage des animations des objets vanilla, et ceci sans raison ou méthodologie facilement traçable.</br></br>
+
+			<em>5. Quel est le problème avec les arbalètes ?</em></br></br>
+
+			Leur paperdoll est affiché partiellement au-dessus des ailes. C'est impossible à corriger, et les ailes sembleraient bizarres si elles étaient casées dans un espace ne se superposant pas avec d'autres éléments du paperdoll. Dans la plupart des cas, les objets s'affichent correctement (jusqu'à présent, je n'ai rencontré aucun problème avec les autres objets au cours de mes tests), mais les arbalètes sembleront un peu s'éloigner des ailes lorsqu'elles se superposent. Cependant, dans le jeu, les arbalètes s'affichent correctement dans les mains des avatars.
+		</p></br>
+
+		<address>
+			<span class="footer">1ppv4 &gt; Documentation</span> &#8226;<a href="#top">HAUT DE PAGE</a>
+		</address>
+	  </div>
+
+	</div>
+	</div>
+  </body>
+</html>

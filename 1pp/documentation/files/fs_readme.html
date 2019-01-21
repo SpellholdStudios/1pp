@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+/*<![CDATA[*/
+<!-- 
+	body {
+		cursor: default;
+		text-align: center;
+		counter-reset:kman;
+		color: #000;
+		*background-color: #D1D1D1;
+		margin-top: 20px;
+		margin-bottom: -20px;
+		*background: #d1d1d1;
+		background: -moz-radial-gradient(center, ellipse cover,  #d1d1d1 0%, #afafaf 83%, #8e8e8e 100%);
+		background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#d1d1d1), color-stop(83%,#afafaf), color-stop(100%,#8e8e8e));
+		background: -webkit-radial-gradient(center, ellipse cover,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
+		background: -o-radial-gradient(center, ellipse cover,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
+		background: -ms-radial-gradient(center, ellipse cover,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
+		background: radial-gradient(ellipse at center,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1d1d1', endColorstr='#8e8e8e',GradientType=1 );
+		background-size: auto 33.4%;
+		background: #e3e3db url('shsbkgd.jpg');
+	}
+
+	#wrap {
+		text-align: left;
+		margin: 0 auto;
+		margin-top: 20px;
+		width: 88%;
+		font-family: Verdana, Tahoma, Arial, sans-serif;
+		font-size: 12px;
+		color: #333;
+	}
+
+	#headerdiv-top {
+		counter-reset:hman;
+		text-align: center;
+		font-family: Verdana, Tahoma, Arial, sans-serif;
+		font-size: 250%;
+		font-weight: bold;
+		line-height: 73%;
+		color #020F1D;
+		background-color: #e5e5e5;
+		padding: 15px 0px 15px 0px;
+		margin: 0px auto;
+		border-left: solid 1px #781808;
+		border-right: solid 1px #781808;
+		border-bottom: solid 1px #781808;
+		border-top: solid 5px #781808;
+		position: relative;
+		display: block;
+		box-shadow: 6px 6px 9px rgba(0,0,0,.3);
+	}
+	#headerdiv-top-fw {
+		font-size: 40%;
+		color: #750000;
+		margin: 0px;
+		padding-top: 9px;
+		display: block;
+	}
+
+	#headerdiv-bottom {
+		text-align: center;
+		font-family: Verdana, Tahoma, Arial, sans-serif;
+		font-size: 12px;
+		color: #555;
+		padding: 8px 0px 8px 0px;
+		margin: 0px auto;
+		border-left: solid 1px #781808;
+		border-right: solid 1px #781808;
+		border-bottom: solid 5px #781808;
+		border-top: solid 1px #781808;
+		background-color: #e5e5e5;
+		position: relative;
+		display: block;
+		box-shadow: 6px 6px 9px rgba(0,0,0,.3);
+	}
+	#headerdiv-bottom .about {
+		margin: 7px 0 0 0;
+		padding: 0;
+		font-style: italic;
+		color: #555;
+	}
+	#headerdiv-bottom .menu {
+		font-weight: bold;
+		margin: 0;
+		color: #999;
+	}
+
+	#footer {
+		text-align: center;
+		background: #e5e5e5;
+		border: 1px solid #781808;
+		border-top: 5px solid #781808;
+		border-bottom: 5px solid #781808;
+		font-size: 75%;
+		padding: 5px 0 13px 0;
+	}
+
+	#maindiv {
+		margin: 0 auto;
+		margin-top: -20px;
+		width: 80%;
+	}
+	#maindiv .content {
+		counter-increment: kman;
+		counter-reset: h2;
+		background-color: #e8e8e6;
+		padding: 0 0 25px 0;
+		margin: 50px auto;
+		border-width: 1px 1px 4px 10px;
+		border-style: solid;
+		border-color: #781808;
+		position: relative;
+		display: block;
+		box-shadow: 6px 6px 9px rgba(0,0,0,.3);
+	}
+	#maindiv .content::before {
+		content: counter(kman, lower-roman);
+		font-size: 100%;
+		font-weight: bold;
+		text-align: center;
+		color: #eee;
+		background-color: #781808;
+		width: 50px;
+		top: 0px;
+		left: 0px;
+		display: block;
+	}
+
+	#maindiv .important {
+		font-size: 95%;
+		font-family: Verdana;
+		text-align: left;
+		background-color: #deded9;
+		border-width: 1px 4px 1px 4px;
+		border-style: solid;
+		border-color: #781808;
+		padding: 10px;
+		margin: 10px auto;
+		width: 80%;
+		line-height: 160%;
+	}
+	#maindiv .important::before {
+		display: none;
+	}
+	#maindiv .important p {
+		width: 100%;
+		font-size: 100%;
+		text-indent: 0px;
+		margin: 5px 0 5px 0;
+		line-height: 180%;
+	}
+
+	.tocplus{
+		counter-increment:hman;
+	}
+	.toc::before {
+		content: counter(hman, lower-roman) '.';
+		counter-increment:hman;
+		font-size: 100%;
+		color: #781808;
+		font-style:italic;
+		position:absolute
+	}
+
+	#maindiv p {
+		font-size: 100%;
+		font-style: normal;
+		text-align: justify;
+		line-height: 150%;
+		padding: 0px;
+		margin: 10px auto;
+		width: 90%;
+		display: block;
+	}
+
+	#maindiv address {
+		font-size: 95%;
+		font-style: normal;
+		font-weight: bold;
+		text-decoration: none;
+		color: #BBB;
+		background-color: #781808;
+		padding: 3px 0px 0px;
+		margin: 0px;
+		width: 100%;
+		position: absolute;
+		bottom: -1px;
+		left: 0px;
+		display: block;
+		text-align: right;
+	}
+
+
+	/*	Lists  */
+	#maindiv ul {
+		line-height: 170%;
+		margin-left: 4%;
+		width: 87%;
+	}
+	#maindiv ul li {
+		line-height: 150%;
+	}
+	#maindiv ul li ul {
+		margin: 0px;
+		width: 96%;
+	}
+	#maindiv ul li ul li {
+	}
+	#maindiv ul li ul li ul {
+		margin-left: -1%;
+		width: 98%;
+	}
+	#maindiv ul li ul li ul li {
+	}
+	ul.c1 {margin-left: 32px;}
+
+
+	/*	Liens internet  */
+	a:hover,
+	a:active {
+		color: #222;
+		border-bottom: 1px solid black;
+	}
+	a:link,
+	a:visited {
+		color: #781808;
+		font-weight: bold;
+		text-decoration: none;
+	}
+
+	#headerdiv-bottom .menu a:link,
+	#headerdiv-bottom .menu a:visited {
+		color: #333;
+	}
+	#headerdiv-bottom .menu a:focus,
+	#headerdiv-bottom .menu a:hover {
+		color: #781808;
+	}
+
+	#maindiv address a:active {
+		color: #fff;
+		text-decoration: line-through;
+		border: none;
+	}
+	#maindiv address a:link,
+	#maindiv address a:visited {
+		font-weight: bold;
+		text-decoration: underline;
+		background-color: transparent;
+		color: #eaeaea !important;
+		padding-right: 5px;
+		padding-left: 6px;
+	}
+	#maindiv address a:focus,
+	#maindiv address a:hover {
+		text-decoration: none;
+		color: #F1F1F1;
+		border: 0;
+	}
+
+
+	h2 {
+		display: block;
+		font-family: Verdana, Trebuchet MS, Arial, serif;
+		text-align: left;
+		text-indent: 30px;
+		padding: 0px;
+		margin: 20px 0 0 0;
+		border-bottom: dotted 2px #d0d0d0;
+		border-top: dotted 2px #d0d0d0;
+		background: #deded9;
+		font-size: 160%;
+	}
+	h2::first-letter {
+		color: #781808;
+		background-color: transparent;
+	}
+	h2 .com {
+		color: #781808;
+		background-color: transparent;
+		margin-right:30px;
+	}
+
+	h3,
+	h4,
+	h5 {
+		margin: 10px 40px 10px 40px;
+		padding: 0;
+	}
+
+	h3 {
+		font-size: 125%;
+		font-style: italic;
+		margin: 10px 40px 10px 40px;
+		padding: 0;
+	}
+
+	h4 {
+		font-size: 125%;
+	}
+
+	h5 {
+		margin: 10px 40px 10px 40px;
+		padding: 0;
+		font-size: 100%;
+	}
+
+	h6 {
+		width: 100%;
+		margin: 10px 0 15px 0;
+		background-color: #ECECEC;
+		text-align: left;
+		text-indent: 30px;
+		font-size: 100%;
+		font-style: italic;
+		padding-top: 1px;
+		padding-bottom: 1px;
+		border-bottom: solid 1px #bbb;
+		border-top: solid 1px #bbb;
+	}
+
+	.com {
+		color: #781808;
+		background-color: transparent;
+	}
+
+
+	/* Additional stuff */
+
+	.t1 {
+		font-weight: bold;
+		width: 26%;
+		text-align: right;
+		clear: right;
+		float: left;
+		line-height: 22px;
+	}
+	.t2 {
+		text-align: left;
+		width: 73%;
+		float: right;
+		line-height: 22px;
+	}
+
+	.one {
+		position: relative;
+	}
+	.one:before {
+		content: '1';
+		display: block;
+		position: absolute;
+		bottom: -.45em; 
+		font-size:100%;font-family:palatino;line-height:100%;color: #750000;
+		left: 0;
+		right: 0;
+		opacity: .5;
+		-webkit-transform: scaleY(-.5);
+		-moz-transform: scaleY(-.5);
+		-o-transform: scaleY(-.5);
+		transform: scaleY(-.5);
+	}
+	.one:after {
+		background: -webkit-gradient(linear, left top, left center, from(rgba(229,229,229,0)), to(rgb(229,229,229)));
+		background: -moz-linear-gradient(top, rgba(229,229,229,0), rgb(229,229,229));
+		content: ' ';
+		height: 2em;
+		display: block;
+		position: absolute;
+		bottom: -.6em; /* You should change this value to fit your font */
+		left: 0;
+		right: 0;
+	}
+
+	.pp {
+		position: relative;
+	}
+	.pp:before {
+		content: 'pp';
+		display: block;
+		position: absolute;
+		bottom: -.90em; 
+		left: 0.25em;
+		right: 0;
+		opacity: .5;
+		-webkit-transform: scaleY(-.5);
+		-moz-transform: scaleY(-.5);
+		-o-transform: scaleY(-.5);
+		transform: scaleY(-.5);
+	}
+	.pp:after {
+		background: -webkit-gradient(linear, left top, left center, from(rgba(229,229,229,0)), to(rgb(229,229,229)));
+		background: -moz-linear-gradient(top, rgba(229,229,229,0), rgb(229,229,229));
+		content: ' ';
+		height: 2em;
+		display: block;
+		position: absolute;
+		bottom: -.9em; /* You should change this value to fit your font */
+		left: 0.25em;
+		right: 0;
+	}
+
+	.screen {background-size:contain;background-repeat:no-repeat}
+	.screen img{max-width:100%; opacity:1;transition: opacity 1.25s ease-in-out;
+		-moz-transition: opacity 1.25s ease-in-out;
+		-webkit-transition: opacity 1.25s ease-in-out;
+	}
+	.screen img:hover{max-width:100%; opacity:0}
+
+	.v4 {
+		position: relative;
+	}
+	.v4:before {
+		content: 'VERSION 4';
+		display: block;
+		position: absolute;
+		bottom: -4em; 
+		left: 0em;
+		right: 0;
+		opacity: .5;
+		-webkit-transform: scaleY(-.5);
+		-moz-transform: scaleY(-.5);
+		-o-transform: scaleY(-.5);
+		transform: scaleY(-.5);
+	}
+	.v4:after {
+		background: -webkit-gradient(linear, left top, left center, from(rgba(229,229,229,0)), to(rgb(229,229,229)));
+		background: -moz-linear-gradient(top, rgba(229,229,229,0), rgb(229,229,229));
+		content: ' ';
+		height: 2em;
+		display: block;
+		position: absolute;
+		bottom: -4em; /* You should change this value to fit your font */
+		left: 0em;
+		right: 0;
+	}
+
+-->
+/*]]>*/
+</style>
+	<title>
+		Spellhold Studios - One Pixel Productions: Flaming Swords
+	</title>
+	<link href="shsweb.ico" rel="icon" type="bmp" />
+  </head>
+
+  <body>
+	<div id="wrap">
+
+	  <a name="top" id="top"></a>
+	  <div id="headerdiv-top">One Pixel Productions: Flaming Swords<br />
+		<span id="headerdiv-top-fw" style="position:relative"><p>A Spellhold Studios mod for Baldur's Gate 2: SoA/ToB</p></span>
+	  </div>
+
+	  <div id="headerdiv-bottom">
+		<p class="about">
+			Contributors: Erephine, Nythrun, K'aeloree
+		</p>
+		<p class="about">
+			<a href="http://www.spellholdstudios.net/ie/1pp">Mod Website</a> &#8226; <a href="http://www.shsforums.net/index.php?showforum=159">Mod Forum</a> &#8226; <a href="http://www.shsforums.net/index.php?app=downloads&showcat=98">Download</a> &#8226; Version: 4.2.0
+		</p>
+		<hr style="color: #781808; background-color: #781808;">
+		<p class="menu">
+			<a href="#intro">Overview</a> &#x2B25; <a href="#installation">Installation</a> &#x2B25; <a href="#details">Mod Details</a> &#x2B25; <a href="#credits">Credits</a> &#x2B25; <a href="#version">Version History</a>
+		</p>
+	  </div>
+
+	<div id="maindiv">
+<!-- ================== I n t r o d u c t i o n ================== -->
+	  <a name="intro" id="intro"></a>
+	  <div class="content">
+
+		<h2>Overview</h2><br>
+
+		<p>
+			The premise of this mod is very simple - it makes all of the flaming swords in the game into actual flaming swords!
+		</p>
+
+		<p>
+			Visit the <a href="http://www.spellholdstudios.net/ie/1pp">website</a> or <a href="http://www.shsforums.net/index.php?showforum=159">forum</a> for all the latest updates.
+		</p><br>
+
+		<address>
+			<span class="footer">1PP: Flaming Swords &gt; Overview</span> &#8226;<a href="#top">BACK TO TOP</a>
+		</address>
+	  </div>
+
+<!-- ================== I n s t a l l a t i o n ================== -->
+	  <a name="installation" id="installation"></a>
+	  <div class="content">
+
+		<h2>Installation</h2><br>
+
+		<p>
+			included as a component within 1ppv4.
+		</p><br>
+
+		<address>
+			<span class="footer">1PP: Flaming Swords &gt; Installation</span> &#8226;<a href="#top">BACK TO TOP</a>
+		</address>
+	  </div>
+
+<!-- ================== D e t a i l s ================== -->
+	  <a name="details" id="details"></a>
+	  <div class="content">
+
+		<h2>Mod Details</h2><br>
+
+		<p>
+			In short, this mod makes all the flaming swords in the game <em>into</em> actual flaming swords. It replaces the FS (flaming sword) animations with flaming sword animations.
+		</p>
+		<p>
+			"This is 1ppv3 content, which means, it's actually finished this time (for any race/gender combination). Not only that, but I completely rebuilt what was already there for consistency's sake. I noticed some rather embarrassing mistakes I made with my previous release that didn't sit right with me. Mainly you would have noticed that the M category (elves?) seemed remarkably less lively than say, the N one (human female).
+		</p>
+		<p>
+			I would have released this a few days ago, but a quite unexpected last-minute bug honoured me with a surprise visit. I have tried and fixed it, but not properly, which means I'm - again - not totally happy with it. You may or may not notice what I mean.
+		</p>
+		<p>
+			"Hopefully there shouldn't be any problems, but feel free to point them out if they exist."
+		<p>
+		<p>
+			- Erephine.
+		</p><br></br>
+
+
+		<p>
+			<strong>1ppv Flame Short Swords</strong></br></br>
+		</p>
+
+		<p>
+			<em>Includes:</em></br>
+		</p>
+		<p>
+			- Flaming short sword animations and paperdoll images</br>
+			- Item patches for both canon and some modded files</br>
+			- Fixes for a few 'standard' flaming swords that weren't patched in Nythrun's installer.</br></br>
+		</p>
+
+		<p>
+			<em>Notes:</em></br>
+		</p>
+		<p>
+			This is an upgraded version of the original mod actually patching (as opposed to overwriting) the items for improved compability.</br></br>
+
+		<p>
+			<em>Usage:</em></br>
+		</p>
+		<p>
+			If you want to create a mod using a flaming short sword, the process is fairly simple: Create or alter a normal short sword. If you want the flame to glow in the dark (most flames do), make sure you give the blade a colourglow_solid effect (pointed at Location 21) in NI.
+		</p>
+		<p>
+			Change the 'Inventory Icon' from 'SS' to 'F2'.
+		</p>
+		<p>
+			It will work fine if this component is installed, however, if they happen to not be installed, your game will crash upon trying to equip your item, so make sure your potential players have it installed (for instance by packaging it with your mod and installing if it isn't present).
+		</p><br>
+
+		<address>
+			<span class="footer">1PP: Flaming Swords &gt; Mod Details</span> &#8226;<a href="#top">BACK TO TOP</a>
+		</address>
+	  </div>
+
+<!-- ================== C r e d i t s ================== -->
+	  <a name="credits" id="credits"></a>
+	  <div class="content">
+
+		<h2>Credits</h2><br>
+
+			<p style="clear: both; padding-top: 10px;">For support or questions, please visit the <a href="http://www.shsforums.net/index.php?showforum=159">mod forum</a>. All questions about the graphical content should be directed to Erephine (<a href="http://www.shsforums.net/index.php?act=Msg&CODE=4&MID=2954">send Erephine a <acronym='Private Message'>PM</acronym></a>), and all technical questions to K'aeloree (<a href="http://www.shsforums.net/index.php?act=Msg&CODE=4&MID=3481">send K'aeloree a <acronym='Private Message'>PM</acronym>)</a>.
+		</p><br>
+		<span class="t1">Graphics:</span> <span class="t2">Erephine</span><br />
+		<span class="t1">Coding:</span> <span class="t2">Nythrun, Erephine</span><br />
+		<span class="t1">Packaging:</span> <span class="t2">K'aeloree, Erephine</span><br />
+
+		<hr style="clear: both; width: 90%; color: transparent; background-color: transparent; " /><br>
+
+		<p>
+			Thanks in advance especially to Nythrun for letting us use her code! We hope!
+		</p></br>
+
+
+		<h5>Programs/tools used in creation</h5><br />
+
+		<ul class="c1">
+			<li><a href="http://www.weidu.org/%7Ethebigg/"><acronym title="Weimer Dialogue Utility">WeiDU</acronym></a> by Wes Weimer, the bigg and Wisp.</li>
+			<li><a href="http://www.context.cx/">ConTEXT Text Editor</a> by Eden Kirin.</li>
+			<li><a href="https://www.adobe.com/products/photoshop.html">Adobe Photoshop</a>.</li>
+			<li> <a href="http://www.gibberlings3.net/tools/dltcep.php"><acronym title="Dragonlance Total Conversion Editor Pro">DLTCEP</acronym></a> by Avenger.</li>
+			<li><a href="https://gibberlings3.github.io/iesdp/"><acronym title="Infinity Engine Structures Description Project">IESDP</acronym></a> maintained by igi et lynx.</li>
+		</ul><br>
+
+		<address>
+			<span class="footer">1PP: Flaming Swords &gt; Credits</span> &#8226;<a href="#top">BACK TO TOP</a>
+		</address>
+	  </div>
+
+<!-- ================== V e r s i o n   H i s t o r y ================== -->
+	  <a name="version" id="version"></a>
+	  <div class="content">
+
+		<h2>Historique des versions</h2><br>
+
+		<h6>1pp v4.0.0: Restored flame swords</h6>
+
+		  <ul>
+			<li>merged with flame short swords & streamlined.</li>
+		  </ul><br>
+
+		<h6>1pp: Flaming Swords v1.0</h6>
+
+		  <ul>
+			<li>Initial release: Everything.</li>
+		  </ul><br>
+
+		<address>
+			<span class="footer">1PP : Flaming Swords &gt; Version History</span> &#8226;<a href="#top">BACK TO TOP</a>
+		</address>
+	  </div>
+
+	</div>
+	</div>
+  </body>
+</html>

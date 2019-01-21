@@ -1,6 +1,7 @@
-<a name="top" id="top"></a><center># 1pp (One Pixel Productions)</center>
+<a name="top" id="top"></a># 1pp (One Pixel Productions)
 
-<center><strong>Un mod de Spellhold Studios pour les jeux Infinity Engine</strong></center>
+###Un mod de Spellhold Studios pour les jeux Infinity Engine
+
 
 <strong>Auteure :</strong> Erephine<br />
 <strong>Version :</strong> 4.2.0<br />
@@ -8,7 +9,7 @@
 <strong>Plateformes :</strong> Windows, linux
 
 
-<a href="#intro">Présentation</a> &#x2B25; <a href="#installation">Installation</a> &#x2B25; <a href="#components">Liste des composants</a> &#x2B25; <a href="#101">Détail des composants</a> &#x2B25; <a href="#credits">Remerciements</a> &#x2B25; <a href="#version">Historique des versions</a></center></br></br>
+<center><a href="#intro">Présentation</a> &#x2B25; <a href="#installation">Installation</a> &#x2B25; <a href="#components">Liste des composants</a> &#x2B25; <a href="#101">Détail des composants</a> &#x2B25; <a href="#credits">Remerciements</a> &#x2B25; <a href="#version">Historique des versions</a></center></br></br>
 
 
 <hr>
@@ -30,11 +31,15 @@ Consultez le <a href="http://www.spellholdstudios.net/ie/1pp">site internet du m
 
 ## <a name="compat" id="compat"></a>Compatibilité
 
-Ce mod est conçu pour fonctionner sur les jeux Infinity Engine suivants : Baldur's Gate II (Les Ombres d'Amn : BG2-SoA), avec ou sans son extension Trône de Bhaal (Throne of Bhaal : ToB), les mods de conversion Baldur's Gate Trilogy (BGT), Baldur's Gate Tutu (Tutu), Icewind Dale (IWD) avec ou sans ses extensions Heart of Winter (HoW) et (TotLM), and Icewind Dale II (IWD2).
+Ce mod est conçu pour fonctionner sur les jeux Infinity Engine suivants :
 
-1pp est un mod WeiDU, et devrait par conséquent être compatible avec n'importe quel mod WeiDU. Je ne peux cependant pas tous les tester. Si vous faites face à des bugs, veuillez les signaler dans le forum, s'il vous plaît.
+- Baldur's Gate II (Les Ombres d'Amn : BG2-SoA), avec ou sans son extension Trône de Bhaal (Throne of Bhaal : ToB).
+- Les mods de conversion Baldur's Gate Trilogy (BGT) et Baldur's Gate Tutu (Tutu).
+- Icewind Dale (IWD) avec au moins l'une de ses extensions Heart of Winter (HoW) ou Trials of the Luremaster (TotLM).
+- Icewind Dale II (IWD2).
 
-Je recommande fortement aux joueurs de BG2 et de ToB d'installer la dernière version du <a href="http://www.gibberlings3.net/bg2fixpack/">BG2 Fixpack</a> avant d'installer ce mod.</br></br>
+1pp est un mod <acronym title="Weimer Dialogue Utility">WeiDU</acronym> et devrait par conséquent être compatible avec n'importe quel mod WeiDU. Si vous rencontrez des bugs, veuillez les signaler dans le forum, s'il vous plaît.
+
 Si vous jouez avec BG2-ToB ou BGT, je vous recommande fortement d'installer la dernière version du <a href="http://www.gibberlings3.net/bg2fixpack/">BG2 Fixpack</a> avant d'installer ce mod.</br>
 <div style="text-align:right"><a href="#components">Retour en haut de page</a></div>
 
@@ -46,7 +51,7 @@ Si vous jouez avec BG2-ToB ou BGT, je vous recommande fortement d'installer la d
 
 #### Mise en garde
 
-<em>Si une ancienne version de ce mod est déjà installée, il est nécessaire de la désinstaller d'abord. Pour cela, lancez <strong>setup-1pp.exe</strong>, et désinstallez tous les composants précédemment installés. Une fois la désinstallation achevée, supprimez le répertoire <strong>1pp</strong> et le fichier <strong>setup-1pp.exe</strong> (version Windows) avant d'extraire la nouvelle version du mod.</em>
+<em>Si une ancienne version de ce mod est déjà installée, il est nécessaire de la désinstaller d'abord. Pour cela, lancez <strong>setup-1pp.exe</strong> et désinstallez tous les composants précédemment installés. Une fois la désinstallation achevée, supprimez le répertoire <strong>1pp</strong> et le fichier <strong>setup-1pp.exe</strong> avant d'extraire la nouvelle version du mod.</em>
 
 <em>Lorsque vous installez ou désinstallez, <strong>ne fermez pas la fenêtre <acronym title="Disk Operating System">DOS</acronym></strong> en cliquant sur le bouton <strong>X</strong> ! Au lieu de cela, appuyez sur la touche <strong>Entrée</strong> lorsque l'invite de commandes vous le demande.</em>
 
@@ -56,9 +61,9 @@ Si vous jouez avec BG2-ToB ou BGT, je vous recommande fortement d'installer la d
 
 #### Windows
 
-1pp pour Windows est livré et installé avec WeiDU, et est diffusé sous forme d'archive.
+1pp pour Windows est livré et installé avec <acronym title="Weimer Dialogue Utility">WeiDU</acronym>, et est diffusé sous forme d'archive.
 
-Vous devez extraire les fichiers de l'archive dans votre répertoire de jeu (<em>le dossier qui contient le fichier CHITIN.KEY</em>) à l'aide de <a href="http://www.7-zip.org/download.html">7zip</a> ou de <a href="http://www.rarlab.com/download.htm">WinRAR</a>. Une fois l'archive extraite correctement, vous devriez trouver le répertoire <strong>1pp</strong> et le fichier <strong>setup-1pp.exe</strong>. Pour installer le mod, il suffit de double-cliquer sur <strong>setup-1pp.exe</strong> et de suivre les instructions affichées à l'écran.
+Vous devez extraire les fichiers de l'archive dans votre répertoire de jeu (<em>le dossier qui contient le fichier CHITIN.KEY</em>) à l'aide de <a href="http://www.7-zip.org/download.html">7zip</a> ou de <a href="http://www.rarlab.com/download.htm">WinRAR</a>. Une fois l'archive extraite correctement, vous devriez trouver le répertoire <strong>1pp</strong> et le fichier <strong>setup-1pp.exe</strong> dans votre répertoire de jeu. Pour installer le mod, il suffit de double-cliquer sur <strong>setup-1pp.exe</strong> et de suivre les instructions affichées à l'écran.
 
 Vous pouvez lancer <strong>setup-1pp.exe</strong> dans votre répertoire de jeu pour réinstaller, désinstaller, ou encore changer des composants.
 
@@ -74,11 +79,258 @@ En plus des méthodes détaillées plus haut pour supprimer des composants, il est 
 
 ##### Depuis la version 4.2.0, les variables nécessaires à l'installation sont lues dans le fichier 1pp-config-default.ini, ou dans le fichier 1pp-config.ini, si ce dernier existe.
 
-Avec les versions prédécentes, pendant la procédure d'installation, de nombreux messages vous permettaient de personnaliser les composants à votre convenance (en fonction de votre jeu IE et des composants que vous aviez installés). Tous ces choix de variables déterminés pendant l'installation du mod ont été externalisés dans le fichier **_1pp-config-default.ini_** situé dans le répertoire 1pp. Ce fichier établit une installation « _standard_ ».
+Dans les versions précédentes, pendant la procédure d'installation, de nombreux messages vous permettaient de personnaliser les composants à votre convenance (en fonction de votre jeu IE et des composants que vous aviez installés). Tous ces choix de variables déterminés pendant l'installation du mod ont été externalisés dans le fichier **_1pp-config-default.ini_** situé dans le répertoire 1pp. Ce fichier établit une installation « _standard_ ».
 
 Si vous souhaitez choisir d'autres options d'installation, il vous suffit de modifier les variables souhaitées dans le fichier 1pp-config-default.ini, puis de sauvegarder ce dernier sous le nom **_1pp-config.ini_**.
 
-Le programme d'installation lira les valeurs des variables dans les deux fichiers ini et donnera la priorité aux vôtres. Si le fichier 1pp-config.ini contient une variable non conforme, ou si une variable est manquante, il la remplacera par sa valeur par défaut (celle correspondant à l'installation « _standard_ »).</br>
+Le programme d'installation lira les valeurs des variables dans les deux fichiers ini et donnera la priorité aux vôtres. Si le fichier 1pp-config.ini contient une variable non conforme, ou si une variable est manquante, il la remplacera par sa valeur par défaut (celle correspondant à l'installation « _standard_ »).
+
+Vous trouverez la liste des variables et leur signification dans le fichier <a href="1pp/1pp-config-french.txt">1pp-config-language.txt</a> (« language » correspondant à la langue d'installation du mod). Voici le tableau des variables concernées :</br></br>
+
+
+<table summary="Liste des variables d'installation">
+	<tr style="font-size: 125%; line-height: 160%;">
+		<th style="border: 1px solid #781808; text-align: center; background-color: #781808; color: #e5e5e5; ">Composant<br>Variable</th>
+		<th style="border: 1px solid #781808; text-align: center; background-color: #781808; color: #e5e5e5; ">Jeux concernés<br>Description</th>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; "><strong><span style="color: #781808;">101 paperdolls des femmes naines</span></strong></td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(uniquement pour <span style="color:#088">Heart of Winter</span> et <span style="color:#088">Trials of the Luremaster</span> si Infinity Animations est installé)</center></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_fdwarf</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">VISUEL DES PAPERDOLLS DES FEMMES NAINES<br><br>
+		Quel style graphique de paperdoll voulez-vous utiliser pour les femmes naines ?<br><br>
+		<span style="padding-left:20px;">1 = IWD</span><br>
+		<span style="color: #781808; padding-left:20px;">2 = 1pp [par défaut]</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; "><strong><span style="color: #781808;">104 Modifications de l'interface pour BGII</span></strong></td>
+		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; padding-left:5px; padding-right:5px; ">(<span style="color:#060">BG2</span>, <span style="color:#700">ToB</span>, <span style="color:#080">tutu</span>, <span style="color:#080">tutu_totsc</span> et ca)</td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_gui</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">DESIGN DES ÉCRANS DE CHARGEMENT POUR ToB<br><br>
+		Voulez-vous donner aux écrans de chargement de ToB le design de ceux de BG2 ?<br><br>
+		<span style="color: #781808; padding-left:20px;">1 = Oui [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Ne pas modifier les écrans de chargement</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_updated_fonts</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">MODIFICATION DES POLICES DE CARACTÈRES<br><br>
+		Voulez-vous installer les polices de caractères modifiées (cela peut poser problème avec les langues utilisant d'autres fichiers BAM de polices) ?<br><br>
+		<span style="color: #781808; padding-left:20px;">1 = Oui [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Ne pas modifier les polices de caractères</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_mixed_labels<br><br>
+		(Disponible uniquement si les polices de caractères modifiées sont installées)</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">ÉTIQUETTES AFFICHÉES EN CASSE LIBRE<br><br>
+		Voulez-vous que les étiquettes soient affichées en casse libre (majuscules et minuscules) ?<br><br>
+		<span style="color: #781808; padding-left:20px";>1 = Oui [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Non</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; "><strong><span style="color: #781808;">114 Rendu des sorts nuancé</span></strong></td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(<span style="color:#060">BG2</span>, <span style="color:#700">ToB</span>, <span style="color:#080">tutu</span>, <span style="color:#080">tutu_totsc</span> et ca)</center></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_agannazar_scorcher</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">VISUEL DU SORT INCINÉRATEUR d'AGANNAZAR<br><br>
+		Installer l'animation de style IWD pour l'Incinérateur d'Agannazar, ou une version BG2 alternative ?<br><br>
+		<span style="padding-left:20px;">1 = Style IWD</span><br>
+		<span style="color: #781808; padding-left:20px;">2 = Version alternative de BGII [par défaut]</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_dispel_magic_effect</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">EFFETS DE DISSIPATION DE LA MAGIE MOINS CRIARDS<br><br>
+		Installer des effets de dissipation de la magie moins voyants ?<br><br>
+		<span style="color: #781808; padding-left:20px;">1 = Oui [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Non (installer plutôt des effets améliorés)</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; "><strong><span style="color: #781808;">200 Corrections de base</span></strong></td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(<span style="color:#060">BG2</span>, <span style="color:#700">ToB</span>, <span style="color:#080">tutu</span>, <span style="color:#080">tutu_totsc</span> et ca)</center></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_hammers_icons</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">ICÔNES D'INVENTAIRE DES MARTEAUX DES RUNES<br><br>
+		Ce composant écrase l'icône des Marteaux des Runes et l'attribue au marteau +2 Poing de Borock, puis attribue l'icône de Poing de Borock aux Marteaux des Runes. Voulez-vous appliquer ces modifications ?<br><br>
+		<span style="color: #781808; padding-left:20px;">1 = Oui [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Non, on attribue la nouvelle icône au marteau Poing de Borock, et on laisse aux Marteaux des Runes leur icône originale.</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_potions_icons</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">ICÔNES DE POTIONS MODIFIÉES<br><br>
+		Voulez-vous installer les icônes de potions modifiées ?<br><br>
+		<span style="color: #781808; padding-left:20px;">1 = Oui [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Surtout pas : TOUT sauf les potions !</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; "><strong><span style="color: #781808;">202 Ajustements de sorts</span></strong></td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(<span style="color:#060">BG2</span>, <span style="color:#700">ToB</span>, <span style="color:#080">tutu</span>, <span style="color:#080">tutu_totsc</span> et ca)</center></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_iwd_cause_wounds_icons</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">ICÔNES DE STYLE IWD POUR LES SORTS DE « BLESSURES »<br><br>
+		Voulez-vous que les sorts de « blessures » existants utilisent des icônes au design de IWD ? (icônes de soins en rouge)<br><br>
+		<span style="color: #781808; padding-left:20px;">1 = Oui [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Non, conserver les icônes de BG2 pour les sorts existants.</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_cure_spells_conflict</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">OVERWRITE CAUSE LIGHT WOUNDS AND CAUSE MEDIUM WOUNDS SPELLS<br><br>
+		If SPPR142/1342 (Cause Light Wounds, Cause Medium Wounds) are already taken by a previously installed mod, proceeding to install may cause issues.<br><br>
+		<span style="color: #781808; padding-left:20px;">1 = Yes, install [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = No, cancel installation</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; "><strong><span style="color: #781808;">400 Mise à jour et modification des objets</span></strong></td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(<span style="color:#060">BG2</span>, <span style="color:#700">ToB</span>, <span style="color:#080">tutu</span>, <span style="color:#080">tutu_totsc</span> et ca). Requiert le composant 200 Corrections de base</center></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_shields_appearance<br><br>
+		Requiert le composant 206 Animations supplémentaires de boucliers</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">VISUEL DES BOUCLIERS<br><br>
+		Ce réglage définit l'apparence standard des boucliers dans le jeu, ou plus exactement la plupart de ceux qui vous trouverez dans les magasins, etc. Il n'affecte pas nécessairement les objets magiques, et ne vous empêche pas de trouver d'autres objets.<br><br>
+		<span style="color: #781808; padding-left:20px;">1 = Le style de 1ppv4 pour Baldur's Gate II [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Le style de Baldur's Gate I</span><br>
+		<span style="padding-left:20px;">3 = Le faux style de Baldur's Gate I (utilise les icônes, mais pas les animations de BG1)</span><br>
+		<span style="padding-left:20px;">4 = Passer cette partie de l'installation.</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_shields_scatter<br><br>
+		Requiert le composant 206 Animations supplémentaires de boucliers</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">DISPERSER LES BOUCLIERS À TRAVERS LE JEU<br><br>
+		Ce réglage determine si les boucliers supplémentaires disponibles sont repartis, ou pas, dans les zones du jeu (sous forme de nouveaux objets, de trésors aléatoires, etc.).<br><br>
+		<span style="color: #781808; padding-left:20px;">1 = Oui [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Non</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_helmets_appearance<br><br>
+		Requiert le composant 208 Animations supplémentaires de casques</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">VISUEL DES CASQUES<br><br>
+		Ce réglage définit l'apparence standard des casques dans le jeu, ou plus exactement la plupart de ceux qui vous trouverez dans les magasins, etc. Il n'affecte pas nécessairement les objets magiques, et ne vous empêche pas de trouver d'autres objets.<br><br>
+		<span style="color: #781808; padding-left:20px;">1 = Le style de 1ppv4 [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Le faux style de Baldur's Gate I (utilise les icônes, mais pas les animations de BG1)</span><br>
+		<span style="padding-left:20px;">3 = Le style de Baldur's Gate II</span><br>
+		<span style="padding-left:20px;">4 = Passer cette partie de l'installation</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_helmets_scatter<br><br>
+		Requiert le composant 208 Animations supplémentaires de casques</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">DISPERSER LES CASQUES À TRAVERS LE JEU<br><br>
+		Ce réglage détermine si les casques supplémentaires disponibles sont répartis, ou pas, dans les zones du jeu (sous forme de nouveaux objets, de trésors aléatoires, etc.).<br><br>
+		<span style="color: #781808; padding-left:20px">1 = Oui [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Non</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_helmets_compatibility<br><br>
+		Requiert le composant 208 Animations supplémentaires de casques</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">COMPATIBILITÉ DES CASQUES<br><br>
+		Ce réglage concerne principalement les objets des mods tiers, et détermine les animations qu'ils utiliseront.<br><br>
+		<span style="color: #781808; padding-left:20px;">1 = Animations au style de Baldur's Gate II modifié [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Animations au style de Baldur's Gate I (option automatique quand 1pp_helmets_appearance = 2)</span><br>
+		<span style="padding-left:20px;">3 = Passer cette partie de l'installation</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_armours_appearance</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">ICÔNES DES ARMURES<br><br>
+		Ce réglage définit le style graphique standard des icônes d'inventaire des armures. Il n'affecte pas nécessairement les objets magiques et ne vous empêche pas de trouver d'autres objets.<br><br>
+		<span style="color: #781808; padding-left:20px;">1 = Le style de 1ppv4 [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Le style de Baldur's Gate I</span><br>
+		<span style="padding-left:20px;">3 = Le style de Baldur's Gate II</span><br>
+		<span style="padding-left:20px;">4 = Passer cette partie de l'installation</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_armours_scatter</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">DISPERSER LES ARMURES À TRAVERS LE JEU<br><br>
+		Ce réglage détermine si les armures alternatives supplémentaires disponibles sont réparties, ou pas, dans les zones du jeu (sous forme de nouveaux objets, de trésors aléatoires, etc.).<br><br>
+		<span style="color: #781808; padding-left:20px">1 = Oui [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Non</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_forced_item_colours</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">COULEURS DES OBJETS PRÉ-DÉFINIES<br><br>
+		Ce réglage détermine si les couleurs des objets portés par les personnages sont fixées et non modifiables. Par défaut, les couleurs des objets magiques sont pré-établies alors que celles des boucliers et casques non magiques ne le sont pas (vous permettant de les personnaliser avec les couleurs de vos vêtements).<br><br>
+		<span style="color: #781808; padding-left:20px;">1 = Oui pour les objets magiques / Non pour les objets non-magiques [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Oui pour tous les objets, qu'ils soient magiques ou pas</span><br>
+		<span style="padding-left:20px;">3 = Oui pour tous les objets, qu'ils soient magiques ou pas, mais ne concerne pas les boucliers au graphisme de BG1</span><br>
+		<span style="padding-left:20px;">4 = Non, ni pour les objets magiques, ni pour les objets non-magiques</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_shields_shadows</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">OMBRES SUR LES PAPERDOLLS (BOUCLIERS<br><br>
+		Normalement, les objets que portent vos personnages ne génèrent pas d'ombre sur les paperdolls. Activez cette option si vous souhaitez que les boucliers projettent des ombres sur les paperdolls.<br><br>
+		<span style="padding-left:20px;">1 = Non</span><br>
+		<span style="color: #781808; padding-left:20px;">2 = Oui [par défaut]</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_helmets_shadows</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">OMBRES SUR LES PAPERDOLLS (CASQUES)<br><br>
+		Normalement, les objets que portent vos personnages ne génèrent pas d'ombre sur les paperdolls. Activez cette option si vous souhaitez que les casques projettent des ombres sur les paperdolls.<br><br>
+		<span style="padding-left:20px;">1 = Non</span><br>
+		<span style="color: #781808; padding-left:20px;">2 = Oui [par défaut]</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_gemlore</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">IDENTIFICATION OBLIGATOIRE DES GEMMES<br><br>
+		Voulez-vous que les gemmes doivent être obligatoirement identifiées ?<br><br>
+		<span style="color: #781808; padding-left:20px;">1 = Oui [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Non</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_tutu_bg1_shields<br><br>
+		(uniquement disponible pour <span style="color:#080">tutu</span> et <span style="color:#080">tutu_totsc</span>)</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">APPLIQUER LE RÉGLAGE DES VISUELS DES BOUCLIERS À CEUX DE Tutu/BG1<br><br>
+		Voulez-vous appliquer le réglage des visuels des boucliers à ceux de Tutu/BG1 (attention : cela remplacera les boucliers par défaut de Tutu) ?<br><br>
+		<span style="color: #781808; padding-left:20px;">1 = Non [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Oui</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_tutu_bg1_helmets<br><br>
+		(uniquement disponible pour <span style="color:#080">tutu</span> et <span style="color:#080">tutu_totsc</span>)</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">APPLIQUER VOS CHOIX D'ICÔNES D'INVENTAIRE POUR LES CASQUES À CEUX DE Tutu/BGl<br><br>
+		Voulez-vous appliquer vos choix d'icônes d'inventaire pour les casques de BG2 à ceux de Tutu/BGl (attention : cela remplacera les casques par défaut de Tutu) ?<br><br>
+		<span style="color: #781808; padding-left:20px">1 = Non [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Oui</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_sleeper</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">TRANSFORMER DORMEUSE EN UN FLÉAU<br><br>
+		Voulez-vous transformer l'étoile du matin +2 The Sleeper en fléau ?<br><br>
+		<span style="color: #781808; padding-left:20px">1 = Oui [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Non, mais installer quand même son icône d'inventaire alternative (IBLUN16B) comme ressource pour les moddeurs.</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; "><strong><span style="color: #781808;">400 Mise à jour et modification des objets</span></strong></td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(<span style="color:#088">HoW</span> et <span style="color:#088">TotLM</span>)</center></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_gemlore</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">IDENTIFICATION OBLIGATOIRE DES GEMMES<br><br>
+		Voulez-vous que les gemmes doivent être obligatoirement identifiées ?<br><br>
+		<span style="color: #781808; padding-left:20px;">1 = Oui [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Non</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_forced_item_colours_iwd</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">ITEM COLOURS FOR NON-MAGICAL ITEMS IN IWD<br><br>
+		Ce réglage détermine si les couleurs des boucliers et des casques non magiques portés par les personnages sont fixées et non modifiables. Par défaut, elles ne le sont pas, vous permettant de les personnaliser avec les couleurs de vos vêtements. Activer cette option définit les couleurs de tous les objets.<br><br>
+		<span style="color: #781808; padding-left:20px">1 = Non [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Oui</span></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; "><strong><span style="color: #781808;">300 Correction des animations des solaires et des élémentaires</span></strong></td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(<span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#080">tutu_totsc</span> et ca)</center></td>
+	</tr>
+	<tr>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_solar_weapons</td>
+		Vous pouvez choisir deux rendus visuels pour les armes portées par les solaires. Lequel préférez-vous ?<br><br>
+		<span style="color: #781808; padding-left:20px">1 = Nouvelle apparence (des objets pleins entourés d'une lueur) [par défaut]</span><br>
+		<span style="padding-left:20px;">2 = Comme dans le jeu BGII de base (formées par une lueur éclatante et floue)</span></td>
+	</tr>
+</table><br>
 
 <div style="text-align:right"><a href="#components">Retour en haut de page</a></div>
 
@@ -88,14 +340,14 @@ Le programme d'installation lira les valeurs des variables dans les deux fichier
 
 ## <a name="components" id="components"></a>Composants
 
-Le programme d'installation comprend les composants suivants. Chacun possède un numéro distinct et pré-défini qui lui attribue une position déterminée (mot-clé <em>DESIGNATED</em> en langage WeiDU) ; ce qui permet aux autres composants de le détecter et aux utilitaires d'installation automatiques comme le BiG World Setup de préciser quels composants installer.
+Le programme d'installation comprend les composants suivants. Chacun possède un numéro distinct et pré-défini qui lui attribue une position déterminée (mot-clé <em>DESIGNATED</em> en langage <acronym title="Weimer Dialogue Utility">WeiDU</acronym>) ; ce qui permet aux autres composants de le détecter et aux utilitaires d'installation automatiques comme le BiG World Setup de préciser quels composants installer.
 
 &#8258; <strong>Contenu concernant le moteur du jeu et les fichiers de base</strong></br>
 ><span style="margin-left: 50px;"><a href="#101">[101] 1ppv4 : Paperdolls (composant principal)</a></span></br>
 ><span style="margin-left: 50px;"><a href="#102">[102-103] 1ppv4 : Couleurs de palette étendues</a></span></br>
-><span style="margin-left: 50px;"><a href="#104">[104] 1ppv4 : Modification de l'interface pour BGII</a></span></br>
+><span style="margin-left: 50px;"><a href="#104">[104] 1ppv4 : Modifications de l'interface pour BGII</a></span></br>
 ><span style="margin-left: 50px;"><a href="#105">[105] 1ppv4 : Corrections d'avatars</a></span></br>
-><span style="margin-left: 50px;"><a href="#106">[106-109] 1ppv4: Femmes naines</a></span></br>
+><span style="margin-left: 50px;"><a href="#106">[106-109] 1ppv4: Avatars de femmes naines</a></span></br>
 ><span style="margin-left: 50px;"><a href="#110">[110-112] 1ppv4 : Des voleurs en pagaille</a></span></br>
 ><span style="margin-left: 50px;"><a href="#113">[113] 1ppv4 : Avatar intelligent & Changement d'armure</a></span></br>
 ><span style="margin-left: 50px;"><a href="#114">[114] 1ppv4 1ppv4 : Rendu des sorts nuancé</a></span></br>
@@ -108,7 +360,7 @@ Le programme d'installation comprend les composants suivants. Chacun possède un 
 ><span style="margin-left: 50px;"><a href="#203">[203] 1ppv4 : Rétablissement des animations d'épées enflammées</a></span></br>
 ><span style="margin-left: 50px;"><a href="#204">[204] 1ppv4 : Coloration des bâtons</a></span></br>
 ><span style="margin-left: 50px;"><a href="#205">[205] 1ppv4 : Boucliers de BG1 v2</a></span></br>
-><span style="margin-left: 50px;"><a href="#206">[206] 1ppv4 : Animations supplémentaires de bouclier (fichiers de base)</a></span></br>
+><span style="margin-left: 50px;"><a href="#206">[206] 1ppv4 : Animations supplémentaires de boucliers (fichiers de base)</a></span></br>
 ><span style="margin-left: 50px;"><a href="#207">[207] 1ppv4 : Bâtons de magiciens (fichiers de base)</a></span></br>
 ><span style="margin-left: 50px;"><a href="#208">[208] 1ppv4 : Animations supplémentaires de casques (fichiers de base)</a></span></br>
 ><span style="margin-left: 50px;"><a href="#209">[209] 1ppv4 : Ailes amovibles (fichiers de base)</a></span></br>
@@ -147,12 +399,12 @@ Disponible pour : <span style="color:#060">SoA</span>, <span style="color:#700">
 
 Ce composant ajoute de nouvelles nuances de couleurs aux jeux Infinity Engine, en faisant passer le nombre de couleurs disponibles de 116 à 256. Il implante aussi une nouvelle table de couleurs aléatoires utilisables par Baldur's Gate II et de nouveaux fichiers de jeux de couleurs pour Icewind Dale II, offrant un choix plus important de couleurs pour définir la peau et les cheveux des différentes races.</br>
 Il corrige aussi quelques problèmes mineurs liés aux nuances standard.</br>
-<a href="1pp/documentation//files/extpal_readme-french.html">Pour en savoir plus »</a></br></br>
+<a href="1pp/documentation/files/extpal_readme-french.html">Pour en savoir plus »</a></br></br>
 
-<strong>Installation minimum pour assurer la compatibilité du mod [102]</strong></br>
+<strong>[102] Installation minimum pour assurer la compatibilité du mod</strong></br>
 Pour les systèmes d'exploitation qui n'acceptent pas le correctif binaire (OSX), ce composant installe les fichiers basiques dont 1pp à besoin pour fonctionner correctement, mais ne permet pas d'utiliser les nouvelles couleurs pour personnaliser les personnages.</br></br>
 
-<strong>Installation complète [103]</strong></br>
+<strong>[103] Installation complète</strong></br>
 L'installation complète modifie l'exécutable du jeu, permettant un usage complet des nouvelles couleurs de palette.</br>
 Avec l'installation complète, les choix supplémentaires de couleurs pour la peau et les cheveux sont disponibles automatiquement dans les écrans du jeu.</br>
 Quant aux couleurs des vêtements, le complément standard de 34 couleurs primaires et secondaires sera disponible dans les écrans de création et de personnalisation de personnage. Pour bénéficier de plus de couleurs de vêtements, il suffit de cliquer sur « Personnaliser » > « Couleurs » dans l'écran des personnages pour accéder à un jeu supplémentaire de 34 couleurs.</br>
@@ -161,14 +413,14 @@ Quant aux couleurs des vêtements, le complément standard de 34 couleurs primaire
 
 ------------------------
 
-### <a name="104" id="104"></a>[104] 1ppv4 : Modification de l'interface pour BGII
+### <a name="104" id="104"></a>[104] 1ppv4 : Modifications de l'interface pour BGII
 
 Disponible pour : <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu (si vous utilisez l'interface classique de BG2)</span></br>
 
 <img src="1pp/documentation/files/104.jpg">
 
 Cette interface retravaillée pour Baldur's Gate II SoA/ToB a pour but d'adoucir les arêtes trop prononcées des écrans sans s'éloigner du design d'origine. Parmi les modifications majeures, une horloge remplace la « boîte » d'origine, les «&#160;parchemins sans bords » de nombreux écrans font place à des parchemins plus réalistes (voir les captures d'écran dans le lien plus bas), et une option permet de modifier les polices de caractères.</br>
-<a href="1pp/documentation//gui_readme-french.html">Plus d'images »</a></br>
+<a href="1pp/documentation/files/gui_readme-french.html">Plus d'images »</a></br>
 
 <div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
 
@@ -188,7 +440,7 @@ Ce composant corrige et améliore plusieurs séries d'animations d'avatars de pers
 
 ------------------------
 
-### <a name="106" id="106"></a>[106-109] 1ppv4 : Femmes naines
+### <a name="106" id="106"></a>[106-109] 1ppv4 : Avatars de femmes naines
 
 <strong>Composant pré-requis : <a href="#101">[101]</a></strong></br>
 Disponible pour : <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
@@ -205,8 +457,8 @@ Ce composant modifie le moteur du jeu de Baldur's Gate II pour qu'il utilise des
 ### <a name="110" id="110"></a>[110-112] 1ppv4 : Des voleurs en pagaille
 
 <strong>Composants pré-requis : <a href="#101">[101]</a> <a href="#106">[106-109]</a></strong>
-###### Note : La manière dont ce composant est codé provoquera l'échec de son installation si le mod Infinity Animations est déjà installé. Pour éviter ce problème, installez IA après lui.
 Disponible pour : <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
+###### Note : La manière dont ce composant est codé provoquera l'échec de son installation si le mod Infinity Animations est déjà installé. Pour éviter ce problème, installez IA après lui.
 
 <img src="1pp/documentation/files/110.jpg">
 
@@ -462,7 +714,7 @@ Ce composant apporte des corrections aux éléments suivants : animations de chien
 <hr>
 
 
-## Remerciements
+## Crésits et remerciements
 
 Pour toute question ou demande d'assistance, veuillez consulter le <a href="http://www.shsforums.net/index.php?showforum=159">forum du mod</a>.
 
@@ -474,12 +726,12 @@ Pour toute question ou demande d'assistance, veuillez consulter le <a href="http
 - <a href="http://www.weidu.org/%7Ethebigg/"><acronym title="Weimer Dialogue Utility">WeiDU</acronym></a> de Wes Weimer, the bigg et Wisp.
 - <a href="http://notepad-plus-plus.org/">Notepad++</a> par l'équipe de Notepad++, Don Ho, et le plug-in de correction orthographique.
 - <a href="http://www.shsforums.net/files/file/1048-weidu-highlighter-for-notepad/">WeiDU Notepad++ Highlighters </a> de Argent77.
-- <a href="http://www.teambg.eu/?page=tools&amp;cat=32">BAM Workshop</a> de Glenn Flansburg.
-- <a href="http://www.shsforums.net/topic/57564-bamworkshop/">BAMWorkshop 2</a> de Andrew Bridges.
 - <a href="https://www.adobe.com/products/photoshop.html">Adobe Photoshop</a>.
 - <a href="http://www.gimp.org/"><acronym title="GNU Image Manipulation Program">GIMP</acronym></a> par l'équipe de the GIMP.
 - <a href="http://www.gamani.com/">GIF Movie Gear</a>.
 - <a href="https://www.autodesk.com/products/3ds-max/overview">3ds Max</a>.
+- <a href="http://www.teambg.eu/?page=tools&amp;cat=32">BAM Workshop</a> de Glenn Flansburg.
+- <a href="http://www.shsforums.net/topic/57564-bamworkshop/">BAMWorkshop 2</a> de Andrew Bridges.
 - <a href="http://www.shsforums.net/files/file/552-developer-files-v2/">1pp dev tools</a> de Erephine.
 - <a href="http://" target="_blank">Hex Editor Neo</a>.
 - <a href="http://" target="_blank">ACDSee Pro</a>.
