@@ -1,4 +1,4 @@
-# <a name="top" id="top"></a>1pp (One Pixel Productions)
+# <a name="top" id="top"></a>1pp (One Pixel Productions) - WIP
 
 ### A Spellhold Studios mod for Infinity Engine game
 
@@ -8,6 +8,10 @@
 <strong>Languages:</strong> English, <a href="README_FR.md">French</a><br />
 <strong>Platforms:</strong> Windows, linux
 
+<strong>Mod Website:</strong> <a href="http://www.spellholdstudios.net/ie/1pp">Spellhold Studios</a><br />
+<strong>Mod forum:</strong> <a href="http://www.shsforums.net/index.php?showforum=159">Infinity Animations</a>
+
+Readme writing in progress... Don't try to download and install this mod as it is a WIP version and its install will fail, because of missing files still in development or in beta testing
 
 <center><a href="#intro">Overview</a> &#x2B25; <a href="#installation">Installation</a> &#x2B25; <a href="#components">Components</a> &#x2B25; <a href="#101">Mod Details</a> &#x2B25; <a href="#credits">Credits</a> &#x2B25; <a href="#version">Version History</a></center></br></br>
 
@@ -722,7 +726,7 @@ Contains the following fixes: dog animations (corrupted palette), sitting static
 
 For support or questions, please visit the <a href="http://www.shsforums.net/index.php?showforum=159">mod forum</a>.
 
-#### Installer & content: Erephine
+#### Installer & content: <a href="http://www.shsforums.net/user/2954-erephine/">Erephine</a>
 
 
 #### Tools used in creation (among others)
@@ -748,11 +752,11 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 
 ## Version History
 
-##### Version 4.2.0 - Month 1x, 2019
+##### Version 4.2.0 - Month day, 2019
 
 a. General overhaul and re-looking
   - Installation options have been moved into 1pp-config-default.ini file. If you want to modify them, please read this <a href="#config">chapter</a>.
-  - Integrated all BWP Fixpack fixes (thanks Lolorian, The Imp and others!).
+  - Integrated all BWP Fixpack fixes (thanks Lollorian, The Imp and others!).
   - Split huge [400] Core updates and item patches component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).
   - Code commented as much as possible.
   - Provided partial <a href="https://www.gibberlings3.net/files/file/969-item-revisions/">Item Revisions</a>, <a href="https://www.gibberlings3.net/files/file/970-spell-revisions/">Spell Revisions</a> and <a href="https://www.gibberlings3.net/files/file/948-iwdification/">IWDification</a> compatibility in a rather soft way: As SR, IR and IWDification are still beta versions, I gave up trying to write a plain compatibility with them. It would be certainly obsolete in a few months, therefore a waste of time.
