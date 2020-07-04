@@ -766,16 +766,17 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 <hr>
 
 
-## <a name="versions" id="versions"></a>Version History
+## <a name="version" id="version"></a>Version History
 
 ##### Version 4.2.0 (Month day, 2020)
 
-a. General overhaul and re-looking
+<ins>a. General overhaul and re-looking</ins>
   - TODO Added *1pp.ini* metadata file to support AL|EN's "Project Infinity".
   - TODO Replaced `AUTHOR` keyword with `SUPPORT`.
   - TODO Added components `DESIGNATED` numbers and `LABELS`.
   - TODO Added "*always.tpa*" library.
   - Commented code as much as possible.
+  - Replaced `GAME_IS` conditions with variables checks to speed up install time.
   - TODO Installation options have been moved into *1pp-config-default.ini* file. If you want to modify them, please read this <a href="#config">chapter</a>.
   - TODO Split huge [400] Core updates and item patches component into smaller ones for more comfortable readability and maintenance (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).
   - TODO Integrated all BWP Fixpack fixes (thanks Lollorian, The Imp and others!).
@@ -797,11 +798,15 @@ a. General overhaul and re-looking
   - Updated WeiDU installer to v246.
   - Uploaded mod to official Spellhold Studios GitHub mirror account.
 
-b. Components specific changes and fixes
+<ins>b. Components specific changes and fixes</ins>
   - [101] 1ppv4: Core paperdolls - main component (101_base.tph, 101_ia.tph, 101_iwd.tph, 101_obj.tph)
     - Copy entire folders instead of infinite lines.
-    - Infinity Animations paperdolls for Legacy animations: Replaced `READLN` action \~*Use 1pp or IWD style female dwarf paperdolls?*\~ with reading new setting (1pp_fdwarf) from *1pp-config-default.ini* or *1pp-config-user.ini* (default value = 2 1pp style).
+    - Infinity Animations paperdolls for Legacy animations (101_ia.tph): Replaced `READLN` action "*Use 1pp or IWD style female dwarf paperdolls?*" with reading new setting (1pp_fdwarf) from *1pp-config-default.ini* or *1pp-config-user.ini* (default value = 2 1pp style).
 	- Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to the creature types.
+
+  - [102-103] 1ppv4: Extended palette entries (102_compat.tph, 103_extpal.tph)
+    - Replaced `GAME_IS` conditions with variables checks to speed up install time.
+    - Copy entire folders instead of infinite lines.
 
   - [114] 1ppv4: Softer Spell Effects (114_effects.tph)
     - Replaced `READLN` action \~*WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS NOT A GOOD IDEA.*\~ with reading '3D Acceleration=1' in baldur.ini, icewind.ini or icewind2.ini before running the component.

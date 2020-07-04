@@ -1,11 +1,26 @@
-// Extended palette entries
-// as-is
+/* =================================================================================================================================================================================== *
+ *                                                                                                                                                                                     *
+ *                                                F O R C E D   C O M P O N E N T   :   E x t e n d e d   p a l e t t e   e n t r i e s                                                *
+ *                                                                                                                                                                                     *
+ * =================================================================================================================================================================================== *
+ *  This component adds new colour gradients to Infinity Engine games, raising the count of available colours from 116 to 256. It also includes a new random colour table making use   *
+ *  of them for Baldur's Gate II and new colour set files for Icewind Dale II, giving you more skin/hair colour choices for the various races.                                         *
+ *  It also fixes a few minor problems with standard gradients.                                                                                                                        *
+ *  This part is a complete install patching the game executable, enabling full use of the extended colour entries.                                                                    *
+ * =================================================================================================================================================================================== *
+ *  change-log:                                                                                                                                                                        *
+ *  -----------                                                                                                                                                                        *
+ *      - Coding simplification:                                                                                                                                                       *
+ *          Replaced `GAME_IS` conditions with variables checks to speed up install time.                                                                                              *
+ *          Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).     *
+ * =================================================================================================================================================================================== */
 
 OUTER_SET fail = 0
 OUTER_SET bpoff = 0x36
 
-PRINT @103000 /* Reading settings.. */
+PRINT @103000 // ~Reading settings...~
 
+SILENT
 COPY ~1pp/core/1pp_ext_pal/files/__setting.bmp~ ~1pp/core/1pp_ext_pal/files/__setting.bmp~
 	PATCH_IF (SOURCE_SIZE = 1336) BEGIN
 		FOR (i = 0 ; i < 256 ; ++i) BEGIN
@@ -13,28 +28,30 @@ COPY ~1pp/core/1pp_ext_pal/files/__setting.bmp~ ~1pp/core/1pp_ext_pal/files/__se
 			SET $gradint(~%i%~) = ((rdgrd & 0x000000ff) << 16 | (rdgrd & 0x0000FF00) | (rdgrd & 0x00FF0000) >> 16)
 		END
 	END ELSE BEGIN
-		PATCH_PRINT @103001 /* __setting.bmp appears to be invalid. */
+		PATCH_PRINT @103001 // ~__setting.bmp appears to be invalid.~
 		SET fail = 1
 	END
 
 ACTION_IF (fail == 1) BEGIN
-	FAIL @103002 /* Error occurred during installation. */
+	FAIL @103002 // ~Error occurred during installation.~
 END
 
 
 // Write references
 OUTER_SET tryweird = 0
 
-PRINT @103003 /* Patching.. */
+PRINT @103003 // ~Patching...~
+SILENT
 
-/*  =======  *
+/* ========= *
  *  BG2-ToB  *
- *  =======  */
-ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
+ * ========= */
+ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // GAME_IS ~bg2 tob tutu tutu_totsc ca~
 	COPY ~bgmain.exe~ ~bgmain.exe~
 		// determine which version of the game is used
 		PATCH_IF (SOURCE_SIZE == 7839790 || SOURCE_SIZE == 7843840) BEGIN	// ToB v26498
-			PATCH_PRINT @103004 /* ToB v26498 found. */
+			PATCH_PRINT @103004 // ~ToB v26498 found.~
+			PATCH_SILENT
 			SET replace_pattern = 0x00AB9B78
 			SET replace_value = 0x00B037B0
 			// write new links ToB
@@ -43,14 +60,15 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 				PATCH_IF (%check_v% = %replace_pattern%) BEGIN
 					WRITE_LONG address %replace_value%
 				END ELSE BEGIN
-					PATCH_PRINT @103005 /* failed at %address% */
-					PATCH_PRINT @103006 /* found %check_v%, should be %replace_pattern% */
+					PATCH_PRINT @103005 // ~failed at %address%~
+					PATCH_PRINT @103006 // ~found %check_v%, should be %replace_pattern%~
 					SET fail = 1
 				END
 			END
 		END
 		ELSE PATCH_IF (SOURCE_SIZE == 7417902) BEGIN	// SoA v23037
-			PATCH_PRINT @103007 /* SoA v23037 found. */
+			PATCH_PRINT @103007 // ~SoA v23037 found.~
+			PATCH_SILENT
 			SET replace_pattern = 0x00A5B200
 			SET replace_value = 0x00AA1728
 			// write new links SoA
@@ -59,27 +77,28 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 				PATCH_IF (%check_v% == %replace_pattern%) BEGIN
 					WRITE_LONG address %replace_value%
 				END ELSE BEGIN
-					PATCH_PRINT @103005 /* failed at %address% */
-					PATCH_PRINT @103006 /* found %check_v%, should be %replace_pattern% */
+					PATCH_PRINT @103005 // ~failed at %address%~
+					PATCH_PRINT @103006 // ~found %check_v%, should be %replace_pattern%~
 					SET fail = 1
 				END
 			END
 		END
 	ACTION_IF (fail == 1) BEGIN
-		FAIL @103008 /* Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only). */
+		FAIL @103008 // ~Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only).~
 	END
 
 END
 
 
-/*  ===  *
+/* ===== *
  *  IWD  *
- *  ===  */
-ACTION_IF (GAME_IS ~totlm how~) BEGIN
+ * ===== */
+ACTION_IF (is_iwd) BEGIN // GAME_IS ~totlm how~
 	COPY ~IDMain.exe~ ~IDMain.exe~
 		// determine which version of the game is used
 		PATCH_IF (SOURCE_SIZE == 6873088) BEGIN	// is IDMain 142
-			PATCH_PRINT @103009 /* IWD v1.4.2 found (TotL). */
+			PATCH_PRINT @103009 // ~IWD v1.4.2 found (TotL).~
+			PATCH_SILENT
 			SET replace_pattern = 0x00A2156C
 			SET replace_value = 0x00A658D4
 			// write new links TotL
@@ -88,14 +107,15 @@ ACTION_IF (GAME_IS ~totlm how~) BEGIN
 				PATCH_IF (%check_v% == %replace_pattern%) BEGIN
 					WRITE_LONG address %replace_value%
 				END ELSE BEGIN
-					PATCH_PRINT @103005 /* failed at %address% */
-					PATCH_PRINT @103006 /* found %check_v%, should be %replace_pattern% */
+					PATCH_PRINT @103005 // ~failed at %address%~
+					PATCH_PRINT @103006 // ~found %check_v%, should be %replace_pattern%~
 					SET fail = 1
 				END
 			END
 		END
 		ELSE PATCH_IF (SOURCE_SIZE == 6840320) BEGIN	// is IDMain 141
-			PATCH_PRINT @103010 /* IWD v1.4.1 found (HoW). */
+			PATCH_PRINT @103010 // ~IWD v1.4.1 found (HoW).~
+			PATCH_SILENT
 			SET replace_pattern = 0x00A19254
 			SET replace_value = 0x00A5D104
 			// write new links HoW
@@ -104,27 +124,28 @@ ACTION_IF (GAME_IS ~totlm how~) BEGIN
 				PATCH_IF (%check_v% == %replace_pattern%) BEGIN
 					WRITE_LONG address %replace_value%
 				END ELSE BEGIN
-					PATCH_PRINT @103005 /* failed at %address% */
-					PATCH_PRINT @103006 /* found %check_v%, should be %replace_pattern% */
+					PATCH_PRINT @103005 // ~failed at %address%~
+					PATCH_PRINT @103006 // ~found %check_v%, should be %replace_pattern%~
 					SET fail = 1
-					END
 				END
 			END
+		END
 	ACTION_IF (fail == 1) BEGIN
-		FAIL @103011 /* Error: could not determine which version of IWD you are using. Make sure your game is patched to 1.4.1 (HoW) or 1.4.2 (TotL). */
+		FAIL @103011 // ~Error: could not determine which version of IWD you are using. Make sure your game is patched to 1.4.1 (HoW) or 1.4.2 (TotL).~
 	END
 
 END
 
 
-/*  ====  *
+/* ====== *
  *  IWD2  *
- *  ====  */
-ACTION_IF (GAME_IS ~iwd2~) BEGIN
+ * ====== */
+ACTION_IF (is_iwd2) BEGIN // GAME_IS ~iwd2~
 	COPY ~IWD2.exe~ ~IWD2.exe~
 		// trial and error
 		PATCH_IF (SOURCE_SIZE == 5029888) BEGIN	// is IWD2
-			PATCH_PRINT @103012 /* IWD v2.0.1.0 found. */
+			PATCH_PRINT @103012 // ~IWD v2.0.1.0 found.~
+			PATCH_SILENT
 			SET replace_pattern = 0x0085E8D8
 			SET replace_value = 0x008A47D4
 			// write new links IWD2 standard
@@ -133,14 +154,15 @@ ACTION_IF (GAME_IS ~iwd2~) BEGIN
 				PATCH_IF (%check_v% == %replace_pattern%) BEGIN
 					WRITE_LONG address %replace_value%
 				END ELSE BEGIN
-					PATCH_PRINT @103005 /* failed at %address% */
-					PATCH_PRINT @103006 /* found %check_v%, should be %replace_pattern% */
+					PATCH_PRINT @103005 // ~failed at %address%~
+					PATCH_PRINT @103006 // ~found %check_v%, should be %replace_pattern%~
 					SET fail = 1
 				END
 			END
 		END
 		PATCH_IF (%tryweird% == 1) BEGIN	// is odd
-			PATCH_PRINT @103013 /* normal patch failed, weird IWD2.exe suspected. Trying alternate patch. */
+			PATCH_PRINT @103013 // ~normal patch failed, weird IWD2.exe suspected. Trying alternate patch.~
+			PATCH_SILENT
 			SET replace_pattern = 0x0085E8D8
 			SET replace_value = 0x008A47D4
 			// write new links IWD2 Weird
@@ -149,22 +171,23 @@ ACTION_IF (GAME_IS ~iwd2~) BEGIN
 				PATCH_IF (%check_v% == %replace_pattern%) BEGIN
 					WRITE_LONG address %replace_value%
 				END ELSE BEGIN
-					PATCH_PRINT @103005 /* failed at %address% */
-					PATCH_PRINT @103006 /* found %check_v%, should be %replace_pattern% */
+					PATCH_PRINT @103005 // ~failed at %address%~
+					PATCH_PRINT @103006 // ~found %check_v%, should be %replace_pattern%~
 					SET fail = 1
 				END
 			END
 		END
 	ACTION_IF (fail == 1) BEGIN
-		FAIL @103014 /* Error: Unknown type of IWDII executable. */
+		FAIL @103014 //~Error: Unknown type of IWDII executable.~
 	END
 
 END
 
 
-// Write colours
-
-ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
+/* =============== *
+ *  Write colours  *
+ * =============== */
+ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // GAME_IS ~bg2 tob tutu tutu_totsc ca~
 	COPY ~bgmain.exe~ ~bgmain.exe~
 		// determine which version of the game is used, and set the base offset accordingly
 		PATCH_IF (SOURCE_SIZE == 7839790 || SOURCE_SIZE == 7843840) BEGIN	// ToB v26498
@@ -173,7 +196,7 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 		ELSE PATCH_IF (SOURCE_SIZE == 7417902) BEGIN						// SoA v23037
 			SET base_off = 0x6A1728
 		END ELSE BEGIN
-			PATCH_PRINT @103008 /* Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only). */
+			PATCH_PRINT @103008 // ~Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only).~
 			SET fail = 1
 		END
 
@@ -185,7 +208,7 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 		END
 END
 
-ACTION_IF (GAME_IS ~totlm how~) BEGIN
+ACTION_IF (is_iwd) BEGIN // GAME_IS ~totlm how~
 	COPY ~IDMain.exe~ ~IDMain.exe~
 		// determine which version of the game is used, and set the base offset accordingly
 		PATCH_IF (SOURCE_SIZE == 6873088) BEGIN			// is IDMain 142
@@ -194,7 +217,7 @@ ACTION_IF (GAME_IS ~totlm how~) BEGIN
 		ELSE PATCH_IF (SOURCE_SIZE == 6840320) BEGIN	// is IDMain 141
 			SET base_off = 0x65D104
 		END ELSE BEGIN
-			PATCH_PRINT @103011 /* Error: could not determine which version of IWD you are using. Make sure your game is patched to 1.4.1 (HoW) or 1.4.2 (TotL). */
+			PATCH_PRINT @103011 // ~Error: could not determine which version of IWD you are using. Make sure your game is patched to 1.4.1 (HoW) or 1.4.2 (TotL).~
 			SET fail = 1
 		END
 
@@ -206,13 +229,13 @@ ACTION_IF (GAME_IS ~totlm how~) BEGIN
 		END
 END
 
-ACTION_IF (GAME_IS ~iwd2~) BEGIN
+ACTION_IF (is_iwd2) BEGIN // GAME_IS ~iwd2~
 	COPY ~IWD2.exe~ ~IWD2.exe~
 		// determine which version of the game is used, and set the base offset accordingly
 		PATCH_IF (SOURCE_SIZE == 5029888) BEGIN	// is IWD2
 			SET base_off = 0x4A47D4
 		END ELSE BEGIN
-			PATCH_PRINT @103014 /* Error: Unknown type of IWDII executable. */
+			PATCH_PRINT @103014 //~Error: Unknown type of IWDII executable.~
 			SET fail = 1
 		END
 
@@ -225,52 +248,33 @@ ACTION_IF (GAME_IS ~iwd2~) BEGIN
 END
 
 ACTION_IF (fail == 1) BEGIN
-	FAIL @103015 /* Could not patch successfully. */
+	FAIL @103015 // ~Could not patch successfully.~
 END
 
-PRINT @103016 /* Copying files... */
+PRINT @103016 // ~Copying files...~
 
-COPY ~1pp/core/1pp_ext_pal/files/MPALETTE.bmp~ ~override~
-COPY ~1pp/core/1pp_ext_pal/files/MPAL256.bmp~ ~override~
-COPY ~1pp/core/1pp_ext_pal/files/RANGES12.bmp~ ~override~
+SILENT
+COPY ~1pp/core/1pp_ext_pal/files/mpalette.bmp~ ~override~
+COPY ~1pp/core/1pp_ext_pal/files/mpal256.bmp~  ~override~
+COPY ~1pp/core/1pp_ext_pal/files/ranges12.bmp~ ~override~
 
-ACTION_IF (GAME_IS ~iwd2~) BEGIN
-	PRINT @103017 /* Copying IWDII colour tables... */
-	COPY ~1pp/core/1pp_ext_pal/files/iwd2/HAIRAASM.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/HAIRDARK.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/HAIRDWAR.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/HAIRELVN.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/HAIRGNOM.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/HAIRGOLD.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/HAIRGRAY.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/HAIRHORC.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/HAIRNORM.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/HAIRTIEF.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/HAIRWOOD.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/SKINAASM.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/SKINDARK.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/SKINDWAR.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/SKINELVN.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/SKINGNOM.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/SKINGOLD.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/SKINGRAY.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/SKINHORC.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/SKINNORM.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/SKINTIEF.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/SKINWOOD.2DA~ ~override~
-		 ~1pp/core/1pp_ext_pal/files/iwd2/SRLIST.2DA~ ~override~
+ACTION_IF (is_iwd2) BEGIN // ~iwd2~
+	PRINT @103017 // ~Copying IWDII colour tables...~
+	SILENT
+	COPY ~1pp/core/1pp_ext_pal/files/iwd2~ ~override~
 END
 
-ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
-	PRINT @103018 /* Copying BG random colour table... */
-	COPY ~1pp/core/1pp_ext_pal/files/bg/RANDCOLR.2DA~ ~override~
+ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // GAME_IS ~bg2 tob tutu tutu_totsc ca~
+	PRINT @103018 // ~Copying BG random colour table...~
+	SILENT
+	COPY ~1pp/core/1pp_ext_pal/files/bg/randcolr.2da~ ~override~
 END
 
 
-/*  =======  *
- *  BG2-ToB  *
- *  =======  */
-ACTION_IF (GAME_IS ~tob tutu tutu_totsc ca~) BEGIN
+/* ===== *
+ *  ToB  *
+ * ===== */
+ACTION_IF (is_tob OR is_tutu) BEGIN // GAME_IS ~tob tutu tutu_totsc ca~
 
 	CLEAR_ARRAYS
 	// BUILDING ARRAYS
@@ -649,7 +653,7 @@ ACTION_IF (GAME_IS ~tob tutu tutu_totsc ca~) BEGIN
 
 	// uncomment for game files
 	// ACTION_IF (FILE_EXISTS_IN_GAME ~bgmain.exe~) BEGIN
-	COPY ~bgmain.exe~ ~bgmain.exe~	// COPY_EXISTING ~bgmain.exe~ ~override~
+	COPY ~bgmain.exe~ ~bgmain.exe~
 		PATCH_IF (SOURCE_SIZE == 0x77a02e) BEGIN
 			PHP_EACH binarycheck AS value1 => value2 BEGIN
 				PATCH_IF (%value2% <= 0xFF) BEGIN
@@ -1016,7 +1020,7 @@ ACTION_IF (GAME_IS ~tob tutu tutu_totsc ca~) BEGIN
 
 	// uncomment for game files
 	// ACTION_IF (FILE_EXISTS_IN_GAME ~bgmain.exe~) BEGIN
-	COPY ~bgmain.exe~ ~bgmain.exe~	// COPY_EXISTING ~bgmain.exe~ ~override~
+	COPY ~bgmain.exe~ ~bgmain.exe~
 		PATCH_IF (SOURCE_SIZE == 0x77a02e) BEGIN
 			PHP_EACH binarypatch AS value1 => value2 BEGIN
 				PATCH_IF (%value2% <= 0xFF) BEGIN
@@ -1034,13 +1038,13 @@ ACTION_IF (GAME_IS ~tob tutu tutu_totsc ca~) BEGIN
 		END
 
 		ELSE BEGIN
-			PATCH_PRINT @103019 /* Error: the source size does not seem to match. Stopping installation for safety purposes. */
-			PATCH_FAIL @103020 /* Could not patch successfully. Make sure you are using the component for the right version! */
+			PATCH_PRINT @103019 // ~Error: the source size does not seem to match. Stopping installation for safety purposes.~
+			PATCH_FAIL  @103020 // ~Could not patch successfully. Make sure you are using the component for the right version!~
 		END
 	// END// uncomment for game files (end of EXISTS_IN)
 
 	ACTION_IF (fail = 1) BEGIN
-		FAIL @103021 /* Error: Executable does not appear to be compatible. */
+		FAIL @103021 // ~Error: Executable does not appear to be compatible.~
 	END
 
 	CLEAR_ARRAYS

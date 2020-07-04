@@ -9,8 +9,8 @@
  *  change-log:                                                                                                                                                                        *
  *  -----------                                                                                                                                                                        *
  *      - Coding simplification:                                                                                                                                                       *
- *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).     *
-            Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to the creature types.                                                   *
+ *          Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).     *
+ *          Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to the creature types.                                                   *
  * =================================================================================================================================================================================== */
 
 /* ======= *
