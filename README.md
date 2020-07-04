@@ -785,9 +785,9 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
   - TODO Component Improved projectile effects [401] fully re-written: clears duplicated vanilla #89 and #197 opcodes, clones existing effects existants instead of adding new ones...
   - Coding simplification:
     - TODO Replaced macros with functions whenever possible.
-    - TODO Copied entire folders instead of infinite lines (`COPY \~1pp/folder/file.ext\~ \~override\~` or `ACTION_FOR_EACH file IN list BEGIN COPY \~1pp/folder/file.ext\~ \~override\~ END`).
+    - Copied entire folders instead of infinite lines (`COPY \~1pp/folder/file.ext\~ \~override\~` or `ACTION_FOR_EACH file IN list BEGIN COPY \~1pp/folder/file.ext\~ \~override\~ END`).
     - TODO Grouped actions or patches with `ACTION_FOR_EACH` and `PATCH_FOR_EACH` whenever possible.
-    - TODO Used new and more efficient WeiDU functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. ADD_ITEM_EQEFFECT, ALTER_EFFECT and ALTER_ITEM_HEADER replace so many lines of codes!).
+    - TODO Used new and more efficient WeiDU functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. `ADD_ITEM_EQEFFECT`, ALTER_EFFECT and ALTER_ITEM_HEADER replace so many lines of codes!).
     - Avoided copying and overwriting the same files again and again...
   - Updated all readme files (1pp now supports translated readmes).
   - Added French translation (Gwendolyne).
@@ -817,6 +817,11 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
   - [105] 1ppv4: Avatar fixes (105_avatars.tph)
     - Replaced `GAME_IS` conditions with variables checks to speed up install time.
     - Copy entire folders instead of infinite lines.
+
+  - [113] 1ppv4: Smart Avatar & Armour Switching (113_switch.tph)
+    - Replaced `GAME_IS` conditions with variables checks to speed up install time.
+    - Copy entire folders instead of infinite lines.
+    - Used newer and more efficient `ADD_ITEM_EQEFFECT` WeiDU function to replace so many lines of codes.
 
   - [114] 1ppv4: Softer Spell Effects (114_effects.tph)
     - Replaced `READLN` action \~*WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS NOT A GOOD IDEA.*\~ with reading '3D Acceleration=1' in baldur.ini, icewind.ini or icewind2.ini before running the component.

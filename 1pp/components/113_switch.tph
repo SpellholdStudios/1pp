@@ -1,19 +1,26 @@
-// Avatar switching/morphing
-// PATCH ME HAPPY
-
-/*  ==============================================================================================================================================================================  *
+/* ================================================================================================================================================================================ *
+ *                                                                                                                                                                                  *
+ *                                               C O M P O N E N T   :   S m a r t   A v a t a r   &   A r m o u r   S w i t c h i n g                                              *
+ *                                                                                                                                                                                  *
+ * ================================================================================================================================================================================ *
+ *  This component allows armour and robes to properly show up for characters of any class when equipped.                                                                           *
+ * ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
- *    . - Use newer and more efficient WeiDU ADD_ITEM_EQEFFECT function to replace so many lines of codes.                                                                          *
- *  ==============================================================================================================================================================================  */
+ *      - Coding simplification:                                                                                                                                                    *
+ *          Replaced `GAME_IS` conditions with variables checks to speed up install time.                                                                                           *
+ *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ *  		Used newer and more efficient ADD_ITEM_EQEFFECT WeiDU function to replace so many lines of codes.                                                                       *
+ * ================================================================================================================================================================================ */
 
-/*  =======  *
+/* ========= *
  *  BG2-ToB  *
- *  =======  */
-ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
-	PRINT @113000 /* BGII detected */
-	PRINT @113001 /* Installing: Improved Improved Galactygon's Avatar Switching */
-	PRINT @113002 /* Installing avatar switching code and files */
+ * ========= */
+ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // GAME_IS ~bg2 tob tutu tutu_totsc ca~
+	PRINT @113000 // ~BGII detected.~
+	PRINT @113001 // ~Installing : Improved Improved Galactygon's Avatar Switching.~
+	PRINT @113002 // ~Installing avatar switching code and files.~
+	SILENT
 
 	EXTEND_TOP ~baldur.bcs~ ~1pp/core/1pp_thieves_galore/patches/script/script.baf~
 	EXTEND_TOP ~baldur25.bcs~ ~1pp/core/1pp_thieves_galore/patches/script/script.baf~
@@ -21,6 +28,7 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 // the following built on and mostly copied from the BGII Tweak Pack component
 // http://www.gibberlings3.net/bg2tweaks/
 
+/*DEPRECATED as of v4.2.0
 	COPY ~1pp/core/1pp_thieves_galore/patches/switch/fc_dwar2.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/fc_dwarf.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/fc_el2.eff~ ~override~
@@ -35,7 +43,7 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 		 ~1pp/core/1pp_thieves_galore/patches/switch/fc_human.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/ff_dwar2.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/ff_dwarf.eff~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/FF_EL2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/ff_el2.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/ff_elf.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/ff_gnom2.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/ff_gnome.eff~ ~override~
@@ -49,12 +57,12 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 		 ~1pp/core/1pp_thieves_galore/patches/switch/fm_dwarf.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/fm_el2.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/fm_elf.eff~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/FM_GNOM2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/fm_gnom2.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/fm_gnome.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/fm_half2.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/fm_halfl.eff~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/FM_HFOR2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/FM_HFORC.EFF~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/fm_hfor2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/fm_hforc.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/fm_huma2.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/fm_human.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/ft_dwar2.eff~ ~override~
@@ -69,34 +77,34 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 		 ~1pp/core/1pp_thieves_galore/patches/switch/ft_hforc.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/ft_huma2.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/ft_human.eff~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/FX_HUMA2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/FX_HUMAN.EFF~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/fx_huma2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/fx_human.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/lcarmor.spl~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/LCARMOR2.EFF~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/lcarmor2.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/lcarmorc.eff~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/LCARMORC.spl~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/lcarmorc.spl~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/lcarmorf.eff~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/LCARMORF.spl~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/LCARMORM.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/LCARMORM.SPL~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/lcarmorf.spl~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/lcarmorm.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/lcarmorm.spl~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/lcarmort.eff~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/LCARMORT.spl~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/lcarmort.spl~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/lcrobe.spl~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/LCROBE2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/LCUARMRD.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/LCUARMRD.SPL~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/lcrobe2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/lcuarmrd.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/lcuarmrd.spl~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mc_dwar2.eff~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/MC_DWARF.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/mc_dwarf.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mc_el2.eff~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/MC_ELF.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/mc_elf.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mc_gnom2.eff~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/MC_GNOME.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/mc_gnome.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mc_half2.eff~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/MC_HALFL.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/mc_halfl.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mc_hfor2.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/MC_HFORC.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mc_huma2.eff~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/MC_HUMAN.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/mc_human.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mf_dwar2.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mf_dwarf.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mf_el2.eff~ ~override~
@@ -117,10 +125,10 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mm_gnome.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mm_half2.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mm_halfl.eff~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/MM_HFOR2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/MM_HFORC.EFF~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/mm_hfor2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/mm_hforc.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mm_huma2.eff~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/MM_HUMAN.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/mm_human.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mt_dwar2.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mt_dwarf.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mt_el2.eff~ ~override~
@@ -133,15 +141,28 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mt_hforc.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mt_huma2.eff~ ~override~
 		 ~1pp/core/1pp_thieves_galore/patches/switch/mt_human.eff~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/MX_HUMA2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/switch/MX_HUMAN.EFF~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/mx_huma2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/switch/mx_human.eff~ ~override~*/
 
-	ACTION_IF (FILE_EXISTS_IN_GAME ~PROPC101.EFF~) BEGIN
-	END ELSE BEGIN
-		COPY ~1pp/core/1pp_thieves_galore/patches/switch/PROPC101.EFF~ ~override~
+	OUTER_SPRINT file-exc ~propc101.eff ~
+	ACTION_BASH_FOR ~1pp/core/1pp_thieves_galore/patches/switch/~ ~^.+$~ BEGIN
+		ACTION_TO_LOWER %BASH_FOR_FILE%
+		ACTION_TO_LOWER %BASH_FOR_RES%
+		ACTION_IF (~%file-exc%~ STRING_CONTAINS_REGEXP ~%BASH_FOR_FILE%~ = 1) BEGIN
+			COPY ~%BASH_FOR_FILESPEC%~ ~override/%BASH_FOR_FILE%~
+			ACTION_IF FILE_EXISTS_IN_GAME ~%BASH_FOR_RES%.plt~ BEGIN
+				COPY ~1pp/core/ilove.plt~ ~override/%BASH_FOR_RES%.plt~
+			END
+		END
 	END
 
-	PRINT @113003 /* Patching armour and robes (BGII style) */
+	ACTION_IF (FILE_EXISTS_IN_GAME ~propc101.eff~) BEGIN
+	END ELSE BEGIN
+		COPY ~1pp/core/1pp_thieves_galore/patches/switch/propc101.eff~ ~override~
+	END
+
+	PRINT @113003 // ~Patching armour and robes (BGII style).~
+	SILENT
 	COPY_EXISTING_REGEXP GLOB ~^.+\.itm$~ ~override~
 		READ_SHORT 0x1c "itemtype" ELSE 0
 		PATCH_IF (itemtype = 2) BEGIN
@@ -159,17 +180,19 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 END // of ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~)
 
 
-/*  ===  *
+/* ===== *
  *  IWD  *
- *  ===  */
-ACTION_IF (GAME_IS ~totlm how~) BEGIN
-	PRINT @113004 /* IWD HoW/TotLM detected */
-	PRINT @113005 /* Installing: IWD Avatar Switching */
-	PRINT @113006 /* Installing avatar switching files */
+ * ===== */
+ACTION_IF (is_iwd) BEGIN // GAME_IS ~totlm how~
+	PRINT @113004 // ~IWD HoW/TotLM detected.~
+	PRINT @113005 // ~Installing: IWD Avatar Switching.~
+	PRINT @113006 // ~Installing avatar switching files.~
+	SILENT
 
 	COPY ~1pp/core/1pp_thieves_galore/patches/iwd_switch~ ~override~
 
-	PRINT @113007 /* Patching armour and robes (IWD style) */
+	PRINT @113007 // ~Patching armour and robes (IWD style).~
+	SILENT
 	COPY_EXISTING_REGEXP GLOB ~^.+\.itm$~ ~override~
 		READ_SHORT 0x1c "itemtype" ELSE 0
 		PATCH_IF ("%itemtype%" = 2) BEGIN
@@ -201,23 +224,23 @@ ACTION_IF (GAME_IS ~totlm how~) BEGIN
 				INSERT_BYTES %new_bytes% 0x38
 				WRITE_SHORT 104 (%abil_num% + 1)
 				WRITE_LONG  106 (%new_fx_loc%)
-				WRITE_BYTE  (%new_abil_loc% + 0) 0					// attack type
-				WRITE_BYTE  (%new_abil_loc% + 2) 3					// use location
-				WRITE_EVALUATED_ASCII (%new_abil_loc% + 4) ~%icon%~	// use icon
-				WRITE_BYTE  (%new_abil_loc% + 12) 5					// type of target
-				WRITE_BYTE  (%new_abil_loc% + 14) 1					// Range
-				WRITE_SHORT (%new_abil_loc% + 18) 0					// speed
-				WRITE_SHORT (%new_abil_loc% + 22) 6					// dice sides
-				WRITE_SHORT (%new_abil_loc% + 24) 0					// dice rolls
-				WRITE_SHORT (%new_abil_loc% + 28) 1					// damage type
-				WRITE_SHORT (%new_abil_loc% + 36) 1					// charge removal
-				WRITE_LONG  (%new_abil_loc% + 38) 0					// flag: use strength
-				WRITE_SHORT (%new_abil_loc% + 42) 1					// Projectile Type
-				WRITE_SHORT (%new_abil_loc% + 44) 34				// overh
-				WRITE_SHORT (%new_abil_loc% + 46) 33				// backhand
-				WRITE_SHORT (%new_abil_loc% + 48) 33				// thrust
-				WRITE_SHORT (%new_abil_loc% + 30) 3					// # of effects
-				WRITE_SHORT (%new_abil_loc% + 32) %entfx_num%		// Effect index
+				WRITE_BYTE  (%new_abil_loc% + 0) 0				// attack type
+				WRITE_BYTE  (%new_abil_loc% + 2) 3				// use location
+				WRITE_ASCIIE (%new_abil_loc% + 4) ~%icon%~		// use icon
+				WRITE_BYTE  (%new_abil_loc% + 12) 5				// type of target
+				WRITE_BYTE  (%new_abil_loc% + 14) 1				// Range
+				WRITE_SHORT (%new_abil_loc% + 18) 0				// speed
+				WRITE_SHORT (%new_abil_loc% + 22) 6				// dice sides
+				WRITE_SHORT (%new_abil_loc% + 24) 0				// dice rolls
+				WRITE_SHORT (%new_abil_loc% + 28) 1				// damage type
+				WRITE_SHORT (%new_abil_loc% + 36) 1				// charge removal
+				WRITE_LONG  (%new_abil_loc% + 38) 0				// flag: use strength
+				WRITE_SHORT (%new_abil_loc% + 42) 1				// Projectile Type
+				WRITE_SHORT (%new_abil_loc% + 44) 34			// overh
+				WRITE_SHORT (%new_abil_loc% + 46) 33			// backhand
+				WRITE_SHORT (%new_abil_loc% + 48) 33			// thrust
+				WRITE_SHORT (%new_abil_loc% + 30) 3				// # of effects
+				WRITE_SHORT (%new_abil_loc% + 32) %entfx_num%	// Effect index
 
 				SET addeffectone = (%SOURCE_SIZE% + 0x38)
 				SET addeffecttwo = (%SOURCE_SIZE% + 0x30 + 0x38)
@@ -226,59 +249,59 @@ ACTION_IF (GAME_IS ~totlm how~) BEGIN
 				// CAST SPELL
 				SET new_abil_loc = addeffectone
 				INSERT_BYTES %addeffectone% 0x30
-				WRITE_SHORT (%new_abil_loc% + 0x00) 146						// opcode
-				WRITE_BYTE  (%new_abil_loc% + 0x02) 1						// target
-				WRITE_BYTE  (%new_abil_loc% + 0x03) 0						// power
-				WRITE_LONG  (%new_abil_loc% + 0x04) 1						// cast at level
-				WRITE_LONG  (%new_abil_loc% + 0x08) 1						// cast instantly
-				WRITE_BYTE  (%new_abil_loc% + 0x0C) 2						// timing mode
-				WRITE_BYTE  (%new_abil_loc% + 0x0D) 0						// dispel/resist
-				WRITE_LONG  (%new_abil_loc% + 0x0E) 0						// duration
-				WRITE_BYTE  (%new_abil_loc% + 0x12) 100						// probability 1
-				WRITE_BYTE  (%new_abil_loc% + 0x13) 0						// probability 2
-				WRITE_EVALUATED_ASCII (%new_abil_loc% + 0x14) ~%resource%~	// resource
-				WRITE_LONG  (%new_abil_loc% + 0x1C) 0						// #dice/maxlevel
-				WRITE_LONG  (%new_abil_loc% + 0x20) 0						// dicesize/minlevel
-				WRITE_LONG  (%new_abil_loc% + 0x24) 0						// savetype
-				WRITE_LONG  (%new_abil_loc% + 0x28) 0						// savebogus
+				WRITE_SHORT (%new_abil_loc% + 0x00) 146				// opcode
+				WRITE_BYTE  (%new_abil_loc% + 0x02) 1				// target
+				WRITE_BYTE  (%new_abil_loc% + 0x03) 0				// power
+				WRITE_LONG  (%new_abil_loc% + 0x04) 1				// cast at level
+				WRITE_LONG  (%new_abil_loc% + 0x08) 1				// cast instantly
+				WRITE_BYTE  (%new_abil_loc% + 0x0C) 2				// timing mode
+				WRITE_BYTE  (%new_abil_loc% + 0x0D) 0				// dispel/resist
+				WRITE_LONG  (%new_abil_loc% + 0x0E) 0				// duration
+				WRITE_BYTE  (%new_abil_loc% + 0x12) 100				// probability 1
+				WRITE_BYTE  (%new_abil_loc% + 0x13) 0				// probability 2
+				WRITE_ASCIIE (%new_abil_loc% + 0x14) ~%resource%~	// resource
+				WRITE_LONG  (%new_abil_loc% + 0x1C) 0				// #dice/maxlevel
+				WRITE_LONG  (%new_abil_loc% + 0x20) 0				// dicesize/minlevel
+				WRITE_LONG  (%new_abil_loc% + 0x24) 0				// savetype
+				WRITE_LONG  (%new_abil_loc% + 0x28) 0				// savebogus
 
 				//REMOVE SPELL
 				SET new_abil_loc = addeffecttwo
 				INSERT_BYTES %addeffecttwo% 0x30
-				WRITE_SHORT (%new_abil_loc% + 0x00) 172					// opcode
-				WRITE_BYTE  (%new_abil_loc% + 0x02) 1					// target
-				WRITE_BYTE  (%new_abil_loc% + 0x03) 0					// power
-				WRITE_LONG  (%new_abil_loc% + 0x04) 0					// cast at level
-				WRITE_LONG  (%new_abil_loc% + 0x08) 0 					// cast instantly
-				WRITE_BYTE  (%new_abil_loc% + 0x0C) 1					// timing mode
-				WRITE_BYTE  (%new_abil_loc% + 0x0D) 0					// dispel/resist
-				WRITE_LONG  (%new_abil_loc% + 0x0E) 0					// duration
-				WRITE_BYTE  (%new_abil_loc% + 0x12) 100					// probability 1
-				WRITE_BYTE  (%new_abil_loc% + 0x13) 0					// probability 2
-				WRITE_EVALUATED_ASCII (%new_abil_loc% + 0x14) ~liuarm3~	// resource
-				WRITE_LONG  (%new_abil_loc% + 0x1C) 0					// #dice/maxlevel
-				WRITE_LONG  (%new_abil_loc% + 0x20) 0 					// dicesize/minlevel
-				WRITE_LONG  (%new_abil_loc% + 0x24) 0					// savetype
-				WRITE_LONG  (%new_abil_loc% + 0x28) 0 					// savebogus
+				WRITE_SHORT (%new_abil_loc% + 0x00) 172			// opcode
+				WRITE_BYTE  (%new_abil_loc% + 0x02) 1			// target
+				WRITE_BYTE  (%new_abil_loc% + 0x03) 0			// power
+				WRITE_LONG  (%new_abil_loc% + 0x04) 0			// cast at level
+				WRITE_LONG  (%new_abil_loc% + 0x08) 0 			// cast instantly
+				WRITE_BYTE  (%new_abil_loc% + 0x0C) 1			// timing mode
+				WRITE_BYTE  (%new_abil_loc% + 0x0D) 0			// dispel/resist
+				WRITE_LONG  (%new_abil_loc% + 0x0E) 0			// duration
+				WRITE_BYTE  (%new_abil_loc% + 0x12) 100			// probability 1
+				WRITE_BYTE  (%new_abil_loc% + 0x13) 0			// probability 2
+				WRITE_ASCIIE (%new_abil_loc% + 0x14) ~liuarm3~	// resource
+				WRITE_LONG  (%new_abil_loc% + 0x1C) 0			// #dice/maxlevel
+				WRITE_LONG  (%new_abil_loc% + 0x20) 0 			// dicesize/minlevel
+				WRITE_LONG  (%new_abil_loc% + 0x24) 0			// savetype
+				WRITE_LONG  (%new_abil_loc% + 0x28) 0 			// savebogus
 
 				// GIVE INNATE (switch)
 				SET new_abil_loc = addeffectthree
 				INSERT_BYTES %addeffectthree% 0x30
-				WRITE_SHORT (%new_abil_loc% + 0x00) 171					// opcode
-				WRITE_BYTE  (%new_abil_loc% + 0x02) 1					// target
-				WRITE_BYTE  (%new_abil_loc% + 0x03) 0					// power
-				WRITE_LONG  (%new_abil_loc% + 0x04) 0					// cast at level
-				WRITE_LONG  (%new_abil_loc% + 0x08) 0					// cast instantly
-				WRITE_BYTE  (%new_abil_loc% + 0x0C) 1					// timing mode
-				WRITE_BYTE  (%new_abil_loc% + 0x0D) 0 					// dispel/resist
-				WRITE_LONG  (%new_abil_loc% + 0x0E) 0					// duration
-				WRITE_BYTE  (%new_abil_loc% + 0x12) 100					// probability 1
-				WRITE_BYTE  (%new_abil_loc% + 0x13) 0					// probability 2
-				WRITE_EVALUATED_ASCII (%new_abil_loc% + 0x14) ~liuarm3~	// resource
-				WRITE_LONG  (%new_abil_loc% + 0x1C) 0					// #dice/maxlevel
-				WRITE_LONG  (%new_abil_loc% + 0x20) 0					// dicesize/minlevel
-				WRITE_LONG  (%new_abil_loc% + 0x24) 0					// savetype
-				WRITE_LONG  (%new_abil_loc% + 0x28) 0					// savebogus
+				WRITE_SHORT (%new_abil_loc% + 0x00) 171			// opcode
+				WRITE_BYTE  (%new_abil_loc% + 0x02) 1			// target
+				WRITE_BYTE  (%new_abil_loc% + 0x03) 0			// power
+				WRITE_LONG  (%new_abil_loc% + 0x04) 0			// cast at level
+				WRITE_LONG  (%new_abil_loc% + 0x08) 0			// cast instantly
+				WRITE_BYTE  (%new_abil_loc% + 0x0C) 1			// timing mode
+				WRITE_BYTE  (%new_abil_loc% + 0x0D) 0 			// dispel/resist
+				WRITE_LONG  (%new_abil_loc% + 0x0E) 0			// duration
+				WRITE_BYTE  (%new_abil_loc% + 0x12) 100			// probability 1
+				WRITE_BYTE  (%new_abil_loc% + 0x13) 0			// probability 2
+				WRITE_ASCIIE (%new_abil_loc% + 0x14) ~liuarm3~	// resource
+				WRITE_LONG  (%new_abil_loc% + 0x1C) 0			// #dice/maxlevel
+				WRITE_LONG  (%new_abil_loc% + 0x20) 0			// dicesize/minlevel
+				WRITE_LONG  (%new_abil_loc% + 0x24) 0			// savetype
+				WRITE_LONG  (%new_abil_loc% + 0x28) 0			// savebogus
 
 			END
 
@@ -288,212 +311,203 @@ ACTION_IF (GAME_IS ~totlm how~) BEGIN
 END // of ACTION_IF (GAME_IS ~totlm how~)
 
 
-/*  ====  *
+/* ====== *
  *  IWD2  *
- *  ====  */
-ACTION_IF (GAME_IS ~iwd2~) BEGIN
-	PRINT @113008 /* IWDII detected */
-	PRINT @113009 /* Installing: IWDII Avatar Switching */
-	PRINT @113006 /* Installing avatar switching files */
+ * ====== */
+ACTION_IF (is_iwd2) BEGIN // GAME_IS ~iwd2~
+	PRINT @113008 // ~IWDII detected.~
+	PRINT @113009 // ~Installing: IWDII Avatar Switching.~
+	PRINT @113006 // ~Installing avatar switching files.~
+	SILENT
 
-	COPY ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_DWAR0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_DWAR2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_DWARF.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_EL0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_EL2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_ELF.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_GNOM0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_GNOM2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_GNOME.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_HALF0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_HALF2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_HALFL.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_HEL0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_HFOR0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_HFOR2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_HFORC.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_HUMA0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_HUMA2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FC_HUMAN.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_DWAR0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_DWAR2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_DWARF.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_EL0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_EL2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_ELF.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_GNOM0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_GNOM2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_GNOME.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_HALF0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_HALF2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_HALFL.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_HEL0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_HFOR0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_HFOR2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_HFORC.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_HUMA0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_HUMA2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FF_HUMAN.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_DWAR0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_DWAR2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_DWARF.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_EL0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_EL2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_ELF.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_GNOM0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_GNOM2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_GNOME.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_HALF0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_HALF2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_HALFL.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_HEL0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_HFOR0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_HFOR2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_HFORC.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_HUMA0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_HUMA2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FM_HUMAN.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_DWAR0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_DWAR2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_DWARF.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_EL0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_EL2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_ELF.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_GNOM0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_GNOM2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_GNOME.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_HALF0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_HALF2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_HALFL.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_HEL0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_HFOR0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_HFOR2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_HFORC.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_HUMA0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_HUMA2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/FT_HUMAN.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/L2ARMOR.SPL~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/L2ROBE.SPL~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/LICNG2.BAM~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_DWAR0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_DWAR2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_DWARF.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_EL0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_EL2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_ELF.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_GNOM0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_GNOM2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_GNOME.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_HALF0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_HALF2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_HALFL.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_HEL0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_HFOR0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_HFOR2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_HFORC.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_HUMA0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_HUMA2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MC_HUMAN.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_DWAR0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_DWAR2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_DWARF.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_EL0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_EL2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_ELF.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_GNOM0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_GNOM2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_GNOME.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_HALF0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_HALF2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_HALFL.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_HEL0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_HFOR0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_HFOR2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_HFORC.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_HUMA0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_HUMA2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MF_HUMAN.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_DWAR0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_DWAR2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_DWARF.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_EL0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_EL2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_ELF.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_GNOM0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_GNOM2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_GNOME.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_HALF0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_HALF2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_HALFL.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_HEL0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_HFOR0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_HFOR2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_HFORC.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_HUMA0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_HUMA2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MM_HUMAN.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_DWAR0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_DWAR2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_DWARF.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_EL0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_EL2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_ELF.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_GNOM0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_GNOM2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_GNOME.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_HALF0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_HALF2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_HALFL.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_HEL0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_HFOR0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_HFOR2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_HFORC.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_HUMA0.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_HUMA2.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/MT_HUMAN.EFF~ ~override~
-		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/SPIN100.SPL~ ~override~
+/*DEPRECATED as of v4.2.0
+	COPY ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_dwar0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_dwar2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_dwarf.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_el0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_el2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_elf.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_gnom0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_gnom2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_gnome.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_half0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_half2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_halfl.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_hel0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_hfor0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_hfor2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_hforc.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_huma0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_huma2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fc_human.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_dwar0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_dwar2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_dwarf.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_el0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_el2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_elf.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_gnom0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_gnom2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_gnome.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_half0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_half2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_halfl.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_hel0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_hfor0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_hfor2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_hforc.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_huma0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_huma2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ff_human.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_dwar0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_dwar2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_dwarf.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_el0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_el2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_elf.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_gnom0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_gnom2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_gnome.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_half0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_half2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_halfl.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_hel0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_hfor0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_hfor2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_hforc.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_huma0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_huma2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/fm_human.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_dwar0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_dwar2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_dwarf.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_el0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_el2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_elf.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_gnom0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_gnom2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_gnome.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_half0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_half2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_halfl.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_hel0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_hfor0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_hfor2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_hforc.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_huma0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_huma2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/ft_human.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/l2armor.spl~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/l2robe.spl~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/licng2.bam~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_dwar0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_dwar2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_dwarf.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_el0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_el2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_elf.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_gnom0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_gnom2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_gnome.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_half0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_half2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_halfl.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_hel0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_hfor0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_hfor2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_hforc.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_huma0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_huma2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mc_human.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_dwar0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_dwar2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_dwarf.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_el0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_el2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_elf.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_gnom0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_gnom2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_gnome.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_half0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_half2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_halfl.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_hel0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_hfor0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_hfor2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_hforc.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_huma0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_huma2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mf_human.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_dwar0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_dwar2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_dwarf.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_el0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_el2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_elf.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_gnom0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_gnom2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_gnome.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_half0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_half2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_halfl.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_hel0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_hfor0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_hfor2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_hforc.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_huma0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_huma2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mm_human.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_dwar0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_dwar2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_dwarf.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_el0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_el2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_elf.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_gnom0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_gnom2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_gnome.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_half0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_half2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_halfl.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_hel0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_hfor0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_hfor2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_hforc.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_huma0.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_huma2.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/mt_human.eff~ ~override~
+		 ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/spin100.spl~ ~override~
 
-	COPY ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/PRE_M01.WAV~ ~override~
+	COPY ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/pre_m01.wav~ ~override~*/
 
-	PRINT @113010 /* Copying .2da */
-	COPY ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/LISTINNT.2DA~ ~override~
+	OUTER_SPRINT file-exc ~listinnt.2da ~
+	ACTION_BASH_FOR ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/~ ~^.+$~ BEGIN
+		ACTION_TO_LOWER %BASH_FOR_FILE%
+		ACTION_IF (~%file-exc%~ STRING_CONTAINS_REGEXP ~%BASH_FOR_FILE%~ = 1) BEGIN
+			COPY ~%BASH_FOR_FILESPEC%~ ~override/%BASH_FOR_FILE%~
+		END
+	END
 
-	PRINT @113011 /* Patching armour and robes (IWDII style) */
+	PRINT @113010 // ~Copying .2da~
+	SILENT
+	COPY ~1pp/core/1pp_thieves_galore/patches/iwd2_switch/listinnt.2da~ ~override~
+
+	PRINT @113011 // ~Patching armour and robes (IWDII style).~
+	SILENT
 	COPY_EXISTING_REGEXP GLOB ~^.+\.itm$~ ~override~
-		READ_ASCII 0x22 "itemtype" (2)
-		PATCH_IF (("%itemtype%" STRING_COMPARE_CASE "2a" = 0) OR
-				  ("%itemtype%" STRING_COMPARE_CASE "3a" = 0) OR
-				  ("%itemtype%" STRING_COMPARE_CASE "4a" = 0) OR
-				  ("%itemtype%" STRING_COMPARE_CASE "2w" = 0) OR
-				  ("%itemtype%" STRING_COMPARE_CASE "3w" = 0) OR
-				  ("%itemtype%" STRING_COMPARE_CASE "4w" = 0)
-				 ) BEGIN
-			READ_ASCII 0x22 "anim" (2)
-			READ_LONG  0x64 "abil_off"
-			READ_SHORT 0x68 "abil_num"
-			READ_LONG  0x6a "fx_off"
-			READ_SHORT 0x70 "fx_num"
-			SET "new_fx" = 1
-			FOR (loops = 0 ; loops < abil_num ; loops = loops + 1) BEGIN	// adjusts effects on abilities up by new_fx
-				READ_SHORT  (0x20 + "%abil_off%" + ("%loops%" * 0x38)) "abil_fx_idx"
-				WRITE_SHORT (0x20 + "%abil_off%" + ("%loops%" * 0x38)) ("%abil_fx_idx%" + "%new_fx%")
-			END
-			WRITE_SHORT 0x70 ("%fx_num%" + "%new_fx%")
-			INSERT_BYTES ("%fx_off%" +        ("%fx_num%" * 0x30)) 0x30	// new effect
-			WRITE_SHORT ("%fx_off%" +        ("%fx_num%" * 0x30)) 146	// cast spell
-			WRITE_BYTE  ("%fx_off%" + 0x02 + ("%fx_num%" * 0x30)) 1		// target self
-			WRITE_LONG  ("%fx_off%" + 0x04 + ("%fx_num%" * 0x30)) 1		// cast at level
-			WRITE_BYTE  ("%fx_off%" + 0x08 + ("%fx_num%" * 0x30)) 1		// cast instantly? yes
-			WRITE_BYTE  ("%fx_off%" + 0x0c + ("%fx_num%" * 0x30)) 1		// instant/while equipped
-			WRITE_BYTE  ("%fx_off%" + 0x12 + ("%fx_num%" * 0x30)) 100	// probability 100
-			PATCH_IF (
-					  ("%anim%" STRING_COMPARE_CASE "2w" = 0) OR
+		READ_ASCII 0x22 "anim" (2)
+		PATCH_IF (("%anim%" STRING_COMPARE_CASE "2a" = 0) OR
+				  ("%anim%" STRING_COMPARE_CASE "3a" = 0) OR
+				  ("%anim%" STRING_COMPARE_CASE "4a" = 0) OR
+				  ("%anim%" STRING_COMPARE_CASE "2w" = 0) OR
+				  ("%anim%" STRING_COMPARE_CASE "3w" = 0) OR
+				  ("%anim%" STRING_COMPARE_CASE "4w" = 0)) BEGIN
+			PATCH_IF (("%anim%" STRING_COMPARE_CASE "2w" = 0) OR
 					  ("%anim%" STRING_COMPARE_CASE "3w" = 0) OR
-					  ("%anim%" STRING_COMPARE_CASE "4w" = 0)
-					 ) BEGIN // if robe
-				WRITE_ASCII  ("%fx_off%" + 0x14 + ("%fx_num%" * 0x30)) ~l2robe~  // robe spell effect
+					  ("%anim%" STRING_COMPARE_CASE "4w" = 0)) BEGIN // if robe
+				LPF ADD_ITEM_EQEFFECT INT_VAR insert_point = "-1" opcode = 146 target = 1 timing = 2 parameter1 = 1 parameter2 = 1 STR_VAR resource = l2crobe END	// robe spell effect
 			END ELSE BEGIN
-				WRITE_ASCII  ("%fx_off%" + 0x14 + ("%fx_num%" * 0x30)) ~l2armor~ // armor spell effect
+				LPF ADD_ITEM_EQEFFECT INT_VAR insert_point = "-1" opcode = 146 target = 1 timing = 2 parameter1 = 1 parameter2 = 1 STR_VAR resource = l2carmor END	// armor spell effect
 			END
 		END
 	BUT_ONLY
