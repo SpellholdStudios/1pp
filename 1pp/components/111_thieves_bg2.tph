@@ -1,26 +1,30 @@
-// 1ppv4 Thieves Galore!
-// NOTE: IWD HoW .exe patching is only required if you'd like to have armour and chain mail on thieves.
-// (leather and unarmoured work fine) | IWD II should not need it at all.
-// +Unique animations for different thief armour levels
-
-/*  ==============================================================================================================================================================================  *
+/* ================================================================================================================================================================================ *
+ *                                                                                                                                                                                  *
+ *                                                  C O M P O N E N T   :   U n i q u e   T h i e f   A v a t a r s   f o r   B G 2                                                 *
+ *                                                                                                                                                                                  *
+ * ================================================================================================================================================================================ *
+ *  This component will patch your executable to support full thief animation sequences and install content for them (Unique animations for different thief armour levels).         *
+ *  Note: IWD HoW .exe patching is only required if you'd like to have armour and chain mail on thieves.                                                                            *
+ *  (leather and unarmoured work fine) | IWD II should not need it at all.                                                                                                          *
+ * ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
  *      - Coding simplification:                                                                                                                                                    *
  *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
- *  ==============================================================================================================================================================================  */
+ * ================================================================================================================================================================================ */
 
-/*  =================  *
+/* =================== *
  *  EXE PATCH BG2-ToB  *
- *  =================  */
-
+ * =================== */
+SILENT
 OUTER_SET fail = 0
 OUTER_SET found = 0
 
 ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN
 	COPY ~BGMain.exe~ ~BGMain.exe~
 		PATCH_IF (SOURCE_SIZE == 7417902) BEGIN // is BGMain SoA
-			PATCH_PRINT @111000 /* BGII SoA found (v23037) */
+			PATCH_PRINT @111000 // ~BGII SoA found (v23037).~
+			PATCH_SILENT
 			SET found = 1
 			READ_BYTE "0x40136D" "check_r"
 			PATCH_IF ("%check_r%" = 0xC2) BEGIN
@@ -869,7 +873,8 @@ ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_C
 
 	COPY ~BGMain.exe~ ~BGMain.exe~
 		PATCH_IF (SOURCE_SIZE == 7839790) BEGIN // is BGMain ToB
-			PATCH_PRINT @111001 /* BGII ToB found (v26498) */
+			PATCH_PRINT @111001 // ~BGII ToB found (v26498).~
+			PATCH_SILENT
 			SET found = 1
 			READ_BYTE "0x444848" "check_r"
 			PATCH_IF ("%check_r%" = 0xC2) BEGIN
@@ -1700,21 +1705,22 @@ ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_C
 		END
 
 	ACTION_IF (fail = 1) BEGIN
-		FAIL @103015 /* Could not patch successfully. */
+		FAIL @103015 // ~Could not patch successfully.~
 	END
 
 	ACTION_IF (found != 1) BEGIN
-		FAIL @111002 /* Type of executable is unknown. Make sure your game is patched to v26498 (ToB) or v23037 (SoA). */
+		FAIL @111002 // ~Type of executable is unknown. Make sure your game is patched to v26498 (ToB) or v23037 (SoA).~
 	END
 
 END // of ACTION_IF
 
 
-/*  ================  *
+/* ================== *
  *  COPY NEW CONTENT  *
- *  ================  */
+ * ================== */
 
-PRINT @106002 /* Copying new files... */
+PRINT @106002 // ~Copying new files.~
+SILENT
 
 /* --------------------------------------------------- *
  *  CDFT1 - Female unarmoured dwarven thief            *
@@ -1737,151 +1743,154 @@ PRINT @106002 /* Copying new files... */
  *  CIMT2 - Female halfling thief with leather armour  *
  *  CIMT3 - Male halfling thief with chain mail        *
  * --------------------------------------------------- */
-COPY ~1pp/core/1pp_thieves_galore/files/CDFT1~ ~override~
-COPY ~1pp/core/1pp_thieves_galore/files/CDFT3~ ~override~
-COPY ~1pp/core/1pp_thieves_galore/files/CDMT1~ ~override~
-COPY ~1pp/core/1pp_thieves_galore/files/CDMT3~ ~override~
-COPY ~1pp/core/1pp_thieves_galore/files/CEFT1~ ~override~
-COPY ~1pp/core/1pp_thieves_galore/files/CEFT2~ ~override~
-COPY ~1pp/core/1pp_thieves_galore/files/CEFT3~ ~override~
-COPY ~1pp/core/1pp_thieves_galore/files/CEMT1~ ~override~
-COPY ~1pp/core/1pp_thieves_galore/files/CEMT3~ ~override~
-COPY ~1pp/core/1pp_thieves_galore/files/CHFT1~ ~override~
-COPY ~1pp/core/1pp_thieves_galore/files/CHFT2~ ~override~
-COPY ~1pp/core/1pp_thieves_galore/files/CHFT3~ ~override~
-COPY ~1pp/core/1pp_thieves_galore/files/CHMT1~ ~override~
-COPY ~1pp/core/1pp_thieves_galore/files/CHMT3~ ~override~
-COPY ~1pp/core/1pp_thieves_galore/files/CIFT1~ ~override~
-COPY ~1pp/core/1pp_thieves_galore/files/CIFT3~ ~override~
-COPY ~1pp/core/1pp_thieves_galore/files/CIMT1~ ~override~
-COPY ~1pp/core/1pp_thieves_galore/files/CIMT2~ ~override~
-COPY ~1pp/core/1pp_thieves_galore/files/CIMT3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/cdft1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/cdft3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/cdmt1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/cdmt3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/ceft1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/ceft2~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/ceft3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/cemt1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/cemt3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/chft1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/chft2~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/chft3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/chmt1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/chmt3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/cift1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/cift3~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/cimt1~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/cimt2~ ~override~
+COPY ~1pp/core/1pp_thieves_galore/files/cimt3~ ~override~
 
 
-/*  ==========  *
+/* ============ *
  *  PAPERDOLLS  *
- *  ==========  */
+ * ============ */
 
-PRINT @111003 /* Paperdolls (BGII install) */
+PRINT @111003 /* Paperdolls (BGII install). */
+SILENT
 
-ACTION_FOR_EACH paperdoll IN ~CDFT1INV~ ~CDFT2INV~ ~CDFT3INV~ ~CDMT1INV~ ~CDMT2INV~ ~CDMT3INV~ ~CEFT1INV~ ~CEFT2INV~ ~CEFT3INV~ ~CEMT1INV~ ~CEMT2INV~ ~CEMT3INV~ ~CGFT1INV~ ~CGFT2INV~ ~CGFT3INV~ ~CGMT1INV~ ~CGMT2INV~ ~CGMT3INV~ ~CHFT1INV~ ~CHFT2INV~ ~CHFT3INV~ ~CHMT1INV~ ~CHMT2INV~ ~CHMT3INV~ ~CIFT1INV~ ~CIFT2INV~ ~CIFT3INV~ ~CIMT1INV~ ~CIMT2INV~ ~CIMT3INV~ ~COFT1INV~ ~COFT2INV~ ~COFT3INV~ ~COMT1INV~ ~COMT3INV~ BEGIN
+ACTION_FOR_EACH paperdoll IN ~cdft1inv~ ~cdft2inv~ ~cdft3inv~ ~cdmt1inv~ ~cdmt2inv~ ~cdmt3inv~ ~ceft1inv~ ~ceft2inv~ ~ceft3inv~ ~cemt1inv~ ~cemt2inv~ ~cemt3inv~ ~cgft1inv~ ~cgft2inv~ ~cgft3inv~ ~cgmt1inv~ ~cgmt2inv~ ~cgmt3inv~ ~chft1inv~ ~chft2inv~ ~chft3inv~ ~chmt1inv~ ~chmt2inv~ ~chmt3inv~ ~cift1inv~ ~cift2inv~ ~cift3inv~ ~cimt1inv~ ~cimt2inv~ ~cimt3inv~ ~coft1inv~ ~coft2inv~ ~coft3inv~ ~comt1inv~ ~comt3inv~ BEGIN
 
-	COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+	COPY ~1pp/core/1ppfixed/%paperdoll%.bam~ ~override~
 
 	ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
-		COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.plt~
 	END
 
 END
 
 
-/*  ==============================  *
+/* ================================ *
  *  CLONING PLATE ARMOR ANIMATIONS  *
- *  ==============================  */
+ * ================================ */
 // We are duplicating the plate armour animations here to avoid massive crashing
 
-PRINT @110001 /* Creating T4 duplicates.. */
+PRINT @110001 // ~Paperdolls (BGII install).~
+SILENT
 
-ACTION_FOR_EACH category IN ~DF~ ~DM~ ~EF~ ~HF~ ~HM~ ~IF~ ~IM~ BEGIN
-	ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~G11~ ~G12~ ~G13~ ~G14~ ~G15~ ~G16~ ~G17~ ~G18~ ~G19~ ~SA~ ~SS~ ~SX~ BEGIN
-		COPY_EXISTING ~C%category%F4%sequence%.bam~ ~override/C%category%T4%sequence%.bam~
+ACTION_FOR_EACH category IN ~df~ ~dm~ ~ef~ ~hf~ ~hm~ ~if~ ~im~ BEGIN
+	ACTION_FOR_EACH sequence IN ~a1~ ~a2~ ~a3~ ~a4~ ~a5~ ~a6~ ~a7~ ~a8~ ~a9~ ~ca~ ~g1~ ~g11~ ~g12~ ~g13~ ~g14~ ~g15~ ~g16~ ~g17~ ~g18~ ~g19~ ~sa~ ~ss~ ~sx~ BEGIN
+		COPY_EXISTING ~c%category%f4%sequence%.bam~ ~override/c%category%t4%sequence%.bam~
 	END
 END
 
-COPY_EXISTING 	~CEMC4A1.BAM~	~override/CEMT4A1.BAM~
-				~CEMC4A2.BAM~	~override/CEMT4A2.BAM~
-				~CEMC4A3.BAM~	~override/CEMT4A3.BAM~
-				~CEMC4A4.BAM~	~override/CEMT4A4.BAM~
-				~CEMC4A5.BAM~	~override/CEMT4A5.BAM~
-				~CEMC4A6.BAM~	~override/CEMT4A6.BAM~
-				~CEMC4A7.BAM~	~override/CEMT4A7.BAM~
-				~CEMC4A8.BAM~	~override/CEMT4A8.BAM~
-				~CEMC4A9.BAM~	~override/CEMT4A9.BAM~
-				~CEMC4CA.BAM~	~override/CEMT4CA.BAM~
-				~CEMC4G1.BAM~	~override/CEMT4G1.BAM~
-				~CEMC4G11.BAM~	~override/CEMT4G11.BAM~
-				~CEMC4G12.BAM~	~override/CEMT4G12.BAM~
-				~CEMC4G13.BAM~	~override/CEMT4G13.BAM~
-				~CEMC4G14.BAM~	~override/CEMT4G14.BAM~
-				~CEMC4G15.BAM~	~override/CEMT4G15.BAM~
-				~CEMC4G16.BAM~	~override/CEMT4G16.BAM~
-				~CEMC4G17.BAM~	~override/CEMT4G17.BAM~
-				~CEMC4G18.BAM~	~override/CEMT4G18.BAM~
-				~CEMC4G19.BAM~	~override/CEMT4G19.BAM~
-				~CEMC4SA.BAM~	~override/CEMT4SA.BAM~
-				~CEMC4SS.BAM~	~override/CEMT4SS.BAM~
-				~CEMC4SX.BAM~	~override/CEMT4SX.BAM~
+COPY_EXISTING 	~cemc4a1.bam~	~override/cemt4a1.bam~
+				~cemc4a2.bam~	~override/cemt4a2.bam~
+				~cemc4a3.bam~	~override/cemt4a3.bam~
+				~cemc4a4.bam~	~override/cemt4a4.bam~
+				~cemc4a5.bam~	~override/cemt4a5.bam~
+				~cemc4a6.bam~	~override/cemt4a6.bam~
+				~cemc4a7.bam~	~override/cemt4a7.bam~
+				~cemc4a8.bam~	~override/cemt4a8.bam~
+				~cemc4a9.bam~	~override/cemt4a9.bam~
+				~cemc4ca.bam~	~override/cemt4cA.bam~
+				~cemc4g1.bam~	~override/cemt4g1.bam~
+				~cemc4g11.bam~	~override/cemt4g11.bam~
+				~cemc4g12.bam~	~override/cemt4g12.bam~
+				~cemc4g13.bam~	~override/cemt4g13.bam~
+				~cemc4g14.bam~	~override/cemt4g14.bam~
+				~cemc4g15.bam~	~override/cemt4g15.bam~
+				~cemc4g16.bam~	~override/cemt4g16.bam~
+				~cemc4g17.bam~	~override/cemt4g17.bam~
+				~cemc4g18.bam~	~override/cemt4g18.bam~
+				~cemc4g19.bam~	~override/cemt4g19.bam~
+				~cemc4sa.bam~	~override/cemt4sa.bam~
+				~cemc4ss.bam~	~override/cemt4ss.bam~
+				~cemc4sx.bam~	~override/cemt4sx.bam~
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~CDFF4INV.BAM~) BEGIN
-	COPY_EXISTING ~CDFF4INV.BAM~ ~override/CDFT4INV.BAM~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~cdff4inv.bam~) BEGIN
+	COPY_EXISTING ~cdff4inv.bam~ ~override/cdft4inv.bam~
 END ELSE BEGIN
-	COPY_EXISTING ~CDFF4INV.PLT~ ~override/CDFT4INV.PLT~
+	COPY_EXISTING ~cdff4inv.plt~ ~override/cdft4inv.plt~
 END
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~CDMF4INV.BAM~) BEGIN
-	COPY_EXISTING ~CDMF4INV.BAM~ ~override/CDMT4INV.BAM~
+ACTION_IF (FILE_EXISTS_IN_GAME ~cdmf4inv.bam~) BEGIN
+	COPY_EXISTING ~cdmf4inv.bam~ ~override/cdmt4inv.bam~
 END ELSE BEGIN
-	COPY_EXISTING ~CDMF4INV.PLT~ ~override/CDMT4INV.PLT~
+	COPY_EXISTING ~cdmf4inv.plt~ ~override/cdmt4inv.plt~
 END
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~CEFF4INV.BAM~) BEGIN
-	COPY_EXISTING ~CEFF4INV.BAM~ ~override/CEFT4INV.BAM~
+ACTION_IF (FILE_EXISTS_IN_GAME ~ceff4inv.bam~) BEGIN
+	COPY_EXISTING ~ceff4inv.bam~ ~override/ceft4inv.bam~
 END ELSE BEGIN
-	COPY_EXISTING ~CEFF4INV.PLT~ ~override/CEFT4INV.PLT~
+	COPY_EXISTING ~ceff4inv.plt~ ~override/ceft4inv.plt~
 END
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~CEMF4INV.BAM~) BEGIN
-	COPY_EXISTING ~CEMC4INV.BAM~ ~override/CEMT4INV.BAM~
+ACTION_IF (FILE_EXISTS_IN_GAME ~cemf4inv.bam~) BEGIN
+	COPY_EXISTING ~cemc4inv.bam~ ~override/cemt4inv.bam~
 END ELSE BEGIN
-	COPY_EXISTING ~CEMC4INV.PLT~ ~override/CEMT4INV.PLT~
+	COPY_EXISTING ~cemc4inv.plt~ ~override/cemt4inv.plt~
 END
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~CHFF4INV.BAM~) BEGIN
-	COPY_EXISTING ~CHFF4INV.BAM~ ~override/CHFT4INV.BAM~
+ACTION_IF (FILE_EXISTS_IN_GAME ~chff4inv.bam~) BEGIN
+	COPY_EXISTING ~chff4inv.bam~ ~override/chft4inv.bam~
 END ELSE BEGIN
-	COPY_EXISTING ~CHFF4INV.PLT~ ~override/CHFT4INV.PLT~
+	COPY_EXISTING ~chff4inv.plt~ ~override/chft4inv.plt~
 END
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~CHMF4INV.BAM~) BEGIN
-	COPY_EXISTING ~CHMF4INV.BAM~ ~override/CHMT4INV.BAM~
+ACTION_IF (FILE_EXISTS_IN_GAME ~chmf4inv.bam~) BEGIN
+	COPY_EXISTING ~chmf4inv.bam~ ~override/chmt4inv.bam~
 END ELSE BEGIN
-	COPY_EXISTING ~CHMF4INV.PLT~ ~override/CHMT4INV.PLT~
+	COPY_EXISTING ~chmf4inv.plt~ ~override/chmt4inv.plt~
 END
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~COFF4INV.BAM~) BEGIN
-	COPY_EXISTING ~COFF4INV.BAM~ ~override/COFT4INV.BAM~
+ACTION_IF (FILE_EXISTS_IN_GAME ~coff4inv.bam~) BEGIN
+	COPY_EXISTING ~coff4inv.bam~ ~override/coft4inv.bam~
 END ELSE BEGIN
-	COPY_EXISTING ~COFF4INV.PLT~ ~override/COFT4INV.PLT~
+	COPY_EXISTING ~coff4inv.plt~ ~override/coft4inv.plt~
 END
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~COMF4INV.BAM~) BEGIN
-	COPY_EXISTING ~COMF4INV.BAM~ ~override/COMT4INV.BAM~
+ACTION_IF (FILE_EXISTS_IN_GAME ~comf4inv.bam~) BEGIN
+	COPY_EXISTING ~comf4inv.bam~ ~override/comt4inv.bam~
 END ELSE BEGIN
-	COPY_EXISTING ~COMF4INV.PLT~ ~override/COMT4INV.PLT~
+	COPY_EXISTING ~comf4inv.plt~ ~override/comt4inv.plt~
 END
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~CIFF4INV.BAM~) BEGIN
-	COPY_EXISTING ~CIFF4INV.BAM~ ~override/CIFT4INV.BAM~
+ACTION_IF (FILE_EXISTS_IN_GAME ~ciff4inv.bam~) BEGIN
+	COPY_EXISTING ~ciff4inv.bam~ ~override/cift4inv.bam~
 END ELSE BEGIN
-	COPY_EXISTING ~CIFF4INV.PLT~ ~override/CIFT4INV.PLT~
+	COPY_EXISTING ~ciff4inv.plt~ ~override/cift4inv.plt~
 END
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~CIMF4INV.BAM~) BEGIN
-	COPY_EXISTING ~CIMF4INV.BAM~ ~override/CIMT4INV.BAM~
+ACTION_IF (FILE_EXISTS_IN_GAME ~cimf4inv.bam~) BEGIN
+	COPY_EXISTING ~cimf4inv.bam~ ~override/cimt4inv.bam~
 END ELSE BEGIN
-	COPY_EXISTING ~CIMF4INV.PLT~ ~override/CIMT4INV.PLT~
+	COPY_EXISTING ~cimf4inv.plt~ ~override/cimt4inv.plt~
 END
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~CGFF4INV.BAM~) BEGIN
-	COPY_EXISTING ~CGFF4INV.BAM~ ~override/CGFT4INV.BAM~
+ACTION_IF (FILE_EXISTS_IN_GAME ~cgff4inv.bam~) BEGIN
+	COPY_EXISTING ~cgff4inv.bam~ ~override/cgft4inv.bam~
 END ELSE BEGIN
-	COPY_EXISTING ~CGFF4INV.PLT~ ~override/CGFT4INV.PLT~
+	COPY_EXISTING ~cgff4inv.plt~ ~override/cgft4inv.plt~
 END
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~CGMF4INV.BAM~) BEGIN
-	COPY_EXISTING ~CGMF4INV.BAM~ ~override/CGMT4INV.BAM~
+ACTION_IF (FILE_EXISTS_IN_GAME ~cgmf4inv.bam~) BEGIN
+	COPY_EXISTING ~cgmf4inv.bam~ ~override/cgmt4inv.bam~
 END ELSE BEGIN
-	COPY_EXISTING ~CGMF4INV.PLT~ ~override/CGMT4INV.PLT~
+	COPY_EXISTING ~cgmf4inv.plt~ ~override/cgmt4inv.plt~
 END
 
 // END of COMPONENT
