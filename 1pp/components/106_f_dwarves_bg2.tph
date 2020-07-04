@@ -1,21 +1,23 @@
-// 1ppv4 Female dwarves, BGII
-// finally
-// .exe patching and relevant code courtesy of Mike1072 <3
-// experimental IWD .exe patching to be blamed on me.
+/* ================================================================================================================================================================================= *
+ *                                                                                                                                                                                   *
+ *                                                       C O M P O N E N T   :   F e m a l e   D w a r v e s   f o r   B G I I                                                       *
+ *                                                                                                                                                                                   *
+ * ================================================================================================================================================================================= *
+ *  This component patches Baldur's Gate II engine games to use separate avatar animations for female dwarves and mages of small races, and includes game content for all of these.  *
+ *  .exe patching and relevant code courtesy of Mike1072.                                                                                                                            *
+ * ================================================================================================================================================================================= *
+ *  change-log:                                                                                                                                                                      *
+ *  -----------                                                                                                                                                                      *
+ *      - Coding simplification:                                                                                                                                                     *
+ *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).   *
+ * ================================================================================================================================================================================= */
 
-/*  ==============================================================================================================================================================================  *
- *  change-log:                                                                                                                                                                     *
- *  -----------                                                                                                                                                                     *
- *      - Coding simplification:                                                                                                                                                    *
- *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
- *  ==============================================================================================================================================================================  */
-
+SILENT
 OUTER_SET fail = 0
 
-/* ====================  *
+/* ===================== *
  *  PATCHING BGMAIN.EXE  *
- *  ===================  */
-
+ * ===================== */
 ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN	// don't have mac info yet
 	// patch executable to write references to new avatars
 	COPY ~bgmain.exe~ ~bgmain.exe~
@@ -30,7 +32,7 @@ ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_C
 			SET base_off = 0x6ecba4
 		END
 		ELSE BEGIN
-			PATCH_PRINT @103008 /* Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only). */
+			PATCH_PRINT @103008 // ~Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only).~
 			SET fail = 1
 		END
 
@@ -59,7 +61,7 @@ ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_C
 				PATCH_IF (~%cur_val%~ STRING_EQUAL_CASE ~%old_val%~) BEGIN // ensures we don't write over wrong part of .exe
 					WRITE_ASCIIE actual_off ~%new_val%~ #4
 				END ELSE BEGIN
-					PATCH_PRINT @106000 /* Error: the value we are trying to replace at offset %actual_off% (%cur_val%) in bgmain does not match what was expected (%old_val%). Stopping installation for safety purposes. */
+					PATCH_PRINT @106000 // ~Error: the value we are trying to replace at offset %actual_off% (%cur_val%) in bgmain does not match what was expected (%old_val%). Stopping installation for safety purposes.~
 					SET fail = 1
 				END
 			END
@@ -67,15 +69,16 @@ ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_C
 END	// of ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~)
 
 ACTION_IF (fail == 1) BEGIN
-	FAIL @106001 /* Could not patch bgmain successfully. */
+	FAIL @106001 // ~Could not patch bgmain successfully.~
 END
 
 
-/* =============================================  *
+/* ============================================== *
  *  INSTALLING THE ACTUAL COMPONENT CONTENT, YAY  *
- *  ============================================  */
+ * ============================================== */
 
-PRINT @106002 /* Copying new files */
+PRINT @106002 // ~Copying new files.~
+SILENT
 
 /* ----------------------------------------------------- *
  *  CDFB1 - Female unarmoured dwarves                    *
@@ -89,26 +92,27 @@ PRINT @106002 /* Copying new files */
  *  CDFW3 - Female dwarven/gnome mage with medium robes  *
  *  CDFW4 - Female dwarven/gnome mage with heavy robes   *
  * ----------------------------------------------------- */
-COPY ~1pp/core/1pp_female_dwarves/CDFB1~ ~override~
-COPY ~1pp/core/1pp_female_dwarves/CDFB2~ ~override~
-COPY ~1pp/core/1pp_female_dwarves/CDFB3~ ~override~
-COPY ~1pp/core/1pp_female_dwarves/CDFC4~ ~override~
-COPY ~1pp/core/1pp_female_dwarves/CDFF4~ ~override~
-COPY ~1pp/core/1pp_female_dwarves/CDFT2~ ~override~
-COPY ~1pp/core/1pp_female_dwarves/CDFW1~ ~override~
-COPY ~1pp/core/1pp_female_dwarves/CDFW2~ ~override~
-COPY ~1pp/core/1pp_female_dwarves/CDFW3~ ~override~
-COPY ~1pp/core/1pp_female_dwarves/CDFW4~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdfb1~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdfb2~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdfb3~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdfc4~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdff4~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdft2~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdfw1~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdfw2~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdfw3~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdfw4~ ~override~
 
 
-PRINT @106003 /* Updating paperdolls */
+PRINT @106003 // ~Updating paperdolls.~
+SILENT
 
-ACTION_FOR_EACH paperdoll IN ~CDFC1INV~ ~CDFC2INV~ ~CDFC3INV~ ~CDFC4INV~ ~CDFF1INV~ ~CDFF2INV~ ~CDFF3INV~ ~CDFF4INV~ ~CDFT1INV~ ~CDFT2INV~ ~CDFW1INV~ ~CDFW2INV~ ~CDFW3INV~ ~CDFW4INV~ BEGIN
+ACTION_FOR_EACH paperdoll IN ~cdfc1inv~ ~cdfc2inv~ ~cdfc3inv~ ~cdfc4inv~ ~cdff1inv~ ~cdff2inv~ ~cdff3inv~ ~cdff4inv~ ~cdft1inv~ ~cdft2inv~ ~cdfw1inv~ ~cdfw2inv~ ~cdfw3inv~ ~cdfw4inv~ BEGIN
 
-	COPY ~1pp/core/1ppfixed/%paperdoll%.BAM~ ~override~
+	COPY ~1pp/core/1ppfixed/%paperdoll%.bam~ ~override~
 
 	ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
-		COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.plt~
 	END
 
 END

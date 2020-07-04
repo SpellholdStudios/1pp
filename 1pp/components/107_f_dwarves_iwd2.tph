@@ -1,21 +1,23 @@
-// 1ppv4 Female dwarves, IWDII
-// finally
-// .exe patching and relevant code courtesy of Mike1072 <3
-// experimental IWD .exe patching to be blamed on me.
+/* ================================================================================================================================================================================= *
+ *                                                                                                                                                                                   *
+ *                                                      C O M P O N E N T   :   F e m a l e   D w a r v e s   f o r   I W D I I                                                      *
+ *                                                                                                                                                                                   *
+ * ================================================================================================================================================================================= *
+ *  This component patches Baldur's Gate II engine games to use separate avatar animations for female dwarves and mages of small races, and includes game content for all of these.  *
+ *  .exe patching and relevant code courtesy of Mike1072. experimental IWD .exe patching to be blamed on me.                                                                         *
+ * ================================================================================================================================================================================= *
+ *  change-log:                                                                                                                                                                      *
+ *  -----------                                                                                                                                                                      *
+ *      - Coding simplification:                                                                                                                                                     *
+ *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).   *
+ * ================================================================================================================================================================================= */
 
-/*  ==============================================================================================================================================================================  *
- *  change-log:                                                                                                                                                                     *
- *  -----------                                                                                                                                                                     *
- *      - Coding simplification:                                                                                                                                                    *
- *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
- *  ==============================================================================================================================================================================  */
-
+SILENT
 OUTER_SET fail = 0
 
-/* ==================  *
+/* =================== *
  *  PATCHING IWD2.EXE  *
- *  =================  */
-
+ * =================== */
 ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN	// don't have mac info yet
 
 	COPY ~IWD2.exe~ ~IWD2.exe~
@@ -797,15 +799,16 @@ ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_C
 END	// of ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~)
 
 ACTION_IF (fail = 1) BEGIN
-	FAIL @103020 /* Could not patch successfully. Make sure you are using the component for the right version! */
+	FAIL @103020 // ~Could not patch successfully. Make sure you are using the component for the right version!~
 END
 
 
-/* =============================================  *
+/* ============================================== *
  *  INSTALLING THE ACTUAL COMPONENT CONTENT, YAY  *
- *  ============================================  */
+ * ============================================== */
 
 PRINT @106002 /* Copying new files */
+SILENT
 
 /* ----------------------------------------------------- *
  *  CDFB1 - Female unarmoured dwarves                    *
@@ -819,15 +822,15 @@ PRINT @106002 /* Copying new files */
  *  CDFW3 - Female dwarven/gnome mage with medium robes  *
  *  CDFW4 - Female dwarven/gnome mage with heavy robes   *
  * ----------------------------------------------------- */
-COPY ~1pp/core/1pp_female_dwarves/CDFB1~ ~override~
-COPY ~1pp/core/1pp_female_dwarves/CDFB2~ ~override~
-COPY ~1pp/core/1pp_female_dwarves/CDFB3~ ~override~
-COPY ~1pp/core/1pp_female_dwarves/CDFC4~ ~override~
-COPY ~1pp/core/1pp_female_dwarves/CDFF4~ ~override~
-COPY ~1pp/core/1pp_female_dwarves/CDFT2~ ~override~
-COPY ~1pp/core/1pp_female_dwarves/CDFW1~ ~override~
-COPY ~1pp/core/1pp_female_dwarves/CDFW2~ ~override~
-COPY ~1pp/core/1pp_female_dwarves/CDFW3~ ~override~
-COPY ~1pp/core/1pp_female_dwarves/CDFW4~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdfb1~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdfb2~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdfb3~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdfc4~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdff4~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdft2~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdfw1~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdfw2~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdfw3~ ~override~
+COPY ~1pp/core/1pp_female_dwarves/cdfw4~ ~override~
 
 // END of COMPONENT
