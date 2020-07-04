@@ -129,7 +129,7 @@ Please read the <a href="1pp/1pp-config-english.txt">1pp-config-language.txt</a>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; padding-left:5px; padding-right:5px; ">(<span style="color:#060">BG2</span>, <span style="color:#700">ToB</span>, <span style="color:#080">tutu</span>, <span style="color:#080">tutu_totsc</span> and ca)</td>
 	</tr>
 	<tr>
-		<td style="border: 1px solid #781808; text-align: center; ">1pp_gui</td>
+		<td style="border: 1px solid #781808; text-align: center; ">1pp_gui_soa</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">SoA STYLE LOADING SCREENS FOR ToB<br><br>
 		Do you want to include SoA style loading screens for ToB?<br><br>
 		<span style="color: #781808; padding-left:20px;">1 = Yes [default]</span><br>
@@ -139,8 +139,8 @@ Please read the <a href="1pp/1pp-config-english.txt">1pp-config-language.txt</a>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_updated_fonts</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">UPDATED FONTS<br><br>
 		Install updated fonts? (may cause issues with languages using different font .BAMs)<br><br>
-		<span style="color: #781808; padding-left:20px;">1 = Yes [default]</span><br>
-		<span style="padding-left:20px;">2 = Keep fonts unchanged</span></td>
+		<span style="color: #781808; padding-left:20px;">1 = Yes</span><br>
+		<span style="padding-left:20px;">2 = Keep fonts unchanged [default]</span></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_mixed_labels<br><br>
@@ -801,10 +801,14 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 <ins>b. Components specific changes and fixes</ins>
   - [101] 1ppv4: Core paperdolls - main component (101_base.tph, 101_ia.tph, 101_iwd.tph, 101_obj.tph)
     - Copy entire folders instead of infinite lines.
-    - Infinity Animations paperdolls for Legacy animations (101_ia.tph): Replaced `READLN` action "*Use 1pp or IWD style female dwarf paperdolls?*" with reading new setting (1pp_fdwarf) from *1pp-config-default.ini* or *1pp-config-user.ini* (default value = 2 1pp style).
+    - Infinity Animations paperdolls for Legacy animations (101_ia.tph): Replaced `READLN` action "*Use 1pp or IWD style female dwarf paperdolls?*" with reading new setting (1pp_fdwarf) from *1pp-config-default.ini* or *1pp-config-user.ini* [default value = 2 (1pp style)].
 	- Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to the creature types.
 
   - [102-103] 1ppv4: Extended palette entries (102_compat.tph, 103_extpal.tph)
+    - Replaced `GAME_IS` conditions with variables checks to speed up install time.
+    - Copy entire folders instead of infinite lines.
+
+  - [104] 1ppv4: GUI additions for BGII (104_core.tph)
     - Replaced `GAME_IS` conditions with variables checks to speed up install time.
     - Copy entire folders instead of infinite lines.
 

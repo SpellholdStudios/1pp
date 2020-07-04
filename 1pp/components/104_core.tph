@@ -1,45 +1,51 @@
-// replaces images and .chu files
-// note: should be *reasonably* compatible with proper WeiDU GUI patches
-// widescreen mod/similar may have to be (re)installed after this, someone please test this
-
-/*  ==============================================================================================================================================================================  *
+/* ================================================================================================================================================================================ *
+ *                                                                                                                                                                                  *
+ *                                                        C O M P O N E N T   :   G U I   a d d i t i o n s   f o r   B G I I                                                       *
+ *                                                                                                                                                                                  *
+ * ================================================================================================================================================================================ *
+ *  This component installs a reworked graphical user interface for Baldur's Gate II SoA/ToB.                                                                                       *
+ *  It replaces images and .chu files.                                                                                                                                              *
+ *  Note: it should be *reasonably* compatible with proper WeiDU GUI patches. Widescreen mod/similar may have to be (re)installed after this, someone please test this.             *
+ * ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
- *      - Variables needed for installation (1pp_gui, 1pp_updated_fonts and 1pp_mixed_labels) are read from 1pp-config-default.ini or 1pp-config.ini files.                         *
+ *      - Variables needed for installation (1pp_gui_soa, 1pp_updated_fonts and 1pp_mixed_labels) are read from 1pp-config-default.ini or 1pp-config-user.ini files.                *
+ *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is     *
  *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is     *
  *        installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file    *
  *        provides a standard installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and   *
- *        save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini,    *
- *        the installation process will prevent any installation failure by reverting it back to its default value.                                                                 *
+ *        save this file as 1pp-config-user.ini. The installation process will read both .ini files and prioritize user values. If a value is not set or mismatched in user's file  *
+ *        1pp-config-user.ini, the installation process will prevent any installation failure by reverting it back to its default value.                                            *
  *      - Coding simplification:                                                                                                                                                    *
+ *          Replaced `GAME_IS` conditions with variables checks to speed up install time.                                                                                           *
  *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
- *  ==============================================================================================================================================================================  */
+ * ================================================================================================================================================================================ */
 
-ACTION_IF (GAME_IS ~tutu tutu_totsc~) BEGIN
-	PRINT @104000 /* warning: install this *only* if using BGII's standard GUI. */
+ACTION_IF (is_tutu) BEGIN // GAME_IS ~tutu tutu_totsc~
+	PRINT @104000 // ~Warning: install this *only* if using BGII's standard GUI.~
 END
 
+SILENT
 COPY ~1pp/core/1pp_gui/files~	~override~
 COPY ~1pp/core/1pp_gui/chu~		~override~
 
 
-/*  ====================================================  *
+/* ====================================================== *
  *  Make ToB loading images/pictures & screens SoA style  *
- *  ====================================================  */
-ACTION_IF (1pp_gui = 1) BEGIN
+ * ====================================================== */
+ACTION_IF (1pp_gui_soa = 1) BEGIN
 
 	COPY ~1pp/core/1pp_gui/altload~ ~override~
 
 END
 
 
-/*  ====================================================  *
- *  Separated due to potential language issues?
- *  Install updated fonts and *
- *  ====================================================  */
+/* ============================================= *
+ *  Install updated fonts and mixed case labels  *
+ * ============================================= */
 ACTION_IF (1pp_updated_fonts = 1) BEGIN
 
-	ACTION_FOR_EACH item IN ~REALMS.BAM~ ~STONEBIG.BAM~ ~STONESML.BAM~ BEGIN
+	ACTION_FOR_EACH item IN ~realms.bam~ ~stonebig.bam~ ~stonesml.bam~ BEGIN
 		COPY ~1pp/core/1pp_gui/fonts/%item%~ ~override~
 	END
 
