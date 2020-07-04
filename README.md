@@ -61,7 +61,7 @@ This mod is designed to work on the following classical Infinity Engine games:
 1pp is a WeiDU mod, and therefore should be compatible with all WeiDU mods. However, we cannot test every single one. If you encounter any bugs, please report them on the forum!
 
 BG2 and TOB players are also strongly recommended to download and install the <a href="http://www.gibberlings3.net/bg2fixpack/">BG2 Fixpack</a> before proceeding with the installation of this mod.</br>
-<div style="text-align:right"><a href="#top">Back to top</a></div>
+<div align="right"><a href="#top">Back to top</a></div>
 
 
 <hr>
@@ -800,6 +800,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 
 <ins>b. Components specific changes and fixes</ins>
   - [101] 1ppv4: Core paperdolls - main component (101_base.tph, 101_ia.tph, 101_iwd.tph, 101_obj.tph)
+    - Replaced `GAME_IS` conditions with variables checks to speed up install time.
     - Copy entire folders instead of infinite lines.
     - Infinity Animations paperdolls for Legacy animations (101_ia.tph): Replaced `READLN` action "*Use 1pp or IWD style female dwarf paperdolls?*" with reading new setting (1pp_fdwarf) from *1pp-config-default.ini* or *1pp-config-user.ini* [default value = 2 (1pp style)].
 	- Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to the creature types.
@@ -809,6 +810,11 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
     - Copy entire folders instead of infinite lines.
 
   - [104] 1ppv4: GUI additions for BGII (104_core.tph)
+    - Replaced `GAME_IS` conditions with variables checks to speed up install time.
+    - Copy entire folders instead of infinite lines.
+    - Replaced `READLN` actions "*Do you want to include SoA style loading screens for ToB?*", "*Install updated fonts? (may cause issues with languages using different font .BAMs)*" and "*Use mixed case labels?*" with reading new settings (1pp_gui_soa, 1pp_updated_fonts and 1pp_mixed_labels) from *1pp-config-default.ini* or *1pp-config-user.ini*.
+
+  - [105] 1ppv4: Avatar fixes (105_avatars.tph)
     - Replaced `GAME_IS` conditions with variables checks to speed up install time.
     - Copy entire folders instead of infinite lines.
 
