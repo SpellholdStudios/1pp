@@ -1,11 +1,27 @@
-// base and iwd install IWD HoW
-// This includes paperdolls for otherwise still pristine games
+/* =================================================================================================================================================================================== *
+ *                                                                                                                                                                                     *
+ *                                                           C O R E   C O M P O N E N T   :   C o r e   p a p e r d o l l s                                                           *
+ *                                                                                                                                                                                     *
+ * =================================================================================================================================================================================== *
+ *  This component ports Baldur's Gate I style paperdolls for the IWD engine.                                                                                                          *
+ *  This part installs paperdolls for IWD base and HoW installs and includes paperdolls for otherwise still pristine games.                                                            *
+ * =================================================================================================================================================================================== *
+ *  change-log:                                                                                                                                                                        *
+ *  -----------                                                                                                                                                                        *
+ *      - Coding simplification:                                                                                                                                                       *
+ *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).     *
+            Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to the creature types.                                                   *
+ * =================================================================================================================================================================================== */
 
+/* ======= *
+ *  TotLM  *
+ * ======= */
 ACTION_IF (GAME_IS ~totlm~) BEGIN
 
 	OUTER_SET fail = 0
 
-	PRINT @101400 /* Fixing the train wreck that is half-BG1-half-BG2 paperdoll calls - check */
+	PRINT @101400 // ~Fixing the train wreck that is half-BG1-half-BG2 paperdoll calls - check.~
+	SILENT
 
 	ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN	// don't have mac info yet
 		COPY ~IDmain.exe~ ~IDmain.exe~
@@ -22,7 +38,7 @@ ACTION_IF (GAME_IS ~totlm~) BEGIN
 					WRITE_BYTE 0x3d66e9 0x70
 					WRITE_BYTE 0x3d66ff 0x70
 				END ELSE BEGIN
-					PATCH_PRINT @101401 /* Error: could not determine which version of IWD you are using. Please double check that you installed TotLM (v1.4.2) */
+					PATCH_PRINT @101401 // ~Error: could not determine which version of IWD you are using. Please double check that you installed TotLM (v1.4.2).~
 					SET fail = 1
 				END
 			END
@@ -31,17 +47,21 @@ ACTION_IF (GAME_IS ~totlm~) BEGIN
 	END
 
 	ACTION_IF (fail == 1) BEGIN
-		PRINT @101402 /* Could not patch idmain successfully, skipping. */
+		PRINT @101402 // ~Could not patch idmain successfully, skipping.~
 	END
 
 END
 
 
+/* ===== *
+ *  HoW  *
+ * ===== */
 ACTION_IF (GAME_IS ~how~) BEGIN
 
 	OUTER_SET fail = 0
 
-	PRINT @101400 /* Fixing the train wreck that is half-BG1-half-BG2 paperdoll calls - check */
+	PRINT @101400 // ~Fixing the train wreck that is half-BG1-half-BG2 paperdoll calls - check.~
+	SILENT
 
 	ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN // don't have mac info yet
 		COPY ~IDmain.exe~ ~IDmain.exe~
@@ -58,7 +78,7 @@ ACTION_IF (GAME_IS ~how~) BEGIN
 					WRITE_BYTE 0x3cf8db 0xcc
 					WRITE_BYTE 0x3cf8f1 0xcc
 				END ELSE BEGIN
-					PATCH_PRINT @101403 /* Error: could not determine which version of IWD you are using. Please double check that you installed HoW (v1.4.1) */
+					PATCH_PRINT @101403 // ~Error: could not determine which version of IWD you are using. Please double check that you installed HoW (v1.4.1).~
 					SET fail = 1
 				END
 			END
@@ -67,18 +87,33 @@ ACTION_IF (GAME_IS ~how~) BEGIN
 	END
 
 	ACTION_IF (fail == 1) BEGIN
-		PRINT @101402 /* Could not patch idmain successfully, skipping. */
+		PRINT @101402 // ~Could not patch idmain successfully, skipping.~
 	END
 
 END
 
 
-ACTION_FOR_EACH paperdoll IN ~CDFC1INV~ ~CDFC2INV~ ~CDFC3INV~ ~CDFC4INV~ ~CDFF1INV~ ~CDFF2INV~ ~CDFF3INV~ ~CDFF4INV~ ~CDFT1INV~ ~CDFT2INV~ ~CDFW1INV~ ~CDFW2INV~ ~CDFW3INV~ ~CDFW4INV~ ~CDMC1INV~ ~CDMC2INV~ ~CDMC3INV~ ~CDMC4INV~ ~CDMF1INV~ ~CDMF2INV~ ~CDMF3INV~ ~CDMF4INV~ ~CDMT1INV~ ~CDMT2INV~ ~CDMW1INV~ ~CDMW2INV~ ~CDMW3INV~ ~CDMW4INV~ ~CEFC1INV~ ~CEFC2INV~ ~CEFC3INV~ ~CEFC4INV~ ~CEFF1INV~ ~CEFF2INV~ ~CEFF3INV~ ~CEFF4INV~ ~CEFT1INV~ ~CEFT2INV~ ~CEFW1INV~ ~CEFW2INV~ ~CEFW3INV~ ~CEFW4INV~ ~CEMC1INV~ ~CEMC2INV~ ~CEMC3INV~ ~CEMC4INV~ ~CEMF1INV~ ~CEMF2INV~ ~CEMF3INV~ ~CEMF4INV~ ~CEMT1INV~ ~CEMT2INV~ ~CEMW1INV~ ~CEMW2INV~ ~CEMW3INV~ ~CEMW4INV~ ~CHFC1INV~ ~CHFC2INV~ ~CHFC3INV~ ~CHFC4INV~ ~CHFF1INV~ ~CHFF2INV~ ~CHFF3INV~ ~CHFF4INV~ ~CHFM1INV~ ~CHFT1INV~ ~CHFT2INV~ ~CHFW1INV~ ~CHFW2INV~ ~CHFW3INV~ ~CHFW4INV~ ~CHMC1INV~ ~CHMC2INV~ ~CHMC3INV~ ~CHMC4INV~ ~CHMF1INV~ ~CHMF2INV~ ~CHMF3INV~ ~CHMF4INV~ ~CHMM1INV~ ~CHMT1INV~ ~CHMT2INV~ ~CHMW1INV~ ~CHMW2INV~ ~CHMW3INV~ ~CHMW4INV~ ~CIFC1INV~ ~CIFC2INV~ ~CIFC3INV~ ~CIFC4INV~ ~CIFF1INV~ ~CIFF2INV~ ~CIFF3INV~ ~CIFF4INV~ ~CIFT1INV~ ~CIFT2INV~ ~CIMC1INV~ ~CIMC2INV~ ~CIMC3INV~ ~CIMC4INV~ ~CIMF1INV~ ~CIMF2INV~ ~CIMF3INV~ ~CIMF4INV~ ~CIMT1INV~ ~CIMT2INV~ ~CHFC1INV~ ~CHFC2INV~ ~CHFC3INV~ ~CHFC4INV~ ~CHFF1INV~ ~CHFF2INV~ ~CHFF3INV~ ~CHFF4INV~ ~CHFT1INV~ ~CHFT2INV~ ~CHFW1INV~ ~CHFW2INV~ ~CHFW3INV~ ~CHFW4INV~ BEGIN
+/*DEPRECATED as of v4.2.0
+ACTION_FOR_EACH paperdoll IN ~cdfc1inv~ ~cdfc2inv~ ~cdfc3inv~ ~cdfc4inv~ ~cdff1inv~ ~cdff2inv~ ~cdff3inv~ ~cdff4inv~ ~cdft1inv~ ~cdft2inv~ ~cdfw1inv~ ~cdfw2inv~ ~cdfw3inv~ ~cdfw4inv~ ~cdmc1inv~ ~cdmc2inv~ ~cdmc3inv~ ~cdmc4inv~ ~cdmf1inv~ ~cdmf2inv~ ~cdmf3inv~ ~cdmf4inv~ ~cdmt1inv~ ~cdmt2inv~ ~cdmw1inv~ ~cdmw2inv~ ~cdmw3inv~ ~cdmw4inv~ ~cefc1inv~ ~cefc2inv~ ~cefc3inv~ ~cefc4inv~ ~ceff1inv~ ~ceff2inv~ ~ceff3inv~ ~ceff4inv~ ~ceft1inv~ ~ceft2inv~ ~cefw1inv~ ~cefw2inv~ ~cefw3inv~ ~cefw4inv~ ~cemc1inv~ ~cemc2inv~ ~cemc3inv~ ~cemc4inv~ ~cemf1inv~ ~cemf2inv~ ~cemf3inv~ ~cemf4inv~ ~cemt1inv~ ~cemt2inv~ ~cemw1inv~ ~cemw2inv~ ~cemw3inv~ ~cemw4inv~ ~chfc1inv~ ~chfc2inv~ ~chfc3inv~ ~chfc4inv~ ~chff1inv~ ~chff2inv~ ~chff3inv~ ~chff4inv~ ~chfm1inv~ ~chft1inv~ ~chft2inv~ ~chfw1inv~ ~chfw2inv~ ~chfw3inv~ ~chfw4inv~ ~chmc1inv~ ~chmc2inv~ ~chmc3inv~ ~chmc4inv~ ~chmf1inv~ ~chmf2inv~ ~chmf3inv~ ~chmf4inv~ ~chmm1inv~ ~chmt1inv~ ~chmt2inv~ ~chmw1inv~ ~chmw2inv~ ~chmw3inv~ ~chmw4inv~ ~cifc1inv~ ~cifc2inv~ ~cifc3inv~ ~cifc4inv~ ~ciff1inv~ ~ciff2inv~ ~ciff3inv~ ~ciff4inv~ ~cift1inv~ ~cift2inv~ ~cimc1inv~ ~cimc2inv~ ~cimc3inv~ ~cimc4inv~ ~cimf1inv~ ~cimf2inv~ ~cimf3inv~ ~cimf4inv~ ~cimt1inv~ ~cimt2inv~ 
+~CHFC1INV~ ~CHFC2INV~ ~CHFC3INV~ ~CHFC4INV~ ~CHFF1INV~ ~CHFF2INV~ ~CHFF3INV~ ~CHFF4INV~ ~CHFT1INV~ ~CHFT2INV~ ~CHFW1INV~ ~CHFW2INV~ ~CHFW3INV~ ~CHFW4INV~ BEGIN
 
-	COPY ~1pp/core/base/%paperdoll%.BAM~ ~override~
+	COPY ~1pp/core/base/%paperdoll%.bam~ ~override~
 
 	ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
-		COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.plt~
+	END
+
+END*/
+SILENT
+ACTION_FOR_EACH paperdoll IN ~dwa_f~ ~dwa_m~ ~elf_f~ ~elf_m~ ~hal_f~ ~hal_m~ ~hum_f~ ~hum_m~ BEGIN
+
+	ACTION_BASH_FOR ~1pp/core/base/%paperdoll%/~ ~^.+\.bam$~ BEGIN
+		ACTION_TO_LOWER %BASH_FOR_FILE%
+		ACTION_TO_LOWER %BASH_FOR_RES%
+		COPY ~%BASH_FOR_FILESPEC%~ ~override/%BASH_FOR_FILE%~
+		ACTION_IF FILE_EXISTS_IN_GAME ~%BASH_FOR_RES%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%BASH_FOR_RES%.plt~
+		END
 	END
 
 END

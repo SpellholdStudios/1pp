@@ -1,14 +1,39 @@
-// base install BGII
-// This includes paperdolls for otherwise still pristine games
+/* =================================================================================================================================================================================== *
+ *                                                                                                                                                                                     *
+ *                                                           C O R E   C O M P O N E N T   :   C o r e   p a p e r d o l l s                                                           *
+ *                                                                                                                                                                                     *
+ * =================================================================================================================================================================================== *
+ *  This component ports Baldur's Gate I style paperdolls for the Baldur's Gate II engine.                                                                                             *
+ *  This part installs paperdolls for base install BGII and includes paperdolls for otherwise still pristine games.                                                                    *
+ * =================================================================================================================================================================================== *
+ *  change-log:                                                                                                                                                                        *
+ *  -----------                                                                                                                                                                        *
+ *      - Coding simplification:                                                                                                                                                       *
+ *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).     *
+ *          Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to the creature types.                                                   *
+ * =================================================================================================================================================================================== */
 
-ACTION_FOR_EACH paperdoll IN ~CDFC1INV~ ~CDFC2INV~ ~CDFC3INV~ ~CDFC4INV~ ~CDFF1INV~ ~CDFF2INV~ ~CDFF3INV~ ~CDFF4INV~ ~CDFT1INV~ ~CDFT2INV~ ~CDFW1INV~ ~CDFW2INV~ ~CDFW3INV~ ~CDFW4INV~ ~CDMC1INV~ ~CDMC2INV~ ~CDMC3INV~ ~CDMC4INV~ ~CDMF1INV~ ~CDMF2INV~ ~CDMF3INV~ ~CDMF4INV~ ~CDMT1INV~ ~CDMT2INV~ ~CDMW1INV~ ~CDMW2INV~ ~CDMW3INV~ ~CDMW4INV~ ~CEFC1INV~ ~CEFC2INV~ ~CEFC3INV~ ~CEFC4INV~ ~CEFF1INV~ ~CEFF2INV~ ~CEFF3INV~ ~CEFF4INV~ ~CEFT1INV~ ~CEFT2INV~ ~CEFW1INV~ ~CEFW2INV~ ~CEFW3INV~ ~CEFW4INV~ ~CEMC1INV~ ~CEMC2INV~ ~CEMC3INV~ ~CEMC4INV~ ~CEMF1INV~ ~CEMF2INV~ ~CEMF3INV~ ~CEMF4INV~ ~CEMT1INV~ ~CEMT2INV~ ~CEMW1INV~ ~CEMW2INV~ ~CEMW3INV~ ~CEMW4INV~ ~CGFC1INV~ ~CGFC2INV~ ~CGFC3INV~ ~CGFC4INV~ ~CGFF1INV~ ~CGFF2INV~ ~CGFF3INV~ ~CGFF4INV~ ~CGFT1INV~ ~CGFT2INV~ ~CGFW1INV~ ~CGFW2INV~ ~CGFW3INV~ ~CGFW4INV~ ~CGMC1INV~ ~CGMC2INV~ ~CGMC3INV~ ~CGMC4INV~ ~CGMF1INV~ ~CGMF2INV~ ~CGMF3INV~ ~CGMF4INV~ ~CGMT1INV~ ~CGMT2INV~ ~CGMW1INV~ ~CGMW2INV~ ~CGMW3INV~ ~CGMW4INV~ ~CHFC1INV~ ~CHFC2INV~ ~CHFC3INV~ ~CHFC4INV~ ~CHFF1INV~ ~CHFF2INV~ ~CHFF3INV~ ~CHFF4INV~ ~CHFM1INV~ ~CHFT1INV~ ~CHFT2INV~ ~CHFW1INV~ ~CHFW2INV~ ~CHFW3INV~ ~CHFW4INV~ ~CHMC1INV~ ~CHMC2INV~ ~CHMC3INV~ ~CHMC4INV~ ~CHMF1INV~ ~CHMF2INV~ ~CHMF3INV~ ~CHMF4INV~ ~CHMM1INV~ ~CHMT1INV~ ~CHMT2INV~ ~CHMW1INV~ ~CHMW2INV~ ~CHMW3INV~ ~CHMW4INV~ ~CIFC1INV~ ~CIFC2INV~ ~CIFC3INV~ ~CIFC4INV~ ~CIFF1INV~ ~CIFF2INV~ ~CIFF3INV~ ~CIFF4INV~ ~CIFT1INV~ ~CIFT2INV~ ~CIMC1INV~ ~CIMC2INV~ ~CIMC3INV~ ~CIMC4INV~ ~CIMF1INV~ ~CIMF2INV~ ~CIMF3INV~ ~CIMF4INV~ ~CIMT1INV~ ~CIMT2INV~ ~COFC1INV~ ~COFC2INV~ ~COFC3INV~ ~COFC4INV~ ~COFF1INV~ ~COFF2INV~ ~COFF3INV~ ~COFF4INV~ ~COFT1INV~ ~COFT2INV~ ~COFW1INV~ ~COFW2INV~ ~COFW3INV~ ~COFW4INV~ ~COMC1INV~ ~COMC2INV~ ~COMC3INV~ ~COMC4INV~ ~COMF1INV~ ~COMF2INV~ ~COMF3INV~ ~COMF4INV~ ~COMT1INV~ ~COMT2INV~ ~COMW1INV~ ~COMW2INV~ ~COMW3INV~ ~COMW4INV~ BEGIN
+/*DEPRECATED as of v4.2.0
+ACTION_FOR_EACH paperdoll IN ~cdfc1inv~ ~cdfc2inv~ ~cdfc3inv~ ~cdfc4inv~ ~cdff1inv~ ~cdff2inv~ ~cdff3inv~ ~cdff4inv~ ~cdft1inv~ ~cdft2inv~ ~cdfw1inv~ ~cdfw2inv~ ~cdfw3inv~ ~cdfw4inv~ ~cdmc1inv~ ~cdmc2inv~ ~cdmc3inv~ ~cdmc4inv~ ~cdmf1inv~ ~cdmf2inv~ ~cdmf3inv~ ~cdmf4inv~ ~cdmt1inv~ ~cdmt2inv~ ~cdmw1inv~ ~cdmw2inv~ ~cdmw3inv~ ~cdmw4inv~ ~cefc1inv~ ~cefc2inv~ ~cefc3inv~ ~cefc4inv~ ~ceff1inv~ ~ceff2inv~ ~ceff3inv~ ~ceff4inv~ ~ceft1inv~ ~ceft2inv~ ~cefw1inv~ ~cefw2inv~ ~cefw3inv~ ~cefw4inv~ ~cemc1inv~ ~cemc2inv~ ~cemc3inv~ ~cemc4inv~ ~cemf1inv~ ~cemf2inv~ ~cemf3inv~ ~cemf4inv~ ~cemt1inv~ ~cemt2inv~ ~cemw1inv~ ~cemw2inv~ ~cemw3inv~ ~cemw4inv~ ~cgfc1inv~ ~cgfc2inv~ ~cgfc3inv~ ~cgfc4inv~ ~cgff1inv~ ~cgff2inv~ ~cgff3inv~ ~cgff4inv~ ~cgft1inv~ ~cgft2inv~ ~cgfw1inv~ ~cgfw2inv~ ~cgfw3inv~ ~cgfw4inv~ ~cgmc1inv~ ~cgmc2inv~ ~cgmc3inv~ ~cgmc4inv~ ~cgmf1inv~ ~cgmf2inv~ ~cgmf3inv~ ~cgmf4inv~ ~cgmt1inv~ ~cgmt2inv~ ~cgmw1inv~ ~cgmw2inv~ ~cgmw3inv~ ~cgmw4inv~ ~chfc1inv~ ~chfc2inv~ ~chfc3inv~ ~chfc4inv~ ~chff1inv~ ~chff2inv~ ~chff3inv~ ~chff4inv~ ~chfm1inv~ ~chft1inv~ ~chft2inv~ ~chfw1inv~ ~chfw2inv~ ~chfw3inv~ ~chfw4inv~ ~chmc1inv~ ~chmc2inv~ ~chmc3inv~ ~chmc4inv~ ~chmf1inv~ ~chmf2inv~ ~chmf3inv~ ~chmf4inv~ ~chmm1inv~ ~chmt1inv~ ~chmt2inv~ ~chmw1inv~ ~chmw2inv~ ~chmw3inv~ ~chmw4inv~ ~cifc1inv~ ~cifc2inv~ ~cifc3inv~ ~cifc4inv~ ~ciff1inv~ ~ciff2inv~ ~ciff3inv~ ~ciff4inv~ ~cift1inv~ ~cift2inv~ ~cimc1inv~ ~cimc2inv~ ~cimc3inv~ ~cimc4inv~ ~cimf1inv~ ~cimf2inv~ ~cimf3inv~ ~cimf4inv~ ~cimt1inv~ ~cimt2inv~ ~cofc1inv~ ~cofc2inv~ ~cofc3inv~ ~cofc4inv~ ~coff1inv~ ~coff2inv~ ~coff3inv~ ~coff4inv~ ~coft1inv~ ~coft2inv~ ~cofw1inv~ ~cofw2inv~ ~cofw3inv~ ~cofw4inv~ ~comc1inv~ ~comc2inv~ ~comc3inv~ ~comc4inv~ ~comf1inv~ ~comf2inv~ ~comf3inv~ ~comf4inv~ ~comt1inv~ ~comt2inv~ ~comw1inv~ ~comw2inv~ ~comw3inv~ ~comw4inv~ BEGIN
 
-	COPY ~1pp/core/base/%paperdoll%.BAM~ ~override~
+	COPY ~1pp/core/base/%paperdoll%.bam~ ~override~
 
 	ACTION_IF FILE_EXISTS_IN_GAME ~%paperdoll%.plt~ BEGIN
-		COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.PLT~
+		COPY ~1pp/core/ilove.plt~ ~override/%paperdoll%.plt~
+	END
+
+END*/
+SILENT
+ACTION_FOR_EACH paperdoll IN ~dwa_f~ ~dwa_m~ ~elf_f~ ~elf_m~ ~gno_f~ ~gno_m~ ~hal_f~ ~hal_m~ ~hum_f~ ~hum_m~ ~orc_f~ ~orc_m~ BEGIN
+
+	ACTION_BASH_FOR ~1pp/core/base/%paperdoll%/~ ~^.+\.bam$~ BEGIN
+		ACTION_TO_LOWER %BASH_FOR_FILE%
+		ACTION_TO_LOWER %BASH_FOR_RES%
+		COPY ~%BASH_FOR_FILESPEC%~ ~override/%BASH_FOR_FILE%~
+		ACTION_IF FILE_EXISTS_IN_GAME ~%BASH_FOR_RES%.plt~ BEGIN
+			COPY ~1pp/core/ilove.plt~ ~override/%BASH_FOR_RES%.plt~
+		END
 	END
 
 END
-
 // END of COMPONENT

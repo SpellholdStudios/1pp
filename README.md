@@ -1,19 +1,35 @@
-# <a name="top" id="top"></a>1pp (One Pixel Productions) - WIP
 
-### A Spellhold Studios mod for Infinity Engine game
+![Latest Release](https://img.shields.io/github/v/release/SpellholdStudios/1pp?include_prereleases&color=darkred)<a name="top" id="top"> </a>
+![Platform](https://img.shields.io/static/v1?label=platform&message=windows%20%7C%20linux&color=informational)
+![Language](https://img.shields.io/static/v1?label=language&message=English%20%7C%20French&color=limegreen)
 
 
-<strong>Author:</strong> Erephine<br />
-<strong>Version:</strong> 4.2.0<br />
-<strong>Languages:</strong> English, <a href="README_FR.md">French</a><br />
-<strong>Platforms:</strong> Windows, linux
+<div align="center"><h1>1pp (One Pixel Productions) - WIP</h1>
 
-<strong>Mod Website:</strong> <a href="http://www.spellholdstudios.net/ie/1pp">Spellhold Studios</a><br />
-<strong>Mod forum:</strong> <a href="http://www.shsforums.net/index.php?showforum=159">Infinity Animations</a>
+<h3>A Spellhold Studios mod for Infinity Engine games<h3>
+
+</div><br />
+
+
+**Author:** Erephine<br />  
+<strong>Version:</strong> 4.2.0  
+**Languages:** English, <a href="README_FR.md">French</a>  
+
+**Mod Website:** <a href="http://www.spellholdstudios.net/ie/1pp">Spellhold Studios</a><br />  
+**Mod forum:** <a href="http://www.shsforums.net/forum/159-1pp/">One Pixel Productions</a>  
 
 Readme writing in progress... Don't try to download and install this mod as it is a WIP version and its install will fail, because of missing files still in development or in beta testing
 
-<center><a href="#intro">Overview</a> &#x2B25; <a href="#installation">Installation</a> &#x2B25; <a href="#components">Components</a> &#x2B25; <a href="#101">Mod Details</a> &#x2B25; <a href="#credits">Credits</a> &#x2B25; <a href="#version">Version History</a></center></br></br>
+
+[Read the mod's readme](https://spellholdstudios.github.io/readmes/1pp-readme-english.html)
+
+[Download the mod at Spellhold Studios](http://www.shsforums.net/files/file/1006-1ppv410/)<br>
+
+&nbsp;
+
+<div align="center">
+<a href="#intro">Overview</a> &#x2B25; <a href="#installation">Installation</a> &#x2B25; <a href="#components">Components</a> &#x2B25; <a href="#101">Mod Details</a> &#x2B25; <a href="#credits">Credits</a> &#x2B25; <a href="#version">Version History</a></br>
+</div>
 
 
 <hr>
@@ -24,10 +40,10 @@ Readme writing in progress... Don't try to download and install this mod as it i
 Without a doubt the most comprehensive mod when it comes to post-release QA and visuals, 1pp has been a growing work of love for close to 8 years with the aim of providing a refined, polished experience with attention to detail that many felt was lacking in some aspects of Baldur's Gate II compared to its predecessor.</br></br>
 1ppv4 represents the culmination of this effort, bringing together the various previously disjointed graphical and mechanical tweaks and components that have accumulated over the years and many more besides; updated, streamlined and in the form of one coherent installer.</br>
 
-This mod offers the player the option to change the paperdolls and inventory icons of Baldur's Gate II to those of Baldur's Gate, and adds a number of completely new fixes, additions and alterations to the original BGII game. Technically speaking, One Pixel Productions is an attempt to fix "cosmetic flaws" that should have never made it through QA, as well as improve upon a number of other of things. It contains many <a href="#components">components</a>, including: BG1 Paperdoll and inventory item ports, except for potions, BG1-style Flaming Swords, Flaming Short Swords (with item and mod item patches), new Paperdolls (human, half-orc, elven, halfling, dwarf), legacy Shields, Colourable Quarterstaves (with item patches)...
+This mod offers the player the option to change the paperdolls and inventory icons of Baldur's Gate II to those of Baldur's Gate, and adds a number of completely new fixes, additions and alterations to the original BGII game. Technically speaking, One Pixel Productions is an attempt to fix "*cosmetic flaws*" that should have never made it through QA, as well as improve upon a number of other of things. It contains many <a href="#components">components</a>, including: BG1 Paperdoll and inventory item ports, except for potions, BG1-style Flaming Swords, Flaming Short Swords (with item and mod item patches), new Paperdolls (human, half-orc, elven, halfling, dwarf), legacy Shields, Colourable Quarterstaves (with item patches)...
 
-Visit the <a href="http://www.spellholdstudios.net/ie/1pp">website</a> or <a href="http://www.shsforums.net/index.php?showforum=159">forum</a> for all the latest updates.</br>
-<div style="text-align:right"><a href="#top">Back to top</a></div>
+Visit the <a href="http://www.spellholdstudios.net/ie/1pp">website</a> or <a href="http://www.shsforums.net/forum/159-1pp/">forum</a> for all the latest updates.</br>
+<div align="right"><a href="#top">Back to top</a></div>
 
 
 <hr>
@@ -42,7 +58,7 @@ This mod is designed to work on the following classical Infinity Engine games:
 - The original Icewind Dale (IWD) with either of its expansions, Heart of Winter (HoW) and Trials of the Luremaster (TotLM).
 - Icewind Dale II (IWD2).
 
-1pp is a <acronym title="Weimer Dialogue Utility">WeiDU</acronym> mod, and therefore should be compatible with all WeiDU mods. However, we cannot test every single one. If you encounter any bugs, please report them on the forum!
+1pp is a WeiDU mod, and therefore should be compatible with all WeiDU mods. However, we cannot test every single one. If you encounter any bugs, please report them on the forum!
 
 BG2 and TOB players are also strongly recommended to download and install the <a href="http://www.gibberlings3.net/bg2fixpack/">BG2 Fixpack</a> before proceeding with the installation of this mod.</br>
 <div style="text-align:right"><a href="#top">Back to top</a></div>
@@ -65,7 +81,7 @@ BG2 and TOB players are also strongly recommended to download and install the <a
 
 #### Windows
 
-1pp for Windows is distributed as an extractable compressed archive and includes a <acronym title="Weimer Dialogue Utility">WeiDU</acronym> installer.
+1pp for Windows is distributed as an extractable compressed archive and includes a WeiDU installer.
 
 Extract the contents of the mod archive into the folder of the game you wish to modify, using <a href="http://www.7-zip.org/download.html">7zip</a>, <a href="http://www.rarlab.com/download.htm">WinRAR</a>, or another file compression utility that handles .zip files. When properly extracted, your game directory will contain <strong>setup-1pp.exe</strong> and the folder <strong>1pp</strong>. To install, double-click <strong>setup-1pp.exe</strong> and follow the instructions on screen.
 
@@ -85,7 +101,7 @@ In addition to the methods above for removing individual components, you can com
 
 The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is installed for and already installed components). All those variables set during installation have been moved into <a href="1pp/1pp-config-default.ini">**_1pp-config-default.ini_**</a> file, found in 1pp folder. This file provides a '_standard_' installation.
 
-If players want to define their own customized installation, they have to edit the file 1pp-config-default.iniin Notepad or another text editor, then save it as **_1pp-config.ini_**. Each line consists of a configuration option, then '=', then a number (or in one case a string). The only thing you should edit is the number (or string).
+If players want to define their own customized installation, they have to edit the file 1pp-config-default.ini in Notepad or another text editor, then save it as **_1pp-config.ini_**. Each line consists of a configuration option, then '=', then a number (or in one case a string). The only thing you should edit is the number (or string).
 
 The installation process will read both ini files and prioritize user's option values. If a value is not set or mismatched in 1pp-config.ini, any installation failure will be prevented by reverting it back to its default value.
 
@@ -337,7 +353,7 @@ Please read the <a href="1pp/1pp-config-english.txt">1pp-config-language.txt</a>
 	</tr>
 </table><br>
 
-<div style="text-align:right"><a href="#top">Back to top</a></div>
+<div align="right"><a href="#top">Back to top</a></div>
 
 
 <hr>
@@ -379,7 +395,7 @@ The installer includes the following components. The number of each is the compo
 ><span style="margin-left: 50px;"><a href="#300">[300] 1ppv4: Fixed animations for solars and elementals</a></span></br>
 ><span style="margin-left: 50px;"><a href="#301">[301] 1ppv4: Miscellaneous content fixes</a></span>
 
-<div style="text-align:right"><a href="#top">Back to top</a></div>
+<div align="right"><a href="#top">Back to top</a></div>
 
 ------------------------
 
@@ -389,11 +405,11 @@ Supports: <span style="color:#006600">SoA</span>, <span style="color:#770000">To
 
 <img src="1pp/documentation/files/101.jpg"></br>
 
-The component that essentially started it all, this is a port of Baldur's Gate I style paperdolls for the Baldur's Gate II engine (used in SoA/ToB and HoW). Included are reworked 1ppv4 paperdolls for all race/class combinations matching vanilla animations as well as equipped object overlays. New in this version is detection and native support for Infinity Animations, including support for installs of HoW using BG1 animations via the 1pp IWD animation fixpack.
+The component that essentially started it all, this is a port of Baldur's Gate I style paperdolls for the Baldur's Gate II engine (used in SoA/ToB and HoW). Included are reworked 1ppv4 paperdolls for all race/class combinations matching vanilla animations as well as equipped object overlays. New in this version is detection and native support for Infinity Animations, including support for installs of HoW using BG1 animations via the <a href="http://www.shsforums.net/files/file/972-1pp-animation-fixes-for-iwd-totlm/">1pp IWD animation fixpack</a>.
 
 ###### <em>Note that this component does not update icon graphics or item colours, so it is not recommended to be installed by itself. It is, however, required for most of the components that follow.</em></br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -416,7 +432,7 @@ Complete install patching the game executable, enabling full use of the extended
 When installing the full version, extra choices for skin and hair colour will automatically become available from the ingame selection.</br>
 As for clothing colours, during character creation and from the inventory the standard complement of 34 primary and secondary colours will be offered. To access more clothing colours, choose 'customise' � 'colours' from the character sheet to gain access to yet another set of 34 colours.</br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -429,7 +445,7 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 A reworked graphical user interface for Baldur's Gate II SoA/ToB. This aims to get rid of a lot of the rough edges present in the original while maintaining a similar feel. Major changes include a time dial that is not just a box, getting rid of 'infinite parchment' (see additional screenshots) and an optional choice of updated fonts.</br>
 <a href="1pp/documentation/files/gui_readme.html">See more �</a></br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -443,7 +459,7 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 This component contains fixes and improvements for several avatar series of Baldur's Gate II character animations, along with updated paperdolls to better match the new content.</br>
 <a href="1pp/documentation/files/avafix_readme.html">See more �</a></br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -457,7 +473,7 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 This component patches Baldur's Gate II engine games to use separate avatar animations for female dwarves and mages of small races, and includes game content for all of these.</br>
 <a href="1pp/documentation/files/dwarf_readme.html">See more �</a></br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -473,7 +489,7 @@ In standard BGII only one armour level of thieves had unique animations (leather
 This component will patch your executable to support full thief animation sequences and install content for them.</br>
 <a href="1pp/documentation/files/thieves_readme.html">Original readme �</a></br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -486,7 +502,7 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 This component allows armour and robes to properly show up for characters of any class when equipped. While normally robes would not show up for fighter/cleric/thief animations, and armour would not show up for mage animations, this is circumvented by changing the character animation accordingly while such items are equipped.</br>
 <a href="1pp/documentation/files/switch_readme.html">See original readme �</a></br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -500,7 +516,7 @@ Supports: <span style="color:#060">SoA (partial)</span>, <span style="color:#700
 Substantially improved spell effects with smooth alpha blending for Baldur's Gate II engine based IE games. Note that 3D support has to be enabled for this component to work properly - if you run your game with software rendering mode, it is not recommended to install this.</br>
 <a href="1pp/documentation/files/effects_readme.html">See more information �</a></br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -514,7 +530,7 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 This is essentially the inventory icon/item related patches of 1ppv2. In other words, lots of random icon improvements for BGII, especially on the ToB side of things, as well as some mod item patches and updates. It will form the basis on which 1ppv4 is built on SoA/ToB.</br>
 <a href="1pp/documentation/files/v2_readme.html">See original readme �</a></br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -527,7 +543,7 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 This component harmonises spell icons introduced in Baldur's Gate II with the ones in the original game. It updates icons found in the spellbook as well as the stone styled UI icons along with spell scrolls.</br>
 <a href="1pp/documentation/files/spic_readme.html">See more �</a></br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -539,7 +555,7 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 
 Minor spell tweaks for SoA/ToB, giving armour spells distinct appearances (ghost armour, spirit armour) as well as reworked 'cause wounds' type of spells, bringing them into line with their p&amp;p equivalents and actually making them viable.</br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -553,7 +569,7 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 This component restores separate flame sword animations for Baldur's Gate II (similar to the ones in the original). It also includes flame short swords, adding a new item type to the game.</br>
 <a href="1pp/documentation/files/fs_readme.html">See original readme �</a></br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -567,7 +583,7 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 This component makes quarterstaves colourable by segment (as opposed to uniform) to allow more variety in-game and match inventory depictions. It also includes item patches to make use of the new content.</br>
 <a href="1pp/documentation/files/qs_readme.html">See developer reference �</a></br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -580,7 +596,7 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 
 Proper reconstruction and re-renders of the Baldur's Gate I shield animations, superseding the old legacy ports; thanks to invaluable support from the BG:EE team.</br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -597,7 +613,7 @@ This component includes updated versions of Baldur's Gate II's shield animations
 
 ###### <em>Note that this is a core component; by itself it does not contain any item patches. If installed, the content will instead be used by following 1ppv4 components to give you more options when updating.</em></br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -612,7 +628,7 @@ This component includes one new animation (wizard's staff) as well as several ne
 
 ###### <em>Note that this is a core component; by itself it does not contain any item patches. If installed, the content will instead be used by following 1ppv4 components to give you more options when updating.</em></br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -628,7 +644,7 @@ This component includes improved content for Baldur's Gate II's vanilla helmet a
 
 ###### <em>Note that this is a core component; by itself it does not contain any item patches. If installed, the content will instead be used by following 1ppv4 components to give you more options when updating.</em></br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -644,7 +660,7 @@ This adds equippable wings for elven characters (with some restrictions).</br>
 
 ###### <em>Note that this is a core component; by itself it does not contain any item patches. If installed, the content will instead be used by following 1ppv4 components to give you more options when updating.</em></br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -659,7 +675,7 @@ This component increases paperdoll variety by adding various alternates sharing 
 
 ###### <em>Note that this is a core component; by itself it does not contain any item patches. If installed, the content will instead be used by following 1ppv4 components to give you more options when updating.</em></br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -679,7 +695,7 @@ Before v4.2.0, various content choices were presented to you during installation
 As of version 4.2.0, installation options are moved into 1pp-config-default.ini file. If you want to modify them, please read this <a href="#config">chapter</a>.</br></br>
 For a full, visual guide to choices see the link below. Consider choosing 'yes' to setting ITEM COLOURS FOR NON-MAGICAL ITEMS (setting 2/3).</br>
 <a href="1pp/documentation/files/v4u_readme.html">Alternative install choices �</a></br>
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -693,7 +709,7 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 
 This component improves projectile effects around Baldur's Gate II. Be able to see what kind of bullets/arrows/bolts are shot at you (or if you're really absent-minded, which <em>you</em> are shooting). Includes coloured bolt and bullet projectiles, axes and darts, and what is even neater, you can actually see the ammunition change on your paperdoll!</br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -705,7 +721,7 @@ Supports: <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</sp
 
 Fixed rendering for solar animations on ToB based games, as well as blended fire elementals.</br>
 
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -716,13 +732,13 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 <img src="1pp/documentation/files/301.jpg">
 
 Contains the following fixes: dog animations (corrupted palette), sitting static peasant woman (bad BAM conversion), alternate fire giant animation slot (was useless as the animation had no unified palette, thus impossible to fill). It also fixes an engine related bug on SoA/ToB and IWD:TotLM that will have helmets randomly render wrong sequences when changing equipment, making them 'float' off your character. Finally, it contains a fix for bugged shield z-buffering on SoA, ToB, IWD:TotLM and IWDII on BGII character animations.</br>
-<div style="text-align:right"><a href="#components">Back to components list</a></div>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 
 <hr>
 
 
-## Credits
+## <a name="credits" id="credits"></a>Credits and Acknowledgements
 
 For support or questions, please visit the <a href="http://www.shsforums.net/index.php?showforum=159">mod forum</a>.
 
@@ -731,7 +747,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 
 #### Tools used in creation (among others)
 
-- <a href="http://www.weidu.org/%7Ethebigg/"><acronym title="Weimer Dialogue Utility">WeiDU</acronym></a> by Wes Weimer, the bigg and Wisp.
+- <a href="http://www.weidu.org/%7Ethebigg/">WeiDU</a> by Wes Weimer, the bigg and Wisp.
 - <a href="http://notepad-plus-plus.org/">Notepad++</a> by the Notepad++ team, Don Ho, and the spellcheck plug-in.
 - <a href="http://www.shsforums.net/files/file/1048-weidu-highlighter-for-notepad/">WeiDU Notepad++ Highlighters </a> by Argent77.
 - <a href="https://www.adobe.com/products/photoshop.html">Adobe Photoshop</a>.
@@ -744,38 +760,51 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 - <a href="http://" target="_blank">Hex Editor Neo</a>.
 - <a href="http://" target="_blank">ACDSee Pro</a>.
 </br>
-<div style="text-align:right"><a href="#top">Back to top</a></div>
+<div align="right"><a href="#top">Back to top</a></div>
 
 
 <hr>
 
 
-## Version History
+## <a name="versions" id="versions"></a>Version History
 
-##### Version 4.2.0 - Month day, 2019
+##### Version 4.2.0 (Month day, 2020)
 
 a. General overhaul and re-looking
-  - Installation options have been moved into 1pp-config-default.ini file. If you want to modify them, please read this <a href="#config">chapter</a>.
-  - Integrated all BWP Fixpack fixes (thanks Lollorian, The Imp and others!).
-  - Split huge [400] Core updates and item patches component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).
-  - Code commented as much as possible.
-  - Provided partial <a href="https://www.gibberlings3.net/files/file/969-item-revisions/">Item Revisions</a>, <a href="https://www.gibberlings3.net/files/file/970-spell-revisions/">Spell Revisions</a> and <a href="https://www.gibberlings3.net/files/file/948-iwdification/">IWDification</a> compatibility in a rather soft way: As SR, IR and IWDification are still beta versions, I gave up trying to write a plain compatibility with them. It would be certainly obsolete in a few months, therefore a waste of time.
-  - Fixed typos and misspellings preventing a few items to be patched (or patching wrong ones...).
-  - Component Improved projectile effects [401] fully re-written: clears duplicated vanilla #89 and #197 opcodes, clones existing effects existants instead of adding new ones...
+  - TODO Added *1pp.ini* metadata file to support AL|EN's "Project Infinity".
+  - TODO Replaced `AUTHOR` keyword with `SUPPORT`.
+  - TODO Added components `DESIGNATED` numbers and `LABELS`.
+  - TODO Added "*always.tpa*" library.
+  - Commented code as much as possible.
+  - TODO Installation options have been moved into *1pp-config-default.ini* file. If you want to modify them, please read this <a href="#config">chapter</a>.
+  - TODO Split huge [400] Core updates and item patches component into smaller ones for more comfortable readability and maintenance (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).
+  - TODO Integrated all BWP Fixpack fixes (thanks Lollorian, The Imp and others!).
+  - TODO Provided partial <a href="https://www.gibberlings3.net/files/file/969-item-revisions/">Item Revisions</a>, <a href="https://www.gibberlings3.net/files/file/970-spell-revisions/">Spell Revisions</a> and <a href="https://www.gibberlings3.net/files/file/948-iwdification/">IWDification</a> compatibility in a rather soft way: As SR, IR and IWDification are still beta versions, I gave up trying to write a plain compatibility with them. It would be certainly obsolete in a few months, therefore a waste of time.
+  - TODO Fixed typos and misspellings preventing a few items to be patched (or patching wrong ones...).
+  - TODO Component Improved projectile effects [401] fully re-written: clears duplicated vanilla #89 and #197 opcodes, clones existing effects existants instead of adding new ones...
   - Coding simplification:
-    - Replaced macros with functions whenever possible.
-    - Copied entire folders instead of infinite lines (COPY \~1pp/folder/file.ext\~ \~override\~ or ACTION_FOR_EACH file IN list BEGIN COPY \~1pp/folder/file.ext\~ \~override\~ END).
-    - Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.
-    - Used new and more efficient <acronym title="Weimer Dialogue Utility">WeiDU</acronym> functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. ADD_ITEM_EQEFFECT, ALTER_EFFECT and ALTER_ITEM_HEADER replace so many lines of codes!).
+    - TODO Replaced macros with functions whenever possible.
+    - TODO Copied entire folders instead of infinite lines (`COPY \~1pp/folder/file.ext\~ \~override\~` or `ACTION_FOR_EACH file IN list BEGIN COPY \~1pp/folder/file.ext\~ \~override\~ END`).
+    - TODO Grouped actions or patches with `ACTION_FOR_EACH` and `PATCH_FOR_EACH` whenever possible.
+    - TODO Used new and more efficient WeiDU functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. ADD_ITEM_EQEFFECT, ALTER_EFFECT and ALTER_ITEM_HEADER replace so many lines of codes!).
     - Avoided copying and overwriting the same files again and again...
   - Updated all readme files (1pp now supports translated readmes).
   - Added French translation (Gwendolyne).
   - Traification. Feel free to provide me with translations. I will include them as soon as possible.
-  - Updated <acronym title="Weimer Dialogue Utility">WeiDU</acronym> installer to v246.
+  - TODO Removed unused files.
+  - TODO Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to the creature types.
+  - TODO Lower cased files.
+  - Updated WeiDU installer to v246.
+  - Uploaded mod to official Spellhold Studios GitHub mirror account.
 
 b. Components specific changes and fixes
+  - [101] 1ppv4: Core paperdolls - main component (101_base.tph, 101_ia.tph, 101_iwd.tph, 101_obj.tph)
+    - Copy entire folders instead of infinite lines.
+    - Infinity Animations paperdolls for Legacy animations: Replaced `READLN` action \~*Use 1pp or IWD style female dwarf paperdolls?*\~ with reading new setting (1pp_fdwarf) from *1pp-config-default.ini* or *1pp-config-user.ini* (default value = 2 1pp style).
+	- Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to the creature types.
+
   - [114] 1ppv4: Softer Spell Effects (114_effects.tph)
-    - Replaced READLN action \~WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS NOT A GOOD IDEA.\~ with reading '3D Acceleration=1' in baldur.ini, icewind.ini or icewind2.ini before running the component.
+    - Replaced `READLN` action \~*WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS NOT A GOOD IDEA.*\~ with reading '3D Acceleration=1' in baldur.ini, icewind.ini or icewind2.ini before running the component.
     - Function GW_MODIFY_PROJ replaces Lollorian's BWP Fixpack patch (<a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/114_effects.tph.patch">114_effects.tph.patch</a>: modify new projectile values in ALL spell headers) which was inefficient and patched nothing. Moreover, it was using a wrong offset coding for ITM files. Source: <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">commit</a>.
 
   - [200] 1ppv4: Core content patches (200_1ppv2_cut.tph)
@@ -869,7 +898,7 @@ b. Components specific changes and fixes
   - [401] 1ppv4: Improved projectile effects (401_projectiles.tph)
     - Code fully re-written with new functions to provide automatic process.
       - Function GW_CLEAR_DUPLICATED_OPCODES: does not stack anymore opcodes #83 and #197, clears duplicated vanilla #89 and #197 effects in SPL and ITM files and checks if protection from SPEAR and/or Bounce SPEAR is already set before adding it.
-      - Function GW_MODIFY_PROJ replaces BWP Fixpack patch (<a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/401_projectiles.tph.patch">401_projectiles.tph.patch</a>): modifies projectile value only when needed (does not patch melee headers anymore), replaces ADD_ITEM_EQEFFECT, ADD_ITEM_EFFECT, ADD_SPELL_EFFECT and macros with the newer and more efficient CLONE_EFFECT <acronym title="Weimer Dialogue Utility">WeiDU</acronym> function to give new opcodes #83 and #197 the same settings than existing ones (target, resist_dispel, duration, power...). It modifies all extended headers and avoids writing lines of codes!
+      - Function GW_MODIFY_PROJ replaces BWP Fixpack patch (<a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/401_projectiles.tph.patch">401_projectiles.tph.patch</a>): modifies projectile value only when needed (does not patch melee headers anymore), replaces ADD_ITEM_EQEFFECT, ADD_ITEM_EFFECT, ADD_SPELL_EFFECT and macros with the newer and more efficient CLONE_EFFECT WeiDU function to give new opcodes #83 and #197 the same settings than existing ones (target, resist_dispel, duration, power...). It modifies all extended headers and avoids writing lines of codes!
       - Provided partial IR and SR compatibility in a rather soft way.
     - specific fixes:
       - ax1h08.itm (Hangard's Axe +2), ax1h09.itm (Rifthome Axe +3), ax1h10.itm (Azuredge +3) and ax1h16.itm (K'logarath +4): added IR compatibility (patches itemB files).
@@ -886,15 +915,17 @@ b. Components specific changes and fixes
       - sppr613.spl (Physical Mirror): cleared duplicate entries and added SR compatibility (SR replaces opcode #197 with opcode #83).
       - Included Entropy Shield spell (protection from new 1pp projectiles) if IWDIfication is installed.
 
+## 
 
-##### Version 4.1.0 - November 12, 2012
+##### Version 4.1.0 (November 3, 2012)
 
-- Scale shields now have their own animations
-- Improved carried/description images
-- Fixed low resolution GUI overlap
+- Scale shields now have their own animations.
+- Improved carried/description images.
+- Fixed low resolution GUI overlap.
 
+## 
 
-##### Version 4.0.0 - August 6, 2012
+##### Version 4.0.0 (August 6, 2012)
 
-- Initial release
-<div style="text-align:right"><a href="#top">Back to top</a></div>
+- Initial release.
+<div align="right"><a href="#top">Back to top</a></div>

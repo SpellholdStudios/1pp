@@ -1,14 +1,35 @@
-// obj install
-// This includes paperdoll equipped objects for otherwise still pristine games
+/* =================================================================================================================================================================================== *
+ *                                                                                                                                                                                     *
+ *                                                           C O R E   C O M P O N E N T   :   C o r e   p a p e r d o l l s                                                           *
+ *                                                                                                                                                                                     *
+ * =================================================================================================================================================================================== *
+ *  This component ports Baldur's Gate I style paperdolls for the Baldur's Gate II engine.                                                                                             *
+ *  This part installs paperdoll equipped objects for otherwise still pristine games.                                                                                                  *
+ * =================================================================================================================================================================================== *
+ *  change-log:                                                                                                                                                                        *
+ *  -----------                                                                                                                                                                        *
+ *      - Coding simplification:                                                                                                                                                       *
+ *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).     *
+ * =================================================================================================================================================================================== */
 
-ACTION_FOR_EACH object IN ~WPHAXOIN~ ~WPHCLOIN~ ~WPHD1INV~ ~WPHD2INV~ ~WPHD3INV~ ~WPHD4INV~ ~WPHDDOIN~ ~WPHFLOIN~ ~WPHFSOIN~ ~WPHMCOIN~ ~WPHMSOIN~ ~WPHS1OIN~ ~WPHS3OIN~ ~WPHSCOIN~ ~WPHSSOIN~ ~WPHWHOIN~ ~WPLAXINV~ ~WPLAXOIN~ ~WPLBWINV~ ~WPLCBINV~ ~WPLCLINV~ ~WPLCLOIN~ ~WPLD1INV~ ~WPLD2INV~ ~WPLD3INV~ ~WPLD4INV~ ~WPLDDINV~ ~WPLDDOIN~ ~WPLFLINV~ ~WPLFLOIN~ ~WPLFSINV~ ~WPLFSOIN~ ~WPLH0INV~ ~WPLH1INV~ ~WPLH2INV~ ~WPLH3INV~ ~WPLH4INV~ ~WPLH5INV~ ~WPLHBINV~ ~WPLMCINV~ ~WPLMCOIN~ ~WPLMSINV~ ~WPLMSOIN~ ~WPLQSINV~ ~WPLS1INV~ ~WPLS1OIN~ ~WPLS2INV~ ~WPLS3INV~ ~WPLS3OIN~ ~WPLSCINV~ ~WPLSCOIN~ ~WPLSLINV~ ~WPLSPINV~ ~WPLSSINV~ ~WPLSSOIN~ ~WPLWHINV~ ~WPLWHOIN~ ~WPMAXINV~ ~WPMAXOIN~ ~WPMBWINV~ ~WPMCBINV~ ~WPMCLINV~ ~WPMCLOIN~ ~WPMD1INV~ ~WPMD2INV~ ~WPMD3INV~ ~WPMD4INV~ ~WPMDDINV~ ~WPMDDOIN~ ~WPMFLINV~ ~WPMFLOIN~ ~WPMFSINV~ ~WPMFSOIN~ ~WPMH0INV~ ~WPMH1INV~ ~WPMH2INV~ ~WPMH3INV~ ~WPMH4INV~ ~WPMH5INV~ ~WPMHBINV~ ~WPMMCINV~ ~WPMMCOIN~ ~WPMMSINV~ ~WPMMSOIN~ ~WPMQSINV~ ~WPMS1INV~ ~WPMS1OIN~ ~WPMS2INV~ ~WPMS3INV~ ~WPMS3OIN~ ~WPMSCINV~ ~WPMSCOIN~ ~WPMSLINV~ ~WPMSPINV~ ~WPMSSINV~ ~WPMSSOIN~ ~WPMWHINV~ ~WPMWHOIN~ ~WPNAXINV~ ~WPNAXOIN~ ~WPNBWINV~ ~WPNCBINV~ ~WPNCLINV~ ~WPNCLOIN~ ~WPND1INV~ ~WPND2INV~ ~WPND3INV~ ~WPND4INV~ ~WPNDDINV~ ~WPNDDOIN~ ~WPNFLINV~ ~WPNFLOIN~ ~WPNFSINV~ ~WPNFSOIN~ ~WPNH0INV~ ~WPNH1INV~ ~WPNH2INV~ ~WPNH3INV~ ~WPNH4INV~ ~WPNH5INV~ ~WPNHBINV~ ~WPNMCINV~ ~WPNMCOIN~ ~WPNMSINV~ ~WPNMSOIN~ ~WPNQSINV~ ~WPNS1INV~ ~WPNS1OIN~ ~WPNS2INV~ ~WPNS3INV~ ~WPNS3OIN~ ~WPNSCINV~ ~WPNSCOIN~ ~WPNSLINV~ ~WPNSPINV~ ~WPNSSINV~ ~WPNSSOIN~ ~WPNWHINV~ ~WPNWHOIN~ ~WPSAXINV~ ~WPSAXOIN~ ~WPSBWINV~ ~WPSCBINV~ ~WPSCLINV~ ~WPSCLOIN~ ~WPSD1INV~ ~WPSD2INV~ ~WPSD3INV~ ~WPSD4INV~ ~WPSDDINV~ ~WPSDDOIN~ ~WPSFLINV~ ~WPSFLOIN~ ~WPSFSINV~ ~WPSFSOIN~ ~WPSH0INV~ ~WPSH1INV~ ~WPSH2INV~ ~WPSH3INV~ ~WPSH4INV~ ~WPSH5INV~ ~WPSHBINV~ ~WPSMCINV~ ~WPSMCOIN~ ~WPSMSINV~ ~WPSMSOIN~ ~WPSQSINV~ ~WPSS1INV~ ~WPSS1OIN~ ~WPSS2INV~ ~WPSS3INV~ ~WPSS3OIN~ ~WPSSCINV~ ~WPSSCOIN~ ~WPSSLINV~ ~WPSSPINV~ ~WPSSSINV~ ~WPSSSOIN~ ~WPSWHINV~ ~WPSWHOIN~ BEGIN
+/*DEPRECATED as of v4.2.0
+ACTION_FOR_EACH object IN ~wphaxoin~ ~wphcloin~ ~wphd1inv~ ~wphd2inv~ ~wphd3inv~ ~wphd4inv~ ~wphddoin~ ~wphfloin~ ~wphfsoin~ ~wphmcoin~ ~wphmsoin~ ~wphs1oin~ ~wphs3oin~ ~wphscoin~ ~wphssoin~ ~wphwhoin~ ~wplaxinv~ ~wplaxoin~ ~wplbwinv~ ~wplcbinv~ ~wplclinv~ ~wplcloin~ ~wpld1inv~ ~wpld2inv~ ~wpld3inv~ ~wpld4inv~ ~wplddinv~ ~wplddoin~ ~wplflinv~ ~wplfloin~ ~wplfsinv~ ~wplfsoin~ ~wplh0inv~ ~wplh1inv~ ~wplh2inv~ ~wplh3inv~ ~wplh4inv~ ~wplh5inv~ ~wplhbinv~ ~wplmcinv~ ~wplmcoin~ ~wplmsinv~ ~wplmsoin~ ~wplqsinv~ ~wpls1inv~ ~wpls1oin~ ~wpls2inv~ ~wpls3inv~ ~wpls3oin~ ~wplscinv~ ~wplscoin~ ~wplslinv~ ~wplspinv~ ~wplssinv~ ~wplssoin~ ~wplwhinv~ ~wplwhoin~ ~wpmaxinv~ ~wpmaxoin~ ~wpmbwinv~ ~wpmcbinv~ ~wpmclinv~ ~wpmcloin~ ~wpmd1inv~ ~wpmd2inv~ ~wpmd3inv~ ~wpmd4inv~ ~wpmddinv~ ~wpmddoin~ ~wpmflinv~ ~wpmfloin~ ~wpmfsinv~ ~wpmfsoin~ ~wpmh0inv~ ~wpmh1inv~ ~wpmh2inv~ ~wpmh3inv~ ~wpmh4inv~ ~wpmh5inv~ ~wpmhbinv~ ~wpmmcinv~ ~wpmmcoin~ ~wpmmsinv~ ~wpmmsoin~ ~wpmqsinv~ ~wpms1inv~ ~wpms1oin~ ~wpms2inv~ ~wpms3inv~ ~wpms3oin~ ~wpmscinv~ ~wpmscoin~ ~wpmslinv~ ~wpmspinv~ ~wpmssinv~ ~wpmssoin~ ~wpmwhinv~ ~wpmwhoin~ ~wpnaxinv~ ~wpnaxoin~ ~wpnbwinv~ ~wpncbinv~ ~wpnclinv~ ~wpncloin~ ~wpnd1inv~ ~wpnd2inv~ ~wpnd3inv~ ~wpnd4inv~ ~wpnddinv~ ~wpnddoin~ ~wpnflinv~ ~wpnfloin~ ~wpnfsinv~ ~wpnfsoin~ ~wpnh0inv~ ~wpnh1inv~ ~wpnh2inv~ ~wpnh3inv~ ~wpnh4inv~ ~wpnh5inv~ ~wpnhbinv~ ~wpnmcinv~ ~wpnmcoin~ ~wpnmsinv~ ~wpnmsoin~ ~wpnqsinv~ ~wpns1inv~ ~wpns1oin~ ~wpns2inv~ ~wpns3inv~ ~wpns3oin~ ~wpnscinv~ ~wpnscoin~ ~wpnslinv~ ~wpnspinv~ ~wpnssinv~ ~wpnssoin~ ~wpnwhinv~ ~wpnwhoin~ ~wpsaxinv~ ~wpsaxoin~ ~wpsbwinv~ ~wpscbinv~ ~wpsclinv~ ~wpscloin~ ~wpsd1inv~ ~wpsd2inv~ ~wpsd3inv~ ~wpsd4inv~ ~wpsddinv~ ~wpsddoin~ ~wpsflinv~ ~wpsfloin~ ~wpsfsinv~ ~wpsfsoin~ ~wpsh0inv~ ~wpsh1inv~ ~wpsh2inv~ ~wpsh3inv~ ~wpsh4inv~ ~wpsh5inv~ ~wpshbinv~ ~wpsmcinv~ ~wpsmcoin~ ~wpsmsinv~ ~wpsmsoin~ ~wpsqsinv~ ~wpss1inv~ ~wpss1oin~ ~wpss2inv~ ~wpss3inv~ ~wpss3oin~ ~wpsscinv~ ~wpsscoin~ ~wpsslinv~ ~wpsspinv~ ~wpsssinv~ ~wpsssoin~ ~wpswhinv~ ~wpswhoin~ BEGIN
 
-	COPY ~1pp/core/obj/%object%.BAM~ ~override~
+	COPY ~1pp/core/obj/%object%.bam~ ~override~
 
 	ACTION_IF FILE_EXISTS_IN_GAME ~%object%.plt~ BEGIN
-		COPY ~1pp/core/ilove.plt~ ~override/%object%.PLT~
+		COPY ~1pp/core/ilove.plt~ ~override/%object%.plt~
 	END
 
+END*/
+SILENT
+ACTION_BASH_FOR ~1pp/core/obj/~ ~^.+\.bam$~ BEGIN
+	ACTION_TO_LOWER %BASH_FOR_FILE%
+	ACTION_TO_LOWER %BASH_FOR_RES%
+	COPY ~%BASH_FOR_FILESPEC%~ ~override/%BASH_FOR_FILE%~
+	ACTION_IF FILE_EXISTS_IN_GAME ~%BASH_FOR_RES%.plt~ BEGIN
+		COPY ~1pp/core/ilove.plt~ ~override/%BASH_FOR_RES%.plt~
+	END
 END
 
 // END of COMPONENT
