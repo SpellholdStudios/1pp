@@ -183,8 +183,8 @@ Please read the <a href="1pp/1pp-config-english.txt">1pp-config-language.txt</a>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_potions_icons</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">UPDATED POTIONS ICONS<br><br>
 		Do you want to include updated potion graphics?<br><br>
-		<span style="color: #781808; padding-left:20px;">1 = Yes [default]</span><br>
-		<span style="padding-left:20px;">2 = No, everything but Potions!</span></td>
+		<span style="padding-left:20px;">1 = Yes</span><br>
+		<span style="color: #781808; padding-left:20px;">2 = No, everything but Potions! [default]</span></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; "><strong><span style="color: #781808;">202 Spell tweaks</span></strong></td>
@@ -787,7 +787,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
     - TODO Replaced macros with functions whenever possible.
     - Copied entire folders instead of infinite lines (`COPY \~1pp/folder/file.ext\~ \~override\~` or `ACTION_FOR_EACH file IN list BEGIN COPY \~1pp/folder/file.ext\~ \~override\~ END`).
     - TODO Grouped actions or patches with `ACTION_FOR_EACH` and `PATCH_FOR_EACH` whenever possible.
-    - TODO Used new and more efficient WeiDU functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. `ADD_ITEM_EQEFFECT`, ALTER_EFFECT and ALTER_ITEM_HEADER replace so many lines of codes!).
+    - TODO Used new and more efficient WeiDU functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. `ADD_ITEM_EQEFFECT`, `ALTER_EFFECT` and ALTER_ITEM_HEADER replace so many lines of codes!).
     - Avoided copying and overwriting the same files again and again...
   - Updated all readme files (1pp now supports translated readmes).
   - Added French translation (Gwendolyne).
@@ -824,27 +824,29 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
     - Used newer and more efficient `ADD_ITEM_EQEFFECT` WeiDU function to replace so many lines of codes.
 
   - [114] 1ppv4: Softer Spell Effects (114_effects.tph)
-    - Replaced `READLN` action "*WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS NOT A GOOD IDEA.*"~ with reading '3D Acceleration=1' in baldur.ini, icewind.ini or icewind2.ini before running the component.
-    - Replaced `READLN` actions "*Install IWD-style Agannazar's Scorcher or alternate style?", and "*Install less obtrusive dispel magic effect?*" with reading new settings (1pp_agannazar_scorcher and 1pp_dispel_magic_effect) from *1pp-config-default.ini* or *1pp-config-user.ini*.
+    - Replaced `READLN` action "*WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS NOT A GOOD IDEA.*" with reading `3D Acceleration=1` in baldur.ini, icewind.ini or icewind2.ini before running the component.
+    - Replaced `READLN` actions "*Install IWD-style Agannazar's Scorcher or alternate style?*", and "*Install less obtrusive dispel magic effect?*" with reading new settings (1pp_agannazar_scorcher and 1pp_dispel_magic_effect) from *1pp-config-default.ini* or *1pp-config-user.ini*.
     - Replaced `GAME_IS` conditions with variables checks to speed up install time.
-    - Function `GW_MODIFY_PROJ` replaces (<a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/114_effects.tph.patch">Lollorian's BWP Fixpack misc patchified code changes</a> (modify new projectile values in ALL spell headers) which was inefficient and patched nothing. Moreover, it was using a wrong offset coding for ITM files. Source: <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">commit</a>.
+    - Function `GW_MODIFY_PROJ` replaces <a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/114_effects.tph.patch">Lollorian's BWP Fixpack misc patchified code changes</a> (modify new projectile values in ALL spell headers) which was inefficient and patched nothing. Moreover, it was using a wrong offset coding for ITM files. Source: <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">commit</a>.
 
   - [200] 1ppv4: Core content patches (200_1ppv2_cut.tph)
-    - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers.
+    - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla ihamm10 icon and installs new ihamm10 1pp icon as ihamm05b), and not to set Borok's Fist's icon to Runehammers.
+    - Replaced `READLN` action "*Do you want to include updated potion graphics?*" with reading new setting (1pp_potions_icons) from *1pp-config-default.ini* or *1pp-config-user.ini*.
     - Code simplified or re-written with newer functions to provide automatic process:
-      - Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A \~ISHLDS01\~ with WRITE_ASCII 0x3A \~ISHLDS01\~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.
-      - Used DELETE_EFFECT and CLONE_EFFECT combo to add new equipped color effects, which avoids writing lines of codes!
-    - 1ppv2 BAMs: saved a few vanilla inventory icons for modding purpose (Club of Detonation +3, Splint Mail +1, Chain Mail +3, Mage Robe of Cold Resistance, Mage Robe of Fire Resistance, Mage Robe of Electric Resistance, Knave's Robe, Traveler's Robe, Adventurer's Robe, Robes of the Good, Neutral, and Evil Archmagi, Suryris's Blade +2, Ravager +4, Halberd +3, The Eyes of Truth, Helm of the Rock, Leather Armor, Studded Leather Armor, Plate Mail, Mithral Field Plate +2, Quiver of Plenty +1, Bastard Sword +2, Celestial Fury +3, Short Sword of Mask +4, Angurvadal +4, Foebane +3, Purifier +4, Yamato +4, Usuno's Blade +4, Spectral Brand +4, Hindo's Doom +3, Bastard Sword +3, Katana +3, Scimitar +3, The Answerer +4, Gram the Sword of Grief +5). Instead of definitively overwriting them, it now saves them with V suffixe before overwriting them, and does not overwrite anymore the following icons that are irrelevant (EE does not validate this change) : does not replace iax1h14.bam (Axe of the Unyielding +3) with the very inaccurate IWD Celebrant's Blade icon, idagg11.bam (Boomerang Dagger) with a clone of IMISC75 (Dagger of Venom), and isw1h06.bam (Varscona +2) with a clone of ISW1H41 (Long Sword +2). Does not overwrite Harbinger's icon and copies an alternate resource for modding purpose (isw2h07B). This way, Harbinger keeps its golden icon which fits to its colors settings.
+      - Replaced `WRITE_LONG 0x3E 0` and `WRITE_ASCII 0x3A \~ISHLDS01\~` with `WRITE_ASCII 0x3A \~ISHLDS01\~ #8`. Id. with offsets 0x48 0x44, and 0x5C 0x58.
+      - Used `DELETE_EFFECT` and `CLONE_EFFECT` combo to add new equipped color effects, which avoids writing lines of codes!
+    - 1ppv2 BAMs: saved a few vanilla inventory icons for modding purpose (Club of Detonation +3, Splint Mail +1, Chain Mail +3, Mage Robe of Cold Resistance, Mage Robe of Fire Resistance, Mage Robe of Electric Resistance, Knave's Robe, Traveler's Robe, Adventurer's Robe, Robes of the Good, Neutral, and Evil Archmagi, Suryris's Blade +2, Ravager +4, Halberd +3, The Eyes of Truth, Helm of the Rock, Leather Armor, Studded Leather Armor, Plate Mail, Mithral Field Plate +2, Quiver of Plenty +1, Bastard Sword +2, Celestial Fury +3, Short Sword of Mask +4, Angurvadal +4, Foebane +3, Purifier +4, Yamato +4, Usuno's Blade +4, Spectral Brand +4, Hindo's Doom +3, Bastard Sword +3, Katana +3, Scimitar +3, The Answerer +4, Gram the Sword of Grief +5). Instead of definitively overwriting them, it now saves them with V suffixe before overwriting them, and does not overwrite anymore the following icons that are irrelevant (EE does not validate this change) : does not replace iax1h14.bam (Axe of the Unyielding +3) with the very inaccurate IWD Celebrant's Blade icon, idagg11.bam (Boomerang Dagger) with a clone of imisc75 (Dagger of Venom), and isw1h06.bam (Varscona +2) with a clone of isw1h41 (Long Sword +2). Does not overwrite Harbinger's icon and copies an alternate resource for modding purpose (1isw2h07). This way, Harbinger keeps its golden icon which fits to its colors settings.
     - specific fixes:
-      - dagg21.itm & dagg22.itm (Daggers of the Star): reverted to their original inventory icon IDAGG21. 1PP sets them to IDAGG18 (Shadow Thief Dagger icon), but EE does not validate this change.
-      - halb07.itm (Halberd +2): reverted to its original inventory icon IHALB07. 1PP sets it to IHALB03 (Suryris's Blade +2 icon), but EE does not validate this change.
-      - sw1h31.itm (Daystar +2): reverted to its original inventory icon ISW1H31. 1PP sets it to ISW1H34 (Albruin +1), but EE does not validate this change. Then switches back its colorisation with Albruin (400_update_bgii_swords).
-      - sw1h34.itm (Albruin +1): reverted to its original inventory icon ISW1H34. 1PP sets it to ISW1H31 (Daystar +2), but EE does not validate this change. Then switched back its colorisation with Daystar (400_update_bgii_swords).
-      - sw1h41.itm (Long Sword +2): reverted to its original inventory icon ISW1H41. 1PP sets it to SW1H06 (Varscona +2 icon), but EE does not validate this change. Then removed the colorisation modified by 400_update_bgii_swords and sets it to SW1H73 (Long Sword +3) that deserves those settings.
-      - sw2h10.itm and sw2h19.itm (Carsomyr +5 and +6): reverted to their original inventory icon ISW2H10. 1PP sets them to ISW2H20, but EE does not validate this change.
-      - sw2h11.itm (Two-handed Sword +2): reverted to its original inventory icon ISW2H11. 1PP sets it to ISW2H03, but EE does not validate this change.
-      - sw2h20.itm (Two-handed Sword +3): reverted to its original inventory icon ISW2H20. 1PP sets it to ISW2H06, but EE does not validate this change.
-      - BW Herbs mod patches: fixed typo (was copying BW02IPO1_l.BAM instead of BW02IPO1.BAM).
+      - dagg21.itm & dagg22.itm (Daggers of the Star): reverted to their original inventory icon idagg21. 1PP sets them to idagg18 (Shadow Thief Dagger icon), but EE does not validate this change.
+      - halb07.itm (Halberd +2): reverted to its original inventory icon ihalb07. 1PP sets it to ihalb03 (Suryris's Blade +2 icon), but EE does not validate this change.
+      - sw1h31.itm (Daystar +2): reverted to its original inventory icon isw1h31. 1PP sets it to isw1h34 (Albruin +1), but EE does not validate this change. Then switches back its colorisation with Albruin (400_update_bgii_swords).
+      - sw1h34.itm (Albruin +1): reverted to its original inventory icon isw1h34. 1PP sets it to isw1h31 (Daystar +2), but EE does not validate this change. Then switched back its colorisation with Daystar (400_update_bgii_swords).
+      - sw1h41.itm (Long Sword +2): reverted to its original inventory icon isw1h41. 1PP sets it to isw1h06 (Varscona +2 icon), but EE does not validate this change. Then removed the colorisation modified by 400_update_bgii_swords and sets it to sw1h73 (Long Sword +3) that deserves those settings.
+      - sw2h10.itm and sw2h19.itm (Carsomyr +5 and +6): reverted to their original inventory icon isw2h10. 1PP sets them to isw2h20, but EE does not validate this change.
+      - sw2h11.itm (Two-handed Sword +2): reverted to its original inventory icon isw2h11. 1PP sets it to isw2h03, but EE does not validate this change.
+      - sw2h20.itm (Two-handed Sword +3): reverted to its original inventory icon isw2h20. 1PP sets it to isw2h06, but EE does not validate this change.
+      - sw1hwk.itm (Water's Edge +3): fixed wrong identified name.
+     - BW Herbs mod patches: fixed typo (was copying bw02ipo1_l.bam instead of bw02ipo1.bam).
 
   - [201] 1ppv4: Consistent spell and scroll icons (201_spellsandscrolls.tph)
     - Integrated BWP Fixpack patch: restored Energy Blades spell and scroll icons (SPWI920) overwritten with Black Blade of Disaster's ones.

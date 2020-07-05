@@ -1,57 +1,67 @@
-// 1ppv2 BASE cut and updated
-// go 2004!
-
-/*  ====================================================================================================================================================================================  *
- *  change-log:                                                                                                                                                                           *
- *  -----------                                                                                                                                                                           *
- *      - Variables needed for installation (1pp_potions and 1pp_hammers_icons) are read from 1pp-config-default.ini or 1pp-config.ini files.                                             *
- *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is           *
- *        installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file          *
- *        provides a standard installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and         *
- *        save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini,          *
- *        the installation process will prevent any installation failure by reverting it back to its default value.                                                                       *
- *      - Replace macros with functions whenever possible.                                                                                                                                *
- *      - 1ppv2 BAMs: for modding purpose, creates copies of a few vanilla inventory icons (with V suffixe) before overwriting them (#810). Does not overwrite anymore the following ones *
- *        that are irrelevant (EE does not validate this change): does not replace iax1h14.bam (Axe of the Unyielding +3) with the very inaccurate IWD Celebrant's Blade icon {#821),     *
- *        idagg11.bam (Boomerang Dagger) with a clone of IMISC75 (Dagger of Venom, #852), and isw1h06.bam (Varscona +2) with a clone of ISW1H41 (Long Sword +2, #901). Does not overwrite *
- *        Harbinger's icon and copies an alternate resource for modding purpose (isw2h07B). This way, Harbinger keeps its golden icon which fits to its colors settings (#933).           *
- *      - Adds a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (#861: saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as *
- *        IHAMM05B), and not to set Borok's Fist's icon to Runehammers.                                                                                                                   *
- *      - Coding simplification:                                                                                                                                                          *
- *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                                     *
- *          Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                           *
- *                                                                                                                                                                                        *
- *  Code re-written with newer functions to provide automatic process:                                                                                                                    *
- *  ------------------------------------------------------------------                                                                                                                    *
- *    . - Use newer and more efficient WeiDU ALTER_EFFECT and ALTER_ITEM_HEADER functions to replace so many lines of codes.                                                              *
- *      - Use DELETE_EFFECT and CLONE_EFFECT combo to add new equiped color effects, which avoids writing lines of codes!                                                                 *
- *                                                                                                                                                                                        *
- *  specific fixes:                                                                                                                                                                       *
- *  ---------------                                                                                                                                                                       *
- *      - #86   ==> dagg21.itm & dagg22.itm (Daggers of the Star): reverts to their original inventory icon IDAGG21. 1PP sets them to IDAGG18 (Shadow Thief Dagger icon), but EE does     *
- *  				not validate this change.                                                                                                                                             *
- *      - #99   ==>	halb07.itm (Halberd +2): reverts to its original inventory icon IHALB07. 1PP sets it to IHALB03 (Suryris's Blade +2 icon), but EE does not validate this change.      *
- *      - #666  ==> sw1h31.itm (Daystar +2): reverts to its original inventory icon ISW1H31. 1PP sets it to ISW1H34 (Albruin +1), but EE does not validate this change.                   *
- *      - #675  ==> sw1h34.itm (Albruin +1): reverts to its original inventory icon ISW1H34. 1PP sets it to ISW1H31 (Daystar +2), but EE does not validate this change.                   *
- *      - #684  ==> sw1h41.itm (Long Sword +2): reverts to its original inventory icon ISW1H41. 1PP sets it to SW1H06 (Varscona +2 icon), but EE does not validate this change.           *
- *      - #771  ==> sw2h10.itm and sw2h19.itm (Carsomyr +5 and +6): reverts to their original inventory icon ISW2H10. 1PP sets them to ISW2H20, but EE does not validate this change.     *
- *      - #784  ==> sw2h11.itm (Two-handed Sword +2): reverts to its original inventory icon ISW2H11. 1PP sets it to ISW2H03, but EE does not validate this change.                       *
- *      - #793  ==> sw2h20.itm (Two-handed Sword +3): reverts to its original inventory icon ISW2H20. 1PP sets it to ISW2H06, but EE does not validate this change.                       *
- *      - #973  ==> BW Herbs mod patches: fix typo (was copying BW02IPO1_l.BAM instead of BW02IPO1.BAM).                                                                                  *
- *  ====================================================================================================================================================================================  */
+/* =========================================================================================================================================================================================== *
+ *                                                                                                                                                                                             *
+ *                                                                 C O M P O N E N T   :   C o r e   c o n t e n t   p a t c h                                                                 *
+ *                                                                                                                                                                                             *
+ * =========================================================================================================================================================================================== *
+ *  This component improves spell effects with smooth alpha blending for Baldur's Gate II engine based IE games.                                                                               *
+ * =========================================================================================================================================================================================== *
+ *  This is essentially the inventory icon/item related patches of 1ppv2 cut and updated (go 2004!). In other words, lots of random icon improvements for BGII, especially on the ToB side     *
+ *  of things, as well as some mod item patches and updates. It will form the basis on which 1ppv4 is built on SoA/ToB.                                                                        *
+ * =========================================================================================================================================================================================== *
+ *  change-log:                                                                                                                                                                                *
+ *  -----------                                                                                                                                                                                *
+ *      - Variables needed for installation (1pp_potions and 1pp_hammers_icons) are read from 1pp-config-default.ini or 1pp-config-user.ini files.                                             *
+ *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is installed      *
+ *        for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file provides a standard     *
+ *        installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and save it as 1pp-config-user.ini.  *
+ *        The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in in user's file 1pp-config-user.ini, the installation process    *
+ *        will prevent any installation failure by reverting it back to its default value.                                                                                                     *
+ *      - Replaced macros with functions whenever possible.                                                                                                                                    *
+ *      - 1ppv2 BAMs: for modding purpose, creates copies of a few vanilla inventory icons (with "v" suffix) before overwriting them (#826). Does not overwrite anymore the following those    *
+ *        that are irrelevant (EE does not validate this change): does not replace iax1h14.bam (Axe of the Unyielding +3) with the very inaccurate IWD Celebrant's Blade icon {#835),          *
+ *        idagg11.bam (Boomerang Dagger) with a clone of imisc75 (Dagger of Venom, #868), and isw1h06.bam (Varscona +2) with a clone of isw1h41 (Long Sword +2, #918). Does not overwrite      *
+ *        Harbinger's icon and copies an alternate resource for modding purpose (1isw2h07). This way, Harbinger keeps its golden icon which fits to its colors settings (#949).                *
+ *      - Adds a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (#861: saves vanilla ihamm10 icon and installs new ihamm10 1pp icon as      *
+ *        ihamm05b), and not to set Borok's Fist's icon to Runehammers.                                                                                                                        *
+ *      - Coding simplification:                                                                                                                                                               *
+ *          Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                                          *
+ *          Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                                *
+ *                                                                                                                                                                                             *
+ *  Code re-written with newer functions to provide automatic process:                                                                                                                         *
+ *  ------------------------------------------------------------------                                                                                                                         *
+ *    . - Use newer and more efficient WeiDU ALTER_EFFECT and ALTER_ITEM_HEADER functions to replace so many lines of codes.                                                                   *
+ *      - Use DELETE_EFFECT and CLONE_EFFECT combo to add new equiped color effects, which avoids writing lines of codes!                                                                      *
+ *                                                                                                                                                                                             *
+ *  specific fixes:                                                                                                                                                                            *
+ *  ---------------                                                                                                                                                                            *
+ *      - #97   ==> dagg21.itm & dagg22.itm (Daggers of the Star): reverts to their original inventory icon idagg21. 1PP sets them to idagg18 (Shadow Thief Dagger icon), but EE does          *
+ *                  not validate this change.                                                                                                                                                  *
+ *      - #110  ==> halb07.itm (Halberd +2): reverts to its original inventory icon ihalb07. 1PP sets it to ihalb03 (Suryris's Blade +2 icon), but EE does not validate this change.           *
+ *      - #677  ==> sw1h31.itm (Daystar +2): reverts to its original inventory icon isw1h31. 1PP sets it to isw1h34 (Albruin +1), but EE does not validate this change.                        *
+ *      - #686  ==> sw1h34.itm (Albruin +1): reverts to its original inventory icon isw1h34. 1PP sets it to isw1h31 (Daystar +2), but EE does not validate this change.                        *
+ *      - #695  ==> sw1h41.itm (Long Sword +2): reverts to its original inventory icon ISW1H41. 1PP sets it to sw1h06 (Varscona +2 icon), but EE does not validate this change.                *
+ *      - #781  ==> sw2h10.itm and sw2h19.itm (Carsomyr +5 and +6): reverts to their original inventory icon isw2h10. 1PP sets them to isw2h20, but EE does not validate this change.          *
+ *      - #795  ==> sw2h11.itm (Two-handed Sword +2): reverts to its original inventory icon isw2h11. 1PP sets it to isw2h03, but EE does not validate this change.                            *
+ *      - #804  ==> sw2h20.itm (Two-handed Sword +3): reverts to its original inventory icon isw2h20. 1PP sets it to isw2h06, but EE does not validate this change.                            *
+ *      - #991  ==> BW Herbs mod patches: fix typo (was copying bw02ipo1_l.bam instead of bw02ipo1.bam).                                                                                       *
+ * =========================================================================================================================================================================================== */
 
 // ----------------------------- //
 //     ITEMS               line  //
 // ----------------------------- //
-//  MISCELLANEOUS        #   53  //
-//  HELMETS              #  133  //
-//  SHIELDS              #  246  //
-//  SWORDS               #  620  //
+//  MISCELLANEOUS        #   63  //
+//  HELMETS              #  144  //
+//  SHIELDS              #  257  //
+//  SWORDS               #  631  //
+//  1ppv2 BAMs           #  818  //
+//  POTIONS              #  971  //
+//  BW HERBS STUFF       #  983  //
 // ----------------------------- //
+SILENT
 
-/*  =============================  *
+/* =============================== *
  *          MISCELLANEOUS          *
- *  =============================  */
+ * =============================== */
 
 // Mace - Morning Star: set item color, weapon head (timing mod was set to 0).
 ACTION_FOR_EACH item IN ~blun04~ ~blun06~ BEGIN
@@ -66,7 +76,7 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~clck31.itm~) BEGIN
 	COPY_EXISTING ~clck31.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~ICLCK21~ #8	// Replace ICLCK31
+			WRITE_ASCII 0x3A ~ICLCK21~ #8	// replaces ICLCK31
 		END
 	BUT_ONLY
 END
@@ -75,21 +85,22 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~compon05.itm~) BEGIN
 	COPY_EXISTING ~compon05.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~H0~			// Replace H3
-			WRITE_ASCII 0x3A ~IHELM06~ #8	// Replace ICOMPO05
-			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 53 parameter1 = 67 END // set item color, helm exterior: Replace 51
-			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 48 parameter1 = 19 END // set item color, helm wings: Replace 13
+			WRITE_ASCII 0x22 ~H0~			// replaces H3
+			WRITE_ASCII 0x3A ~IHELM06~ #8	// replaces ICOMPO05
+			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 53 parameter1 = 67 END // sets item color, helm exterior: 67 SHINY_GOLD replaces 51 DARK_OLIVE_GREEN
+			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 48 parameter1 = 19 END // sets item color, helm wings: 19 DARK_ROSE_RED replaces 13 LIGHT_PINKISH_SILVER
 		END
 	BUT_ONLY
 END
 
-/* Gwen fix: reverts to their original inventory icon IDAGG21. 1PP sets it to IDAGG18 (Shadow Thief Dagger icon), but EE does not validate this change.
+/* DEPRECATED as of v4.2.0
 // Dagger of the Star: modify inventory icon (also modified by 400_1pp_update).
+// Gwen fix: reverts to their original inventory icon IDAGG21. 1PP sets it to IDAGG18 (Shadow Thief Dagger icon), but EE does not validate this change.
 ACTION_FOR_EACH ~item~ IN ~dagg21~ ~dagg22~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
 		COPY_EXISTING ~%item%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x3A ~IDAGG18~ #8			// Replace IDAGG21
+				WRITE_ASCII 0x3A ~IDAGG18~ #8			// replaces IDAGG21
 				LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = idagg18 END
 			END
 		BUT_ONLY
@@ -97,7 +108,7 @@ ACTION_FOR_EACH ~item~ IN ~dagg21~ ~dagg22~ BEGIN
 END*/
 
 // Halberd +2: Timing mod was set to 0 for set item color, weapon head (also modified by 400_1pp_update).
-// Gwen fix: reverts to its original inventory icon IHALB07 (modified by component 400). 1PP sets it to IHALB03 (Suryris's Blade +2 icon), but EE does not validate this change.
+// Gwen fix: reverts to its original inventory icon ihalb07 (modified by component 400). 1PP sets it to ihalb03 (Suryris's Blade +2 icon), but EE does not validate this change.
 ACTION_IF (FILE_EXISTS_IN_GAME ~halb07.itm~) BEGIN
 	COPY_EXISTING ~halb07.itm~ ~override~
 //		WRITE_ASCII 0x3A ~IHALB03~ #8
@@ -111,7 +122,7 @@ ACTION_FOR_EACH item IN ~quiver02~ ~quiver04~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
 		COPY_EXISTING ~%item%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x3A ~IBOLTS01~ #8	// Replace IQUIV01
+				WRITE_ASCII 0x3A ~IBOLTS01~ #8	// replaces IQUIV01
 			END
 		BUT_ONLY
 	END
@@ -122,22 +133,22 @@ ACTION_FOR_EACH item IN ~quiver05~ ~quiver06~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
 		COPY_EXISTING ~%item%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
-				WRITE_ASCII 0x3A ~IQBULL02~ #8	// Replace IQUIV05
+				WRITE_ASCII 0x3A ~IQBULL02~ #8	// replaces IQUIV05
 			END
 		BUT_ONLY
 	END
 END
 
 
-/*  =======================  *
+/* ========================= *
  *          HELMETS          *
- *  =======================  */
+ * ========================= */
 
 // Helm of Opposite Alignment - Helmet - Skull of Death - Dragon Helm - Helmet: modify item animation (also modified by 400_1pp_update).
 ACTION_FOR_EACH item IN ~helm02~ ~helm08~ ~helm17~ ~helm21~ ~helm22~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
 		COPY_EXISTING ~%item%.itm~ ~override~
-			WRITE_ASCII 0x22 ~H4~		// Replace H3, H2, H0, H2, H3
+			WRITE_ASCII 0x22 ~H4~		// replaces H3, H2, H0, H2, H3
 		BUT_ONLY
 	END
 END
@@ -146,7 +157,7 @@ END
 ACTION_FOR_EACH item IN ~helm03~ ~helm12~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
 		COPY_EXISTING ~%item%.itm~ ~override~
-			WRITE_ASCII 0x22 ~H2~		// Replace H1
+			WRITE_ASCII 0x22 ~H2~		// replaces H1
 		BUT_ONLY
 	END
 END
@@ -154,23 +165,23 @@ END
 // Gift of Peace : modify inventory icon and item animation (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~helm04.itm~) BEGIN
 	COPY_EXISTING ~helm04.itm~ ~override~
-		WRITE_ASCII 0x22 ~H5~			// Replace H2
-		WRITE_ASCII 0x3A ~IHELM07~ #8	// Replace IHELM03
+		WRITE_ASCII 0x22 ~H5~			// replaces H2
+		WRITE_ASCII 0x3A ~IHELM07~ #8	// replaces IHELM03
 	BUT_ONLY
 END
 
 // Helm of Infravision: modify inventory icon (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~helm05.itm~) BEGIN
 	COPY_EXISTING ~helm05.itm~ ~override~
-		WRITE_ASCII 0x3A ~IHELM05~ #8	// Replace IHELM06
+		WRITE_ASCII 0x3A ~IHELM05~ #8	// replaces IHELM06
 	BUT_ONLY
 END
 
 // Helm of Charm Protection: modify inventory icon and item animation (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~helm06.itm~) BEGIN
 	COPY_EXISTING ~helm06.itm~ ~override~
-		WRITE_ASCII 0x22 ~H5~			// Replace H2
-		WRITE_ASCII 0x3A ~IHELM05~ #8	// Replace IHELM03
+		WRITE_ASCII 0x22 ~H5~			// replaces H2
+		WRITE_ASCII 0x3A ~IHELM05~ #8	// replaces IHELM03
 	BUT_ONLY
 END
 
@@ -178,7 +189,7 @@ END
 ACTION_FOR_EACH item IN ~helm09~ ~helm16~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
 		COPY_EXISTING ~%item%.itm~ ~override~
-			WRITE_ASCII 0x22 ~H3~		// Replace H2
+			WRITE_ASCII 0x22 ~H3~		// replaces H2
 		BUT_ONLY
 	END
 END
@@ -187,7 +198,7 @@ END
 ACTION_FOR_EACH item IN ~helm10~ ~helm15~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
 		COPY_EXISTING ~%item%.itm~ ~override~
-			WRITE_ASCII 0x22 ~H5~		// Replace H4
+			WRITE_ASCII 0x22 ~H5~		// replaces H4
 		BUT_ONLY
 	END
 END
@@ -195,16 +206,16 @@ END
 // Helmet: modify inventory icon and item animation (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~helm11.itm~) BEGIN
 	COPY_EXISTING ~helm11.itm~ ~override~
-		WRITE_ASCII 0x22 ~H0~			// Replace H5
-		WRITE_ASCII 0x3A ~IHELM00~ #8	// Replace IHELM06
+		WRITE_ASCII 0x22 ~H0~			// replaces H5
+		WRITE_ASCII 0x3A ~IHELM00~ #8	// replaces IHELM06
 	BUT_ONLY
 END
 
 // Helmet: modify inventory icon and item animation (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~helm13.itm~) BEGIN
 	COPY_EXISTING ~helm13.itm~ ~override~
-		WRITE_ASCII 0x22 ~H3~			// Replace H5
-		WRITE_ASCII 0x3A ~IHELM03~ #8	// Replace IHELM06
+		WRITE_ASCII 0x22 ~H3~			// replaces H5
+		WRITE_ASCII 0x3A ~IHELM03~ #8	// replaces IHELM06
 	BUT_ONLY
 END
 
@@ -212,10 +223,10 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~helm31.itm~) BEGIN
 	COPY_EXISTING ~helm31.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~H3~			// Replace H0
-			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 53 parameter1 = 21 END // set item color, helm exterior: Replace 30
-			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 48 parameter1 = 29 END // set item color, helm wings: Replace 27
-			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 52 parameter1 = 43 END // set item color, unknown: Replace 27
+			WRITE_ASCII 0x22 ~H3~			// replaces H0
+			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 53 parameter1 = 21 END // set item color, helm exterior: 21 DARK_IRON_GRAY replaces 30 LIGHT_IRON_GRAY
+			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 48 parameter1 = 29 END // set item color, helm wings: 29 RED-TINTED_BLACK replaces 27 GRAY
+			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 52 parameter1 = 43 END // set item color, helm face: 43 DARK_BEIGE replaces 27 GRAY
 		END
 	BUT_ONLY
 END
@@ -224,10 +235,10 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~helm32.itm~) BEGIN
 	COPY_EXISTING ~helm32.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~H4~			// Replace H1
-			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 53 parameter1 = 29 END // set item color, helm exterior: Replace 30
-			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 48 parameter1 = 21 END // set item color, helm wings: Replace 27
-			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 52 parameter1 = 66 END // set item color, unknown: Replace 27
+			WRITE_ASCII 0x22 ~H4~			// replaces H1
+			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 53 parameter1 = 29 END // set item color, helm exterior: 29 RED-TINTED_BLACK replaces 30 LIGHT_IRON_GRAY
+			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 48 parameter1 = 21 END // set item color, helm wings: 21 DARK_IRON_GRAY replaces 27 GRAY
+			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 52 parameter1 = 66 END // set item color, helm face: 66 FADED_BLACK replaces 27 GRAY
 		END
 	BUT_ONLY
 END
@@ -236,367 +247,367 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~helm33.itm~) BEGIN
 	COPY_EXISTING ~helm33.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~H0~			// Replace H3
+			WRITE_ASCII 0x22 ~H0~			// replaces H3
 		END
 	BUT_ONLY
 END
 
 
-/*  =======================  *
+/* ========================= *
  *          SHIELDS          *
- *  =======================  */
+ * ========================= */
 
 // Small Shield: modify item icons and colours (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld01.itm~) BEGIN
 	COPY_EXISTING ~shld01.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD01~ #8		// Replace ISHLDS01
-		WRITE_ASCII 0x44 ~GSHLD01~ #8		// Replace GSSHLD
-		WRITE_ASCII 0x58 ~CSHLD01~ #8		// Replace CSHLD28
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 28 END // set item color, shld body: Replace 42
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 30 END // set item color, shld hub: Replace 98
+		WRITE_ASCII 0x3A ~ISHLD01~ #8		// replaces ISHLDS01
+		WRITE_ASCII 0x44 ~GSHLD01~ #8		// replaces GSSHLD
+		WRITE_ASCII 0x58 ~CSHLD01~ #8		// replaces CSHLD28
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 28 END // set item color, shield body: 28 BLUISH_SILVER replaces 42 BEIGE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 30 END // set item color, shield hub: 30 LIGHT_IRON_GRAY replaces 98 LEAF_GREEN
 	BUT_ONLY
 END
 
 // Small Shield +1: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld02.itm~) BEGIN
 	COPY_EXISTING ~shld02.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD02~ #8		// Replace ISHLDS02
-		WRITE_ASCII 0x44 ~GSHLD01~ #8		// Replace GSSHLD
-		WRITE_ASCII 0x58 ~CSHLD02~ #8		// Replace CSHLD28
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 24 END // set item color, shld body: Replace 42
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 25 END // set item color, shld hub: Replace 98
-		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 34 END
-		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 29 END // shield panel
+		WRITE_ASCII 0x3A ~ISHLD02~ #8		// replaces ISHLDS02
+		WRITE_ASCII 0x44 ~GSHLD01~ #8		// replaces GSSHLD
+		WRITE_ASCII 0x58 ~CSHLD02~ #8		// replaces CSHLD28
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 24 END // set item color, shield body: 24 BROWN_GOLD replaces 42 BEIGE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 25 END // set item color, shield hub: 25 DARK_PURE_GOLD replaces 98 LEAF_GREEN
+		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 34 END	// deletes shield panel if present to make way for new one
+		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 29 END // set item color, shield panel: 29 RED-TINTED_BLACK
 	BUT_ONLY
 END
 
 // Medium Shield: modify item icons and colours (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld03.itm~) BEGIN
 	COPY_EXISTING ~shld03.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD03~ #8		// Replace ISHLDM01
-		WRITE_ASCII 0x44 ~GSHLD03~ #8		// Replace GMSHLD
-		WRITE_ASCII 0x58 ~CSHLD03~ #8		// Replace CSHLD29
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 100 END	// set item color, shld body: Replace 104
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 70 END	// set item color, shld hub: Replace 27
+		WRITE_ASCII 0x3A ~ISHLD03~ #8		// replaces ISHLDM01
+		WRITE_ASCII 0x44 ~GSHLD03~ #8		// replaces GMSHLD
+		WRITE_ASCII 0x58 ~CSHLD03~ #8		// replaces CSHLD29
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 100 END	// set item color, shield body: 100 DARK_ASH_GRAY replaces 104 DARK_CHROME_PURPLE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 70 END	// set item color, shield hub: 70 LIGHT_METALLIC_RED replaces 27 GRAY
 	BUT_ONLY
 END
 
 // Medium Shield +1: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld04.itm~) BEGIN
 	COPY_EXISTING ~shld04.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD04~ #8		// Replace ISHLDM02
-		WRITE_ASCII 0x44 ~GSHLD03~ #8		// Replace GMSHLD
-		WRITE_ASCII 0x58 ~CSHLD04~ #8		// Replace CSHLD29
-			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 30 END // set item color, shld body: Replace 91
-			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 99 END // set item color, shld hub: Replace 98
-			LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 34 END
-			LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 8 END // shield panel
+		WRITE_ASCII 0x3A ~ISHLD04~ #8		// replaces ISHLDM02
+		WRITE_ASCII 0x44 ~GSHLD03~ #8		// replaces GMSHLD
+		WRITE_ASCII 0x58 ~CSHLD04~ #8		// replaces CSHLD29
+			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 30 END // set item color, shield body: 30 LIGHT_IRON_GRAY replaces 91 DARK_CHOCOLATE
+			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 99 END // set item color, shield hub: 99 GOLDEN_BROWN replaces 98 LEAF_GREEN
+			LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 34 END	// deletes shield panel if present to make way for new one
+			LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 8 END // set item color, shield panel: 8 DARK_MUDDISH_BROWN
 	BUT_ONLY
 END
 
 // Large Shield: modify item icons and colours (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld05.itm~) BEGIN
 	COPY_EXISTING ~shld05.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD05~ #8		// Replace ISHLDL01
-		WRITE_ASCII 0x44 ~GSHLD05~ #8		// Replace GLSHLD
-		WRITE_ASCII 0x58 ~CSHLD05~ #8		// Replace CSHLD23
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 28 END	// set item color, shld body: Replace 91
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 111 END	// set item color, shld hub: Replace 102
+		WRITE_ASCII 0x3A ~ISHLD05~ #8		// replaces ISHLDL01
+		WRITE_ASCII 0x44 ~GSHLD05~ #8		// replaces GLSHLD
+		WRITE_ASCII 0x58 ~CSHLD05~ #8		// replaces CSHLD23
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 28 END	// set item color, shield body: 28 BLUISH_SILVER replaces 91 DARK_CHOCOLATE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 111 END	// set item color, shield hub: 111 BURNT_SIENNA replaces 102 SEA_BLUE
 	BUT_ONLY
 END
 
 // Large Shield +1: modify item icons and colours, and adds two effects (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld06.itm~) BEGIN
 	COPY_EXISTING ~shld06.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD06~ #8		// Replace ISHLDL02
-		WRITE_ASCII 0x44 ~GSHLD05~ #8		// Replace GLSHLD
-		WRITE_ASCII 0x58 ~CSHLD06~ #8		// Replace CSHLD23
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 30 END	// set item color, shld body: Replace 91
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 7 END	// set item color, shld hub: Replace 98
-		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 33 END	// deletes unknown (33) if present to make way for new one
+		WRITE_ASCII 0x3A ~ISHLD06~ #8		// replaces ISHLDL02
+		WRITE_ASCII 0x44 ~GSHLD05~ #8		// replaces GLSHLD
+		WRITE_ASCII 0x58 ~CSHLD06~ #8		// replaces CSHLD23
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 30 END	// set item color, shield body: 30 LIGHT_IRON_GRAY replaces 91 DARK_CHOCOLATE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 7 END	// set item color, shield hub: 7 LIGHT_METALLIC_GREEN replaces 98 LEAF_GREEN
+		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 33 END	// deletes shield interior if present to make way for new one
 		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 34 END	// deletes shield panel if present to make way for new one
-		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 8 STR_VAR insert = first END // shield panel
-		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 33 parameter1 = 6 STR_VAR insert = first END // unknown (33)
+		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 8 STR_VAR insert = first END // set item color, shield panel: 8 DARK_MUDDISH_BROWN
+		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 33 parameter1 = 6 STR_VAR insert = first END // set item color, shield interior: 6 DARK_SILVER
 	BUT_ONLY
 END
 
 // Shield of the Falling Stars +1: modify item icons and colours, and adds two effects (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld07.itm~) BEGIN
 	COPY_EXISTING ~shld07.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD07~ #8		// Replace ISHLDL02
-		WRITE_ASCII 0x44 ~GSHLD05~ #8		// Replace GLSHLD
-		WRITE_ASCII 0x58 ~CSHLD07~ #8		// Replace CSHLD23
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 25 END	// set item color, shld hub: Replace 98
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 25 END	// set item color, shld body: Replace 91
-		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 33 END	// deletes unknown (33) if present to make way for new one
+		WRITE_ASCII 0x3A ~ISHLD07~ #8		// replaces ISHLDL02
+		WRITE_ASCII 0x44 ~GSHLD05~ #8		// replaces GLSHLD
+		WRITE_ASCII 0x58 ~CSHLD07~ #8		// replaces CSHLD23
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 25 END	// set item color, shield hub: 25 DARK_PURE_GOLD replaces 98 LEAF_GREEN
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 25 END	// set item color, shield body: 25 DARK_PURE_GOLD replaces 91 DARK_CHOCOLATE
+		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 33 END	// deletes shield interior if present to make way for new one
 		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 34 END	// deletes shield panel if present to make way for new one
-		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 8 STR_VAR insert = first END // shield panel
-		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 33 parameter1 = 6 STR_VAR insert = first END // unknown (33)
+		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 8 STR_VAR insert = first END // set item color, shield panel: 8 DARK_MUDDISH_BROWN
+		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 33 parameter1 = 6 STR_VAR insert = first END // set item color, shield interior: 6 DARK_SILVER
 	BUT_ONLY
 END
 
 // Buckler: modify item icons and colours (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld08.itm~) BEGIN
 	COPY_EXISTING ~shld08.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD08~ #8		// Replace ISHLDB01
-		WRITE_ASCII 0x44 ~GSHLD08~ #8		// Replace GSSHLD
-		WRITE_ASCII 0x58 ~CSHLD08~ #8		// Replace CSHLD28
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 28 END // set item color, shld body: Replace 42
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 30 END // set item color, shld hub: Replace 98
+		WRITE_ASCII 0x3A ~ISHLD08~ #8		// replaces ISHLDB01
+		WRITE_ASCII 0x44 ~GSHLD08~ #8		// replaces GSSHLD
+		WRITE_ASCII 0x58 ~CSHLD08~ #8		// replaces CSHLD28
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 28 END // set item color, shield body: 28 BLUISH_SILVER replaces 42 BEIGE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 30 END // set item color, shield hub: 30 LIGHT_IRON_GRAY replaces 98 LEAF_GREEN
 	BUT_ONLY
 END
 
 // Buckler: modify item icons and colours (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld09.itm~) BEGIN
 	COPY_EXISTING ~shld09.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD09~ #8		// Replace ISHLDB01
-		WRITE_ASCII 0x44 ~GSHLD08~ #8		// Replace GSSHLD
-		WRITE_ASCII 0x58 ~CSHLD09~ #8		// Replace CSHLD28
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 22 END // set item color, shld body: Replace 42
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 23 END // set item color, shld hub: Replace 98
+		WRITE_ASCII 0x3A ~ISHLD09~ #8		// replaces ISHLDB01
+		WRITE_ASCII 0x44 ~GSHLD08~ #8		// replaces GSSHLD
+		WRITE_ASCII 0x58 ~CSHLD09~ #8		// replaces CSHLD28
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 22 END // set item color, shield body: 22 DARK_BROWN replaces 42 BEIGE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 23 END // set item color, shield hub: 23 LIGHT_COPPER replaces 98 LEAF_GREEN
 	BUT_ONLY
 END
 
 // Buckler: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld10.itm~) BEGIN
 	COPY_EXISTING ~shld10.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD10~ #8		// Replace ISHLDB01
-		WRITE_ASCII 0x44 ~GSHLD08~ #8		// Replace GSSHLD
-		WRITE_ASCII 0x58 ~CSHLD10~ #8		// Replace CSHLD28
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 28 END	// set item color, shld body: Replace 42
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 26 END	// set item color, shld hub: Replace 98
-		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 36 END	// deletes unknown (36) if present to make way for new one
-		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 36 parameter1 = 26 STR_VAR insert = first END // unknown (36)
+		WRITE_ASCII 0x3A ~ISHLD10~ #8		// replaces ISHLDB01
+		WRITE_ASCII 0x44 ~GSHLD08~ #8		// replaces GSSHLD
+		WRITE_ASCII 0x58 ~CSHLD10~ #8		// replaces CSHLD28
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 28 END	// set item color, shield body: 28 BLUISH_SILVER replaces 42 BEIGE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 26 END	// set item color, shield hub: 26 WOOD replaces 98 LEAF_GREEN
+		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 36 END	// deletes shield grip if present to make way for new one
+		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 36 parameter1 = 26 STR_VAR insert = first END // set item color, shield grip: 26 WOOD
 	BUT_ONLY
 END
 
 // Small Shield: modify item icons and colours (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld11.itm~) BEGIN
 	COPY_EXISTING ~shld11.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD11~ #8		// Replace ISHLDS01
-		WRITE_ASCII 0x44 ~GSHLD01~ #8		// Replace GSSHLD
-		WRITE_ASCII 0x58 ~CSHLD01~ #8		// Replace CSHLD28
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 28 END // set item color, shld body: Replace
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 30 END // set item color, shld hub: Replace
+		WRITE_ASCII 0x3A ~ISHLD11~ #8		// replaces ISHLDS01
+		WRITE_ASCII 0x44 ~GSHLD01~ #8		// replaces GSSHLD
+		WRITE_ASCII 0x58 ~CSHLD01~ #8		// replaces CSHLD28
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 28 END // set item color, shield body: 28 BLUISH_SILVER replaces 42 BEIGE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 30 END // set item color, shield hub: 30 LIGHT_IRON_GRAY replaces 98 LEAF_GREEN
 	BUT_ONLY
 END
 
 // Small Shield: modify item icons and colours (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld12.itm~) BEGIN
 	COPY_EXISTING ~shld12.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD12~ #8		// Replace ISHLDS01
-		WRITE_ASCII 0x44 ~GSHLD01~ #8		// Replace GSSHLD
-		WRITE_ASCII 0x58 ~CSHLD01~ #8		// Replace CSHLD28
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 27 END // set item color, shld body: Replace
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 30 END // set item color, shld hub: Replace
+		WRITE_ASCII 0x3A ~ISHLD12~ #8		// replaces ISHLDS01
+		WRITE_ASCII 0x44 ~GSHLD01~ #8		// replaces GSSHLD
+		WRITE_ASCII 0x58 ~CSHLD01~ #8		// replaces CSHLD28
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 27 END // set item color, shield body: 27 GRAY replaces 42 BEIGE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 30 END // set item color, shield hub: 30 LIGHT_IRON_GRAY replaces 98 LEAF_GREEN
 	BUT_ONLY
 END
 
 // Medium Shield: modify item icons (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld13.itm~) BEGIN
 	COPY_EXISTING ~shld13.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD13~ #8		// Replace ISHLDM01
-		WRITE_ASCII 0x44 ~GSHLD03~ #8		// Replace GMSHLD
-		WRITE_ASCII 0x58 ~CSHLD03~ #8		// Replace CSHLD29
+		WRITE_ASCII 0x3A ~ISHLD13~ #8		// replaces ISHLDM01
+		WRITE_ASCII 0x44 ~GSHLD03~ #8		// replaces GMSHLD
+		WRITE_ASCII 0x58 ~CSHLD03~ #8		// replaces CSHLD29
 	BUT_ONLY
 END
 
 // Medium Shield: modify item icons and colours (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld14.itm~) BEGIN
 	COPY_EXISTING ~shld14.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD14~ #8		// Replace ISHLDM01
-		WRITE_ASCII 0x44 ~GSHLD03~ #8		// Replace GMSHLD
-		WRITE_ASCII 0x58 ~CSHLD03~ #8		// Replace CSHLD29
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 30 END // set item color, shld body: Replace
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 10 END // set item color, shld hub: Replace
+		WRITE_ASCII 0x3A ~ISHLD14~ #8		// replaces ISHLDM01
+		WRITE_ASCII 0x44 ~GSHLD03~ #8		// replaces GMSHLD
+		WRITE_ASCII 0x58 ~CSHLD03~ #8		// replaces CSHLD29
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 30 END // set item color, shield body: 30 LIGHT_IRON_GRAY replaces 100 DARK_ASH_GRAY
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 10 END // set item color, shield hub: 10 LIGHT_PURE_GOLD replaces 59 LIGHT_PURPLE
 	BUT_ONLY
 END
 
 // Large Shield: modify item icons and colours (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld15.itm~) BEGIN
 	COPY_EXISTING ~shld15.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD15~ #8		// Replace ISHLDL01
-		WRITE_ASCII 0x44 ~GSHLD05~ #8		// Replace GLSHLD
-		WRITE_ASCII 0x58 ~CSHLD05~ #8		// Replace CSHLD23
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 27 END // set item color, shld body: Replace
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 19 END // set item color, shld hub: Replace
+		WRITE_ASCII 0x3A ~ISHLD15~ #8		// replaces ISHLDL01
+		WRITE_ASCII 0x44 ~GSHLD05~ #8		// replaces GLSHLD
+		WRITE_ASCII 0x58 ~CSHLD05~ #8		// replaces CSHLD23
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 27 END // set item color, shield body: 27 GRAY replaces 41 MEDIUM_BROWN
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 19 END // set item color, shield hub: 19 DARK_ROSE_RED replaces 102 SEA_BLUE
 	BUT_ONLY
 END
 
 // Large Shield: modify item icons and colours (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld16.itm~) BEGIN
 	COPY_EXISTING ~shld16.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD16~ #8		// Replace ISHLDL01
-		WRITE_ASCII 0x44 ~GSHLD05~ #8		// Replace GLSHLD
-		WRITE_ASCII 0x58 ~CSHLD05~ #8		// Replace CSHLD23
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 28 END // set item color, shld body: Replace
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 19 END // set item color, shld hub: Replace
+		WRITE_ASCII 0x3A ~ISHLD16~ #8		// replaces ISHLDL01
+		WRITE_ASCII 0x44 ~GSHLD05~ #8		// replaces GLSHLD
+		WRITE_ASCII 0x58 ~CSHLD05~ #8		// replaces CSHLD23
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 28 END // set item color, shield body: 28 BLUISH_SILVER replaces 91 DARK_CHOCOLATE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 19 END // set item color, shield hub: 19 DARK_ROSE_RED replaces 102 SEA_BLUE
 	BUT_ONLY
 END
 
 // Buckler +1: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld17.itm~) BEGIN
 	COPY_EXISTING ~shld17.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD17~ #8		// Replace ISHLDB02
-		WRITE_ASCII 0x44 ~GSHLD08~ #8		// Replace GSSHLD
-		WRITE_ASCII 0x58 ~CSHLD17~ #8		// Replace CSHLD28
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 17 END	// set item color, shld body: Replace 42
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 93 END	// set item color, shld hub: Replace 98
- 		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 36 END	// deletes unknown (36) if present to make way for new one
-		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 36 parameter1 = 18 STR_VAR insert = first END // unknown (36)
+		WRITE_ASCII 0x3A ~ISHLD17~ #8		// replaces ISHLDB02
+		WRITE_ASCII 0x44 ~GSHLD08~ #8		// replaces GSSHLD
+		WRITE_ASCII 0x58 ~CSHLD17~ #8		// replaces CSHLD28
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 17 END	// set item color, shield body: 17 PALE_BLUE replaces 42 BEIGE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 93 END	// set item color, shield hub: 93 DARK_CEMENT_GRAY replaces 98 LEAF_GREEN
+ 		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 36 END	// deletes shield grip if present to make way for new one
+		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 36 parameter1 = 18 STR_VAR insert = first END // set item color, shield grip: 18 BLUE
 	BUT_ONLY
 END
 
 // Large Shield: modify item icons and colours.
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld18.itm~) BEGIN
 	COPY_EXISTING ~shld18.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD15~ #8		// Replace ISHLDL01
-		WRITE_ASCII 0x44 ~GSHLD05~ #8		// Replace GLSHLD
-		WRITE_ASCII 0x58 ~CSHLD05~ #8		// Replace CSHLD23
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 27 END // set item color, shld body: Replace 98
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 19 END // set item color, shld hub: Replace 100
+		WRITE_ASCII 0x3A ~ISHLD15~ #8		// replaces ISHLDL01
+		WRITE_ASCII 0x44 ~GSHLD05~ #8		// replaces GLSHLD
+		WRITE_ASCII 0x58 ~CSHLD05~ #8		// replaces CSHLD23
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 27 END // set item color, shield body: 27 GRAY replaces 98 LEAF_GREEN
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 19 END // set item color, shield hub: 19 DARK_ROSE_RED replaces 100 DARK_ASH_GRAY
 	BUT_ONLY
 END
 
 // Pellan's Shield +2: modify item icons and colours, and adds two effects (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld19.itm~) BEGIN
 	COPY_EXISTING ~shld19.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD19~ #8		// Replace ISHLDL02
-		WRITE_ASCII 0x44 ~GSHLD05~ #8		// Replace GLSHLD
-		WRITE_ASCII 0x58 ~CSHLD19~ #8		// Replace CSHLD23
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 50 END	// set item color, shld body: Replace 91
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 50 END	// set item color, shld hub: Replace 98
+		WRITE_ASCII 0x3A ~ISHLD19~ #8		// replaces ISHLDL02
+		WRITE_ASCII 0x44 ~GSHLD05~ #8		// replaces GLSHLD
+		WRITE_ASCII 0x58 ~CSHLD19~ #8		// replaces CSHLD23
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 50 END	// set item color, shield body: 50 DARK_YELLOW replaces 91 DARK_CHOCOLATE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 50 END	// set item color, shield hub: 50 DARK_YELLOW replaces 98 LEAF_GREEN
 		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 34 END	// deletes shield panel if present to make way for new one
-		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 36 END	// deletes unknown (36) if present to make way for new one
-		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 66 STR_VAR insert = first END // shield panel
-		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 36 parameter1 = 0  STR_VAR insert = first END // unknown (36)
+		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 36 END	// deletes shield grip if present to make way for new one
+		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 66 STR_VAR insert = first END // set item color, shield panel: 66 FADED_BLACK
+		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 36 parameter1 = 0  STR_VAR insert = first END // set item color, shield grip: 0 RUST-TINTED_BLACK
 	BUT_ONLY
 END
 
 // Kiel's Buckler: modify item icons and colours (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld20.itm~) BEGIN
 	COPY_EXISTING ~shld20.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD20~ #8		// Replace ISHLDB01
-		WRITE_ASCII 0x44 ~GSHLD08~ #8		// Replace GSSHLD
-		WRITE_ASCII 0x58 ~CSHLD20~ #8		// Replace CSHLD28
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 24 END // set item color, shld body: Replace 42
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 24 END // set item color, shld hub: Replace 98
+		WRITE_ASCII 0x3A ~ISHLD20~ #8		// replaces ISHLDB01
+		WRITE_ASCII 0x44 ~GSHLD08~ #8		// replaces GSSHLD
+		WRITE_ASCII 0x58 ~CSHLD20~ #8		// replaces CSHLD28
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 24 END // set item color, shield body: 24 BROWN_GOLD replaces 42 BEIGE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 24 END // set item color, shield hub: 24 BROWN_GOLD replaces 98 LEAF_GREEN
 	BUT_ONLY
 END
 
 // Dragon Scale Shield +2: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld21.itm~) BEGIN
 	COPY_EXISTING ~shld21.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLDDS~ #8		// Replace ISHLD21
-		WRITE_ASCII 0x44 ~GSHLD03~ #8		// Replace GMSHLD
+		WRITE_ASCII 0x3A ~ISHLDDS~ #8		// replaces ISHLD21
+		WRITE_ASCII 0x44 ~GSHLD03~ #8		// replaces GMSHLD
 		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 34 END	// deletes shield panel if present to make way for new one
-		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 19 STR_VAR insert = first END // shield panel
+		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 19 STR_VAR insert = first END // set item color, shield panel: 19 DARK_ROSE_RED
 	BUT_ONLY
 END
 
 // Fortress Shield +3: modify item icons and colours, and adds two effects (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld23.itm~) BEGIN
 	COPY_EXISTING ~shld23.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLDFS~ #8		// Replace ISHLD23
-		WRITE_ASCII 0x44 ~GSHLD05~ #8		// Replace GLSHLD
-		WRITE_ASCII 0x58 ~CSHLD05~ #8		// Replace CSHLD23
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 31 END	// set item color, shld body: Replace
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 31 END	// set item color, shld hub: Replace
-		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 33 END	// deletes unknown (33) if present to make way for new one
+		WRITE_ASCII 0x3A ~ISHLDFS~ #8		// replaces ISHLD23
+		WRITE_ASCII 0x44 ~GSHLD05~ #8		// replaces GLSHLD
+		WRITE_ASCII 0x58 ~CSHLD05~ #8		// replaces CSHLD23
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 31 END	// set item color, shield body: 31 LIGHT_SEA_BLUE replaces 60 DARK_PURPLE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 31 END	// set item color, shield hub: 31 LIGHT_SEA_BLUE replaces 59 LIGHT_PURPLE
+		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 33 END	// deletes shield interior if present to make way for new one
 		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 34 END	// deletes shield panel if present to make way for new one
-		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 18 STR_VAR insert = first END // shield panel
-		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 33 parameter1 = 18 STR_VAR insert = first END // unknown (33)
+		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 18 STR_VAR insert = first END // set item color, shield panel: 18 BLUE
+		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 33 parameter1 = 18 STR_VAR insert = first END // set item color, shield interior: 18 BLUE
 	BUT_ONLY
 END
 
 // Reflection Shield +1: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld24.itm~) BEGIN
 	COPY_EXISTING ~shld24.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLDRF~ #8		// Replace ISHLD24
-		WRITE_ASCII 0x44 ~GSHLD01~ #8		// Replace GSSHLD
-		WRITE_ASCII 0x58 ~CSHLD08~ #8		// Replace CSHLD24
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 26 END	// set item color, shld body: Replace 60
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 26 END	// set item color, shld hub: Replace 59
+		WRITE_ASCII 0x3A ~ISHLDRF~ #8		// replaces ISHLD24
+		WRITE_ASCII 0x44 ~GSHLD01~ #8		// replaces GSSHLD
+		WRITE_ASCII 0x58 ~CSHLD08~ #8		// replaces CSHLD24
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 26 END	// set item color, shield body: 26 WOOD replaces 60 DARK_PURPLE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 26 END	// set item color, shield hub: 26 WOOD replaces 59 LIGHT_PURPLE
 		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 34 END	// deletes shield panel if present to make way for new one
-		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 63 STR_VAR insert = first END // shield panel
+		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 63 STR_VAR insert = first END // set item color, shield panel: 63 LIGHT_GRAY
 	BUT_ONLY
 END
 
 // Shield of Harmony +2: modify item icons and colours (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld25.itm~) BEGIN
 	COPY_EXISTING ~shld25.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLDHM~ #8		// Replace ISHLD25
-		WRITE_ASCII 0x44 ~GSHLD01~ #8		// Replace GSSHLD
-		WRITE_ASCII 0x58 ~CSHLD02~ #8		// Replace CSHLD25
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 31 END // set item color, shld body: Replace 24
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 31 END // set item color, shld hub: Replace 25
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 34 parameter1 = 17 END // set item color, shield panel: Replace 29
+		WRITE_ASCII 0x3A ~ISHLDHM~ #8		// replaces ISHLD25
+		WRITE_ASCII 0x44 ~GSHLD01~ #8		// replaces GSSHLD
+		WRITE_ASCII 0x58 ~CSHLD02~ #8		// replaces CSHLD25
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 31 END // set item color, shield body: 31 LIGHT_SEA_BLUE replaces 24 BROWN_GOLD
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 31 END // set item color, shield hub: 31 LIGHT_SEA_BLUE replaces 25 DARK_PURE_GOLD
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 34 parameter1 = 17 END // set item color, shield panel: 17 PALE_BLUE replaces 29 RED-TINTED_BLACK
 	BUT_ONLY
 END
 
 // Shield of the Lost +2: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld26.itm~) BEGIN
 	COPY_EXISTING ~shld26.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLDVR~ #8		// Replace ISHLD26
-		WRITE_ASCII 0x44 ~GSHLD03~ #8		// Replace GMSHLD
-		WRITE_ASCII 0x58 ~CSHLD03~ #8		// Replace CSHLD26
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 48 END	// set item color, shld body: Replace 31
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 58 END	// set item color, shld hub: Replace 57
+		WRITE_ASCII 0x3A ~ISHLDVR~ #8		// replaces ISHLD26
+		WRITE_ASCII 0x44 ~GSHLD03~ #8		// replaces GMSHLD
+		WRITE_ASCII 0x58 ~CSHLD03~ #8		// replaces CSHLD26
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 48 END	// set item color, shield body: 48 LIGHT_RUST replaces 31 LIGHT_SEA_BLUE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 58 END	// set item color, shield hub: 58 DARK_BLUE replaces 57 LIGHT_BLUE
 		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 34 END	// deletes shield panel if present to make way for new one
-		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 58 STR_VAR insert = first END // shield panel
+		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 58 STR_VAR insert = first END // set item color, shield panel: 58 DARK_BLUE
 	BUT_ONLY
 END
 
 // Saving Grace +3: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld27.itm~) BEGIN
 	COPY_EXISTING ~shld27.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLDGN~ #8		// Replace ISHLD27
-		WRITE_ASCII 0x44 ~GSHLD03~ #8		// Replace GMSHLD
-		WRITE_ASCII 0x58 ~CSHLD04~ #8		// Replace CSHLD27
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 30 END	// set item color, shld body: Replace 41
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 96 END	// set item color, shld hub: Replace 98
+		WRITE_ASCII 0x3A ~ISHLDGN~ #8		// replaces ISHLD27
+		WRITE_ASCII 0x44 ~GSHLD03~ #8		// replaces GMSHLD
+		WRITE_ASCII 0x58 ~CSHLD04~ #8		// replaces CSHLD27
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 30 END	// set item color, shield body: 30 LIGHT_IRON_GRAY replaces 41 MEDIUM_BROWN
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 96 END	// set item color, shield hub: 96 CHROME_BLUE replaces 98 LEAF_GREEN
 		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 34 END	// deletes shield panel if present to make way for new one
-		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 18 STR_VAR insert = first END // shield panel
+		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 18 STR_VAR insert = first END // set item color, shield panel: 18 BLUE
 	BUT_ONLY
 END
 
 // Small Shield +2: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld28.itm~) BEGIN
 	COPY_EXISTING ~shld28.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLDK2~ #8		// Replace ISHLD28
-		WRITE_ASCII 0x44 ~GSHLD01~ #8		// Replace GSSHLD
-		WRITE_ASCII 0x58 ~CSHLD08~ #8		// Replace CSHLD28
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 46 END	// set item color, shld body: Replace 59
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 26 END	// set item color, shld hub: Replace 98
+		WRITE_ASCII 0x3A ~ISHLDK2~ #8		// replaces ISHLD28
+		WRITE_ASCII 0x44 ~GSHLD01~ #8		// replaces GSSHLD
+		WRITE_ASCII 0x58 ~CSHLD08~ #8		// replaces CSHLD28
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 46 END	// set item color, shield body: 46 RED replaces 59 LIGHT_PURPLE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 26 END	// set item color, shield hub: 26 WOOD replaces 98 LEAF_GREEN
 		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 34 END	// deletes shield panel if present to make way for new one
-		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 29 STR_VAR insert = first END // shield panel
+		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 29 STR_VAR insert = first END // set item color, shield panel: 29 RED-TINTED_BLACK
 	BUT_ONLY
 END
 
 // Medium Shield +2: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld29.itm~) BEGIN
 	COPY_EXISTING ~shld29.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD13~ #8		// Replace ISHLD29
-		WRITE_ASCII 0x44 ~GSHLD03~ #8		// Replace GMSHLD
-		WRITE_ASCII 0x58 ~CSHLD03~ #8		// Replace CSHLD29
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 38 END	// set item color, shld body: Replace 39
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 21 END	// set item color, shld hub: Replace 27
+		WRITE_ASCII 0x3A ~ISHLD13~ #8		// replaces ISHLD29
+		WRITE_ASCII 0x44 ~GSHLD03~ #8		// replaces GMSHLD
+		WRITE_ASCII 0x58 ~CSHLD03~ #8		// replaces CSHLD29
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 38 END	// set item color, shield body: 38 LIGHT_DIRT_BROWN replaces 39 DARK_DIRT_BROWN
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 21 END	// set item color, shield hub: 21 DARK_IRON_GRAY replaces 27 GRAY
 		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 34 END	// deletes shield panel if present to make way for new one
-		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 66 STR_VAR insert = first END // shield panel
+		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 66 STR_VAR insert = first END // set item color, shield panel: 66 FADED_BLACK
 	BUT_ONLY
 END
 
 // Large Shield +2: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld30.itm~) BEGIN
 	COPY_EXISTING ~shld30.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISHLD07~ #8		// Replace ISHLD30
-		WRITE_ASCII 0x44 ~GSHLD05~ #8		// Replace GLSHLD
+		WRITE_ASCII 0x3A ~ISHLD07~ #8		// replaces ISHLD30
+		WRITE_ASCII 0x44 ~GSHLD05~ #8		// replaces GLSHLD
 		WRITE_LONG  0x50 6820				// General description
-		WRITE_ASCII 0x58 ~CSHLD06~ #8		// Replace CSHLD30
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 25 END	// set item color, shld body: Replace 91
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 25 END	// set item color, shld hub: Replace 27
+		WRITE_ASCII 0x58 ~CSHLD06~ #8		// replaces CSHLD30
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 25 END	// set item color, shield body: 25 DARK_PURE_GOLD replaces 91 DARK_CHOCOLATE
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 25 END	// set item color, shield hub: 25 DARK_PURE_GOLD replaces 27 GRAY
 		LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 34 END	// deletes shield panel if present to make way for new one
-		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 66 STR_VAR insert = first END // shield panel
+		LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 66 STR_VAR insert = first END // set item color, shield panel: 66 FADED_BLACK
 	BUT_ONLY
 END
 
@@ -604,27 +615,27 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld31.itm~) BEGIN
 	COPY_EXISTING ~shld31.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~ISHLDZS~ #8	// Replace ISHLD31
-			WRITE_ASCII 0x44 ~GSHLD05~ #8	// Replace GLSHLD
-			WRITE_ASCII 0x58 ~CSHLD07~ #8	// Replace PSHLD31
-			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 31 END	// set item color, shld body: Replace 60
-			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 20 END	// set item color, shld hub: Replace 57
+			WRITE_ASCII 0x3A ~ISHLDZS~ #8	// replaces ISHLD31
+			WRITE_ASCII 0x44 ~GSHLD05~ #8	// replaces GLSHLD
+			WRITE_ASCII 0x58 ~CSHLD07~ #8	// replaces PSHLD31
+			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 37 parameter1 = 31 END	// set item color, shield body: 31 LIGHT_SEA_BLUE replaces 60 DARK_PURPLE
+			LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 32 parameter1 = 20 END	// set item color, shield hub: 20 DARK_MOLDY_GREEN replaces 57 LIGHT_BLUE
 			LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 34 END	// deletes shield panel if present to make way for new one
-			LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 21 STR_VAR insert = first END // shield panel
+			LPF ~CLONE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 7 match_parameter2 = 37 parameter2 = 34 parameter1 = 21 STR_VAR insert = first END // set item color, shield panel: 21 DARK_IRON_GRAY
 		END
 	BUT_ONLY
 END
 
 
-/*  ======================  *
+/* ======================== *
  *          SWORDS          *
- *  ======================  */
+ * ======================== */
 
 // Varscona +2: modify inventory icon (also modified by 400_1pp_update).
 ACTION_FOR_EACH item IN ~killsw01~ ~sw1h06~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
 		COPY_EXISTING ~%item%.itm~ ~override~
-			WRITE_ASCII 0x3A ~ISW1HRN~ #8	// Replace ISW1H06
+			WRITE_ASCII 0x3A ~ISW1HRN~ #8	// replaces ISW1H06
 			LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW1HRN END
 		BUT_ONLY
 	END
@@ -633,7 +644,7 @@ END
 // Twinkle +3: modify inventory icon (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h16.itm~) BEGIN
 	COPY_EXISTING ~sw1h16.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISW1H16~ #8		// Replace ISW1H15
+		WRITE_ASCII 0x3A ~ISW1H16~ #8		// replaces ISW1H15
 		LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW1H16 END
 	BUT_ONLY
 END
@@ -641,7 +652,7 @@ END
 // Sword of Balduran: modify inventory icon (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h18.itm~) BEGIN
 	COPY_EXISTING ~sw1h18.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISW1HBS~ #8		// Replace ISW1H18
+		WRITE_ASCII 0x3A ~ISW1HBS~ #8		// replaces ISW1H18
 		LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW1HBS END
 	BUT_ONLY
 END
@@ -649,7 +660,7 @@ END
 // Rashad's Talon +2: modify inventory icon (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h23.itm~) BEGIN
 	COPY_EXISTING ~sw1h23.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISW1HRC~ #8		// Replace ISW1H23
+		WRITE_ASCII 0x3A ~ISW1HRC~ #8		// replaces ISW1H23
 		LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW1HRC END
 	BUT_ONLY
 END
@@ -657,16 +668,17 @@ END
 // The Burning Earth +1: modify item colors.
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h24.itm~) BEGIN
 	COPY_EXISTING ~sw1h24.itm~ ~override~
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 20 parameter1 = 67 END // set item color, wpn grip/staff minor: Replace 115
-		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 21 parameter1 = 67 END // set item color, wpn head/blade minor: Replace 115
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 20 parameter1 = 67 END // set item color, wpn grip/staff minor: 67 SHINY_GOLD replaces 115 SUNKISSED
+		LPF ~ALTER_EFFECT~ INT_VAR silent = 1 check_headers = 0 match_opcode = 7 match_parameter2 = 21 parameter1 = 67 END // set item color, wpn head/blade minor: 67 SHINY_GOLD replaces 115 SUNKISSED
 	BUT_ONLY
 END
 
-/* Daystar +2: modify inventory icon (also modified by 400_1pp_update).
+/* DEPRECATED as of v4.2.0
+// Daystar +2: modify inventory icon (also modified by 400_1pp_update).
 // Gwen fix: reverts to its original inventory icon ISW1H31. 1PP sets it ISW1H34 (Albruin +1), but EE does not validate this change.
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h31.itm~) BEGIN
 	COPY_EXISTING ~sw1h31.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISW1H34~ #8		// Replace ISW1H31
+		WRITE_ASCII 0x3A ~ISW1H34~ #8		// replaces ISW1H31
 		LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW1H34 END
 	BUT_ONLY
 END
@@ -675,7 +687,7 @@ END
 // Gwen fix: reverts to its original inventory icon ISW1H34. 1PP sets it to SW1H31 (Daystar +2 icon), but EE does not validate this change.
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h34.itm~) BEGIN
 	COPY_EXISTING ~sw1h34.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISW1H31~ #8		// Replace ISW1H34
+		WRITE_ASCII 0x3A ~ISW1H31~ #8		// replaces ISW1H34
 		LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW1H31 END
 	BUT_ONLY
 END
@@ -684,7 +696,7 @@ END
 // Gwen fix: reverts to its original inventory icon ISW1H41. 1PP sets it to SW1H06 (Varscona +2 icon), but EE does not validate this change.
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h41.itm~) BEGIN
 	COPY_EXISTING ~sw1h41.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISW1H06~ #8		// Replace ISW1H41
+		WRITE_ASCII 0x3A ~ISW1H06~ #8		// replaces ISW1H41
 		LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW1H06 END
 	BUT_ONLY
 END
@@ -692,7 +704,7 @@ END
 // Water's Edge +3: modify inventory icon (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h52.itm~) BEGIN
 	COPY_EXISTING ~sw1h52.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISW1HWK~ #8		// Replace ISW1H15
+		WRITE_ASCII 0x3A ~ISW1HWK~ #8		// replaces ISW1H15
 		LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW1HWK END
 	BUT_ONLY
 END
@@ -701,7 +713,7 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h59.itm~) BEGIN
 	COPY_EXISTING ~sw1h59.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~ISW1H59~ #8	// Replace ISW1H58
+			WRITE_ASCII 0x3A ~ISW1H59~ #8	// replaces ISW1H58
 			LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW1H59 END
 		END
 	BUT_ONLY
@@ -711,7 +723,7 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h61.itm~) BEGIN
 	COPY_EXISTING ~sw1h61.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~ISW1H61~ #8	// Replace ISW1H60
+			WRITE_ASCII 0x3A ~ISW1H61~ #8	// replaces ISW1H60
 			LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW1H61 END
 		END
 	BUT_ONLY
@@ -721,7 +733,7 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h63.itm~) BEGIN
 	COPY_EXISTING ~sw1h63.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~ISW1H63~ #8	// Replace ISW1H62
+			WRITE_ASCII 0x3A ~ISW1H63~ #8	// replaces ISW1H62
 			LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW1H63 END
 		END
 	BUT_ONLY
@@ -731,7 +743,7 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h65.itm~) BEGIN
 	COPY_EXISTING ~sw1h65.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~ISW1H65~ #8	// Replace ISW1H64
+			WRITE_ASCII 0x3A ~ISW1H65~ #8	// replaces ISW1H64
 			LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW1H65 END
 		END
 	BUT_ONLY
@@ -741,7 +753,7 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h69.itm~) BEGIN
 	COPY_EXISTING ~sw1h69.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~ISW1H69~ #8	// Replace ISW1H68
+			WRITE_ASCII 0x3A ~ISW1H69~ #8	// replaces ISW1H68
 			LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW1H69 END
 		END
 	BUT_ONLY
@@ -751,7 +763,7 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h71.itm~) BEGIN
 	COPY_EXISTING ~sw1h71.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~ISW1H71~ #8	// Replace ISW1H70
+			WRITE_ASCII 0x3A ~ISW1H71~ #8	// replaces ISW1H70
 			LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW1H71 END
 		END
 	BUT_ONLY
@@ -761,19 +773,19 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~demosum4.itm~) BEGIN
 	COPY_EXISTING ~demosum4.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~ISW2H03~ #8	// Replace ISW2H11
+			WRITE_ASCII 0x3A ~ISW2H03~ #8	// replaces ISW2H11
 			LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW2H03 END
 		END
 	BUT_ONLY
 END
-/* DEPRECATED
+/* DEPRECATED as of v4.2.0
 // Carsomyr +5 & +6: modify inventory icon (also modified by 400_1pp_update).
 // Gwen fix: reverts to their original inventory icon ISW2H10. 1PP sets it to ISW2H20, but EE does not validate this change.
 ACTION_FOR_EACH item IN ~sw2h10~ ~sw2h19~ BEGIN
  ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
 		COPY_EXISTING ~%item%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x3A ~ISW2H20~ #8	// Replace ISW2H10
+				WRITE_ASCII 0x3A ~ISW2H20~ #8	// replaces ISW2H10
 				LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW2H20 END
 			END
 		BUT_ONLY
@@ -784,7 +796,7 @@ END
 // Gwen fix: reverts to its original inventory icon ISW2H11. 1PP sets it to ISW2H03, but EE does not validate this change.
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw2h11.itm~) BEGIN
 	COPY_EXISTING ~sw2h11.itm~ ~override~
-		WRITE_ASCII 0x3A ~ISW2H03~ #8			// Replace ISW2H11
+		WRITE_ASCII 0x3A ~ISW2H03~ #8			// replaces ISW2H11
 		LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW2H03 END
 	BUT_ONLY
 END
@@ -794,7 +806,7 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw2h20.itm~) BEGIN
 	COPY_EXISTING ~sw2h20.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN		// protects against invalid files
-			WRITE_ASCII 0x3A ~ISW2H06~ #8		// Replace ISW2H20
+			WRITE_ASCII 0x3A ~ISW2H06~ #8		// replaces ISW2H20
  			LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW2H06 END
 		END
 	BUT_ONLY
@@ -802,16 +814,17 @@ END
 */
 
 
-/*  ===============================  *
+/* ================================= *
  *          COPY 1ppv2 BAMs          *
- *  ===============================  */
+ * ================================= */
 
-PRINT @200001 /* Copying... */
+PRINT @200001 // ~Copying...~
+SILENT
 
-// Gwen fix: keeps a few vanilla inventory icons for modding purpose (Club of Detonation +3, Splint Mail +1, Chain Mail +3, Mage Robe of Cold Resistance, Mage Robe of Fire Resistance, Mage Robe of Electric Resistance, Knave's Robe, Traveler's Robe, Adventurer's Robe, Robes of the Good Neutral Evil Archmagi, Suryris's Blade +2, Ravager +4, Halberd +3, The Eyes of Truth, Helm of the Rock, Helm of the Rock, Leather Armor, Studded Leather Armor, Plate Mail, Mithral Field Plate +2, Quiver of Plenty +1, Bastard Sword +2, Celestial Fury +3, Short Sword of Mask +4, Angurvadal +4, Foebane +3, Purifier +4, Yamato +4, Usuno's Blade +4, Spectral Brand +4, Hindo's Doom +3, Bastard Sword +3, Katana +3, Scimitar +3, The Answerer +4, Gram the Sword of Grief +5). Instead of overwriting them, it now saves them with V sufixe before overwriting them.
+// Gwen fix: keeps a few vanilla inventory icons for modding purpose (Club of Detonation +3, Splint Mail +1, Chain Mail +3, Mage Robe of Cold Resistance, Mage Robe of Fire Resistance, Mage Robe of Electric Resistance, Knave's Robe, Traveler's Robe, Adventurer's Robe, Robes of the Good Neutral Evil Archmagi, Suryris's Blade +2, Ravager +4, Halberd +3, The Eyes of Truth, Helm of the Rock, Helm of the Rock, Leather Armor, Studded Leather Armor, Plate Mail, Mithral Field Plate +2, Quiver of Plenty +1, Bastard Sword +2, Celestial Fury +3, Short Sword of Mask +4, Angurvadal +4, Foebane +3, Purifier +4, Yamato +4, Usuno's Blade +4, Spectral Brand +4, Hindo's Doom +3, Bastard Sword +3, Katana +3, Scimitar +3, The Answerer +4, Gram the Sword of Grief +5). Instead of overwriting them, 1pp now saves them with "v" suffix before overwriting them.
 
 ACTION_FOR_EACH bam IN iblun26 ichan05 ichan07 iclck09 iclck10 iclck11 iclck12 iclck13 iclck14 iclck15 iclck16 iclck17 ihalb03 ihalb10 ihalb12 ihelm06 ihelm31 ihelm32 ileat01 ileat04 iplat01 iplat09 iquiv01 isw1h42 isw1h51 isw1h58 isw1h60 isw1h62 isw1h64 isw1h66 isw1h67 isw1h68 isw1h70 isw1h72 isw1h75 isw1h76 isw1h77 isw2h17 BEGIN
-	COPY_EXISTING ~%bam%.bam~	~override/%bam%V.bam~
+	COPY_EXISTING ~%bam%.bam~	~override/%bam%v.bam~
 END
 
 COPY ~1pp/item/v2_copy/cshld19.bam~		~override~				// Pellan's Shield +2 (new)
@@ -819,8 +832,9 @@ COPY ~1pp/item/v2_copy/cshld20.bam~		~override~				// Kiel's Buckler (new)
 
 COPY ~1pp/item/v2_copy/iax1h01.bam~		~override~				// Battle Axe (overwrite)
 
+/* DEPRECATED as of v4.2.0
 // Gwen fix: removes iax1h14.bam from the copying process because EE does not validate this change (IWD icon: The Celebrant's Blade).
-//COPY ~1pp/item/v2_copy/iax1h14.bam~	~override~				// Axe of the Unyielding +3 (overwrite)
+COPY ~1pp/item/v2_copy/iax1h14.bam~	~override~					// Axe of the Unyielding +3 (overwrite)*/
 
 COPY ~1pp/item/v2_copy/iblun01.bam~		~override~				// Club (overwrite)
 COPY ~1pp/item/v2_copy/iblun04.bam~		~override~				// Mace (overwrite)
@@ -850,8 +864,9 @@ COPY ~1pp/item/v2_copy/iclck15.bam~		~override~				// Robe of the Good Archmagi 
 COPY ~1pp/item/v2_copy/iclck16.bam~	 	~override~				// Robe of the Neutral Archmagi (overwrite)
 COPY ~1pp/item/v2_copy/iclck17.bam~		~override~				// Robe of the Evil Archmagi (overwrite)
 
-// Gwen fix: removes bam from the copying proces because EE does not validate this change (overwrites Boomerang Dagger's icon with Dagger of Venom's IMISC75)
-//COPY ~1pp/item/v2_copy/idagg11.bam~	 	~override~			// Boomerang Dagger +2 (overwrite)
+/* DEPRECATED as of v4.2.0
+// Gwen fix: removes bam from the copying process because EE does not validate this change (overwrites Boomerang Dagger's icon with Dagger of Venom's IMISC75)
+COPY ~1pp/item/v2_copy/idagg11.bam~	 	~override~				// Boomerang Dagger +2 (overwrite)*/
 
 COPY ~1pp/item/v2_copy/ihalb03.bam~		~override~				// Suryris's Blade +2 (overwrite)
 COPY ~1pp/item/v2_copy/ihalb10.bam~		~override~				// Ravager +4 (overwrite)
@@ -861,7 +876,7 @@ COPY ~1pp/item/v2_copy/ihalb12.bam~		~override~				// Halberd +3 (overwrite)
 ACTION_IF (1pp_hammers_icons = 1) BEGIN
 	COPY ~1pp/item/v2_copy/ihamm10.bam~	~override~				// Runehammer +4 (overwrite)
 END ELSE BEGIN
-	COPY ~1pp/item/v2_copy/ihamm10.bam~	~override/ihamm05B.bam~ // Save vanilla's Runehammer icon
+	COPY ~1pp/item/v2_copy/ihamm10.bam~	~override/ihamm05b.bam~ // Save vanilla's Runehammer icon
 END
 
 COPY ~1pp/item/v2_copy/ihelm00.bam~		~override~				// Helmet (overwrite)
@@ -899,8 +914,9 @@ COPY ~1pp/item/v2_copy/ishldzs.bam~		~override~				// Darksteel Shield +4 (new)
 
 COPY ~1pp/item/v2_copy/isw1h02.bam~		~override~				// Bastard Sword +1 (overwrite)
 
-// Gwen fix: Does not overwrite Varscona's icon with a clone of ISW1H41 (Long Sword +2) because EE does not validate this change.
-//COPY ~1pp/item/v2_copy/isw1h06.bam~		~override~				// Varscona +2 (overwrite)
+/* DEPRECATED as of v4.2.0
+// Gwen fix: Does not overwrite Varscona's icon with a clone of isw1h41 (Long Sword +2) because EE does not validate this change.
+COPY ~1pp/item/v2_copy/isw1h06.bam~		~override~				// Varscona +2 (overwrite)*/
 
 COPY ~1pp/item/v2_copy/isw1h16.bam~		~override~				// Twinkle +3 (overwrite)
 COPY ~1pp/item/v2_copy/isw1h42.bam~		~override~				// Bastard Sword +2 (overwrite)
@@ -931,7 +947,7 @@ COPY ~1pp/item/v2_copy/isw1hrn.bam~		~override~				// Varscona +2 (new)
 COPY ~1pp/item/v2_copy/isw1hwk.bam~		~override~				// Water's Edge +3 (new)
 
 // Gwen fix: Does not overwrite Harbinger's icon and copies an alternate resource for modding purpose. This way, Harbinger keeps its golden icon which fits to its colors settings.
-COPY ~1pp/item/v2_copy/isw2h07.bam~		~override/isw2h07B~		// Harbinger +3 (overwrite)
+COPY ~1pp/item/v2_copy/isw2h07.bam~		~override/1isw2h07.bam~	// Harbinger +3 (overwrite)
 
 COPY ~1pp/item/v2_copy/isw2h17.bam~		~override~				// Gram the Sword of Grief +5 (overwrite)
 COPY ~1pp/item/v2_copy/isw2h20.bam~		~override~				// Two-handed Sword +3 (overwrite)
@@ -951,37 +967,40 @@ COPY ~1pp/item/v2_copy/iwand11.bam~		~override~				// Wand of the Heavens (overw
 COPY ~1pp/item/v2_copy/sw1hwk.itm~		~override~				// Water's Edge +3
 
 
-/*  =======================  *
+/* ========================= *
  *          POTIONS          *
- *  =======================  */
+ * ========================= */
 
-ACTION_IF (1pp_potions_icons = 1) BEGIN
-	PRINT @200001 /* Copying... */
+ACTION_IF (1pp_potions_icons = 2) BEGIN
+	PRINT @200001 // ~Copying...~
+	SILENT
 	COPY ~1pp/item/v2_copy/ipotn52.bam~ ~override~
 	COPY ~1pp/item/v2_copy/ipotn55.bam~ ~override~
 END
 
 
-/*  ==============================  *
+/* ================================ *
  *          BW HERBS STUFF          *
- *  ==============================  */
+ * ================================ */
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~BW02CHB1.BAM~) BEGIN
-	PRINT @200003 /* BW Herbs detected. Installing patches... */
+ACTION_IF (is_bw_herbs) BEGIN // FILE_EXISTS_IN_GAME ~bw02chb1.bam~
 
-	// Gwen fix: typo (BW02IPO1_l instead of BW02IPO1).
-	ACTION_FOR_EACH icon IN ~BW02CHB1~ ~BW02CHB2~ ~BW02CHB3~ ~BW02CHB4~ ~BW02CHB5~ ~BW02IDG1~ ~BW02IDG2~ ~BW02IHB1~ ~BW02IHB2~ ~BW02IHB3~ ~BW02IHB4~ ~BW02IHB5~ ~BW02IPO1~ ~BW02IPO3~ ~BW02IST1~ ~BW02IST2~ BEGIN
-		COPY ~1pp/item/BW_Herbs_bg2/bam/%icon%.BAM~ ~override~
+	PRINT @200003 // ~BW Herbs mod detected. Installing patches...~
+	SILENT
+
+	// Gwen fix: typo (bw02ipo1_l instead of bw02ipo1).
+	ACTION_FOR_EACH icon IN ~bw02chb1~ ~bw02chb2~ ~bw02chb3~ ~bw02chb4~ ~bw02chb5~ ~bw02idg1~ ~bw02idg2~ ~bw02ihb1~ ~bw02ihb2~ ~bw02ihb3~ ~bw02ihb4~ ~bw02ihb5~ ~bw02ipo1~ ~bw02ipo3~ ~bw02ist1~ ~bw02ist2~ BEGIN
+		COPY ~1pp/item/bw_herbs_bg2/bam/%icon%.bam~ ~override~
 	END
 
-	ACTION_FOR_EACH item IN ~BW02BLUN~ ~BW02DG1~ ~BW02DG2~ ~BW02DG3~ ~BW02DG4~ ~BW02DG5~ ~BW02DG6~ ~BW02PO02~ ~BW02PO04~ ~BW02PO05~ ~BW02PO06~ ~BW02PO07~ ~BW02PO09~ ~BW02PO10~ ~BW02ST1~ ~BW02ST2~ ~BW02ST3~ ~BW02ST4~ ~BW02ST5~ ~BW02ST6~ BEGIN
+	ACTION_FOR_EACH item IN ~bw02blun~ ~bw02dg1~ ~bw02dg2~ ~bw02dg3~ ~bw02dg4~ ~bw02dg5~ ~bw02dg6~ ~bw02po02~ ~bw02po04~ ~bw02po05~ ~bw02po06~ ~bw02po07~ ~bw02po09~ ~bw02po10~ ~bw02st1~ ~bw02st2~ ~bw02st3~ ~bw02st4~ ~bw02st5~ ~bw02st6~ BEGIN
 
 		OUTER_SET uname = 0
 		OUTER_SET iname = 0
 		OUTER_SET udesc = 0
 		OUTER_SET idesc = 0
 
-		ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.ITM~) BEGIN
+		ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
 			COPY_EXISTING ~%item%.itm~ ~override~
 				PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
 					READ_LONG 0x8 uname
@@ -990,7 +1009,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~BW02CHB1.BAM~) BEGIN
 					READ_LONG 0x54 idesc
 				 END
 
-			COPY ~1pp/item/BW_Herbs_bg2/itm/%item%.ITM~ ~override~
+			COPY ~1pp/item/bw_herbs_bg2/itm/%item%.itm~ ~override~
 				PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
 					WRITE_LONG 0x8 uname
 					WRITE_LONG 0xc iname
