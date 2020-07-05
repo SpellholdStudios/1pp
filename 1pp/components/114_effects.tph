@@ -1,20 +1,25 @@
-// softer spell effects
-// improved spell effects with better blending
-
-/*  ==============================================================================================================================================================================  *
+/* ================================================================================================================================================================================ *
+ *                                                                                                                                                                                  *
+ *                                                C O M P O N E N T   :   S o f t e r   S p e l l   e f f e c t s                                                                   *
+ *                                                                                                                                                                                  *
+ * ================================================================================================================================================================================ *
+ *  This component improves spell effects with smooth alpha blending for Baldur's Gate II engine based IE games.                                                                    *
+ * ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
- *      - Replace READLN ~WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS  *
- *        NOT A GOOD IDEA.~ with reading '3D Acceleration=1' in baldur.ini before running the component.                                                                            *
- *      - Variables needed for installation (1pp_agannazar_scorcher and 1pp_dispel_magic_effect) are read from 1pp-config-default.ini or 1pp-config.ini files.                      *
+ *      - Replace READLN ~WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode     *
+ *        IS NOT A GOOD IDEA.~ with reading '3D Acceleration=1' in baldur.ini, icewind.ini or icewind2.ini before running the component.                                            *
+ *      - Variables needed for installation (1pp_agannazar_scorcher and 1pp_dispel_magic_effect) are read from 1pp-config-default.ini or 1pp-config-user.ini files.                 *
  *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is     *
  *        installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file    *
  *        provides a standard installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and   *
- *        save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini,    *
- *        the installation process will prevent any installation failure by reverting it back to its default value.                                                                 *
- *      - #540	==> Function GW_MODIFY_PROJ replaces Lollorian's BWP Fixpack patch (114_effects.tph.patch: modify new projectile values in ALL spell headers) which was inefficient *
- *					and patched nothing. Moreover, it was using a wrong offset coding for itm files.                                                                                *
- *  ==============================================================================================================================================================================  */
+ *        save it as 1pp-config-user.ini. The installation process will read both .ini files and prioritize user values. If a value is not set or mismatched in user's file         *
+ *        1pp-config-user.ini, the installation process will prevent any installation failure by reverting it back to its default value.                                            *
+ *      - Coding simplification:                                                                                                                                                    *
+ *          Replaced `GAME_IS` conditions with variables checks to speed up install time.                                                                                           *
+ *          #567 : Function GW_MODIFY_PROJ replaces Lollorian's BWP Fixpack patch (114_effects.tph.patch: modify new projectile values in ALL spell headers) which was inefficient  *
+ *                 and patched nothing. Moreover, it was using a wrong offset when patching itm files.                                                                              *
+ * ================================================================================================================================================================================ */
 
 // BUILDING ARRAYS
 ACTION_DEFINE_ASSOCIATIVE_ARRAY binarycheck BEGIN
@@ -382,84 +387,93 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY binarypatch BEGIN
 END // binary patch array
 
 
-/*  =======  *
+/* ========= *
  *  BG2-ToB  *
- *  =======  */
-ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
-	PRINT @114002 /* Installing... */
+ * ========= */
+ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // GAME_IS ~bg2 tob tutu tutu_totsc ca~
 
+	PRINT @114002 // ~Installing...~
 	OUTER_SET fail = 0
+	PRINT @114003 // ~Patching executable for alpha blended AoE projectiles...~
+	SILENT
 
-	PRINT @114003 /* Patching executable for alpha blended AoE projectiles... */
-
+	// 1. Patch executable to fix area effect transparencies
 	ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN // don't have mac info yet
-		// patch executable to fix area effect transparencies
+
 		COPY ~bgmain.exe~ ~bgmain.exe~
+
 			// determine which version of the game is used, and set the base offset accordingly
 			PATCH_IF (SOURCE_SIZE == 7839790 || SOURCE_SIZE == 7843840) BEGIN // ToB v26498
+				PATCH_PRINT @103004 // ~ToB v26498 found.~
+				PATCH_SILENT
 				READ_LONG 0x16B32B tst_val
 				PATCH_IF (tst_val = 0x0000116E) BEGIN	// 0x6E110000
 					WRITE_LONG 0x16B028 0xFFFFF10D		// 0x0DF1FFFF
 					WRITE_LONG 0x16B32B 0xFFFFEE0A		// 0x0AEEFFFF
 					WRITE_LONG 0x16A4EE 0xFFFFFC47		// 0x47FCFFFF
 				END ELSE BEGIN
-					PATCH_PRINT @103008 /* Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only). */
+					PATCH_PRINT @103008 // ~Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only).~
 					SET fail = 1
 				END
 			END
 			ELSE PATCH_IF (SOURCE_SIZE == 7417902) BEGIN // SoA v23037
+				PATCH_PRINT @103007 // ~SoA v23037 found.~
+				PATCH_SILENT
 				READ_LONG 0x152C89 tst_val
 				PATCH_IF (tst_val = 0x00000FF2) BEGIN	// 0xF20F0000
 					WRITE_LONG 0x152986 0xFFFFF299		// 0x99F2FFFF
 					WRITE_LONG 0x152C89 0xFFFFEF96		// 0x96EFFFFF
 					WRITE_LONG 0x151FC0 0xFFFFFC5F		// 0x5FFCFFFF
 				END ELSE BEGIN
-					PATCH_PRINT @103008 /* Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only). */
+					PATCH_PRINT @103008 // ~Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only).~
 					SET fail = 1
 				END
 			END
 			ELSE BEGIN
-				PATCH_PRINT @103008 /* Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only). */
+				PATCH_PRINT @103008 // ~Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only).~
 				SET fail = 1
 			END
+
 	END ELSE BEGIN
 		OUTER_SET fail = 1
 	END
 
-
 	ACTION_IF (fail == 1) BEGIN
-		PRINT @114004 /* Could not patch bgmain successfully, installing only supported effects. */
+		PRINT @114004 // ~Could not patch bgmain successfully, installing only supported effects.~
 	END
 
-	PRINT @114005 /* Copying effects... */
+	// Copy effects
+	PRINT @114005 // ~Copying effects...~
+	SILENT
 
 	ACTION_IF (fail != 1) BEGIN
-		ACTION_FOR_EACH effect IN ~SPHORWIL~ ~SPHORPUF~ ~SPWRDFLD~ ~SPICESTM~ BEGIN
-			COPY ~1pp/core/1ppv4_spells/%effect%.BAM~ ~override~
+		ACTION_FOR_EACH effect IN ~sphorwil~ ~sphorpuf~ ~spwrdfld~ ~spicestm~ BEGIN
+			COPY ~1pp/core/1ppv4_spells/%effect%.bam~ ~override~
 		END
 	END
 
-	ACTION_FOR_EACH effect IN ~CGINVOCA.BAM~ ~GRNDGLOW.BAM~ ~MINORGLB.BAM~ ~MMAGICH.BAM~ ~SANCTRY.BAM~ ~SHWATER.BAM~ ~SPARMORI.BAM~ ~SPARMOUR.BAM~ ~SPATTCK1.BAM~ ~SPBASERD.BAM~ ~SPBASEWT.BAM~ ~SPBDBUR.BAM~ ~SPBDBURS.BAM~ ~SPBDIMSP.BAM~ ~SPBEHBLA.BAM~ ~SPBEHRAY.BAM~ ~SPBLESHI.BAM~ ~SPBOOM.BAM~ ~SPCAGEMZ.BAM~ ~SPCALLLI.BAM~ ~SPCCOLDE.BAM~ ~SPCCOLDL.BAM~ ~SPCHLGT1.BAM~ ~SPCHLGT2.BAM~ ~SPCHLGT3.BAM~ ~SPCHMPSI.BAM~ ~SPCHRORB.BAM~ ~SPCLKFRI.BAM~ ~SPCMWOUI.BAM~ ~SPCOMEND.BAM~ ~SPCOMETT.BAM~ ~SPCOMSTT.BAM~ ~SPCONTIN.BAM~ ~SPCRTWPN.BAM~ ~SPCSPRA2.BAM~ ~SPCSPRA3.BAM~ ~SPCSWOUI.BAM~ ~SPDEATH3.BAM~ ~SPDIMNDR.BAM~ ~SPENTAAI.BAM~ ~SPENTACI.BAM~ ~SPENTAXI.BAM~ ~SPFDEATH.BAM~ ~SPFDETH3.BAM~ ~SPFINODI.BAM~ ~SPFIREPI.BAM~ ~SPFIRET.BAM~ ~SPFIRETR.BAM~ ~SPFIRSDI.BAM~ ~SPFIRSE2.BAM~ ~SPFIRSED.BAM~ ~SPFLAST1.BAM~ ~SPFLAST2.BAM~ ~SPFLESHS.BAM~ ~SPFLMSTI.BAM~ ~SPFRACTI.BAM~ ~SPGFLSH1.BAM~ ~SPGLYPTI.BAM~ ~SPGREORB.BAM~ ~SPHEALIN.BAM~ ~SPHLYBLS.BAM~ ~SPHLYSM2.BAM~ ~SPHLYSM3.BAM~ ~SPHOLLYW.BAM~ ~SPHOLMIG.BAM~ ~SPHOLYMT.BAM~ ~SPHOLYWD.BAM~ ~SPIMPFR.BAM~ ~SPMAGGLO.BAM~ ~SPMAGGLO.VVC~ ~SPMAGMIS.BAM~ ~SPNWCHRM.BAM~ ~SPPFIRAI.BAM~ ~SPPFIRRI.BAM~ ~SPPFIRXI.BAM~ ~SPPLANAR.BAM~ ~SPPOLYMP.BAM~ ~SPPORTAL.BAM~ ~SPPOWATK.BAM~ ~SPPOWWRD.BAM~ ~SPPRAYRI.BAM~ ~SPPRISM2.BAM~ ~SPPRISMT.BAM~ ~SPRAISEI.BAM~ ~SPRDRABU.BAM~ ~SPRDRAE2.BAM~ ~SPRESURI.BAM~ ~SPRMPARI.BAM~ ~SPROTECT.BAM~ ~SPRWRATI.BAM~ ~SPSCHGI.BAM~ ~SPSDBUR.BAM~ ~SPSDIMPA.BAM~ ~SPSHIELD.BAM~ ~SPSNRAYI.BAM~ ~SPSOHOPI.BAM~ ~SPSPAINI.BAM~ ~SPSPARKS.BAM~ ~SPSPEART.BAM~ ~SPSPMAZE.BAM~ ~SPSTRENH.BAM~ ~SPSTRENI.BAM~ ~SPSUNRAY.BAM~ ~SPTRUSEE.BAM~ ~SPUNHBL2.BAM~ ~SPUNHBL3.BAM~ ~SPUNHOLY.BAM~ ~SPUSEANY.BAM~ ~SPCLCOMP.BAM~ ~SPCLOUD1.BAM~ ~SPCLOUD2.BAM~ ~SPCLOUD3.BAM~ BEGIN
+	ACTION_FOR_EACH effect IN ~cginvoca.bam~ ~grndglow.bam~ ~minorglb.bam~ ~mmagich.bam~ ~sanctry.bam~ ~shwater.bam~ ~sparmori.bam~ ~sparmour.bam~ ~spattck1.bam~ ~spbaserd.bam~ ~spbasewt.bam~ ~spbdbur.bam~ ~spbdburs.bam~ ~spbdimsp.bam~ ~spbehbla.bam~ ~spbehray.bam~ ~spbleshi.bam~ ~spboom.bam~ ~spcagemz.bam~ ~spcallli.bam~ ~spccolde.bam~ ~spccoldl.bam~ ~spchlgt1.bam~ ~spchlgt2.bam~ ~spchlgt3.bam~ ~spchmpsi.bam~ ~spchrorb.bam~ ~spclkfri.bam~ ~spcmwoui.bam~ ~spcomend.bam~ ~spcomett.bam~ ~spcomstt.bam~ ~spcontin.bam~ ~spcrtwpn.bam~ ~spcspra2.bam~ ~spcspra3.bam~ ~spcswoui.bam~ ~spdeath3.bam~ ~spdimndr.bam~ ~spentaai.bam~ ~spentaci.bam~ ~spentaxi.bam~ ~spfdeath.bam~ ~spfdeth3.bam~ ~spfinodi.bam~ ~spfirepi.bam~ ~spfiret.bam~ ~spfiretr.bam~ ~spfirsdi.bam~ ~spfirse2.bam~ ~spfirsed.bam~ ~spflast1.bam~ ~spflast2.bam~ ~spfleshs.bam~ ~spflmsti.bam~ ~spfracti.bam~ ~spgflsh1.bam~ ~spglypti.bam~ ~spgreorb.bam~ ~sphealin.bam~ ~sphlybls.bam~ ~sphlysm2.bam~ ~sphlysm3.bam~ ~sphollyw.bam~ ~spholmig.bam~ ~spholymt.bam~ ~spholywd.bam~ ~spimpfr.bam~ ~spmagglo.bam~ ~Spmagglo.vvc~ ~spmagmis.bam~ ~spnwchrm.bam~ ~sppfirai.bam~ ~sppfirri.bam~ ~sppfirxi.bam~ ~spplanar.bam~ ~sppolymp.bam~ ~spportal.bam~ ~sppowatk.bam~ ~sppowwrd.bam~ ~spprayri.bam~ ~spprism2.bam~ ~spprismt.bam~ ~spraisei.bam~ ~sprdrabu.bam~ ~sprdrae2.bam~ ~spresuri.bam~ ~sprmpari.bam~ ~sprotect.bam~ ~sprwrati.bam~ ~spschgi.bam~ ~spsdbur.bam~ ~spsdimpa.bam~ ~spshield.bam~ ~spsnrayi.bam~ ~spsohopi.bam~ ~spspaini.bam~ ~spsparks.bam~ ~spspeart.bam~ ~spspmaze.bam~ ~spstrenh.bam~ ~spstreni.bam~ ~spsunray.bam~ ~sptrusee.bam~ ~spunhbl2.bam~ ~spunhbl3.bam~ ~spunholy.bam~ ~spuseany.bam~ ~spclcomp.bam~ ~spcloud1.bam~ ~spcloud2.bam~ ~spcloud3.bam~ BEGIN
 		COPY ~1pp/core/1ppv4_spells/%effect%~ ~override~
 	END
 
+	// 3. FIRE EFFECTS AND HITS
+	ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // TODO supposed to be ToB only ?? GAME_IS ~bg2 tob tutu tutu_totsc ca~
 
-	// FIRE EFFECTS AND HITS
-
-	ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
-
-		PRINT @114006 /* Installing improved fire effects for ToB... */
+		PRINT @114006 // ~Installing improved fire effects for ToB...~
+		SILENT
 
 		// uncomment for game files
-		// ACTION_IF (FILE_EXISTS_IN_GAME ~bgmain.exe~) BEGIN
 		COPY ~bgmain.exe~ ~bgmain.exe~
+
 			PATCH_IF (SOURCE_SIZE == 0x77a02e || SOURCE_SIZE == 7843840) BEGIN
+
 				PHP_EACH binarycheck AS value1 => value2 BEGIN
+
 					PATCH_IF (%value2% <= 0xFF) BEGIN
 						READ_BYTE %value1_0% "check_r"
 						PATCH_IF ("%check_r%" != %value2%) BEGIN
 							SET fail = 1
-							PATCH_PRINT @114007 /* %check_r% is not %value2% at %value1_0% */
+							PATCH_PRINT @114007 // ~%check_r% is not %value2% at %value1_0%~
 						END
 					END
 
@@ -467,7 +481,7 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 						READ_SHORT %value1_0% "check_r"
 						PATCH_IF ("%check_r%" != %value2%) BEGIN
 							SET fail = 1
-							PATCH_PRINT @114007 /* %check_r% is not %value2% at %value1_0% */
+							PATCH_PRINT @114007 // ~%check_r% is not %value2% at %value1_0%~
 						END
 					END
 
@@ -475,7 +489,7 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 						READ_LONG %value1_0% "check_r"
 						PATCH_IF ("%check_r%" != %value2%) BEGIN
 							SET fail = 1
-							PATCH_PRINT @114007 /* %check_r% is not %value2% at %value1_0% */
+							PATCH_PRINT @114007 // ~%check_r% is not %value2% at %value1_0%~
 						END
 					END
 
@@ -483,11 +497,11 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 
 			END
 
-
 		// uncomment for game files
-		// ACTION_IF (FILE_EXISTS_IN_GAME ~bgmain.exe~) BEGIN
 		COPY ~bgmain.exe~ ~bgmain.exe~
+
 			PATCH_IF (SOURCE_SIZE == 0x77a02e || SOURCE_SIZE == 7843840) BEGIN
+
 				PHP_EACH binarypatch AS value1 => value2 BEGIN
 					PATCH_IF (%value2% <= 0xFF) BEGIN
 						WRITE_BYTE %value1_0%  %value2%
@@ -501,134 +515,134 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 						WRITE_LONG %value1_0%  %value2%
 					END
 				END
-			END ELSE BEGIN
-				PATCH_PRINT @114008 /* Error: Executable does not seem to be ToB, skipping. */
-			END
 
-		// END// uncomment for game files (end of EXISTS_IN)
+			END ELSE BEGIN
+				PATCH_PRINT @114008 // ~Error: Executable does not seem to be ToB, skipping.~
+			END
+		// END of uncomment for game files
 
 		ACTION_IF (fail = 1) BEGIN
-			FAIL @103021 /* Error: Executable does not appear to be compatible. */
+			FAIL @103021 // ~Error: Executable does not appear to be compatible.~
 		END
 
+		SILENT
 		ACTION_IF (fail != 1) BEGIN
-			COPY ~1pp/core/1ppv4_spells/SPFIRIMP.BAM~ ~override~
-			COPY ~1pp/core/1ppv4_spells/SPICEIMP.BAM~ ~override~
+			COPY ~1pp/core/1ppv4_spells/spfirimp.bam~ ~override~
+			COPY ~1pp/core/1ppv4_spells/spiceimp.bam~ ~override~
 		END
 
 	END // END FIRE EFFECTS
 
 
-	// Install IWD-style Agannazar's Scorcher or alternate style
-
+	// 4. Install IWD-style Agannazar's Scorcher or alternate style
 	ACTION_IF (1pp_agannazar_scorcher = 1) BEGIN	// IWD-style
-		COPY ~1pp/core/1ppv4_spells/SPSCORCH_iwd.BAM~ ~override/SPSCORCH.BAM~
-	END ELSE BEGIN									// alternate style
-		COPY ~1pp/core/1ppv4_spells/SPSCORCH.BAM~ ~override~
+		COPY ~1pp/core/1ppv4_spells/spscorch_iwd.bam~ ~override/spscorch.bam~
+	END ELSE BEGIN									// BGII alternate style
+		COPY ~1pp/core/1ppv4_spells/spscorch.bam~ ~override~
 	END
 
 
-	// Install less obtrusive dispel magic effect
-
+	// 5. Install less obtrusive dispel magic effect
 	ACTION_IF (1pp_dispel_magic_effect = 1) BEGIN	// Yes
-		COPY ~1pp/core/1ppv4_spells/SPDISPMA.BAM~ ~override~
+		COPY ~1pp/core/1ppv4_spells/spdispma.bam~ ~override~
 	END ELSE BEGIN									// No (install improved stock effect instead)
-		COPY ~1pp/core/1ppv4_spells/SPDISPMA_bgii.BAM~ ~override/SPDISPMA.BAM~
+		COPY ~1pp/core/1ppv4_spells/spdispma_bgii.bam~ ~override/spdispma.bam~
 	END
 
 
-	// PROJECTILES
-	PRINT @114011 /* Setting up projectiles... */
+	// 6. PROJECTILES
+	PRINT @114011 // ~Setting up projectiles...~
+	SILENT
 
-	ACTION_FOR_EACH proj IN ~BOLT2~ ~CHROMORB~ ~DBFIREBL~ ~DFIREBL~ ~PCOMETT~ ~PFIRE2~ ~PFIRE3~ ~PSPEART~ ~SAFEFIRE~ ~SPGREORB~ ~GOLCLOUD~ ~ACIDBLGR~ ~ACIDBLMU~ ~ACIDBLOB~ ~ACIDBLOC~ ~CLOUD~ ~CLOUDKIL~ ~CLOUDPC~ ~ICESTORM~ ~METSWARM~ ~PFIELD~ ~PWILT~ BEGIN
-		COPY ~1pp/core/1ppv4_pro/%proj%.PRO~ ~override~
+	ACTION_FOR_EACH proj IN ~bolt2~ ~chromorb~ ~dbfirebl~ ~dfirebl~ ~pcomett~ ~pfire2~ ~pfire3~ ~pspeart~ ~safefire~ ~spgreorb~ ~golcloud~ ~acidblgr~ ~acidblmu~ ~acidblob~ ~acidbloc~ ~cloud~ ~cloudkil~ ~cloudpc~ ~icestorm~ ~metswarm~ ~pfield~ ~pwilt~ BEGIN
+		COPY ~1pp/core/1ppv4_pro/%proj%.pro~ ~override~
 	END
 
-	ADD_PROJECTILE ~1pp/core/1ppv4_pro/1PGSPORE.PRO~
+	ADD_PROJECTILE ~1pp/core/1ppv4_pro/1pgspore.pro~
 
 	// Gas Spore
 	ACTION_IF (FILE_EXISTS_IN_GAME ~SPIN897.SPL~) BEGIN
-		COPY_EXISTING ~SPIN897.SPL~ ~override~
+		COPY_EXISTING ~spin897.spl~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
-				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = CLOUDKIL new_proj = 1PGSPORE END
+				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = CLOUDKIL new_proj = 1pgspore END
 			END
 		BUT_ONLY
 	END
 
 	// Summon Fungus
 	ACTION_IF (FILE_EXISTS_IN_GAME ~SPIN730.SPL~) BEGIN
-		COPY_EXISTING ~SPIN730.SPL~ ~override~
+		COPY_EXISTING ~spin730.spl~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
-				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = GOLCLOUD new_proj = 1PGSPORE END
+				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = GOLCLOUD new_proj = 1pgspore END
 			END
 		BUT_ONLY
 	END
 
 
-	ADD_PROJECTILE ~1pp/core/1ppv4_pro/1PMANEGS.PRO~
+	ADD_PROJECTILE ~1pp/core/1ppv4_pro/1pmanegs.pro~
 
 	// Mane Gas
 	ACTION_IF (FILE_EXISTS_IN_GAME ~SPIN917.SPL~) BEGIN
-		COPY_EXISTING ~SPIN917.SPL~ ~override~
+		COPY_EXISTING ~spin917.spl~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
-				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = CLOUDKIL new_proj = 1PMANEGS END
+				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = CLOUDKIL new_proj = 1pmanegs END
 			END
 		BUT_ONLY
 	END
 
 
-	ADD_PROJECTILE ~1pp/core/1ppv4_pro/1PDEATHF.PRO~
+	ADD_PROJECTILE ~1pp/core/1ppv4_pro/1pdeathf.pro~
 
 	// Death Fog
 	ACTION_IF (FILE_EXISTS_IN_GAME ~SPWI614.SPL~) BEGIN
-		COPY_EXISTING ~SPWI614.SPL~ ~override~
+		COPY_EXISTING ~spwi614.spl~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
-				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = CLOUDKIL new_proj = 1PDEATHF END
+				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = CLOUDKIL new_proj = 1pdeathf END
 			END
 		BUT_ONLY
 	END
 
 
-	ADD_PROJECTILE ~1pp/core/1ppv4_pro/1PINCIND.PRO~
+	ADD_PROJECTILE ~1pp/core/1ppv4_pro/1pincind.pro~
 
 	// Incendiary Cloud
 	ACTION_IF (FILE_EXISTS_IN_GAME ~SPWI810.SPL~) BEGIN
-		COPY_EXISTING ~SPWI810.SPL~ ~override~
+		COPY_EXISTING ~spwi810.spl~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
-				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = CLOUDKIL new_proj = 1PINCIND END
+				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = CLOUDKIL new_proj = 1pincind END
 			END
 		BUT_ONLY
 	END
 
 	// Summon Fire Elemental
 	ACTION_IF (FILE_EXISTS_IN_GAME ~SPIN570.SPL~) BEGIN
-		COPY_EXISTING ~SPIN570.SPL~ ~override~
+		COPY_EXISTING ~spin570.spl~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
-				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = GOLCLOUD new_proj = 1PINCIND END
+				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = GOLCLOUD new_proj = 1pincind END
 			END
 		BUT_ONLY
 	END
 
 
-	ADD_PROJECTILE ~1pp/core/1ppv4_pro/1PICECLD.PRO~
+	ADD_PROJECTILE ~1pp/core/1ppv4_pro/1picecld.pro~
 
 	// Summon Ice Salamander
 	ACTION_IF (FILE_EXISTS_IN_GAME ~SPIN569.SPL~) BEGIN
-		COPY_EXISTING ~SPIN569.SPL~ ~override~
+		COPY_EXISTING ~spin569.spl~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
-				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = GOLCLOUD new_proj = 1PICECLD END
+				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = GOLCLOUD new_proj = 1picecld END
 			END
 		BUT_ONLY
 	END
 
 
-	ADD_PROJECTILE ~1pp/core/1ppv4_pro/1PSLEEPC.PRO~
+	ADD_PROJECTILE ~1pp/core/1ppv4_pro/1psleepc.pro~
 
 	// Staff of Air +2
 	ACTION_IF (FILE_EXISTS_IN_GAME ~STAF15.ITM~) BEGIN
-		COPY_EXISTING ~STAF15.ITM~ ~override~
+		COPY_EXISTING ~staf15.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
-				LPF ~GW_MODIFY_PROJ~ INT_VAR type_abi = 3 STR_VAR old_proj = CLOUD new_proj = 1PSLEEPC END
+				LPF ~GW_MODIFY_PROJ~ INT_VAR type_abi = 3 STR_VAR old_proj = CLOUD new_proj = 1psleepc END
 			END
 		BUT_ONLY
 	END
@@ -638,31 +652,33 @@ END // of BGII
 
 
 
-/*  ===  *
+/* ===== *
  *  IWD  *
- *  ===  */
-ACTION_IF (GAME_IS ~totlm how~) BEGIN
-	PRINT @114002 /* Installing... */
+ * ===== */
+ACTION_IF (is_iwd) BEGIN // (GAME_IS ~totlm how~)
 
-	COPY ~1pp/core/1ppv4_spells/SPFINODI.BAM~ ~override/FODEATH.BAM~
-	COPY ~1pp/core/1ppv4_spells/SPFIRSDI.BAM~ ~override/FSEEDSX.BAM~
-	COPY ~1pp/core/1ppv4_spells/SPHLYSM3.BAM~ ~override/HSMITEA.BAM~
-	COPY ~1pp/core/1ppv4_spells/SPUNHBL3.BAM~ ~override/UBLIGHA.BAM~
-	COPY ~1pp/core/1ppv4_spells/SPSHIELD.BAM~ ~override/SHIELDC.BAM~
-	COPY ~1pp/core/1ppv4_spells/SPBOOM.BAM~ ~override~
-	COPY ~1pp/core/1ppv4_spells/SPMAGMIS.BAM~ ~override~
+	PRINT @114002 // ~Installing...~
+	SILENT
+
+	COPY ~1pp/core/1ppv4_spells/spfinodi.bam~ ~override/fodeath.bam~
+	COPY ~1pp/core/1ppv4_spells/spfirsdi.bam~ ~override/fseedsx.bam~
+	COPY ~1pp/core/1ppv4_spells/sphlysm3.bam~ ~override/hsmitea.bam~
+	COPY ~1pp/core/1ppv4_spells/spunhbl3.bam~ ~override/ubligha.bam~
+	COPY ~1pp/core/1ppv4_spells/spshield.bam~ ~override/shieldc.bam~
+	COPY ~1pp/core/1ppv4_spells/spboom.bam~ ~override~
+	COPY ~1pp/core/1ppv4_spells/spmagmis.bam~ ~override~
 
 END // of IWD HoW
 
 
 
-/*  ====  *
+/* ====== *
  *  IWD2  *
- *  ====  */
-ACTION_IF (GAME_IS ~iwd2~) BEGIN
+ * ====== */
+ACTION_IF (is_iwd2) BEGIN // GAME_IS ~iwd2~
 
-	PRINT @114002 /* Installing... */
+	PRINT @114002 // ~Installing...~
 
-END // of IWD II ---- no info yet +++++ PLACEHOLDER
+END // of IWD2 ---- no info yet +++++ PLACEHOLDER
 
 // END of COMPONENT
