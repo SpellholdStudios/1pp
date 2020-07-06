@@ -1,63 +1,60 @@
-// Attachable Wings, 1ppv7!
-// Presented in Aerievision
+/* ================================================================================================================================================================================== *
+ *                                                                                                                                                                                    *
+ *                                            C O M P O N E N T   :   A t t a c h a b l e   W i n g s   (1 p p   v 7)                                                                 *
+ *                                                                                                                                                                                    *
+ * ================================================================================================================================================================================== *
+ *  This component adds equippable wings for elven characters (with some restrictions).                                                                                               *
+ *  'Presented in Aerievision)                                                                                                                                                        *
+ * ================================================================================================================================================================================== *
+ *  change-log:                                                                                                                                                                       *
+ *  -----------                                                                                                                                                                       *
+ *      - Coding simplification:                                                                                                                                                      *
+ *          Replaced `GAME_IS` conditions with variables checks to speed up install time.                                                                                             *
+ *          Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).    *
+ * ================================================================================================================================================================================== */
 
-/*  ==============================================================================================================================================================================  *
- *  change-log:                                                                                                                                                                     *
- *  -----------                                                                                                                                                                     *
- *      - Coding simplification:                                                                                                                                                    *
- *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
- *  ==============================================================================================================================================================================  */
+PRINT @209000 // Copying...
+SILENT
 
-PRINT @209000 /* Copying... */
+COPY ~1pp/additions/obj_anim/zw~ ~override~
 
-COPY ~1pp/additions/obj_anim/ZW~ ~override~
-
-ACTION_IF (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~) BEGIN
-	COPY ~1pp/additions/obj_1pp/WPMZWINV.BAM~ ~override~
+ACTION_IF (is_bg2 OR is_tob OR is_tutu OR is_iwd) BEGIN // (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~)
+	COPY ~1pp/additions/obj_1pp/wpmzwinv.bam~ ~override~
 END
 
 
-PRINT @209001 /* Installing test items... */
+PRINT @209001 // ~Installing test items...~
+SILENT
 
-COPY ~1pp/additions/1pp_awings/CWINGS01.BAM~ ~override~
-COPY ~1pp/additions/1pp_awings/GWINGS01.BAM~ ~override~
-COPY ~1pp/additions/1pp_awings/IWINGS01.BAM~ ~override~
-COPY ~1pp/additions/1pp_awings/WINGS01.ITM~ ~override~
-	SAY NAME1 @209101				/* Wings */
-	SAY NAME2 @209101
-	SAY UNIDENTIFIED_DESC @209102	/* These soft and feathered wings seem to be fashioned in a celestial design. Upon closer inspection they turn out to be dummies worn on two satin ribbons attached to their base. Though not radiating a noticeable magical aura, the wings do seem to move with their bearer in a way that defies their supposed mechanism.
-
-STATISTICS:
-
-Weight: 2
-Type: Wings
-Not Usable By: Anyone but elves */
-	SAY IDENTIFIED_DESC @209102
-
-COPY ~1pp/additions/1pp_awings/WINGS01B.ITM~ ~override~
-	SAY NAME1 @209101
+COPY ~1pp/additions/1pp_awings/cwings01.bam~ ~override~
+COPY ~1pp/additions/1pp_awings/gwings01.bam~ ~override~
+COPY ~1pp/additions/1pp_awings/iwings01.bam~ ~override~
+COPY ~1pp/additions/1pp_awings/wings01.itm~ ~override~
+     ~1pp/additions/1pp_awings/wings01b.itm~ ~override~
+	SAY NAME1 @209101 /* Wings */
 	SAY NAME2 @209101
 	SAY UNIDENTIFIED_DESC @209102
 	SAY IDENTIFIED_DESC @209102
 
 
-PRINT @209002 /* Building crash protection for BG1 animations and non-elves... */
+PRINT @209002 // ~Building crash protection for BG1 animations and non-elves...~
+SILENT
 
-ACTION_FOR_EACH set IN ~ZW~ BEGIN
-	ACTION_FOR_EACH category IN ~L~ ~N~ ~S~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~SA~ ~SS~ ~SX~ BEGIN
-			COPY ~1pp/additions/obj_anim/donotexist/EMPTY%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+ACTION_FOR_EACH set IN ~zw~ BEGIN
+	ACTION_FOR_EACH category IN ~l~ ~n~ ~s~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a1~ ~a2~ ~a3~ ~a4~ ~a5~ ~a6~ ~a7~ ~a8~ ~a9~ ~ca~ ~g1~ ~sa~ ~ss~ ~sx~ BEGIN
+			COPY ~1pp/additions/obj_anim/donotexist/empty%sequence%.bam~ ~override/wq%category%%set%%sequence%.bam~
 		END
 	END
 END
 
-ACTION_FOR_EACH set IN ~ZW~ BEGIN
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ ~T~ BEGIN
-			ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A2~ ~A2E~ ~A3~ ~A3E~ ~A4~ ~A4E~ ~A5~ ~A5E~ ~A6~ ~A6E~ ~CA~ ~CAE~ ~G1~ ~G1E~ ~SA~ ~SAE~ ~SX~ ~SXE~ ~W2~ ~W2E~ BEGIN
-		 COPY ~1pp/additions/obj_anim/donotexist_bg1/EMPTY%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+ACTION_FOR_EACH set IN ~zw~ BEGIN
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~s~ ~t~ BEGIN
+			ACTION_FOR_EACH sequence IN ~a1~ ~a1e~ ~a2~ ~a2e~ ~a3~ ~a3e~ ~a4~ ~a4e~ ~a5~ ~a5e~ ~a6~ ~a6e~ ~ca~ ~cae~ ~g1~ ~g1e~ ~sa~ ~sae~ ~sx~ ~sxe~ ~w2~ ~w2e~ BEGIN
+		 COPY ~1pp/additions/obj_anim/donotexist_bg1/empty%sequence%.bam~ ~override/wp%category%%set%%sequence%.bam~
 		END
 	END
 END
 
 // NOW SOMEONE WRITE A MOD THAT HAS AERIE LEAVE THE PARTY AS SOON AS PEOPLE TRY AND EQUIP SOME ON HER
-// A WELL-WRITTEN ONE, WITH DIALOGUE
+// A WELL-WRITTEN ONE, WITH DIALOGUE!
