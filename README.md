@@ -877,13 +877,13 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 
     - shields specific fixes (400_update_bgii_shields.tpa):
       - shld02.itm (Small Shield +1): LPM \~clear\~ was missing, and the code stacked opcode #7 global effects.
-      - shld31A.itm (Gorm's Arm +3): fixed wrong coding (WRITE_SHORT instead of WRITE_BYTE for Minimum strength value).
-      - shld01P.itm (Buckler +2): fixed wrong coding (opcode #0 parameter1 0xfffffe - 16777214??? - should be -3), added opcode #0 with parameter1 = -3 and parameter2 = 4 to add missing protection vs piercing weapons, added missing price, and fixed item description to fit ITM file.
-      - X#AJSHLD.itm (Ilvastarr Family Shield - The BG1 NPC Project mod): fixed typo (was copying #AJSHLD instead of X#AJSHLD).
-      - shld06P.itm (Redshield +1, +4 vs. Monstrous): fixed wrong coding (opcode #219: switch parameter1 and 2, and parameter2 2 - EA.IDS - should be 3 - GENERAL.IDS), added an external effect (shld06P.eff), and replaced opcode #178 with opcode #177, otherwise opcode #178 won't work.
-      - shld07P.itm (Sartessa's Vengeance +1): fixed wrong coding for add magical flag [replace WRITE_BYTE 0x1b 0x6c with WRITE_LONG 0x18 (THIS | BIT6)].
-      - shld08P.itm (Tarloc's Contingency +1): code simplified (1tarsp.spl) and fixed wrong coding for Casting sound (1tarss.spl).
-      - shld09P.itm (Shield of Devotion +1): fixed wrong coding (#62: parameter2 should be 4, not 3).
+      - shld31a.itm (Gorm's Arm +3): fixed wrong coding (WRITE_SHORT instead of WRITE_BYTE for Minimum strength value).
+      - shld01p.itm (Buckler +2): fixed wrong coding (opcode #0 parameter1 0xfffffe - 16777214 ?? - should be -3), added opcode #0 with parameter1 = -3 and parameter2 = 4 to add missing protection vs piercing weapons, added missing price, and fixed item description to fit ITM file.
+      - x#ajshld.itm (Ilvastarr Family Shield - The BG1 NPC Project mod): fixed typo (was copying #AJSHLD instead of X#AJSHLD).
+      - shld06p.itm (Redshield +1, +4 vs. monstrous): fixed wrong coding (opcode #219: switch parameter1 and 2, and parameter2 2 - EA.IDS - should be 3 - GENERAL.IDS), added an external effect (shld06P.eff), and replaced opcode #178 with opcode #177, otherwise opcode #178 won't work.
+      - shld07p.itm (Sartessa's Vengeance +1): fixed wrong coding for add magical flag [replace WRITE_BYTE 0x1b 0x6c with WRITE_LONG 0x18 (THIS | BIT6)].
+      - shld08p.itm (Tarloc's Contingency +1): code simplified (1tarsp.spl) and fixed wrong coding for Casting sound (1tarss.spl).
+      - shld09p.itm (Shield of Devotion +1): fixed wrong coding (#62: parameter2 should be 4, not 3).
     - helmets specific fixes (400_update_bgii_helmets.tpa):
       - helm33.itm (Gold Horned Helm): fixed typo (was copying helm22 instead of helm33).
       - xoband02.itm (Silver Circlet): fixed wrong coding opcodes #33, 34 & 35 (parameter2 originally set to 1 should be 0) and added opcodes #36 & 37 to match item description (+1 to saving throws).

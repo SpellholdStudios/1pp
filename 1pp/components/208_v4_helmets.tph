@@ -12,6 +12,7 @@
  *        crashes when helmets using the JC animation are equipped by NPCs using BG1 animations from Infinity Animations.                                                             *
  *         http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/page-12#entry561441                                                                               *
  *      - Coding simplification:                                                                                                                                                      *
+ *          Replaced `GAME_IS` conditions with variables checks to speed up install time.                                                                                             *
  *          Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).    *
  * ================================================================================================================================================================================== */
 
