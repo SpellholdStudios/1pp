@@ -1,226 +1,199 @@
-// More types of inventory BAMs with no unique animations
-// FWIW
-
-/*  ==============================================================================================================================================================================  *
+/* ================================================================================================================================================================================ *
+ *                                                                                                                                                                                  *
+ *                                     C O M P O N E N T   :   I n c r e a s e d   p a p e r d o l l   o b j e c t   v a r i e t y   (c o r e)                                      *
+ *                                                                                                                                                                                  *
+ * ================================================================================================================================================================================ *
+ *  This component increases paperdoll variety by adding various alternates sharing existing object animations. Included are separate paperdoll appearances for bastard swords,     *
+ *  various types of flails, maces, short bows, and more.                                                                                                                           *
+ * ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
- *      - CRE files: READ_LONG 0x28 instead of READ_SHORT 0x28 (dword).                                                                                                             *
- *		- Coding simplification:                                                                                                                                                    *
- *			Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *      - CRE files: READ_LONG 0x28 instead of READ_SHORT 0x28 (dword!).                                                                                                            *
+ *      - Coding simplification:                                                                                                                                                    *
+ *          Replaced `GAME_IS` conditions with variables checks to speed up install time.                                                                                           *
+ *          Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *          Simplified codes creating undroppable clones of weapons (notably with tutu_var) replacing primary weapon with undroppable clone and moving it to inventory.             *
  *          ITM files: use WRITE_LONG 0x18 (THIS BAND BNOT BIT2) to remove droppable flag instead of writing the offset new value.                                                  *
- *  ==============================================================================================================================================================================  */
+ * ================================================================================================================================================================================ */
 
-ACTION_FOR_EACH paperdoll IN ~WPHF0OIN~ ~WPHF1OIN~ ~WPHF3OIN~ ~WPHM2OIN~ ~WPHS0OIN~ ~WPLBSINV~ ~WPLF0INV~ ~WPLF0OIN~ ~WPLF1INV~ ~WPLF1OIN~ ~WPLF3INV~ ~WPLF3OIN~ ~WPLM2INV~ ~WPLM2OIN~ ~WPLQ2INV~ ~WPLQ3INV~ ~WPLQ4INV~ ~WPLS0INV~ ~WPLS0OIN~ ~WPMBSINV~ ~WPMF0INV~ ~WPMF0OIN~ ~WPMF1INV~ ~WPMF1OIN~ ~WPMF2INV~ ~WPMF2OIN~ ~WPMF3INV~ ~WPMF3OIN~ ~WPMM2INV~ ~WPMM2OIN~ ~WPMQ2INV~ ~WPMQ3INV~ ~WPMQ4INV~ ~WPMS0INV~ ~WPMS0OIN~ ~WPNBSINV~ ~WPNF0INV~ ~WPNF0OIN~ ~WPNF1INV~ ~WPNF1OIN~ ~WPNF3INV~ ~WPNF3OIN~ ~WPNM2INV~ ~WPNM2OIN~ ~WPNQ2INV~ ~WPNQ3INV~ ~WPNQ4INV~ ~WPNS0INV~ ~WPNS0OIN~ ~WPSBSINV~ ~WPSF0INV~ ~WPSF0OIN~ ~WPSF1INV~ ~WPSF1OIN~ ~WPSF3INV~ ~WPSF3OIN~ ~WPSM2INV~ ~WPSM2OIN~ ~WPSQ2INV~ ~WPSQ3INV~ ~WPSQ4INV~ ~WPSS0INV~ ~WPSS0OIN~ BEGIN
+SILENT
+ACTION_FOR_EACH paperdoll IN ~wphf0oin~ ~wphf1oin~ ~wphf3oin~ ~wphm2oin~ ~wphs0oin~ ~wplbsinv~ ~wplf0inv~ ~wplf0oin~ ~wplf1inv~ ~wplf1oin~ ~wplf3inv~ ~wplf3oin~ ~wplm2inv~ ~wplm2oin~ ~wplq2inv~ ~wplq3inv~ ~wplq4inv~ ~wpls0inv~ ~wpls0oin~ ~wpmbsinv~ ~wpmf0inv~ ~wpmf0oin~ ~wpmf1inv~ ~wpmf1oin~ ~wpmf2inv~ ~wpmf2oin~ ~wpmf3inv~ ~wpmf3oin~ ~wpmm2inv~ ~wpmm2oin~ ~wpmq2inv~ ~wpmq3inv~ ~wpmq4inv~ ~wpms0inv~ ~wpms0oin~ ~wpnbsinv~ ~wpnf0inv~ ~wpnf0oin~ ~wpnf1inv~ ~wpnf1oin~ ~wpnf3inv~ ~wpnf3oin~ ~wpnm2inv~ ~wpnm2oin~ ~wpnq2inv~ ~wpnq3inv~ ~wpnq4inv~ ~wpns0inv~ ~wpns0oin~ ~wpsbsinv~ ~wpsf0inv~ ~wpsf0oin~ ~wpsf1inv~ ~wpsf1oin~ ~wpsf3inv~ ~wpsf3oin~ ~wpsm2inv~ ~wpsm2oin~ ~wpsq2inv~ ~wpsq3inv~ ~wpsq4inv~ ~wpss0inv~ ~wpss0oin~ BEGIN
 	COPY ~1pp/additions/obj_1pp/%paperdoll%.bam~ ~override~
 END
 
 
-/*  ========================  *
+/* ========================== *
  *  CREATE MIRROR ANIMATIONS  *
- *  ========================  */
-PRINT @210000 /* Creating mirror animations... */
+ * ========================== */
 
-// Flails
-ACTION_FOR_EACH set IN ~F0~ ~F1~ ~F3~ BEGIN
+PRINT @210000 // ~Creating mirror animations...~
+SILENT
 
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A1~ ~A3~ ~A5~ ~A7~ ~A8~ ~A9~ ~G1~ ~OA7~ ~OA8~ ~OA9~ ~OG1~ BEGIN
-			COPY_EXISTING ~WQ%category%FL%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+/* -------- *
+ *  Flails  *
+ * -------- */
+ACTION_FOR_EACH set IN ~f0~ ~f1~ ~f3~ BEGIN
+
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a1~ ~a3~ ~a5~ ~a7~ ~a8~ ~a9~ ~g1~ ~oa7~ ~oa8~ ~oa9~ ~og1~ BEGIN
+			COPY_EXISTING ~wq%category%fl%sequence%.bam~ ~override/wq%category%%set%%sequence%.bam~
 		END
 	END
 
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A3~ ~A3E~ ~G1~ ~G1E~ ~W2~ ~W2E~ BEGIN
-			COPY_EXISTING ~WP%category%FL%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
-		END
-	END
-
-END
-
-// Mace
-ACTION_FOR_EACH set IN ~M2~ BEGIN
-
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A1~ ~A3~ ~A5~ ~A7~ ~A8~ ~A9~ ~G1~ ~OA7~ ~OA8~ ~OA9~ ~OG1~ BEGIN
-			COPY_EXISTING ~WQ%category%MC%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
-		END
-	END
-
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A3~ ~A3E~ ~G1~ ~G1E~ ~W2~ ~W2E~ BEGIN
-			COPY_EXISTING ~WP%category%MC%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~s~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a1~ ~a1e~ ~a3~ ~a3e~ ~g1~ ~g1e~ ~w2~ ~w2e~ BEGIN
+			COPY_EXISTING ~wp%category%fl%sequence%.bam~ ~override/wp%category%%set%%sequence%.bam~
 		END
 	END
 
 END
 
-// Quaterstaves
-ACTION_FOR_EACH set IN ~Q2~ ~Q3~ ~Q4~ BEGIN
+/* ------ *
+ *  Mace  *
+ * ------ */
+ACTION_FOR_EACH set IN ~m2~ BEGIN
 
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A2~ ~A4~ ~A6~ ~G1~ BEGIN
-			COPY_EXISTING ~WQ%category%QS%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a1~ ~a3~ ~a5~ ~a7~ ~a8~ ~a9~ ~g1~ ~oa7~ ~oa8~ ~oa9~ ~og1~ BEGIN
+			COPY_EXISTING ~wq%category%mc%sequence%.bam~ ~override/wq%category%%set%%sequence%.bam~
 		END
 	END
 
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A2~ ~A2E~ ~A4~ ~A4E~ ~A6~ ~A6E~ ~G1~ ~G1E~ ~W2~ ~W2E~ BEGIN
-			COPY_EXISTING ~WP%category%QS%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~s~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a1~ ~a1e~ ~a3~ ~a3e~ ~g1~ ~g1e~ ~w2~ ~w2e~ BEGIN
+			COPY_EXISTING ~wp%category%mc%sequence%.bam~ ~override/wp%category%%set%%sequence%.bam~
 		END
 	END
 
 END
 
-// Bastard sword
-ACTION_FOR_EACH set IN ~S0~ BEGIN
+/* -------------- *
+ *  Quaterstaves  *
+ * -------------- */
+ACTION_FOR_EACH set IN ~q2~ ~q3~ ~q4~ BEGIN
 
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A1~ ~A3~ ~A5~ ~A7~ ~A8~ ~A9~ ~G1~ ~OA7~ ~OA8~ ~OA9~ ~OG1~ BEGIN
-			COPY_EXISTING ~WQ%category%S1%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a2~ ~a4~ ~a6~ ~g1~ BEGIN
+			COPY_EXISTING ~wq%category%qs%sequence%.bam~ ~override/wq%category%%set%%sequence%.bam~
 		END
 	END
 
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ BEGIN
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~s~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a2~ ~a2e~ ~a4~ ~a4e~ ~a6~ ~a6e~ ~g1~ ~g1e~ ~w2~ ~w2e~ BEGIN
+			COPY_EXISTING ~wp%category%qs%sequence%.bam~ ~override/wp%category%%set%%sequence%.bam~
+		END
+	END
+
+END
+
+/* --------------- *
+ *  Bastard sword  *
+ * --------------- */
+ACTION_FOR_EACH set IN ~s0~ BEGIN
+
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a1~ ~a3~ ~a5~ ~a7~ ~a8~ ~a9~ ~g1~ ~oa7~ ~oa8~ ~oa9~ ~og1~ BEGIN
+			COPY_EXISTING ~wq%category%s1%sequence%.bam~ ~override/wq%category%%set%%sequence%.bam~
+		END
+	END
+
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~s~ BEGIN
 		ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A3~ ~A3E~ ~A5~ ~A5E~ ~G1~ ~G1E~ ~W2~ ~W2E~ BEGIN
-			COPY_EXISTING ~WP%category%S1%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+			COPY_EXISTING ~wp%category%s1%sequence%.bam~ ~override/wp%category%%set%%sequence%.bam~
 		END
 	END
 
 END
 
-// Short Bow
-ACTION_FOR_EACH set IN ~BS~ BEGIN
+/* ----------- *
+ *  Short Bow  *
+ * ----------- */
+ACTION_FOR_EACH set IN ~bs~ BEGIN
 
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
-		ACTION_FOR_EACH sequence IN ~SA~ ~G1~ BEGIN
-			COPY_EXISTING ~WQ%category%BW%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
+		ACTION_FOR_EACH sequence IN ~sa~ ~g1~ BEGIN
+			COPY_EXISTING ~wq%category%bw%sequence%.bam~ ~override/wq%category%%set%%sequence%.bam~
 		END
 	END
 
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ BEGIN
-		ACTION_FOR_EACH sequence IN ~SA~ ~SAE~ ~G1~ ~G1E~ ~W2~ ~W2E~ BEGIN
-			COPY_EXISTING ~WP%category%BW%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~s~ BEGIN
+		ACTION_FOR_EACH sequence IN ~sa~ ~sae~ ~g1~ ~g1e~ ~w2~ ~w2e~ BEGIN
+			COPY_EXISTING ~wp%category%bw%sequence%.bam~ ~override/wp%category%%set%%sequence%.bam~
 		END
 	END
 
 END
 
-// harmonising morning stars
-ACTION_FOR_EACH set IN ~MS~ BEGIN
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A1~ ~A3~ ~A5~ ~A7~ ~A8~ ~A9~ ~G1~ ~OA7~ ~OA8~ ~OA9~ ~OG1~ BEGIN
-			COPY_EXISTING ~WQ%category%MC%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+/* --------------------------- *
+ *  harmonising morning stars  *
+ * --------------------------- */
+ACTION_FOR_EACH set IN ~ms~ BEGIN
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a1~ ~a3~ ~a5~ ~a7~ ~a8~ ~a9~ ~g1~ ~oa7~ ~oa8~ ~oa9~ ~og1~ BEGIN
+			COPY_EXISTING ~wq%category%mc%sequence%.bam~ ~override/wq%category%%set%%sequence%.bam~
 		END
 	END
 END
 
 
-/*  ======================  *
+/* ======================== *
  *  CREATE WEAPON OVERLAYS  *
- *  ======================  */
-PRINT @210001 /* Patching creatures for weapon overlays */
+ * ======================== */
+PRINT @210001 // ~Patching creatures for weapon overlays.~
+SILENT
 
-// Gwen fix: Create undroppable clones of weapons - code simplification
-// sword clones
+// Gwen fix: simplified code creating undroppable clones of weapons
+
+/* -------------- *
+ *  sword clones  *
+ * -------------- */
 ACTION_FOR_EACH sword IN ~01~ ~02~ ~03~ ~18~ ~34~ ~37~ ~38~ ~39~ ~42~ ~62~ ~63~ ~64~ ~65~ ~72~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h%sword%.itm~) BEGIN
-		COPY_EXISTING ~sw1h%sword%.itm~ ~override/comps%sword%.itm~
-			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN				// protects against invalid files
-				WRITE_LONG 0x18 (THIS BAND BNOT BIT2) END	// removes droppable flag [or WRITE_BYTE 0x18 (THIS BAND `BIT2)]
-			END
-		BUT_ONLY
+	ACTION_FOR_EACH tutu_game IN ~~ ~_~ BEGIN
+		ACTION_IF (FILE_EXISTS_IN_GAME ~%tutu_game%sw1h%sword%.itm~) BEGIN
+			COPY_EXISTING ~%tutu_game%sw1h%sword%.itm~ ~override/%tutu_game%comps%sword%.itm~
+				PATCH_IF (SOURCE_SIZE > 0x71) BEGIN				// protects against invalid files
+					WRITE_LONG 0x18 (THIS BAND BNOT BIT2)		// removes droppable flag [or WRITE_BYTE 0x18 (THIS BAND `BIT2)]
+				END
+			BUT_ONLY
+		END
 	END
 END
 
-// Gwen TODO: check if the code above might apply below (can't check a tutu install...).
-ACTION_IF (FILE_EXISTS_IN_GAME ~_sw1h01.itm~) BEGIN
-	COPY_EXISTING ~_sw1h01.itm~ ~override/_comps01.itm~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
-			WRITE_LONG 0x18 0x68
-		END
-	BUT_ONLY
-END
-
-ACTION_IF (FILE_EXISTS_IN_GAME ~_sw1h02.itm~) BEGIN
-	COPY_EXISTING ~_sw1h02.itm~ ~override/_comps02.itm~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
-			WRITE_LONG 0x18 0x68
-		END
-	BUT_ONLY
-END
-
-ACTION_IF (FILE_EXISTS_IN_GAME ~_sw1h03.itm~) BEGIN
-	COPY_EXISTING ~_sw1h03.itm~ ~override/_comps03.itm~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
-			WRITE_LONG 0x18 0x0368
-		END
-	BUT_ONLY
-END
-
-ACTION_IF (FILE_EXISTS_IN_GAME ~_sw1h18.itm~) BEGIN
-	COPY_EXISTING ~_sw1h18.itm~ ~override/_comps18.itm~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
-			WRITE_LONG 0x18 0x0269
-		END
-	BUT_ONLY
-END
-
-
-// bow clones
+/* ------------ *
+ *  bow clones  *
+ * ------------ */
 ACTION_FOR_EACH ~bow~ IN ~05~ ~06~ ~08~ ~14~ ~15~ ~18~ ~19~ ~20~ ~21~ ~26~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~bow%bow%.itm~) BEGIN
-		COPY_EXISTING ~bow%bow%.itm~ ~override/compb%bow%.itm~
-			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN				// protects against invalid files
-				WRITE_LONG 0x18 (THIS BAND BNOT BIT2) END	// removes droppable flag [or WRITE_BYTE 0x18 (THIS BAND `BIT2)]
-			END
-		BUT_ONLY
+	ACTION_FOR_EACH tutu_game IN ~~ ~_~ BEGIN
+		ACTION_IF (FILE_EXISTS_IN_GAME ~%tutu_game%bow%bow%.itm~) BEGIN
+			COPY_EXISTING ~%tutu_game%bow%bow%.itm~ ~override/%tutu_game%compb%bow%.itm~
+				PATCH_IF (SOURCE_SIZE > 0x71) BEGIN				// protects against invalid files
+					WRITE_LONG 0x18 (THIS BAND BNOT BIT2)		// removes droppable flag [or WRITE_BYTE 0x18 (THIS BAND `BIT2)]
+				END
+			BUT_ONLY
+		END
 	END
 END
 
-// Gwen TODO: verify if the code above might apply below (can't check a tutu install...).
-ACTION_IF (FILE_EXISTS_IN_GAME ~_bow05.itm~) BEGIN
-	COPY_EXISTING ~_bow05.itm~ ~override/_compb05.itm~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
-			WRITE_LONG 0x18 0xaa
-		END
-	BUT_ONLY
-END
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~_bow06.itm~) BEGIN
-	COPY_EXISTING ~_bow06.itm~ ~override/_compb06.itm~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
-			WRITE_LONG 0x18 0xea
-		END
-	BUT_ONLY
-END
-
-ACTION_IF (FILE_EXISTS_IN_GAME ~_bow08.itm~) BEGIN
-	COPY_EXISTING ~_bow08.itm~ ~override/_compb08.itm~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
-			WRITE_LONG 0x18 0xea
-		END
-	BUT_ONLY
-END
-
-
-/*  =======================================  *
+/* ========================================= *
  *  PATCHING CREATURES WITH WEAPON OVERLAYS  *
- *  =======================================  */
-ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
+ * ========================================= */
+
+ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // GAME_IS ~bg2 tob tutu tutu_totsc ca~
 	OUTER_SET itemslot = 0x02b8
 	OUTER_SET itemstart = 0x02bc
 	OUTER_SET wepone = 0x12
 	OUTER_SET weptwo = 0x14
 END
 
-ACTION_IF (GAME_IS ~totlm how~) BEGIN
+ACTION_IF (is_iwd) BEGIN // GAME_IS ~totlm how~
 	OUTER_SET itemslot = 0x0320
 	OUTER_SET itemstart = 0x324
 	OUTER_SET wepone = 0x12
 	OUTER_SET weptwo = 0x14
 END
 
-ACTION_IF (GAME_IS ~iwd2~) BEGIN
+ACTION_IF (is_iwd2) BEGIN // GAME_IS ~iwd2~
 	OUTER_SET itemslot = 0x0612
 	OUTER_SET itemstart = 0x616
 	OUTER_SET wepone = 0x12
@@ -228,19 +201,45 @@ ACTION_IF (GAME_IS ~iwd2~) BEGIN
 END
 
 
-PRINT @210002 /* Patching cre files */
-
-// Gwen notes: 0x8000 = GNOLL - 0x8100 = HOBGOBLIN - 0x8200 = KOBOLD - 0x2000 = SIRINE - 0x2200 = OGRE_MAGE
+PRINT @210002 //  ~Patching cre files.~
+SILENT
 
 // Replace primary weapon with undroppable clone and move it to inventory.
+// -----------------------------------------------------------------------
 COPY_EXISTING_REGEXP GLOB ~^.+\.cre$~ ~override~
+
 	READ_SHORT %itemslot% "ritemslot"
 	READ_SHORT %itemstart% "ritemstart"
 	READ_LONG  0x28 "animtype" ELSE 0
+
+	// Gwen note: 0x8000 = GNOLL - 0x8100 = HOBGOBLIN - 0x8200 = KOBOLD - 0x2000 = SIRINE - 0x2200 = OGRE_MAGE
 	PATCH_IF ("%animtype%" = 0x8100 || "%animtype%" = 0x8000 || "%animtype%" = 0x2200 || "%animtype%" = 0x8200 || "%animtype%" = 0x2000) BEGIN
+
 		READ_SHORT (%ritemslot% + %wepone%) "primaryw"
+		SET clone = 0
 		PATCH_IF ("%primaryw%" != 0xffff) BEGIN
 			READ_ASCII (%ritemstart% + (0x14 * %primaryw%)) "primitem"
+
+			PATCH_FOR_EACH item IN ~sw1h01~ ~sw1h02~ ~sw1h03~ ~sw1h18~ ~sw1h34~ ~sw1h37~ ~sw1h38~ ~sw1h39~ ~sw1h42~ ~sw1h62~ ~sw1h63~ ~sw1h64~ ~sw1h65~ ~sw1h72~ ~bow05~ ~bow06~ ~bow08~ ~bow14~ ~bow15~ ~bow18~ ~bow19~ ~bow20~ ~bow21~ ~bow26~ BEGIN
+				PATCH_FOR_EACH tutu_game IN ~~ ~_~ BEGIN
+					PATCH_IF (clone = 0) BEGIN
+						PATCH_IF ("%primitem%" STRING_COMPARE_CASE "%tutu_game%%item%" = 0) BEGIN
+							INNER_PATCH_SAVE new_item ~%tutu_game%%item%~ BEGIN
+								REPLACE_TEXTUALLY ~sw1h~ ~comps~
+								REPLACE_TEXTUALLY ~bow~  ~compb~
+							END
+							WRITE_ASCIIE (%ritemstart% + (0x14 * %primaryw%)) ~%new_item%~ #8
+							ADD_CRE_ITEM ~%tutu_game%%item%~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+							clone = 1
+							PATCH_LOG "
+--------------------------------------------------------------------------------------------------------
+     ==> DEBUGGING CONTROL %SOURCE_RES% = primary weapon %primitem% replaced with %new_item%
+--------------------------------------------------------------------------------------------------------"
+						END
+					END
+				END
+			END
+/* DEPRECATED as of v4.2.0
 			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h01" = 0) BEGIN
 				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~comps01~ #8
 				ADD_CRE_ITEM ~sw1h01~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
@@ -361,20 +360,47 @@ COPY_EXISTING_REGEXP GLOB ~^.+\.cre$~ ~override~
 				WRITE_ASCII (%ritemstart% + (0x14 * %primaryw%)) ~compb26~ #8
 				ADD_CRE_ITEM ~bow26~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
 			END
-		END
+*/		END
 	END
 BUT_ONLY
 
 
 // Replace secondary weapon with undroppable clone and move it to inventory
+// ------------------------------------------------------------------------
 COPY_EXISTING_REGEXP GLOB ~^.+\.cre$~ ~override~
+
 	READ_SHORT %itemslot% "ritemslot"
 	READ_SHORT %itemstart% "ritemstart"
 	READ_LONG  0x28 "animtype" ELSE 0
+
+	// Gwen note: 0x8000 = GNOLL - 0x8100 = HOBGOBLIN - 0x8200 = KOBOLD - 0x2000 = SIRINE - 0x2200 = OGRE_MAGE
 	PATCH_IF ("%animtype%" = 0x8100 || "%animtype%" = 0x8000 || "%animtype%" = 0x2200 || "%animtype%" = 0x8200 || "%animtype%" = 0x2000) BEGIN
+
 		READ_SHORT (%ritemslot% + %weptwo%) "secondaryw"
+		SET clone = 0
 		PATCH_IF ("%secondaryw%" != 0xffff) BEGIN
 			READ_ASCII (%ritemstart% + (0x14 * %secondaryw%)) "primitem"
+
+			PATCH_FOR_EACH item IN ~sw1h01~ ~sw1h02~ ~sw1h03~ ~sw1h18~ ~sw1h34~ ~sw1h37~ ~sw1h38~ ~sw1h39~ ~sw1h42~ ~sw1h62~ ~sw1h63~ ~sw1h64~ ~sw1h65~ ~sw1h72~ ~bow05~ ~bow06~ ~bow08~ ~bow14~ ~bow15~ ~bow18~ ~bow19~ ~bow20~ ~bow21~ ~bow26~ BEGIN
+				PATCH_FOR_EACH tutu_game IN ~~ ~_~ BEGIN
+					PATCH_IF (clone = 0) BEGIN
+						PATCH_IF ("%primitem%" STRING_COMPARE_CASE "%tutu_game%%item%" = 0) BEGIN
+							INNER_PATCH_SAVE new_item ~%tutu_game%%item%~ BEGIN
+								REPLACE_TEXTUALLY ~sw1h~ ~comps~
+								REPLACE_TEXTUALLY ~bow~  ~compb~
+							END
+							WRITE_ASCIIE (%ritemstart% + (0x14 * %secondaryw%)) ~%new_item%~ #8
+							ADD_CRE_ITEM ~%tutu_game%%item%~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
+							clone = 1
+							PATCH_LOG "
+--------------------------------------------------------------------------------------------------------
+     ==> DEBUGGING CONTROL %SOURCE_RES% = secondary weapon %primitem% replaced with %new_item%
+--------------------------------------------------------------------------------------------------------"
+						END
+					END
+				END
+			END
+/* DEPRECATED as of v4.2.0
 			PATCH_IF ("%primitem%" STRING_COMPARE_CASE "sw1h01" = 0) BEGIN
 				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~comps01~ #8
 				ADD_CRE_ITEM ~sw1h01~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
@@ -495,7 +521,7 @@ COPY_EXISTING_REGEXP GLOB ~^.+\.cre$~ ~override~
 				WRITE_ASCII (%ritemstart% + (0x14 * %secondaryw%)) ~compb26~ #8
 				ADD_CRE_ITEM ~bow26~ #0 #0 #0 ~UNSTEALABLE~ ~inv~
 			END
-		END
+*/		END
 	END
 BUT_ONLY
 

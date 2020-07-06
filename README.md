@@ -858,6 +858,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
     - Integrated <a href="http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/page-12#entry561441">Lollorian's BWP Fixpack JC Helm animation crash fix for IA BG1 animation compatibility</a> (patch <a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/208_v4_helmets.tph.patch">208_v4_helmets.tph.patch</a>): 1ppv4's helmet component seems to cause crashes when helmets using the JC animation are equipped by NPCs using BG1 animations from Infinity Animations. <a ref="http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/?p=561441">Source</a>
 
   - [210] 1ppv4: Increased paperdoll object variety (210_v4_ppd_variety.tph)
+    - Simplified codes creating undroppable clones of weapons (notably with tutu_var) replacing primary weapon with undroppable clone and moving it to inventory.
     - CRE files: used READ_LONG 0x28 instead of READ_SHORT 0x28 (dword).
     - ITM files: used WRITE_LONG 0x18 (THIS BAND BNOT BIT2) to remove droppable flag instead of writing the offset new value.
 
