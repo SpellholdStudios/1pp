@@ -1,122 +1,131 @@
-// San
-
-/*  ================================================================================================================================================================================  *
+/* ================================================================================================================================================================================== *
+ *                                                                                                                                                                                    *
+ *                                            C O M P O N E N T   :   A d d i t i o n a l   H e l m e t   A n i m a t i o n s   (c o r e)                                             *
+ *                                                                                                                                                                                    *
+ * ================================================================================================================================================================================== *
+ *  This component includes improved content for Baldur's Gate II's vanilla helmet animations, and introduces five new helmet animations (one not pictured).                          *
+ *  It also introduces circlets which actually render on model!                                                                                                                       *
+ * ================================================================================================================================================================================== *
  *  change-log:                                                                                                                                                                       *
  *  -----------                                                                                                                                                                       *
- *		- Lollorian's BWP Fixpack JC Helm animation crash fix for Infinity Animations BG1 animation compatibility(208_v4_helmets.tph.patch): 1ppv4's helmet component seems to cause  *
+ *      - Lollorian's BWP Fixpack JC Helm animation crash fix for Infinity Animations BG1 animation compatibility(208_v4_helmets.tph.patch): 1ppv4's helmet component seems to cause  *
  *        crashes when helmets using the JC animation are equipped by NPCs using BG1 animations from Infinity Animations.                                                             *
- *         http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/?p=561441                                                                                         *
+ *         http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/page-12#entry561441                                                                               *
  *      - Coding simplification:                                                                                                                                                      *
- *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).    *
- *  ================================================================================================================================================================================  */
+ *          Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).    *
+ * ================================================================================================================================================================================== */
 
-PRINT @208000 /* Copying files... */
+PRINT @208000 // ~Copying files...~
+SILENT
 
-COPY ~1pp/additions/obj_anim/J0~ ~override~
-COPY ~1pp/additions/obj_anim/J1~ ~override~
-COPY ~1pp/additions/obj_anim/J2~ ~override~
-COPY ~1pp/additions/obj_anim/J3~ ~override~
-COPY ~1pp/additions/obj_anim/J4~ ~override~
-COPY ~1pp/additions/obj_anim/J5~ ~override~
-COPY ~1pp/additions/obj_anim/J6~ ~override~
-COPY ~1pp/additions/obj_anim/J7~ ~override~
-COPY ~1pp/additions/obj_anim/J8~ ~override~
-COPY ~1pp/additions/obj_anim/J9~ ~override~
-COPY ~1pp/additions/obj_anim/JA~ ~override~
-COPY ~1pp/additions/obj_anim/JB~ ~override~
+COPY ~1pp/additions/obj_anim/j0~ ~override~
+COPY ~1pp/additions/obj_anim/j1~ ~override~
+COPY ~1pp/additions/obj_anim/j2~ ~override~
+COPY ~1pp/additions/obj_anim/j3~ ~override~
+COPY ~1pp/additions/obj_anim/j4~ ~override~
+COPY ~1pp/additions/obj_anim/j5~ ~override~
+COPY ~1pp/additions/obj_anim/j6~ ~override~
+COPY ~1pp/additions/obj_anim/j7~ ~override~
+COPY ~1pp/additions/obj_anim/j8~ ~override~
+COPY ~1pp/additions/obj_anim/j9~ ~override~
+COPY ~1pp/additions/obj_anim/ja~ ~override~
+COPY ~1pp/additions/obj_anim/jb~ ~override~
 
-PRINT @208001 /* Building BG1 animation compatibility... */
+PRINT @208001 // ~Building BG1 animation compatibility...~
+SILENT
 
-ACTION_FOR_EACH set IN ~J0~ ~J3~ ~J6~ BEGIN
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ ~T~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A2~ ~A2E~ ~A3~ ~A3E~ ~A4~ ~A4E~ ~A5~ ~A5E~ ~A6~ ~A6E~ ~CA~ ~CAE~ ~G1~ ~G1E~ ~SA~ ~SAE~ ~SX~ ~SXE~ ~W2~ ~W2E~ BEGIN
-	 COPY_EXISTING ~WP%category%H0%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+ACTION_FOR_EACH set IN ~j0~ ~j3~ ~j6~ BEGIN
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~s~ ~t~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a1~ ~a1e~ ~a2~ ~a2e~ ~a3~ ~a3e~ ~a4~ ~a4e~ ~a5~ ~a5e~ ~a6~ ~a6e~ ~ca~ ~cae~ ~g1~ ~g1e~ ~sa~ ~sae~ ~sx~ ~sxe~ ~w2~ ~w2e~ BEGIN
+	 COPY_EXISTING ~wp%category%h0%sequence%.bam~ ~override/wp%category%%set%%sequence%.bam~
 		END
 	END
 END
 
-ACTION_FOR_EACH set IN ~J1~ ~J7~ BEGIN
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ ~T~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A2~ ~A2E~ ~A3~ ~A3E~ ~A4~ ~A4E~ ~A5~ ~A5E~ ~A6~ ~A6E~ ~CA~ ~CAE~ ~G1~ ~G1E~ ~SA~ ~SAE~ ~SX~ ~SXE~ ~W2~ ~W2E~ BEGIN
-			COPY_EXISTING ~WP%category%H1%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+ACTION_FOR_EACH set IN ~j1~ ~j7~ BEGIN
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~s~ ~t~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a1~ ~a1e~ ~a2~ ~a2e~ ~a3~ ~a3e~ ~a4~ ~a4e~ ~a5~ ~a5e~ ~a6~ ~a6e~ ~ca~ ~cae~ ~g1~ ~g1e~ ~sa~ ~sae~ ~sx~ ~sxe~ ~w2~ ~w2e~ BEGIN
+			COPY_EXISTING ~wp%category%h1%sequence%.bam~ ~override/wp%category%%set%%sequence%.bam~
 		END
 	END
 END
 
 /* Lollorian's BWP FIxpack JC Helm animation crash fix for Infinity Animations BG1 animation compatibility: 1ppv4's helmet component seems to cause crashes when helmets using the JC animation are equipped by NPCs using BG1 animations from Infinity Animations. */
 //ACTION_FOR_EACH set IN ~J2~ ~J8~ BEGIN
-ACTION_FOR_EACH set IN ~J2~ ~J8~ ~JC~ BEGIN
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ ~T~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A2~ ~A2E~ ~A3~ ~A3E~ ~A4~ ~A4E~ ~A5~ ~A5E~ ~A6~ ~A6E~ ~CA~ ~CAE~ ~G1~ ~G1E~ ~SA~ ~SAE~ ~SX~ ~SXE~ ~W2~ ~W2E~ BEGIN
-			COPY_EXISTING ~WP%category%H2%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+ACTION_FOR_EACH set IN ~j2~ ~j8~ ~jc~ BEGIN
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~s~ ~t~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a1~ ~a1e~ ~a2~ ~a2e~ ~a3~ ~a3e~ ~a4~ ~a4e~ ~a5~ ~a5e~ ~a6~ ~a6e~ ~ca~ ~cae~ ~g1~ ~g1e~ ~sa~ ~sae~ ~sx~ ~sxe~ ~w2~ ~w2e~ BEGIN
+			COPY_EXISTING ~wp%category%h2%sequence%.bam~ ~override/wp%category%%set%%sequence%.bam~
 		END
 	END
 END
 
-ACTION_FOR_EACH set IN ~J4~ BEGIN
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ ~T~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A2~ ~A2E~ ~A3~ ~A3E~ ~A4~ ~A4E~ ~A5~ ~A5E~ ~A6~ ~A6E~ ~CA~ ~CAE~ ~G1~ ~G1E~ ~SA~ ~SAE~ ~SX~ ~SXE~ ~W2~ ~W2E~ BEGIN
-			COPY_EXISTING ~WP%category%H3%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+ACTION_FOR_EACH set IN ~j4~ BEGIN
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~s~ ~t~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a1~ ~a1e~ ~a2~ ~a2e~ ~a3~ ~a3e~ ~a4~ ~a4e~ ~a5~ ~a5e~ ~a6~ ~a6e~ ~ca~ ~cae~ ~g1~ ~g1e~ ~sa~ ~sae~ ~sx~ ~sxe~ ~w2~ ~w2e~ BEGIN
+			COPY_EXISTING ~wp%category%h3%sequence%.bam~ ~override/wp%category%%set%%sequence%.bam~
 		END
 	END
 END
 
-ACTION_FOR_EACH set IN ~J5~ ~J9~ BEGIN
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ ~T~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A2~ ~A2E~ ~A3~ ~A3E~ ~A4~ ~A4E~ ~A5~ ~A5E~ ~A6~ ~A6E~ ~CA~ ~CAE~ ~G1~ ~G1E~ ~SA~ ~SAE~ ~SX~ ~SXE~ ~W2~ ~W2E~ BEGIN
-			COPY_EXISTING ~WP%category%H5%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+ACTION_FOR_EACH set IN ~j5~ ~j9~ BEGIN
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~s~ ~t~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a1~ ~a1e~ ~a2~ ~a2e~ ~a3~ ~a3e~ ~a4~ ~a4e~ ~a5~ ~a5e~ ~a6~ ~a6e~ ~ca~ ~cae~ ~g1~ ~g1e~ ~sa~ ~sae~ ~sx~ ~sxe~ ~w2~ ~w2e~ BEGIN
+			COPY_EXISTING ~wp%category%h5%sequence%.bam~ ~override/wp%category%%set%%sequence%.bam~
 		END
 	END
 END
 
-ACTION_FOR_EACH set IN ~JA~ BEGIN
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ ~T~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A2~ ~A2E~ ~A3~ ~A3E~ ~A4~ ~A4E~ ~A5~ ~A5E~ ~A6~ ~A6E~ ~CA~ ~CAE~ ~G1~ ~G1E~ ~SA~ ~SAE~ ~SX~ ~SXE~ ~W2~ ~W2E~ BEGIN
-			COPY_EXISTING ~WP%category%H4%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+ACTION_FOR_EACH set IN ~ja~ BEGIN
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~s~ ~t~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a1~ ~a1e~ ~a2~ ~a2e~ ~a3~ ~a3e~ ~a4~ ~a4e~ ~a5~ ~a5e~ ~a6~ ~a6e~ ~ca~ ~cae~ ~g1~ ~g1e~ ~sa~ ~sae~ ~sx~ ~sxe~ ~w2~ ~w2e~ BEGIN
+			COPY_EXISTING ~wp%category%h4%sequence%.bam~ ~override/wp%category%%set%%sequence%.bam~
 		END
 	END
 END
 
-ACTION_FOR_EACH set IN ~JB~ BEGIN
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~S~ ~T~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A2~ ~A2E~ ~A3~ ~A3E~ ~A4~ ~A4E~ ~A5~ ~A5E~ ~A6~ ~A6E~ ~CA~ ~CAE~ ~G1~ ~G1E~ ~SA~ ~SAE~ ~SX~ ~SXE~ ~W2~ ~W2E~ BEGIN
-			COPY ~1pp/additions/obj_anim/donotexist_bg1/EMPTY%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+ACTION_FOR_EACH set IN ~jb~ BEGIN
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~s~ ~t~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a1~ ~a1e~ ~a2~ ~a2e~ ~a3~ ~a3e~ ~a4~ ~a4e~ ~a5~ ~a5e~ ~a6~ ~a6e~ ~ca~ ~cae~ ~g1~ ~g1e~ ~sa~ ~sae~ ~sx~ ~sxe~ ~w2~ ~w2e~ BEGIN
+			COPY ~1pp/additions/obj_anim/donotexist_bg1/empty%sequence%.bam~ ~override/wp%category%%set%%sequence%.bam~
 		END
 	END
 END
 
-ACTION_FOR_EACH set IN ~JC~ BEGIN
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~SA~ ~SS~ ~SX~ BEGIN
-			COPY_EXISTING ~WQ%category%J8%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
-		END
-	END
-END
-
-
-PRINT @208002 /* Padding H6 for BGII... */
-
-ACTION_FOR_EACH set IN ~H6~ BEGIN
-	ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~SA~ ~SS~ ~SX~ BEGIN
-			COPY_EXISTING ~WQ%category%J7%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+ACTION_FOR_EACH set IN ~jc~ BEGIN
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a1~ ~a2~ ~a3~ ~a4~ ~a5~ ~a6~ ~a7~ ~a8~ ~a9~ ~ca~ ~g1~ ~sa~ ~ss~ ~sx~ BEGIN
+			COPY_EXISTING ~wq%category%j8%sequence%.bam~ ~override/wq%category%%set%%sequence%.bam~
 		END
 	END
 END
 
 
+PRINT @208002 // ~Padding H6 for BGII...~
+SILENT
 
-ACTION_IF (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~) BEGIN
-	PRINT @208003 /* Installing paperdoll images... */
+ACTION_FOR_EACH set IN ~h6~ BEGIN
+	ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a1~ ~a2~ ~a3~ ~a4~ ~a5~ ~a6~ ~a7~ ~a8~ ~a9~ ~ca~ ~g1~ ~sa~ ~ss~ ~sx~ BEGIN
+			COPY_EXISTING ~wq%category%j7%sequence%.bam~ ~override/wq%category%%set%%sequence%.bam~
+		END
+	END
+END
 
-	ACTION_FOR_EACH paperdoll IN ~WPLJ0INV~ ~WPLJ1INV~ ~WPLJ2INV~ ~WPLJ3INV~ ~WPLJ4INV~ ~WPLJ5INV~ ~WPLJ6INV~ ~WPLJ7INV~ ~WPLJ8INV~ ~WPLJ9INV~ ~WPLJAINV~ ~WPLJBINV~ ~WPMJ0INV~ ~WPMJ1INV~ ~WPMJ2INV~ ~WPMJ3INV~ ~WPMJ4INV~ ~WPMJ5INV~ ~WPMJ6INV~ ~WPMJ7INV~ ~WPMJ8INV~ ~WPMJ9INV~ ~WPMJAINV~ ~WPMJBINV~ ~WPNJ0INV~ ~WPNJ1INV~ ~WPNJ2INV~ ~WPNJ3INV~ ~WPNJ4INV~ ~WPNJ5INV~ ~WPNJ6INV~ ~WPNJ7INV~ ~WPNJ8INV~ ~WPNJ9INV~ ~WPNJAINV~ ~WPNJBINV~ ~WPSJ0INV~ ~WPSJ1INV~ ~WPSJ2INV~ ~WPSJ3INV~ ~WPSJ4INV~ ~WPSJ5INV~ ~WPSJ6INV~ ~WPSJ7INV~ ~WPSJ8INV~ ~WPSJ9INV~ ~WPSJAINV~ ~WPSJBINV~ ~WPLJCINV~ ~WPMJCINV~ ~WPNJCINV~ ~WPSJCINV~ BEGIN
+
+ACTION_IF (is_bg2 OR is_tob OR is_tutu OR is_iwd) BEGIN // (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~)
+
+	PRINT @208003 // ~Installing paperdoll images...~
+	SILENT
+
+	ACTION_FOR_EACH paperdoll IN ~wplj0inv~ ~wplj1inv~ ~wplj2inv~ ~wplj3inv~ ~wplj4inv~ ~wplj5inv~ ~wplj6inv~ ~wplj7inv~ ~wplj8inv~ ~wplj9inv~ ~wpljainv~ ~wpljbinv~ ~wpljcinv~ ~wpmj0inv~ ~wpmj1inv~ ~wpmj2inv~ ~wpmj3inv~ ~wpmj4inv~ ~wpmj5inv~ ~wpmj6inv~ ~wpmj7inv~ ~wpmj8inv~ ~wpmj9inv~ ~wpmjainv~ ~wpmjbinv~ ~wpmjcinv~ ~wpnj0inv~ ~wpnj1inv~ ~wpnj2inv~ ~wpnj3inv~ ~wpnj4inv~ ~wpnj5inv~ ~wpnj6inv~ ~wpnj7inv~ ~wpnj8inv~ ~wpnj9inv~ ~wpnjainv~ ~wpnjbinv~ ~wpnjcinv~ ~wpsj0inv~ ~wpsj1inv~ ~wpsj2inv~ ~wpsj3inv~ ~wpsj4inv~ ~wpsj5inv~ ~wpsj6inv~ ~wpsj7inv~ ~wpsj8inv~ ~wpsj9inv~ ~wpsjainv~ ~wpsjbinv~ ~wpsjcinv~ BEGIN
 		COPY ~1pp/additions/obj_1pp/%paperdoll%.bam~ ~override~
 	END
 
-	ACTION_FOR_EACH set IN ~H6~ BEGIN
-		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
-			ACTION_FOR_EACH sequence IN ~INV~ BEGIN
-				COPY_EXISTING ~WP%category%J7%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+	ACTION_FOR_EACH set IN ~h6~ BEGIN
+		ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
+			ACTION_FOR_EACH sequence IN ~inv~ BEGIN
+				COPY_EXISTING ~wp%category%j7%sequence%.bam~ ~override/wp%category%%set%%sequence%.bam~
 			END
 		END
 	END
