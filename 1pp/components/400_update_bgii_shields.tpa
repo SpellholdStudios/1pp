@@ -1,32 +1,38 @@
-/*  ==============================================================================================================================================================================  *
- *  change-log:                                                                                                                                                                     *
- *  -----------                                                                                                                                                                     *
- *      - Replace macros with functions whenever possible.                                                                                                                          *
- *      - Coding simplification:                                                                                                                                                    *
- *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
- *  		Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
- *                                                                                                                                                                                  *
- *  specific fixes:                                                                                                                                                                 *
- *  ---------------                                                                                                                                                                 *
- *      - #92   ==> shld02.itm (Small Shield +1): LPM ~clear~ was missing, and the code stacked opcode #7 global effects.                                                           *
- *      - #1552 ==> shld31A.itm (Gorm's Arm +3): fix wrong coding (WRITE_SHORT instead of WRITE_BYTE for Minimum strength).                                                         *
- *      - #1585 ==> shld01P.itm (Buckler +2): fix wrong coding (opcode #0 parameter1 0xfffffe - 16777214??? - should be -3), add opcode #0 with parameter1 = -3 and parameter2 = 4  *
- *  				to add missing protection vs piercing weapons, add missing price, and fix item description to fit ITM file.                                                     *
- *      - #1674 ==> X#AJSHLD.itm (Ilvastarr Family Shield - The BG1 NPC Project mod): fix typo (was copying #AJSHLD instead of X#AJSHLD).                                           *
- *      - #1836 ==> shld06P.itm (Redshield +1, +4 vs. Monstrous): fix wrong coding (opcode #219: switch parameter1 and 2, and parameter2 2 - EA.IDS - should be 3 - GENERAL.IDS),   *
- *  				add an external effect (shld06P.eff) and replace opcode #178 with opcode #177, otherwise opcode #178 won't work.                                                *
- *      - #1896 ==> shld07P.itm (Sartessa's Vengeance +1): fix wrong coding for add magical flag [replace WRITE_BYTE 0x1b 0x6c with WRITE_LONG 0x18 (THIS | BIT6)].                 *
- *      - #1971 ==> shld08P.itm (Tarloc's Contingency +1): code simplified (1tarsp.spl) and fix wrong coding for Casting sound (1tarss.spl).                                        *
- *      - #2056 ==> shld09P.itm (Shield of Devotion +1): fix wrong coding (#62: parameter2 should be 4, not 3).                                                                     *
- *  ==============================================================================================================================================================================  */
+/* ================================================================================================================================================================================== *
+ *                                                                                                                                                                                    *
+ *                                       C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( s h i e l d s )                                        *
+ *                                                                                                                                                                                    *
+ * ================================================================================================================================================================================== *
+ *  This part installs shields stuff.                                                                                                                                                 *
+ * ================================================================================================================================================================================== *
+ *  change-log:                                                                                                                                                                       *
+ *  -----------                                                                                                                                                                       *
+ *      - Replaced macros with functions whenever possible.                                                                                                                           *
+ *      - Coding simplification:                                                                                                                                                      *
+ *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                                *
+ *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *                                                                                                                                                                                    *
+ *  specific fixes:                                                                                                                                                                   *
+ *  ---------------                                                                                                                                                                   *
+ *      - #101  ==> shld02.itm (Small Shield +1): LPM ~clear~ was missing, and the code stacked opcode #7 global effects.                                                             *
+ *      - #1490 ==> shld31a.itm (Gorm's Arm +3): fixed wrong coding (WRITE_SHORT instead of WRITE_BYTE for Minimum strength).                                                         *
+ *      - #1501 ==> shld01p.itm (Buckler +2): fixed wrong coding (opcode #0 parameter1 0xfffffe - 16777214 ?? - should be -3), add opcode #0 with parameter1 = -3 and parameter2 = 4  *
+ *                  to add missing protection vs piercing weapons, added missing price, and fix item description to fit ITM file.                                                     *
+ *      - #1595 ==> x#ajshld.itm (Ilvastarr Family Shield - The BG1 NPC Project mod): fixed typo (was copying #AJSHLD instead of X#AJSHLD).                                           *
+ *      - #1708 ==> shld06p.itm (Redshield +1, +4 vs. Monstrous): fixed wrong coding (opcode #219: switch parameter1 and 2, and parameter2 2 - EA.IDS - should be 3 - GENERAL.IDS),   *
+ *                  added an external effect (shld06p.eff) and replaced opcode #178 with opcode #177, otherwise opcode #178 won't work.                                               *
+ *      - #1743 ==> shld07p.itm (Sartessa's Vengeance +1): fixed wrong coding for add magical flag [replaced WRITE_BYTE 0x1b 0x6c with WRITE_LONG 0x18 (THIS | BIT6)].                *
+ *      - #1820 ==> shld08p.itm (Tarloc's Contingency +1): code simplified (1tarsp.spl) and fixed wrong coding for Casting sound (1tarss.spl).                                        *
+ *      - #1875 ==> shld09p.itm (Shield of Devotion +1): fixed wrong coding (op#62: parameter2 should be 4, not 3).                                                                   *
+ * ================================================================================================================================================================================== */
 
-/*  =============================  *
+/* =============================== *
  *          SHIELDS BEGIN          *
- *  =============================  */
+ * =============================== */
 
-ACTION_IF (1pp_shields_shadows = 2) BEGIN	// shadow shields
+ACTION_IF (1pp_shields_shadows = 2) BEGIN	// shadow shields on paperdolls (1 = No - 2 = Yes [Default])
 
-	ACTION_FOR_EACH resource IN ~WPHC0INV~ ~WPHC1INV~ ~WPHC2INV~ ~WPHC3INV~ ~WPHC4INV~ ~WPHC5INV~ ~WPHC6INV~ ~WPHC7INV~ ~WPLC0INV~ ~WPLC1INV~ ~WPLC2INV~ ~WPLC3INV~ ~WPLC4INV~ ~WPLC5INV~ ~WPLC6INV~ ~WPLC7INV~ ~WPMC0INV~ ~WPMC1INV~ ~WPMC2INV~ ~WPMC3INV~ ~WPMC4INV~ ~WPMC5INV~ ~WPMC6INV~ ~WPMC7INV~ ~WPNC0INV~ ~WPNC1INV~ ~WPNC2INV~ ~WPNC3INV~ ~WPNC4INV~ ~WPNC5INV~ ~WPNC6INV~ ~WPNC7INV~ ~WPSC0INV~ ~WPSC1INV~ ~WPSC2INV~ ~WPSC3INV~ ~WPSC4INV~ ~WPSC5INV~ ~WPSC6INV~ ~WPSC7INV~ BEGIN
+	ACTION_FOR_EACH resource IN ~wphc0inv~ ~wphc1inv~ ~wphc2inv~ ~wphc3inv~ ~wphc4inv~ ~wphc5inv~ ~wphc6inv~ ~wphc7inv~ ~wplc0inv~ ~wplc1inv~ ~wplc2inv~ ~wplc3inv~ ~wplc4inv~ ~wplc5inv~ ~wplc6inv~ ~wplc7inv~ ~wpmc0inv~ ~wpmc1inv~ ~wpmc2inv~ ~wpmc3inv~ ~wpmc4inv~ ~wpmc5inv~ ~wpmc6inv~ ~wpmc7inv~ ~wpnc0inv~ ~wpnc1inv~ ~wpnc2inv~ ~wpnc3inv~ ~wpnc4inv~ ~wpnc5inv~ ~wpnc6inv~ ~wpnc7inv~ ~wpsc0inv~ ~wpsc1inv~ ~wpsc2inv~ ~wpsc3inv~ ~wpsc4inv~ ~wpsc5inv~ ~wpsc6inv~ ~wpsc7inv~ BEGIN
 
 		COPY ~1pp/additions/obj_1pp_a/%resource%.bam~ ~override~
 
@@ -34,35 +40,38 @@ ACTION_IF (1pp_shields_shadows = 2) BEGIN	// shadow shields
 
 END
 
+PRINT @400022 // ~Patching shields...~
+SILENT
+
 // Small Shield
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld01.itm~) BEGIN
-	COPY_EXISTING ~shld01.itm~ ~override/shld01A.itm~
+	COPY_EXISTING ~shld01.itm~ ~override/shld01a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			SET gradient = 22				// colour index
-			SET location = sred				// location
+			SET gradient = 22				// sets colour index 22 DARK_BROWN
+			SET location = sred				// location (Grip)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 92			// colour index
-				SET location = spink		// location
+				SET gradient = 92			// sets colour index 92 LIGHT_CHOCOLATE
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld01.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C0~			// Replace D2 Small shield
+			WRITE_ASCII 0x22 ~C0~			// replaces D2 Small shield
 			WRITE_ASCII 0x3A ~ISHLDS01~ #8
 			WRITE_ASCII 0x44 ~GSSHLD~ #8
-			WRITE_ASCII 0x58 ~CSHLD25~ #8	// Replace CSHLD28
+			WRITE_ASCII 0x58 ~CSHLD25~ #8	// replaces CSHLD28
 			LPM ~clear~
-			SET gradient = 200				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 200				// 200 HAIR1-WHITE_TEAL replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 21				// Replace colour index 42
-			SET location = sblue			// location
+			SET gradient = 21				// 21 DARK_IRON_GRAY replaces colour index 42 BEIGE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 238			// colour index
-				SET location = spink		// location
+				SET gradient = 238			// sets colour index 238 CLERIC_NEUTRAL_MINOR-RUSSET_BROWN
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -71,41 +80,41 @@ END
 
 // Small Shield +1
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld02.itm~) BEGIN
-	COPY_EXISTING ~shld02.itm~ ~override/shld02A.itm~
+	COPY_EXISTING ~shld02.itm~ ~override/shld02a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 109				// colour index
-			SET location = sred				// location
+			SET gradient = 109				// sets colour index 109 TERRA_COTTA
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 24				// Replace colour index 42
-			SET location = sblue			// location
+			SET gradient = 24				// 24 BROWN_GOLD replaces colour index 42 BEIGE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 25				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 25				// 25 DARK_PURE_GOLD replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 29			// colour index
-				SET location = spink		// location
+				SET gradient = 29			// sets colour index 29 RED-TINTED_BLACK
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld02.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C0~			// Replace D2 Small shield
-			WRITE_ASCII 0x3A ~ISHLDS04~ #8	// Replace ISHLDS02
+			WRITE_ASCII 0x22 ~C0~			// replaces D2 Small shield
+			WRITE_ASCII 0x3A ~ISHLDS04~ #8	// replaces ISHLDS02
 			WRITE_ASCII 0x44 ~GSSHLD~ #8
-			WRITE_ASCII 0x58 ~CSHLD25~ #8	// Replace CSHLD28
+			WRITE_ASCII 0x58 ~CSHLD25~ #8	// replaces CSHLD28
 			// Gwen fix: the following line was missing
 			LPM ~clear~
-			SET gradient = 24				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 24				// 24 BROWN_GOLD replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 211				// Replace colour index 42
-			SET location = sblue			// location
+			SET gradient = 211				// 211 MERCHANT_MINOR-DARK_BRASS replaces colour index 42 BEIGE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 237			// colour index
-				SET location = spink		// location
+				SET gradient = 237			// sets colour index 237 CLERIC_NEUTRAL_MAJOR-TAUPE
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -114,43 +123,43 @@ END
 
 // Medium Shield
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld03.itm~) BEGIN
-	COPY_EXISTING ~shld03.itm~ ~override/shld03A.itm~
+	COPY_EXISTING ~shld03.itm~ ~override/shld03a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 94				// colour index
-			SET location = sred				// location
+			SET gradient = 94				// sets colour index 94 RHUBARB
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 100				// Replace colour index 104
-			SET location = sblue			// location
+			SET gradient = 100				// 100 DARK_ASH_GRAY replaces colour index 104 DARK_CHROME_PURPLE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 215				// Replace colour index 27
-			SET location = sgrey			// location
+			SET gradient = 215				// 215 GYPSY_MINOR-CHROME_VERMILLION replaces colour index 27 GRAY
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 66			// colour index
-				SET location = spink		// location
+				SET gradient = 66			// sets colour index 66 FADED_BLACK
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld03.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C1~			// Replace D3 Medium shield
+			WRITE_ASCII 0x22 ~C1~			// replaces D3 Medium shield
 			WRITE_ASCII 0x3A ~ISHLDM01~ #8
 			WRITE_ASCII 0x44 ~GMSHLD~ #8
-			WRITE_ASCII 0x58 ~CSHLDM0~ #8	// Replace CSHLD29
+			WRITE_ASCII 0x58 ~CSHLDM0~ #8	// replaces CSHLD29
 			LPM ~clear~
-			SET gradient = 226				// Replace colour index 27
-			SET location = sgrey			// location
+			SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 27 GRAY
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 209				// colour index
-			SET location = steal			// location
+			SET gradient = 209				// sets colour index 209 ATH_PEASANT_MINOR-ASH_GRAY
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 226				// Replace colour index 104
-			SET location = sblue			// location
+			SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 104 DARK_CHROME_PURPLE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 87			// colour index
-				SET location = spink		// location
+				SET gradient = 87			// sets colour index 87 SADDLE_BROWN
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -159,43 +168,43 @@ END
 
 // Medium Shield +1
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld04.itm~) BEGIN
-	COPY_EXISTING ~shld04.itm~ ~override/shld04A.itm~
+	COPY_EXISTING ~shld04.itm~ ~override/shld04a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 81				// colour index
-			SET location = sred				// location
+			SET gradient = 81				// sets colour index 81 FADED_GOLD
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 250				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 250				// 250 SHADOW_DRUID_MAJOR-YELLOW_ORANGE replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 98				// Replace colour index 91
-			SET location = sblue			// location
+			SET gradient = 98				// 98 LEAF_GREEN replaces colour index 91 DARK_CHOCOLATE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 160			// colour index
-				SET location = spink		// location
+				SET gradient = 160			// sets colour index 160 DEEP_BROWN
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld04.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C1~			// Replace D3 Medium shield
-			WRITE_ASCII 0x3A ~ISHLDM05~ #8	// Replace ISHLDM02
+			WRITE_ASCII 0x22 ~C1~			// replaces D3 Medium shield
+			WRITE_ASCII 0x3A ~ISHLDM05~ #8	// replaces ISHLDM02
 			WRITE_ASCII 0x44 ~GMSHLD~ #8
-			WRITE_ASCII 0x58 ~CSHLDM0~ #8	// Replace CSHLD29
+			WRITE_ASCII 0x58 ~CSHLDM0~ #8	// replaces CSHLD29
 			LPM ~clear~
-			SET gradient = 208				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 210				// colour index
-			SET location = steal			// location
+			SET gradient = 210				// sets colour index 210 MERCHANT_MAJOR-AMBER 
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 211				// Replace colour index 91
-			SET location = sblue			// location
+			SET gradient = 211				// 211 MERCHANT_MINOR-DARK_BRASS replaces colour index 91 DARK_CHOCOLATE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 66			// colour index
-				SET location = spink		// location
+				SET gradient = 66			// sets colour index 66 FADED_BLACK
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -204,43 +213,43 @@ END
 
 // Large Shield
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld05.itm~) BEGIN
-	COPY_EXISTING ~shld05.itm~ ~override/shld05A.itm~
+	COPY_EXISTING ~shld05.itm~ ~override/shld05a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 91				// colour index
-			SET location = sred				// location
+			SET gradient = 91				// sets colour index 91 DARK_CHOCOLATE
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 6				// Replace colour index 91
-			SET location = sblue			// location
+			SET gradient = 6				// 6 DARK_SILVER replaces colour index 91 DARK_CHOCOLATE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 26				// Replace colour index 102
-			SET location = sgrey			// location
+			SET gradient = 26				// 26 WOOD replaces colour index 102 SEA_BLUE
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 87			// colour index
-				SET location = spink		// location
+				SET gradient = 87			// sets colour index 87 SADDLE_BROWN
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld05.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C2~			// Replace D4 Large shield
+			WRITE_ASCII 0x22 ~C2~			// replaces D4 Large shield
 			WRITE_ASCII 0x3A ~ISHLDL01~ #8
 			WRITE_ASCII 0x44 ~GLSHLD~ #8
-			WRITE_ASCII 0x58 ~CSHLD30~ #8	// Replace CSHLD23
+			WRITE_ASCII 0x58 ~CSHLD30~ #8	// replaces CSHLD23
 			LPM ~clear~
-			SET gradient = 239				// Replace colour index 102
-			SET location = sgrey			// location
+			SET gradient = 239				// 239 CLERIC_EVIL_MAJOR-PALE_BRONZ replaces colour index 102 SEA_BLUE
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 233				// colour index
-			SET location = steal			// location
+			SET gradient = 233				// sets colour index 233 HOBGOBLIN_MAJOR-PERUVIAN_BROWN
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 234				// Replace colour index 91
-			SET location = sblue			// location
+			SET gradient = 234				// 234 HOBGOBLIN_MINOR-INDIAN_RED replaces colour index 91 DARK_CHOCOLATE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 41			// colour index
-				SET location = spink		// location
+				SET gradient = 41			// sets colour index 41 MEDIUM_BROWN
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -249,43 +258,43 @@ END
 
 // Large Shield +1
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld06.itm~) BEGIN
-	COPY_EXISTING ~shld06.itm~ ~override/shld06A.itm~
+	COPY_EXISTING ~shld06.itm~ ~override/shld06a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 99				// colour index
-			SET location = sred				// location
+			SET gradient = 99				// sets colour index 99 GOLDEN_BROWN
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 30				// Replace colour index 91
-			SET location = sblue			// location
+			SET gradient = 30				// 30 LIGHT_IRON_GRAY replaces colour index 91 DARK_CHOCOLATE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 112				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 112				// 112 SEA_FOAM replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 237			// colour index
-				SET location = spink		// location
+				SET gradient = 237			// sets colour index 237 CLERIC_NEUTRAL_MAJOR-TAUPE
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld06.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C2~			// Replace D4 Large shield
-			WRITE_ASCII 0x3A ~ISHLDL04~ #8	// Replace ISHLDL02
+			WRITE_ASCII 0x22 ~C2~			// replaces D4 Large shield
+			WRITE_ASCII 0x3A ~ISHLDL04~ #8	// replaces ISHLDL02
 			WRITE_ASCII 0x44 ~GLSHLD~ #8
-			WRITE_ASCII 0x58 ~CSHLD30~ #8	// Replace CSHLD23
+			WRITE_ASCII 0x58 ~CSHLD30~ #8	// replaces CSHLD23
 			LPM ~clear~
-			SET gradient = 226				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 72				// colour index
-			SET location = steal			// location
+			SET gradient = 72				// sets colour index 72 STEEL_GRAY
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 93				// Replace colour index 91
-			SET location = sblue			// location
+			SET gradient = 93				// 93 DARK_CEMENT_GRAY replaces colour index 91 DARK_CHOCOLATE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 237			// colour index
-				SET location = spink		// location
+				SET gradient = 237			// sets colour index 237 CLERIC_NEUTRAL_MAJOR-TAUPE
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -294,43 +303,43 @@ END
 
 // Shield of the Falling Stars +1
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld07.itm~) BEGIN
-	COPY_EXISTING ~shld07.itm~ ~override/shld07A.itm~
+	COPY_EXISTING ~shld07.itm~ ~override/shld07a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 3				// colour index
-			SET location = sred				// location
+			SET gradient = 3				// sets colour index 3 LIGHT_GOLD
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 16				// Replace colour index 91
-			SET location = sblue			// location
+			SET gradient = 16				// 16 SILVERISH_GOLD replaces colour index 91 DARK_CHOCOLATE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 208				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 66			// colour index
-				SET location = spink		// location
+				SET gradient = 66			// sets colour index 66 FADED_BLACK
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld07.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C6~			// Replace D4 Large shield
+			WRITE_ASCII 0x22 ~C6~			// replaces D4 Large shield
 			WRITE_ASCII 0x3A ~1SHLDL02~ #8
 			WRITE_ASCII 0x44 ~GLSHLD~ #8
-			WRITE_ASCII 0x58 ~1CSHLDL2~ #8	// Replace CSHLD23
+			WRITE_ASCII 0x58 ~1CSHLDL2~ #8	// replaces CSHLD23
 			LPM ~clear~
-			SET gradient = 249				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 249				// 249 OGRE_MINOR-METALLIC_SLATE replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 66				// colour index
-			SET location = steal			// location
+			SET gradient = 66				// sets colour index 66 FADED_BLACK
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 249				// Replace colour index 91
-			SET location = sblue			// location
+			SET gradient = 249				// 249 OGRE_MINOR-METALLIC_SLATE replaces colour index 91 DARK_CHOCOLATE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 51			// colour index
-				SET location = spink		// location
+				SET gradient = 51			// sets colour index 51 DARK_OLIVE_GREEN
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -339,43 +348,43 @@ END
 
 // Bucklers
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld08.itm~) BEGIN
-	COPY_EXISTING ~shld08.itm~ ~override/shld08A.itm~
+	COPY_EXISTING ~shld08.itm~ ~override/shld08a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 27				// colour index
-			SET location = sred				// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 28				// Replace colour index 42
-			SET location = sblue			// location
+			SET gradient = 28				// 28 BLUISH_SILVER replaces colour index 42 BEIGE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 30				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 30				// 30 LIGHT_IRON_GRAY replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 92			// colour index
-				SET location = spink		// location
+				SET gradient = 92			// sets colour index 92 LIGHT_CHOCOLATE
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld08.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C4~			// Replace D2 Small shield
+			WRITE_ASCII 0x22 ~C4~			// replaces D2 Small shield
 			WRITE_ASCII 0x3A ~ISHLDB01~ #8
 			WRITE_ASCII 0x44 ~GBSHLD~ #8
-			WRITE_ASCII 0x58 ~1CSHLDB1~ #8	// Replace CSHLD28
+			WRITE_ASCII 0x58 ~1CSHLDB1~ #8	// replaces CSHLD28
 			LPM ~clear~
-			SET gradient = 226				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 239				// colour index
-			SET location = steal			// location
+			SET gradient = 239				// sets colour index 239 CLERIC_EVIL_MAJOR-PALE_BRONZ
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 226				// Replace colour index 42
-			SET location = sblue			// location
+			SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 42 BEIGE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 188			// colour index
-				SET location = spink		// location
+				SET gradient = 188			// sets colour index 188 MEDIUM_GRAY
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -383,43 +392,43 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld08.itm~) BEGIN
 END
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld09.itm~) BEGIN
-	COPY_EXISTING ~shld09.itm~ ~override/shld09A.itm~
+	COPY_EXISTING ~shld09.itm~ ~override/shld09a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 209				// colour index
-			SET location = sred				// location
+			SET gradient = 209				// sets colour index 209 ATH_PEASANT_MINOR-ASH_GRAY
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 22				// Replace colour index 42
-			SET location = sblue			// location
+			SET gradient = 22				// 22 DARK_BROWN replaces colour index 42 BEIGE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 23				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 23				// 23 LIGHT_COPPER replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 209			// colour index
-				SET location = spink		// location
+				SET gradient = 209			// sets colour index 209 ATH_PEASANT_MINOR-ASH_GRAY
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld09.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C4~			// Replace D2 Small shield
-			WRITE_ASCII 0x3A ~ISHLDB02~ #8	// Replace ISHLDB01
+			WRITE_ASCII 0x22 ~C4~			// replaces D2 Small shield
+			WRITE_ASCII 0x3A ~ISHLDB02~ #8	// replaces ISHLDB01
 			WRITE_ASCII 0x44 ~GBSHLD~ #8
-			WRITE_ASCII 0x58 ~1CSHLDB1~ #8	// Replace CSHLD28
+			WRITE_ASCII 0x58 ~1CSHLDB1~ #8	// replaces CSHLD28
 			LPM ~clear~
-			SET gradient = 192				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 192				// 192 CHROME_TEAL replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 186				// colour index
-			SET location = steal			// location
+			SET gradient = 186				// sets colour index 186 DARK_PLUM
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 192				// Replace colour index 42
-			SET location = sblue			// location
+			SET gradient = 192				// 192 CHROME_TEAL replaces colour index 42 BEIGE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 184			// colour index
-				SET location = spink		// location
+				SET gradient = 184			// sets colour index 184 CADET_BLUE
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -427,43 +436,43 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld09.itm~) BEGIN
 END
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld10.itm~) BEGIN
-	COPY_EXISTING ~shld10.itm~ ~override/shld10A.itm~
+	COPY_EXISTING ~shld10.itm~ ~override/shld10a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 26				// colour index
-			SET location = sred				// location
+			SET gradient = 26				// sets colour index 26 WOOD
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 28				// Replace colour index 42
-			SET location = sblue			// location
+			SET gradient = 28				// 28 BLUISH_SILVER replaces colour index 42 BEIGE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 26				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 26				// 26 WOOD replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 179			// colour index
-				SET location = spink		// location
+				SET gradient = 179			// sets colour index 179 PALE_INDIGO
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld10.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C4~			// Replace D2 Small shield
-			WRITE_ASCII 0x3A ~ISHLDB03~ #8	// Replace ISHLDB01
+			WRITE_ASCII 0x22 ~C4~			// replaces D2 Small shield
+			WRITE_ASCII 0x3A ~ISHLDB03~ #8	// replaces ISHLDB01
 			WRITE_ASCII 0x44 ~GBSHLD~ #8
-			WRITE_ASCII 0x58 ~1CSHLDB1~ #8	// Replace CSHLD28
+			WRITE_ASCII 0x58 ~1CSHLDB1~ #8	// replaces CSHLD28
 			LPM ~clear~
-			SET gradient = 226				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 160				// colour index
-			SET location = steal			// location
+			SET gradient = 160				// sets colour index 160 DEEP_BROWN
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 226				// Replace colour index 42
-			SET location = sblue			// location
+			SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 42 BEIGE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 206			// colour index
-				SET location = spink		// location
+				SET gradient = 206			// sets colour index 206 NOBLE_MAJOR2-DARK_SEA_GRAY
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -472,40 +481,40 @@ END
 
 // Small Shields
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld11.itm~) BEGIN
-	COPY_EXISTING ~shld11.itm~ ~override/shld11A.itm~
+	COPY_EXISTING ~shld11.itm~ ~override/shld11a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 81				// colour index
-			SET location = sred				// location
+			SET gradient = 81				// 81 FADED_GOLD sets colour index
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 28				// Replace colour index 42
-			SET location = sblue			// location
+			SET gradient = 28				// 28 BLUISH_SILVER replaces colour index 42 BEIGE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 30				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 30				// 30 LIGHT_IRON_GRAY replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 188			// colour index
-				SET location = spink		// location
+				SET gradient = 188			// sets colour index 188 MEDIUM_GRAY
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld11.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C0~			// Replace D2 Small shield
-			WRITE_ASCII 0x3A ~ISHLDS02~ #8	// Replace ISHLDS01
+			WRITE_ASCII 0x22 ~C0~			// replaces D2 Small shield
+			WRITE_ASCII 0x3A ~ISHLDS02~ #8	// replaces ISHLDS01
 			WRITE_ASCII 0x44 ~GSSHLD~ #8
-			WRITE_ASCII 0x58 ~CSHLD25~ #8	// Replace CSHLD28
+			WRITE_ASCII 0x58 ~CSHLD25~ #8	// replaces CSHLD28
 			LPM ~clear~
-			SET gradient = 227				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 227				// 227 METAL_WILD-CORAL replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 232				// Replace colour index 42
-			SET location = sblue			// location
+			SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 42 BEIGE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 183			// colour index
-				SET location = spink		// location
+				SET gradient = 183			// sets colour index 183 CHARCOAL
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -513,40 +522,40 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld11.itm~) BEGIN
 END
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld12.itm~) BEGIN
-	COPY_EXISTING ~shld12.itm~ ~override/shld12A.itm~
+	COPY_EXISTING ~shld12.itm~ ~override/shld12a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 72				// colour index
-			SET location = sred				// location
+			SET gradient = 72				// sets colour index 72 STEEL_GRAY
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 27				// Replace colour index 42
-			SET location = sblue			// location
+			SET gradient = 27				// 27 GRAY replaces colour index 42 BEIGE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 30				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 30				// 30 LIGHT_IRON_GRAY replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 99			// colour index
-				SET location = spink		// location
+				SET gradient = 99			// sets colour index 99 GOLDEN_BROWN
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld12.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C0~			// Replace D2 Small shield
-			WRITE_ASCII 0x3A ~ISHLDS03~ #8	// Replace ISHLDS01
+			WRITE_ASCII 0x22 ~C0~			// replaces D2 Small shield
+			WRITE_ASCII 0x3A ~ISHLDS03~ #8	// replaces ISHLDS01
 			WRITE_ASCII 0x44 ~GSSHLD~ #8
-			WRITE_ASCII 0x58 ~CSHLD25~ #8	// Replace CSHLD28
+			WRITE_ASCII 0x58 ~CSHLD25~ #8	// replaces CSHLD28
 			LPM ~clear~
-			SET gradient = 207				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 207				// 207 NOBLE_MINOR2-CHROME_GOLD replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 209				// Replace colour index 42
-			SET location = sblue			// location
+			SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 42 BEIGE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 87			// colour index
-				SET location = spink		// location
+				SET gradient = 87			// sets colour index 87 SADDLE_BROWN
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -555,43 +564,43 @@ END
 
 // Medium Shields
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld13.itm~) BEGIN
-	COPY_EXISTING ~shld13.itm~ ~override/shld13A.itm~
+	COPY_EXISTING ~shld13.itm~ ~override/shld13a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 174				// colour index
-			SET location = sred				// location
+			SET gradient = 174				// sets colour index 174 PALE_SLATE
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 100				// Replace colour index 59
-			SET location = sblue			// location
+			SET gradient = 100				// 100 DARK_ASH_GRAY replaces colour index 59 LIGHT_PURPLE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 176				// Replace colour index 100
-			SET location = sgrey			// location
+			SET gradient = 176				// 176 STEEL_BLUE replaces colour index 100 DARK_ASH_GRAY
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 183			// colour index
-				SET location = spink		// location
+				SET gradient = 183			// sets colour index 183 CHARCOAL
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld13.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C1~			// Replace D3 Medium shield
-			WRITE_ASCII 0x3A ~ISHLDM02~ #8	// Replace ISHLDM01
+			WRITE_ASCII 0x22 ~C1~			// replaces D3 Medium shield
+			WRITE_ASCII 0x3A ~ISHLDM02~ #8	// replaces ISHLDM01
 			WRITE_ASCII 0x44 ~GMSHLD~ #8
-			WRITE_ASCII 0x58 ~CSHLDM0~ #8	// Replace CSHLD29
+			WRITE_ASCII 0x58 ~CSHLDM0~ #8	// replaces CSHLD29
 			LPM ~clear~
-			SET gradient = 217				// Replace colour index 100
-			SET location = sgrey			// location
+			SET gradient = 217				// 217 PIRATE_MINOR-BRIGHT_SLATE_GRAY replaces colour index 100 DARK_ASH_GRAY
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 231				// colour index
-			SET location = steal			// location
+			SET gradient = 231				// sets colour index 231 KOBOLD_MINOR-CHROME_COOL_GRAY
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 202				// Replace colour index 59
-			SET location = sblue			// location
+			SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 59 LIGHT_PURPLE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 186			// colour index
-				SET location = spink		// location
+				SET gradient = 186			// sets colour index 186 DARK_PLUM
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -599,43 +608,43 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld13.itm~) BEGIN
 END
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld14.itm~) BEGIN
-	COPY_EXISTING ~shld14.itm~ ~override/shld14A.itm~
+	COPY_EXISTING ~shld14.itm~ ~override/shld14a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 92				// colour index
-			SET location = sred				// location
+			SET gradient = 92				// sets colour index 92 LIGHT_CHOCOLATE
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 30				// Replace colour index 100
-			SET location = sblue			// location
+			SET gradient = 30				// 30 LIGHT_IRON_GRAY replaces colour index 100 DARK_ASH_GRAY
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 242				// Replace colour index 59
-			SET location = sgrey			// location
+			SET gradient = 242				// 242 THIEF_MINOR-PALE_OLIVE replaces colour index 59 LIGHT_PURPLE
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 39			// colour index
-				SET location = spink		// location
+				SET gradient = 39			// sets colour index 39 DARK_DIRT_BROWN
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld14.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C1~			// Replace D3 Medium shield
-			WRITE_ASCII 0x3A ~ISHLDM03~ #8	// Replace ISHLDM01
+			WRITE_ASCII 0x22 ~C1~			// replaces D3 Medium shield
+			WRITE_ASCII 0x3A ~ISHLDM03~ #8	// replaces ISHLDM01
 			WRITE_ASCII 0x44 ~GMSHLD~ #8
-			WRITE_ASCII 0x58 ~CSHLDM0~ #8	// Replace CSHLD29
+			WRITE_ASCII 0x58 ~CSHLDM0~ #8	// replaces CSHLD29
 			LPM ~clear~
-			SET gradient = 226				// Replace colour index 59
-			SET location = sgrey			// location
+			SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 59 LIGHT_PURPLE
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 237				// colour index
-			SET location = steal			// location
+			SET gradient = 237				// sets colour index 237 CLERIC_NEUTRAL_MAJOR-TAUPE
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 209				// Replace colour index 100
-			SET location = sblue			// location
+			SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 100 DARK_ASH_GRAY
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 238			// colour index
-				SET location = spink		// location
+				SET gradient = 238			// sets colour index 238 CLERIC_NEUTRAL_MINOR-RUSSET_BROWN
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -644,43 +653,43 @@ END
 
 // Large Shields
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld15.itm~) BEGIN
-	COPY_EXISTING ~shld15.itm~ ~override/shld15A.itm~
+	COPY_EXISTING ~shld15.itm~ ~override/shld15a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 92				// colour index
-			SET location = sred				// location
+			SET gradient = 92				// sets colour index 92 LIGHT_CHOCOLATE
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 27				// Replace colour index 41
-			SET location = sblue			// location
+			SET gradient = 27				// 27 GRAY replaces colour index 41 MEDIUM_BROWN
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 215				// Replace colour index 102
-			SET location = sgrey			// location
+			SET gradient = 215				// 215 GYPSY_MINOR-CHROME_VERMILLION replaces colour index 102 SEA_BLUE
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 254			// colour index
-				SET location = spink		// location
+				SET gradient = 254			// sets colour index 254 EBONY
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld15.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C2~			// Replace D4 Large shield
-			WRITE_ASCII 0x3A ~ISHLDL02~ #8	// Replace ISHLDL01
+			WRITE_ASCII 0x22 ~C2~			// replaces D4 Large shield
+			WRITE_ASCII 0x3A ~ISHLDL02~ #8	// replaces ISHLDL01
 			WRITE_ASCII 0x44 ~GLSHLD~ #8
-			WRITE_ASCII 0x58 ~CSHLD30~ #8	// Replace CSHLD23
+			WRITE_ASCII 0x58 ~CSHLD30~ #8	// replaces CSHLD23
 			LPM ~clear~
-			SET gradient = 202				// Replace colour index 102
-			SET location = sgrey			// location
+			SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 102 SEA_BLUE
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 235				// colour index
-			SET location = steal			// location
+			SET gradient = 235				// sets colour index 235 CLERIC_GOOD_MAJOR-GLAUCOUS_GRAY
+			SET location = steal			// location (Interior) (Body/trim)
 			LPM ~colour~
-			SET gradient = 235				// Replace colour index 41
-			SET location = sblue			// location
+			SET gradient = 235				// 235 CLERIC_GOOD_MAJOR-GLAUCOUS_GRAY replaces colour index 41 MEDIUM_BROWN
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 204			// colour index
-				SET location = spink		// location
+				SET gradient = 204			// sets colour index 204 NOBLE_MAJOR1-BLACK_PLUM
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -688,43 +697,43 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld15.itm~) BEGIN
 END
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld16.itm~) BEGIN
-	COPY_EXISTING ~shld16.itm~ ~override/shld16A.itm~
+	COPY_EXISTING ~shld16.itm~ ~override/shld16a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 100				// colour index
-			SET location = sred				// location
+			SET gradient = 100				// sets colour index 100 DARK_ASH_GRAY
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 248				// Replace colour index 91
-			SET location = sblue			// location
+			SET gradient = 248				// 248 OGRE_MAJOR-BATTLESHIP_GRAY replaces colour index 91 DARK_CHOCOLATE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 109				// Replace colour index 102
-			SET location = sgrey			// location
+			SET gradient = 109				// 109 TERRA_COTTA replaces colour index 102 SEA_BLUE
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 238			// colour index
-				SET location = spink		// location
+				SET gradient = 238			// sets colour index 238 CLERIC_NEUTRAL_MINOR-RUSSET_BROWN
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld16.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C2~			// Replace D4 Large shield
-			WRITE_ASCII 0x3A ~ISHLDL03~ #8	// Replace ISHLDL01
+			WRITE_ASCII 0x22 ~C2~			// replaces D4 Large shield
+			WRITE_ASCII 0x3A ~ISHLDL03~ #8	// replaces ISHLDL01
 			WRITE_ASCII 0x44 ~GLSHLD~ #8
-			WRITE_ASCII 0x58 ~CSHLD30~ #8	// Replace CSHLD23
+			WRITE_ASCII 0x58 ~CSHLD30~ #8	// replaces CSHLD23
 			LPM ~clear~
-			SET gradient = 239				// Replace colour index 102
-			SET location = sgrey			// location
+			SET gradient = 239				// 239 CLERIC_EVIL_MAJOR-PALE_BRONZ replaces colour index 102 SEA_BLUE
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 208				// colour index
-			SET location = steal			// location
+			SET gradient = 208				// sets colour index 208 ATH_PEASANT_MAJOR-FADED_WHEAT
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 234				// Replace colour index 91
-			SET location = sblue			// location
+			SET gradient = 234				// 234 HOBGOBLIN_MINOR-INDIAN_RED replaces colour index 91 DARK_CHOCOLATE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 238			// colour index
-				SET location = spink		// location
+				SET gradient = 238			// sets colour index 238 CLERIC_NEUTRAL_MINOR-RUSSET_BROWN
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -733,43 +742,43 @@ END
 
 // Buckler +1
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld17.itm~) BEGIN
-	COPY_EXISTING ~shld17.itm~ ~override/shld17A.itm~
+	COPY_EXISTING ~shld17.itm~ ~override/shld17a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 66				// colour index
-			SET location = sred				// location
+			SET gradient = 66				// sets colour index 66 FADED_BLACK
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 90				// Replace colour index 42
-			SET location = sblue			// location
+			SET gradient = 90				// 90 MOLDY_GOLD replaces colour index 42 BEIGE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 208				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 66			// colour index
-				SET location = spink		// location
+				SET gradient = 66			// sets colour index 66 FADED_BLACK
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld17.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C4~			// Replace D2 Small shield
-			WRITE_ASCII 0x3A ~ISHLDB04~ #8	// Replace ISHLDB02
+			WRITE_ASCII 0x22 ~C4~			// replaces D2 Small shield
+			WRITE_ASCII 0x3A ~ISHLDB04~ #8	// replaces ISHLDB02
 			WRITE_ASCII 0x44 ~GBSHLD~ #8
-			WRITE_ASCII 0x58 ~1CSHLDB1~ #8	// Replace CSHLD28
+			WRITE_ASCII 0x58 ~1CSHLDB1~ #8	// replaces CSHLD28
 			LPM ~clear~
-			SET gradient = 250				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 250				// 250 SHADOW_DRUID_MAJOR-YELLOW_ORANGE replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 187				// colour index
-			SET location = steal			// location
+			SET gradient = 187				// sets colour index 187 BLUE_GRAY
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 224				// Replace colour index 42
-			SET location = sblue			// location
+			SET gradient = 224				// 224 DROW_MAJOR-MAIZE replaces colour index 42 BEIGE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 187			// colour index
-				SET location = spink		// location
+				SET gradient = 187			// sets colour index 187 BLUE_GRAY
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -778,43 +787,43 @@ END
 
 // Pellan's Shield +2
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld19.itm~) BEGIN
-	COPY_EXISTING ~shld19.itm~ ~override/shld19A.itm~
+	COPY_EXISTING ~shld19.itm~ ~override/shld19a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 0				// colour index
-			SET location = sred				// location
+			SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 208				// Replace colour index 91
-			SET location = sblue			// location
+			SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 91 DARK_CHOCOLATE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 211				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 211				// 211 MERCHANT_MINOR-DARK_BRASS replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 66			// colour index
-				SET location = spink		// location
+				SET gradient = 66			// sets colour index 66 FADED_BLACK
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld19.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C2~			// Replace D4 Large shield
-			WRITE_ASCII 0x3A ~ISHLDL06~ #8	// Replace ISHLDL02
+			WRITE_ASCII 0x22 ~C2~			// replaces D4 Large shield
+			WRITE_ASCII 0x3A ~ISHLDL06~ #8	// replaces ISHLDL02
 			WRITE_ASCII 0x44 ~GLSHLD~ #8
-			WRITE_ASCII 0x58 ~CSHLD30~ #8	// Replace CSHLD23
+			WRITE_ASCII 0x58 ~CSHLD30~ #8	// replaces CSHLD23
 			LPM ~clear~
-			SET gradient = 208				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 209				// colour index
-			SET location = steal			// location
+			SET gradient = 209				// sets colour index 209 ATH_PEASANT_MINOR-ASH_GRAY
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 225				// Replace colour index 91
-			SET location = sblue			// location
+			SET gradient = 225				// 225 DROW_MINOR-CORNSILK replaces colour index 91 DARK_CHOCOLATE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 183			// colour index
-				SET location = spink		// location
+				SET gradient = 183			// sets colour index 183 CHARCOAL
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -826,18 +835,18 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld20.itm~) BEGIN
 	COPY_EXISTING ~shld20.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 91				// colour index
-			SET location = sred				// location
+			SET gradient = 91				// sets colour index 91 DARK_CHOCOLATE
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 209				// Replace colour index 42
-			SET location = sblue			// location
+			SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 42 BEIGE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 253				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 253				// 253 DUERGAR_MINOR-PALE_TAUPE replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 91			// colour index
-				SET location = spink		// location
+				SET gradient = 91			// sets colour index 91 DARK_CHOCOLATE
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -848,22 +857,22 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld21.itm~) BEGIN
 	COPY_EXISTING ~shld21.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C7~			// Replace D3 Medium shield
+			WRITE_ASCII 0x22 ~C7~			// replaces D3 Medium shield
 			WRITE_ASCII 0x3A ~ISHLD21~ #8
 			WRITE_ASCII 0x44 ~GMSHLD~ #8
 			WRITE_ASCII 0x58 ~CSHLD21~ #8
 			LPM ~clear~
-			SET gradient = 26				// colour index 216 - Replace colour index 101
-			SET location = sgrey			// location
+			SET gradient = 26				// 26 WOOD (or colour index 216 PIRATE_MAJOR-CHROME_GOLDENROD) replaces colour index 101 METALLIC_RED
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 101				// colour index 214
-			SET location = steal			// location
+			SET gradient = 101				// sets colour index 101 METALLIC_RED (or 214 GYPSY_MAJOR-BRIGHT_GOLDENROD)
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 215				// Replace colour index 101
-			SET location = sblue			// location
+			SET gradient = 215				// 215 GYPSY_MINOR-CHROME_VERMILLION replaces colour index 101 METALLIC_RED
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 210				// colour index
-			SET location = spink			// colour
+			SET gradient = 210				// sets colour index 210 MERCHANT_MAJOR-AMBER 
+			SET location = spink			// colour (Panel)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -873,20 +882,20 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld22.itm~) BEGIN
 	COPY_EXISTING ~shld22.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C3~			// Replace D3 Medium shield
+			WRITE_ASCII 0x22 ~C3~			// replaces D3 Medium shield
 			LPM ~clear~
-			SET gradient = 203				// Replace colour index 52
-			SET location = sgrey			// location
+			SET gradient = 203				// 203 SKIN2-MYRTLE_GREEN replaces colour index 52 LIGHT_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 201				// colour index
-			SET location = steal			// location
+			SET gradient = 201				// sets colour index 201 SKIN1-AVOCADO
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 30				// Replace colour index 30
-			SET location = sblue			// location
+			SET gradient = 30				// 30 LIGHT_IRON_GRAY replaces colour index 30 LIGHT_IRON_GRAY
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 182			// colour index
-				SET location = spink		// location
+				SET gradient = 182			// sets colour index 182 DEEP_BLACK
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -897,20 +906,20 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~chalshld.itm~) BEGIN
 	COPY_EXISTING ~chalshld.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C3~			// Replace D3 Medium shield
+			WRITE_ASCII 0x22 ~C3~			// replaces D3 Medium shield
 			LPM ~clear~
-			SET gradient = 203				// Replace colour index 76
-			SET location = sgrey			// location
+			SET gradient = 203				// 203 SKIN2-MYRTLE_GREEN replaces colour index 76 SOLID_RED
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 201				// colour index
-			SET location = steal			// location
+			SET gradient = 201				// sets colour index 201 SKIN1-AVOCADO
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 30				// Replace colour index 29
-			SET location = sblue			// location
+			SET gradient = 30				// 30 LIGHT_IRON_GRAY replaces colour index 29 RED-TINTED_BLACK
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-			SET gradient = 182				// colour index
-			SET location = spink			// location
+			SET gradient = 182				// sets colour index 182 DEEP_BLACK
+			SET location = spink			// location (Panel)
 			LPM ~colour~
 			END
 		END
@@ -921,21 +930,21 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~npshld.itm~) BEGIN
 	COPY_EXISTING ~npshld.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C3~			// Replace D3 Medium shield
-			WRITE_ASCII 0x44 ~GMSHLD~ #8	// Replace GSHLD03
+			WRITE_ASCII 0x22 ~C3~			// replaces D3 Medium shield
+			WRITE_ASCII 0x44 ~GMSHLD~ #8	// replaces GSHLD03
 			LPM ~clear~
-			SET gradient = 218				// Replace colour index 27
-			SET location = sgrey			// location
+			SET gradient = 218				// 218 ELF_HAIR-CHROME_BLUE_GRAY replaces colour index 27 GRAY
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 192				// colour index
-			SET location = steal			// location
+			SET gradient = 192				// sets colour index 192 CHROME_TEAL
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 217				// Replace colour index 65
-			SET location = sblue			// location
+			SET gradient = 217				// 217 PIRATE_MINOR-BRIGHT_SLATE_GRAY replaces colour index 65 REALLY_DARK_GRAY
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 60			// colour index
-				SET location = spink		// location
+				SET gradient = 60			// sets colour index 60 DARK_PURPLE
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -944,43 +953,43 @@ END
 
 // Fortress Shield +3
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld23.itm~) BEGIN
-	COPY_EXISTING ~shld23.itm~ ~override/shld23A.itm~
+	COPY_EXISTING ~shld23.itm~ ~override/shld23a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 192				// colour index
-			SET location = sred				// location
+			SET gradient = 192				// sets colour index 192 CHROME_TEAL
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 200				// Replace colour index 60
-			SET location = sblue			// location
+			SET gradient = 200				// 200 HAIR1-WHITE_TEAL replaces colour index 60 DARK_PURPLE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 213				// Replace colour index 59
-			SET location = sgrey			// location
+			SET gradient = 213				// 213 TRADE_PEASANT_MINOR-VIRIDIAN replaces colour index 59 LIGHT_PURPLE
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 220			// colour index
-				SET location = spink		// location
+				SET gradient = 220			// sets colour index 220 ELF_MAJOR-MIDNIGHT_BLUE
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld23.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C2~			// Replace D4 Large shield
+			WRITE_ASCII 0x22 ~C2~			// replaces D4 Large shield
 			WRITE_ASCII 0x3A ~ISHLD23~ #8
 			WRITE_ASCII 0x44 ~GLSHLD~ #8
 			WRITE_ASCII 0x58 ~CSHLD23~ #8
 			LPM ~clear~
-			SET gradient = 217				// Replace colour index 59
-			SET location = sgrey			// location
+			SET gradient = 217				// 217 PIRATE_MINOR-BRIGHT_SLATE_GRAY replaces colour index 59 LIGHT_PURPLE
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 96				// colour index
-			SET location = steal			// location
+			SET gradient = 96				// sets colour index 96 CHROME_BLUE
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 184				// Replace colour index 60
-			SET location = sblue			// location
+			SET gradient = 184				// 184 CADET_BLUE replaces colour index 60 DARK_PURPLE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 190			// colour index
-				SET location = spink		// location
+				SET gradient = 190			// sets colour index 190 DEEP_INDIGO
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -989,37 +998,37 @@ END
 
 // Reflection Shield +1
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld24.itm~) BEGIN
-	COPY_EXISTING ~shld24.itm~ ~override/shld24A.itm~
+	COPY_EXISTING ~shld24.itm~ ~override/shld24a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 210				// colour index
-			SET location = sred				// location
+			SET gradient = 210				// sets colour index 210 MERCHANT_MAJOR-AMBER 
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 109				// Replace colour index 43
-			SET location = sblue			// location
+			SET gradient = 109				// 109 TERRA_COTTA replaces colour index 43 DARK_BEIGE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 254				// Replace colour index 43
-			SET location = sgrey			// location
+			SET gradient = 254				// 254 EBONY replaces colour index 43 DARK_BEIGE
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 255				// colour index
-			SET location = spink			// location
+			SET gradient = 255				// sets colour index 255 ONYX
+			SET location = spink			// location (Panel)
 			LPM ~colour~
 		END
 	COPY_EXISTING ~shld24.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C6~			// Replace D2 Small shield
-			WRITE_ASCII 0x3A ~1SHLDL05~ #8	// Replace ISHLD24
+			WRITE_ASCII 0x22 ~C6~			// replaces D2 Small shield
+			WRITE_ASCII 0x3A ~1SHLDL05~ #8	// replaces ISHLD24
 			WRITE_ASCII 0x44 ~GLSHLD~ #8
-			WRITE_ASCII 0x58 ~1CSHLDL1~ #8	// Replace CSHLD24
+			WRITE_ASCII 0x58 ~1CSHLDL1~ #8	// replaces CSHLD24
 			LPM ~clear~
-			SET gradient = 250				// Replace colour index 43
-			SET location = sgrey			// location
+			SET gradient = 250				// 250 SHADOW_DRUID_MAJOR-YELLOW_ORANGE replaces colour index 43 DARK_BEIGE
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 112				// colour index
-			SET location = steal			// location
+			SET gradient = 112				// sets colour index 112 SEA_FOAM
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 112				// colour index
-			SET location = spink			// location
+			SET gradient = 112				// sets colour index 112 SEA_FOAM
+			SET location = spink			// location (Panel)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1030,20 +1039,20 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld25.itm~) BEGIN
 	COPY_EXISTING ~shld25.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			WRITE_ASCII 0x3A ~ISHLD25~ #8
-			WRITE_ASCII 0x58 ~CSHLD17~ #8	// Replace CSHLD25
+			WRITE_ASCII 0x58 ~CSHLD17~ #8	// replaces CSHLD25
 			LPM ~clear~
-			SET gradient = 231				// Replace colour index 25
-			SET location = sgrey			// location
+			SET gradient = 231				// 231 KOBOLD_MINOR-CHROME_COOL_GRAY replaces colour index 25 DARK_PURE_GOLD
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 221				// colour index
-			SET location = sred				// location
+			SET gradient = 221				// sets colour index 221 ELF_MINOR-YELLOW_GREEN
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 203				// Replace colour index 24
-			SET location = sblue			// location
+			SET gradient = 203				// 203 SKIN2-MYRTLE_GREEN replaces colour index 24 BROWN_GOLD
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 7			// Replace colour index 29
-				SET location = spink		// location
+				SET gradient = 7			// 7 LIGHT_METALLIC_GREEN replaces colour index 29 RED-TINTED_BLACK
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -1052,43 +1061,43 @@ END
 
 // Shield of the Lost +2
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld26.itm~) BEGIN
-	COPY_EXISTING ~shld26.itm~ ~override/shld26A.itm~
+	COPY_EXISTING ~shld26.itm~ ~override/shld26a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 211				// colour index
-			SET location = sred				// location
+			SET gradient = 211				// sets colour index 211 MERCHANT_MINOR-DARK_BRASS
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 211				// Replace colour index 31
-			SET location = sblue			// location
+			SET gradient = 211				// 211 MERCHANT_MINOR-DARK_BRASS replaces colour index 31 LIGHT_SEA_BLUE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 218				// Replace colour index 57
-			SET location = sgrey			// location
+			SET gradient = 218				// 218 ELF_HAIR-CHROME_BLUE_GRAY replaces colour index 57 LIGHT_BLUE
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 125			// colour index
-				SET location = spink		// location
+				SET gradient = 125			// sets colour index
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld26.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C5~			// Replace D3 Medium shield
-			WRITE_ASCII 0x3A ~1SHLDM02~ #8	// Replace ISHLD26
+			WRITE_ASCII 0x22 ~C5~			// replaces D3 Medium shield
+			WRITE_ASCII 0x3A ~1SHLDM02~ #8	// replaces ISHLD26
 			WRITE_ASCII 0x44 ~GSSHLD~ #8
-			WRITE_ASCII 0x58 ~1CSHLDM2~ #8	// Replace CSHLD26
+			WRITE_ASCII 0x58 ~1CSHLDM2~ #8	// replaces CSHLD26
 			LPM ~clear~
-			SET gradient = 217				// Replace colour index 57
-			SET location = sgrey			// location
+			SET gradient = 217				// 217 PIRATE_MINOR-BRIGHT_SLATE_GRAY replaces colour index 57 LIGHT_BLUE
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 183				// colour index
-			SET location = steal			// location
+			SET gradient = 183				// sets colour index 183 CHARCOAL
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 183				// Replace colour index 31
-			SET location = sblue			// location
+			SET gradient = 183				// 183 CHARCOAL replaces colour index 31 LIGHT_SEA_BLUE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 63			// colour index
-				SET location = spink		// location
+				SET gradient = 63			// sets colour index 63 LIGHT_GRAY
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -1100,40 +1109,40 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld27.itm~) BEGIN
 	COPY_EXISTING ~shld27.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 218				// colour index
-			SET location = sred				// location
+			SET gradient = 218				// sets colour index 218 ELF_HAIR-CHROME_BLUE_GRAY
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 217				// Replace colour index 41
-			SET location = sblue			// location
+			SET gradient = 217				// 217 PIRATE_MINOR-BRIGHT_SLATE_GRAY replaces colour index 41 MEDIUM_BROWN
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 218				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 218				// 218 ELF_HAIR-CHROME_BLUE_GRAY replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 58			// colour index
-				SET location = spink		// location
+				SET gradient = 58			// sets colour index 58 DARK_BLUE
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
-	COPY_EXISTING ~shld27.itm~ ~override/shld27A.itm~
+	COPY_EXISTING ~shld27.itm~ ~override/shld27a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C3~			// Replace D3 Medium shield
+			WRITE_ASCII 0x22 ~C3~			// replaces D3 Medium shield
 			WRITE_ASCII 0x3A ~ISHLD27~ #8
 			WRITE_ASCII 0x44 ~GMSHLD~ #8
 			WRITE_ASCII 0x58 ~CSHLD27~ #8
 			LPM ~clear~
-			SET gradient = 209				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 209				// colour index
-			SET location = steal			// location
+			SET gradient = 209				// sets colour index 209 ATH_PEASANT_MINOR-ASH_GRAY
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 6				// Replace colour index 41
-			SET location = sblue			// location
+			SET gradient = 6				// 6 DARK_SILVER replaces colour index 41 MEDIUM_BROWN
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 238			// colour index
-				SET location = spink		// location
+				SET gradient = 238			// sets colour index 238 CLERIC_NEUTRAL_MINOR-RUSSET_BROWN
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -1142,41 +1151,41 @@ END
 
 // Small Shield +2
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld28.itm~) BEGIN
-	COPY_EXISTING ~shld28.itm~ ~override/shld28A.itm~
+	COPY_EXISTING ~shld28.itm~ ~override/shld28a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			WRITE_ASCII 0x3A ~ISHLD28~ #8
 			LPM ~clear~
-			SET gradient = 210				// colour index
-			SET location = sred				// location
+			SET gradient = 210				// sets colour index 210 MERCHANT_MAJOR-AMBER 
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 215				// Replace colour index 59
-			SET location = sblue			// location
+			SET gradient = 215				// 215 GYPSY_MINOR-CHROME_VERMILLION replaces colour index 59 LIGHT_PURPLE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 210				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 210				// 210 MERCHANT_MAJOR-AMBER replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 237			// colour index
-				SET location = spink		// location
+				SET gradient = 237			// sets colour index 237 CLERIC_NEUTRAL_MAJOR-TAUPE
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld28.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C0~			// Replace D2 Small shield
-			WRITE_ASCII 0x3A ~ISHLDS05~ #8	// Replace ISHLD28
+			WRITE_ASCII 0x22 ~C0~			// replaces D2 Small shield
+			WRITE_ASCII 0x3A ~ISHLDS05~ #8	// replaces ISHLD28
 			WRITE_ASCII 0x44 ~GSSHLD~ #8
-			WRITE_ASCII 0x58 ~CSHLD28~ #8	// Replace CSHLD28
+			WRITE_ASCII 0x58 ~CSHLD28~ #8	// replaces CSHLD28
 			LPM ~clear~
-			SET gradient = 212				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 212				// 212 TRADE_PEASANT_MAJOR-CHROME_SLATE replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 254				// Replace colour index 59
-			SET location = sblue			// location
+			SET gradient = 254				// 254 EBONY replaces colour index 59 LIGHT_PURPLE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 244			// colour index
-				SET location = spink		// location
+				SET gradient = 244			// sets colour index 244 FIGHTER_MINOR-DARK_CADET_GRAY
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -1185,44 +1194,44 @@ END
 
 // Medium Shield +2
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld29.itm~) BEGIN
-	COPY_EXISTING ~shld29.itm~ ~override/shld29A.itm~
+	COPY_EXISTING ~shld29.itm~ ~override/shld29a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			WRITE_ASCII 0x3A ~ISHLD29~ #8
 			LPM ~clear~
-			SET gradient = 90				// colour index
-			SET location = sred				// location
+			SET gradient = 90				// sets colour index 90 MOLDY_GOLD
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 211				// Replace colour index 39
-			SET location = sblue			// location
+			SET gradient = 211				// 211 MERCHANT_MINOR-DARK_BRASS replaces colour index 39 DARK_DIRT_BROWN
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 212				// Replace colour index 27
-			SET location = sgrey			// location
+			SET gradient = 212				// 212 TRADE_PEASANT_MAJOR-CHROME_SLATE replaces colour index 27 GRAY
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 220			// colour index
-				SET location = spink		// location
+				SET gradient = 220			// sets colour index 220 ELF_MAJOR-MIDNIGHT_BLUE
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld29.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C3~			// Replace D3 Medium shield
-			WRITE_ASCII 0x3A ~ISHLDM09~ #8	// Replace ISHLD29
+			WRITE_ASCII 0x22 ~C3~			// replaces D3 Medium shield
+			WRITE_ASCII 0x3A ~ISHLDM09~ #8	// replaces ISHLD29
 			WRITE_ASCII 0x44 ~GMSHLD~ #8
 			WRITE_ASCII 0x58 ~CSHLD29~ #8
 			LPM ~clear~
-			SET gradient = 101				// Replace colour index 27
-			SET location = sgrey			// location
+			SET gradient = 101				// 101 METALLIC_RED replaces colour index 27 GRAY
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 127				// colour index
-			SET location = steal			// location
+			SET gradient = 127				// sets colour index 127 DARK_BRICK_RED
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 253				// Replace colour index 39
-			SET location = sblue			// location
+			SET gradient = 253				// 253 DUERGAR_MINOR-PALE_TAUPE replaces colour index 39 DARK_DIRT_BROWN
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 254			// colour index
-				SET location = spink		// location
+				SET gradient = 254			// sets colour index 254 EBONY
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -1231,43 +1240,43 @@ END
 
 // Large Shield +2
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld30.itm~) BEGIN
-	COPY_EXISTING ~shld30.itm~ ~override/shld30A.itm~
+	COPY_EXISTING ~shld30.itm~ ~override/shld30a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 0				// colour index
-			SET location = sred				// location
+			SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 208				// Replace colour index 91
-			SET location = sblue			// location
+			SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 91 DARK_CHOCOLATE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 208				// Replace colour index 27
-			SET location = sgrey			// location
+			SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 27 GRAY
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 66			// colour index
-				SET location = spink		// location
+				SET gradient = 66			// sets colour index 66 FADED_BLACK
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld30.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C2~			// Replace D4 Large shield
-			WRITE_ASCII 0x3A ~ISHLDL05~ #8	// Replace ISHLD30
+			WRITE_ASCII 0x22 ~C2~			// replaces D4 Large shield
+			WRITE_ASCII 0x3A ~ISHLDL05~ #8	// replaces ISHLD30
 			WRITE_ASCII 0x44 ~GLSHLD~ #8
 			WRITE_ASCII 0x58 ~CSHLD30~ #8
 			LPM ~clear~
-			SET gradient = 109				// Replace colour index 27
-			SET location = sgrey			// location
+			SET gradient = 109				// 109 TERRA_COTTA replaces colour index 27 GRAY
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 216				// colour index
-			SET location = steal			// location
+			SET gradient = 216				// sets colour index 216 PIRATE_MAJOR-CHROME_GOLDENROD
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 211				// Replace colour index 91
-			SET location = sblue			// location
+			SET gradient = 211				// 211 MERCHANT_MINOR-DARK_BRASS replaces colour index 91 DARK_CHOCOLATE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 2			// colour index
-				SET location = spink		// location
+				SET gradient = 2			// sets colour index 2 DARK_GOLD
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -1276,43 +1285,43 @@ END
 
 // Darksteel Shield +4
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld31.itm~) BEGIN
-	COPY_EXISTING ~shld31.itm~ ~override/shld31A.itm~
+	COPY_EXISTING ~shld31.itm~ ~override/shld31a.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 219				// colour index
-			SET location = sred				// location
+			SET gradient = 219				// sets colour index 219 ELF_SKIN-CHROME_FOREST_GREEN
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 200				// Replace colour index 60
-			SET location = sblue			// location
+			SET gradient = 200				// 200 HAIR1-WHITE_TEAL replaces colour index 60 DARK_PURPLE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 213				// Replace colour index 59
-			SET location = sgrey			// location
+			SET gradient = 213				// 213 TRADE_PEASANT_MINOR-VIRIDIAN replaces colour index 59 LIGHT_PURPLE
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 199			// colour index
-				SET location = spink		// location
+				SET gradient = 199			// sets colour index 199 BLACK_TEAL
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	COPY_EXISTING ~shld31.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C6~			// Replace D4 Large shield
-			WRITE_ASCII 0x3A ~1SHLDL03~ #8	// Replace ISHLD32
+			WRITE_ASCII 0x22 ~C6~			// replaces D4 Large shield
+			WRITE_ASCII 0x3A ~1SHLDL03~ #8	// replaces ISHLD32
 			WRITE_ASCII 0x44 ~GLSHLD~ #8
-			WRITE_ASCII 0x58 ~1CSHLDL3~ #8	// Replace PSHLD31
+			WRITE_ASCII 0x58 ~1CSHLDL3~ #8	// replaces PSHLD31
 			LPM ~clear~
-			SET gradient = 192				// Replace colour index 59
-			SET location = sgrey			// location
+			SET gradient = 192				// 192 CHROME_TEAL replaces colour index 59 LIGHT_PURPLE
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 190				// colour index
-			SET location = steal			// location
+			SET gradient = 190				// sets colour index 190 DEEP_INDIGO
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 192				// Replace colour index 60
-			SET location = sblue			// location
+			SET gradient = 192				// 192 CHROME_TEAL replaces colour index 60 DARK_PURPLE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 59			// colour index
-				SET location = spink		// location
+				SET gradient = 59			// sets colour index 59 LIGHT_PURPLE
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -1323,20 +1332,20 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld32.itm~) BEGIN
 	COPY_EXISTING ~shld32.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C3~			// Replace D3 Medium shield
+			WRITE_ASCII 0x22 ~C3~			// replaces D3 Medium shield
 			LPM ~clear~
-			SET gradient = 209				// Replace colour index 42
-			SET location = sgrey			// location
+			SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 42 BEIGE
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 93				// colour index
-			SET location = steal			// location
+			SET gradient = 93				// sets colour index 93 DARK_CEMENT_GRAY
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 209				// Replace colour index 94
-			SET location = sblue			// location
+			SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 94 RHUBARB
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 127			// colour index
-				SET location = spink		// location
+				SET gradient = 127			// sets colour index 127 DARK_BRICK_RED
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -1347,20 +1356,20 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~dwshld01.itm~) BEGIN
 	COPY_EXISTING ~dwshld01.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C7~			// Replace D3 Medium shield
-			WRITE_ASCII 0x44 ~GMSHLD~ #8	// Replace GSHLD03
+			WRITE_ASCII 0x22 ~C7~			// replaces D3 Medium shield
+			WRITE_ASCII 0x44 ~GMSHLD~ #8	// replaces GSHLD03
 			LPM ~clear~
-			SET gradient = 184				// Replace colour index 61
-			SET location = sgrey			// location
+			SET gradient = 184				// 184 CADET_BLUE replaces colour index 61 LAVENDER
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 186				// colour index
-			SET location = steal			// location
+			SET gradient = 186				// sets colour index 186 DARK_PLUM
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 192				// Replace colour index 62
-			SET location = sblue			// location
+			SET gradient = 192				// 192 CHROME_TEAL replaces colour index 62 DARK_LAVENDER
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 199				// colour index
-			SET location = spink			// location
+			SET gradient = 199				// sets colour index 199 BLACK_TEAL
+			SET location = spink			// location (Panel)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1370,21 +1379,21 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~wa2shiel.itm~) BEGIN
 	COPY_EXISTING ~wa2shiel.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C3~			// Replace D3 Medium shield
+			WRITE_ASCII 0x22 ~C3~			// replaces D3 Medium shield
 			WRITE_ASCII 0x44 ~GMSHLD~ #8
 			LPM ~clear~
-			SET gradient = 227				// Replace colour index 98
-			SET location = sgrey			// location
+			SET gradient = 227				// 227 METAL_WILD-CORAL replaces colour index 98 LEAF_GREEN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 66				// colour index
-			SET location = steal			// location
+			SET gradient = 66				// sets colour index 66 FADED_BLACK
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 232				// Replace colour index 41
-			SET location = sblue			// location
+			SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 41 MEDIUM_BROWN
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 254			// colour index
-				SET location = spink		// location
+				SET gradient = 254			// sets colour index 254 EBONY
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -1393,16 +1402,18 @@ END
 
 
 
-/*  ==========================================  *
+/* ============================================ *
  *          SWITCH SHIELDS AROUND HERE          *
- *  ==========================================  */
+ * ============================================ */
 
-ACTION_IF (1pp_shields_appearance = 2) BEGIN	// switch to BG1 style shields by exchange
+ACTION_IF (1pp_shields_appearance = 2) BEGIN
 
+	PRINT @400023 // ~Switching shields to Baldur's Gate I style by exchange...~
+	SILENT
 	ACTION_FOR_EACH shield IN ~shld01~ ~shld02~ ~shld03~ ~shld04~ ~shld05~ ~shld06~ ~shld07~ ~shld08~ ~shld09~ ~shld10~ ~shld11~ ~shld12~ ~shld13~ ~shld14~ ~shld15~ ~shld16~ ~shld17~ ~shld19~ ~shld23~ ~shld24~ ~shld26~ ~shld27~ ~shld28~ ~shld29~ ~shld30~ ~shld31~ BEGIN
-		ACTION_IF (FILE_EXISTS_IN_GAME ~%shield%A.itm~) BEGIN
-			COPY_EXISTING ~%shield%A.itm~ ~1pp/temp.itm~
-			COPY_EXISTING ~%shield%.itm~ ~override/%shield%A.itm~
+		ACTION_IF (FILE_EXISTS_IN_GAME ~%shield%a.itm~) BEGIN
+			COPY_EXISTING ~%shield%a.itm~ ~1pp/temp.itm~
+			COPY_EXISTING ~%shield%.itm~ ~override/%shield%a.itm~
 			COPY ~1pp/temp.itm~ ~override/%shield%.itm~
 		END
 	END
@@ -1411,33 +1422,20 @@ END	// of ACTION_IF (1pp_shields_appearance = 2)
 
 
 
-/*  ===========================  *
+/* ============================= *
  *          NEW SHIELDS          *
- *  ===========================  */
+ * ============================= */
+
+PRINT @400024 // ~Installing new shields...~
+SILENT
 
 // Wall of the North +2
-ACTION_IF (FILE_EXISTS_IN_GAME ~SHLD23A.ITM~) BEGIN
-	COPY_EXISTING ~SHLD23A.ITM~ ~override~
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld23a.itm~) BEGIN
+	COPY_EXISTING ~shld23a.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			SAY NAME2 @400501 /* Wall of the North +2 */
-			SAY DESC  @400502 /* Legend has it that this shield was carved from The Great Glacier by a mischievous spirit and found floating down the Icelace River. Whether true or not, it is easily apparent how such legends may have been conceived. The highly enchanted tower shield is extremely cold to the touch and resists any attempt to warm it. Its defensive properties are such that comparisons to the impenetrable wall of the glacier certainly seem apt.
-
-STATISTICS:
-
-Special:
-+15% slashing and piercing resistance
-+70% fire resistance
--20% cold resistance
-Armor Class Bonus: 3, +5 vs missiles
-Weight: 3
-Requires: 15 Strength
-Not Usable By:
- Bard
- Druid
- Mage
- Thief */
-			SET opcode_to_delete = 0
-			LPM DELETE_ITEM_EQEFFECT
+			SAY NAME2 @400501
+			SAY DESC  @400502
+			LPF DELETE_EFFECT INT_VAR check_headers = 0 match_opcode = 0 END
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 0 target = 1 timing = 2 parameter1 = 3 END
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 0 target = 1 timing = 2 parameter1 = 5 parameter2 = 2 END
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 86 target = 1 timing = 2 parameter1 = 15 END
@@ -1451,26 +1449,12 @@ Not Usable By:
 END
 
 // Polished Shield +1
-ACTION_IF (FILE_EXISTS_IN_GAME ~SHLD24A.ITM~) BEGIN
-	COPY_EXISTING ~SHLD24A.ITM~ ~override~
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld24a.itm~) BEGIN
+	COPY_EXISTING ~shld24a.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			SAY NAME2 @400503 /* Polished Shield +1 */
-			SAY DESC  @400504 /* This shield is part of a set that was originally forged in Waterdeep to deal with a group of medusas which had taken residence in an ancient temple. Apart from being somewhat more protective than a regular shield through its enchantments, it also shields the user from most gaze attacks and some spells, reflecting them back upon the caster.
-
-STATISTICS:
-
-Special:
-Gaze reflection
-Armor Class Bonus: 2
-Weight: 3
-Requires: 4 Strength
-Not Usable By:
- Bard
- Druid
- Mage
- Thief */
-			SET opcode_to_delete = 197
-			LPM DELETE_ITEM_EQEFFECT
+			SAY NAME2 @400503
+			SAY DESC  @400504
+			LPF DELETE_EFFECT INT_VAR check_headers = 0 match_opcode = 197 END
 			PATCH_FOR_EACH par2_197 IN 64 225 23 248 189 212 92 36 252 41 208 270 218 40 BEGIN
 				LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 197 target = 1 timing = 2 parameter2 = EVAL "%par2_197%" END
 			END
@@ -1480,49 +1464,23 @@ Not Usable By:
 END
 
 // Font of Virtue +2
-ACTION_IF (FILE_EXISTS_IN_GAME ~SHLD26A.ITM~) BEGIN
-	COPY_EXISTING ~SHLD26A.ITM~ ~override~
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld26a.itm~) BEGIN
+	COPY_EXISTING ~shld26a.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			SAY NAME2 @400505 /* Font of Virtue +2 */
-			SAY DESC  @400506 /* Once the shield of a powerful priest of Oghma, this shield imbues the wearer with an aura of patience and a sixth sense for waiting for the right time to strike, allowing them to weather and deflect incoming blows with surprising ease. While designed to protect in combat, the aura of the enchantment extends beyond the confines of battle itself, evoking a deeper sense of perception and measured understanding.
-
-STATISTICS:
-
-Armor Class Bonus: 3
-Special: +1 Wisdom
-Weight: 5
-Requires: 12 Strength
-Not Usable By:
- Bard
- Druid
- Mage
- Thief */
-			SET opcode_to_delete = 142
-			LPM DELETE_ITEM_EQEFFECT
-			SET opcode_to_delete = 166
-			LPM DELETE_ITEM_EQEFFECT
+			SAY NAME2 @400505
+			SAY DESC  @400506
+			LPF DELETE_EFFECT INT_VAR check_headers = 0 match_opcode = 142 END
+			LPF DELETE_EFFECT INT_VAR check_headers = 0 match_opcode = 166 END
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 49 target = 1 timing = 2 parameter1 = 1 END
 		END
 END
 
 // Tahcaluss +3
-ACTION_IF (FILE_EXISTS_IN_GAME ~SHLD27A.ITM~) BEGIN
-	COPY_EXISTING ~SHLD27A.ITM~ ~override~
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld27a.itm~) BEGIN
+	COPY_EXISTING ~shld27a.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			SAY NAME2 @400507 /* Tahcaluss +3 */
-			SAY DESC  @400508 /* This highly enchanted shield of Drow origin protects the wielder better than even some full sets of armour could. Enemy blows are led astray and even the heaviest strikes seem to glance off the glistening shield harmlessly. This protection comes at a cost, however, as the shield drains the user's life energy, leading to fatigue and harming the wielder over time.
-
-STATISTICS:
-
-Special: Drains life over time
-Armor Class Bonus: 4
-Weight: 5
-Requires: 12 Strength
-Not Usable By:
- Bard
- Druid
- Mage
- Thief */
+			SAY NAME2 @400507
+			SAY DESC  @400508
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 78 target = 1 timing = 2 parameter1 = 65 parameter2 = 3 END
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 10 target = 1 timing = 2 parameter1 = 80 parameter2 = 2 END
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 142 target = 1 timing = 2 parameter2 = 39 END
@@ -1530,25 +1488,11 @@ Not Usable By:
 END
 
 // Gorm's Arm +3
-ACTION_IF (FILE_EXISTS_IN_GAME ~SHLD31A.ITM~) BEGIN
-	COPY_EXISTING ~SHLD31A.ITM~ ~override~
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld31a.itm~) BEGIN
+	COPY_EXISTING ~shld31a.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			SAY NAME2 @400509 /* Gorm's Arm +3 */
-			SAY DESC  @400510 /* This large shield of dwarven darksteel provides more protection than most suits of armor. It was forged and enchanted with one goal, and one goal only: To keep the wielder protected in combat. What might seem a redundant point to make becomes clear when one looks at the sacrifices that have been made towards this aim. Far heavier than most shields of its size and imbued with an antimagical aura, it is somewhat cumbersome to use in battle, and casting with it in hand is virtually impossible.
-
-
-STATISTICS:
-   +50% magical resistance
-   disables spellcasting
-
-Armor Class Bonus: 5
-Weight: 20
-Requires: 17 Strength
-Not Usable By:
- Bard
- Druid
- Mage
- Thief */
+			SAY NAME2 @400509
+			SAY DESC  @400510
 			WRITE_SHORT 0x26 17	// Minimum strength ==> Gwen fix (wrong coding): WRITE_SHORT instead of WRITE_BYTE
 			WRITE_LONG  0x4c 20	// Weight
 			PATCH_FOR_EACH opcode_to_delete IN 142 27 28 173 30 BEGIN
@@ -1563,41 +1507,31 @@ Not Usable By:
 END
 
 // Buckler +2
-ACTION_IF (FILE_EXISTS_IN_GAME ~shld17A.itm~) BEGIN
-	COPY_EXISTING ~shld17A.itm~ ~override/shld01P.itm~
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld17a.itm~) BEGIN
+	COPY_EXISTING ~shld17a.itm~ ~override/shld01p.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			SAY NAME2 @400511 /* Buckler +2 */
-			SAY DESC  @400512 /* This legendary buckler was the property of Kenstrel of Baldur's Gate. A trickster and member of the thieves' guild, it is said that he swindled it off a band of travelling adventurers, 'demonstrating' it to be cursed and an omen of bad luck that would follow them wherever they went. After the third time their inn was invaded by scores of hideous, badger-like creatures, causing significant damage to the establishment, along with other mishaps that began to plague their lives, they eventually agreed to hand it over for Kenstrel to rid it of its curse, which unsurprisingly was the last they ever saw of him.
-
-STATISTICS:
-
-Armor Class Bonus: 3
-Special: +1 vs Missiles
-Weight: 2
-Requires: 4 Strength
-Unusable By:
- Mage */
+			SAY NAME2 @400511
+			SAY DESC  @400512
 			WRITE_ASCII 0x3A ~1SHLD172~ #8
 			WRITE_ASCII 0x58 ~CSHLD09~ #8
 			WRITE_LONG  0x34 2500			// Gwen fix: add Price
-			SET opcode_to_delete = 0
-			LPM DELETE_ITEM_EQEFFECT
+			LPF DELETE_EFFECT INT_VAR check_headers = 0 match_opcode = 0 END
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 0 target = 1 timing = 2 parameter1 = "-3" parameter2 = 4 END // Gwen fix: missing protection vs piercing weapons
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 0 target = 1 timing = 2 parameter1 = "-3" parameter2 = 2 END	// Gwen fix: parameter1 (0xfffffe = 16777214???) should be -3
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 0 target = 1 timing = 2 parameter1 = 3 END
 			LPM ~clear~
-			SET gradient = 210				// colour index
-			SET location = sred				// location
+			SET gradient = 210				// sets colour index 210 MERCHANT_MAJOR-AMBER 
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 215				// colour index
-			SET location = sblue			// location
+			SET gradient = 215				// sets colour index 215 GYPSY_MINOR-CHROME_VERMILLION
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 222				// colour index
-			SET location = sgrey			// location
+			SET gradient = 222				// sets colour index 222 DROW_HAIR-PLATINUM_GRAY
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 210			// colour index
-				SET location = spink		// location
+				SET gradient = 210			// sets colour index 210 MERCHANT_MAJOR-AMBER 
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -1607,22 +1541,22 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~a!brsb.itm~) BEGIN
 	COPY_EXISTING ~a!brsb.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~1SHLD172~ #8	// Replace A!IBRSB
-			WRITE_ASCII 0x44 ~GSHLD08~ #8	// Replace GSSHLD
-			WRITE_ASCII 0x58 ~CSHLD09~ #8	// Replace A!CBRSB
+			WRITE_ASCII 0x3A ~1SHLD172~ #8	// replaces A!IBRSB
+			WRITE_ASCII 0x44 ~GSHLD08~ #8	// replaces GSSHLD
+			WRITE_ASCII 0x58 ~CSHLD09~ #8	// replaces A!CBRSB
 			LPM ~clear~
-			SET gradient = 210				// colour index
-			SET location = sred				// location
+			SET gradient = 210				// sets colour index 210 MERCHANT_MAJOR-AMBER
+			SET location = sred				// location (Grip)
 			LPM ~colour~
-			SET gradient = 215				// colour index
-			SET location = sblue			// location
+			SET gradient = 215				// sets colour index 215 GYPSY_MINOR-CHROME_VERMILLION
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 222				// colour index
-			SET location = sgrey			// location
+			SET gradient = 222				// sets colour index 222 DROW_HAIR-PLATINUM_GRAY
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 210			// colour index
-				SET location = spink		// location
+				SET gradient = 210			// sets colour index 210 MERCHANT_MAJOR-AMBER
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -1630,22 +1564,10 @@ END
 
 // High Quality Large Shield
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld15.itm~) BEGIN
-	COPY_EXISTING ~shld15.itm~ ~override/shld02P.itm~
+	COPY_EXISTING ~shld15.itm~ ~override/shld02p.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			SAY NAME2 @400513 /* High Quality Large Shield */
-			SAY DESC  @400514 /* The body shield, also known as the kite or tower shield, is a massive metal or wooden shield reaching nearly from the chin to the toe of the user. It must be firmly fastened to the forearm and the shield hand must firmly grip it at all times. Naturally, this precludes use of the shield hand for anything but holding the body shield in place. This tower shield is of particularly fine craftsmanship, allowing it to be lighter and less cumbersome to wield in combat.
-
-STATISTICS:
-
-Armor Class Bonus: 1
-Special: +1 vs. Missile Weapons
-Weight: 10
-Requires: 10 Strength
-Not Usable By:
- Bard
- Druid
- Mage
- Thief */
+			SAY NAME2 @400513
+			SAY DESC  @400514
 			WRITE_ASCII 0x22 ~C6~
 			WRITE_ASCII 0x3A ~1SHLDL01~ #8
 			WRITE_ASCII 0x44 ~GLSHLD~ #8
@@ -1654,43 +1576,43 @@ Not Usable By:
 			WRITE_LONG  0x34 180			// Price
 			WRITE_LONG  0x4c 10				// Weight
 			LPM ~clear~
-			SET gradient = 217				// colour index
-			SET location = sgrey			// location
+			SET gradient = 217				// sets colour index 217 PIRATE_MINOR-BRIGHT_SLATE_GRAY
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 244				// colour index
-			SET location = steal			// location
+			SET gradient = 244				// sets colour index 244 FIGHTER_MINOR-DARK_CADET_GRAY
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 217				// colour index
-			SET location = sblue			// location
+			SET gradient = 217				// sets colour index 217 PIRATE_MINOR-BRIGHT_SLATE_GRAY
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 244				// colour index
-			SET location = spink			// location
+			SET gradient = 244				// sets colour index 244 FIGHTER_MINOR-DARK_CADET_GRAY
+			SET location = spink			// location (Panel)
 			LPM ~colour~
 		END
 	BUT_ONLY
 END
 
 // Ilvastarr Family Shield (The BG1 NPC Project mod): typo fixed (X#AJSHLD instead of #AJSHLD)
-ACTION_IF (FILE_EXISTS_IN_GAME ~X#AJSHLD.itm~) BEGIN
-	COPY_EXISTING ~X#AJSHLD.itm~ ~override~
+ACTION_IF (FILE_EXISTS_IN_GAME ~x#ajshld.itm~) BEGIN
+	COPY_EXISTING ~x#ajshld.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			WRITE_ASCII 0x22 ~C6~
-			WRITE_ASCII 0x3A ~1SHLDAJ~ #8	// Replace X#ISHAJ
-			WRITE_ASCII 0x44 ~GLSHLD~ #8	// Replace _GSHLD03
-			WRITE_ASCII 0x58 ~1CSHLDAJ~ #8	// Replace X#CSHAJ
+			WRITE_ASCII 0x3A ~1SHLDAJ~ #8	// replaces X#ISHAJ
+			WRITE_ASCII 0x44 ~GLSHLD~ #8	// replaces _GSHLD03
+			WRITE_ASCII 0x58 ~1CSHLDAJ~ #8	// replaces X#CSHAJ
 			LPM ~clear~
-			SET gradient = 226				// colour index
-			SET location = sgrey			// location
+			SET gradient = 226				// sets colour index 226 METAL_NORMAL-EIGENGRAU
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 90				// colour index
-			SET location = steal			// location
+			SET gradient = 90				// sets colour index 90 MOLDY_GOLD
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 226				// colour index
-			SET location = sblue			// location
+			SET gradient = 226				// sets colour index 226 METAL_NORMAL-EIGENGRAU
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 20			// colour index
-				SET location = spink		// location
+				SET gradient = 20			// sets colour index 20 DARK_MOLDY_GREEN
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -1699,21 +1621,10 @@ END
 
 // High Quality Medium Shield and Medium shield
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld14.itm~) BEGIN
-	COPY_EXISTING ~shld14.itm~ ~override/shld03P.itm~
+	COPY_EXISTING ~shld14.itm~ ~override/shld03p.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			SAY NAME2 @400515 /* High Quality Medium Shield */
-			SAY DESC  @400516 /* A medium shield is carried in the same manner as a small shield. Unlike the small shield, however, its weight prevents the character from using his shield hand for anything other than carrying the medium shield. Medium shields are usually made of metal, range from 3'-4' in diameter, and can be of any shape, from round to square to a spread dragon's wings. This medium shield is of particularly refined craftsmanship, allowing it to be somewhat lighter and less cumbersome in battle.
-
-STATISTICS:
-
-Armor Class Bonus: 1
-Weight: 4
-Requires: 8 Strength
-Not Usable By:
- Bard
- Druid
- Mage
- Thief */
+			SAY DESC  @400516
 			WRITE_ASCII 0x22 ~C5~
 			WRITE_ASCII 0x3A ~1SHLDM01~ #8
 			WRITE_ASCII 0x44 ~GLSHLD~ #8
@@ -1722,39 +1633,39 @@ Not Usable By:
 			WRITE_LONG  0x34 130			// Price
 			WRITE_LONG  0x4c 4				// Weight
 			LPM ~clear~
-			SET gradient = 110				// colour index
-			SET location = sgrey			// location
+			SET gradient = 110				// sets colour index 110 ASH
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 144				// colour index
-			SET location = steal			// location
+			SET gradient = 144				// sets colour index 144 DARK_SALMON
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 144				// colour index
-			SET location = sblue			// location
+			SET gradient = 144				// sets colour index 144 DARK_SALMON
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
-			SET gradient = 144				// colour index
-			SET location = spink			// location
+			SET gradient = 144				// sets colour index 144 DARK_SALMON
+			SET location = spink			// location (Panel)
 			LPM ~colour~
 		END
 	BUT_ONLY
 
-	COPY_EXISTING ~shld14.itm~ ~override/shld04P.itm~
+	COPY_EXISTING ~shld14.itm~ ~override/shld04p.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			WRITE_ASCII 0x22 ~C3~
 			WRITE_ASCII 0x3A ~ISHLDM06~ #8
 			WRITE_ASCII 0x58 ~CSHLD29~ #8
 			LPM ~clear~
-			SET gradient = 210				// colour index
-			SET location = sgrey			// location
+			SET gradient = 210				// sets colour index 210 MERCHANT_MAJOR-AMBER
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 242				// colour index
-			SET location = steal			// location
+			SET gradient = 242				// sets colour index 242 THIEF_MINOR-PALE_OLIVE
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 102				// colour index
-			SET location = sblue			// location
+			SET gradient = 102				// sets colour index 102 SEA_BLUE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 93			// colour index
-				SET location = spink		// location
+				SET gradient = 93			// sets colour index 93 DARK_CEMENT_GRAY
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -1763,72 +1674,43 @@ END
 
 // Corvyr's Blessing
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld04.itm~) BEGIN
-	COPY_EXISTING ~shld04.itm~ ~override/shld05P.itm~
+	COPY_EXISTING ~shld04.itm~ ~override/shld05p.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			SAY NAME2 @400517 /* Corvyr's Blessing */
-			SAY DESC  @400518 /* This shield was carried into battle by high paladin Corvyr in an assault against a notorious undead fortress. Long after his comrades had fallen, for days he tore into their seemingly endless numbers before he was eventually overcome as well. As the tower was later cleared with the help of a certain magical cube, his shield was retrieved. A previously ordinary piece of equipment, it seems to have absorbed some of the resolve and determination of his final days.
-
-STATISTICS:
-
-Special:
-Constitution +1
-150% Save vs. Death
-
-Armor Class Bonus: 1
-Weight: 6
-Requires: 12 Strength
-Not Usable By:
- Bard
- Druid
- Mage
- Thief */
+			SAY NAME2 @400517
+			SAY DESC  @400518
 			WRITE_ASCII 0x22 ~C3~
 			WRITE_ASCII 0x3A ~ISHLDM07~ #8
 			WRITE_ASCII 0x58 ~CSHLD26~ #8
 			WRITE_LONG  0x34 2400			// Price
-			LPM DELETE_ITEM_EQEFFECT
+			LPF DELETE_EFFECT INT_VAR check_headers = 0 match_opcode = 0 END
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 0 target = 1 timing = 2 parameter1 = 1 END
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 33 target = 1 timing = 2 parameter1 = 150 parameter2 = 2 END
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 10 target = 1 timing = 2 parameter1 = 1 END
 			LPM ~clear~
-			SET gradient = 213				// colour index
-			SET location = sgrey			// location
+			SET gradient = 213				// sets colour index 213 TRADE_PEASANT_MINOR-VIRIDIAN
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 232				// colour index
-			SET location = steal			// location
+			SET gradient = 232				// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 102				// colour index
-			SET location = sblue			// location
+			SET gradient = 102				// sets colour index 102 SEA_BLUE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 93			// colour index
-				SET location = spink		// location
+				SET gradient = 93			// sets colour index 93 DARK_CEMENT_GRAY
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	BUT_ONLY
 END
 
-// Redshield +1, +4 vs. Monstrous
+// Redshield +1, +4 vs. monstrous
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld04.itm~) BEGIN
-	COPY_EXISTING ~shld04.itm~ ~override/shld06P.itm~
+	COPY_EXISTING ~shld04.itm~ ~override/shld06p.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			SAY NAME2 @400519 /* Redshield +1, +4 vs. Monstrous */
-			SAY DESC  @400520 /* Little is known about this shield, other than the fact it was recovered from the Wealdath and seems to have been enchanted specifically to combat roving monsters. While its superior craftsmanship and enchantment by no means make it a bad piece of equipment in any given situation, its true power becomes evident only upon fighting the more monstrous inhabitants of Faerun.
-
-STATISTICS:
-
-Special:
-THAC0 + 1 and AC + 4 vs. monstrous enemies
-
-Armor Class Bonus: 2
-Weight: 6
-Requires: 12 Strength
-Not Usable By:
- Bard
- Druid
- Mage
- Thief */
+			SAY NAME2 @400519
+			SAY DESC  @400520
 			WRITE_ASCII 0x22 ~C3~
 			WRITE_ASCII 0x3A ~ISHLDM08~ #8
 			WRITE_ASCII 0x58 ~CSHLD27~ #8
@@ -1839,50 +1721,31 @@ Not Usable By:
 			// Gwen fix (wrong coding): replace opcode #178 with opcode 177 and add an external effect
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 177 target = 1 timing = 2 parameter2 = 2 STR_VAR resource = SHLD06P END
 			LPM ~clear~
-			SET gradient = 234				// colour index
-			SET location = sgrey			// location
+			SET gradient = 234				// sets colour index 234 HOBGOBLIN_MINOR-INDIAN_RED
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 211				// colour index
-			SET location = steal			// location
+			SET gradient = 211				// sets colour index 211 MERCHANT_MINOR-DARK_BRASS
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 253				// colour index
-			SET location = sblue			// location
+			SET gradient = 253				// sets colour index 253 DUERGAR_MINOR-PALE_TAUPE
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 93			// colour index
-				SET location = spink		// location
+				SET gradient = 93			// sets colour index 93 DARK_CEMENT_GRAY
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
 	BUT_ONLY
-	COPY ~1pp/item/1ppv4_update/item/shld06P.eff~ ~override~
+	COPY ~1pp/item/1ppv4_update/item/shld06p.eff~ ~override~
 END
 
 // Sartessa's Vengeance +1
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld05.itm~) BEGIN
-	COPY_EXISTING ~shld05.itm~ ~override/shld07P.itm~
+	COPY_EXISTING ~shld05.itm~ ~override/shld07p.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			SAY NAME2 @400521 /* Sartessa's Vengeance +1 */
-			SAY DESC  @400522 /* This was the personal shield of Sartessa, a half-elven ranger of the Wood of Sharp Teeth. Called to a quest by divine intervention at a young age, she travelled the long way to Luskan seeking to restore peace to the Sword Coast in troubled times. Betrayed near the end of her journey by her long time companion and forced to slay him in self-defence she forged this shield, imbued with her grim determination to complete her quest despite knowing that alone, such attempt would likely end in death. Powerful enchantments were placed on this shield to stop it from falling into the wrong hands, and although they have faded somewhat with time, it would be foolhardy of anyone to try and wield it that does not resemble her both in spirit and body.
-
-STATISTICS:
-
-Special:
-aura cleansing
-protection from backstabbing
-protection against permanent death
-improved critical hit chance
-
-Armor Class Bonus: 2, +2 vs. Missiles
-+2 against humanoids
-+2 against male opponents
-+2 against charmed or controlled creatures
-Weight: 5
-Requires: 3 Strength, 12 Charisma
-Only Usable By:
- Rangers
- Elves
- Neutral or Chaotic Good */
+			SAY NAME2 @400521
+			SAY DESC  @400522
 			WRITE_ASCII 0x22 ~C6~
 			WRITE_ASCII 0x3A ~1SHLDL04~ #8
 			WRITE_ASCII 0x58 ~1CSHLDL4~ #8
@@ -1893,9 +1756,8 @@ Only Usable By:
 			WRITE_LONG  0x4c 5				// Weight
 			WRITE_LONG  0x60 7				// Enchantment
 			WRITE_LONG  0x1e 0xfd5ffbda		// Usable by
-			WRITE_LONG  0x18 (THIS | BIT6)	// Gwen fix (wrong coding): add magical flag - replace WRITE_BYTE 0x1b 0x6c
-			SET opcode_to_delete = 0
-			LPM DELETE_ITEM_EQEFFECT
+			WRITE_LONG  0x18 (THIS | BIT6)	// Gwen fix (wrong coding): add magical flag - replaces WRITE_BYTE 0x1b 0x6c
+			LPF DELETE_EFFECT INT_VAR check_headers = 0 match_opcode = 0 END
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 175 target = 1 timing = 2 parameter1 = 1 parameter2 = 7 END
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 0 target = 1 timing = 2 parameter1 = 2 END
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 0 target = 1 timing = 2 parameter1 = 2 parameter2 = 2 END
@@ -1908,20 +1770,20 @@ Only Usable By:
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 295 target = 1 timing = 9 parameter2 = 1 END
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 301 target = 1 timing = 2 parameter1 = 7 END
 			LPM ~clear~
-			SET gradient = 232				// colour index
-			SET location = sgrey			// location
+			SET gradient = 232				// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 54			// colour index
+				SET gradient = 54			// sets colour index 54 DARK_GREEN
 				SET location = steal		// location
 				LPM ~colour~
 			END
-			SET gradient = 205				// colour index
-			SET location = sblue			// location
+			SET gradient = 205				// sets colour index 205 NOBLE_MINOR2-CHROME_GRAY
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 230			// colour index
-				SET location = spink		// location
+				SET gradient = 230			// sets colour index KOBOLD_MAJOR-DEEP_AVOCADO
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -1933,22 +1795,22 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~x#fash01.itm~) BEGIN
 	COPY_EXISTING ~x#fash01.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			WRITE_ASCII 0x22 ~C6~
-			WRITE_ASCII 0x3A ~1SHLDL04~ #8	// Replace ISHLD01
+			WRITE_ASCII 0x3A ~1SHLDL04~ #8	// replaces ISHLD01
 			WRITE_ASCII 0x44 ~GLSHLD~ #8
-			WRITE_ASCII 0x58 ~1CSHLDL4~ #8	// Replace CSHLD03
+			WRITE_ASCII 0x58 ~1CSHLDL4~ #8	// replaces CSHLD03
 			LPM ~clear~
-			SET gradient = 232				// colour index
-			SET location = sgrey			// location
+			SET gradient = 232				// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 54				// colour index
-			SET location = steal			// location
+			SET gradient = 54				// sets colour index 54 DARK_GREEN
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 205				// colour index
-			SET location = sblue			// location
+			SET gradient = 205				// sets colour index 205 NOBLE_MINOR2-CHROME_GRAY
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 230			// colour index
-				SET location = spink		// location
+				SET gradient = 230			// sets colour index KOBOLD_MAJOR-DEEP_AVOCADO
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
@@ -1956,6 +1818,42 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~x#fash01.itm~) BEGIN
 END
 
 // Tarloc's Contingency +1 : code simplified
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld04.itm~) BEGIN
+	COPY_EXISTING ~shld04.itm~ ~override/shld08p.itm~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			SAY NAME2 @400523
+			SAY DESC  @400524
+			WRITE_ASCII 0x22 ~C5~
+			WRITE_ASCII 0x3A ~1SHLDM03~ #8
+			WRITE_ASCII 0x44 ~GLSHLD~ #8
+			WRITE_ASCII 0x58 ~1CSHLDM3~ #8
+			WRITE_SHORT	0x26 10				// Minimum strength
+			WRITE_LONG  0x1E 0x6073ffc0		// Usable by
+			WRITE_LONG  0x34 24700			// Price
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 232 target = 1 timing = 2 parameter2 = 11 STR_VAR resource = 1TARSS END					// Took damage
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 232 target = 1 timing = 2 probability1 = 20 parameter2 = 2 STR_VAR resource = 1TARSP END	// HP < 50 %
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 232 target = 1 timing = 2 probability1 = 5 STR_VAR resource = SPWI405 END				// Hit
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 232 target = 1 timing = 2 parameter2 = 4 STR_VAR resource = SPWI413 END					// HP < 10 %
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 232 target = 1 timing = 2 parameter2 = 5 STR_VAR resource = SPWI413 END					// Helpless
+			LPM ~clear~
+			SET gradient = 232				// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
+			SET location = sgrey			// location (Hub)
+			LPM ~colour~
+			SET gradient = 50				// sets colour index 50 DARK_YELLOW
+			SET location = steal			// location (Interior)
+			LPM ~colour~
+			SET gradient = 66				// sets colour index 66 FADED_BLACK
+			SET location = sblue			// location (Body/trim)
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 66			// sets colour index 66 FADED_BLACK
+				SET location = spink		// location (Panel)
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
 ACTION_IF (FILE_EXISTS_IN_GAME ~spin737.spl~) BEGIN
 	COPY_EXISTING ~spin737.spl~ ~override/1tarsp.spl~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -1974,75 +1872,12 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~spwi403.spl~) BEGIN
 	BUT_ONLY
 END
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~shld04.itm~) BEGIN
-	COPY_EXISTING ~shld04.itm~ ~override/shld08P.itm~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			SAY NAME2 @400523 /* Tarloc's Contingency +1 */
-			SAY DESC  @400524 /* Some say a positive mindset is key to victory. The creator of this shield, a dark elven sorcerer in life and feared lich in undeath clearly had a different idea. Considering the comparative weakness of those concerned with the arcane arts and lack of suitable armour unacceptable, he set out to create the perfect piece of equipment if worst came to worst -- a likely scenario for a mage stuck in close range combat. Ever since, the powerful enchantments on this shield have frequently saved the lives of countless of owners in a pinch or allowed them to escape by the skin of their teeth, equally frequently at the cost of sacrificing their travelling companions.
-
-STATISTICS:
-
-Special:
-Casts Fireshield (blue) on user in combat
-20% chance to recover spells when seriously injured
-5% chance to gain invisibility when hit
-Encases user in Otiluke's Resilient Sphere if critically wounded or rendered helpless
-
-Armor Class Bonus: 2
-Weight: 6
-Requires: 10 Strength
-Only Usable By:
- Mages */
-			WRITE_ASCII 0x22 ~C5~
-			WRITE_ASCII 0x3A ~1SHLDM03~ #8
-			WRITE_ASCII 0x44 ~GLSHLD~ #8
-			WRITE_ASCII 0x58 ~1CSHLDM3~ #8
-			WRITE_SHORT	0x26 10				// Minimum strength
-			WRITE_LONG  0x1E 0x6073ffc0		// Usable by
-			WRITE_LONG  0x34 24700			// Price
-			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 232 target = 1 timing = 2 parameter2 = 11 STR_VAR resource = 1TARSS END					// Took damage
-			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 232 target = 1 timing = 2 probability1 = 20 parameter2 = 2 STR_VAR resource = 1TARSP END	// HP < 50 %
-			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 232 target = 1 timing = 2 probability1 = 5 STR_VAR resource = SPWI405 END				// Hit
-			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 232 target = 1 timing = 2 parameter2 = 4 STR_VAR resource = SPWI413 END					// HP < 10 %
-			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 232 target = 1 timing = 2 parameter2 = 5 STR_VAR resource = SPWI413 END					// Helpless
-			LPM ~clear~
-			SET gradient = 232				// colour index
-			SET location = sgrey			// location
-			LPM ~colour~
-			SET gradient = 50				// colour index
-			SET location = steal			// location
-			LPM ~colour~
-			SET gradient = 66				// colour index
-			SET location = sblue			// location
-			LPM ~colour~
-			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 66			// colour index
-				SET location = spink		// location
-				LPM ~colour~
-			END
-		END
-	BUT_ONLY
-END
-
 // Shield of Devotion +1
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld04.itm~) BEGIN
-	COPY_EXISTING ~shld04.itm~ ~override/shld09P.itm~
+	COPY_EXISTING ~shld04.itm~ ~override/shld09p.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			SAY NAME2 @400525 /* Shield of Devotion +1 */
-			SAY DESC  @400526 /* This shield can be traced to a line of paladins of Velen, who carried shields like this one into battle on mounted expeditions to the Nelanther Isles under the blessing of Torm. Celebrated in lore for their memorable armour as the Red Riders their ceaseless dedication and resilience was a vital force in esatablishing peace to the region. Although long since dispersed, their legacy is highly sought after as traces of their original blessing still infuse these sets of armour, granting the wearer divine favour and increased stamina.
-
-STATISTICS:
-
-Special:
-Grants an additional spell for spell levels 1-3
-+10% hit point modifier
-
-Armor Class Bonus: 2
-Weight: 6
-Requires: 10 Strength
-Only Usable By:
- Paladins
- Clerics */
+			SAY NAME2 @400525
+			SAY DESC  @400526
 			WRITE_ASCII 0x22 ~C5~
 			WRITE_ASCII 0x3A ~1SHLDM04~ #8
 			WRITE_ASCII 0x44 ~GLSHLD~ #8
@@ -2056,18 +1891,18 @@ Only Usable By:
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 62 target = 1 timing = 2 parameter1 = 1 parameter2 = 4 END	// Gwen fix (wrong coding): Level3 should be 4 (not 3)
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 18 target = 1 timing = 2 parameter1 = 110 parameter2 = 2 END
 			LPM ~clear~
-			SET gradient = 194				// colour index
-			SET location = sgrey			// location
+			SET gradient = 194				// sets colour index 194 STEEL_PINK
+			SET location = sgrey			// location (Hub)
 			LPM ~colour~
-			SET gradient = 127				// colour index
-			SET location = steal			// location
+			SET gradient = 127				// sets colour index 127 DARK_BRICK_RED
+			SET location = steal			// location (Interior)
 			LPM ~colour~
-			SET gradient = 127				// colour index
-			SET location = sblue			// location
+			SET gradient = 127				// sets colour index 127 DARK_BRICK_RED
+			SET location = sblue			// location (Body/trim)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 167			// colour index
-				SET location = spink		// location
+				SET gradient = 167			// sets colour index 167 PALE_THISTLE
+				SET location = spink		// location (Panel)
 				LPM ~colour~
 			END
 		END
