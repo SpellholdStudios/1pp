@@ -98,7 +98,7 @@ ACTION_FOR_EACH set IN ~s0~ BEGIN
 	END
 
 	ACTION_FOR_EACH category IN ~l~ ~m~ ~s~ BEGIN
-		ACTION_FOR_EACH sequence IN ~A1~ ~A1E~ ~A3~ ~A3E~ ~A5~ ~A5E~ ~G1~ ~G1E~ ~W2~ ~W2E~ BEGIN
+		ACTION_FOR_EACH sequence IN ~a1~ ~a1e~ ~a3~ ~a3e~ ~a5~ ~a5e~ ~g1~ ~g1e~ ~w2~ ~w2e~ BEGIN
 			COPY_EXISTING ~wp%category%s1%sequence%.bam~ ~override/wp%category%%set%%sequence%.bam~
 		END
 	END
