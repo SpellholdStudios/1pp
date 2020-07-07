@@ -1,43 +1,60 @@
-/*  ==============================================================================================================================================================================  *
+/* ================================================================================================================================================================================ *
+ *                                                                                                                                                                                  *
+ *                                       C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( s w o r d s )                                        *
+ *                                                                                                                                                                                  *
+ * ================================================================================================================================================================================ *
+ *  This part installs swords stuff.                                                                                                                                                *
+ * ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
  *      - Replace macros with functions whenever possible.                                                                                                                          *
  *      - Coding simplification:                                                                                                                                                    *
- *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
- *  		Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *          Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
+ *          Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
  *                                                                                                                                                                                  *
  *  specific fixes:                                                                                                                                                                 *
  *  ---------------                                                                                                                                                                 *
- *      - #410  ==> sw1h31.itm (Daystar +2): reverts to its original inventory icon ISW1H31. 1PP (Core content patches) sets it ISW1H34 (Albruin +1), but EE does not validate      *
- *  				this change. Then switch back its colorisation with Albruin (400_1pp_update).                                                                                   *
- *      - #471  ==> sw1h34.itm (Albruin +1): reverts to its original inventory icon ISW1H34. 1PP (Core content patches) sets it ISW1H31 (Daystar +2), but EE does not validate      *
- *  				this change. Then switch back its colorisation with Daystar (400_1pp_update).                                                                                   *
- *      - #589 ==> sw1h41.itm (Long Sword +2): reverts to its original inventory icon ISW1H41. 1PP (Core content patches) sets it to SW1H06 (Varscona +2 icon), but EE does not     *
- *  				validate this change. Then remove the colorisation modified by 400_1pp_update and sets it to SW1H73 (Long Sword +3) that deserves those settings.               *
- *      - #1071 ==> sw2h06.itm and sw1h13.itm (Spider's Bane +2): harmonize both versions. Now they get the same icon and coloration (no change from vanilla SW1H13 as its colors   *
- *  				fit the new icon installed by 1PP).                                                                                                                             *
- *      - #1258 ==> SW1P01.itm (Viper's Edge +2): a lot od modifications to make this new sword efficient!                                                                          *
- *  ==============================================================================================================================================================================  */
+ *      - #427  ==> sw1h31.itm (Daystar +2): reverted to its original inventory icon ISW1H31. 1PP (Core content patches) sets it ISW1H34 (Albruin +1), but EE does not validate     *
+ *                  this change. Then switched back its colorisation with Albruin (400_1pp_update).                                                                                 *
+ *      - #488  ==> sw1h34.itm (Albruin +1): reverted to its original inventory icon ISW1H34. 1PP (Core content patches) sets it ISW1H31 (Daystar +2), but EE does not validate     *
+ *                  this change. Then switched back its colorisation with Daystar (400_1pp_update).                                                                                 *
+ *      - #606  ==> sw1h41.itm (Long Sword +2): reverted to its original inventory icon ISW1H41. 1PP (Core content patches) sets it to SW1H06 (Varscona +2 icon), but EE does not   *
+ *                   validate this change. Then removed the colorisation modified by 400_1pp_update and sets it to SW1H73 (Long Sword +3) that deserves those settings.             *
+ *      - #1088 ==> sw2h06.itm and sw1h13.itm (Spider's Bane +2): harmonized both versions. Now they get the same icon and coloration (no change from vanilla SW2H13 as its colors  *
+ *                  fit the new icon installed by 1PP).                                                                                                                             *
+ *      - #1278 ==> sw1p01.itm (Viper's Edge +2): a lot od modifications to make this new sword efficient!                                                                          *
+ * ================================================================================================================================================================================ */
 
-/*  ======================  *
- *          SWORDS          *
- *  ======================  */
+// ----------------------------- //
+//     ITEMS               line  //
+// ----------------------------- //
+//  ONE-HANDED SWORDS    #   37  //
+//  TWO-HANDED SWORDS    # 1045  //
+//  NEW SWORD            # 1272  //
+// ----------------------------- //
+
+/* =================================== *
+ *          ONE-HANDED SWORDS          *
+ * =================================== */
+
+PRINT @400061 // ~Patching swords...~
+SILENT
 
 // Bastard Sword
 ACTION_FOR_EACH sword IN ~sw1h01~ ~_sw1h01~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
 		COPY_EXISTING ~%sword%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+				WRITE_ASCII 0x22 ~S0~			// Bastard sword - replaces S1 Long sword
 				LPM ~clear~
-				SET gradient = 99				// colour index
-				SET location = wgrey			// location
+				SET gradient = 99				// sets colour index 99 GOLDEN_BROWN
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 248				// Replace colour index 5
-				SET location = wblue			// location
+				SET gradient = 248				// 248 OGRE_MAJOR-BATTLESHIP_GRAY replaces colour index 5 MEDIUM_SILVER
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 94				// colour index
-				SET location = wred				// location
+				SET gradient = 94				// sets colour index 94 RHUBARB
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -49,16 +66,16 @@ ACTION_FOR_EACH sword IN ~sw1h02~ ~_sw1h02~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
 		COPY_EXISTING ~%sword%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+				WRITE_ASCII 0x22 ~S0~			// Bastard sword - replaces S1 Long sword
 				LPM ~clear~
-				SET gradient = 50				// colour index
-				SET location = wgrey			// location
+				SET gradient = 50				// sets colour index 50 DARK_YELLOW
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 202				// Replace colour index 97
-				SET location = wblue			// location
+				SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 97 LIGHT_MINTY_BLUE
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 230				// Replace colour index 93
-				SET location = wred				// location
+				SET gradient = 230				// 230 KOBOLD_MAJOR-DEEP_AVOCADO replaces colour index 93 DARK_CEMENT_GRAY
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -70,16 +87,16 @@ ACTION_FOR_EACH sword IN ~sw1h03~ ~_sw1h03~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
 		COPY_EXISTING ~%sword%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+				WRITE_ASCII 0x22 ~S0~			// Bastard sword - replaces S1 Long sword
 				LPM ~clear~
-				SET gradient = 232				// Replace colour index 60
-				SET location = wgrey			// location
+				SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 60 DARK_PURPLE
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 231				// Replace colour index 59
-				SET location = wblue			// location
+				SET gradient = 231				// 231 KOBOLD_MINOR-CHROME_COOL_GRAY replaces colour index 59 LIGHT_PURPLE
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 183				// Replace colour index 45
-				SET location = wred				// location
+				SET gradient = 183				// 183 CHARCOAL replaces colour index 45 DARK_MAGENTA
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -92,14 +109,14 @@ ACTION_FOR_EACH sword IN ~sw1h04~ ~_sw1h04~ BEGIN
 		COPY_EXISTING ~%sword%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 99				// colour index
-				SET location = wgrey			// location
+				SET gradient = 99				// sets colour index 99 GOLDEN_BROWN
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 248				// Replace colour index 5
-				SET location = wblue			// location
+				SET gradient = 248				// 248 OGRE_MAJOR-BATTLESHIP_GRAY replaces colour index 5 MEDIUM_SILVER
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 22				// Replace colour index 22
-				SET location = wred				// location
+				SET gradient = 22				// 22 DARK_BROWN replaces colour index 22 DARK_BROWN
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -112,14 +129,14 @@ ACTION_FOR_EACH sword IN ~sw1h05~ ~_sw1h05~ BEGIN
 		COPY_EXISTING ~%sword%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 6				// colour index
-				SET location = wgrey			// location
+				SET gradient = 6				// sets colour index 6 DARK_SILVER
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 110				// Replace colour index 27
-				SET location = wblue			// location
+				SET gradient = 110				// 110 ASH replaces colour index 27 GRAY
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 94				// colour index
-				SET location = wred				// location
+				SET gradient = 94				// sets colour index 94 RHUBARB
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -132,14 +149,14 @@ ACTION_FOR_EACH sword IN ~sw1h06~ ~_sw1h06~ BEGIN
 		COPY_EXISTING ~%sword%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
  				LPM ~clear~
-				SET gradient = 207				// Replace colour index 50
-				SET location = wgrey			// location
+				SET gradient = 207				// 207 NOBLE_MINOR2-CHROME_GOLD replaces colour index 50 DARK_YELLOW
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 254				// Replace colour index 6
-				SET location = wblue			// location
+				SET gradient = 254				// 254 EBONY replaces colour index 6 DARK_SILVER
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 93				// colour index
-				SET location = wred				// location
+				SET gradient = 93				// sets colour index 93 DARK_CEMENT_GRAY
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -152,14 +169,14 @@ ACTION_FOR_EACH sword IN ~sw1h08~ ~_sw1h08~ BEGIN
 		COPY_EXISTING ~%sword%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 245				// Replace colour index 27
-				SET location = wgrey			// location
+				SET gradient = 245				// 245 MAGE_MAJOR-CHROME_SEA_GRAY replaces colour index 27 GRAY
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = wblue			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 138				// Replace colour index 74
-				SET location = wred				// location
+				SET gradient = 138				// 138 DARK_SAND replaces colour index 74
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -172,14 +189,14 @@ ACTION_FOR_EACH sword IN ~sw1h09~ ~_sw1h09~ BEGIN
 		COPY_EXISTING ~%sword%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 90				// Replace colour index 99
-				SET location = wgrey			// location
+				SET gradient = 90				// 90 MOLDY_GOLD replaces colour index 99 GOLDEN_BROWN
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = wblue			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 93				// colour index
-				SET location = wred				// location
+				SET gradient = 93				// sets colour index 93 DARK_CEMENT_GRAY
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -192,20 +209,20 @@ ACTION_FOR_EACH sword IN ~sw1h10~ ~_sw1h10~ BEGIN
 		COPY_EXISTING ~%sword%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET setr = 37					// Replace colour index 57
+				SET setr = 37					// 37 DARK_DIRTY_YELLOW replaces colour index 57 LIGHT_BLUE
 				SET setg = 0
 				SET setb = 0
 				SET speed = 0x2d
-				SET location = wblue			// location
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~pulse~
-				SET gradient = 29				// colour index
-				SET location = wgrey			// location
+				SET gradient = 29				// sets colour index 29 RED-TINTED_BLACK
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 6				// colour index
-				SET location = wblue			// location
+				SET gradient = 6				// sets colour index 6 DARK_SILVER
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 195				// Replace colour index 76
-				SET location = wred				// location
+				SET gradient = 195				// 195 CHROME_RED replaces colour index 76
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -217,16 +234,16 @@ ACTION_FOR_EACH sword IN ~sw1h18~ ~_sw1h18~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
 		COPY_EXISTING ~%sword%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+				WRITE_ASCII 0x22 ~S0~			// Bastard sword - replaces S1 Long sword
 				LPM ~clear~
-				SET gradient = 67				// Replace colour index 99
-				SET location = wgrey			// location
+				SET gradient = 67				// 67 SHINY_GOLD replaces colour index 99 GOLDEN_BROWN
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 211				// Replace colour index 99
-				SET location = wblue			// location
+				SET gradient = 211				// 211 MERCHANT_MINOR-DARK_BRASS replaces colour index 99 GOLDEN_BROWN
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 230				// Replace colour index 99
-				SET location = wred				// location
+				SET gradient = 230				// KOBOLD_MAJOR-DEEP_AVOCADO replaces colour index 99 GOLDEN_BROWN
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -239,14 +256,14 @@ ACTION_FOR_EACH sword IN ~sw1h20~ ~_sw1h20~ BEGIN
 		COPY_EXISTING ~%sword%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 99				// colour index
-				SET location = wgrey			// location
+				SET gradient = 99				// sets colour index 99 GOLDEN_BROWN
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 226				// Replace colour index 5
-				SET location = wblue			// location
+				SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 5 MEDIUM_SILVER
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 94				// colour index
-				SET location = wred				// location
+				SET gradient = 94				// sets colour index 94 RHUBARB
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
  			END
 		BUT_ONLY
@@ -261,14 +278,14 @@ ACTION_FOR_EACH sword IN ~sw1h22~ ~_sw1h22~ BEGIN
 				WRITE_ASCII 0x3A ~ISW1H22~ #8	// Replace ISW1H20
 				WRITE_ASCII 0x76 ~ISW1H22~ #8
 				LPM ~clear~
-				SET gradient = 245				// Replace colour index 99
-				SET location = wgrey			// location
+				SET gradient = 245				// 245 MAGE_MAJOR-CHROME_SEA_GRAY replaces colour index 99 GOLDEN_BROWN
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 231				// Replace colour index 5
-				SET location = wblue			// location
+				SET gradient = 231				// 231 KOBOLD_MINOR-CHROME_COOL_GRAY replaces colour index 5 MEDIUM_SILVER
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 244				// Replace colour index 94
-				SET location = wred				// location
+				SET gradient = 244				// 244 FIGHTER_MINOR-DARK_CADET_GRAY replaces colour index 94 RHUBARB
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
  			END
 		BUT_ONLY
@@ -284,21 +301,21 @@ ACTION_FOR_EACH sword IN ~sw1h23~ ~_sw1h23~ BEGIN
 				SET setr = 0
 				SET setg = 0
 				SET setb = 0
-				SET location = wgrey			// location
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~glow~
 				SET setr = 0
 				SET setg = 0
 				SET setb = 0
-				SET location = wblue			// location
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~glow~
-				SET gradient = 208				// Replace colour index 12
-				SET location = wgrey			// location
+				SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 12 LIGHT_CARNATION_PINK
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 212				// Replace colour index 61
-				SET location = wblue			// location
+				SET gradient = 212				// 212 TRADE_PEASANT_MAJOR-CHROME_SLATE replaces colour index 61 LAVENDER
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 252				// Replace colour index 90
-				SET location = wred				// location
+				SET gradient = 252				// 252 DUERGAR_MAJOR-GHOULISH_GREEN replaces colour index 90 MOLDY_GOLD
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -314,21 +331,21 @@ ACTION_FOR_EACH sword IN ~sw1h16~ ~_sw1h16~ BEGIN
 				SET setr = 0
 				SET setg = 75
 				SET setb = 114
-				SET location = wgrey			// location
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~glow~
 				SET setr = 0
 				SET setg = 36
 				SET setb = 84
-				SET location = wblue			// location
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~glow~
-				SET gradient = 224				// Replace colour index 25
-				SET location = wgrey			// location
+				SET gradient = 224				// 224 DROW_MAJOR-MAIZE replaces colour index 25 DARK_PURE_GOLD
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 232				// Replace colour index 30
-				SET location = wblue			// location
+				SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 30 LIGHT_IRON_GRAY
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 221				// Replace colour index 30
-				SET location = wred				// location
+				SET gradient = 221				// 221 ELF_MINOR-YELLOW_GREEN replaces colour index 30 LIGHT_IRON_GRAY
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -340,14 +357,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h26.itm~) BEGIN
 	COPY_EXISTING ~sw1h26.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 25				// colour index
-			SET location = wgrey			// location
+			SET gradient = 25				// sets colour index 25 DARK_PURE_GOLD
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 231				// Replace colour index 27
-			SET location = wblue			// location
+			SET gradient = 231				// 231 KOBOLD_MINOR-CHROME_COOL_GRAY replaces colour index 27 GRAY
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 144				// Replace colour index 93
-			SET location = wred				// location
+			SET gradient = 144				// 144 DARK_SALMON replaces colour index 93 DARK_CEMENT_GRAY
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -358,14 +375,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h28.itm~) BEGIN
 	COPY_EXISTING ~sw1h28.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 99				// colour index
-			SET location = wgrey			// location
+			SET gradient = 99				// sets colour index 99 GOLDEN_BROWN
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 212				// Replace colour index 97
-			SET location = wblue			// location
+			SET gradient = 212				// 212 TRADE_PEASANT_MAJOR-CHROME_SLATE replaces colour index 97 LIGHT_MINTY_BLUE
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 29				// colour index
-			SET location = wred				// location
+			SET gradient = 29				// sets colour index 29 RED-TINTED_BLACK
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -376,14 +393,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h29.itm~) BEGIN
 	COPY_EXISTING ~sw1h29.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 210				// Replace colour index 49
-			SET location = wgrey			// location
+			SET gradient = 210				// 210 MERCHANT_MAJOR-AMBER replaces colour index 49 DARK_RUST
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 27				// colour index
-			SET location = wblue			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 196				// Replace colour index 57
-			SET location = wred				// location
+			SET gradient = 196				// 196 PINK-TINTED_CERULEAN replaces colour index 57 LIGHT_BLUE
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -394,14 +411,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h30.itm~) BEGIN
 	COPY_EXISTING ~sw1h30.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 99				// Replace colour index 90
-			SET location = wgrey			// location
+			SET gradient = 99				// 99 GOLDEN_BROWN replaces colour index 90 MOLDY_GOLD
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 226				// Replace colour index 97
-			SET location = wblue			// location
+			SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 97 LIGHT_MINTY_BLUE
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 94				// Replace colour index 29
-			SET location = wred				// location
+			SET gradient = 94				// 94 RHUBARB replaces colour index 29 RED-TINTED_BLACK
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -413,32 +430,32 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h31.itm~) BEGIN
 	COPY_EXISTING ~sw1h31.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET setr = 199					// Replace colour index 0
-			SET setg = 199					// Replace colour index 160
-			SET setb = 39					// Replace colour index 191
+			SET setr = 199					// replaces colour index 0
+			SET setg = 199					// replaces colour index 160
+			SET setb = 39					// replaces colour index 191
 			SET speed = 0x3f
-			SET location = wgrey			// location
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~pulse~
 			SET setr = 255
 			SET setg = 255
 			SET setb = 53
 			SET speed = 0x3c
-			SET location = wblue			// location
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~pulse~
 			SET setr = 255
 			SET setg = 255
 			SET setb = 53
 			SET speed = 0x3c
-			SET location = wred				// location
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~pulse~
-			SET gradient = 250				// Replace colour index 25
-			SET location = wgrey			// location
+			SET gradient = 250				// 250 SHADOW_DRUID_MAJOR-YELLOW_ORANGE replaces colour index 25 DARK_PURE_GOLD
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 226				// Replace colour index 16
-			SET location = wblue			// location
+			SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 16 SILVERISH_GOLD
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 224				// Replace colour index 25
-			SET location = wred				// location
+			SET gradient = 224				// 224 DROW_MAJOR-MAIZE replaces colour index 25 DARK_PURE_GOLD
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -453,16 +470,16 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h32.itm~) BEGIN
 			SET setg = 146
 			SET setb = 189
 			SET speed = 0x78
-			SET location = wblue			// location
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~pulse~
-			SET gradient = 210				// Replace colour index 47
-			SET location = wgrey			// location
+			SET gradient = 210				// 210 MERCHANT_MAJOR-AMBER replaces colour index 47 PURE_DARK_RED
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 101				// Replace colour index 33
-			SET location = wblue			// location
+			SET gradient = 101				// 101 METALLIC_RED replaces colour index33 CHROME_MAGENTA
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 47				// colour index
-			SET location = wred				// location
+			SET gradient = 47				// sets colour index 47 PURE_DARK_RED
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -473,34 +490,34 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h34.itm~) BEGIN
 	COPY_EXISTING ~sw1h34.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - replaces S1 Long sword
 			LPM ~clear~
 			SET setr = 0
 			SET setg = 160
 			SET setb = 191
 			SET speed = 0x3f
-			SET location = wgrey			// location
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~pulse~
 			SET setr = 255
 			SET setg = 255
 			SET setb = 53
 			SET speed = 0x3c
-			SET location = wblue			// location
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~pulse~
 			SET setr = 199
 			SET setg = 199
 			SET setb = 39
 			SET speed = 0x3c
-			SET location = wred				// location
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~pulse~
-			SET gradient = 90				// Replace colour index 25
-			SET location = wgrey			// location
+			SET gradient = 90				// 90 MOLDY_GOLD replaces colour index 25 DARK_PURE_GOLD
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 179				// Replace colour index 27
-			SET location = wblue			// location
+			SET gradient = 179				// 179 PALE_INDIGO replaces colour index 27 GRAY
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 120				// Replace colour index 57
-			SET location = wred				// location
+			SET gradient = 120				// 120 LIGHT_TEAL replaces colour index 57 LIGHT_BLUE
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -510,16 +527,16 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h37.itm~) BEGIN
 	COPY_EXISTING ~sw1h37.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - replaces S1 Long sword
 			LPM ~clear~
-			SET gradient = 246				// Replace colour index 55
-			SET location = wgrey			// location
+			SET gradient = 246				// 246 MAGE_MINOR-CHROME_PINE replaces colour index 55 TURQUOISE
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 176				// Replace colour index 103
-			SET location = wblue			// location
+			SET gradient = 176				// 176 STEEL_BLUE replaces colour index 103 PINE_GREEN
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 203				// Replace colour index 55
-			SET location = wred				// location
+			SET gradient = 203				// 203 SKIN2-MYRTLE_GREEN replaces colour index 55 TURQUOISE
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -529,16 +546,16 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h38.itm~) BEGIN
 	COPY_EXISTING ~sw1h38.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - replaces S1 Long sword
 			LPM ~clear~
-			SET gradient = 59				// colour index
-			SET location = wgrey			// location
+			SET gradient = 59				// sets colour index 59 LIGHT_PURPLE
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 104				// colour index
-			SET location = wblue			// location
+			SET gradient = 104				// sets colour index 104 DARK_CHROME_PURPLE
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 218				// Replace colour index 57
-			SET location = wred				// location
+			SET gradient = 218				// 218 ELF_HAIR-CHROME_BLUE_GRAY replaces colour index 57 LIGHT_BLUE
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
  		END
 	BUT_ONLY
@@ -548,21 +565,21 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h39.itm~) BEGIN
 	COPY_EXISTING ~sw1h39.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - replaces S1 Long sword
 			LPM ~clear~
 			SET setr = 25
 			SET setg = 20
 			SET setb = 11
-			SET location = wred				// location
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~glow~
-			SET gradient = 30				// colour index
-			SET location = wgrey			// location
+			SET gradient = 30				// sets colour index 30 LIGHT_IRON_GRAY
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 27				// colour index
-			SET location = wblue			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 30				// colour index
-			SET location = wred				// location
+			SET gradient = 30				// sets colour index 30 LIGHT_IRON_GRAY
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -573,14 +590,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h40.itm~) BEGIN
 	COPY_EXISTING ~sw1h40.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 234				// Replace colour index 46
-			SET location = wgrey			// location
+			SET gradient = 234				// 234 HOBGOBLIN_MINOR-INDIAN_RED replaces colour index 46 RED
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 27				// colour index
-			SET location = wblue			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 127				// Replace colour index 47
-			SET location = wred				// location
+			SET gradient = 127				// 127 DARK_BRICK_RED replaces colour index 47 PURE_DARK_RED
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -591,14 +608,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h73.itm~) BEGIN
 	COPY_EXISTING ~sw1h73.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 6				// Replace colour index 29
-			SET location = wgrey			// location
+			SET gradient = 6				// 6 DARK_SILVER replaces colour index 29 RED-TINTED_BLACK
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 27				// colour index
-			SET location = wblue			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 57				// Replace colour index 31
-			SET location = wred				// location
+			SET gradient = 57				// 57 LIGHT_BLUE replaces colour index 31 LIGHT_SEA_BLUE
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -608,16 +625,16 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h42.itm~) BEGIN
 	COPY_EXISTING ~sw1h42.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - replaces S1 Long sword
 			LPM ~clear~
-			SET gradient = 25				// colour index
-			SET location = wgrey			// location
+			SET gradient = 25				// sets colour index 25 DARK_PURE_GOLD
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 27				// colour index
-			SET location = wblue			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 121				// Replace colour index 47
-			SET location = wred				// location
+			SET gradient = 121				// 121 DARK_TEAL replaces colour index 47 PURE_DARK_RED
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -628,14 +645,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h43.itm~) BEGIN
 	COPY_EXISTING ~sw1h43.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 25				// colour index
-			SET location = wgrey			// location
+			SET gradient = 25				// sets colour index 25 DARK_PURE_GOLD
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 27				// Replace colour index 5
-			SET location = wblue			// location
+			SET gradient = 27				// 27 GRAY replaces colour index 5 MEDIUM_SILVER
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 25				// colour index
-			SET location = wred				// location
+			SET gradient = 25				// sets colour index 25 DARK_PURE_GOLD
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -646,14 +663,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h44.itm~) BEGIN
 	COPY_EXISTING ~sw1h44.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 25				// colour index
-			SET location = wgrey			// location
+			SET gradient = 25				// sets colour index 25 DARK_PURE_GOLD
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 226				// Replace colour index 5
-			SET location = wblue			// location
+			SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 5 MEDIUM_SILVER
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 33				// colour index
-			SET location = wred				// location
+			SET gradient = 33				// sets colour index 33 CHROME_MAGENTA
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -664,14 +681,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h45.itm~) BEGIN
 	COPY_EXISTING ~sw1h45.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 16				// colour index
-			SET location = wgrey			// location
+			SET gradient = 16				// sets colour index 16 SILVERISH_GOLD
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 178				// Replace colour index 5
-			SET location = wblue			// location
+			SET gradient = 178				// 178 SLATE_GREEN replaces colour index 5 MEDIUM_SILVER
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 111				// Replace colour index 33
-			SET location = wred				// location
+			SET gradient = 111				// 111 BURNT_SIENNA replaces colour index 33 CHROME_MAGENTA
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -682,14 +699,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h48.itm~) BEGIN
 	COPY_EXISTING ~sw1h48.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 217				// Replace colour index 30
-			SET location = wgrey			// location
+			SET gradient = 217				// 217 PIRATE_MINOR-BRIGHT_SLATE_GRAY replaces colour index 30 LIGHT_IRON_GRAY
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 100				// colour index
-			SET location = wblue			// location
+			SET gradient = 100				// sets colour index 100 DARK_ASH_GRAY
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 202				// Replace colour index 96
-			SET location = wred				// location
+			SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 96 CHROME_BLUE
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -700,14 +717,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h49.itm~) BEGIN
 	COPY_EXISTING ~sw1h49.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 193				// colour index 30
-			SET location = wgrey			// location
+			SET gradient = 193				// sets colour index 30 LIGHT_IRON_GRAY
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 100				// colour index
-			SET location = wblue			// location
+			SET gradient = 100				// sets colour index 100 DARK_ASH_GRAY
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 212				// Replace colour index 29
-			SET location = wred				// location
+			SET gradient = 212				// 212 TRADE_PEASANT_MAJOR-CHROME_SLATE replaces colour index 29 RED-TINTED_BLACK
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -718,14 +735,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h51.itm~) BEGIN
 	COPY_EXISTING ~sw1h51.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 25				// colour index
-			SET location = wgrey			// location
+			SET gradient = 25				// sets colour index 25 DARK_PURE_GOLD
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 223				// Replace colour index 16
-			SET location = wblue			// location
+			SET gradient = 223				// 223 DROW_SKIN-MOSS_GREEN replaces colour index 16 SILVERISH_GOLD
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 47				// colour index
-			SET location = wred				// location
+			SET gradient = 47				// sets colour index 47 PURE_DARK_RED
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -739,16 +756,16 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h52.itm~) BEGIN
 			SET setr = 0
 			SET setg = 0
 			SET setb = 0
-			SET location = wblue			// location
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~glow~
-			SET gradient = 196				// Replace colour index 25
-			SET location = wgrey			// location
+			SET gradient = 196				// 196 PINK-TINTED_CERULEAN replaces colour index 25 DARK_PURE_GOLD
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 231				// Replace colour index 27
-			SET location = wblue			// location
+			SET gradient = 231				// 231 KOBOLD_MINOR-CHROME_COOL_GRAY replaces colour index 27 GRAY
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 119				// Replace colour index 36
-			SET location = wred				// location
+			SET gradient = 119				// 119 DARKEST_ORCHID replaces colour index 36 LIGHT_DIRTY_YELLOW
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -759,14 +776,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h55.itm~) BEGIN
 	COPY_EXISTING ~sw1h55.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 99				// colour index
-			SET location = wgrey			// location
+			SET gradient = 99				// sets colour index 99 GOLDEN_BROWN
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 223				// Replace colour index 5
-			SET location = wblue			// location
+			SET gradient = 223				// 223 DROW_SKIN-MOSS_GREEN replaces colour index 5 MEDIUM_SILVER
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 210				// Replace colour index 22
-			SET location = wred				// location
+			SET gradient = 210				// 210 MERCHANT_MAJOR-AMBER replaces colour index 22 DARK_BROWN
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -777,14 +794,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h56.itm~) BEGIN
 	COPY_EXISTING ~sw1h56.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 99				// colour index
-			SET location = wgrey			// location
+			SET gradient = 99				// sets colour index 99 GOLDEN_BROWN
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 226				// Replace colour index 5
-			SET location = wblue			// location
+			SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 5 MEDIUM_SILVER
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 94				// colour index
-			SET location = wred				// location
+			SET gradient = 94				// sets colour index 94 RHUBARB
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -794,16 +811,16 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h62.itm~) BEGIN
 	COPY_EXISTING ~sw1h62.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - replaces S1 Long sword
 			LPM ~clear~
-			SET gradient = 81				// Replace colour index 96
-			SET location = wgrey			// location
+			SET gradient = 81				// 81 FADED_GOLD replaces colour index 96 CHROME_BLUE
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 248				// Replace colour index 5
-			SET location = wblue			// location
+			SET gradient = 248				// 248 OGRE_MAJOR-BATTLESHIP_GRAY replaces colour index 5 MEDIUM_SILVER
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 215				// Replace colour index 51
-			SET location = wred				// location
+			SET gradient = 215				// 215 GYPSY_MINOR-CHROME_VERMILLION replaces colour index 51 DARK_OLIVE_GREEN
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -813,16 +830,16 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h63.itm~) BEGIN
 	COPY_EXISTING ~sw1h63.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - replaces S1 Long sword
 			LPM ~clear~
-			SET gradient = 81 				// Replace colour index 96
-			SET location = wgrey			// location
+			SET gradient = 81 				// 81 FADED_GOLD replaces colour index 96 CHROME_BLUE
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 202				// Replace colour index 5
-			SET location = wblue			// location
+			SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 5 MEDIUM_SILVER
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 119				// Replace colour index 51
-			SET location = wred				// location
+			SET gradient = 119				// 119 DARKEST_ORCHID replaces colour index 51 DARK_OLIVE_GREEN
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -832,22 +849,22 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h64.itm~) BEGIN
 	COPY_EXISTING ~sw1h64.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - replaces S1 Long sword
 			LPM ~clear~
 			SET setr = 172
 			SET setg = 36
 			SET setb = 26
 			SET speed = 0x1e
-			SET location = wblue			// location
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~pulse~
-			SET gradient = 229				// Replace colour index 97
-			SET location = wgrey			// location
+			SET gradient = 229				// 229 KOBOLD_SKIN-ULTRAVIOLET replaces colour index 97 LIGHT_MINTY_BLUE
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 245				// Replace colour index 97
-			SET location = wblue			// location
+			SET gradient = 245				// 245 MAGE_MAJOR-CHROME_SEA_GRAY replaces colour index 97 LIGHT_MINTY_BLUE
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 208				// Replace colour index 51
-			SET location = wred				// location
+			SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 51 DARK_OLIVE_GREEN
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -857,22 +874,22 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h65.itm~) BEGIN
 	COPY_EXISTING ~sw1h65.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - replaces S1 Long sword
 			LPM ~clear~
 			SET setr = 172
 			SET setg = 36
 			SET setb = 26
 			SET speed = 0x1e
-			SET location = wblue			// location
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~pulse~
-			SET gradient = 186				// Replace colour index 97
-			SET location = wgrey			// location
+			SET gradient = 186				// 186 DARK_PLUM replaces colour index 97 LIGHT_MINTY_BLUE
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 205				// Replace colour index 97
-			SET location = wblue			// location
+			SET gradient = 205				// 205 NOBLE_MINOR2-CHROME_GRAY replaces colour index 97 LIGHT_MINTY_BLUE
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 248				// Replace colour index 51
-			SET location = wred				// location
+			SET gradient = 248				// 248 OGRE_MAJOR-BATTLESHIP_GRAY replaces colour index 51 DARK_OLIVE_GREEN
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -883,14 +900,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h71.itm~) BEGIN
 	COPY_EXISTING ~sw1h71.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 120				// Replace colour index 46
-			SET location = wgrey			// location
+			SET gradient = 120				// 120 LIGHT_TEAL replaces colour index 46 RED
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 249				// Replace colour index 5
-			SET location = wblue			// location
+			SET gradient = 249				// 249 OGRE_MINOR-METALLIC_SLATE replaces colour index 5 MEDIUM_SILVER
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 212				// Replace colour index 29
-			SET location = wred				// location
+			SET gradient = 212				// 212 TRADE_PEASANT_MAJOR-CHROME_SLATE replaces colour index 29 RED-TINTED_BLACK
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -900,16 +917,16 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h72.itm~) BEGIN
 	COPY_EXISTING ~sw1h72.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~S0~			// Bastard sword - Replace S1 Long sword
+			WRITE_ASCII 0x22 ~S0~			// Bastard sword - replaces S1 Long sword
 			LPM ~clear~
-			SET gradient = 29				// colour index
-			SET location = wgrey			// location
+			SET gradient = 29				// sets colour index 29 RED-TINTED_BLACK
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 27				// colour index
-			SET location = wblue			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 46				// colour index
-			SET location = wred				// location
+			SET gradient = 46				// sets colour index 46 RED
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -920,14 +937,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h75.itm~) BEGIN
 	COPY_EXISTING ~sw1h75.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 218				// Replace colour index 29
-			SET location = wgrey			// location
+			SET gradient = 218				// 218 ELF_HAIR-CHROME_BLUE_GRAY replaces colour index 29 RED-TINTED_BLACK
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 245				// Replace colour index 16
-			SET location = wblue			// location
+			SET gradient = 245				// 245 MAGE_MAJOR-CHROME_SEA_GRAY replaces colour index 16 SILVERISH_GOLD
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 209				// Replace colour index 29
-			SET location = wred				// location
+			SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 29 RED-TINTED_BLACK
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -938,14 +955,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h76.itm~) BEGIN
 	COPY_EXISTING ~sw1h76.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 99				// colour index
-			SET location = wgrey			// location
+			SET gradient = 99				// sets colour index 99 GOLDEN_BROWN
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 232				// Replace colour index 5
-			SET location = wblue			// location
+			SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 5 MEDIUM_SILVER
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 209				// Replace colour index 94
-			SET location = wred				// location
+			SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 94 RHUBARB
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -960,28 +977,28 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h77.itm~) BEGIN
 			SET setg = 20
 			SET setb = 20
 			SET speed = 0x14
-			SET location = wgrey			// location
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~pulse~
 			SET setr = 64
-			SET setg = 20					// Replace colour index 0
-			SET setb = 20					// Replace colour index 0
+			SET setg = 20					// replaces colour index 0
+			SET setb = 20					// replaces colour index 0
 			SET speed = 0x14
-			SET location = wblue			// location
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~pulse~
 			SET setr = 0
 			SET setg = 0
 			SET setb = 0
 			SET speed = 0x14
-			SET location = wred				// location
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~pulse~
-			SET gradient = 99				// colour index
-			SET location = wgrey			// location
+			SET gradient = 99				// sets colour index 99 GOLDEN_BROWN
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 174				// Replace colour index 5
-			SET location = wblue			// location
+			SET gradient = 174				// 174 PALE_SLATE replaces colour index 5 MEDIUM_SILVER
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 221				// Replace colour index 25
-			SET location = wred				// location
+			SET gradient = 221				// 221 ELF_MINOR-YELLOW_GREEN replaces colour index 25 DARK_PURE_GOLD
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -992,14 +1009,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~dwsw1h01.itm~) BEGIN
 	COPY_EXISTING ~dwsw1h01.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 99				// colour index
-			SET location = wgrey			// location
+			SET gradient = 99				// sets colour index 99 GOLDEN_BROWN
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 102				// Replace colour index 5
-			SET location = wblue			// location
+			SET gradient = 102				// 102 SEA_BLUE replaces colour index 5 MEDIUM_SILVER
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 202				// Replace colour index 94
-			SET location = wred				// location
+			SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 94 RHUBARB
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1010,23 +1027,23 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~dwsw1h02.itm~) BEGIN
 	COPY_EXISTING ~dwsw1h02.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 227				// Replace colour index 99
-			SET location = wgrey			// location
+			SET gradient = 227				// 227 METAL_WILD-CORAL replaces colour index 99 GOLDEN_BROWN
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 177				// Replace colour index 5
-			SET location = wblue			// location
+			SET gradient = 177				// 177 PALE_STEEL_BLUE replaces colour index 5 MEDIUM_SILVER
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 180				// Replace colour index 22
-			SET location = wred				// location
+			SET gradient = 180				// 180 PALATINATE replaces colour index 22 DARK_BROWN
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
 END
 
 
-/*  =================================  *
+/* =================================== *
  *          TWO-HANDED SWORDS          *
- *  =================================  */
+ * =================================== */
 
 // Two-handed Sword
 ACTION_FOR_EACH sword IN ~sw2h01~ ~_sw2h01~ BEGIN
@@ -1034,14 +1051,14 @@ ACTION_FOR_EACH sword IN ~sw2h01~ ~_sw2h01~ BEGIN
 		COPY_EXISTING ~%sword%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 249				// Replace colour index 24
-				SET location = wgrey			// location
+				SET gradient = 249				// 249 OGRE_MINOR-METALLIC_SLATE replaces colour index 24 BROWN_GOLD
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 27				// Replace colour index 5
-				SET location = wblue			// location
+				SET gradient = 27				// 27 GRAY replaces colour index 5 MEDIUM_SILVER
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 24				// colour index
-				SET location = wred				// location
+				SET gradient = 24				// sets colour index 24 BROWN_GOLD
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -1054,14 +1071,14 @@ ACTION_FOR_EACH sword IN ~sw2h02~ ~_sw2h02~ BEGIN
 		COPY_EXISTING ~%sword%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 25				// colour index
-				SET location = wgrey			// location
+				SET gradient = 25				// sets colour index 25 DARK_PURE_GOLD
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 205				// Replace colour index 27
-				SET location = wblue			// location
+				SET gradient = 205				// 205 NOBLE_MINOR2-CHROME_GRAY replaces colour index 27 GRAY
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 254				// Replace colour index 25
-				SET location = wred				// location
+				SET gradient = 254				// 254 EBONY replaces colour index 25 DARK_PURE_GOLD
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -1069,7 +1086,7 @@ ACTION_FOR_EACH sword IN ~sw2h02~ ~_sw2h02~ BEGIN
 END
 
 // Spider's Bane +2
-// Gwen fix: harmonizes both versions. Now they get the same icon and colorisation (no change for vanilla SW1H13 as its colors fit the new icon installed by 1PP).
+// Gwen fix: harmonized both versions. Now they get the same icon and colorisation (no change for vanilla SW2H13 as its colors fit the new icon installed by 1PP).
 ACTION_FOR_EACH sword IN ~sw2h06~ ~_sw2h06~ ~sw2h13~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
 		COPY_EXISTING ~%sword%.itm~ ~override~
@@ -1077,14 +1094,14 @@ ACTION_FOR_EACH sword IN ~sw2h06~ ~_sw2h06~ ~sw2h13~ BEGIN
 				WRITE_ASCII 0x3A ~ISW2H13~ #8	// Replace ISW2H06
 				WRITE_ASCII 0x76 ~ISW2H13~ #8
 				LPM ~clear~
-				SET gradient = 104				// Restore 104 Dark Chrome Purple (1PP was replacing colour index 5 with 186 Dark Plum).
-				SET location = wgrey			// location
+				SET gradient = 104				// restores 104 DARK_CHROME_PURPLE (1PP was replacing colour index 5 MEDIUM_SILVER with 186 DARK_PLUM).
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 27				// Grey Replace colour index 5 (Medium Silver)
-				SET location = wblue			// location
+				SET gradient = 27				// 27 GRAY replaces colour index 5 MEDIUM_SILVER
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 104				// Restore 104 Dark Chrome Purple (1PP was replacing colour index 66 with 209 Ath Peasant Minot - Ash Grey)
-				SET location = wred				// location
+				SET gradient = 104				// restores 104 DARK_CHROME_PURPLE (1PP was replacing colour index 66 FADED_BLACK with 209 ATH_PEASANT_MINOR-ASH_GRAY)
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -1097,14 +1114,14 @@ ACTION_FOR_EACH sword IN ~sw2h07~ ~_sw2h07~ BEGIN
 		COPY_EXISTING ~%sword%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 211				// Replace colour index 24
-				SET location = wgrey			// location
+				SET gradient = 211				// 211 MERCHANT_MINOR-DARK_BRASS replaces colour index 24 BROWN_GOLD
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 254				// Replace colour index 16
-				SET location = wblue			// location
+				SET gradient = 254				// 254 EBONY replaces colour index 16 SILVERISH_GOLD
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 29				// Replace colour index 24
-				SET location = wred				// location
+				SET gradient = 29				// 29 RED-TINTED_BLACK replaces colour index 24 BROWN_GOLD
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -1115,17 +1132,17 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw2h20.itm~) BEGIN
 	COPY_EXISTING ~sw2h20.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~ISW2H20~ #8	// useless ?
-			WRITE_ASCII 0x76 ~ISW2H20~ #8	// useless ?
+			WRITE_ASCII 0x3A ~ISW2H20~ #8	// Gwen note: useless?
+			WRITE_ASCII 0x76 ~ISW2H20~ #8	// id.
 			LPM ~clear~
-			SET gradient = 218				// Replace colour index 29
-			SET location = wgrey			// location
+			SET gradient = 218				// 218 ELF_HAIR-CHROME_BLUE_GRAY replaces colour index 29 RED-TINTED_BLACK
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 27				// Replace colour index 28
-			SET location = wblue			// location
+			SET gradient = 27				// 27 GRAY replaces colour index 28 BLUISH_SILVER
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 121				// Replace colour index 58
-			SET location = wred				// location
+			SET gradient = 121				// 121 DARK_TEAL replaces colour index 58 DARK_BLUE
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1135,23 +1152,23 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw2h10.itm~) BEGIN
 	COPY_EXISTING ~sw2h10.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~ISW2H10~ #8	// useless ?
-			WRITE_ASCII 0x76 ~ISW2H10~ #8	// useless ?
+			WRITE_ASCII 0x3A ~ISW2H10~ #8	// Gwen note: useless?
+			WRITE_ASCII 0x76 ~ISW2H10~ #8	// id.
 			LPM ~clear~
-			SET setr = 0					// Replace colour index 225
-			SET setg = 0					// Replace colour index 212
+			SET setr = 0					// replaces colour index 225
+			SET setg = 0					// replaces colour index 212
 			SET setb = 0
-			SET speed = 0x30				// Replace 0x32
-			SET location = wblue			// location
+			SET speed = 0x30				// Replaces 0x32
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~pulse~
-			SET gradient = 207				// Replace colour index 25
-			SET location = wgrey			// location
+			SET gradient = 207				// 207 NOBLE_MINOR2-CHROME_GOLD replaces colour index 25 DARK_PURE_GOLD
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 249				// Replace colour index 27
-			SET location = wblue			// location
+			SET gradient = 249				// 249 OGRE_MINOR-METALLIC_SLATE replaces colour index 27 GRAY
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 207				// Replace colour index 47
-			SET location = wred				// location
+			SET gradient = 207				// 207 NOBLE_MINOR2-CHROME_GOLD replaces colour index 47 PURE_DARK_RED
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1161,23 +1178,23 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw2h19.itm~) BEGIN
 	COPY_EXISTING ~sw2h19.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~ISW2H10~ #8	// useless ?
-			WRITE_ASCII 0x76 ~ISW2H10~ #8	// useless ?
+			WRITE_ASCII 0x3A ~ISW2H10~ #8	// Gwen note: useless?
+			WRITE_ASCII 0x76 ~ISW2H10~ #8	// id.
 			LPM ~clear~
-			SET setr = 61					// Replace colour index 235
-			SET setg = 45					// Replace colour index 242
-			SET setb = 22					// Replace colour index 0
-			SET speed = 0x50				// Replace 0x1e
-			SET location = wblue			// location
+			SET setr = 61					// 61 Lreplaces colour index 235
+			SET setg = 45					// 45 replaces colour index 242
+			SET setb = 22					// replaces colour index 0
+			SET speed = 0x50				// replaces 0x1e
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~pulse~
-			SET gradient = 211				// Replace colour index 25
-			SET location = wgrey			// location
+			SET gradient = 211				// 211 MERCHANT_MINOR-DARK_BRASS replaces colour index 25 DARK_PURE_GOLD
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 249				// Replace colour index 27
-			SET location = wblue			// location
+			SET gradient = 249				// 249 OGRE_MINOR-METALLIC_SLATE replaces colour index 27 GRAY
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 198				// Replace colour index 47
-			SET location = wred				// location
+			SET gradient = 198				// 198 BLACK_SCARLET replaces colour index 47 PURE_DARK_RED
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1188,14 +1205,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw2h11.itm~) BEGIN
 	COPY_EXISTING ~sw2h11.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 207				// Replace colour index 61
-			SET location = wgrey			// location
+			SET gradient = 207				// 207 NOBLE_MINOR2-CHROME_GOLD replaces colour index 61 LAVENDER
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 28				// colour index
-			SET location = wblue			// location
+			SET gradient = 28				// sets colour index 28 BLUISH_SILVER
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 252				// Replace colour index 104
-			SET location = wred				// location
+			SET gradient = 252				// 252 DUERGAR_MAJOR-GHOULISH_GREEN replaces colour index 104 DARK_CHROME_PURPLE
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1210,16 +1227,16 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw2h12.itm~) BEGIN
 			SET setg = 156
 			SET setb = 212
 			SET speed = 0x64
-			SET location = wblue			// location
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~pulse~
-			SET gradient = 244				// Replace colour index 60
-			SET location = wgrey			// location
+			SET gradient = 244				// 244 FIGHTER_MINOR-DARK_CADET_GRAY replaces colour index 60 DARK_PURPLE
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 176				// Replace colour index 104
-			SET location = wblue			// location
+			SET gradient = 176				// 176 STEEL_BLUE replaces colour index 104 DARK_CHROME_PURPLE
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 202				// Replace colour index 60
-			SET location = wred				// location
+			SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 60 DARK_PURPLE
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1234,16 +1251,16 @@ ACTION_FOR_EACH sword IN ~sw2h17~ ~sw2h18~ BEGIN
 				SET setr = 0
 				SET setg = 0
 				SET setb = 0
-				SET location = wblue			// location
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~glow~
-				SET gradient = 210				// Replace colour index 29
-				SET location = wgrey			// location
+				SET gradient = 210				// 210 MERCHANT_MAJOR-AMBER replaces colour index 29 RED-TINTED_BLACK
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 212				// Replace colour index 50
-				SET location = wblue			// location
+				SET gradient = 212				// 212 TRADE_PEASANT_MAJOR-CHROME_SLATE replaces colour index 50 DARK_YELLOW
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
-				SET gradient = 187				// Replace colour index 50
-				SET location = wred				// location
+				SET gradient = 187				// replaces colour index 50 DARK_YELLOW
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -1251,84 +1268,49 @@ ACTION_FOR_EACH sword IN ~sw2h17~ ~sw2h18~ BEGIN
 END
 
 
-/*  =========================  *
+/* =========================== *
  *          NEW SWORD          *
- *  =========================  */
+ * =========================== */
+
+PRINT @400062 // ~Installing new swords...~
+SILENT
 
 // Viper's Edge +2
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h04.itm~) BEGIN
-	COPY_EXISTING ~sw1h04.itm~ ~override/SW1P01.ITM~
+	COPY_EXISTING ~sw1h04.itm~ ~override/sw1p01.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			SAY NAME2 @400802 /* Viper's Edge +2 */
-			SAY DESC  @400803 /* This immensely powerful relic is just as strongly enchanted as it is cursed. Its blade shimmers in a slick, intoxicating tinge of green, likely literally as well as metaphorically. The sword's grip and hilt are lined by curved thorns which make it hard to see how this weapon could be effectively wielded in battle. Judging by the dried crusts around them, many have still tried, and you cannot deny feeling a tempting curiosity on your part. Said to be originally the weapon of a medusa queen of a long forgotten age bestowed to whom by the gods of old themselves, the exact origins of this blade have been lost to time. Whatever its provenance, it has since travelled through many hands (albeit the majority not of the living persuasion). The common thread running through all these encounters was that their eventual end was rarely of a voluntary nature and nothing good ever came from them.
-
-STATISTICS:
-
-Cursed:
-Reduces maximum HP by 10%
-Loss of 1 point of constitution (permanent)
-Intolerance to common healing potions
-Chance of poisoning the user through contact
-User may become prone to blood rage
-May cause passing wild magic spikes in magic users
-
-Passive abilities:
-Dexterity +2
-+1 attack per round
-Improved back stab damage
-Temporary regeneration on critical health
-
-Active abilities:
-Instantly annihilates weak undead
-May petrify target on successful hit
-May inflict knock back
-May badly poison on successful hit
-Poison may paralyse humanoid targets
-Poison may overwhelm simpleminded creatures and temporarily make them pliable to suggestion
-
-STATISTICS:
-
-Damage: 1D8 +2
-THAC0: +2 bonus
-Damage type: slashing
-Weight: 3
-Speed Factor: 3
-Proficiency Type: Long Sword
-Type: 1-handed
-Requires: 6 Strength
-Not Usable By:
- Druid
- Cleric
- Mage */
-			WRITE_ASCII 0x3A ~1swh00~ #8
+			SAY NAME2 @400802
+			SAY DESC  @400803
+			WRITE_ASCII 0x3A ~1SWH00~ #8
 			WRITE_ASCII 0x58 ~CSW1H06~ #8
 			WRITE_LONG	0x18 0x7c			// Flags
 			WRITE_LONG	0x34 12730			// Price
 			WRITE_SHORT 0x42 170			// Lore to identify
+			WRITE_LONG	0x4c 3				// Add missing Weight
 			WRITE_LONG	0x60 2				// Enchantment
-			LPF ALTER_ITEM_HEADER INT_VAR speed = 2 thac0_bonus = 2 damage_bonus = 2 STR_VAR icon = 1swh00 END
+			LPF ALTER_ITEM_HEADER INT_VAR speed = 3 thac0_bonus = 2 damage_bonus = 2 STR_VAR icon = ISWH00 END
 			LPM ~clear~
 			SET setr = 0
 			SET setg = 0
 			SET setb = 0
-			SET location = wblue			// location
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~glow~
 			SET setr = 10
 			SET setg = 21
 			SET setb = 6
 			SET speed = 0x10
-			SET location = wblue			// location
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~pulse~
-			SET gradient = 203				// colour index
-			SET location = wgrey			// location
+			SET gradient = 203				// sets colour index 203 SKIN2-MYRTLE_GREEN
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 112				// colour index
-			SET location = wblue			// location
+			SET gradient = 112				// sets colour index 112 SEA_FOAM
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 246				// colour index
-			SET location = wred				// location
+			SET gradient = 246				// sets colour index 246 MAGE_MINOR-CHROME_PINE
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
-			// Gwen fix: remove the #134 global effect (Petrification) otherwise it would be impossible to wield the sword.
+			// Gwen fix: removed the #134 global effect (Petrification) otherwise it would be impossible to wield the sword.
 //			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 134 target = 1 timing = 2 resist_dispel = 2 END
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 15 target = 1 timing = 2 parameter1 = 2 END
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 18 target = 1 timing = 2 parameter1 = 90 parameter2 = 2 END

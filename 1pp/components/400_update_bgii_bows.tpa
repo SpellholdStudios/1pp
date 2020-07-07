@@ -1,15 +1,24 @@
-/*  ==============================================================================================================================================================================  *
+/* ================================================================================================================================================================================ *
+ *                                                                                                                                                                                  *
+ *                                         C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( b o w s )                                          *
+ *                                                                                                                                                                                  *
+ * ================================================================================================================================================================================ *
+ *  This part installs bows stuff.                                                                                                                                                  *
+ * ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
  *      - Replace macros with functions whenever possible.                                                                                                                          *
  *      - Coding simplification:                                                                                                                                                    *
- *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
- *  		Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
- *  ==============================================================================================================================================================================  */
+ *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                              *
+ *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                   *
+ * ================================================================================================================================================================================ */
 
-/*  ====================  *
+/* ====================== *
  *          BOWS          *
- *  ====================  */
+ * ====================== */
+
+PRINT @400064 // ~Patching blunt bows...~
+SILENT
 
 // Composite Longbow
 ACTION_FOR_EACH bow IN ~bow01~ ~_bow01~ BEGIN
@@ -17,14 +26,14 @@ ACTION_FOR_EACH bow IN ~bow01~ ~_bow01~ BEGIN
 		COPY_EXISTING ~%bow%.itm~ ~ovveride~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 13				// Replace colour index 13
-				SET location = wgrey			// location
+				SET gradient = 13				// 13 LIGHT_PINKISH_SILVER replaces colour index 13 LIGHT_PINKISH_SILVER
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 95				// Replace colour index 95
-				SET location = wred				// location
+				SET gradient = 95				// 95 LIGHT_DIRTISH_BROWN replaces colour index 95 LIGHT_DIRTISH_BROWN
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
-				SET gradient = 164				// colour index
-				SET location = wblue			// location
+				SET gradient = 164				// sets colour index 164 RAW_UMBER
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -37,14 +46,14 @@ ACTION_FOR_EACH bow IN ~bow02~ ~_bow02~ BEGIN
 		COPY_EXISTING ~%bow%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 226				// Replace colour index 13
-				SET location = wgrey			// location
+				SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 13 LIGHT_PINKISH_SILVER
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 240				// Replace colour index 13
-				SET location = wred				// location
+				SET gradient = 240				// 240 CLERIC_EVIL_MINOR-PALE_RUST replaces colour index 13 LIGHT_PINKISH_SILVER
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
-				SET gradient = 174				// colour index
-				SET location = wblue			// location
+				SET gradient = 174				// sets colour index 174 PALE_SLATE
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -57,14 +66,14 @@ ACTION_FOR_EACH bow IN ~bow03~ ~_bow03~ BEGIN
 		COPY_EXISTING ~%bow%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 209				// Replace colour index 85
-				SET location = wgrey			// location
+				SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 85 PURE_GOLD
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 95				// Replace colour index 95
-				SET location = wred				// location
+				SET gradient = 95				// 95 LIGHT_DIRTISH_BROWN replaces colour index 95 LIGHT_DIRTISH_BROWN
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
-				SET gradient = 90				// colour index
-				SET location = wblue			// location
+				SET gradient = 90				// sets colour index 90 MOLDY_GOLD
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -77,14 +86,14 @@ ACTION_FOR_EACH bow IN ~bow04~ ~_bow04~ BEGIN
 		COPY_EXISTING ~%bow%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 228				// Replace colour index 65
-				SET location = wgrey			// location
+				SET gradient = 228				// 228 LEATHER-SPECTRAL_GREEN replaces colour index 65 REALLY_DARK_GRAY
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 209				// Replace colour index 65
-				SET location = wred				// location
+				SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 65 REALLY_DARK_GRAY
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
-				SET gradient = 90				// colour index
-				SET location = wblue			// location
+				SET gradient = 90				// sets colour index 90 MOLDY_GOLD
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -96,17 +105,17 @@ ACTION_FOR_EACH bow IN ~bow05~ ~_bow05~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%bow%.itm~) BEGIN
 		COPY_EXISTING ~%bow%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~BS~			// Shortbow - Replace BW Longbow
-				WRITE_ASCII 0x44 ~GBOW02~ #8	// Replace GBOW01
+				WRITE_ASCII 0x22 ~BS~			// Shortbow - replaces BW Longbow
+				WRITE_ASCII 0x44 ~GBOW02~ #8	// replaces  GBOW01
 				LPM ~clear~
-				SET gradient = 13				// Replace colour index 13
-				SET location = wgrey			// location
+				SET gradient = 13				// 13 LIGHT_PINKISH_SILVER replaces colour index 13 LIGHT_PINKISH_SILVER
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 95				// Replace colour index 95
-				SET location = wred				// location
+				SET gradient = 95				// 95 LIGHT_DIRTISH_BROWN replaces colour index 95 LIGHT_DIRTISH_BROWN
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
-				SET gradient = 237				// Replace colour index 95
-				SET location = wblue			// location
+				SET gradient = 237				// 237 CLERIC_NEUTRAL_MAJOR-TAUPE replaces colour index 95 LIGHT_DIRTISH_BROWN
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -118,19 +127,19 @@ ACTION_FOR_EACH bow IN ~bow06~ ~_bow06~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%bow%.itm~) BEGIN
 		COPY_EXISTING ~%bow%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~BS~			// Shortbow - Replace BW Longbow
-				WRITE_ASCII 0x44 ~GBOW02~ #8	// Replace GBOW01
-				WRITE_ASCII 0x3A ~IBOW06~ #8	// Replace IBOW03
+				WRITE_ASCII 0x22 ~BS~			// Shortbow - replaces BW Longbow
+				WRITE_ASCII 0x44 ~GBOW02~ #8	// replaces  GBOW01
+				WRITE_ASCII 0x3A ~IBOW06~ #8	// replaces  IBOW03
 				WRITE_ASCII 0x76 ~IBOW06~ #8
 				LPM ~clear~
-				SET gradient = 13				// Replace colour index 13
-				SET location = wgrey			// location
+				SET gradient = 13				// 13 LIGHT_PINKISH_SILVER replaces colour index 13 LIGHT_PINKISH_SILVER
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 238				// Replace colour index 95
-				SET location = wred				// location
+				SET gradient = 238				// 238 CLERIC_NEUTRAL_MINOR-RUSSET_BROWN replaces colour index 95 LIGHT_DIRTISH_BROWN
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
-				SET gradient = 172				// colour index
-				SET location = wblue			// location
+				SET gradient = 172				// sets colour index 172 PALE_GOLD
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -143,14 +152,14 @@ ACTION_FOR_EACH bow IN ~bow07~ ~_bow07~ BEGIN
 		COPY_EXISTING ~%bow%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 222				// Replace colour index 61
-				SET location = wgrey			// location
+				SET gradient = 222				// 222 DROW_HAIR-PLATINUM_GRAY replaces colour index 61 LAVENDER
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 6				// Replace colour index 61
-				SET location = wred				// location
+				SET gradient = 6				// 6 DARK_SILVER replaces colour index 61 LAVENDER
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
-				SET gradient = 142				// colour index
-				SET location = wblue			// location
+				SET gradient = 142				// sets colour index 142 DARK_POWDER_BLUE
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -162,17 +171,17 @@ ACTION_FOR_EACH bow IN ~bow08~ ~_bow08~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%bow%.itm~) BEGIN
 		COPY_EXISTING ~%bow%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~BS~			// Shortbow - Replace BW Longbow
-				WRITE_ASCII 0x44 ~GBOW02~ #8	// Replace GBOW01
+				WRITE_ASCII 0x22 ~BS~			// Shortbow - replaces BW Longbow
+				WRITE_ASCII 0x44 ~GBOW02~ #8	// replaces GBOW01
 				LPM ~clear~
-				SET gradient = 248				// Replace colour index 13
-				SET location = wgrey			// location
+				SET gradient = 248				// 248 OGRE_MAJOR-BATTLESHIP_GRAY replaces colour index 13 LIGHT_PINKISH_SILVER
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 235				// Replace colour index 59
-				SET location = wred				// location
+				SET gradient = 235				// 235 CLERIC_GOOD_MAJOR-GLAUCOUS_GRAY replaces colour index 59 LIGHT_PURPLE
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
-				SET gradient = 250				// colour index
-				SET location = wblue			// location
+				SET gradient = 250				// sets colour index 250 SHADOW_DRUID_MAJOR-YELLOW_ORANGE
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -184,14 +193,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bow09.itm~) BEGIN
 	COPY_EXISTING ~bow09.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 13				// Replace colour index 13
-			SET location = wgrey			// location
+			SET gradient = 13				// 13 LIGHT_PINKISH_SILVER replaces colour index 13 LIGHT_PINKISH_SILVER
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 91				// Replace colour index 19
-			SET location = wred				// location
+			SET gradient = 91				// 91 DARK_CHOCOLATE replaces colour index 19 DARK_ROSE_RED
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
-			SET gradient = 207				// colour index
-			SET location = wblue			// location
+			SET gradient = 207				// sets colour index 207 NOBLE_MINOR2-CHROME_GOLD
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -202,14 +211,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bow10.itm~) BEGIN
 	COPY_EXISTING ~bow10.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 168				// Replace colour index 13
-			SET location = wgrey			// location
+			SET gradient = 168				// 168 KHAKI replaces colour index 13 LIGHT_PINKISH_SILVER
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 252				// Replace colour index 35
-			SET location = wred				// location
+			SET gradient = 252				// 252 DUERGAR_MAJOR-GHOULISH_GREEN replaces colour index 35 LIGHT_YELLOW-DARK_PURPLE
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
-			SET gradient = 207				// colour index
-			SET location = wblue			// location
+			SET gradient = 207				// sets colour index 207 NOBLE_MINOR2-CHROME_GOLD
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -220,14 +229,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bow11.itm~) BEGIN
 	COPY_EXISTING ~bow11.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 168				// Replace colour index 13
-			SET location = wgrey			// location
+			SET gradient = 168				// 168 KHAKI replaces colour index 13 LIGHT_PINKISH_SILVER
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 242				// Replace colour index 16
-			SET location = wred				// location
+			SET gradient = 242				// 242 THIEF_MINOR-PALE_OLIVE replaces colour index 16 SILVERISH_GOLD
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
-			SET gradient = 242				// colour index
-			SET location = wblue			// location
+			SET gradient = 242				// sets colour index 242 THIEF_MINOR-PALE_OLIVE
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -238,14 +247,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bow12.itm~) BEGIN
 	COPY_EXISTING ~bow12.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 235				// Replace colour index 65
-			SET location = wgrey			// location
+			SET gradient = 235				// 235 CLERIC_GOOD_MAJOR-GLAUCOUS_GRAY replaces colour index 65 REALLY_DARK_GRAY
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 246				// Replace colour index 103
-			SET location = wred				// location
+			SET gradient = 246				// 246 MAGE_MINOR-CHROME_PINE replaces colour index 103 PINE_GREEN
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
-			SET gradient = 246				// colour index
-			SET location = wblue			// location
+			SET gradient = 246				// sets colour index 246 MAGE_MINOR-CHROME_PINE
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -256,14 +265,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bow13.itm~) BEGIN
 	COPY_EXISTING ~bow13.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 235				// Replace colour index 65
-			SET location = wgrey			// location
+			SET gradient = 235				// 235 CLERIC_GOOD_MAJOR-GLAUCOUS_GRAY replaces colour index 65 REALLY_DARK_GRAY
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 202				// Replace colour index 96
-			SET location = wred				// location
+			SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 96 CHROME_BLUE
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
-			SET gradient = 183				// colour index
-			SET location = wblue			// location
+			SET gradient = 183				// sets colour index 183 CHARCOAL
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -273,17 +282,17 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~bow14.itm~) BEGIN
 	COPY_EXISTING ~bow14.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~BS~			// Shortbow - Replace BW Longbow
-			WRITE_ASCII 0x44 ~GBOW02~ #8	// Replace GBOW01
+			WRITE_ASCII 0x22 ~BS~			// Shortbow - replaces BW Longbow
+			WRITE_ASCII 0x44 ~GBOW02~ #8	// replaces GBOW01
 			LPM ~clear~
-			SET gradient = 247				// Replace colour index 75
-			SET location = wgrey			// location
+			SET gradient = 247				// 247 OGRE_SKIN-CHROME_CRIMSON replaces colour index 75 SOLID_BLACK
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 238				// Replace colour index 95
-			SET location = wred				// location
+			SET gradient = 238				// 238 CLERIC_NEUTRAL_MINOR-RUSSET_BROWN replaces colour index 95 LIGHT_DIRTISH_BROWN
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
-			SET gradient = 90				// colour index
-			SET location = wblue			// location
+			SET gradient = 90				// sets colour index 90 MOLDY_GOLD
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -293,17 +302,17 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~bow15.itm~) BEGIN
 	COPY_EXISTING ~bow15.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~BS~			// Shortbow - Replace BW Longbow
-			WRITE_ASCII 0x44 ~GBOW02~ #8	// Replace GBOW01
+			WRITE_ASCII 0x22 ~BS~			// Shortbow - replaces BW Longbow
+			WRITE_ASCII 0x44 ~GBOW02~ #8	// replaces GBOW01
 			LPM ~clear~
-			SET gradient = 6				// Replace colour index 75
-			SET location = wgrey			// location
+			SET gradient = 6				// 6 DARK_SILVER replaces colour index 75 SOLID_BLACK
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 237				// Replace colour index 19
-			SET location = wred				// location
+			SET gradient = 237				// 237 CLERIC_NEUTRAL_MAJOR-TAUPE replaces colour index 19 DARK_ROSE_RED
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
-			SET gradient = 90				// colour index
-			SET location = wblue			// location
+			SET gradient = 90				// sets colour index 90 MOLDY_GOLD
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -314,14 +323,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bow16.itm~) BEGIN
 	COPY_EXISTING ~bow16.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 6				// Replace colour index 13
-			SET location = wgrey			// location
+			SET gradient = 6				// 6 DARK_SILVER replaces colour index 13 LIGHT_PINKISH_SILVER
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 159				// Replace colour index 38
-			SET location = wred				// location
+			SET gradient = 159				// 159 MAUVE replaces colour index 38 LIGHT_DIRT_BROWN
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
-			SET gradient = 208				// colour index
-			SET location = wblue			// location
+			SET gradient = 208				// sets colour index 208 ATH_PEASANT_MAJOR-FADED_WHEAT
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -332,14 +341,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bow17.itm~) BEGIN
 	COPY_EXISTING ~bow17.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 6				// Replace colour index 65
-			SET location = wgrey			// location
+			SET gradient = 6				// 6 DARK_SILVER replaces colour index 65 REALLY_DARK_GRAY
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 114				// Replace colour index 95
-			SET location = wred				// location
+			SET gradient = 114				// 114 YET_ANOTHER_BROWN replaces colour index 95 LIGHT_DIRTISH_BROWN
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
-			SET gradient = 211				// colour index
-			SET location = wblue			// location
+			SET gradient = 211				// sets colour index 211 MERCHANT_MINOR-DARK_BRASS
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -349,17 +358,17 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~bow18.itm~) BEGIN
 	COPY_EXISTING ~bow18.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~BS~			// Shortbow - Replace BW Longbow
-			WRITE_ASCII 0x44 ~GBOW02~ #8	// Replace GBOW01
+			WRITE_ASCII 0x22 ~BS~			// Shortbow - replaces BW Longbow
+			WRITE_ASCII 0x44 ~GBOW02~ #8	// replaces GBOW01
 			LPM ~clear~
-			SET gradient = 6				// Replace colour index 75
-			SET location = wgrey			// location
+			SET gradient = 6				// 6 DARK_SILVER replaces colour index 75 SOLID_BLACK
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 113				// Replace colour index 5
-			SET location = wred				// location
+			SET gradient = 113				// 113 FOG replaces colour index 5 MEDIUM_SILVER
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
-			SET gradient = 236				// colour index
-			SET location = wblue			// location
+			SET gradient = 236				// sets colour index 236 CLERIC_GOOD_MINOR-DARK_PINE
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -369,17 +378,17 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~bow19.itm~) BEGIN
 	COPY_EXISTING ~bow19.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~BS~			// Shortbow - Replace BW Longbow
-			WRITE_ASCII 0x44 ~GBOW02~ #8	// Replace GBOW01
+			WRITE_ASCII 0x22 ~BS~			// Shortbow - replaces BW Longbow
+			WRITE_ASCII 0x44 ~GBOW02~ #8	// replaces GBOW01
 			LPM ~clear~
-			SET gradient = 240				// Replace colour index 14
-			SET location = wgrey			// location
+			SET gradient = 240				// 240 CLERIC_EVIL_MINOR-PALE_RUST replaces colour index 14 DARK_PURE_SILVER
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 240				// Replace colour index 5
-			SET location = wred				// location
+			SET gradient = 240				// 240 CLERIC_EVIL_MINOR-PALE_RUST replaces colour index 5 MEDIUM_SILVER
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
-			SET gradient = 254				// Replace colour index 95
-			SET location = wblue			// location
+			SET gradient = 254				// 254 EBONY replaces colour index 95 LIGHT_DIRTISH_BROWN
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -390,17 +399,17 @@ ACTION_FOR_EACH bow IN ~bow20~ ~bow21~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%bow%.itm~) BEGIN
 		COPY_EXISTING ~%bow%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~BS~			// Shortbow - Replace BW Longbow
-				WRITE_ASCII 0x44 ~GBOW02~ #8	// Replace GBOW01
+				WRITE_ASCII 0x22 ~BS~			// Shortbow - replaces BW Longbow
+				WRITE_ASCII 0x44 ~GBOW02~ #8	// replaces GBOW01
 				LPM ~clear~
-				SET gradient = 6				// Replace colour index 49
-				SET location = wgrey			// location
+				SET gradient = 6				// 6 DARK_SILVER replaces colour index 49 DARK_RUST
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 204				// Replace colour index 104
-				SET location = wred				// location
+				SET gradient = 204				// 204 NOBLE_MAJOR1-BLACK_PLUM replaces colour index 104 DARK_CHROME_PURPLE
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
-				SET gradient = 90				// colour index
-				SET location = wblue			// location
+				SET gradient = 90				// sets colour index 90 MOLDY_GOLD
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -413,14 +422,14 @@ ACTION_FOR_EACH bow IN ~bow22~ ~bow23~ BEGIN
 		COPY_EXISTING ~%bow%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 6				// Replace colour index 65
-				SET location = wgrey			// location
+				SET gradient = 6				// 6 DARK_SILVER replaces colour index 65 REALLY_DARK_GRAY
+				SET location = wgrey			// location (Head/Blade/Staff major)
 				LPM ~colour~
-				SET gradient = 90				// Replace colour index 50
-				SET location = wred				// location
+				SET gradient = 90				// 90 MOLDY_GOLD replaces colour index 50 DARK_YELLOW
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 				LPM ~colour~
-				SET gradient = 82				// colour index
-				SET location = wblue			// location
+				SET gradient = 82				// sets colour index 82 DARK_METALLIC_BLUE
+				SET location = wblue			// location (Head/Blade minor)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -432,14 +441,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bow24.itm~) BEGIN
 	COPY_EXISTING ~bow24.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 6				// Replace colour index 72
-			SET location = wgrey			// location
+			SET gradient = 6				// 6 DARK_SILVER replaces colour index 72 STEEL_GRAY
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 127				// Replace colour index 47
-			SET location = wred				// location
+			SET gradient = 127				// 127 DARK_BRICK_RED replaces colour index 47 PURE_DARK_RED
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
-			SET gradient = 90				// colour index
-			SET location = wblue			// location
+			SET gradient = 90				// sets colour index 90 MOLDY_GOLD
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -450,14 +459,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bow25.itm~) BEGIN
 	COPY_EXISTING ~bow25.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 6				// Replace colour index 49
-			SET location = wgrey			// location
+			SET gradient = 6				// 6 DARK_SILVER replaces colour index 49 DARK_RUST
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 211				// Replace colour index 50
-			SET location = wred				// location
+			SET gradient = 211				// 211 MERCHANT_MINOR-DARK_BRASS replaces colour index 50 DARK_YELLOW
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
-			SET gradient = 127				// colour index
-			SET location = wblue			// location
+			SET gradient = 127				// sets colour index 127 DARK_BRICK_RED
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -467,17 +476,17 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~bow26.itm~) BEGIN
 	COPY_EXISTING ~bow26.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~BS~			// Shortbow - Replace BW Longbow
-			WRITE_ASCII 0x44 ~GBOW02~ #8	// Replace GBOW01
+			WRITE_ASCII 0x22 ~BS~			// Shortbow - replaces BW Longbow
+			WRITE_ASCII 0x44 ~GBOW02~ #8	// replaces GBOW01
 			LPM ~clear~
-			SET gradient = 6				// Replace colour index 46
-			SET location = wgrey			// location
+			SET gradient = 6				// 6 DARK_SILVER replaces colour index 46 RED
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 240				// Replace colour index 58
-			SET location = wred				// location
+			SET gradient = 240				// 240 CLERIC_EVIL_MINOR-PALE_RUST replaces colour index 58
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
-			SET gradient = 237				// colour index
-			SET location = wblue			// location
+			SET gradient = 237				// sets colour index 237 CLERIC_NEUTRAL_MAJOR-TAUPE
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
 		END
 	BUT_ONLY
