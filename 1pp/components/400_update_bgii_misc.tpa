@@ -1,31 +1,42 @@
-/*  ==============================================================================================================================================================================  *
+/* ================================================================================================================================================================================ *
+ *                                                                                                                                                                                  *
+ *                                C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( m i s c e l l a n e o u s )                                 *
+ *                                                                                                                                                                                  *
+ * ================================================================================================================================================================================ *
+ *  This part installs miscellaneous stuff.                                                                                                                                         *
+ * ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
- *      - Replace macros with functions whenever possible.                                                                                                                          *
+ *      - Replaced macros with functions whenever possible.                                                                                                                         *
  *      - Coding simplification:                                                                                                                                                    *
- *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
- *  		Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                              *
+ *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                   *
  *                                                                                                                                                                                  *
  *  specific fixes:                                                                                                                                                                 *
  *  ---------------                                                                                                                                                                 *
- *      - #57	==> misc89.itm (Edwin's Amulet): adds bgmisc89 (BGT and IR compatibility).                                                                                          *
- *      - #77	==> book06.itm (Tome of Clear Thought), book07.itm (Tome of Leadership and Influence) and book08.itm (Tome of Understanding): harmonizes header icon with new       *
- *  				inventory icon (IBOOK768) for consistency.                                                                                                                      *
- *  ==============================================================================================================================================================================  */
+ *      - #68   ==> misc89.itm (Edwin's Amulet): added bgmisc89 (BGT and IR compatibility).                                                                                         *
+ *      - #88   ==> book06.itm (Tome of Clear Thought), book07.itm (Tome of Leadership and Influence) and book08.itm (Tome of Understanding): harmonized header icon with new       *
+ *                  inventory icon (IBOOK768) for consistency.                                                                                                                      *
+ * ================================================================================================================================================================================ */
 
-/*  =============================  *
+/* =============================== *
  *          MISCELLANEOUS          *
- *  =============================  */
+ * =============================== */
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~SW1HWK.ITM~) BEGIN
-	COPY_EXISTING ~SW1HWK.ITM~ ~override~
+PRINT @400042 // ~Patching miscellaneous items...~
+SILENT
+
+// Water's Edge +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~sw1hwk.itm~) BEGIN
+	COPY_EXISTING ~sw1hwk.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
-			SAY NAME2 @400801				/* Water's Edge +3 */
+			SAY NAME2 @400801
 		END
+	BUT_ONLY
 END
 
 // Harps
-ACTION_FOR_EACH harp IN ~MISC3M~ ~MISC3N~ ~MISC3O~ ~MISCBR~ ~WA2HARP~ BEGIN
+ACTION_FOR_EACH harp IN ~misc3m~ ~misc3n~ ~misc3o~ ~miscbr~ ~wa2harp~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%harp%.itm~) BEGIN
 		COPY_EXISTING ~%harp%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -54,7 +65,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~amul24.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Edwin's Amulet --> Gwen fix: adds bgmisc89 (BGT and IR compatibility)
+// Edwin's Amulet --> Gwen fix: added bgmisc89 (BGT and IR compatibility)
 ACTION_FOR_EACH amul IN ~misc89~ ~bgmisc89~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%amul%.itm~) BEGIN
 		COPY_EXISTING ~%amul%.itm~ ~override~

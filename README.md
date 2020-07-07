@@ -873,7 +873,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
     - Replaced the tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically writes values in tooltip.2da from the tra file.
     - Integrated <a href=http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849">Lollorian's BWP Fixpack patch for Ashes of Embers compatibility</a> (400_1pp_update_bgii.tph.patch): Renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">Source</a>.
     - Added ToBEx compatibility for circlets: item flag EE/Ex: Toggle critical hits flag (BIT25).
-    - Gems sub-component: code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Builds an array to define new gems lore values to identify. Same tph used for IWD and BG2 games.
+    - Gems sub-component: code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Build an array to define new gems lore values to identify. .Same library used for IWD and BG2 based games.
     - Code simplified or re-written with newer functions to provide automatic process:
       - Replaced `WRITE_LONG 0x3E 0` and `WRITE_ASCII 0x3A \~ISHLDS01\~` with `WRITE_ASCII 0x3A \~ISHLDS01\~ #8`. Id. with offsets 0x48 0x44, and 0x5C 0x58.
 
@@ -893,7 +893,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
       - xoband04.itm (Circlet of the Archmagi): same fixes for opcodes #33, 34, 35, 36 & 37. Added one missing equipped effects (`LPM ADD_ITEM_EQEFFECT #19`).
     - weapons specific fixes (400_update_bgii_weapons.tpa):
       - dagg12.itm (Firetooth +3): fixed typos in `LPM \~pulse\~` macro (redundant setr variable set to 152 and 189 should be setg and setb, otherwise they overwrite the setr value and don't set the correct setg and setb values).
-      - halb08.itm (Duskblade +2): fixed a typo copying halb06 instead of halb08.
+      - halb08.itm (Duskblade +2): fixed a typo patching halb06 instead of halb08.
       - hamm10.itm & hamm11.itm (Runehammers): new 1pp_hammers_icons setting gives the choice to assign them, or not, the Borok's Fist's icon.
     - miscellaneous specific fixes (400_update_bgii_misc.tpa):
       - misc89.itm (Edwin's Amulet): added bgmisc89 (BGT and IR compatibility).

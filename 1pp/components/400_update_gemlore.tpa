@@ -1,61 +1,78 @@
-// new tph file: GEMS AND OTHER SHENANIGANS
+/* ================================================================================================================================================================================ *
+ *                                                                                                                                                                                  *
+ *                                                    C O M P O N E N T   :   G e m s   a n d   o t h e r   S h e a n i g a n s                                                     *
+ *                                                                                                                                                                                  *
+ * ================================================================================================================================================================================ *
+ *  This part installs gems stuff : Same library used for IWD and BG2 based games.                                                                                                  *
+ * ================================================================================================================================================================================ *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - Variable needed for installation (1pp_gemlore) is read from 1pp-config-default.ini or 1pp-config-user.ini files.                                                          *
+ *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is     *
+ *        installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file    *
+ *        provides a standard installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and   *
+ *        save it as 1pp-config-user.ini. The installation process will read both .ini files and prioritize user values. If a value is not set or mismatched in user's file         *
+ *        1pp-config-user.ini, the installation process will prevent any installation failure by reverting it back to its default value.                                            *
+ *      - Coding simplification:                                                                                                                                                    *
+ *          Code re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2).                                                   *
+ *          Builds an array to define new gems lore values to identify.                                                                                                             *
+ * ================================================================================================================================================================================ */
 
-/*  ===========================================================================================================================  *
- *  change-log:                                                                                                                  *
- *  -----------                                                                                                                  *
- *      - Same tph used for IWD and BG2 games.                                                                                   *
- *      - Code re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2).  *
- *      - Builds an array to define new gems lore values to identify.                                                            *
- *  ===========================================================================================================================  */
+PRINT @400041 // ~Patching gems...~
+SILENT
 
 OUTER_SET uname = 0
 OUTER_SET idesc = 0
 
 // BUILDING ARRAY
-ACTION_CLEAR_ARRAY 1pp_gemlores
-ACTION_DEFINE_ASSOCIATIVE_ARRAY 1pp_gemlores BEGIN
-	misc16	=>	7	// Fire Agate Gem
-	misc17	=>	6	// Lynx Eye Gem
-	misc18	=>	12	// Sunstone Gem
-	misc19	=>	5	// Turquoise Gem
-	misc20	=>	11	// Bloodstone Gem
-	misc21	=>	18	// Skydrop Gem
-	misc22	=>	9	// Andar Gem
-	misc23	=>	8	// Jasper Gem
-	misc24	=>	14	// Tchazar Gem
-	misc25	=>	17	// Zircon Gem
-	misc26	=>	20	// Iol Gem
-	misc27	=>	13	// Moonstone Gem
-	misc28	=>	30	// Waterstar Gem
-	misc29	=>	16	// Ziose Gem
-	misc30	=>	8	// Chrysoberyl Gem
-	misc31	=>	17	// Star Diopside Gem
-	misc32	=>	29	// Shandon Gem
-	misc33	=>	16	// Aquamarine Gem
-	misc34	=>	9	// Garnet Gem
-	misc35	=>	12	// Horn Coral Gem
-	misc36	=>	5	// Pearl
-	misc37	=>	30	// Sphene Gem
-	misc38	=>	32	// Black Opal
-	misc39	=>	29	// Water Opal
-	misc40	=>	12	// Moonbar Gem
-	misc41	=>	17	// Star Sapphire
-	misc42	=>	7	// Diamond
-	misc43	=>	11	// Emerald
-	misc44	=>	27	// King's Tears
-	misc45	=>	6	// Rogue Stone
+ACTION_IF (1pp_gemlore = 1) BEGIN
+	ACTION_CLEAR_ARRAY 1pp_gemlores
+	ACTION_DEFINE_ASSOCIATIVE_ARRAY 1pp_gemlores BEGIN
+		misc16	=>	7	// Fire Agate Gem
+		misc17	=>	6	// Lynx Eye Gem
+		misc18	=>	12	// Sunstone Gem
+		misc19	=>	5	// Turquoise Gem
+		misc20	=>	11	// Bloodstone Gem
+		misc21	=>	18	// Skydrop Gem
+		misc22	=>	9	// Andar Gem
+		misc23	=>	8	// Jasper Gem
+		misc24	=>	14	// Tchazar Gem
+		misc25	=>	17	// Zircon Gem
+		misc26	=>	20	// Iol Gem
+		misc27	=>	13	// Moonstone Gem
+		misc28	=>	30	// Waterstar Gem
+		misc29	=>	16	// Ziose Gem
+		misc30	=>	8	// Chrysoberyl Gem
+		misc31	=>	17	// Star Diopside Gem
+		misc32	=>	29	// Shandon Gem
+		misc33	=>	16	// Aquamarine Gem
+		misc34	=>	9	// Garnet Gem
+		misc35	=>	12	// Horn Coral Gem
+		misc36	=>	5	// Pearl
+		misc37	=>	30	// Sphene Gem
+		misc38	=>	32	// Black Opal
+		misc39	=>	29	// Water Opal
+		misc40	=>	12	// Moonbar Gem
+		misc41	=>	17	// Star Sapphire
+		misc42	=>	7	// Diamond
+		misc43	=>	11	// Emerald
+		misc44	=>	27	// King's Tears
+		misc45	=>	6	// Rogue Stone
+	END
 END
 
 
-/*  -------------------------------------------  *
+/* ============================================= *
  *  Beljuril (Gwen note: does not exist in IWD)  *
- *  -------------------------------------------  */
-ACTION_IF (FILE_EXISTS_IN_GAME ~MISC1J.itm~) BEGIN
-	COPY_EXISTING ~MISC1J.ITM~ ~override~
+ * ============================================= */
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~misc1j.itm~) BEGIN
+	COPY_EXISTING ~misc1j.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
 			READ_LONG 0x8 uname
 			READ_LONG 0x50 idesc
 		END
+	BUT_ONLY
 END
 
 ACTION_FOR_EACH ~item~ IN ~misc1j~ ~misc6z~ BEGIN
@@ -66,52 +83,60 @@ ACTION_FOR_EACH ~item~ IN ~misc1j~ ~misc6z~ BEGIN
 				WRITE_ASCII 0x44 ~GGEM01~ #8
 				PATCH_IF (1pp_gemlore = 1) BEGIN
 					WRITE_LONG  0x08 uname
-					SAY UNIDENTIFIED_DESC @400701 /* This looks to be a gemstone of some sort. You are sure it could fetch a nice sum if you knew its value and origin, but as it is you might as well try to sell a lump of glass.*/
+					SAY UNIDENTIFIED_DESC @400701
 					WRITE_LONG  0x54 idesc
 					WRITE_SHORT 0x42 40
 				END
 			END
+		BUT_ONLY
 	END
 
 END
 
 
-/*  ----  *
+/* ====== *
  *  Gems  *
- *  ----  */
-ACTION_IF (FILE_EXISTS_IN_GAME ~MISC16.ITM~) BEGIN
+ * ====== */
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~misc16.itm~) BEGIN
 	COPY_EXISTING ~MISC16.ITM~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
 			READ_LONG 0x08 uname			// gem
 		END
+	BUT_ONLY
 END
 
 ACTION_PHP_EACH 1pp_gemlores AS gem => lore BEGIN
+
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%gem%.itm~) BEGIN
 		COPY_EXISTING ~%gem%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
 				WRITE_ASCII 0x44 ~GGEM01~ #8
 				PATCH_IF (1pp_gemlore = 1) BEGIN
 					WRITE_LONG  0x08 uname
-					SAY UNIDENTIFIED_DESC @400701 /* This looks to be a gemstone of some sort. You are sure it could fetch a nice sum if you knew its value and origin, but as it is you might as well try to sell a lump of glass.*/
+					SAY UNIDENTIFIED_DESC @400701 // ~This looks to be a gemstone of some sort. You are sure it could fetch a nice sum if you knew its value and origin, but as it is you might as well try to sell a lump of glass.~
 					WRITE_SHORT 0x42 lore
 				END
 			END
 		BUT_ONLY
 	END
+
 	// Gwen fix: Add tutu content
-	ACTION_IF (FILE_EXISTS_IN_GAME ~_%gem%.itm~) BEGIN
-		COPY_EXISTING ~_%gem%.itm~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
-				WRITE_ASCII 0x44 ~GGEM01~ #8
-				PATCH_IF (1pp_gemlore = 1) BEGIN
-					WRITE_LONG  0x08 uname
-					SAY UNIDENTIFIED_DESC @400701
-					WRITE_SHORT 0x42 lore
+	ACTION_IF (is_tutu) BEGIN
+		ACTION_IF (FILE_EXISTS_IN_GAME ~_%gem%.itm~) BEGIN
+			COPY_EXISTING ~_%gem%.itm~ ~override~
+				PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
+					WRITE_ASCII 0x44 ~GGEM01~ #8
+					PATCH_IF (1pp_gemlore = 1) BEGIN
+						WRITE_LONG  0x08 uname
+						SAY UNIDENTIFIED_DESC @400701
+						WRITE_SHORT 0x42 lore
+					END
 				END
-			END
-		BUT_ONLY
+			BUT_ONLY
+		END
 	END
+
 END
 
 ACTION_CLEAR_ARRAY 1pp_gemlores
