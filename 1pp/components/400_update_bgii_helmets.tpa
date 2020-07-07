@@ -1,50 +1,62 @@
-/*  ==============================================================================================================================================================================  *
+/* ================================================================================================================================================================================ *
+ *                                                                                                                                                                                  *
+ *                                      C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( h e l m e t s )                                       *
+ *                                                                                                                                                                                  *
+ * ================================================================================================================================================================================ *
+ *  This part installs helmets stuff.                                                                                                                                               *
+ * ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
- *      - Replace macros with functions whenever possible.                                                                                                                          *
+ *      - Replaced macros with functions whenever possible.                                                                                                                         *
  *      - Coding simplification:                                                                                                                                                    *
- *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
- *  		Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *  		Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                              *
+ *  		Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                   *
  *                                                                                                                                                                                  *
  *  specific fixes:                                                                                                                                                                 *
  *  ---------------                                                                                                                                                                 *
- *      - #809  ==> helm33.itm (Gold Horned Helm): fixes typo (was copying helm22 instead of helm33).                                                                               *
- *      - #2676 ==> Adds Lollorian's patch for Ashes of Embers compatibility.                                                                                                       *
- *  ==============================================================================================================================================================================  */
+ *      - #825  ==> helm33.itm (Gold Horned Helm): fixed a typo (was copying helm22 instead of helm33). Id. #2610.                                                                  *
+ *      - #2709 ==> Circlets: Added Lollorian's patch for Ashes of Embers compatibility.                                                                                            *
+ * ================================================================================================================================================================================ */
 
-/*  =============================  *
+/* =============================== *
  *          HELMETS BEGIN          *
- *  =============================  */
+ * =============================== */
 
-ACTION_IF (1pp_helmets_shadows = 2) BEGIN // shadow helmets
+ACTION_IF (1pp_helmets_shadows = 2) BEGIN // shadow helmets on paperdolls (1 = No - 2 = Yes [Default])
 
-	ACTION_FOR_EACH resource IN ~WPLJ0INV~ ~WPLJ1INV~ ~WPLJ2INV~ ~WPLJ3INV~ ~WPLJ4INV~ ~WPLJ5INV~ ~WPLJ6INV~ ~WPLJ7INV~ ~WPLJ8INV~ ~WPLJ9INV~ ~WPLJAINV~ ~WPLJCINV~ ~WPMJ0INV~ ~WPMJ1INV~ ~WPMJ2INV~ ~WPMJ3INV~ ~WPMJ4INV~ ~WPMJ5INV~ ~WPMJ6INV~ ~WPMJ7INV~ ~WPMJ8INV~ ~WPMJ9INV~ ~WPMJAINV~ ~WPMJCINV~ ~WPNJ0INV~ ~WPNJ1INV~ ~WPNJ2INV~ ~WPNJ3INV~ ~WPNJ4INV~ ~WPNJ5INV~ ~WPNJ6INV~ ~WPNJ7INV~ ~WPNJ8INV~ ~WPNJ9INV~ ~WPNJAINV~ ~WPNJCINV~ ~WPSJ0INV~ ~WPSJ1INV~ ~WPSJ2INV~ ~WPSJ3INV~ ~WPSJ4INV~ ~WPSJ5INV~ ~WPSJ6INV~ ~WPSJ7INV~ ~WPSJ8INV~ ~WPSJ9INV~ ~WPSJAINV~ ~WPSJCINV~ BEGIN
+	ACTION_FOR_EACH resource IN ~wplj0inv~ ~wplj1inv~ ~wplj2inv~ ~wplj3inv~ ~wplj4inv~ ~wplj5inv~ ~wplj6inv~ ~wplj7inv~ ~wplj8inv~ ~wplj9inv~ ~wpljainv~ ~wpljcinv~ ~wpmj0inv~ ~wpmj1inv~ ~wpmj2inv~ ~wpmj3inv~ ~wpmj4inv~ ~wpmj5inv~ ~wpmj6inv~ ~wpmj7inv~ ~wpmj8inv~ ~wpmj9inv~ ~wpmjainv~ ~wpmjcinv~ ~wpnj0inv~ ~wpnj1inv~ ~wpnj2inv~ ~wpnj3inv~ ~wpnj4inv~ ~wpnj5inv~ ~wpnj6inv~ ~wpnj7inv~ ~wpnj8inv~ ~wpnj9inv~ ~wpnjainv~ ~wpnjcinv~ ~wpsj0inv~ ~wpsj1inv~ ~wpsj2inv~ ~wpsj3inv~ ~wpsj4inv~ ~wpsj5inv~ ~wpsj6inv~ ~wpsj7inv~ ~wpsj8inv~ ~wpsj9inv~ ~wpsjainv~ ~wpsjcinv~ BEGIN
 		COPY ~1pp/additions/obj_1pp_h/%resource%.bam~ ~override~
 	END
 
 END
 
-/* ------------------------------ *
- * updated Baldur's Gate II style *
- * ------------------------------ */
+ACTION_IF (1pp_armours_appearance = 2) BEGIN	// Faux Baldur's Gate I style (use BG1 icons but not animations)
+	OUTER_SET 1pp_helmets_compatibility = 2		// based on Baldur's Gate I style 
+END
+
+/* -------------------------------- *
+ *  Updated Baldur's Gate II style  *
+ * -------------------------------- */
+
 ACTION_IF (1pp_helmets_compatibility = 1) BEGIN
 
-	PRINT @400015 /* Installing helmet compatibility... */
+	PRINT @400032 // ~Installing helmet compatibility (Updated Baldur's Gate II style)...~
+	SILENT
 
 	ACTION_FOR_EACH set IN ~0~ ~1~ ~2~ ~3~ ~4~ ~5~ BEGIN
-		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
-			ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~SA~ ~SS~ ~SX~ BEGIN
-				COPY_EXISTING ~WQ%category%J%set%%sequence%.BAM~ ~override/WQ%category%H%set%%sequence%.BAM~
+		ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
+			ACTION_FOR_EACH sequence IN ~a1~ ~a2~ ~a3~ ~a4~ ~a5~ ~a6~ ~a7~ ~a8~ ~a9~ ~ca~ ~g1~ ~sa~ ~ss~ ~sx~ BEGIN
+				COPY_EXISTING ~wq%category%j%set%%sequence%.bam~ ~override/wq%category%h%set%%sequence%.bam~
 			END
-			COPY_EXISTING ~WP%category%J%set%INV.BAM~ ~override/WP%category%H%setINV.BAM~
+			COPY_EXISTING ~wp%category%j%set%inv.bam~ ~override/wp%category%h%set%inv.bam~
 		END
 	END
 
-/* DEPRECATED
+/* DEPRECATED as of v4.2.0
 	ACTION_FOR_EACH set IN ~H0~ BEGIN
 		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
 			ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~SA~ ~SS~ ~SX~ BEGIN
-				COPY_EXISTING ~WQ%category%J0%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+				COPY_EXISTING ~WQ%category%J0%sequence%.bam~ ~override/WQ%category%%set%%sequence%.bam~
 			END
 		END
 	END
@@ -52,7 +64,7 @@ ACTION_IF (1pp_helmets_compatibility = 1) BEGIN
 	ACTION_FOR_EACH set IN ~H0~ BEGIN
 		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
 			ACTION_FOR_EACH sequence IN ~INV~ BEGIN
-				COPY_EXISTING ~WP%category%J0%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+				COPY_EXISTING ~WP%category%J0%sequence%.bam~ ~override/WP%category%%set%%sequence%.bam~
 			END
 		END
 	END
@@ -60,7 +72,7 @@ ACTION_IF (1pp_helmets_compatibility = 1) BEGIN
 	ACTION_FOR_EACH set IN ~H1~ BEGIN
 		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
 			ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~SA~ ~SS~ ~SX~ BEGIN
-				COPY_EXISTING ~WQ%category%J1%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+				COPY_EXISTING ~WQ%category%J1%sequence%.bam~ ~override/WQ%category%%set%%sequence%.bam~
 			END
 		END
 	END
@@ -68,7 +80,7 @@ ACTION_IF (1pp_helmets_compatibility = 1) BEGIN
 	ACTION_FOR_EACH set IN ~H1~ BEGIN
 		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
 			ACTION_FOR_EACH sequence IN ~INV~ BEGIN
-				COPY_EXISTING ~WP%category%J1%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+				COPY_EXISTING ~WP%category%J1%sequence%.bam~ ~override/WP%category%%set%%sequence%.bam~
 			END
 		END
 	END
@@ -76,7 +88,7 @@ ACTION_IF (1pp_helmets_compatibility = 1) BEGIN
 	ACTION_FOR_EACH set IN ~H2~ BEGIN
 		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
 			ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~SA~ ~SS~ ~SX~ BEGIN
-				COPY_EXISTING ~WQ%category%J2%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+				COPY_EXISTING ~WQ%category%J2%sequence%.bam~ ~override/WQ%category%%set%%sequence%.bam~
 			END
 		END
 	END
@@ -84,7 +96,7 @@ ACTION_IF (1pp_helmets_compatibility = 1) BEGIN
 	ACTION_FOR_EACH set IN ~H2~ BEGIN
 		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
 			ACTION_FOR_EACH sequence IN ~INV~ BEGIN
-				COPY_EXISTING ~WP%category%J2%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+				COPY_EXISTING ~WP%category%J2%sequence%.bam~ ~override/WP%category%%set%%sequence%.bam~
 			END
 		END
 	END
@@ -92,7 +104,7 @@ ACTION_IF (1pp_helmets_compatibility = 1) BEGIN
 	ACTION_FOR_EACH set IN ~H3~ BEGIN
 		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
 			ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~SA~ ~SS~ ~SX~ BEGIN
-				COPY_EXISTING ~WQ%category%J3%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+				COPY_EXISTING ~WQ%category%J3%sequence%.bam~ ~override/WQ%category%%set%%sequence%.bam~
 			END
 		END
 	END
@@ -100,7 +112,7 @@ ACTION_IF (1pp_helmets_compatibility = 1) BEGIN
 	ACTION_FOR_EACH set IN ~H3~ BEGIN
 		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
 			ACTION_FOR_EACH sequence IN ~INV~ BEGIN
-				COPY_EXISTING ~WP%category%J3%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+				COPY_EXISTING ~WP%category%J3%sequence%.bam~ ~override/WP%category%%set%%sequence%.bam~
 			END
 		END
 	END
@@ -108,7 +120,7 @@ ACTION_IF (1pp_helmets_compatibility = 1) BEGIN
 	ACTION_FOR_EACH set IN ~H4~ BEGIN
 		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
 			ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~SA~ ~SS~ ~SX~ BEGIN
-				COPY_EXISTING ~WQ%category%J4%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+				COPY_EXISTING ~WQ%category%J4%sequence%.bam~ ~override/WQ%category%%set%%sequence%.bam~
 			END
 		END
 	END
@@ -116,7 +128,7 @@ ACTION_IF (1pp_helmets_compatibility = 1) BEGIN
 	ACTION_FOR_EACH set IN ~H4~ BEGIN
 		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
 			ACTION_FOR_EACH sequence IN ~INV~ BEGIN
-				COPY_EXISTING ~WP%category%J4%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+				COPY_EXISTING ~WP%category%J4%sequence%.bam~ ~override/WP%category%%set%%sequence%.bam~
 			END
 		END
 	END
@@ -124,7 +136,7 @@ ACTION_IF (1pp_helmets_compatibility = 1) BEGIN
 	ACTION_FOR_EACH set IN ~H5~ BEGIN
 		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
 			ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~SA~ ~SS~ ~SX~ BEGIN
-				COPY_EXISTING ~WQ%category%J5%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+				COPY_EXISTING ~WQ%category%J5%sequence%.bam~ ~override/WQ%category%%set%%sequence%.bam~
 			END
 		END
 	END
@@ -132,7 +144,7 @@ ACTION_IF (1pp_helmets_compatibility = 1) BEGIN
 	ACTION_FOR_EACH set IN ~H5~ BEGIN
 		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
 			ACTION_FOR_EACH sequence IN ~INV~ BEGIN
-				COPY_EXISTING ~WP%category%J5%sequence%.BAM~ ~override/WP%category%%set%%sequence%.BAM~
+				COPY_EXISTING ~WP%category%J5%sequence%.bam~ ~override/WP%category%%set%%sequence%.bam~
 			END
 		END
 	END
@@ -140,57 +152,59 @@ ACTION_IF (1pp_helmets_compatibility = 1) BEGIN
 END // of ACTION_IF (1pp_helmets_compatibility = 1) = updated Baldur's Gate II style
 
 
-/* ------------------------------ *
- * based on Baldur's Gate I style *
- * ------------------------------ */
+/* -------------------------------- *
+ *  Based on Baldur's Gate I style  *
+ * -------------------------------- */
+
 ACTION_IF (1pp_helmets_compatibility = 2) BEGIN
 
-	PRINT @400015 /* Installing helmet compatibility... */
+	PRINT @400033 // ~Installing helmet compatibility (Based on Baldur's Gate I style)...~
+	SILENT
 
-	ACTION_FOR_EACH set IN ~H0~ BEGIN
-		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
-			ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~SA~ ~SS~ ~SX~ BEGIN
-				COPY_EXISTING ~WQ%category%J6%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+	ACTION_FOR_EACH set IN ~h0~ BEGIN
+		ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
+			ACTION_FOR_EACH sequence IN ~a1~ ~a2~ ~a3~ ~a4~ ~a5~ ~a6~ ~a7~ ~a8~ ~a9~ ~ca~ ~g1~ ~sa~ ~ss~ ~sx~ BEGIN
+				COPY_EXISTING ~wq%category%j6%sequence%.bam~ ~override/wq%category%%set%%sequence%.bam~
 			END
 		END
 	END
 
-	ACTION_FOR_EACH set IN ~H1~ BEGIN
-		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
-			ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~SA~ ~SS~ ~SX~ BEGIN
-				COPY_EXISTING ~WQ%category%J7%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+	ACTION_FOR_EACH set IN ~h1~ BEGIN
+		ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
+			ACTION_FOR_EACH sequence IN ~A1~ ~a2~ ~a3~ ~a4~ ~a5~ ~a6~ ~a7~ ~a8~ ~a9~ ~ca~ ~g1~ ~sa~ ~ss~ ~sx~ BEGIN
+				COPY_EXISTING ~wq%category%j7%sequence%.bam~ ~override/wq%category%%set%%sequence%.bam~
 			END
 		END
 	END
 
-	ACTION_FOR_EACH set IN ~H2~ BEGIN
-		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
-			ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~SA~ ~SS~ ~SX~ BEGIN
-				COPY_EXISTING ~WQ%category%J8%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+	ACTION_FOR_EACH set IN ~h2~ BEGIN
+		ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
+			ACTION_FOR_EACH sequence IN ~a1~ ~a2~ ~a3~ ~a4~ ~a5~ ~a6~ ~a7~ ~a8~ ~a9~ ~ca~ ~g1~ ~sa~ ~ss~ ~sx~ BEGIN
+				COPY_EXISTING ~wq%category%j8%sequence%.bam~ ~override/wq%category%%set%%sequence%.bam~
 			END
 		END
 	END
 
-	ACTION_FOR_EACH set IN ~H3~ BEGIN
-		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
-			ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~SA~ ~SS~ ~SX~ BEGIN
-				COPY_EXISTING ~WQ%category%J9%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+	ACTION_FOR_EACH set IN ~h3~ BEGIN
+		ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
+			ACTION_FOR_EACH sequence IN ~a1~ ~a2~ ~a3~ ~a4~ ~a5~ ~a6~ ~a7~ ~a8~ ~a9~ ~ca~ ~g1~ ~sa~ ~ss~ ~sx~ BEGIN
+				COPY_EXISTING ~wq%category%j9%sequence%.bam~ ~override/wq%category%%set%%sequence%.bam~
 			END
 		END
 	END
 
-	ACTION_FOR_EACH set IN ~H4~ BEGIN
-		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
-			ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~SA~ ~SS~ ~SX~ BEGIN
-				COPY_EXISTING ~WQ%category%J8%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+	ACTION_FOR_EACH set IN ~h4~ BEGIN
+		ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
+			ACTION_FOR_EACH sequence IN ~a1~ ~a2~ ~a3~ ~a4~ ~a5~ ~a6~ ~a7~ ~a8~ ~a9~ ~ca~ ~g1~ ~sa~ ~ss~ ~sx~ BEGIN
+				COPY_EXISTING ~wq%category%j8%sequence%.bam~ ~override/wq%category%%set%%sequence%.bam~
 			END
 		END
 	END
 
-	ACTION_FOR_EACH set IN ~H5~ BEGIN
-		ACTION_FOR_EACH category IN ~L~ ~M~ ~N~ ~S~ BEGIN
-			ACTION_FOR_EACH sequence IN ~A1~ ~A2~ ~A3~ ~A4~ ~A5~ ~A6~ ~A7~ ~A8~ ~A9~ ~CA~ ~G1~ ~SA~ ~SS~ ~SX~ BEGIN
-				COPY_EXISTING ~WQ%category%JA%sequence%.BAM~ ~override/WQ%category%%set%%sequence%.BAM~
+	ACTION_FOR_EACH set IN ~h5~ BEGIN
+		ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
+			ACTION_FOR_EACH sequence IN ~a1~ ~a2~ ~a3~ ~a4~ ~a5~ ~a6~ ~a7~ ~a8~ ~a9~ ~ca~ ~g1~ ~sa~ ~ss~ ~sx~ BEGIN
+				COPY_EXISTING ~wq%category%ja%sequence%.bam~ ~override/wq%category%%set%%sequence%.bam~
 			END
 		END
 	END
@@ -198,34 +212,38 @@ ACTION_IF (1pp_helmets_compatibility = 2) BEGIN
 END // of ACTION_IF (1pp_helmets_compatibility = 2) = based on Baldur's Gate I style
 
 
-/* ------------------- *
- * 1ppv4 style HELMETS *
- * ------------------- */
+/* --------------------- *
+ *  1ppv4 style HELMETS  *
+ * --------------------- */
+
 ACTION_IF (1pp_helmets_appearance = 1) BEGIN
+
+	PRINT @400034 // ~Patching helmets (1ppv4 style)...~
+	SILENT
 
 	// Helmet
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm01.itm~) BEGIN
 		COPY_EXISTING ~helm01.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J6~			// Replace H0
-				WRITE_ASCII 0x3A ~1HELM01~ #8	// Replace IHELM00
+				WRITE_ASCII 0x22 ~J6~			// replaces H0
+				WRITE_ASCII 0x3A ~1HELM01~ #8	// replaces IHELM00
 				WRITE_ASCII 0x58 ~CHELM01~ #8
 				LPM ~clear~
-				SET gradient = 14				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 14				// 14 DARK_PURE_SILVER replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 28				// colour index
-				SET location = hpink			// location
+				SET gradient = 28				// sets colour index 28 BLUISH_SILVER
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 202				// Replace colour index 30
-				SET location = hblue			// location
+				SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 30 LIGHT_IRON_GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 202				// Replace colour index 27
-				SET location = hred				// location
+				SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 27 GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 202			// colour index
-					SET location = hteal		// location
+					SET gradient = 202			// sets colour index 202 HAIR2-LIBERTY_BLUE 
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -236,25 +254,25 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm02.itm~) BEGIN
 		COPY_EXISTING ~helm02.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J3~			// Replace H3
-				WRITE_ASCII 0x3A ~1HELM26~ #8	// Replace IHELM04
+				WRITE_ASCII 0x22 ~J3~			// replaces H3
+				WRITE_ASCII 0x3A ~1HELM26~ #8	// replaces IHELM04
 				WRITE_ASCII 0x58 ~CHELM04~ #8
 				LPM ~clear~
-				SET gradient = 14				// Replace colour index 13
-				SET location = hgrey			// location
+				SET gradient = 14				// 14 DARK_PURE_SILVER replaces colour index 13 LIGHT_PINKISH_SILVER
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 21				// colour index
-				SET location = hpink			// location
+				SET gradient = 21				// sets colour index 21 DARK_IRON_GRAY
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 21				// Replace colour index 30
-				SET location = hblue			// location
+				SET gradient = 21				// 21 DARK_IRON_GRAY replaces colour index 30 LIGHT_IRON_GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 90				// colour index
-				SET location = hred				// location
+				SET gradient = 90				// sets colour index 90 MOLDY_GOLD
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 21				// colour index
-				SET location = hteal			// location
+				SET gradient = 21				// sets colour index 21 DARK_IRON_GRAY
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -266,25 +284,56 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 		ACTION_IF (FILE_EXISTS_IN_GAME ~%helmet%.itm~) BEGIN
 			COPY_EXISTING ~%helmet%.itm~ ~override~
 				PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-					WRITE_ASCII 0x22 ~J8~			// Replace H1
-					WRITE_ASCII 0x3A ~1HELM07~ #8	// Replace IHELM02
-					WRITE_ASCII 0x58 ~1CHELMX6~ #8	// Replace CHELM02
+					WRITE_ASCII 0x22 ~J8~			// replaces H1
+					WRITE_ASCII 0x3A ~1HELM07~ #8	// replaces IHELM02
+					WRITE_ASCII 0x58 ~1CHELMX6~ #8	// replaces CHELM02
 					LPM ~clear~
-					SET gradient = 207				// Replace colour index 27
-					SET location = hgrey			// location
+					SET gradient = 207				// 207 NOBLE_MINOR2-CHROME_GOLD replaces colour index 27 GRAY
+					SET location = hgrey			// location (Wings)
 					LPM ~colour~
-					SET gradient = 21				// colour index
-					SET location = hpink			// location
+					SET gradient = 21				// sets colour index 21 DARK_IRON_GRAY
+					SET location = hpink			// location (Plume)
 					LPM ~colour~
-					SET gradient = 184				// Replace colour index 27
-					SET location = hblue			// location
+					SET gradient = 184				// 184 CADET_BLUE replaces colour index 27 GRAY
+					SET location = hblue			// location (Exterior)
 					LPM ~colour~
-					SET gradient = 21				// Replace colour index 27
-					SET location = hred				// location
+					SET gradient = 21				// 21 DARK_IRON_GRAY replaces colour index 27 GRAY
+					SET location = hred				// location (Face)
 					LPM ~colour~
 					//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-					SET gradient = 223				// colour index
-					SET location = hteal			// location
+					SET gradient = 223				// sets colour index 223 DROW_SKIN-MOSS_GREEN
+					SET location = hteal			// location (Detail)
+					LPM ~colour~
+					//END
+				END
+			BUT_ONLY
+		END
+	END
+
+	// Gift of Peace
+	ACTION_FOR_EACH helmet IN ~helm04~ ~chalhelm~ BEGIN
+		ACTION_IF (FILE_EXISTS_IN_GAME ~%helmet%.itm~) BEGIN
+			COPY_EXISTING ~%helmet%.itm~ ~override~
+				PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+					WRITE_ASCII 0x22 ~J1~			// replaces H2
+					WRITE_ASCII 0x3A ~1HELM21~ #8	// replaces IHELM03
+					WRITE_ASCII 0x58 ~1CHELM21~ #8	// replaces CHELM03
+					LPM ~clear~
+					SET gradient = 21				// 21 DARK_IRON_GRAY replaces colour index 27 GRAY
+					SET location = hgrey			// location (Wings)
+					LPM ~colour~
+					SET gradient = 6				// sets colour index 6 DARK_SILVER
+					SET location = hpink			// location (Plume)
+					LPM ~colour~
+					SET gradient = 142				// 142 DARK_POWDER_BLUE replaces colour index 27 GRAY
+					SET location = hblue			// location (Exterior)
+					LPM ~colour~
+					SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+					SET location = hred				// location (Face)
+					LPM ~colour~
+					//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
+					SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+					SET location = hteal			// location (Detail)
 					LPM ~colour~
 					//END
 				END
@@ -296,25 +345,25 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm05.itm~) BEGIN
 		COPY_EXISTING ~helm05.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~JA~			// Replace H5
-				WRITE_ASCII 0x3A ~1HELM19~ #8	// Replace IHELM06
-				WRITE_ASCII 0x58 ~1CHELM18~ #8	// Replace CHELM06
+				WRITE_ASCII 0x22 ~JA~			// replaces H5
+				WRITE_ASCII 0x3A ~1HELM19~ #8	// replaces IHELM06
+				WRITE_ASCII 0x58 ~1CHELM18~ #8	// replaces CHELM06
 				LPM ~clear~
-				SET gradient = 0				// Replace colour index 47
-				SET location = hgrey			// location
+				SET gradient = 0				// 0 RUST-TINTED_BLACK replaces colour index 47 PURE_DARK_RED
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 210				// colour index
-				SET location = hpink			// location
+				SET gradient = 210				// sets colour index 210 MERCHANT_MAJOR-AMBER 
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hblue			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 224				// Replace colour index 47
-				SET location = hred				// location
+				SET gradient = 224				// 224 DROW_MAJOR-MAIZE replaces colour index 47 PURE_DARK_RED
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 159				// colour index
-				SET location = hteal			// location
+				SET gradient = 159				// sets colour index 159 MAUVE
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -325,84 +374,53 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm06.itm~) BEGIN
 		COPY_EXISTING ~helm06.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~JA~			// Replace H2
-				WRITE_ASCII 0x3A ~1HELM18~ #8	// Replace IHELM03
-				WRITE_ASCII 0x58 ~1CHELM18~ #8	// Replace CHELM03
+				WRITE_ASCII 0x22 ~JA~			// replaces H2
+				WRITE_ASCII 0x3A ~1HELM18~ #8	// replaces IHELM03
+				WRITE_ASCII 0x58 ~1CHELM18~ #8	// replaces CHELM03
 				LPM ~clear~
-				SET gradient = 0				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 0				// 0 RUST-TINTED_BLACK replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 119				// colour index
-				SET location = hpink			// location
+				SET gradient = 119				// sets colour index 119 DARKEST_ORCHID
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hblue			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 224				// colour index
-				SET location = hred				// location
+				SET gradient = 224				// sets colour index 224 DROW_MAJOR-MAIZE 
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 118				// colour index
-				SET location = hteal			// location
+				SET gradient = 118				// sets colour index 118 DARKER_ORCHID
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
 		BUT_ONLY
 	END
 
-	// Gift of Peace
-	ACTION_FOR_EACH helmet IN ~helm04~ ~chalhelm~ BEGIN
-		ACTION_IF (FILE_EXISTS_IN_GAME ~%helmet%.itm~) BEGIN
-			COPY_EXISTING ~%helmet%.itm~ ~override~
-				PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-					WRITE_ASCII 0x22 ~J1~			// Replace H2
-					WRITE_ASCII 0x3A ~1HELM21~ #8	// Replace IHELM03
-					WRITE_ASCII 0x58 ~1CHELM21~ #8	// Replace CHELM03
-					LPM ~clear~
-					SET gradient = 21				// Replace colour index 27
-					SET location = hgrey			// location
-					LPM ~colour~
-					SET gradient = 6				// colour index
-					SET location = hpink			// location
-					LPM ~colour~
-					SET gradient = 142				// Replace colour index 27
-					SET location = hblue			// location
-					LPM ~colour~
-					SET gradient = 0				// colour index
-					SET location = hred				// location
-					LPM ~colour~
-					//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-					SET gradient = 0				// colour index
-					SET location = hteal			// location
-					LPM ~colour~
-					//END
-				END
-			BUT_ONLY
-		END
-	END
-
 	// Helm of Balduran
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm07.itm~) BEGIN
 		COPY_EXISTING ~helm07.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J7~			// Replace H1
+				WRITE_ASCII 0x22 ~J7~			// replaces H1
 				WRITE_ASCII 0x58 ~CHELM07~ #8
 				LPM ~clear~
-				SET gradient = 98				// Replace colour index 42
-				SET location = hgrey			// location
+				SET gradient = 98				// 98 LEAF_GREEN replaces colour index 42 BEIGE
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 114				// colour index
-				SET location = hpink			// location
+				SET gradient = 114				// sets colour index 114 YET_ANOTHER_BROWN
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 241				// Replace colour index 99
-				SET location = hblue			// location
+				SET gradient = 241				// 241 THIEF_MAJOR-OLIVE replaces colour index 99 GOLDEN_BROWN
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hred				// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 241				// colour index
-				SET location = hteal			// location
+				SET gradient = 241				// sets colour index 241 THIEF_MAJOR-OLIVE
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -413,25 +431,25 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm08.itm~) BEGIN
 		COPY_EXISTING ~helm08.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J8~			// Replace H3
-				WRITE_ASCII 0x3A ~1HELM05~ #8	// Replace IHELM04
-				WRITE_ASCII 0x58 ~1CHELMX4~ #8	// Replace CHELM04
+				WRITE_ASCII 0x22 ~J8~			// replaces H3
+				WRITE_ASCII 0x3A ~1HELM05~ #8	// replaces IHELM04
+				WRITE_ASCII 0x58 ~1CHELMX4~ #8	// replaces CHELM04
 				LPM ~clear~
-				SET gradient = 209				// Replace colour index 13
-				SET location = hgrey			// location
+				SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 13 LIGHT_PINKISH_SILVER
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 232				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hred				// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 223			// colour index
-					SET location = hteal		// location
+					SET gradient = 223			// sets colour index 223 DROW_SKIN-MOSS_GREEN
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -441,25 +459,25 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm09.itm~) BEGIN
 		COPY_EXISTING ~helm09.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J9~			// Replace H2
-				WRITE_ASCII 0x3A ~1HELM17~ #8	// Replace IHELM03
-				WRITE_ASCII 0x58 ~1CHELM17~ #8	// Replace CHELM03
+				WRITE_ASCII 0x22 ~J9~			// replaces H2
+				WRITE_ASCII 0x3A ~1HELM17~ #8	// replaces IHELM03
+				WRITE_ASCII 0x58 ~1CHELM17~ #8	// replaces CHELM03
 				LPM ~clear~
-				SET gradient = 223				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 223				// 223 DROW_SKIN-MOSS_GREEN replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hteal			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hblue			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 224				// colour index
-				SET location = hred				// location
+				SET gradient = 224				// sets colour index 224 DROW_MAJOR-MAIZE
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 195			// colour index
-					SET location = hpink		// location
+					SET gradient = 195			// sets colour index 195 CHROME_RED
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
 				END
 			END
@@ -469,25 +487,25 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm10.itm~) BEGIN
 		COPY_EXISTING ~helm10.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~JA~			// Replace H4
-				WRITE_ASCII 0x3A ~1HELM20~ #8	// Replace IHELM05
-				WRITE_ASCII 0x58 ~1CHELM20~ #8	// Replace CHELM05
+				WRITE_ASCII 0x22 ~JA~			// replaces H4
+				WRITE_ASCII 0x3A ~1HELM20~ #8	// replaces IHELM05
+				WRITE_ASCII 0x58 ~1CHELM20~ #8	// replaces CHELM05
 				LPM ~clear~
-				SET gradient = 0				// Replace colour index 47
-				SET location = hgrey			// location
+				SET gradient = 0				// 0 RUST-TINTED_BLACK replaces colour index 47 PURE_DARK_RED
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hblue			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 99				// colour index
-				SET location = hred				// location
+				SET gradient = 99				// sets colour index 99 GOLDEN_BROWN
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 195			// colour index
-					SET location = hpink		// location
+					SET gradient = 195			// sets colour index 195 CHROME_RED
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
-					SET gradient = 210			// colour index
-					SET location = hteal		// location
+					SET gradient = 210			// sets colour index 210 MERCHANT_MAJOR-AMBER 
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -497,25 +515,25 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm11.itm~) BEGIN
 		COPY_EXISTING ~helm11.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J6~			// Replace H5
-				WRITE_ASCII 0x3A ~1HELM08~ #8	// Replace IHELM06
-				WRITE_ASCII 0x58 ~1CHELM01~ #8	// Replace CHELM06
+				WRITE_ASCII 0x22 ~J6~			// replaces H5
+				WRITE_ASCII 0x3A ~1HELM08~ #8	// replaces IHELM06
+				WRITE_ASCII 0x58 ~1CHELM01~ #8	// replaces CHELM06
 				LPM ~clear~
-				SET gradient = 226				// Replace colour index 47
-				SET location = hgrey			// location
+				SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 47 PURE_DARK_RED
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 102				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 102				// 102 SEA_BLUE replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 102				// colour index
-				SET location = hred				// location
+				SET gradient = 102				// sets colour index 102 SEA_BLUE
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 98			// colour index
-					SET location = hpink		// location
+					SET gradient = 98			// sets colour index 98 LEAF_GREEN
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
-					SET gradient = 102			// colour index
-					SET location = hteal		// location
+					SET gradient = 102			// sets colour index 102 SEA_BLUE
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -525,25 +543,25 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm12.itm~) BEGIN
 		COPY_EXISTING ~helm12.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~JC~			// Replace H1
-				WRITE_ASCII 0x3A ~1HELM02~ #8	// Replace IHELM02
-				WRITE_ASCII 0x58 ~1CHELMX2~ #8	// Replace CHELM02
+				WRITE_ASCII 0x22 ~JC~			// replaces H1
+				WRITE_ASCII 0x3A ~1HELM02~ #8	// replaces IHELM02
+				WRITE_ASCII 0x58 ~1CHELMX2~ #8	// replaces CHELM02
 				LPM ~clear~
-				SET gradient = 195				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 195				// 195 CHROME_RED replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 21				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 21				// 21 DARK_IRON_GRAY replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 242				// Replace colour index 24
-				SET location = hred				// location
+				SET gradient = 242				// 242 THIEF_MINOR-PALE_OLIVE replaces colour index 24 BROWN_GOLD
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 0			// colour index
-					SET location = hpink		// location
+					SET gradient = 0			// sets colour index 0 RUST-TINTED_BLACK
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
-					SET gradient = 109			// colour index
-					SET location = hteal		// location
+					SET gradient = 109			// sets colour index 109 TERRA_COTTA
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -553,25 +571,25 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm13.itm~) BEGIN
 		COPY_EXISTING ~helm13.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J5~			// Replace H5
-				WRITE_ASCII 0x3A ~1HELM12~ #8	// Replace IHELM06
-				WRITE_ASCII 0x58 ~CHELM05~ #8	// Replace CHELM06
+				WRITE_ASCII 0x22 ~J5~			// replaces H5
+				WRITE_ASCII 0x3A ~1HELM12~ #8	// replaces IHELM06
+				WRITE_ASCII 0x58 ~CHELM05~ #8	// replaces CHELM06
 				LPM ~clear~
-				SET gradient = 210				// Replace colour index 47
-				SET location = hgrey			// location
+				SET gradient = 210				// 210 MERCHANT_MAJOR-AMBER replaces colour index 47 PURE_DARK_RED
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 102				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 102				// 102 SEA_BLUE replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 248				// colour index
-				SET location = hred				// location
+				SET gradient = 248				// sets colour index 248 OGRE_MAJOR-BATTLESHIP_GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 195			// colour index
-					SET location = hpink		// location
+					SET gradient = 195			// sets colour index 195 CHROME_RED
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
-					SET gradient = 0			// colour index
-					SET location = hteal		// location
+					SET gradient = 0			// sets colour index 0 RUST-TINTED_BLACK
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -582,25 +600,25 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm14.itm~) BEGIN
 		COPY_EXISTING ~helm14.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J7~			// Replace H1
-				WRITE_ASCII 0x3A ~1HELM22~ #8	// Replace IHELM14
+				WRITE_ASCII 0x22 ~J7~			// replaces H1
+				WRITE_ASCII 0x3A ~1HELM22~ #8	// replaces IHELM14
 				WRITE_ASCII 0x58 ~CHELM07~ #8
 				LPM ~clear~
-				SET gradient = 209				// Replace colour index 42
-				SET location = hgrey			// location
+				SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 42 BEIGE
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 182				// Replace colour index 99
-				SET location = hblue			// location
+				SET gradient = 182				// 182 DEEP_BLACK replaces colour index 99 GOLDEN_BROWN
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 0				// Replace colour index 98
-				SET location = hred				// location
+				SET gradient = 0				// 0 RUST-TINTED_BLACK replaces colour index 98 LEAF_GREEN
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 21				// colour index
-				SET location = hpink			// location
+				SET gradient = 21				// sets colour index 21 DARK_IRON_GRAY
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 225				// colour index
-				SET location = hteal			// location
+				SET gradient = 225				// sets colour index 225 DROW_MINOR-CORNSILK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -611,25 +629,25 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm15.itm~) BEGIN
 		COPY_EXISTING ~helm15.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J0~			// Replace H4
-				WRITE_ASCII 0x3A ~1HELM15~ #8	// Replace IHELM05
-				WRITE_ASCII 0x58 ~1CHELM11~ #8	// Replace CHELM05
+				WRITE_ASCII 0x22 ~J0~			// replaces H4
+				WRITE_ASCII 0x3A ~1HELM15~ #8	// replaces IHELM05
+				WRITE_ASCII 0x58 ~1CHELM11~ #8	// replaces CHELM05
 				LPM ~clear~
-				SET gradient = 232				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 202				// Replace colour index 30
-				SET location = hblue			// location
+				SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 30 LIGHT_IRON_GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 209				// Replace colour index 27
-				SET location = hred				// location
+				SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 27 GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 0			// colour index
-					SET location = hpink		// location
+					SET gradient = 0			// sets colour index 0 RUST-TINTED_BLACK
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
-					SET gradient = 232			// colour index
-					SET location = hteal		// location
+					SET gradient = 232			// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -640,25 +658,25 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm16.itm~) BEGIN
 		COPY_EXISTING ~helm16.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J4~			// Replace H2
-				WRITE_ASCII 0x3A ~1HELM16~ #8	// Replace IHELM03
-				WRITE_ASCII 0x58 ~CHELM16~ #8	// Replace CHELM03
+				WRITE_ASCII 0x22 ~J4~			// replaces H2
+				WRITE_ASCII 0x3A ~1HELM16~ #8	// replaces IHELM03
+				WRITE_ASCII 0x58 ~CHELM16~ #8	// replaces CHELM03
 				LPM ~clear~
-				SET gradient = 209				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 205				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 205				// 205 NOBLE_MINOR2-CHROME_GRAY replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 226				// colour index
-				SET location = hred				// location
+				SET gradient = 226				// sets colour index 226 METAL_NORMAL-EIGENGRAU
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 195				// colour index
-				SET location = hpink			// location
+				SET gradient = 195				// sets colour index 195 CHROME_RED
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hteal			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -669,23 +687,23 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm17.itm~) BEGIN
 		COPY_EXISTING ~helm17.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J3~			// Replace H0
+				WRITE_ASCII 0x22 ~J3~			// replaces H0
 				LPM ~clear~
-				SET gradient = 98				// Replace colour index 100
-				SET location = hgrey			// location
+				SET gradient = 98				// 98 LEAF_GREEN replaces colour index 100 DARK_ASH_GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 3				// Replace colour index 106
-				SET location = hblue			// location
+				SET gradient = 3				// 3 LIGHT_GOLD replaces colour index 106 PALE_PINK
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 253				// colour index
-				SET location = hred				// location
+				SET gradient = 253				// sets colour index 253 DUERGAR_MINOR-PALE_TAUPE
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hteal			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -696,23 +714,23 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm21.itm~) BEGIN
 		COPY_EXISTING ~helm21.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J2~			// Replace H2
+				WRITE_ASCII 0x22 ~J2~			// replaces H2
 				LPM ~clear~
-				SET gradient = 227				// Replace colour index 33
-				SET location = hgrey			// location
+				SET gradient = 227				// 227 METAL_WILD-CORAL replaces colour index 33 CHROME_MAGENTA
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 88				// Replace colour index 33
-				SET location = hblue			// location
+				SET gradient = 88				// 88 CHROME_PINK replaces colour index 33 CHROME_MAGENTA
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 70				// colour index
-				SET location = hred				// location
+				SET gradient = 70				// sets colour index 70 LIGHT_METALLIC_RED
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 195				// colour index
-				SET location = hpink			// location
+				SET gradient = 195				// sets colour index 195 CHROME_RED
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 195				// colour index
-				SET location = hteal			// location
+				SET gradient = 195				// sets colour index 195 CHROME_RED
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -723,25 +741,25 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm22.itm~) BEGIN
 		COPY_EXISTING ~helm22.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~JC~			// Replace H3
-				WRITE_ASCII 0x3A ~1HELM03~ #8	// Replace IHELM04
-				WRITE_ASCII 0x58 ~1CHELMX3~ #8	// Replace CHELM04
+				WRITE_ASCII 0x22 ~JC~			// replaces H3
+				WRITE_ASCII 0x3A ~1HELM03~ #8	// replaces IHELM04
+				WRITE_ASCII 0x58 ~1CHELMX3~ #8	// replaces CHELM04
 				LPM ~clear~
-				SET gradient = 119				// Replace colour index 13
-				SET location = hgrey			// location
+				SET gradient = 119				// 119 DARKEST_ORCHID replaces colour index 13 LIGHT_PINKISH_SILVER
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 205				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 205				// 205 NOBLE_MINOR2-CHROME_GRAY replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 209				// colour index
-				SET location = hred				// location
+				SET gradient = 209				// sets colour index 209 ATH_PEASANT_MINOR-ASH_GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
-				SET gradient = 102				// colour index
-				SET location = hteal			// location
+				SET gradient = 102				// sets colour index 102 SEA_BLUE
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 0			// colour index
-					SET location = hpink		// location
+					SET gradient = 0			// sets colour index 0 RUST-TINTED_BLACK
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
 				END
 			END
@@ -752,52 +770,52 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm31.itm~) BEGIN
 		COPY_EXISTING ~helm31.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J2~			// Replace H0
-				WRITE_ASCII 0x58 ~1CHELM03~ #8	// Replace PHELM31
+				WRITE_ASCII 0x22 ~J2~			// replaces H0
+				WRITE_ASCII 0x58 ~1CHELM03~ #8	// replaces PHELM31
 				LPM ~clear~
-				SET gradient = 66				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 66				// 66 FADED_BLACK replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 183				// Replace colour index 30
-				SET location = hblue			// location
+				SET gradient = 183				// 183 CHARCOAL replaces colour index 30 LIGHT_IRON_GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 183				// Replace colour index 27
-				SET location = hred				// location
+				SET gradient = 183				// 183 CHARCOAL replaces colour index 27 GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hteal			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
 		BUT_ONLY
 	END
 
--	// Helm of the Rock
+	// Helm of the Rock
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm32.itm~) BEGIN
 		COPY_EXISTING ~helm32.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J2~			// Replace H1 (Gwen todo: check J3 in EE)
-				WRITE_ASCII 0x58 ~1CHELM03~ #8	// Replace PHELM32
+				WRITE_ASCII 0x22 ~J2~			// replaces H1 (Gwen todo: check J3 in EE)
+				WRITE_ASCII 0x58 ~1CHELM03~ #8	// replaces PHELM32
 				LPM ~clear~
-				SET gradient = 207				// Replace colour index 27 (Gwen todo: check 233 in EE)
-				SET location = hgrey			// location
+				SET gradient = 207				// 207 NOBLE_MINOR2-CHROME_GOLD replaces colour index 27 GRAY7 (Gwen todo: check 233 in EE)
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 199				// Replace colour index 30 (Gwen todo: check 208 in EE)
-				SET location = hblue			// location
+				SET gradient = 199				// 199 BLACK_TEAL replaces colour index 30 (Gwen todo: check 208 ATH_PEASANT_MAJOR-FADED_WHEAT in EE)
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 199				// Replace colour index 27 (Gwen todo: check 208 in EE)
-				SET location = hred				// location
+				SET gradient = 199				// 199 BLACK_TEAL replaces colour index 27 GRAY (Gwen todo: check 208 ATH_PEASANT_MAJOR-FADED_WHEAT in EE)
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hteal			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -808,23 +826,23 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm33.itm~) BEGIN
 		COPY_EXISTING ~helm33.itm~ ~override~	// fix typo (was copying helm32 instead of helm33)
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J3~			// Replace H3 (not modified in EE)
+				WRITE_ASCII 0x22 ~J3~			// replaces H3 (not modified in EE)
 				LPM ~clear~
-				SET gradient = 223				// Replace colour index 42 (not modified in EE)
-				SET location = hgrey			// location
+				SET gradient = 223				// 223 DROW_SKIN-MOSS_GREEN replaces colour index 42 BEIGE (not modified in EE)
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 208				// Replace colour index 99 (not modified in EE)
-				SET location = hblue			// location
+				SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 99 GOLDEN_BROWN (not modified in EE)
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 208				// colour index
-				SET location = hred				// location
+				SET gradient = 208				// sets colour index 208 ATH_PEASANT_MAJOR-FADED_WHEAT
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 0			// colour index
-					SET location = hpink		// location
+					SET gradient = 0			// sets colour index 0 RUST-TINTED_BLACK
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
-					SET gradient = 0			// colour index
-					SET location = hteal		// location
+					SET gradient = 0			// sets colour index 0 RUST-TINTED_BLACK
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -835,23 +853,23 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~compon05.itm~) BEGIN
 		COPY_EXISTING ~compon05.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J9~			// Replace H3
+				WRITE_ASCII 0x22 ~J9~			// replaces H3
 				LPM ~clear~
-				SET gradient = 225				// Replace colour index 13
-				SET location = hgrey			// location
+				SET gradient = 225				// 225 DROW_MINOR-CORNSILK replaces colour index 13 LIGHT_PINKISH_SILVER
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 250				// Replace colour index 51
-				SET location = hblue			// location
+				SET gradient = 250				// 250 SHADOW_DRUID_MAJOR-YELLOW_ORANGE replaces colour index 51 DARK_OLIVE_GREEN
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 47				// colour index
-				SET location = hred				// location
+				SET gradient = 47				// sets colour index 47 PURE_DARK_RED
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 210				// colour index
-				SET location = hpink			// location
+				SET gradient = 210				// sets colour index 210 MERCHANT_MAJOR-AMBER 
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 250				// colour index
-				SET location = hteal			// location
+				SET gradient = 250				// sets colour index 250 SHADOW_DRUID_MAJOR-YELLOW_ORANGE
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -862,25 +880,25 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~wa2helm.itm~) BEGIN
 		COPY_EXISTING ~wa2helm.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J3~			// Replace H0
-				WRITE_ASCII 0x3A ~1HELM24~ #8	// Replace IHELM17
-				WRITE_ASCII 0x58 ~CHELM04~ #8	// Replace CHELM17
+				WRITE_ASCII 0x22 ~J3~			// replaces H0
+				WRITE_ASCII 0x3A ~1HELM24~ #8	// replaces IHELM17
+				WRITE_ASCII 0x58 ~CHELM04~ #8	// replaces CHELM17
 				LPM ~clear~
-				SET gradient = 223				// Replace colour index 100
-				SET location = hgrey			// location
+				SET gradient = 223				// 223 DROW_SKIN-MOSS_GREEN replaces colour index 100 DARK_ASH_GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 27				// Replace colour index 106
-				SET location = hblue			// location
+				SET gradient = 27				// 27 GRAY replaces colour index 106 PALE_PINK
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hred				// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hteal			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
 				//END
 			END
@@ -890,119 +908,127 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 END	// of ACTION_IF (1pp_helmets_appearance = 1) = END of 1ppv4 style HELMETS
 
 
-/* ------------ *
- * TUTU HELMETS *
- * ------------ */
+/* -------------- *
+ *  TUTU HELMETS  *
+ * -------------- */
 
+PRINT @400035 // ~Patching Tutu helmets...~
+SILENT
+
+// Helmet
 ACTION_IF (FILE_EXISTS_IN_GAME ~_helm01.itm~) BEGIN
 	COPY_EXISTING ~_helm01.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~H0~			// Replace H
+			WRITE_ASCII 0x22 ~H0~			// replaces H
 			WRITE_ASCII 0x58 ~1CHELM01~ #8
-			LPM MACRO ~clear~
-			SET gradient = 223				// colour index
-			SET location = hgrey			// location
+			LPM ~clear~
+			SET gradient = 223				// sets colour index 223 DROW_SKIN-MOSS_GREEN
+			SET location = hgrey			// location (Wings)
 			LPM ~colour~
-			SET gradient = 27				// colour index
-			SET location = hblue			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = hblue			// location (Exterior)
 			LPM ~colour~
-			SET gradient = 27				// colour index
-			SET location = hred				// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = hred				// location (Face)
 			LPM ~colour~
-			SET gradient = 27				// colour index
-			SET location = hteal			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = hteal			// location (Detail)
 			LPM ~colour~
 			//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-			SET gradient = 27				// colour index
-			SET location = hpink			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = hpink			// location (Plume)
 			LPM ~colour~
 			//END
 		END
 	BUT_ONLY
 END
 
+// Helm of the Noble +1
 ACTION_IF (FILE_EXISTS_IN_GAME ~_helm03.itm~) BEGIN
 	COPY_EXISTING ~_helm03.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~H2~			// Replace H
+			WRITE_ASCII 0x22 ~H2~			// replaces H
 			WRITE_ASCII 0x58 ~1CHELM03~ #8
 			LPM ~clear~
-			SET gradient = 224				// colour index
-			SET location = hgrey			// location
+			SET gradient = 224				// sets colour index 224 DROW_MAJOR-MAIZE
+			SET location = hgrey			// location (Wings)
 			LPM ~colour~
-			SET gradient = 90				// colour index
-			SET location = hblue			// location
+			SET gradient = 90				// sets colour index 90 MOLDY_GOLD
+			SET location = hblue			// location (Exterior)
 			LPM ~colour~
-			SET gradient = 30				// colour index
-			SET location = hred				// location
+			SET gradient = 30				// sets colour index 30 LIGHT_IRON_GRAY
+			SET location = hred				// location (Face)
 			LPM ~colour~
-			SET gradient = 30				// colour index
-			SET location = hteal			// location
+			SET gradient = 30				// sets colour index 30 LIGHT_IRON_GRAY
+			SET location = hteal			// location (Detail)
 			LPM ~colour~
 			//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-			SET gradient = 30				// colour index
-			SET location = hpink			// location
+			SET gradient = 30				// sets colour index 30 LIGHT_IRON_GRAY
+			SET location = hpink			// location (Plume)
 			LPM ~colour~
 			//END
 		END
 	BUT_ONLY
 END
 
+// Gift of Peace
 ACTION_IF (FILE_EXISTS_IN_GAME ~_helm04.itm~) BEGIN
 	COPY_EXISTING ~_helm04.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~H5~			// Replace H
+			WRITE_ASCII 0x22 ~H5~			// replaces H
 			WRITE_ASCII 0x58 ~1CHELM04~ #8
 			LPM ~clear~
-			SET gradient = 0				// colour index
-			SET location = hgrey			// location
+			SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+			SET location = hgrey			// location (Wings)
 			LPM ~colour~
-			SET gradient = 202				// colour index
-			SET location = hblue			// location
+			SET gradient = 202				// sets colour index 202 HAIR2-LIBERTY_BLUE 
+			SET location = hblue			// location (Exterior)
 			LPM ~colour~
-			SET gradient = 0				// colour index
-			SET location = hred				// location
+			SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+			SET location = hred				// location (Face)
 			LPM ~colour~
-			SET gradient = 5				// colour index
-			SET location = hteal			// location
+			SET gradient = 5				// sets colour index 5 MEDIUM_SILVER
+			SET location = hteal			// location (Detail)
 			LPM ~colour~
 			//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-			SET gradient = 5				// colour index
-			SET location = hpink			// location
+			SET gradient = 5				// sets colour index 5 MEDIUM_SILVER
+			SET location = hpink			// location (Plume)
 			LPM ~colour~
 			//END
 		END
 	BUT_ONLY
 END
 
+// The Eyes of Truth
 ACTION_IF (FILE_EXISTS_IN_GAME ~_helm05.itm~) BEGIN
 	COPY_EXISTING ~_helm05.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~JA~			// Replace H
+			WRITE_ASCII 0x22 ~JA~			// replaces H
 			WRITE_ASCII 0x3A ~1HELM20~ #8
 			WRITE_ASCII 0x58 ~1CHELM20~ #8
 			LPM ~clear~
-			SET gradient = 0				// colour index
-			SET location = hgrey			// location
+			SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+			SET location = hgrey			// location (Wings)
 			LPM ~colour~
-			SET gradient = 27				// colour index
-			SET location = hblue			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = hblue			// location (Exterior)
 			LPM ~colour~
-			SET gradient = 99				// colour index
-			SET location = hred				// location
+			SET gradient = 99				// sets colour index 99 GOLDEN_BROWN
+			SET location = hred				// location (Face)
 			LPM ~colour~
 			//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-			SET gradient = 195				// colour index
-			SET location = hpink			// location
+			SET gradient = 195				// sets colour index 195 CHROME_RED
+			SET location = hpink			// location (Plume)
 			LPM ~colour~
-			SET gradient = 210				// colour index
-			SET location = hteal			// location
+			SET gradient = 210				// sets colour index 210 MERCHANT_MAJOR-AMBER 
+			SET location = hteal			// location (Detail)
 			LPM ~colour~
 			//END
 		END
 	BUT_ONLY
 END
 
+// Helm of Charm Protection
 ACTION_IF (FILE_EXISTS_IN_GAME ~_helm06.itm~) BEGIN
 	COPY_EXISTING ~_helm06.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -1010,27 +1036,28 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~_helm06.itm~) BEGIN
 			WRITE_ASCII 0x3A ~1HELM18~ #8
 			WRITE_ASCII 0x58 ~1CHELM18~ #8
 			LPM ~clear~
-			SET gradient = 0				// colour index
-			SET location = hgrey			// location
+			SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+			SET location = hgrey			// location (Wings)
 			LPM ~colour~
-			SET gradient = 119				// colour index
-			SET location = hpink			// location
+			SET gradient = 119				// sets colour index 119 DARKEST_ORCHID
+			SET location = hpink			// location (Plume)
 			LPM ~colour~
-			SET gradient = 27				// colour index
-			SET location = hblue			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = hblue			// location (Exterior)
 			LPM ~colour~
-			SET gradient = 224				// colour index
-			SET location = hred				// location
+			SET gradient = 224				// sets colour index 224 DROW_MAJOR-MAIZE
+			SET location = hred				// location (Face)
 			LPM ~colour~
 			//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-			SET gradient = 118				// colour index
-			SET location = hteal			// location
+			SET gradient = 118				// sets colour index 118 DARKER_ORCHID
+			SET location = hteal			// location (Detail)
 			LPM ~colour~
 			//END
 		END
 	BUT_ONLY
 END
 
+// Helm of Balduran
 ACTION_IF (FILE_EXISTS_IN_GAME ~_helm07.itm~) BEGIN
 	COPY_EXISTING ~_helm07.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -1038,27 +1065,28 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~_helm07.itm~) BEGIN
 			WRITE_ASCII 0x3A ~1HELM00~ #8
 			WRITE_ASCII 0x58 ~CHELM07~ #8
 			LPM ~clear~
-			SET gradient = 223				// colour index
-			SET location = hgrey			// location
+			SET gradient = 223				// sets colour index 223 DROW_SKIN-MOSS_GREEN
+			SET location = hgrey			// location (Wings)
 			LPM ~colour~
-			SET gradient = 27				// colour index
-			SET location = hpink			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = hpink			// location (Plume)
 			LPM ~colour~
-			SET gradient = 66				// colour index
-			SET location = hblue			// location
+			SET gradient = 66				// sets colour index 66 FADED_BLACK
+			SET location = hblue			// location (Exterior)
 			LPM ~colour~
-			SET gradient = 0				// colour index
-			SET location = hred				// location
+			SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+			SET location = hred				// location (Face)
 			LPM ~colour~
 			//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-			SET gradient = 173				// colour index
-			SET location = hteal			// location
+			SET gradient = 173				// sets colour index 173 MOSSY_GRAY
+			SET location = hteal			// location (Detail)
 			LPM ~colour~
 			//END
 		END
 	BUT_ONLY
 END
 
+// Helmets
 ACTION_IF (FILE_EXISTS_IN_GAME ~_helm08.itm~) BEGIN
 	COPY_EXISTING ~_helm08.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -1066,21 +1094,21 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~_helm08.itm~) BEGIN
 			WRITE_ASCII 0x3A ~1HELM03~ #8
 			WRITE_ASCII 0x58 ~1CHELMX3~ #8
 			LPM ~clear~
-			SET gradient = 119				// colour index
-			SET location = hgrey			// location
+			SET gradient = 119				// sets colour index 119 DARKEST_ORCHID
+			SET location = hgrey			// location (Wings)
 			LPM ~colour~
-			SET gradient = 205				// colour index
-			SET location = hblue			// location
+			SET gradient = 205				// sets colour index 205 NOBLE_MINOR2-CHROME_GRAY
+			SET location = hblue			// location (Exterior)
 			LPM ~colour~
-			SET gradient = 209				// colour index
-			SET location = hred				// location
+			SET gradient = 209				// sets colour index 209 ATH_PEASANT_MINOR-ASH_GRAY
+			SET location = hred				// location (Face)
 			LPM ~colour~
-			SET gradient = 102				// colour index
-			SET location = hteal			// location
+			SET gradient = 102				// sets colour index 102 SEA_BLUE
+			SET location = hteal			// location (Detail)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 0			// colour index
-				SET location = hpink		// location
+				SET gradient = 0			// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink		// location (Plume)
 				LPM ~colour~
 			END
 		END
@@ -1094,21 +1122,21 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~_helm09.itm~) BEGIN
 			//WRITE_ASCII 0x3A ~1HELM03~ #8
 			WRITE_ASCII 0x58 ~1CHELM06~ #8
 			LPM ~clear~
-			SET gradient = 27				// colour index
-			SET location = hgrey			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = hgrey			// location (Wings)
 			LPM ~colour~
-			SET gradient = 27				// colour index
-			SET location = hblue			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = hblue			// location (Exterior)
 			LPM ~colour~
-			SET gradient = 224				// colour index
-			SET location = hred				// location
+			SET gradient = 224				// sets colour index 224 DROW_MAJOR-MAIZE
+			SET location = hred				// location (Face)
 			LPM ~colour~
-			SET gradient = 224				// colour index
-			SET location = hteal			// location
+			SET gradient = 224				// sets colour index 224 DROW_MAJOR-MAIZE
+			SET location = hteal			// location (Detail)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 195			// colour index
-				SET location = hpink		// location
+				SET gradient = 195			// sets colour index 195 CHROME_RED
+				SET location = hpink		// location (Plume)
 				LPM ~colour~
 			END
 		END
@@ -1122,21 +1150,21 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~_helm10.itm~) BEGIN
 			//WRITE_ASCII 0x3A ~1HELM03~ #8
 			WRITE_ASCII 0x58 ~1CHELM05~ #8
 			LPM ~clear~
-			SET gradient = 27				// colour index
-			SET location = hgrey			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = hgrey			// location (Wings)
 			LPM ~colour~
-			SET gradient = 27				// colour index
-			SET location = hblue			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = hblue			// location (Exterior)
 			LPM ~colour~
-			SET gradient = 224				// colour index
-			SET location = hred				// location
+			SET gradient = 224				// sets colour index 224 DROW_MAJOR-MAIZE
+			SET location = hred				// location (Face)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 47			// colour index
-				SET location = hpink		// location
+				SET gradient = 47			// sets colour index 47 PURE_DARK_RED
+				SET location = hpink		// location (Plume)
 				LPM ~colour~
-				SET gradient = 127			// colour index
-				SET location = hteal		// location
+				SET gradient = 127			// sets colour index 127 DARK_BRICK_RED
+				SET location = hteal		// location (Detail)
 				LPM ~colour~
 			END
 		END
@@ -1150,21 +1178,21 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~_helm11.itm~) BEGIN
 			WRITE_ASCII 0x3A ~1HELM04~ #8
 			WRITE_ASCII 0x58 ~1CHELMX4~ #8
 			LPM ~clear~
-			SET gradient = 248				// colour index
-			SET location = hgrey			// location
+			SET gradient = 248				// sets colour index 248 OGRE_MAJOR-BATTLESHIP_GRAY
+			SET location = hgrey			// location (Wings)
 			LPM ~colour~
-			SET gradient = 232				// colour index
-			SET location = hblue			// location
+			SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY sets colour index
+			SET location = hblue			// location (Exterior)
 			LPM ~colour~
-			SET gradient = 0				// colour index
-			SET location = hred				// location
+			SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+			SET location = hred				// location (Face)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 202			// colour index
-				SET location = hpink		// location
+				SET gradient = 202			// sets colour index 202 HAIR2-LIBERTY_BLUE 
+				SET location = hpink		// location (Plume)
 				LPM ~colour~
-				SET gradient = 202			// colour index
-				SET location = hteal		// location
+				SET gradient = 202			// sets colour index 202 HAIR2-LIBERTY_BLUE 
+				SET location = hteal		// location (Detail)
 				LPM ~colour~
 			END
 		END
@@ -1178,21 +1206,21 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~_helm12.itm~) BEGIN
 			WRITE_ASCII 0x3A ~IHELM04~ #8
 			WRITE_ASCII 0x58 ~1CHELM02~ #8
 			LPM ~clear~
-			SET gradient = 235				// colour index
-			SET location = hgrey			// location
+			SET gradient = 235				// sets colour index 235 CLERIC_GOOD_MAJOR-GLAUCOUS_GRAY
+			SET location = hgrey			// location (Wings)
 			LPM ~colour~
-			SET gradient = 232				// colour index
-			SET location = hblue			// location
+			SET gradient = 232				// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
+			SET location = hblue			// location (Exterior)
 			LPM ~colour~
-			SET gradient = 102				// colour index
-			SET location = hred				// location
+			SET gradient = 102				// sets colour index 102 SEA_BLUE
+			SET location = hred				// location (Face)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 232			// colour index
-				SET location = hpink		// location
+				SET gradient = 232			// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
+				SET location = hpink		// location (Plume)
 				LPM ~colour~
-				SET gradient = 232			// colour index
-				SET location = hteal		// location
+				SET gradient = 232			// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
+				SET location = hteal		// location (Detail)
 				LPM ~colour~
 			END
 		END
@@ -1206,54 +1234,56 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~_helm13.itm~) BEGIN
 			WRITE_ASCII 0x3A ~1HELM17~ #8
 			WRITE_ASCII 0x58 ~1CHELM17~ #8
 			LPM ~clear~
-			SET gradient = 223				// colour index
-			SET location = hgrey			// location
+			SET gradient = 223				// sets colour index 223 DROW_SKIN-MOSS_GREEN
+			SET location = hgrey			// location (Wings)
 			LPM ~colour~
-			SET gradient = 27				// colour index
-			SET location = hteal			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = hteal			// location (Detail)
 			LPM ~colour~
-			SET gradient = 27				// colour index
-			SET location = hblue			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = hblue			// location (Exterior)
 			LPM ~colour~
-			SET gradient = 224				// colour index
-			SET location = hred				// location
+			SET gradient = 224				// sets colour index 224 DROW_MAJOR-MAIZE
+			SET location = hred				// location (Face)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 195			// colour index
-				SET location = hpink		// location
+				SET gradient = 195			// sets colour index 195 CHROME_RED
+				SET location = hpink		// location (Plume)
 				LPM ~colour~
 			END
 		END
 	BUT_ONLY
 END
 
+// Kiel's Helmet
 ACTION_IF (FILE_EXISTS_IN_GAME ~_helm14.itm~) BEGIN
 	COPY_EXISTING ~_helm14.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			WRITE_ASCII 0x22 ~J7~
 			WRITE_ASCII 0x58 ~CHELM07~ #8
 			LPM ~clear~
-			SET gradient = 98				// colour index
-			SET location = hgrey			// location
+			SET gradient = 98				// sets colour index 98 LEAF_GREEN
+			SET location = hgrey			// location (Wings)
 			LPM ~colour~
-			SET gradient = 114				// colour index
-			SET location = hpink			// location
+			SET gradient = 114				// sets colour index 114 YET_ANOTHER_BROWN
+			SET location = hpink			// location (Plume)
 			LPM ~colour~
-			SET gradient = 241				// colour index
-			SET location = hblue			// location
+			SET gradient = 241				// sets colour index 241 THIEF_MAJOR-OLIVE
+			SET location = hblue			// location (Exterior)
 			LPM ~colour~
-			SET gradient = 0				// colour index
-			SET location = hred				// location
+			SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+			SET location = hred				// location (Face)
 			LPM ~colour~
 			//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-			SET gradient = 241				// colour index
-			SET location = hteal			// location
+			SET gradient = 241				// sets colour index 241 THIEF_MAJOR-OLIVE
+			SET location = hteal			// location (Detail)
 			LPM ~colour~
 			//END
 		END
 	BUT_ONLY
 END
 
+// Helmet
 ACTION_IF (FILE_EXISTS_IN_GAME ~_helm15.itm~) BEGIN
 	COPY_EXISTING ~_helm15.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -1261,21 +1291,21 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~_helm15.itm~) BEGIN
 			WRITE_ASCII 0x3A ~1HELM09~ #8
 			WRITE_ASCII 0x58 ~1CHELMX9~ #8
 			LPM ~clear~
-			SET gradient = 226				// colour index
-			SET location = hgrey			// location
+			SET gradient = 226				// sets colour index 226 METAL_NORMAL-EIGENGRAU
+			SET location = hgrey			// location (Wings)
 			LPM ~colour~
-			SET gradient = 232				// colour index
-			SET location = hteal			// location
+			SET gradient = 232				// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
+			SET location = hteal			// location (Detail)
 			LPM ~colour~
-			SET gradient = 232				// colour index
-			SET location = hblue			// location
+			SET gradient = 232				// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
+			SET location = hblue			// location (Exterior)
 			LPM ~colour~
-			SET gradient = 102				// colour index
-			SET location = hred				// location
+			SET gradient = 102				// sets colour index 102 SEA_BLUE
+			SET location = hred				// location (Face)
 			LPM ~colour~
 			PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 208			// colour index
-				SET location = hpink		// location
+				SET gradient = 208			// sets colour index 208 ATH_PEASANT_MAJOR-FADED_WHEAT
+				SET location = hpink		// location (Plume)
 				LPM ~colour~
 			END
 		END
@@ -1285,33 +1315,36 @@ END
 //END OF TUTU
 
 
-/* ---------------------- *
- * faux BG1 style HELMETS *
- * ---------------------- */
+/* ------------------------ *
+ *  Faux BG1 style HELMETS  *
+ * ------------------------ */
 ACTION_IF (1pp_helmets_appearance = 2) BEGIN
+
+	PRINT @400036 // ~Patching helmets (Faux Baldur's Gate I style - use BG1 icons but not animations)...~
+	SILENT
 
 	// Helmet
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm01.itm~) BEGIN
 		COPY_EXISTING ~helm01.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~H0~			// Replace H0
-				WRITE_ASCII 0x58 ~1CHELM01~ #8	// Replace CHELM01
+				WRITE_ASCII 0x22 ~H0~			// replaces H0
+				WRITE_ASCII 0x58 ~1CHELM01~ #8	// replaces CHELM01
 				LPM ~clear~
-				SET gradient = 223				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 223				// 223 DROW_SKIN-MOSS_GREEN replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 27				// Replace colour index 30
-				SET location = hblue			// location
+				SET gradient = 27				// 27 GRAY replaces colour index 30 LIGHT_IRON_GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hred				// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hteal			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 27				// colour index
-				SET location = hpink			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
 				//END
 			END
@@ -1322,25 +1355,25 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm02.itm~) BEGIN
 		COPY_EXISTING ~helm02.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J8~			// Replace H3
-				WRITE_ASCII 0x3A ~1HELM06~ #8	// Replace IHELM04
-				WRITE_ASCII 0x58 ~1CHELMX6~ #8	// Replace CHELM04
+				WRITE_ASCII 0x22 ~J8~			// replaces H3
+				WRITE_ASCII 0x3A ~1HELM06~ #8	// replaces IHELM04
+				WRITE_ASCII 0x58 ~1CHELMX6~ #8	// replaces CHELM04
 				LPM ~clear~
-				SET gradient = 249				// Replace colour index 13
-				SET location = hgrey			// location
+				SET gradient = 249				// 249 OGRE_MINOR-METALLIC_SLATE replaces colour index 13 LIGHT_PINKISH_SILVER
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 202				// Replace colour index 30
-				SET location = hblue			// location
+				SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 30 LIGHT_IRON_GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hred				// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hred				// location (Face)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hteal			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
 				//END
 			END
@@ -1352,25 +1385,25 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 		ACTION_IF (FILE_EXISTS_IN_GAME ~%helmet%.itm~) BEGIN
 			COPY_EXISTING ~%helmet%.itm~ ~override~
 				PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-					WRITE_ASCII 0x22 ~H2~			// Replace H1
+					WRITE_ASCII 0x22 ~H2~			// replaces H1
 					//WRITE_ASCII 0x3A ~1HELM06~ #8
-					WRITE_ASCII 0x58 ~1CHELM03~ #8	// Replace CHELM02
+					WRITE_ASCII 0x58 ~1CHELM03~ #8	// replaces CHELM02
 					LPM ~clear~
-					SET gradient = 224				// Replace colour index 27
-					SET location = hgrey			// location
+					SET gradient = 224				// 224 DROW_MAJOR-MAIZE replaces colour index 27 GRAY
+					SET location = hgrey			// location (Wings)
 					LPM ~colour~
-					SET gradient = 90				// Replace colour index 27
-					SET location = hblue			// location
+					SET gradient = 90				// 90 MOLDY_GOLD replaces colour index 27 GRAY
+					SET location = hblue			// location (Exterior)
 					LPM ~colour~
-					SET gradient = 30				// Replace colour index 27
-					SET location = hred				// location
+					SET gradient = 30				// 30 LIGHT_IRON_GRAY replaces colour index 27 GRAY
+					SET location = hred				// location (Face)
 					LPM ~colour~
-					SET gradient = 30				// colour index
-					SET location = hteal			// location
+					SET gradient = 30				// sets colour index 30 LIGHT_IRON_GRAY
+					SET location = hteal			// location (Detail)
 					LPM ~colour~
 					//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-					SET gradient = 30				// colour index
-					SET location = hpink			// location
+					SET gradient = 30				// sets colour index 30 LIGHT_IRON_GRAY
+					SET location = hpink			// location (Plume)
 					LPM ~colour~
 					//END
 				END
@@ -1382,25 +1415,25 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm04.itm~) BEGIN
 		COPY_EXISTING ~helm04.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~H5~			// Replace H2
+				WRITE_ASCII 0x22 ~H5~			// replaces H2
 				//WRITE_ASCII 0x3A ~1HELM06~ #8
-				WRITE_ASCII 0x58 ~1CHELM04~ #8	// Replace CHELM03
+				WRITE_ASCII 0x58 ~1CHELM04~ #8	// replaces CHELM03
 				LPM ~clear~
-				SET gradient = 0				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 0				// 0 RUST-TINTED_BLACK replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 202				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hred				// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hred				// location (Face)
 				LPM ~colour~
-				SET gradient = 5				// colour index
-				SET location = hteal			// location
+				SET gradient = 5				// sets colour index 5 MEDIUM_SILVER
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 5				// colour index
-				SET location = hpink			// location
+				SET gradient = 5				// sets colour index 5 MEDIUM_SILVER
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
 				//END
 			END
@@ -1411,25 +1444,25 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm05.itm~) BEGIN
 		COPY_EXISTING ~helm05.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~JA~			// Replace H5
-				WRITE_ASCII 0x3A ~1HELM20~ #8	// Replace IHELM06
-				WRITE_ASCII 0x58 ~1CHELM20~ #8	// Replace CHELM06
+				WRITE_ASCII 0x22 ~JA~			// replaces H5
+				WRITE_ASCII 0x3A ~1HELM20~ #8	// replaces IHELM06
+				WRITE_ASCII 0x58 ~1CHELM20~ #8	// replaces CHELM06
 				LPM ~clear~
-				SET gradient = 0				// Replace colour index 47
-				SET location = hgrey			// location
+				SET gradient = 0				// 0 RUST-TINTED_BLACK replaces colour index 47 PURE_DARK_RED
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hblue			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 99				// Replace colour index 47
-				SET location = hred				// location
+				SET gradient = 99				// 99 GOLDEN_BROWN replaces colour index 47 PURE_DARK_RED
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 195				// colour index
-				SET location = hpink			// location
+				SET gradient = 195				// sets colour index 195 CHROME_RED
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 210				// colour index
-				SET location = hteal			// location
+				SET gradient = 210				// sets colour index 210 MERCHANT_MAJOR-AMBER 
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -1440,25 +1473,25 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm06.itm~) BEGIN
 		COPY_EXISTING ~helm06.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~JA~			// Replace H2
-				WRITE_ASCII 0x3A ~1HELM18~ #8	// Replace IHELM03
-				WRITE_ASCII 0x58 ~1CHELM18~ #8	// Replace CHELM03
+				WRITE_ASCII 0x22 ~JA~			// replaces H2
+				WRITE_ASCII 0x3A ~1HELM18~ #8	// replaces IHELM03
+				WRITE_ASCII 0x58 ~1CHELM18~ #8	// replaces CHELM03
 				LPM ~clear~
-				SET gradient = 0				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 0				// 0 RUST-TINTED_BLACK replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 119				// colour index
-				SET location = hpink			// location
+				SET gradient = 119				// sets colour index 119 DARKEST_ORCHID
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hblue			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 224				// colour index
-				SET location = hred				// location
+				SET gradient = 224				// sets colour index 224 DROW_MAJOR-MAIZE
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 118				// colour index
-				SET location = hteal			// location
+				SET gradient = 118				// sets colour index 118 DARKER_ORCHID
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -1469,25 +1502,25 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm07.itm~) BEGIN
 		COPY_EXISTING ~helm07.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J7~			// Replace H1
-				WRITE_ASCII 0x3A ~1HELM00~ #8	// Replace IHELM14
-				WRITE_ASCII 0x58 ~CHELM07~ #8	// Replace CHELM07
+				WRITE_ASCII 0x22 ~J7~			// replaces H1
+				WRITE_ASCII 0x3A ~1HELM00~ #8	// replaces IHELM14
+				WRITE_ASCII 0x58 ~CHELM07~ #8	// replaces CHELM07
 				LPM ~clear~
-				SET gradient = 223				// Replace colour index 42
-				SET location = hgrey			// location
+				SET gradient = 223				// 223 DROW_SKIN-MOSS_GREEN replaces colour index 42 BEIGE
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hpink			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 66				// Replace colour index 99
-				SET location = hblue			// location
+				SET gradient = 66				// 66 FADED_BLACK replaces colour index 99 GOLDEN_BROWN
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hred				// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 173				// colour index
-				SET location = hteal			// location
+				SET gradient = 173				// sets colour index 173 MOSSY_GRAY
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -1498,25 +1531,25 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm08.itm~) BEGIN
 		COPY_EXISTING ~helm08.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~JC~			// Replace H3
-				WRITE_ASCII 0x3A ~1HELM03~ #8	// Replace IHELM04
-				WRITE_ASCII 0x58 ~1CHELMX3~ #8	// Replace CHELM04
+				WRITE_ASCII 0x22 ~JC~			// replaces H3
+				WRITE_ASCII 0x3A ~1HELM03~ #8	// replaces IHELM04
+				WRITE_ASCII 0x58 ~1CHELMX3~ #8	// replaces CHELM04
 				LPM ~clear~
-				SET gradient = 119				// Replace colour index 13
-				SET location = hgrey			// location
+				SET gradient = 119				// 119 DARKEST_ORCHID replaces colour index 13 LIGHT_PINKISH_SILVER
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 205				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 205				// 205 NOBLE_MINOR2-CHROME_GRAY replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 209				// colour index
-				SET location = hred				// location
+				SET gradient = 209				// sets colour index 209 ATH_PEASANT_MINOR-ASH_GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
-				SET gradient = 102				// colour index
-				SET location = hteal			// location
+				SET gradient = 102				// sets colour index 102 SEA_BLUE
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 0			// colour index
-					SET location = hpink		// location
+					SET gradient = 0			// sets colour index 0 RUST-TINTED_BLACK
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
 				END
 			END
@@ -1526,25 +1559,25 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm09.itm~) BEGIN
 		COPY_EXISTING ~helm09.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~H3~			// Replace H2
+				WRITE_ASCII 0x22 ~H3~			// replaces H2
 				//WRITE_ASCII 0x3A ~1HELM03~ #8
-				WRITE_ASCII 0x58 ~1CHELM06~ #8	// Replace CHELM03
+				WRITE_ASCII 0x58 ~1CHELM06~ #8	// replaces CHELM03
 				LPM ~clear~
-				SET gradient = 27				// colour index
-				SET location = hgrey			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hblue			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 224				// colour index
-				SET location = hred				// location
+				SET gradient = 224				// sets colour index 224 DROW_MAJOR-MAIZE
+				SET location = hred				// location (Face)
 				LPM ~colour~
-				SET gradient = 224				// colour index
-				SET location = hteal			// location
+				SET gradient = 224				// sets colour index 224 DROW_MAJOR-MAIZE
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 195			// colour index
-					SET location = hpink		// location
+					SET gradient = 195			// sets colour index 195 CHROME_RED
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
 				END
 			END
@@ -1554,25 +1587,25 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm10.itm~) BEGIN
 		COPY_EXISTING ~helm10.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~H5~			// Replace H4
+				WRITE_ASCII 0x22 ~H5~			// replaces H4
 				//WRITE_ASCII 0x3A ~1HELM03~ #8
-				WRITE_ASCII 0x58 ~1CHELM05~ #8	// Replace CHELM05
+				WRITE_ASCII 0x58 ~1CHELM05~ #8	// replaces CHELM05
 				LPM ~clear~
-				SET gradient = 27				// Replace colour index 47
-				SET location = hgrey			// location
+				SET gradient = 27				// 27 GRAY replaces colour index 47 PURE_DARK_RED
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hblue			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 224				// colour index
-				SET location = hred				// location
+				SET gradient = 224				// sets colour index 224 DROW_MAJOR-MAIZE
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 47			// colour index
-					SET location = hpink		// location
+					SET gradient = 47			// sets colour index 47 PURE_DARK_RED
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
-					SET gradient = 127			// colour index
-					SET location = hteal		// location
+					SET gradient = 127			// sets colour index 127 DARK_BRICK_RED
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -1582,25 +1615,25 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm11.itm~) BEGIN
 		COPY_EXISTING ~helm11.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J8~			// Replace H5
-				WRITE_ASCII 0x3A ~1HELM04~ #8	// Replace IHELM06
-				WRITE_ASCII 0x58 ~1CHELMX4~ #8	// Replace CHELM06
+				WRITE_ASCII 0x22 ~J8~			// replaces H5
+				WRITE_ASCII 0x3A ~1HELM04~ #8	// replaces IHELM06
+				WRITE_ASCII 0x58 ~1CHELMX4~ #8	// replaces CHELM06
 				LPM ~clear~
-				SET gradient = 248				// Replace colour index 47
-				SET location = hgrey			// location
+				SET gradient = 248				// 248 OGRE_MAJOR-BATTLESHIP_GRAY replaces colour index 47
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 232				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hred				// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 202			// colour index
-					SET location = hpink		// location
+					SET gradient = 202			// sets colour index 202 HAIR2-LIBERTY_BLUE
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
-					SET gradient = 202			// colour index
-					SET location = hteal		// location
+					SET gradient = 202			// sets colour index 202 HAIR2-LIBERTY_BLUE
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -1610,25 +1643,25 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm12.itm~) BEGIN
 		COPY_EXISTING ~helm12.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~JC~			// Replace H1
-				WRITE_ASCII 0x3A ~IHELM04~ #8	// Replace IHELM02
-				WRITE_ASCII 0x58 ~1CHELM02~ #8	// Replace CHELM02
+				WRITE_ASCII 0x22 ~JC~			// replaces H1
+				WRITE_ASCII 0x3A ~IHELM04~ #8	// replaces IHELM02
+				WRITE_ASCII 0x58 ~1CHELM02~ #8	// replaces CHELM02
 				LPM ~clear~
-				SET gradient = 235				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 235				// 235 CLERIC_GOOD_MAJOR-GLAUCOUS_GRAY replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 232				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 102				// Replace colour index 24
-				SET location = hred				// location
+				SET gradient = 102				// 102 SEA_BLUE replaces colour index 24 BROWN_GOLD
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 232			// colour index
-					SET location = hpink		// location
+					SET gradient = 232			// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
-					SET gradient = 232			// colour index
-					SET location = hteal		// location
+					SET gradient = 232			// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -1638,25 +1671,25 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm13.itm~) BEGIN
 		COPY_EXISTING ~helm13.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J9~			// Replace H5
-				WRITE_ASCII 0x3A ~1HELM17~ #8	// Replace IHELM06
-				WRITE_ASCII 0x58 ~1CHELM17~ #8	// Replace CHELM6
+				WRITE_ASCII 0x22 ~J9~			// replaces H5
+				WRITE_ASCII 0x3A ~1HELM17~ #8	// replaces IHELM06
+				WRITE_ASCII 0x58 ~1CHELM17~ #8	// replaces CHELM6
 				LPM ~clear~
-				SET gradient = 223				// Replace colour index 47
-				SET location = hgrey			// location
+				SET gradient = 223				// 223 DROW_SKIN-MOSS_GREEN replaces colour index 47 PURE_DARK_RED
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hteal			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hblue			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 224				// colour index
-				SET location = hred				// location
+				SET gradient = 224				// sets colour index 224 DROW_MAJOR-MAIZE
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 195			// colour index
-					SET location = hpink		// location
+					SET gradient = 195			// sets colour index 195 CHROME_RED
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
 				END
 			END
@@ -1667,24 +1700,24 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm14.itm~) BEGIN
 		COPY_EXISTING ~helm14.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J7~			// Replace H1
-				WRITE_ASCII 0x58 ~CHELM07~ #8	// Replace CHELM07
+				WRITE_ASCII 0x22 ~J7~			// replaces H1
+				WRITE_ASCII 0x58 ~CHELM07~ #8	// replaces CHELM07
 				LPM ~clear~
-				SET gradient = 98				// Replace colour index 42
-				SET location = hgrey			// location
+				SET gradient = 98				// 98 LEAF_GREEN replaces colour index 42 BEIGE
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 114				// colour index
-				SET location = hpink			// location
+				SET gradient = 114				// sets colour index 114 YET_ANOTHER_BROWN
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 241				// Replace colour index 99
-				SET location = hblue			// location
+				SET gradient = 241				// 241 THIEF_MAJOR-OLIVE replaces colour index 99 GOLDEN_BROWN
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 0				// Replace colour index 98
-				SET location = hred				// location
+				SET gradient = 0				// 0 RUST-TINTED_BLACK replaces colour index 98 LEAF_GREEN
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 241				// colour index
-				SET location = hteal			// location
+				SET gradient = 241				// sets colour index 241 THIEF_MAJOR-OLIVE
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -1695,25 +1728,25 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm15.itm~) BEGIN
 		COPY_EXISTING ~helm15.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J9~			// Replace H4
-				WRITE_ASCII 0x3A ~1HELM09~ #8	// Replace IHELM05
-				WRITE_ASCII 0x58 ~1CHELMX9~ #8	// Replace CHELM05
+				WRITE_ASCII 0x22 ~J9~			// replaces H4
+				WRITE_ASCII 0x3A ~1HELM09~ #8	// replaces IHELM05
+				WRITE_ASCII 0x58 ~1CHELMX9~ #8	// replaces CHELM05
 				LPM ~clear~
-				SET gradient = 226				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 232				// colour index
-				SET location = hteal			// location
+				SET gradient = 232				// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
-				SET gradient = 232				// Replace colour index 30
-				SET location = hblue			// location
+				SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 30 LIGHT_IRON_GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 102				// Replace colour index 27
-				SET location = hred				// location
+				SET gradient = 102				// 102 SEA_BLUE replaces colour index 27 GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 208			// colour index
-					SET location = hpink		// location
+					SET gradient = 208			// sets colour index 208 ATH_PEASANT_MAJOR-FADED_WHEAT
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
 				END
 			END
@@ -1724,25 +1757,25 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm16.itm~) BEGIN
 		COPY_EXISTING ~helm16.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~JC~			// Replace H2
-				WRITE_ASCII 0x3A ~1HELM02~ #8	// Replace IHELM03
-				WRITE_ASCII 0x58 ~1CHELMX2~ #8	// Replace CHELM03
+				WRITE_ASCII 0x22 ~JC~			// replaces H2
+				WRITE_ASCII 0x3A ~1HELM02~ #8	// replaces IHELM03
+				WRITE_ASCII 0x58 ~1CHELMX2~ #8	// replaces CHELM03
 				LPM ~clear~
-				SET gradient = 195				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 195				// 195 CHROME_RED replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 21				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 21				// 21 DARK_IRON_GRAY replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 242				// colour index
-				SET location = hred				// location
+				SET gradient = 242				// sets colour index 242 THIEF_MINOR-PALE_OLIVE
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 109				// colour index
-				SET location = hteal			// location
+				SET gradient = 109				// sets colour index 109 TERRA_COTTA
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -1753,23 +1786,23 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm17.itm~) BEGIN
 		COPY_EXISTING ~helm17.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J3~			// Replace H0
+				WRITE_ASCII 0x22 ~J3~			// replaces H0
 				LPM ~clear~
-				SET gradient = 98				// Replace colour index 100
-				SET location = hgrey			// location
+				SET gradient = 98				// 98 LEAF_GREEN replaces colour index 100 DARK_ASH_GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 3				// Replace colour index 106
-				SET location = hblue			// location
+				SET gradient = 3				// 3 LIGHT_GOLD replaces colour index 106 PALE_PINK
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 253				// colour index
-				SET location = hred				// location
+				SET gradient = 253				// sets colour index 253 DUERGAR_MINOR-PALE_TAUPE
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hteal			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -1780,23 +1813,23 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm21.itm~) BEGIN
 		COPY_EXISTING ~helm21.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J2~			// Replace H2
+				WRITE_ASCII 0x22 ~J2~			// replaces H2
 				LPM ~clear~
-				SET gradient = 227				// Replace colour index 33
-				SET location = hgrey			// location
+				SET gradient = 227				// 227 METAL_WILD-CORAL replaces colour index 33 CHROME_MAGENTA
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 88				// Replace colour index 33
-				SET location = hblue			// location
+				SET gradient = 88				// 88 CHROME_PINK replaces colour index 33 CHROME_MAGENTA
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 70				// colour index
-				SET location = hred				// location
+				SET gradient = 70				// sets colour index 70 LIGHT_METALLIC_RED
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 195				// colour index
-				SET location = hpink			// location
+				SET gradient = 195				// sets colour index 195 CHROME_RED
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 195				// colour index
-				SET location = hteal			// location
+				SET gradient = 195				// sets colour index 195 CHROME_RED
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -1807,25 +1840,25 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm22.itm~) BEGIN
 		COPY_EXISTING ~helm22.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~H0~			// Replace H3
-				WRITE_ASCII 0x3A ~1HELM08~ #8	// Replace IHELM04
-				WRITE_ASCII 0x58 ~1CHELM01~ #8	// Replace CHELM04
+				WRITE_ASCII 0x22 ~H0~			// replaces H3
+				WRITE_ASCII 0x3A ~1HELM08~ #8	// replaces IHELM04
+				WRITE_ASCII 0x58 ~1CHELM01~ #8	// replaces CHELM04
 				LPM ~clear~
-				SET gradient = 226				// Replace colour index 13
-				SET location = hgrey			// location
+				SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 13 LIGHT_PINKISH_SILVER
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hblue			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hred				// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hteal			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 27				// colour index
-				SET location = hpink			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
 				//END
 			END
@@ -1836,24 +1869,24 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm31.itm~) BEGIN
 		COPY_EXISTING ~helm31.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J2~			// Replace H0
-				WRITE_ASCII 0x58 ~1CHELM03~ #8	// Replace PHELM31
+				WRITE_ASCII 0x22 ~J2~			// replaces H0
+				WRITE_ASCII 0x58 ~1CHELM03~ #8	// replaces PHELM31
 				LPM ~clear~
-				SET gradient = 66				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 66				// 66 FADED_BLACK replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 183				// Replace colour index 30
-				SET location = hblue			// location
+				SET gradient = 183				// 183 CHARCOAL replaces colour index 30 LIGHT_IRON_GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 183				// Replace colour index 27
-				SET location = hred				// location
+				SET gradient = 183				// 183 CHARCOAL replaces colour index 27 GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hteal			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -1864,24 +1897,24 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm32.itm~) BEGIN
 		COPY_EXISTING ~helm32.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J2~			// Replace H1
-				WRITE_ASCII 0x58 ~1CHELM03~ #8	// Replace PHELM32
+				WRITE_ASCII 0x22 ~J2~			// replaces H1
+				WRITE_ASCII 0x58 ~1CHELM03~ #8	// replaces PHELM32
 				LPM ~clear~
-				SET gradient = 207				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 207				// 207 NOBLE_MINOR2-CHROME_GOLD replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 199				// Replace colour index 30
-				SET location = hblue			// location
+				SET gradient = 199				// 199 BLACK_TEAL replaces colour index 30
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 199				// Replace colour index 27
-				SET location = hred				// location
+				SET gradient = 199				// 199 BLACK_TEAL replaces colour index 27 GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hteal			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -1892,51 +1925,50 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm33.itm~) BEGIN
 		COPY_EXISTING ~helm33.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J9~			// Replace H3
+				WRITE_ASCII 0x22 ~J9~			// replaces H3
 				LPM ~clear~
-				SET gradient = 225				// Replace colour index 42
-				SET location = hgrey			// location
+				SET gradient = 225				// 225 DROW_MINOR-CORNSILK replaces colour index 42 BEIGE
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 250				// Replace colour index 99
-				SET location = hblue			// location
+				SET gradient = 250				// 250 SHADOW_DRUID_MAJOR-YELLOW_ORANGE replaces colour index 99 GOLDEN_BROWN
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 47				// colour index
-				SET location = hred				// location
+				SET gradient = 47				// sets colour index 47 PURE_DARK_RED
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 210				// colour index
-				SET location = hpink			// location
+				SET gradient = 210				// sets colour index 210 MERCHANT_MAJOR-AMBER 
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 250				// colour index
-				SET location = hteal			// location
+				SET gradient = 250				// sets colour index 250 SHADOW_DRUID_MAJOR-YELLOW_ORANGE
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
 		BUT_ONLY
 	END
 
-
 	// Roranach's Horn
 	ACTION_IF (FILE_EXISTS_IN_GAME ~compon05.itm~) BEGIN
 		COPY_EXISTING ~compon05.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J9~			// Replace H3
+				WRITE_ASCII 0x22 ~J9~			// replaces H3
 				LPM ~clear~
-				SET gradient = 225				// Replace colour index 13
-				SET location = hgrey			// location
+				SET gradient = 225				// 225 DROW_MINOR-CORNSILK replaces colour index 13 LIGHT_PINKISH_SILVER
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 250				// Replace colour index 51
-				SET location = hblue			// location
+				SET gradient = 250				// 250 SHADOW_DRUID_MAJOR-YELLOW_ORANGE replaces colour index 51 DARK_OLIVE_GREEN
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 47				// colour index
-				SET location = hred				// location
+				SET gradient = 47				// sets colour index 47 PURE_DARK_RED
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 210				// colour index
-				SET location = hpink			// location
+				SET gradient = 210				// sets colour index 210 MERCHANT_MAJOR-AMBER
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 250				// colour index
-				SET location = hteal			// location
+				SET gradient = 250				// sets colour index 250 SHADOW_DRUID_MAJOR-YELLOW_ORANGE
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -1947,25 +1979,25 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~wa2helm.itm~) BEGIN
 		COPY_EXISTING ~wa2helm.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J3~			// Replace H0
-				WRITE_ASCII 0x3A ~1HELM24~ #8	// Replace IHELM17
-				WRITE_ASCII 0x58 ~CHELM04~ #8	// Replace CHELM17
+				WRITE_ASCII 0x22 ~J3~			// replaces H0
+				WRITE_ASCII 0x3A ~1HELM24~ #8	// replaces IHELM17
+				WRITE_ASCII 0x58 ~CHELM04~ #8	// replaces CHELM17
 				LPM ~clear~
-				SET gradient = 223				// Replace colour index 100
-				SET location = hgrey			// location
+				SET gradient = 223				// 223 DROW_SKIN-MOSS_GREEN replaces colour index 100 DARK_ASH_GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 27				// Replace colour index 106
-				SET location = hblue			// location
+				SET gradient = 27				// 27 GRAY replaces colour index 106 PALE_PINK
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hred				// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hteal			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
 				//END
 			END
@@ -1975,34 +2007,37 @@ ACTION_IF (1pp_helmets_appearance = 2) BEGIN
 END	// of ACTION_IF (1pp_helmets_appearance = 2) = faux BG1 style HELMETS
 
 
-/* ----------------- *
- * BG2 style HELMETS *
- * ----------------- */
+/* ------------------- *
+ *  BG2 style HELMETS  *
+ * ------------------- */
 ACTION_IF (1pp_helmets_appearance = 3) BEGIN
+
+	PRINT @400037 // ~Patching helmets (Baldur's Gate II style)...~
+	SILENT
 
 	// Helmet
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm01.itm~) BEGIN
 		COPY_EXISTING ~helm01.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J6~			// Replace H0
-				WRITE_ASCII 0x3A ~1HELM01~ #8	// Replace IHELM00
+				WRITE_ASCII 0x22 ~J6~			// replaces H0
+				WRITE_ASCII 0x3A ~1HELM01~ #8	// replaces IHELM00
 				WRITE_ASCII 0x58 ~CHELM01~ #8
 				LPM ~clear~
-				SET gradient = 14				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 14				// 14 DARK_PURE_SILVER replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 28				// colour index
-				SET location = hpink			// location
+				SET gradient = 28				// sets colour index 28 BLUISH_SILVER
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 202				// Replace colour index 30
-				SET location = hblue			// location
+				SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 30 LIGHT_IRON_GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 202				// Replace colour index 27
-				SET location = hred				// location
+				SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 27 GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 202			// colour index
-					SET location = hteal		// location
+					SET gradient = 202			// sets colour index 202 HAIR2-LIBERTY_BLUE 
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -2013,25 +2048,25 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm02.itm~) BEGIN
 		COPY_EXISTING ~helm02.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~JC~			// Replace H3
-				WRITE_ASCII 0x3A ~1HELM02~ #8	// Replace IHELM04
-				WRITE_ASCII 0x58 ~1CHELMX2~ #8	// Replace CHELM04
+				WRITE_ASCII 0x22 ~JC~			// replaces H3
+				WRITE_ASCII 0x3A ~1HELM02~ #8	// replaces IHELM04
+				WRITE_ASCII 0x58 ~1CHELMX2~ #8	// replaces CHELM04
 				LPM ~clear~
-				SET gradient = 195				// Replace colour index 13
-				SET location = hgrey			// location
+				SET gradient = 195				// 195 CHROME_RED replaces colour index 13 LIGHT_PINKISH_SILVER
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 21				// Replace colour index 30
-				SET location = hblue			// location
+				SET gradient = 21				// 21 DARK_IRON_GRAY replaces colour index 30 LIGHT_IRON_GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 242				// colour index
-				SET location = hred				// location
+				SET gradient = 242				// sets colour index 242 THIEF_MINOR-PALE_OLIVE
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 109				// colour index
-				SET location = hteal			// location
+				SET gradient = 109				// sets colour index 109 TERRA_COTTA
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -2043,25 +2078,25 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 		ACTION_IF (FILE_EXISTS_IN_GAME ~%helmet%.itm~) BEGIN
 			COPY_EXISTING ~%helmet%.itm~ ~override~
 				PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-					WRITE_ASCII 0x22 ~J1~			// Replace H1
-					WRITE_ASCII 0x3A ~1HELM21~ #8	// Replace IHELM02
-					WRITE_ASCII 0x58 ~1CHELM21~ #8	// Replace CHELM02
+					WRITE_ASCII 0x22 ~J1~			// replaces H1
+					WRITE_ASCII 0x3A ~1HELM21~ #8	// replaces IHELM02
+					WRITE_ASCII 0x58 ~1CHELM21~ #8	// replaces CHELM02
 					LPM ~clear~
-					SET gradient = 21				// Replace colour index 27
-					SET location = hgrey			// location
+					SET gradient = 21				// 21 DARK_IRON_GRAY replaces colour index 27 GRAY
+					SET location = hgrey			// location (Wings)
 					LPM ~colour~
-					SET gradient = 6				// colour index
-					SET location = hpink			// location
+					SET gradient = 6				// sets colour index 6 DARK_SILVER
+					SET location = hpink			// location (Plume)
 					LPM ~colour~
-					SET gradient = 142				// Replace colour index 27
-					SET location = hblue			// location
+					SET gradient = 142				// 142 DARK_POWDER_BLUE replaces colour index 27 GRAY
+					SET location = hblue			// location (Exterior)
 					LPM ~colour~
-					SET gradient = 0				// Replace colour index 27
-					SET location = hred				// location
+					SET gradient = 0				// 0 RUST-TINTED_BLACK replaces colour index 27 GRAY
+					SET location = hred				// location (Face)
 					LPM ~colour~
 					//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-					SET gradient = 0				// colour index
-					SET location = hteal			// location
+					SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+					SET location = hteal			// location (Detail)
 					LPM ~colour~
 					//END
 				END
@@ -2074,25 +2109,25 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 		ACTION_IF (FILE_EXISTS_IN_GAME ~%helmet%.itm~) BEGIN
 			COPY_EXISTING ~%helmet%.itm~ ~override~
 				PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-					WRITE_ASCII 0x22 ~J4~			// Replace H2
-					WRITE_ASCII 0x3A ~1HELM10~ #8	// Replace IHELM03
-					WRITE_ASCII 0x58 ~CHELM06~ #8	// Replace CHELM03
+					WRITE_ASCII 0x22 ~J4~			// replaces H2
+					WRITE_ASCII 0x3A ~1HELM10~ #8	// replaces IHELM03
+					WRITE_ASCII 0x58 ~CHELM06~ #8	// replaces CHELM03
 					LPM ~clear~
-					SET gradient = 223				// Replace colour index 27
-					SET location = hgrey			// location
+					SET gradient = 223				// 223 DROW_SKIN-MOSS_GREEN replaces colour index 27 GRAY
+					SET location = hgrey			// location (Wings)
 					LPM ~colour~
-					SET gradient = 195				// colour index
-					SET location = hpink			// location
+					SET gradient = 195				// sets colour index 195 CHROME_RED
+					SET location = hpink			// location (Plume)
 					LPM ~colour~
-					SET gradient = 192				// Replace colour index 27
-					SET location = hblue			// location
+					SET gradient = 192				// 192 CHROME_TEAL replaces colour index 27 GRAY
+					SET location = hblue			// location (Exterior)
 					LPM ~colour~
-					SET gradient = 209				// colour index
-					SET location = hred				// location
+					SET gradient = 209				// sets colour index 209 ATH_PEASANT_MINOR-ASH_GRAY
+					SET location = hred				// location (Face)
 					LPM ~colour~
 					//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-					SET gradient = 200				// colour index
-					SET location = hteal			// location
+					SET gradient = 200				// sets colour index 200 HAIR1-WHITE_TEAL
+					SET location = hteal			// location (Detail)
 					LPM ~colour~
 					//END
 				END
@@ -2104,25 +2139,25 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm05.itm~) BEGIN
 		COPY_EXISTING ~helm05.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J4~			// Replace H5
-				WRITE_ASCII 0x3A ~1HELM16~ #8	// Replace IHELM06
-				WRITE_ASCII 0x58 ~CHELM16~ #8	// Replace CHELM06
+				WRITE_ASCII 0x22 ~J4~			// replaces H5
+				WRITE_ASCII 0x3A ~1HELM16~ #8	// replaces IHELM06
+				WRITE_ASCII 0x58 ~CHELM16~ #8	// replaces CHELM06
 				LPM ~clear~
-				SET gradient = 209				// Replace colour index 47
-				SET location = hgrey			// location
+				SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 47 PURE_DARK_RED
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 205				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 205				// 205 NOBLE_MINOR2-CHROME_GRAY replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 226				// Replace colour index 47
-				SET location = hred				// location
+				SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 47 PURE_DARK_RED
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 195				// colour index
-				SET location = hpink			// location
+				SET gradient = 195				// sets colour index 195 CHROME_RED
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hteal			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -2133,25 +2168,25 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm06.itm~) BEGIN
 		COPY_EXISTING ~helm06.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J5~			// Replace H2
-				WRITE_ASCII 0x3A ~1HELM12~ #8	// Replace IHELM03
-				WRITE_ASCII 0x58 ~CHELM05~ #8	// Replace CHELM03
+				WRITE_ASCII 0x22 ~J5~			// replaces H2
+				WRITE_ASCII 0x3A ~1HELM12~ #8	// replaces IHELM03
+				WRITE_ASCII 0x58 ~CHELM05~ #8	// replaces CHELM03
 				LPM ~clear~
-				SET gradient = 210				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 210				// 210 MERCHANT_MAJOR-AMBER replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 102				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 102				// 102 SEA_BLUE replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 248				// colour index
-				SET location = hred				// location
+				SET gradient = 248				// sets colour index 248 OGRE_MAJOR-BATTLESHIP_GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 195			// colour index
-					SET location = hpink		// location
+					SET gradient = 195			// sets colour index 195 CHROME_RED
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
-					SET gradient = 0			// colour index
-					SET location = hteal		// location
+					SET gradient = 0			// sets colour index 0 RUST-TINTED_BLACK
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -2162,24 +2197,24 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm07.itm~) BEGIN
 		COPY_EXISTING ~helm07.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J7~			// Replace H1
-				WRITE_ASCII 0x58 ~CHELM07~ #8	// Replace CHELM07
+				WRITE_ASCII 0x22 ~J7~			// replaces H1
+				WRITE_ASCII 0x58 ~CHELM07~ #8	// replaces CHELM07
 				LPM ~clear~
-				SET gradient = 98				// Replace colour index 42
-				SET location = hgrey			// location
+				SET gradient = 98				// 98 LEAF_GREEN replaces colour index 42 BEIGE
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 114				// colour index
-				SET location = hpink			// location
+				SET gradient = 114				// sets colour index 114 YET_ANOTHER_BROWN
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 241				// Replace colour index 99
-				SET location = hblue			// location
+				SET gradient = 241				// 241 THIEF_MAJOR-OLIVE replaces colour index 99 GOLDEN_BROWN
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hred				// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 241				// colour index
-				SET location = hteal			// location
+				SET gradient = 241				// sets colour index 241 THIEF_MAJOR-OLIVE
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -2190,25 +2225,25 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm08.itm~) BEGIN
 		COPY_EXISTING ~helm08.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J3~			// Replace H3
-				WRITE_ASCII 0x3A ~1HELM23~ #8	// Replace IHELM04
-				WRITE_ASCII 0x58 ~CHELM04~ #8	// Replace CHELM04
+				WRITE_ASCII 0x22 ~J3~			// replaces H3
+				WRITE_ASCII 0x3A ~1HELM23~ #8	// replaces IHELM04
+				WRITE_ASCII 0x58 ~CHELM04~ #8	// replaces CHELM04
 				LPM ~clear~
-				SET gradient = 226				// Replace colour index 13
-				SET location = hgrey			// location
+				SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 13 LIGHT_PINKISH_SILVER
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 202				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 202				// colour index
-				SET location = hred				// location
+				SET gradient = 202				// sets colour index 202 HAIR2-LIBERTY_BLUE 
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 0				// colour index
-				SET location = hteal			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -2218,25 +2253,25 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm09.itm~) BEGIN
 		COPY_EXISTING ~helm09.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J6~			// Replace H2
-				WRITE_ASCII 0x3A ~1HELM08~ #8	// Replace IHELM03
-				WRITE_ASCII 0x58 ~1CHELM01~ #8	// Replace CHELM03
+				WRITE_ASCII 0x22 ~J6~			// replaces H2
+				WRITE_ASCII 0x3A ~1HELM08~ #8	// replaces IHELM03
+				WRITE_ASCII 0x58 ~1CHELM01~ #8	// replaces CHELM03
 				LPM ~clear~
-				SET gradient = 226				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 102				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 102				// 102 SEA_BLUE replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 102				// colour index
-				SET location = hred				// location
+				SET gradient = 102				// sets colour index 102 SEA_BLUE
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 98			// colour index
-					SET location = hpink		// location
+					SET gradient = 98			// sets colour index 98 LEAF_GREEN
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
-					SET gradient = 102			// colour index
-					SET location = hteal		// location
+					SET gradient = 102			// sets colour index 102 SEA_BLUE
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -2246,25 +2281,25 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm10.itm~) BEGIN
 		COPY_EXISTING ~helm10.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J0~			// Replace H4
-				WRITE_ASCII 0x3A ~1HELM14~ #8	// Replace IHELM05
-				WRITE_ASCII 0x58 ~1CHELM11~ #8	// Replace CHELM05
+				WRITE_ASCII 0x22 ~J0~			// replaces H4
+				WRITE_ASCII 0x3A ~1HELM14~ #8	// replaces IHELM05
+				WRITE_ASCII 0x58 ~1CHELM11~ #8	// replaces CHELM05
 				LPM ~clear~
-				SET gradient = 98				// Replace colour index 47
-				SET location = hgrey			// location
+				SET gradient = 98				// 98 LEAF_GREEN replaces colour index 47 PURE_DARK_RED
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 232				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 91				// colour index
-				SET location = hred				// location
+				SET gradient = 91				// sets colour index 91 DARK_CHOCOLATE
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 98			// colour index
-					SET location = hpink		// location
+					SET gradient = 98			// sets colour index 98 LEAF_GREEN
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
-					SET gradient = 232			// colour index
-					SET location = hteal		// location
+					SET gradient = 232			// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -2274,25 +2309,25 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm11.itm~) BEGIN
 		COPY_EXISTING ~helm11.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J5~			// Replace H5
-				WRITE_ASCII 0x3A ~1HELM12~ #8	// Replace IHELM06
-				WRITE_ASCII 0x58 ~CHELM05~ #8	// Replace CHELM06
+				WRITE_ASCII 0x22 ~J5~			// replaces H5
+				WRITE_ASCII 0x3A ~1HELM12~ #8	// replaces IHELM06
+				WRITE_ASCII 0x58 ~CHELM05~ #8	// replaces CHELM06
 				LPM ~clear~
-				SET gradient = 210				// Replace colour index 47
-				SET location = hgrey			// location
+				SET gradient = 210				// 210 MERCHANT_MAJOR-AMBER replaces colour index 47 PURE_DARK_RED
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 249				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 249				// 249 OGRE_MINOR-METALLIC_SLATE replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 91				// colour index
-				SET location = hred				// location
+				SET gradient = 91				// sets colour index 91 DARK_CHOCOLATE
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 195			// colour index
-					SET location = hpink		// location
+					SET gradient = 195			// sets colour index 195 CHROME_RED
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
-					SET gradient = 0			// colour index
-					SET location = hteal		// location
+					SET gradient = 0			// sets colour index 0 RUST-TINTED_BLACK
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -2302,25 +2337,25 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm12.itm~) BEGIN
 		COPY_EXISTING ~helm12.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J0~			// Replace H1
-				WRITE_ASCII 0x3A ~1HELM11~ #8	// Replace IHELM02
-				WRITE_ASCII 0x58 ~1CHELM11~ #8	// Replace CHELM02
+				WRITE_ASCII 0x22 ~J0~			// replaces H1
+				WRITE_ASCII 0x3A ~1HELM11~ #8	// replaces IHELM02
+				WRITE_ASCII 0x58 ~1CHELM11~ #8	// replaces CHELM02
 				LPM ~clear~
-				SET gradient = 21				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 21				// 21 DARK_IRON_GRAY replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hblue			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 27				// Replace colour index 24
-				SET location = hred				// location
+				SET gradient = 27				// 27 GRAY replaces colour index 24 BROWN_GOLD
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 27			// colour index
-					SET location = hpink		// location
+					SET gradient = 27			// sets colour index 27 GRAY
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
-					SET gradient = 200			// colour index
-					SET location = hteal		// location
+					SET gradient = 200			// sets colour index 200 HAIR1-WHITE_TEAL
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -2330,25 +2365,25 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm13.itm~) BEGIN
 		COPY_EXISTING ~helm13.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J0~			// Replace H5
-				WRITE_ASCII 0x3A ~1HELM15~ #8	// Replace IHELM06
-				WRITE_ASCII 0x58 ~1CHELM11~ #8	// Replace CHELM06
+				WRITE_ASCII 0x22 ~J0~			// replaces H5
+				WRITE_ASCII 0x3A ~1HELM15~ #8	// replaces IHELM06
+				WRITE_ASCII 0x58 ~1CHELM11~ #8	// replaces CHELM06
 				LPM ~clear~
-				SET gradient = 232				// Replace colour index 47
-				SET location = hgrey			// location
+				SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 47 PURE_DARK_RED
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 232				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 232				// colour index
-				SET location = hred				// location
+				SET gradient = 232				// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 98			// colour index
-					SET location = hpink		// location
+					SET gradient = 98			// sets colour index 98 LEAF_GREEN
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
-					SET gradient = 232			// colour index
-					SET location = hteal		// location
+					SET gradient = 232			// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -2359,25 +2394,25 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm14.itm~) BEGIN
 		COPY_EXISTING ~helm14.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J7~			// Replace H1
-				WRITE_ASCII 0x3A ~1HELM22~ #8	// Replace IHELM14
+				WRITE_ASCII 0x22 ~J7~			// replaces H1
+				WRITE_ASCII 0x3A ~1HELM22~ #8	// replaces IHELM14
 				WRITE_ASCII 0x58 ~CHELM07~ #8
 				LPM ~clear~
-				SET gradient = 209				// Replace colour index 42
-				SET location = hgrey			// location
+				SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 42 BEIGE
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 182				// Replace colour index 99
-				SET location = hblue			// location
+				SET gradient = 182				// 182 DEEP_BLACK replaces colour index 99 GOLDEN_BROWN
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 0				// Replace colour index 98
-				SET location = hred				// location
+				SET gradient = 0				// 0 RUST-TINTED_BLACK replaces colour index 98 LEAF_GREEN
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 21				// colour index
-				SET location = hpink			// location
+				SET gradient = 21				// sets colour index 21 DARK_IRON_GRAY
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 225				// colour index
-				SET location = hteal			// location
+				SET gradient = 225				// sets colour index 225 DROW_MINOR-CORNSILK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -2388,25 +2423,25 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm15.itm~) BEGIN
 		COPY_EXISTING ~helm15.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J3~			// Replace H4
-				WRITE_ASCII 0x3A ~1HELM25~ #8	// Replace IHELM05
-				WRITE_ASCII 0x58 ~CHELM04~ #8	// Replace CHELM05
+				WRITE_ASCII 0x22 ~J3~			// replaces H4
+				WRITE_ASCII 0x3A ~1HELM25~ #8	// replaces IHELM05
+				WRITE_ASCII 0x58 ~CHELM04~ #8	// replaces CHELM05
 				LPM ~clear~
-				SET gradient = 226				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 232				// Replace colour index 30
-				SET location = hblue			// location
+				SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 30 LIGHT_IRON_GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 202				// Replace colour index 27
-				SET location = hred				// location
+				SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 27 GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hteal			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -2417,25 +2452,25 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm16.itm~) BEGIN
 		COPY_EXISTING ~helm16.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J4~			// Replace H2
-				WRITE_ASCII 0x3A ~1HELM16~ #8	// Replace IHELM03
-				WRITE_ASCII 0x58 ~CHELM16~ #8	// Replace CHELM03
+				WRITE_ASCII 0x22 ~J4~			// replaces H2
+				WRITE_ASCII 0x3A ~1HELM16~ #8	// replaces IHELM03
+				WRITE_ASCII 0x58 ~CHELM16~ #8	// replaces CHELM03
 				LPM ~clear~
-				SET gradient = 209				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 205				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 205				// 205 NOBLE_MINOR2-CHROME_GRAY replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 226				// colour index
-				SET location = hred				// location
+				SET gradient = 226				// sets colour index 226 METAL_NORMAL-EIGENGRAU
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 195				// colour index
-				SET location = hpink			// location
+				SET gradient = 195				// sets colour index 195 CHROME_RED
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hteal			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -2446,23 +2481,23 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm17.itm~) BEGIN
 		COPY_EXISTING ~helm17.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J3~			// Replace H0
+				WRITE_ASCII 0x22 ~J3~			// replaces H0
 				LPM ~clear~
-				SET gradient = 98				// Replace colour index 100
-				SET location = hgrey			// location
+				SET gradient = 98				// 98 LEAF_GREEN replaces colour index 100 DARK_ASH_GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 3				// Replace colour index 106
-				SET location = hblue			// location
+				SET gradient = 3				// 3 LIGHT_GOLD replaces colour index 106 PALE_PINK
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 253				// colour index
-				SET location = hred				// location
+				SET gradient = 253				// sets colour index 253 DUERGAR_MINOR-PALE_TAUPE
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hteal			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -2473,23 +2508,23 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm21.itm~) BEGIN
 		COPY_EXISTING ~helm21.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J2~			// Replace H2
+				WRITE_ASCII 0x22 ~J2~			// replaces H2
 				LPM ~clear~
-				SET gradient = 227				// Replace colour index 33
-				SET location = hgrey			// location
+				SET gradient = 227				// 227 METAL_WILD-CORAL replaces colour index 33 CHROME_MAGENTA
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 88				// Replace colour index 33
-				SET location = hblue			// location
+				SET gradient = 88				// 88 CHROME_PINK replaces colour index 33 CHROME_MAGENTA
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 70				// colour index
-				SET location = hred				// location
+				SET gradient = 70				// sets colour index 70 LIGHT_METALLIC_RED
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 195				// colour index
-				SET location = hpink			// location
+				SET gradient = 195				// sets colour index 195 CHROME_RED
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 195				// colour index
-				SET location = hteal			// location
+				SET gradient = 195				// sets colour index 195 CHROME_RED
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -2500,25 +2535,25 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm22.itm~) BEGIN
 		COPY_EXISTING ~helm22.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J8~			// Replace H3
-				WRITE_ASCII 0x3A ~1HELM05~ #8	// Replace IHELM04
-				WRITE_ASCII 0x58 ~1CHELMX4~ #8	// Replace CHELM04
+				WRITE_ASCII 0x22 ~J8~			// replaces H3
+				WRITE_ASCII 0x3A ~1HELM05~ #8	// replaces IHELM04
+				WRITE_ASCII 0x58 ~1CHELMX4~ #8	// replaces CHELM04
 				LPM ~clear~
-				SET gradient = 209				// Replace colour index 13
-				SET location = hgrey			// location
+				SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 13 LIGHT_PINKISH_SILVER
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 232				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hred				// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 223			// colour index
-					SET location = hteal		// location
+					SET gradient = 223			// sets colour index 223 DROW_SKIN-MOSS_GREEN
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -2529,25 +2564,25 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm31.itm~) BEGIN
 		COPY_EXISTING ~helm31.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J3~			// Replace H0
-				WRITE_ASCII 0x3A ~1HELM25~ #8	// Replace IHELM31
-				WRITE_ASCII 0x58 ~CHELM04~ #8	// Replace PHELM31
+				WRITE_ASCII 0x22 ~J3~			// replaces H0
+				WRITE_ASCII 0x3A ~1HELM25~ #8	// replaces IHELM31
+				WRITE_ASCII 0x58 ~CHELM04~ #8	// replaces PHELM31
 				LPM ~clear~
-				SET gradient = 226				// Replace colour index 30
-				SET location = hgrey			// location
+				SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 30 LIGHT_IRON_GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 232				// Replace colour index 27
-				SET location = hblue			// location
+				SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 27 GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 202				// Replace colour index 27
-				SET location = hred				// location
+				SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 27 GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hteal			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -2558,25 +2593,25 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm32.itm~) BEGIN
 		COPY_EXISTING ~helm32.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J3~			// Replace H1
-				WRITE_ASCII 0x3A ~1HELM26~ #8	// Replace IHELM32
-				WRITE_ASCII 0x58 ~CHELM04~ #8	// Replace PHELM32
+				WRITE_ASCII 0x22 ~J3~			// replaces H1
+				WRITE_ASCII 0x3A ~1HELM26~ #8	// replaces IHELM32
+				WRITE_ASCII 0x58 ~CHELM04~ #8	// replaces PHELM32
 				LPM ~clear~
-				SET gradient = 226				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 207				// Replace colour index 30
-				SET location = hblue			// location
+				SET gradient = 207				// 207 NOBLE_MINOR2-CHROME_GOLD replaces colour index 30 LIGHT_IRON_GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 228				// Replace colour index 27
-				SET location = hred				// location
+				SET gradient = 228				// 228 LEATHER-SPECTRAL_GREEN replaces colour index 27 GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hteal			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//END
 			END
@@ -2587,23 +2622,23 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm33.itm~) BEGIN
 		COPY_EXISTING ~helm33.itm~ ~override~	// fix typo (was copying helm32 instead of helm33)
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J3~			// Replace H0
+				WRITE_ASCII 0x22 ~J3~			// replaces H0
 				LPM ~clear~
-				SET gradient = 223				// Replace colour index 27
-				SET location = hgrey			// location
+				SET gradient = 223				// 223 DROW_SKIN-MOSS_GREEN replaces colour index 27 GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 208				// Replace colour index 30
-				SET location = hblue			// location
+				SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 30 LIGHT_IRON_GRAY
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 208				// Replace colour index 27
-				SET location = hred				// location
+				SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 27 GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 0			// colour index
-					SET location = hpink		// location
+					SET gradient = 0			// sets colour index 0 RUST-TINTED_BLACK
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
-					SET gradient = 0			// colour index
-					SET location = hteal		// location
+					SET gradient = 0			// sets colour index 0 RUST-TINTED_BLACK
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -2614,23 +2649,23 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~compon05.itm~) BEGIN
 		COPY_EXISTING ~compon05.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J3~			// Replace H3
+				WRITE_ASCII 0x22 ~J3~			// replaces H3
 				LPM ~clear~
-				SET gradient = 223				// Replace colour index 13
-				SET location = hgrey			// location
+				SET gradient = 223				// 223 DROW_SKIN-MOSS_GREEN replaces colour index 13 LIGHT_PINKISH_SILVER
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 208				// Replace colour index 51
-				SET location = hblue			// location
+				SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 51 DARK_OLIVE_GREEN
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 208				// colour index
-				SET location = hred				// location
+				SET gradient = 208				// sets colour index 208 ATH_PEASANT_MAJOR-FADED_WHEAT
+				SET location = hred				// location (Face)
 				LPM ~colour~
 				PATCH_IF (1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-					SET gradient = 0			// colour index
-					SET location = hpink		// location
+					SET gradient = 0			// sets colour index 0 RUST-TINTED_BLACK
+					SET location = hpink		// location (Plume)
 					LPM ~colour~
-					SET gradient = 0			// colour index
-					SET location = hteal		// location
+					SET gradient = 0			// sets colour index 0 RUST-TINTED_BLACK
+					SET location = hteal		// location (Detail)
 					LPM ~colour~
 				END
 			END
@@ -2641,25 +2676,25 @@ ACTION_IF (1pp_helmets_appearance = 3) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~wa2helm.itm~) BEGIN
 		COPY_EXISTING ~wa2helm.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x22 ~J3~			// Replace H0
-				WRITE_ASCII 0x3A ~1HELM24~ #8	// Replace IHELM17
-				WRITE_ASCII 0x58 ~CHELM04~ #8	// Replace CHELM17
+				WRITE_ASCII 0x22 ~J3~			// replaces H0
+				WRITE_ASCII 0x3A ~1HELM24~ #8	// replaces IHELM17
+				WRITE_ASCII 0x58 ~CHELM04~ #8	// replaces CHELM17
 				LPM ~clear~
-				SET gradient = 223				// Replace colour index 100
-				SET location = hgrey			// location
+				SET gradient = 223				// 223 DROW_SKIN-MOSS_GREEN replaces colour index 100 DARK_ASH_GRAY
+				SET location = hgrey			// location (Wings)
 				LPM ~colour~
-				SET gradient = 27				// Replace colour index 106
-				SET location = hblue			// location
+				SET gradient = 27				// 27 GRAY replaces colour index 106 PALE_PINK
+				SET location = hblue			// location (Exterior)
 				LPM ~colour~
-				SET gradient = 27				// colour index
-				SET location = hred				// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = hred				// location (Face)
 				LPM ~colour~
-				SET gradient = 0				// colour index
-				SET location = hteal			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hteal			// location (Detail)
 				LPM ~colour~
 				//PATCH_IF (1pp_forced_item_colours = 2) BEGIN
-				SET gradient = 0				// colour index
-				SET location = hpink			// location
+				SET gradient = 0				// sets colour index 0 RUST-TINTED_BLACK
+				SET location = hpink			// location (Plume)
 				LPM ~colour~
 				//END
 			END
@@ -2670,163 +2705,158 @@ END	// of ACTION_IF (1pp_helmets_appearance = 3) = BG2 style HELMETS
 
 
 
-/* ================================================================================================================================================================================ *
- *                                                               ADD CIRCLETS                                                                                                       *
- * ================================================================================================================================================================================ *
- *  change-log:                                                                                                                                                                     *
- *  -----------                                                                                                                                                                     *
- *      - Lollorian's BWP Fixpack patch for Ashes of Embers compatibility (400_1pp_update_bgii.tph.patch): Renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix     *
- *        (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian).                                                                          *
- *        Source: http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849                                                                                   *
- *                                                                                                                                                                                  *
- *  Fix wrong coding:                                                                                                                                                               *
- *  -----------------                                                                                                                                                               *
- *  - #2715 ==> xoband02.itm (Silver Circlet). Opcodes #33, 34 & 35: parameter2 originally set to 1 should be 0, adds #36 & 37 to match item description = +1 to saving throws.     *
- *  - #2770 ==> xoband03.itm (Eilistraee's Boon +1). Same fix for Opcodes #33, 34, 35, 36 & 37.                                                                                     *
- *  			Opcode #31: parameter1 originally set to 110 should be 10, and parameter2 switched from 2 to 0 to match item description (+10% magic damage resistance).            *
- *  - #2808 ==> xoband04.itm (Circlet of the Archmagi). Same fix for Opcodes #33, 34, 35, 36 & 37. Adds one missing equipped effects (LPM ADD_ITEM_EQEFFECT #19).                   *
- * ================================================================================================================================================================================ */
+/* ================================================================================================================================================================================= *
+ *                                                               ADD CIRCLETS                                                                                                        *
+ * ================================================================================================================================================================================= *
+ *  change-log:                                                                                                                                                                      *
+ *  -----------                                                                                                                                                                      *
+ *      - Lollorian's BWP Fixpack patch for Ashes of Embers compatibility (400_1pp_update_bgii.tph.patch): Renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix      *
+ *        (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian).                                                                           *
+ *        Source: http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849                                                                                    *
+ *      - Added ToBEx compatibility: item flag EE/Ex: Toggle critical hits flag (BIT25).                                                                                             *
+ *                                                                                                                                                                                   *
+ *  Fix wrong coding:                                                                                                                                                                *
+ *  -----------------                                                                                                                                                                *
+ *  - #2732 ==> Silver Circlet (xoband02.itm): Opcodes #33, 34 & 35: parameter2 originally set to 1 should be 0, adds #36 & 37 to match item description = +1 to all saving throws.  *
+ *  - #2781 ==> Eilistraee's Boon +1 (xoband03.itm). Same fix for opcodes #33, 34, 35, 36 & 37.                                                                                      *
+ *              Op#31: parameter1 originally set to 110 should be 10, and parameter2 switched from 2 to 0 to match item description (+10% Magic damage Resistance).                  *
+ *  - #2811 ==> Circlet of the Archmagi (xoband04.itm): Same fix for opcodes #33, 34, 35, 36 & 37. Added one missing equipped effects (`LPM ADD_ITEM_EQEFFECT #19`).                 *
+ * ================================================================================================================================================================================= */
 
-// Silver Circlet
+PRINT @400038 // ~Installing and patching circlets...~
+SILENT
+
 ACTION_IF (FILE_EXISTS_IN_GAME ~amul02.itm~) BEGIN
+
+	// Silver Circlet
 	COPY_EXISTING ~amul02.itm~ ~override/xoband02.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			SAY NAME1 @400601 /* Circlet */
-			SAY NAME2 @400602 /* Silver Circlet */
-			SAY UNIDENTIFIED_DESC @400603 /* A circlet is a circular band, typically made of precious metal, worn on the head as an ornament or symbol of status. Circlets carrying low-level enchantments are commonly worn by mages across Faerun. */
-			SAY DESC  @400604 /* A circlet is a circular band, typically made of precious metal, worn on the head as an ornament or symbol of status. This silver circlet is enchanted to bring the wearer luck in battle, slightly improving the chance of successful saving throws.
-
-STATISTICS:
-
-Special: +1 to saving throws
-Weight: 1 */
+			SAY NAME2 @400602
+			SAY UNIDENTIFIED_DESC @400603
+			SAY DESC  @400604
 			WRITE_ASCII 0x22 ~JB~
 			WRITE_ASCII 0x3A ~1BAND01~ #8
 			WRITE_ASCII 0x58 ~1CBAND01~ #8
-			WRITE_LONG	0x18 0x6c			// Flags : Droppable - Displayable - Not copyable - Magical
-			WRITE_SHORT 0x1c 0x07			// Category
-			WRITE_LONG  0x34 920			// Price
-			WRITE_SHORT 0x38 1				// Gwen fix: Stack (for safety!)
-			WRITE_SHORT 0x42 40				// Lore to identify
+			WRITE_LONG	0x18 0x6c				// Flags : Droppable - Displayable - Not copyable - Magical
+			WRITE_SHORT 0x1c 0x07				// Category
+			WRITE_LONG  0x34 920				// Price
+			WRITE_SHORT 0x38 1					// Gwen fix: Stack (for safety!)
+			WRITE_SHORT 0x42 40					// Lore to identify
+			PATCH_IF (is_tobex) BEGIN
+				WRITE_LONG 0x18 THIS | BIT25	// Adds EE/Ex: Toggle critical hits flag
+			END
 			LPM ~clear~
-			SET gradient = 27				// colour index
-			SET location = hred				// location
+			SET gradient = 27					// sets colour index 27 GRAY
+			SET location = hred					// location (Face)
 			LPM ~colour~
-			// Gwen wrong coding fixed: parameter2 originaly set to 1 should be 0 to match item description (+1 to saving throws).
+			// Gwen wrong coding fixed: parameter2 originally set to 1 should be 0 to match item description (+1 to saving throws).
 			PATCH_FOR_EACH op IN 33 34 35 36 37 BEGIN
 				LPF ADD_ITEM_EQEFFECT INT_VAR opcode = op target = 1 timing = 2 parameter1 = 1 END
 			END
 		END
 	BUT_ONLY
-END
 
-// Circlet
-ACTION_IF (FILE_EXISTS_IN_GAME ~amul02.itm~) BEGIN
+	// Circlet
 	COPY_EXISTING ~amul02.itm~ ~override/xoband01.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			SAY NAME2 @400601 /* Circlet */
-			SAY DESC  @400603 /* A circlet is a circular band, typically made of precious metal, worn on the head as an ornament or symbol of status. Circlets carrying low-level enchantments are commonly worn by mages across Faerun. */
+			SAY NAME2 @400601
+			SAY DESC  @400603
 			WRITE_ASCII 0x22 ~JB~
 			WRITE_ASCII 0x3A ~1BAND02~ #8
 			WRITE_ASCII 0x58 ~1CBAND01~ #8
-			WRITE_SHORT 0x1c 0x07			// Category
-			WRITE_LONG  0x34 12				// Price
-			WRITE_SHORT 0x38 1				// Gwen fix: Stack (for safety!)
+			WRITE_SHORT 0x1c 0x07				// Category
+			WRITE_LONG  0x34 12					// Price
+			WRITE_SHORT 0x38 1					// Gwen fix: Stack (for safety!)
+			PATCH_IF (is_tobex) BEGIN
+				WRITE_LONG 0x18 THIS | BIT25	// Adds EE/Ex: Toggle critical hits flag
+			END
 			LPM ~clear~
-			SET gradient = 98				// colour index
-			SET location = hred				// location
+			SET gradient = 98					// sets colour index 98 LEAF_GREEN
+			SET location = hred					// location (Face)
 			LPM ~colour~
 		END
 	BUT_ONLY
-END
 
-// Eilistraee's Boon +1
-ACTION_IF (FILE_EXISTS_IN_GAME ~amul02.itm~) BEGIN
+	// Eilistraee's Boon +1
 	COPY_EXISTING ~amul02.itm~ ~override/xoband03.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			SAY NAME1 @400601 /* Circlet */
-			SAY NAME2 @400605 /* Eilistraee's Boon +1 */
+			SAY NAME1 @400601
+			SAY NAME2 @400605
 			SAY UNIDENTIFIED_DESC @400603
-			SAY DESC  @400606 /* This circlet is made of the purest silver, and embedded with a green and shimmering jewel that seems to emit a faint glow when caught by moonlight. It was blessed by the Drow goddess Eilistraee, granting the wearer increased protection against harmful magic.
-
-STATISTICS:
-
-Special:
-+1 to saving throws
-+10% resistance to magic damage
-Weight: 1 */
+			SAY DESC  @400606
 			WRITE_ASCII 0x22 ~JB~
 			WRITE_ASCII 0x3A ~1BAND03~ #8
 			WRITE_ASCII 0x58 ~1CBAND03~ #8
-			WRITE_LONG	0x18 0x6c			// Flags : Droppable - Displayable - Not copyable - Magical
-			WRITE_SHORT 0x1c 0x07			// Category
-			WRITE_LONG  0x34 2100			// Price
-			WRITE_SHORT 0x38 1				// Gwen fix: Stack (for safety!)
-			WRITE_SHORT 0x42 85				// Lore to identify
+			WRITE_LONG	0x18 0x6c				// Flags : Droppable - Displayable - Not copyable - Magical
+			WRITE_SHORT 0x1c 0x07				// Category
+			WRITE_LONG  0x34 2100				// Price
+			WRITE_SHORT 0x38 1					// Gwen fix: Stack (for safety!)
+			WRITE_SHORT 0x42 85					// Lore to identify
+			PATCH_IF (is_tobex) BEGIN
+				WRITE_LONG 0x18 THIS | BIT25	// Adds EE/Ex: Toggle critical hits flag
+			END
 			LPM ~clear~
-			SET gradient = 245				// colour index
-			SET location = hred				// location
+			SET gradient = 245					// sets colour index 245 MAGE_MAJOR-CHROME_SEA_GRAY
+			SET location = hred					// location (Face)
 			LPM ~colour~
-			// Gwen wrong coding fixed: parameter1 originaly set to 110 should be 10, and parameter2 switched from 2 to 0 to match item description (+10% magic damage resistance).
+			// Gwen wrong coding fixed: parameter1 originally set to 110 should be 10, and parameter2 switched from 2 to 0 to match item description (+10% magic damage resistance).
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 31 target = 1 timing = 2 parameter1 = 10 END
-			PATCH_FOR_EACH op IN 33 34 35 36 37 BEGIN // wrong coding: +1 to saving throws (parameter2 originaly set to 1 should be 0).
+			PATCH_FOR_EACH op IN 33 34 35 36 37 BEGIN // wrong coding: +1 to saving throws (parameter2 originally set to 1 should be 0).
 				LPF ADD_ITEM_EQEFFECT INT_VAR opcode = op target = 1 timing = 2 parameter1 = 1 END
 			END
 		END
 	BUT_ONLY
-END
 
-// Circlet of the Archmagi
-ACTION_IF (FILE_EXISTS_IN_GAME ~amul02.itm~) BEGIN
+	// Circlet of the Archmagi
 	COPY_EXISTING ~amul02.itm~ ~override/xoband04.itm~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			SAY NAME1 @400601 /* Circlet */
-			SAY NAME2 @400607 /* Circlet of the Archmagi */
+			SAY NAME1 @400601
+			SAY NAME2 @400607
 			SAY UNIDENTIFIED_DESC @400603
-			SAY DESC  @400608 /* This powerful circlet was enchanted to complement the robes customarily worn by arch mages, building even further on their magical protection and benefits. Due to the nature of the enchantment, it can only be worn by mages.
-
-STATISTICS:
-
-Special:
-+1 to saving throws
-+1 to intelligence
-+1 to armour class
-Weight: 1 */
+			SAY DESC  @400608
 			WRITE_ASCII 0x22 ~JB~
 			WRITE_ASCII 0x3A ~1BAND04~ #8
 			WRITE_ASCII 0x58 ~1CBAND04~ #8
-			WRITE_LONG	0x18 0x6c			// Flags : Droppable - Displayable - Not copyable - Magical
-			WRITE_SHORT 0x1c 0x07			// Category
-			WRITE_LONG  0x1e 0x60725ec0		// Usability
-			WRITE_LONG  0x34 5100			// Price
-			WRITE_SHORT 0x38 1				// Gwen fix: Stack (for safety!)
-			WRITE_SHORT 0x42 85				// Lore to identify
+			WRITE_LONG	0x18 0x6c				// Flags : Droppable - Displayable - Not copyable - Magical
+			WRITE_SHORT 0x1c 0x07				// Category
+			WRITE_LONG  0x1e 0x60725ec0			// Usability
+			WRITE_LONG  0x34 5100				// Price
+			WRITE_SHORT 0x38 1					// Gwen fix: Stack (for safety!)
+			WRITE_SHORT 0x42 85					// Lore to identify
+			PATCH_IF (is_tobex) BEGIN
+				WRITE_LONG 0x18 THIS | BIT25	// Adds EE/Ex: Toggle critical hits flag
+			END
 			LPM ~clear~
-			SET gradient = 228				// colour index
-			SET location = hred				// location
+			SET gradient = 228					// sets colour index 228 LEATHER-SPECTRAL_GREEN
+			SET location = hred					// location (Face)
 			LPM ~colour~
 			// Gwen wrong coding fixed: one LPM ADD_ITEM_EQEFFECT was missing.
-			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 19 target = 10 timing = 2 parameter1 = 1 END
+			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 19 target = 1 timing = 2 parameter1 = 1 END
 			LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 0 target = 1 timing = 2 parameter1 = 1 END
-			// Gwen wrong coding fixed: parameter2 originaly set to 1 should be 0 to match item description (+1 to saving throws).
+			// Gwen wrong coding fixed: parameter2 originally set to 1 should be 0 to match item description (+1 to saving throws).
 			PATCH_FOR_EACH op IN 33 34 35 36 37 BEGIN
 				LPF ADD_ITEM_EQEFFECT INT_VAR opcode = op target = 1 timing = 2 parameter1 = 1 END
 			END
 		END
 	BUT_ONLY
+
 END
 
 // Circlet of Netheril
 ACTION_IF (FILE_EXISTS_IN_GAME ~compon17.itm~) BEGIN
 	COPY_EXISTING ~compon17.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~JB~			// Replace None
-			WRITE_ASCII 0x3A ~1BAND05~ #8	// Replace ICOMPO17
-			WRITE_ASCII 0x58 ~1CBAND05~ #8	// Replace PCOMPO17
-			WRITE_SHORT 0x38 1				// Gwen fix: Stack (for safety!)
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN		// protects against invalid files
+			WRITE_ASCII 0x22 ~JB~				// replaces None
+			WRITE_ASCII 0x3A ~1BAND05~ #8		// replaces ICOMPO17
+			WRITE_ASCII 0x58 ~1CBAND05~ #8		// replaces PCOMPO17
+			WRITE_SHORT 0x38 1					// Gwen fix: Stack (for safety!)
+			PATCH_IF (is_tobex) BEGIN
+				WRITE_LONG 0x18 THIS | BIT25	// Adds EE/Ex: Toggle critical hits flag
+			END
 			LPM ~clear~
-			SET gradient = 208				// colour index
-			SET location = hred				// location
+			SET gradient = 208					// sets colour index 208 ATH_PEASANT_MAJOR-FADED_WHEAT
+			SET location = hred					// location (Face)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -2835,14 +2865,17 @@ END
 // Circlet of Netheril
 ACTION_IF (FILE_EXISTS_IN_GAME ~helm28.itm~) BEGIN
 	COPY_EXISTING ~helm28.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~JB~			// Replace None
-			WRITE_ASCII 0x3A ~1BAND06~ #8	// Replace ICOMPO17
-			WRITE_ASCII 0x58 ~1CBAND06~ #8	// Replace PCOMPO17
-			WRITE_SHORT 0x38 1				// Gwen fix: Stack (for safety!)
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN		// protects against invalid files
+			WRITE_ASCII 0x22 ~JB~				// replaces None
+			WRITE_ASCII 0x3A ~1BAND06~ #8		// replaces ICOMPO17
+			WRITE_ASCII 0x58 ~1CBAND06~ #8		// replaces PCOMPO17
+			WRITE_SHORT 0x38 1					// Gwen fix: Stack (for safety!)
+			PATCH_IF (is_tobex) BEGIN
+				WRITE_LONG 0x18 THIS | BIT25	// Adds EE/Ex: Toggle critical hits flag
+			END
 			LPM ~clear~
-			SET gradient = 227				// colour index
-			SET location = hred				// location
+			SET gradient = 227					// sets colour index 227 METAL_WILD-CORAL
+			SET location = hred					// location (Face)
 			LPM ~colour~
 		END
 	BUT_ONLY
