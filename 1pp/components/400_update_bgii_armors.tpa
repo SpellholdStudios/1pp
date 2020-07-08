@@ -1,21 +1,41 @@
-/*  ==============================================================================================================================================================================  *
+/* ================================================================================================================================================================================ *
+ *                                                                                                                                                                                  *
+ *                                       C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( a r m o r s )                                        *
+ *                                                                                                                                                                                  *
+ * ================================================================================================================================================================================ *
+ *  This part installs armors stuff.                                                                                                                                                *
+ * ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
- *      - Replace macros with functions whenever possible.                                                                                                                          *
+ *      - Replaced macros with functions whenever possible.                                                                                                                          *
  *      - Coding simplification:                                                                                                                                                    *
- *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
- *  		Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
+ *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
  *                                                                                                                                                                                  *
  *  specific fixes:                                                                                                                                                                 *
  *  ---------------                                                                                                                                                                 *
- *      - #1479 ==> chan03B.itm (Werebane Mail +2): adds missing identified name.                                                                                                   *
- *      - #1592 ==> plat15.itm (Pride of the Legion +2): reverts its inventory and description icons (set to IPLAT23 and CPLAT05) as EE does not validate this change.              *
- *      - #1628 ==> plat23.itm (Full Plate Mail +2): removed from the patches as EE does not validate them (this silver and golden full plate was turned into a black one!).        *
- *  ==============================================================================================================================================================================  */
+ *      - #1490 ==> chan03b.itm (Werebane Mail +2): added missing identified name.                                                                                                   *
+ *      - #1590 ==> plat15.itm (Pride of the Legion +2): reverted its inventory and description icons (set to IPLAT23 and CPLAT05) as EE does not validate this change.              *
+ *      - #1630 ==> plat23.itm (Full Plate Mail +2): removed from the patches as EE does not validate them (this silver and golden full plate was turned into a black one!).        *
+ * ================================================================================================================================================================================ */
 
-/*  ==============================  *
+// -------------------------------- //
+//  ARMORS                    line  //
+// -------------------------------- //
+//  LEATHER ARMORS          #   34  //
+//  CHAIN & SPLINT MAILS    #  463  //
+//  CLOAKS                  #  983  //
+//  PLATE MAILS             # 1054  //
+//  TUTU STUFF              # 1349  //
+//  ARMORS APPEARANCE       # 1436  //
+// -------------------------------- //
+
+/* ================================ *
  *          LEATHER ARMORS          *
- *  ==============================  */
+ * ================================ */
+
+PRINT @400081 // ~Patching leather armors...~
+SILENT
 
 // Leather Armor
 ACTION_FOR_EACH leather IN ~leat01~ ~_leat01~ BEGIN
@@ -23,14 +43,14 @@ ACTION_FOR_EACH leather IN ~leat01~ ~_leat01~ BEGIN
 		COPY_EXISTING ~%leather%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 30				// colour index
-				SET location = agrey			// location
+				SET gradient = 30				// sets colour index 30 LIGHT_IRON_GRAY
+				SET location = agrey			// location (Belt/Amulet)
 				LPM ~colour~
-				SET gradient = 23				// colour index
-				SET location = ared				// location
+				SET gradient = 23				// sets colour index 23 LIGHT_COPPER
+				SET location = ared				// location (Strap/Leather)
 				LPM ~colour~
-				SET gradient = 22				// colour index
-				SET location = ablue			// location
+				SET gradient = 22				// sets colour index 22 DARK_BROWN
+				SET location = ablue			// location (Armor/Trimming)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -42,14 +62,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat02.itm~) BEGIN
 	COPY_EXISTING ~leat02.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 93				// colour index
-			SET location = agrey			// location
+			SET gradient = 93				// sets colour index 93 DARK_CEMENT_GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 99				// Replace colour index 23
-			SET location = ared				// location
+			SET gradient = 99				// 99 GOLDEN_BROWN replaces colour index 23 LIGHT_COPPER
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 92				// colour index
-			SET location = ablue			// location
+			SET gradient = 92				// sets colour index 92 LIGHT_CHOCOLATE
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -60,14 +80,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat03.itm~) BEGIN
 	COPY_EXISTING ~leat03.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 27				// colour index
-			SET location = agrey			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 94				// colour index
-			SET location = ared				// location
+			SET gradient = 94				// sets colour index 94 RHUBARB
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 95				// colour index
-			SET location = ablue			// location
+			SET gradient = 95				// sets colour index 95 LIGHT_DIRTISH_BROWN
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -78,14 +98,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat04.itm~) BEGIN
 	COPY_EXISTING ~leat04.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 27				// colour index
-			SET location = agrey			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 92				// colour index
-			SET location = ared				// location
+			SET gradient = 92				// sets colour index 92 LIGHT_CHOCOLATE
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 91				// colour index
-			SET location = ablue			// location
+			SET gradient = 91				// sets colour index 91 DARK_CHOCOLATE
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -96,14 +116,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat05.itm~) BEGIN
 	COPY_EXISTING ~leat05.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 90				// Replace colour index 93
-			SET location = agrey			// location
+			SET gradient = 90				// 90 MOLDY_GOLD replaces colour index 93 DARK_CEMENT_GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 2				// Replace colour index 99
-			SET location = ared				// location
+			SET gradient = 2				// 2 DARK_GOLD replaces colour index 99 GOLDEN_BROWN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 95				// colour index
-			SET location = ablue			// location
+			SET gradient = 95				// sets colour index 95 LIGHT_DIRTISH_BROWN
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -114,14 +134,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat06.itm~) BEGIN
 	COPY_EXISTING ~leat06.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 90				// Replace colour index 25
-			SET location = agrey			// location
+			SET gradient = 90				// 90 MOLDY_GOLD replaces colour index 25 DARK_PURE_GOLD
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 2				// Replace colour index 94
-			SET location = ared				// location
+			SET gradient = 2				// 2 DARK_GOLD replaces colour index 94 RHUBARB
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 95				// Replace colour index 23
-			SET location = ablue			// location
+			SET gradient = 95				// 95 LIGHT_DIRTISH_BROWN replaces colour index 23 LIGHT_COPPER
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -132,14 +152,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat07.itm~) BEGIN
 	COPY_EXISTING ~leat07.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 25				// colour index
-			SET location = agrey			// location
+			SET gradient = 25				// sets colour index 25 DARK_PURE_GOLD
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 114				// Replace colour index 95
-			SET location = ared				// location
+			SET gradient = 114				// 114 YET_ANOTHER_BROWN replaces colour index 95 LIGHT_DIRTISH_BROWN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 211				// Replace colour index 94
-			SET location = ablue			// location
+			SET gradient = 211				// 211 MERCHANT_MINOR-DARK_BRASS replaces colour index 94 RHUBARB
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -150,14 +170,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat08.itm~) BEGIN
 	COPY_EXISTING ~leat08.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 164				// Replace colour index 27
-			SET location = agrey			// location
+			SET gradient = 164				// 164 RAW_UMBER replaces colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 254				// Replace colour index 21
-			SET location = ared				// location
+			SET gradient = 254				// 254 EBONY replaces colour index 21 DARK_IRON_GRAY
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 209				// Replace colour index 21
-			SET location = ablue			// location
+			SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 21 DARK_IRON_GRAY
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -168,14 +188,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat09.itm~) BEGIN
 	COPY_EXISTING ~leat09.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 27				// colour index
-			SET location = agrey			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 85				// Replace colour index 22
-			SET location = ared				// location
+			SET gradient = 85				// 85 PURE_GOLD replaces colour index 22 DARK_BROWN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 95				// colour index
-			SET location = ablue			// location
+			SET gradient = 95				// sets colour index 95 LIGHT_DIRTISH_BROWN
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -186,14 +206,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat10.itm~) BEGIN
 	COPY_EXISTING ~leat10.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 226				// Replace colour index 22
-			SET location = agrey			// location
+			SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 22 DARK_BROWN
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 137				// Replace colour index 22
-			SET location = ared				// location
+			SET gradient = 137				// 137 SAND replaces colour index 22 DARK_BROWN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 1				// Replace colour index 16
-			SET location = ablue			// location
+			SET gradient = 1				// 1 DARK_BRONZE replaces colour index 16 SILVERISH_GOLD
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -204,14 +224,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat11.itm~) BEGIN
 	COPY_EXISTING ~leat11.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 27				// colour index
-			SET location = agrey			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 95				// colour index
-			SET location = ared				// location
+			SET gradient = 95				// sets colour index 95 LIGHT_DIRTISH_BROWN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 238				// Replace colour index 95
-			SET location = ablue			// location
+			SET gradient = 238				// 238 CLERIC_NEUTRAL_MINOR-RUSSET_BROWN replaces colour index 95 LIGHT_DIRTISH_BROWN
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -222,14 +242,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat12.itm~) BEGIN
 	COPY_EXISTING ~leat12.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 209				// Replace colour index 27
-			SET location = agrey			// location
+			SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 87				// Replace colour index 95
-			SET location = ared				// location
+			SET gradient = 87				// 87 SADDLE_BROWN replaces colour index 95 LIGHT_DIRTISH_BROWN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 160				// Replace colour index 95
-			SET location = ablue			// location
+			SET gradient = 160				// 160 DEEP_BROWN replaces colour index 95 LIGHT_DIRTISH_BROWN
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -240,14 +260,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat14.itm~) BEGIN
 	COPY_EXISTING ~leat14.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 209				// Replace colour index 27
-			SET location = agrey			// location
+			SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 87				// Replace colour index 91
-			SET location = ared				// location
+			SET gradient = 87				// 87 SADDLE_BROWN replaces colour index 91 DARK_CHOCOLATE
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 91				// colour index
-			SET location = ablue			// location
+			SET gradient = 91				// sets colour index 91 DARK_CHOCOLATE
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -258,33 +278,33 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat15.itm~) BEGIN
 	COPY_EXISTING ~leat15.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 27				// colour index
-			SET location = agrey			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 114				// Replace colour index 22
-			SET location = ared				// location
+			SET gradient = 114				// 114 YET_ANOTHER_BROWN replaces colour index 22 DARK_BROWN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 22				// colour index
-			SET location = ablue			// location
+			SET gradient = 22				// sets colour index 22 DARK_BROWN
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
 END
 
 // Bardic Leathers (Mod Song and Silence)
-ACTION_IF (FILE_EXISTS_IN_GAME ~A!BLEAT1.itm~) BEGIN
-	COPY_EXISTING ~A!BLEAT1.itm~ ~override~
+ACTION_IF (FILE_EXISTS_IN_GAME ~a!bleat1.itm~) BEGIN
+	COPY_EXISTING ~a!bleat1.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~ILEAT15~ #8	// Replace a!ileat1
+			WRITE_ASCII 0x3A ~ILEAT15~ #8	// replaces a!ileat1
 			LPM ~clear~
-			SET gradient = 27				// colour index
-			SET location = agrey			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 114				// colour index
-			SET location = ared				// location
+			SET gradient = 114				// sets colour index 114 YET_ANOTHER_BROWN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 22				// colour index
-			SET location = ablue			// location
+			SET gradient = 22				// sets colour index 22 DARK_BROWN
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -295,14 +315,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat16.itm~) BEGIN
 	COPY_EXISTING ~leat16.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 226				// Replace colour index 28
-			SET location = agrey			// location
+			SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 28 BLUISH_SILVER
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 1				// Replace colour index 22
-			SET location = ared				// location
+			SET gradient = 1				// 1 DARK_BRONZE replaces colour index 22 DARK_BROWN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 239				// Replace colour index 94
-			SET location = ablue			// location
+			SET gradient = 239				// 239 CLERIC_EVIL_MAJOR-PALE_BRONZ replaces colour index 94 RHUBARB
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -313,31 +333,32 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat17.itm~) BEGIN
 	COPY_EXISTING ~leat17.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 158				// Replace colour index 27
-			SET location = agrey			// location
+			SET gradient = 158				// 158 DEEP_SALMON replaces colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 199				// Replace colour index 83
-			SET location = ared				// location
+			SET gradient = 199				// 199 BLACK_TEAL replaces colour index 83 DARK_BLUISH_GRAY
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 227				// Replace colour index 83
-			SET location = ablue			// location
+			SET gradient = 227				// 227 METAL_WILD-CORAL replaces colour index 83 DARK_BLUISH_GRAY
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 BUT_ONLY
+END
 
 // Armor of the Viper +5
 ACTION_IF (FILE_EXISTS_IN_GAME ~leat18.itm~) BEGIN
 	COPY_EXISTING ~leat18.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 227				// Replace colour index 27
-			SET location = agrey			// location
+			SET gradient = 227				// 227 METAL_WILD-CORAL replaces colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 109				// Replace colour index 4
-			SET location = ared				// location
+			SET gradient = 109				// 109 TERRA_COTTA replaces colour index 4 AUBURN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 238				// Replace colour index 22
-			SET location = ablue			// location
+			SET gradient = 238				// 238 CLERIC_NEUTRAL_MINOR-RUSSET_BROWN replaces colour index 22 DARK_BROWN
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -348,17 +369,17 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat19.itm~) BEGIN
 	COPY_EXISTING ~leat19.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 21				// colour index
-			SET location = agrey			// location
+			SET gradient = 21				// sets colour index 21 DARK_IRON_GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 244				// colour index
-			SET location = apink			// location
+			SET gradient = 244				// sets colour index 244 FIGHTER_MINOR-DARK_CADET_GRAY
+			SET location = apink			// location (Major color)
 			LPM ~colour~
-			SET gradient = 21				// colour index
-			SET location = ared				// location
+			SET gradient = 21				// sets colour index 21 DARK_IRON_GRAY
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 21				// colour index
-			SET location = ablue			// location
+			SET gradient = 21				// sets colour index 21 DARK_IRON_GRAY
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -369,14 +390,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat20.itm~) BEGIN
 	COPY_EXISTING ~leat20.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 22				// colour index
-			SET location = agrey			// location
+			SET gradient = 22				// sets colour index 22 DARK_BROWN
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 138				// Replace colour index 22
-			SET location = ared				// location
+			SET gradient = 138				// 138 DARK_SAND replaces colour index 22 DARK_BROWN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 16				// colour index
-			SET location = ablue			// location
+			SET gradient = 16				// sets colour index 16 SILVERISH_GOLD
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -387,14 +408,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat23.itm~) BEGIN
 	COPY_EXISTING ~leat23.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 211				// Replace colour index 103
-			SET location = agrey			// location
+			SET gradient = 211				// 211 MERCHANT_MINOR-DARK_BRASS replaces colour index 103 PINE_GREEN
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 230				// Replace colour index 53
-			SET location = ared				// location
+			SET gradient = 230				// KOBOLD_MAJOR-DEEP_AVOCADO replaces colour index 53 GREEN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 240				// Replace colour index 103
-			SET location = ablue			// location
+			SET gradient = 240				// 240 CLERIC_EVIL_MINOR-PALE_RUST replaces colour index 103 PINE_GREEN
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -405,56 +426,59 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~leat24.itm~) BEGIN
 	COPY_EXISTING ~leat24.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 27				// Replace colour index 25
-			SET location = agrey			// location
+			SET gradient = 27				// 27 GRAY replaces colour index 25 DARK_PURE_GOLD
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 201				// Replace colour index 21
-			SET location = ared				// location
+			SET gradient = 201				// 201 SKIN1-AVOCADO replaces colour index 21 DARK_IRON_GRAY
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 208				// Replace colour index 21
-			SET location = ablue			// location
+			SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 21 DARK_IRON_GRAY
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
 END
 
 // Bardic Leathers +1 (Mod Song and Silence)
-ACTION_IF (FILE_EXISTS_IN_GAME ~A!BLEAT2.itm~) BEGIN
-	COPY_EXISTING ~A!BLEAT2.itm~ ~override~
+ACTION_IF (FILE_EXISTS_IN_GAME ~a!bleat2.itm~) BEGIN
+	COPY_EXISTING ~a!bleat2.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~ILEAT24~ #8	// Replace a!ileat2
+			WRITE_ASCII 0x3A ~ILEAT24~ #8	// replaces a!ileat2
 			LPM ~clear~
-			SET gradient = 27				// colour index
-			SET location = agrey			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 201				// colour index
-			SET location = ared				// location
+			SET gradient = 201				// sets colour index 201 SKIN1-AVOCADO
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 208				// colour index
-			SET location = ablue			// location
+			SET gradient = 208				// sets colour index 208 ATH_PEASANT_MAJOR-FADED_WHEAT
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
 END
 
 
-/*  ============================================  *
+/* ============================================== *
  *          CHAIN AND SPLINT MAIL ARMORS          *
- *  ============================================  */
+ * ============================================== */
+
+PRINT @400082 // ~Patching chain and splint mail armors...~
+SILENT
 
 // Chain Mail Armor
 ACTION_IF (FILE_EXISTS_IN_GAME ~chan01.itm~) BEGIN
 	COPY_EXISTING ~chan01.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 27				// colour index
-			SET location = agrey			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 22				// colour index
-			SET location = ared				// location
+			SET gradient = 22				// sets colour index 22 DARK_BROWN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 6				// colour index
-			SET location = ablue			// location
+			SET gradient = 6				// sets colour index 6 DARK_SILVER
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -465,33 +489,33 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chan02.itm~) BEGIN
 	COPY_EXISTING ~chan02.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 102				// Replace colour index 94
-			SET location = agrey			// location
+			SET gradient = 102				// 102 SEA_BLUE replaces colour index 94 RHUBARB
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 99				// Replace colour index 100
-			SET location = ared				// location
+			SET gradient = 99				// 99 GOLDEN_BROWN replaces colour index 100 DARK_ASH_GRAY
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 248				// Replace colour index 97
-			SET location = ablue			// location
+			SET gradient = 248				// 248 OGRE_MAJOR-BATTLESHIP_GRAY replaces colour index 97 LIGHT_MINTY_BLUE
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
 END
 
 // Caster's Chain (Mod Song and Silence)
-ACTION_IF (FILE_EXISTS_IN_GAME ~A!BCHAN1.itm~) BEGIN
-	COPY_EXISTING ~A!BCHAN1.itm~ ~override~
+ACTION_IF (FILE_EXISTS_IN_GAME ~a!bchan1.itm~) BEGIN
+	COPY_EXISTING ~a!bchan1.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~ICHAN02~ #8	// Replace a!ichan1
+			WRITE_ASCII 0x3A ~ICHAN02~ #8	// replaces a!ichan1
 			LPM ~clear~
-			SET gradient = 102				// colour index
-			SET location = agrey			// location
+			SET gradient = 102				// sets colour index 102 SEA_BLUE
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 99				// colour index
-			SET location = ared				// location
+			SET gradient = 99				// sets colour index 99 GOLDEN_BROWN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 248				// colour index
-			SET location = ablue			// location
+			SET gradient = 248				// sets colour index 248 OGRE_MAJOR-BATTLESHIP_GRAY
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -502,14 +526,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chan03.itm~) BEGIN
 	COPY_EXISTING ~chan03.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 208				// Replace colour index 25
-			SET location = agrey			// location
+			SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 25 DARK_PURE_GOLD
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 242				// Replace colour index 99
-			SET location = ared				// location
+			SET gradient = 242				// 242 THIEF_MINOR-PALE_OLIVE replaces colour index 99 GOLDEN_BROWN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 205				// Replace colour index 5
-			SET location = ablue			// location
+			SET gradient = 205				// 205 NOBLE_MINOR2-CHROME_GRAY replaces colour index 5 MEDIUM_SILVER
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -520,14 +544,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chan04.itm~) BEGIN
 	COPY_EXISTING ~chan04.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 27				// colour index
-			SET location = agrey			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 94				// colour index
-			SET location = ared				// location
+			SET gradient = 94				// sets colour index 94 RHUBARB
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 27				// colour index
-			SET location = ablue			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -539,14 +563,14 @@ ACTION_FOR_EACH chain IN ~chan05~ ~_chan05~ BEGIN
 		COPY_EXISTING ~%chain%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 90				// Replace colour index 25
-				SET location = agrey			// location
+				SET gradient = 90				// 90 MOLDY_GOLD replaces colour index 25 DARK_PURE_GOLD
+				SET location = agrey			// location (Belt/Amulet)
 				LPM ~colour~
-				SET gradient = 238				// Replace colour index 94
-				SET location = ared				// location
+				SET gradient = 238				// 238 CLERIC_NEUTRAL_MINOR-RUSSET_BROWN replaces colour index 94 RHUBARB
+				SET location = ared				// location (Strap/Leather)
 				LPM ~colour~
-				SET gradient = 226				// Replace colour index 14
-				SET location = ablue			// location
+				SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 14 DARK_PURE_SILVER
+				SET location = ablue			// location (Armor/Trimming)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -559,14 +583,14 @@ ACTION_FOR_EACH chain IN ~chan06~ ~_chan06~ BEGIN
 		COPY_EXISTING ~%chain%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 90				// Replace colour index 27
-				SET location = agrey			// location
+				SET gradient = 90				// 90 MOLDY_GOLD replaces colour index 27 GRAY
+				SET location = agrey			// location (Belt/Amulet)
 				LPM ~colour~
-				SET gradient = 164				// Replace colour index 99
-				SET location = ared				// location
+				SET gradient = 164				// 164 RAW_UMBER replaces colour index 99 GOLDEN_BROWN
+				SET location = ared				// location (Strap/Leather)
 				LPM ~colour~
-				SET gradient = 202				// Replace colour index 18
-				SET location = ablue			// location
+				SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 18 BLUE
+				SET location = ablue			// location (Armor/Trimming)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -579,14 +603,14 @@ ACTION_FOR_EACH chain IN ~chan07~ ~_chan07~ BEGIN
 		COPY_EXISTING ~%chain%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 208				// Replace colour index 25
-				SET location = agrey			// location
+				SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 25 DARK_PURE_GOLD
+				SET location = agrey			// location (Belt/Amulet)
 				LPM ~colour~
-				SET gradient = 91				// Replace colour index 99
-				SET location = ared				// location
+				SET gradient = 91				// 91 DARK_CHOCOLATE replaces colour index 99 GOLDEN_BROWN
+				SET location = ared				// location (Strap/Leather)
 				LPM ~colour~
-				SET gradient = 112				// Replace colour index 27
-				SET location = ablue			// location
+				SET gradient = 112				// 112 SEA_FOAM replaces colour index 27 GRAY
+				SET location = ablue			// location (Armor/Trimming)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -598,14 +622,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chan08.itm~) BEGIN
 	COPY_EXISTING ~chan08.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 205				// Replace colour index 23
-			SET location = agrey			// location
+			SET gradient = 205				// 205 NOBLE_MINOR2-CHROME_GRAY replaces colour index 23 LIGHT_COPPER
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 100				// Replace colour index 91
-			SET location = ared				// location
+			SET gradient = 100				// 100 DARK_ASH_GRAY replaces colour index 91 DARK_CHOCOLATE
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 205				// Replace colour index 6
-			SET location = ablue			// location
+			SET gradient = 205				// 205 NOBLE_MINOR2-CHROME_GRAY replaces colour index 6 DARK_SILVER
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -616,14 +640,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chan09.itm~) BEGIN
 	COPY_EXISTING ~chan09.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 21				// Replace colour index 24
-			SET location = agrey			// location
+			SET gradient = 21				// 21 DARK_IRON_GRAY replaces colour index 24 BROWN_GOLD
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 91				// Replace colour index 100
-			SET location = ared				// location
+			SET gradient = 91				// 91 DARK_CHOCOLATE replaces colour index 100 DARK_ASH_GRAY
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 231				// Replace colour index 27
-			SET location = ablue			// location
+			SET gradient = 231				// 231 KOBOLD_MINOR-CHROME_COOL_GRAY replaces colour index 27 GRAY
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -634,32 +658,32 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chan10.itm~) BEGIN
 	COPY_EXISTING ~chan10.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET setr = 250					// Replace colour index 219
-			SET setg = 200					// Replace colour index 225
+			SET setr = 250					// replaces colour index 219
+			SET setg = 200					// replaces colour index 225
 			SET setb = 0
-			SET speed = 0x32				// Replace 0x28
-			SET location = agrey			// location
+			SET speed = 0x32				// replaces 0x28
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~pulse~
-			SET setr = 10					// Replace colour index 0
-			SET setg = 50					// Replace colour index 205
-			SET setb = 10					// Replace colour index 0
-			SET speed = 0x28				// Replace 0x32
-			SET location = ared				// location
+			SET setr = 10					// replaces colour index 0
+			SET setg = 50					// replaces colour index 205
+			SET setb = 10					// replaces colour index 0
+			SET speed = 0x28				// replaces 0x32
+			SET location = ared				// location (Strap/Leather)
 			LPM ~pulse~
-			SET setr = 50					// Replace colour index 195
+			SET setr = 50					// replaces colour index 195
 			SET setg = 0
-			SET setb = 90					// Replace colour index 255
-			SET speed = 0x48				// Replace 0x32
-			SET location = ablue			// location
+			SET setb = 90					// replaces colour index 255
+			SET speed = 0x48				// replaces 0x32
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~pulse~
-			SET gradient = 218				// Replace colour index 24
-			SET location = agrey			// location
+			SET gradient = 218				// 218 ELF_HAIR-CHROME_BLUE_GRAY replaces colour index 24 BROWN_GOLD
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 243				// Replace colour index 27
-			SET location = ared				// location
+			SET gradient = 243				// 243 FIGHTER_MAJOR-CRIMSON replaces colour index 27 GRAY
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 178				// Replace colour index 34
-			SET location = ablue			// location
+			SET gradient = 178				// 178 SLATE_GREEN replaces colour index 34 LIGHT_GREEN-DARK_BLUE
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -670,14 +694,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chan11.itm~) BEGIN
 	COPY_EXISTING ~chan11.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 227				// Replace colour index 101
-			SET location = agrey			// location
+			SET gradient = 227				// 227 METAL_WILD-CORAL replaces colour index 101 METALLIC_RED
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 21				// Replace colour index 27
-			SET location = ared				// location
+			SET gradient = 21				// 21 DARK_IRON_GRAY replaces colour index 27 GRAY
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 210				// Replace colour index 30
-			SET location = ablue			// location
+			SET gradient = 210				// 210 MERCHANT_MAJOR-AMBER replaces colour index 30 LIGHT_IRON_GRAY
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -688,14 +712,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chan12.itm~) BEGIN
 	COPY_EXISTING ~chan12.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 251				// Replace colour index 32
-			SET location = agrey			// location
+			SET gradient = 251				// 251 SHADOW_DRUID_MINOR-CLOVER replaces colour index 32 DARK_SEA_GREEN
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 201				// Replace colour index 32
-			SET location = ared				// location
+			SET gradient = 201				// 201 SKIN1-AVOCADO replaces colour index 32 DARK_SEA_GREEN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 236				// Replace colour index 32
-			SET location = ablue			// location
+			SET gradient = 236				// 236 CLERIC_GOOD_MINOR-DARK_PINE replaces colour index 32 DARK_SEA_GREEN
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -706,14 +730,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chan13.itm~) BEGIN
 	COPY_EXISTING ~chan13.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 219				// Replace colour index 30
-			SET location = agrey			// location
+			SET gradient = 219				// 219 ELF_SKIN-CHROME_FOREST_GREEN replaces colour index 30 LIGHT_IRON_GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 192				// Replace colour index 32
-			SET location = ared				// location
+			SET gradient = 192				// 192 CHROME_TEAL replaces colour index 32 DARK_SEA_GREEN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 248				// Replace colour index 112
-			SET location = ablue			// location
+			SET gradient = 248				// 248 OGRE_MAJOR-BATTLESHIP_GRAY replaces colour index 112 SEA_FOAM
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -724,14 +748,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chan14.itm~) BEGIN
 	COPY_EXISTING ~chan14.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 90				// Replace colour index 27
-			SET location = agrey			// location
+			SET gradient = 90				// 90 MOLDY_GOLD replaces colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 201				// Replace colour index 103
-			SET location = ared				// location
+			SET gradient = 201				// 201 SKIN1-AVOCADO replaces colour index 103 PINE_GREEN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 203				// Replace colour index 103
-			SET location = ablue			// location
+			SET gradient = 203				// 203 SKIN2-MYRTLE_GREEN replaces colour index 103 PINE_GREEN
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -742,14 +766,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chan15.itm~) BEGIN
 	COPY_EXISTING ~chan15.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 221				// Replace colour index 27
-			SET location = agrey			// location
+			SET gradient = 221				// 221 ELF_MINOR-YELLOW_GREEN replaces colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 201				// Replace colour index 98
-			SET location = ared				// location
+			SET gradient = 201				// 201 SKIN1-AVOCADO replaces colour index 98 LEAF_GREEN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 213				// Replace colour index 99
-			SET location = ablue			// location
+			SET gradient = 213				// 213 TRADE_PEASANT_MINOR-VIRIDIAN replaces colour index 99 GOLDEN_BROWN
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -763,22 +787,22 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chan16.itm~) BEGIN
 			SET setr = 0
 			SET setg = 0
 			SET setb = 0
-			SET location = ablue			// location
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~glow~
 			SET setr = 90
 			SET setg = 110
 			SET setb = 0
 			SET speed = 0x50
-			SET location = agrey			// location
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~pulse~
-			SET gradient = 208				// Replace colour index 25
-			SET location = agrey			// location
+			SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 25 DARK_PURE_GOLD
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 213				// Replace colour index 103
-			SET location = ared				// location
+			SET gradient = 213				// 213 TRADE_PEASANT_MINOR-VIRIDIAN replaces colour index 103 PINE_GREEN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 246				// Replace colour index 32
-			SET location = ablue			// location
+			SET gradient = 246				// 246 MAGE_MINOR-CHROME_PINE replaces colour index 32 DARK_SEA_GREEN
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -789,20 +813,20 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chan19.itm~) BEGIN
 	COPY_EXISTING ~chan19.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET setr = 105					// Replace colour index 205
-			SET setg = 99					// Replace colour index 199
-			SET setb = 16					// Replace colour index 56
-			SET speed = 0x80				// Replace 0
-			SET location = ared				// location
+			SET setr = 105					// replaces colour index 205
+			SET setg = 99					// replaces colour index 199
+			SET setb = 16					// replaces colour index 56
+			SET speed = 0x80				// replaces 0
+			SET location = ared				// location (Strap/Leather)
 			LPM ~pulse~
-			SET gradient = 208				// Replace colour index 25
-			SET location = agrey			// location
+			SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 25 DARK_PURE_GOLD
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 90				// Replace colour index 103
-			SET location = ared				// location
+			SET gradient = 90				// 90 MOLDY_GOLD replaces colour index 103 PINE_GREEN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 201				// Replace colour index 32
-			SET location = ablue			// location
+			SET gradient = 201				// 201 SKIN1-AVOCADO replaces colour index 32 DARK_SEA_GREEN
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -813,14 +837,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chan17.itm~) BEGIN
 	COPY_EXISTING ~chan17.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 187				// Replace colour index 39
-			SET location = agrey			// location
+			SET gradient = 187				// 187 BLUE_GRAY replaces colour index 39 DARK_DIRT_BROWN
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 100				// Replace colour index 107
-			SET location = ared				// location
+			SET gradient = 100				// 100 DARK_ASH_GRAY replaces colour index 107 KHAKI_GRAY
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 188				// Replace colour index 107
-			SET location = ablue			// location
+			SET gradient = 188				// 188 MEDIUM_GRAY replaces colour index 107 KHAKI_GRAY
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -831,14 +855,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chan18.itm~) BEGIN
 	COPY_EXISTING ~chan18.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 167				// Replace colour index 25
-			SET location = agrey			// location
+			SET gradient = 167				// 167 PALE_THISTLE replaces colour index 25 DARK_PURE_GOLD
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 168				// Replace colour index 94
-			SET location = ared				// location
+			SET gradient = 168				// 168 KHAKI replaces colour index 94 RHUBARB
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 209				// Replace colour index 14
-			SET location = ablue			// location
+			SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 14 DARK_PURE_SILVER
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -849,14 +873,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chan20.itm~) BEGIN
 	COPY_EXISTING ~chan20.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 202				// Replace colour index 27
-			SET location = agrey			// location
+			SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 212				// Replace colour index 13
-			SET location = ared				// location
+			SET gradient = 212				// 212 TRADE_PEASANT_MAJOR-CHROME_SLATE replaces colour index 13 LIGHT_PINKISH_SILVER
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 97				// Replace colour index 27
-			SET location = ablue			// location
+			SET gradient = 97				// 97 LIGHT_MINTY_BLUE replaces colour index 27 GRAY
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -867,53 +891,37 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chan21.itm~) BEGIN
 	COPY_EXISTING ~chan21.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 209				// Replace colour index 92
-			SET location = agrey			// location
+			SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 92 LIGHT_CHOCOLATE
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 210				// Replace colour index 94
-			SET location = ared				// location
+			SET gradient = 210				// 210 MERCHANT_MAJOR-AMBER replaces colour index 94 RHUBARB
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 90				// Replace colour index 99
-			SET location = ablue			// location
-			LPM ~colour~
-		END
-	BUT_ONLY
-END
-
-// Bardic Chain (The BG1 NPC Project mod)
-ACTION_IF (FILE_EXISTS_IN_GAME ~x#garch.itm~) BEGIN
-	COPY_EXISTING ~x#garch.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET gradient = 209				// colour index
-			SET location = agrey			// location
-			LPM ~colour~
-			SET gradient = 210				// colour index
-			SET location = ared				// location
-			LPM ~colour~
-			SET gradient = 90				// colour index
-			SET location = ablue			// location
+			SET gradient = 90				// 90 MOLDY_GOLD replaces colour index 99 GOLDEN_BROWN
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
 END
 
 // Bardic Chain (The BG1 NPC Project mod)
-ACTION_IF (FILE_EXISTS_IN_GAME ~x#garch2.itm~) BEGIN
-	COPY_EXISTING ~x#garch2.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET gradient = 209				// colour index
-			SET location = agrey			// location
-			LPM ~colour~
-			SET gradient = 210				// colour index
-			SET location = ared				// location
-			LPM ~colour~
-			SET gradient = 90				// colour index
-			SET location = ablue			// location
-			LPM ~colour~
-		END
-	BUT_ONLY
+ACTION_FOR_EACH chain IN ~x#garch~ ~x#garch2~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%chain%.itm~) BEGIN
+		COPY_EXISTING ~%chain%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 209				// sets colour index 209 ATH_PEASANT_MINOR-ASH_GRAY
+				SET location = agrey			// location (Belt/Amulet)
+				LPM ~colour~
+				SET gradient = 210				// sets colour index = 210 MERCHANT_MAJOR-AMBER 
+				SET location = ared				// location (Strap/Leather)
+				LPM ~colour~
+				SET gradient = 90				// sets colour index 90 MOLDY_GOLD
+				SET location = ablue			// location (Armor/Trimming)
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
 END
 
 // Drow Elven Chain +3
@@ -921,14 +929,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~dwchan01.itm~) BEGIN
 	COPY_EXISTING ~dwchan01.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 229				// Replace colour index 27
-			SET location = agrey			// location
+			SET gradient = 229				// 229 KOBOLD_SKIN-ULTRAVIOLET replaces colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 199				// Replace colour index 99
-			SET location = ared				// location
+			SET gradient = 199				// 199 BLACK_TEAL replaces colour index 99 GOLDEN_BROWN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 212				// Replace colour index 21
-			SET location = ablue			// location
+			SET gradient = 212				// 212 TRADE_PEASANT_MAJOR-CHROME_SLATE replaces colour index 21 DARK_IRON_GRAY
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -939,32 +947,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~dwchan02.itm~) BEGIN
 	COPY_EXISTING ~dwchan02.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 245				// Replace colour index 27
-			SET location = agrey			// location
+			SET gradient = 245				// 245 MAGE_MAJOR-CHROME_SEA_GRAY replaces colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 190				// Replace colour index 99
-			SET location = ared				// location
+			SET gradient = 190				// 190 DEEP_INDIGO replaces colour index 99 GOLDEN_BROWN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 212				// Replace colour index 21
-			SET location = ablue			// location
-			LPM ~colour~
-		END
-	BUT_ONLY
-END
-
-// Drow Full Plate +5
-ACTION_IF (FILE_EXISTS_IN_GAME ~dwplat01.itm~) BEGIN
-	COPY_EXISTING ~dwplat01.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET gradient = 245				// Replace colour index 30
-			SET location = agrey			// location
-			LPM ~colour~
-			SET gradient = 190				// Replace colour index 91
-			SET location = ared				// location
-			LPM ~colour~
-			SET gradient = 212				// Replace colour index 27
-			SET location = ablue			// location
+			SET gradient = 212				// 212 TRADE_PEASANT_MAJOR-CHROME_SLATE replaces colour index 21 DARK_IRON_GRAY
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -975,48 +965,33 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~npchan.itm~) BEGIN
 	COPY_EXISTING ~npchan.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 232				// Replace colour index 25
-			SET location = agrey			// location
+			SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 25 DARK_PURE_GOLD
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 91				// Replace colour index 99
-			SET location = ared				// location
+			SET gradient = 91				// 91 DARK_CHOCOLATE replaces colour index 99 GOLDEN_BROWN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 184				// Replace colour index 29
-			SET location = ablue			// location
-			LPM ~colour~
-		END
-	BUT_ONLY
-END
-
-// Firecam Full-Plate Armor
-ACTION_IF (FILE_EXISTS_IN_GAME ~npplat.itm~) BEGIN
-	COPY_EXISTING ~npplat.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET gradient = 238				// Replace colour index 26
-			SET location = agrey			// location
-			LPM ~colour~
-			SET gradient = 91				// colour index
-			SET location = ared				// location
-			LPM ~colour~
-			SET gradient = 26				// colour index
-			SET location = ablue			// location
+			SET gradient = 184				// 184 CADET_BLUE replaces colour index 29 RED-TINTED_BLACK
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
 END
 
 
-/*  ======================  *
+/* ======================== *
  *          CLOAKS          *
- *  ======================  */
+ * ======================== */
+
+PRINT @400083 // ~Patching cloaks...~
+SILENT
 
 // Algernon's Cloak
 ACTION_FOR_EACH clck IN ~clck08~ ~_clck08~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%clck%.itm~) BEGIN
 		COPY_EXISTING ~%clck%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x3A ~ICLCK08~ #8	// Replace ICLCK07
+				WRITE_ASCII 0x3A ~ICLCK08~ #8	// replaces ICLCK07
 			END
 		BUT_ONLY
 	END
@@ -1027,8 +1002,8 @@ ACTION_FOR_EACH clck IN ~clck21~ ~_clck21~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%clck%.itm~) BEGIN
 		COPY_EXISTING ~%clck%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x3A ~1CLCK07B~ #8	// Replace 1CLCK21
-				WRITE_ASCII 0x58 ~CCLCK07~ #8	// Replace CCLCK06
+				WRITE_ASCII 0x3A ~1CLCK07B~ #8	// replaces 1CLCK21
+				WRITE_ASCII 0x58 ~CCLCK07~ #8	// replaces CCLCK06
 			END
 		BUT_ONLY
 	END
@@ -1039,8 +1014,8 @@ ACTION_FOR_EACH clck IN ~clck22~ ~_clck22~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%clck%.itm~) BEGIN
 		COPY_EXISTING ~%clck%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x3A ~ICLCK08~ #8	// Replace ICLCK07
-				WRITE_ASCII 0x58 ~CCLCK05~ #8	// Replace CCLCK07
+				WRITE_ASCII 0x3A ~ICLCK08~ #8	// replaces ICLCK07
+				WRITE_ASCII 0x58 ~CCLCK05~ #8	// replaces CCLCK07
 			END
 		BUT_ONLY
 	END
@@ -1050,7 +1025,7 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~clck28.itm~) BEGIN
 	COPY_EXISTING ~clck28.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x44 ~GCLCK01~ #8	// Replace GCLCK02 + Gwen fix : typo "GCLCKC01"
+			WRITE_ASCII 0x44 ~GCLCK01~ #8	// replaces GCLCK02 + Gwen fix: typo "GCLCKC01"
 		END
 	BUT_ONLY
 END
@@ -1059,8 +1034,8 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~clck30.itm~) BEGIN
 	COPY_EXISTING ~clck30.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~1CLCK27B~ #8	// Replace 1CLCK27
-			WRITE_ASCII 0x44 ~GCLCK01~ #8	// Replace GCLCK02 + Gwen fix : typo "GCLCKC01"
+			WRITE_ASCII 0x3A ~1CLCK27B~ #8	// replaces 1CLCK27
+			WRITE_ASCII 0x44 ~GCLCK01~ #8	// replaces GCLCK02 + Gwen fix: typo "GCLCKC01"
 		END
 	BUT_ONLY
 END
@@ -1069,29 +1044,32 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~clck32.itm~) BEGIN
 	COPY_EXISTING ~clck32.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~ICLCK31~ #8	// Replace ICLCK32
+			WRITE_ASCII 0x3A ~ICLCK31~ #8	// replaces ICLCK32
 		END
 	BUT_ONLY
 END
 
 
-/*  ===========================  *
+/* ============================= *
  *          PLATE MAILS          *
- *  ===========================  */
+ * ============================= */
+
+PRINT @400084 // ~Patching plate mails...~
+SILENT
 
 // Plate Mail
 ACTION_IF (FILE_EXISTS_IN_GAME ~plat01.itm~) BEGIN
 	COPY_EXISTING ~plat01.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 30				// colour index
-			SET location = agrey			// location
+			SET gradient = 30				// sets colour index 30 LIGHT_IRON_GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 23				// colour index
-			SET location = ared				// location
+			SET gradient = 23				// sets colour index 23 LIGHT_COPPER
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 27				// Replace colour index 28
-			SET location = ablue			// location
+			SET gradient = 27				// 27 GRAY replaces colour index 28 BLUISH_SILVER
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1102,14 +1080,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~plat02.itm~) BEGIN
 	COPY_EXISTING ~plat02.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 30				// Replace colour index 98
-			SET location = agrey			// location
+			SET gradient = 30				// 30 LIGHT_IRON_GRAY replaces colour index 98 LEAF_GREEN
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 99				// Replace colour index 94
-			SET location = ared				// location
+			SET gradient = 99				// 99 GOLDEN_BROWN replaces colour index 94 RHUBARB
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 248				// Replace colour index 97
-			SET location = ablue			// location
+			SET gradient = 248				// 248 OGRE_MAJOR-BATTLESHIP_GRAY replaces colour index 97 LIGHT_MINTY_BLUE
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1120,14 +1098,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~plat04.itm~) BEGIN
 	COPY_EXISTING ~plat04.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 208				// Replace colour index 30
-			SET location = agrey			// location
+			SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 30 LIGHT_IRON_GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 91				// colour index
-			SET location = ared				// location
+			SET gradient = 91				// sets colour index 91 DARK_CHOCOLATE
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 27				// colour index
-			SET location = ablue			// location
+			SET gradient = 27				// sets colour index 27 GRAY
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1138,14 +1116,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~plat05.itm~) BEGIN
 	COPY_EXISTING ~plat05.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 248				// Replace colour index 29
-			SET location = agrey			// location
+			SET gradient = 248				// 248 OGRE_MAJOR-BATTLESHIP_GRAY replaces colour index 29 RED-TINTED_BLACK
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 91				// Replace colour index 23
-			SET location = ared				// location
+			SET gradient = 91				// 91 DARK_CHOCOLATE replaces colour index 23 LIGHT_COPPER
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 6				// Replace colour index 29
-			SET location = ablue			// location
+			SET gradient = 6				// 6 DARK_SILVER replaces colour index 29 RED-TINTED_BLACK
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1156,14 +1134,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~plat06.itm~) BEGIN
 	COPY_EXISTING ~plat06.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 164				// Replace colour index 39
-			SET location = agrey			// location
+			SET gradient = 164				// 164 RAW_UMBER replaces colour index 39 DARK_DIRT_BROWN
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 91				// Replace colour index 10
-			SET location = ared				// location
+			SET gradient = 91				// 91 DARK_CHOCOLATE replaces colour index 10 LIGHT_PURE_GOLD
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 230				// Replace colour index 7
-			SET location = ablue			// location
+			SET gradient = 230				// KOBOLD_MAJOR-DEEP_AVOCADO replaces colour index 7 LIGHT_METALLIC_GREEN
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1173,41 +1151,29 @@ END
 ACTION_IF (FILE_EXISTS_IN_GAME ~plat08.itm~) BEGIN
 	COPY_EXISTING ~plat08.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			SAY NAME2 @400805 /* Plate Mail +3 */
-			SAY DESC  @400806 /* Plate Mail +3 : 'The Practical Defense'
-The traveling adventurer could ask for no better a suit of armor in all the land. Specially commissioned by Bolhur "Thunderaxe" at GREAT expense, this suit was his most prized, even if not his most ornate. Eminently practical, Bolhur demanded armor that would offer superior protection while hampering him in the least. By "hampering" he did not just mean in movement or weight, though this suit is just over one-third the weight of normal plate mail: his ideal suit should also be able to withstand the rigors of his wanderings with little maintenance. This is not to say that Bolhur "Thunderaxe" neglected his armors (to say as such would get your ears boxed) but the regime of spit and polish required for a "gentleman's" suit was beyond his caring. Save the tassels and gilding of Full Plate for kings and heads of state; a working dwarf cares more for utility than looks.
-
-STATISTICS:
-
-Armor Class: 0
-Weight: 18
-Requires: 12 Strength
-Not Usable By:
- Bard
- Druid
- Mage
- Thief */
+			SAY NAME2 @400811
+			SAY DESC  @400812
 			LPM ~clear~
 			SET setr = 27
 			SET setg = 13
 			SET setb = 30
 			SET speed = 0x90
-			SET location = ablue			// location
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~pulse~
 			SET setr = 27
 			SET setg = 13
 			SET setb = 30
 			SET speed = 0x90
-			SET location = agrey			// location
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~pulse~
-			SET gradient = 25				// colour index
-			SET location = agrey			// location
+			SET gradient = 25				// sets colour index 25 DARK_PURE_GOLD
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 209				// Replace colour index 30
-			SET location = ared				// location
+			SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 30 LIGHT_IRON_GRAY
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 99				// colour index
-			SET location = ablue			// location
+			SET gradient = 99				// sets colour index 99 GOLDEN_BROWN
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1218,14 +1184,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~plat11.itm~) BEGIN
 	COPY_EXISTING ~plat11.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 98				// colour index
-			SET location = agrey			// location
+			SET gradient = 98				// sets colour index 98 LEAF_GREEN
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 159				// Replace colour index 94
-			SET location = ared				// location
+			SET gradient = 159				// 159 MAUVE replaces colour index 94 RHUBARB
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 232				// Replace colour index 27
-			SET location = ablue			// location
+			SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 27 GRAY
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1236,14 +1202,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~plat12.itm~) BEGIN
 	COPY_EXISTING ~plat12.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 98				// colour index
-			SET location = agrey			// location
+			SET gradient = 98				// sets colour index 98 LEAF_GREEN
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 238				// Replace colour index 19
-			SET location = ared				// location
+			SET gradient = 238				// 238 CLERIC_NEUTRAL_MINOR-RUSSET_BROWN replaces colour index 19 DARK_ROSE_RED
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 239				// Replace colour index 33
-			SET location = ablue			// location
+			SET gradient = 239				// 239 CLERIC_EVIL_MAJOR-PALE_BRONZ replaces colour index 33 CHROME_MAGENTA
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1255,14 +1221,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~plat17.itm~) BEGIN
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			//WRITE_ASCII 0x3A ~1plat23B~ #8
 			LPM ~clear~
-			SET gradient = 98				// Replace colour index 99
-			SET location = agrey			// location
+			SET gradient = 98				// 98 LEAF_GREEN replaces colour index 99 GOLDEN_BROWN
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 91				// Replace colour index 99
-			SET location = ared				// location
+			SET gradient = 91				// 91 DARK_CHOCOLATE replaces colour index 99 GOLDEN_BROWN
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 170				// Replace colour index 109
-			SET location = ablue			// location
+			SET gradient = 170				// 170 PALE_POWDER_BLUE replaces colour index 109 TERRA_COTTA
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1273,14 +1239,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~plat18.itm~) BEGIN
 	COPY_EXISTING ~plat18.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 25				// colour index
-			SET location = agrey			// location
+			SET gradient = 25				// sets colour index 25 DARK_PURE_GOLD
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 211				// Replace colour index 25
-			SET location = ared				// location
+			SET gradient = 211				// 211 MERCHANT_MINOR-DARK_BRASS replaces colour index 25 DARK_PURE_GOLD
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 210				// Replace colour index 101
-			SET location = ablue			// location
+			SET gradient = 210				// 210 MERCHANT_MAJOR-AMBER replaces colour index 101 METALLIC_RED
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1291,14 +1257,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~plat20.itm~) BEGIN
 	COPY_EXISTING ~plat20.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 252				// Replace colour index 25
-			SET location = agrey			// location
+			SET gradient = 252				// 252 DUERGAR_MAJOR-GHOULISH_GREEN replaces colour index 25 DARK_PURE_GOLD
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 244				// Replace colour index 96
-			SET location = ared				// location
+			SET gradient = 244				// 244 FIGHTER_MINOR-DARK_CADET_GRAY replaces colour index 96 CHROME_BLUE
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 18				// Replace colour index 58
-			SET location = ablue			// location
+			SET gradient = 18				// 18 BLUE replaces colour index 58 DARK_BLUE
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -1310,14 +1276,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~plat21.itm~) BEGIN
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			//WRITE_ASCII 0x3A ~1plat23B~ #8
 			LPM ~clear~
-			SET gradient = 249				// Replace colour index 27
-			SET location = agrey			// location
+			SET gradient = 249				// 249 OGRE_MINOR-METALLIC_SLATE replaces colour index 27 GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 138				// Replace colour index 23
-			SET location = ared				// location
+			SET gradient = 138				// 138 DARK_SAND replaces colour index 23 LIGHT_COPPER
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 107				// Replace colour index 27
-			SET location = ablue			// location
+			SET gradient = 107				// 107 KHAKI_GRAY replaces colour index 27 GRAY
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 BUT_ONLY
@@ -1329,105 +1295,152 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~plat22.itm~) BEGIN
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			//WRITE_ASCII 0x3A ~1plat23B~ #8
 			LPM ~clear~
-			SET gradient = 159				// Replace colour index 30
-			SET location = agrey			// location
+			SET gradient = 159				// 159 MAUVE replaces colour index 30 LIGHT_IRON_GRAY
+			SET location = agrey			// location (Belt/Amulet)
 			LPM ~colour~
-			SET gradient = 138				// Replace colour index 25
-			SET location = ared				// location
+			SET gradient = 138				// 138 DARK_SAND replaces colour index 25 DARK_PURE_GOLD
+			SET location = ared				// location (Strap/Leather)
 			LPM ~colour~
-			SET gradient = 179				// Replace colour index 97
-			SET location = ablue			// location
+			SET gradient = 179				// 179 PALE_INDIGO replaces colour index 97 LIGHT_MINTY_BLUE
+			SET location = ablue			// location (Armor/Trimming)
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Drow Full Plate +5
+ACTION_IF (FILE_EXISTS_IN_GAME ~dwplat01.itm~) BEGIN
+	COPY_EXISTING ~dwplat01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 245				// 245 MAGE_MAJOR-CHROME_SEA_GRAY replaces colour index 30 LIGHT_IRON_GRAY
+			SET location = agrey			// location (Belt/Amulet)
+			LPM ~colour~
+			SET gradient = 190				// 190 DEEP_INDIGO replaces colour index 91 DARK_CHOCOLATE
+			SET location = ared				// location (Strap/Leather)
+			LPM ~colour~
+			SET gradient = 212				// 212 TRADE_PEASANT_MAJOR-CHROME_SLATE replaces colour index 27 GRAY
+			SET location = ablue			// location (Armor/Trimming)
+			LPM ~colour~
+		END
+	BUT_ONLY
+END
+
+// Firecam Full-Plate Armor
+ACTION_IF (FILE_EXISTS_IN_GAME ~npplat.itm~) BEGIN
+	COPY_EXISTING ~npplat.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPM ~clear~
+			SET gradient = 238				// 238 CLERIC_NEUTRAL_MINOR-RUSSET_BROWN replaces colour index 26 WOOD
+			SET location = agrey			// location (Belt/Amulet)
+			LPM ~colour~
+			SET gradient = 91				// sets colour index 91 DARK_CHOCOLATE
+			SET location = ared				// location (Strap/Leather)
+			LPM ~colour~
+			SET gradient = 26				// sets colour index 26 WOOD
+			SET location = ablue			// location (Armor/Trimming)
 			LPM ~colour~
 		END
 	BUT_ONLY
 END
 
 
-/*  ==========================  *
+/* ============================ *
  *          TUTU STUFF          *
- *  ==========================  */
+ * ============================ */
 
-// Chain Mail Armor
-ACTION_IF (FILE_EXISTS_IN_GAME ~_chan01.itm~) BEGIN
-	COPY_EXISTING ~_chan01.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~1chan01B~ #8
-			LPM ~clear~
-			SET gradient = 27				// colour index
-			SET location = agrey			// location
-			LPM ~colour~
-			SET gradient = 22				// colour index
-			SET location = ared				// location
-			LPM ~colour~
-			SET gradient = 6				// colour index
-			SET location = ablue			// location
-			LPM ~colour~
-		END
-	BUT_ONLY
-END
+ACTION_IF (is_tutu) BEGIN
+	PRINT @400085 // ~Patching specific tutu armors...~
+	SILENT
 
-// Chain Mail +1
-ACTION_IF (FILE_EXISTS_IN_GAME ~_chan02.itm~) BEGIN
-	COPY_EXISTING ~_chan02.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~1chan02B~ #8
-			LPM ~clear~
-			SET gradient = 102				// colour index
-			SET location = agrey			// location
-			LPM ~colour~
-			SET gradient = 226				// colour index
-			SET location = ared				// location
-			LPM ~colour~
-			SET gradient = 232				// colour index
-			SET location = ablue			// location
-			LPM ~colour~
-		END
-	BUT_ONLY
-END
+	// Chain Mail Armor
+	ACTION_IF (FILE_EXISTS_IN_GAME ~_chan01.itm~) BEGIN
+		COPY_EXISTING ~_chan01.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~1CHAN01B~ #8
+				LPM ~clear~
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = agrey			// location (Belt/Amulet)
+				LPM ~colour~
+				SET gradient = 22				// sets colour index 22 DARK_BROWN
+				SET location = ared				// location (Strap/Leather)
+				LPM ~colour~
+				SET gradient = 6				// sets colour index 6 DARK_SILVER
+				SET location = ablue			// location (Armor/Trimming)
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
 
-// Mail of the Dead +2
-ACTION_IF (FILE_EXISTS_IN_GAME ~_chan03.itm~) BEGIN
-	COPY_EXISTING ~_chan03.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~1chan03B~ #8
-			LPM ~clear~
-			SET gradient = 211				// colour index
-			SET location = agrey			// location
-			LPM ~colour~
-			SET gradient = 239				// colour index
-			SET location = ared				// location
-			LPM ~colour~
-			SET gradient = 97				// colour index
-			SET location = ablue			// location
-			LPM ~colour~
-		END
-	BUT_ONLY
-END
+	// Chain Mail +1
+	ACTION_IF (FILE_EXISTS_IN_GAME ~_chan02.itm~) BEGIN
+		COPY_EXISTING ~_chan02.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~1CHAN02B~ #8
+				LPM ~clear~
+				SET gradient = 102				// sets colour index 102 SEA_BLUE
+				SET location = agrey			// location (Belt/Amulet)
+				LPM ~colour~
+				SET gradient = 226				// sets colour index 226 METAL_NORMAL-EIGENGRAU
+				SET location = ared				// location (Strap/Leather)
+				LPM ~colour~
+				SET gradient = 232				// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
+				SET location = ablue			// location (Armor/Trimming)
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
 
-// Splint Mail
-ACTION_IF (FILE_EXISTS_IN_GAME ~_chan04.itm~) BEGIN
-	COPY_EXISTING ~_chan04.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~ichan04~ #8
-			LPM ~clear~
-			SET gradient = 27				// colour index
-			SET location = agrey			// location
-			LPM ~colour~
-			SET gradient = 100				// colour index
-			SET location = ared				// location
-			LPM ~colour~
-			SET gradient = 110				// colour index
-			SET location = ablue			// location
-			LPM ~colour~
-		END
-	BUT_ONLY
-END
+	// Mail of the Dead +2
+	ACTION_IF (FILE_EXISTS_IN_GAME ~_chan03.itm~) BEGIN
+		COPY_EXISTING ~_chan03.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~1CHAN03B~ #8
+				LPM ~clear~
+				SET gradient = 211				// sets colour index 211 MERCHANT_MINOR-DARK_BRASS
+				SET location = agrey			// location (Belt/Amulet)
+				LPM ~colour~
+				SET gradient = 239				// sets colour index 239 CLERIC_EVIL_MAJOR-PALE_BRONZ
+				SET location = ared				// location (Strap/Leather)
+				LPM ~colour~
+				SET gradient = 97				// sets colour index 97 LIGHT_MINTY_BLUE
+				SET location = ablue			// location (Armor/Trimming)
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+
+	// Splint Mail
+	ACTION_IF (FILE_EXISTS_IN_GAME ~_chan04.itm~) BEGIN
+		COPY_EXISTING ~_chan04.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				WRITE_ASCII 0x3A ~ICHAN04~ #8
+				LPM ~clear~
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = agrey			// location (Belt/Amulet)
+				LPM ~colour~
+				SET gradient = 100				// sets colour index 100 DARK_ASH_GRAY
+				SET location = ared				// location (Strap/Leather)
+				LPM ~colour~
+				SET gradient = 110				// sets colour index 110 ASH
+				SET location = ablue			// location (Armor/Trimming)
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
+
+END // of ACTION_IF (is_tutu)
 
 
-/*  ==================  *
+/* ==================== *
  *  1ppv4 style ARMORS  *
- *  ==================  */
+ * ==================== */
+
 ACTION_IF (1pp_armours_appearance = 1) BEGIN
+
+	PRINT @400086 // ~Patching armors (1ppv4 style)...~
+	SILENT
+
 	// 1ppv4 STYLE COPY cheaty
 	COPY ~1pp/item/1ppv4_update/bam/1leat05.bam~ ~override/ileat05.bam~
 	COPY ~1pp/item/1ppv4_update/bam/1leat07.bam~ ~override/ileat07.bam~
@@ -1438,18 +1451,18 @@ ACTION_IF (1pp_armours_appearance = 1) BEGIN
 
 	// Chain Mail Armor
 	ACTION_IF (FILE_EXISTS_IN_GAME ~chan01.itm~) BEGIN
-		COPY_EXISTING ~chan01.itm~ ~override/chan01B.itm~
+		COPY_EXISTING ~chan01.itm~ ~override/chan01b.itm~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x3A ~1chan01B~ #8
+				WRITE_ASCII 0x3A ~1CHAN01B~ #8
 				LPM ~clear~
-				SET gradient = 27				// colour index
-				SET location = agrey			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = agrey			// location (Belt/Amulet)
 				LPM ~colour~
-				SET gradient = 22				// colour index
-				SET location = ared				// location
+				SET gradient = 22				// sets colour index 22 DARK_BROWN
+				SET location = ared				// location (Strap/Leather)
 				LPM ~colour~
-				SET gradient = 232				// Replace colour index 6
-				SET location = ablue			// location
+				SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 6 DARK_SILVER
+				SET location = ablue			// location (Armor/Trimming)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -1457,18 +1470,18 @@ ACTION_IF (1pp_armours_appearance = 1) BEGIN
 
 	// Chain Mail +1
 	ACTION_IF (FILE_EXISTS_IN_GAME ~chan02.itm~) BEGIN
-		COPY_EXISTING ~chan02.itm~ ~override/chan02B.itm~
+		COPY_EXISTING ~chan02.itm~ ~override/chan02b.itm~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x3A ~1chan02B~ #8
+				WRITE_ASCII 0x3A ~1CHAN02B~ #8
 				LPM ~clear~
-				SET gradient = 102				// Replace colour index 94
-				SET location = agrey			// location
+				SET gradient = 102				// 102 SEA_BLUE replaces colour index 94 RHUBARB
+				SET location = agrey			// location (Belt/Amulet)
 				LPM ~colour~
-				SET gradient = 226				// Replace colour index 100
-				SET location = ared				// location
+				SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 100 DARK_ASH_GRAY
+				SET location = ared				// location (Strap/Leather)
 				LPM ~colour~
-				SET gradient = 232				// Replace colour index 97
-				SET location = ablue			// location
+				SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 97 LIGHT_MINTY_BLUE
+				SET location = ablue			// location (Armor/Trimming)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -1476,31 +1489,20 @@ ACTION_IF (1pp_armours_appearance = 1) BEGIN
 
 	// vanilla Mail of the Dead +2 ==> Werebane Mail +2. Gwen fix: add armor name
 	ACTION_IF (FILE_EXISTS_IN_GAME ~chan03.itm~) BEGIN
-		COPY_EXISTING ~chan03.itm~ ~override/chan03B.itm~
+		COPY_EXISTING ~chan03.itm~ ~override/chan03b.itm~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				SAY NAME2 @400807 /* Werebane Mail +2*/
-				SAY DESC  @400808 /* Chain mail +2: 'Werebane'
-These magical sets of silver chain mail were commissioned and worn by a virtuous band of paladins who set out to rid the world of the blight of lycanthropy. The continued presence of lycanthropes in the realms and the appearance of these sets of armour in mercantile stocks suggests they were less than successful.
-
-STATISTICS:
-
-Armor Class: 3
-Weight: 10
-Requires: 8 Strength
-Not Usable By:
- Druid
- Mage
- Thief */
-				WRITE_ASCII 0x3A ~1chan03B~ #8
+				SAY NAME2 @400813
+				SAY DESC  @400814
+				WRITE_ASCII 0x3A ~1CHAN03B~ #8
 				LPM ~clear~
-				SET gradient = 211				// Replace colour index 25
-				SET location = agrey			// location
+				SET gradient = 211				// 211 MERCHANT_MINOR-DARK_BRASS replaces colour inde 25 DARK_PURE_GOLD
+				SET location = agrey			// location (Belt/Amulet)
 				LPM ~colour~
-				SET gradient = 239				// Replace colour index 99
-				SET location = ared				// location
+				SET gradient = 239				// 239 CLERIC_EVIL_MAJOR-PALE_BRONZ replaces colour index 99 GOLDEN_BROWN
+				SET location = ared				// location (Strap/Leather)
 				LPM ~colour~
-				SET gradient = 97				// Replace colour index 5
-				SET location = ablue			// location
+				SET gradient = 97				// 97 LIGHT_MINTY_BLUE replaces colour index 5 MEDIUM_SILVER
+				SET location = ablue			// location (Armor/Trimming)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -1508,18 +1510,18 @@ Not Usable By:
 
 	// Splint Mail
 	ACTION_IF (FILE_EXISTS_IN_GAME ~chan04.itm~) BEGIN
-		COPY_EXISTING ~chan04.itm~ ~override/chan04B.itm~
+		COPY_EXISTING ~chan04.itm~ ~override/chan04b.itm~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x3A ~1chan04B~ #8
+				WRITE_ASCII 0x3A ~1CHAN04B~ #8
 				LPM ~clear~
-				SET gradient = 27				// colour index
-				SET location = agrey			// location
+				SET gradient = 27				// sets colour index 27 GRAY
+				SET location = agrey			// location (Belt/Amulet)
 				LPM ~colour~
-				SET gradient = 100				// Replace colour index 94
-				SET location = ared				// location
+				SET gradient = 100				// 100 DARK_ASH_GRAY replaces colour index 94 RHUBARB
+				SET location = ared				// location (Strap/Leather)
 				LPM ~colour~
-				SET gradient = 110				// Replace colour index 27
-				SET location = ablue			// location
+				SET gradient = 110				// 110 ASH replaces colour index 27 GRAY
+				SET location = ablue			// location (Armor/Trimming)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -1529,17 +1531,17 @@ Not Usable By:
 	ACTION_IF (FILE_EXISTS_IN_GAME ~plat09.itm~) BEGIN
 		COPY_EXISTING ~plat09.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x3A ~1plat02~ #8	// replace IPLAT09
-				WRITE_ASCII 0x58 ~CPLAT02~ #8	// replace CPLAT09 (Gwen fix: moved from a few lines below)
+				WRITE_ASCII 0x3A ~1PLAT02~ #8	// replaces IPLAT09
+				WRITE_ASCII 0x58 ~CPLAT02~ #8	// replaces CPLAT09 (Gwen fix: moved from a few lines below)
 				LPM ~clear~
-				SET gradient = 208				// Replace colour index 30
-				SET location = agrey			// location
+				SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 30 LIGHT_IRON_GRAY
+				SET location = agrey			// location (Belt/Amulet)
 				LPM ~colour~
-				SET gradient = 99				// Replace colour index 91
-				SET location = ared				// location
+				SET gradient = 99				// 99 GOLDEN_BROWN replaces colour index 91 DARK_CHOCOLATE
+				SET location = ared				// location (Strap/Leather)
 				LPM ~colour~
-				SET gradient = 228				// Replace colour index 97
-				SET location = ablue			// location
+				SET gradient = 228				// 228 LEATHER-SPECTRAL_GREEN replaces colour index 97 LIGHT_MINTY_BLUE
+				SET location = ablue			// location (Armor/Trimming)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -1549,17 +1551,17 @@ Not Usable By:
 	ACTION_IF (FILE_EXISTS_IN_GAME ~plat13.itm~) BEGIN
 		COPY_EXISTING ~plat13.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x3A ~1plat13~ #8	// replace IPLAT13
-				WRITE_ASCII 0x58 ~CPLAT15~ #8	// replace CPLAT13 (Gwen fix: moved from a few lines below)
+				WRITE_ASCII 0x3A ~1PLAT13~ #8	// replaces IPLAT13
+				WRITE_ASCII 0x58 ~CPLAT15~ #8	// replaces CPLAT13 (Gwen fix: moved from a few lines below)
 				LPM ~clear~
-				SET gradient = 24				// Replace colour index 98
-				SET location = agrey			// location
+				SET gradient = 24				// 24 BROWN_GOLD replaces colour index 98 LEAF_GREEN
+				SET location = agrey			// location (Belt/Amulet)
 				LPM ~colour~
-				SET gradient = 211				// Replace colour index 94
-				SET location = ared				// location
+				SET gradient = 211				// 211 MERCHANT_MINOR-DARK_BRASS replaces colour index 94 RHUBARB
+				SET location = ared				// location (Strap/Leather)
 				LPM ~colour~
-				SET gradient = 201				// Replace colour index 32
-				SET location = ablue			// location
+				SET gradient = 201				// 201 SKIN1-AVOCADO replaces colour index 32 DARK_SEA_GREEN
+				SET location = ablue			// location (Armor/Trimming)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -1569,17 +1571,17 @@ Not Usable By:
 	ACTION_IF (FILE_EXISTS_IN_GAME ~plat14.itm~) BEGIN
 		COPY_EXISTING ~plat14.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x3A ~IPLAT09~ #8	// replace IPLAT14
-				WRITE_ASCII 0x58 ~CPLAT04~ #8	// replace CPLAT14 (Gwen fix: moved from a few lines below)
+				WRITE_ASCII 0x3A ~IPLAT09~ #8	// replaces IPLAT14
+				WRITE_ASCII 0x58 ~CPLAT04~ #8	// replaces CPLAT14 (Gwen fix: moved from a few lines below)
 				LPM ~clear~
-				SET gradient = 226				// Replace colour index 29
-				SET location = agrey			// location
+				SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 29 RED-TINTED_BLACK
+				SET location = agrey			// location (Belt/Amulet)
 				LPM ~colour~
-				SET gradient = 24				// Replace colour index 23
-				SET location = ared				// location
+				SET gradient = 24				// 24 BROWN_GOLD replaces colour index 23 LIGHT_COPPER
+				SET location = ared				// location (Strap/Leather)
 				LPM ~colour~
-				SET gradient = 110				// Replace colour index 27
-				SET location = ablue			// location
+				SET gradient = 110				// 110 ASH replaces colour index 27 GRAY
+				SET location = ablue			// location (Armor/Trimming)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -1592,14 +1594,14 @@ Not Usable By:
 //				WRITE_ASCII 0x3A ~IPLAT23~ #8	// Gwen fix: seems to be wrong (was set to IPLAT23, but EE does not validate this change).
 //				WRITE_ASCII 0x58 ~CPLAT05~ #8	// Gwen fix: seems to be wrong (replace CPLAT15 - moved from a few lines below, but EE does not validate this change).
 				LPM ~clear~
-				SET gradient = 91				// Replace colour index 25
-				SET location = agrey			// location
+				SET gradient = 91				// 91 DARK_CHOCOLATE replaces colour index 25 DARK_PURE_GOLD
+				SET location = agrey			// location (Belt/Amulet)
 				LPM ~colour~
-				SET gradient = 90				// Replace colour index 25
-				SET location = ared				// location
+				SET gradient = 90				// 90 MOLDY_GOLD replaces colour index 25 DARK_PURE_GOLD
+				SET location = ared				// location (Strap/Leather)
 				LPM ~colour~
-				SET gradient = 248				// Replace colour index 27
-				SET location = ablue			// location
+				SET gradient = 248				// 248 OGRE_MAJOR-BATTLESHIP_GRAY replaces colour index 27 GRAY
+				SET location = ablue			// location (Armor/Trimming)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -1609,17 +1611,17 @@ Not Usable By:
 	ACTION_IF (FILE_EXISTS_IN_GAME ~plat16.itm~) BEGIN
 		COPY_EXISTING ~plat16.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x3A ~1plat23B~ #8	// replace IPLAT16
-				WRITE_ASCII 0x58 ~CPLAT05~ #8	// replace CPLAT16 (Gwen fix: moved from a few lines below)
+				WRITE_ASCII 0x3A ~1PLAT23B~ #8	// replaces IPLAT16
+				WRITE_ASCII 0x58 ~CPLAT05~ #8	// replaces CPLAT16 (Gwen fix: moved from a few lines below)
 				LPM ~clear~
-				SET gradient = 104				// Replace colour index 27
-				SET location = agrey			// location
+				SET gradient = 104				// 104 DARK_CHROME_PURPLE replaces colour index 27 GRAY
+				SET location = agrey			// location (Belt/Amulet)
 				LPM ~colour~
-				SET gradient = 186				// Replace colour index 23
-				SET location = ared				// location
+				SET gradient = 186				// 186 DARK_PLUM replaces colour index 23 LIGHT_COPPER
+				SET location = ared				// location (Strap/Leather)
 				LPM ~colour~
-				SET gradient = 249				// Replace colour index 27
-				SET location = ablue			// location
+				SET gradient = 249				// 249 OGRE_MINOR-METALLIC_SLATE replaces colour index 27 GRAY
+				SET location = ablue			// location (Armor/Trimming)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -1629,17 +1631,17 @@ Not Usable By:
 	ACTION_IF (FILE_EXISTS_IN_GAME ~plat23.itm~) BEGIN
 		COPY_EXISTING ~plat23.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x3A ~1plat05~ #8	// replace IPLAT23
-				WRITE_ASCII 0x58 ~CPLAT05~ #8	// replace CPLAT09 (Gwen fix: moved from a few lines below)
+				WRITE_ASCII 0x3A ~1PLAT05~ #8	// replaces IPLAT23
+				WRITE_ASCII 0x58 ~CPLAT05~ #8	// replaces CPLAT09 (Gwen fix: moved from a few lines below)
 				LPM ~clear~
-				SET gradient = 209				// Replace colour index 27
-				SET location = agrey			// location
+				SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 27 GRAY
+				SET location = agrey			// location (Belt/Amulet)
 				LPM ~colour~
-				SET gradient = 138				// Replace colour index 25
-				SET location = ared				// location
+				SET gradient = 138				// 138 DARK_SAND replaces colour index 25 DARK_PURE_GOLD
+				SET location = ared				// location (Strap/Leather)
 				LPM ~colour~
-				SET gradient = 191				// Replace colour index 27
-				SET location = ablue			// location
+				SET gradient = 191				// replaces colour index 27 GRAY
+				SET location = ablue			// location (Armor/Trimming)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -1649,7 +1651,7 @@ Not Usable By:
 	ACTION_IF (FILE_EXISTS_IN_GAME ~plat09.itm~) BEGIN
 		COPY_EXISTING ~plat09.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x58 ~CPLAT02~ #8	// replace CPLAT09
+				WRITE_ASCII 0x58 ~CPLAT02~ #8	// replaces CPLAT09
 			END
 		BUT_ONLY
 	END
@@ -1657,7 +1659,7 @@ Not Usable By:
 	ACTION_IF (FILE_EXISTS_IN_GAME ~plat13.itm~) BEGIN
 		COPY_EXISTING ~plat13.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x58 ~CPLAT15~ #8	// replace CPLAT13
+				WRITE_ASCII 0x58 ~CPLAT15~ #8	// replaces CPLAT13
 			END
 		BUT_ONLY
 	END
@@ -1665,7 +1667,7 @@ Not Usable By:
 	ACTION_IF (FILE_EXISTS_IN_GAME ~plat14.itm~) BEGIN
 		COPY_EXISTING ~plat14.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x58 ~CPLAT04~ #8	// replace CPLAT14
+				WRITE_ASCII 0x58 ~CPLAT04~ #8	// replaces CPLAT14
 				END
 			BUT_ONLY
 	END
@@ -1673,7 +1675,7 @@ Not Usable By:
 	ACTION_IF (FILE_EXISTS_IN_GAME ~plat15.itm~) BEGIN
 		COPY_EXISTING ~plat15.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x58 ~CPLAT05~ #8	// replace CPLAT15
+				WRITE_ASCII 0x58 ~CPLAT05~ #8	// replaces CPLAT15
 			END
 		BUT_ONLY
 	END
@@ -1681,7 +1683,7 @@ Not Usable By:
 	ACTION_IF (FILE_EXISTS_IN_GAME ~plat16.itm~) BEGIN
 		COPY_EXISTING ~plat16.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x58 ~CPLAT05~ #8	// replace CPLAT16
+				WRITE_ASCII 0x58 ~CPLAT05~ #8	// replaces CPLAT16
 			END
 		BUT_ONLY
 	END
@@ -1690,7 +1692,7 @@ Not Usable By:
 	ACTION_IF (FILE_EXISTS_IN_GAME ~plat22.itm~) BEGIN
 		COPY_EXISTING ~plat22.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x58 ~CPLAT16~ #8	// replace CPLAT06
+				WRITE_ASCII 0x58 ~CPLAT16~ #8	// replaces CPLAT06
 			END
 		BUT_ONLY
 	END
@@ -1698,49 +1700,54 @@ Not Usable By:
 	ACTION_IF (FILE_EXISTS_IN_GAME ~plat23.itm~) BEGIN
 		COPY_EXISTING ~plat23.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				WRITE_ASCII 0x58 ~CPLAT05~ #8	// replace CPLAT09
+				WRITE_ASCII 0x58 ~CPLAT05~ #8	// replaces CPLAT09
 			END
 		BUT_ONLY
 	END
 */
 
-END // end 1pp style ACTION_IF (1pp_armours_appearance = 1) // 1ppv4 STYLE COPY cheaty
+END // end of ACTION_IF (1pp_armours_appearance = 1) // 1ppv4 STYLE
 
 
-/*  ================  *
+/* ================== *
  *  BGI style ARMORS  *
- *  ================  */
+ * ================== */
+
 ACTION_IF (1pp_armours_appearance = 2) BEGIN
+
+	PRINT @400087 // ~Patching armors (Baldur's Gate I style)...~
+	SILENT
+
 	// BGI STYLE COPY
 	COPY ~1pp/item/1ppv4_update/bam/1gleat01.bam~ ~override/gleat01.bam~
-	COPY ~1pp/item/1ppv4_update/bam/1leat02.bam~ ~override/ileat02.bam~
-	COPY ~1pp/item/1ppv4_update/bam/1leat03.bam~ ~override/ileat03.bam~
-	COPY ~1pp/item/1ppv4_update/bam/1leat05.bam~ ~override/ileat05.bam~
-	COPY ~1pp/item/1ppv4_update/bam/1leat06.bam~ ~override/ileat06.bam~
-	COPY ~1pp/item/1ppv4_update/bam/1leat07.bam~ ~override/ileat07.bam~
-	COPY ~1pp/item/1ppv4_update/bam/1leat08.bam~ ~override/ileat08.bam~
-	COPY ~1pp/item/1ppv4_update/bam/1leat10.bam~ ~override/ileat10.bam~
-	COPY ~1pp/item/1ppv4_update/bam/1chan01B.bam~ ~override/ichan01.bam~
-	COPY ~1pp/item/1ppv4_update/bam/1chan02B.bam~ ~override/ichan02.bam~
-	COPY ~1pp/item/1ppv4_update/bam/1chan03B.bam~ ~override/ichan03.bam~
-	COPY ~1pp/item/1ppv4_update/bam/1plat02.bam~ ~override/iplat02.bam~
-	COPY ~1pp/item/1ppv4_update/bam/1plat04.bam~ ~override/iplat04.bam~
-	COPY ~1pp/item/1ppv4_update/bam/1plat05.bam~ ~override/iplat05.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1leat02.bam~  ~override/ileat02.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1leat03.bam~  ~override/ileat03.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1leat05.bam~  ~override/ileat05.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1leat06.bam~  ~override/ileat06.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1leat07.bam~  ~override/ileat07.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1leat08.bam~  ~override/ileat08.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1leat10.bam~  ~override/ileat10.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1chan01b.bam~ ~override/ichan01.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1chan02b.bam~ ~override/ichan02.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1chan03b.bam~ ~override/ichan03.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1plat02.bam~  ~override/iplat02.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1plat04.bam~  ~override/iplat04.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1plat05.bam~  ~override/iplat05.bam~
 
 	// Chain Mail +1
 	ACTION_IF (FILE_EXISTS_IN_GAME ~chan02.itm~) BEGIN
 		COPY_EXISTING ~chan02.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				//WRITE_ASCII 0x3A ~1chan01B~ #8
+				//WRITE_ASCII 0x3A ~1CHAN01B~ #8
 				LPM ~clear~
-				SET gradient = 102				// Replace colour index 94
-				SET location = agrey			// location
+				SET gradient = 102				// 102 SEA_BLUE replaces colour index 94 RHUBARB
+				SET location = agrey			// location (Belt/Amulet)
 				LPM ~colour~
-				SET gradient = 226				// Replace colour index 100
-				SET location = ared				// location
+				SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 100 DARK_ASH_GRAY
+				SET location = ared				// location (Strap/Leather)
 				LPM ~colour~
-				SET gradient = 232				// Replace colour index 97
-				SET location = ablue			// location
+				SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 97 LIGHT_MINTY_BLUE
+				SET location = ablue			// location (Armor/Trimming)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -1750,16 +1757,16 @@ ACTION_IF (1pp_armours_appearance = 2) BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~chan03.itm~) BEGIN
 		COPY_EXISTING ~chan03.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				//WRITE_ASCII 0x3A ~1chan03B~ #8
+				//WRITE_ASCII 0x3A ~1CHAN03B~ #8
 				LPM ~clear~
-				SET gradient = 211				// Replace colour index 25
-				SET location = agrey			// location
+				SET gradient = 211				// 211 MERCHANT_MINOR-DARK_BRASS replaces colour index 25 DARK_PURE_GOLD
+				SET location = agrey			// location (Belt/Amulet)
 				LPM ~colour~
-				SET gradient = 239				// Replace colour index 99
-				SET location = ared				// location
+				SET gradient = 239				// 239 CLERIC_EVIL_MAJOR-PALE_BRONZ replaces colour index 99 GOLDEN_BROWN
+				SET location = ared				// location (Strap/Leather)
 				LPM ~colour~
-				SET gradient = 97				// Replace colour index 5
-				SET location = ablue			// location
+				SET gradient = 97				// 97 LIGHT_MINTY_BLUE replaces colour index 5 MEDIUM_SILVER
+				SET location = ablue			// location (Armor/Trimming)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -1768,12 +1775,18 @@ ACTION_IF (1pp_armours_appearance = 2) BEGIN
 END // end BGI STYLE : ACTION_IF (1pp_armours_appearance = 2)
 
 
-/*  =================  *
+/* =================== *
  *  BGII style ARMORS  *
- *  =================  */
+ * =================== */
+
 ACTION_IF (1pp_armours_appearance = 3) BEGIN
-	COPY ~1pp/item/1ppv4_update/bam/1chan04B.bam~ ~override/ichan04.bam~
-	COPY ~1pp/item/1ppv4_update/bam/1plat18B.bam~ ~override/iplat18.bam~
+
+	PRINT @400088 // ~Patching armors (Baldur's Gate II style)...~
+	SILENT
+
+	COPY ~1pp/item/1ppv4_update/bam/1chan04b.bam~ ~override/ichan04.bam~
+	COPY ~1pp/item/1ppv4_update/bam/1plat18b.bam~ ~override/iplat18.bam~
+
 END
 
 //END of COMPONENT
