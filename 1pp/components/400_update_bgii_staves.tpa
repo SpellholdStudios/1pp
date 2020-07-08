@@ -1,14 +1,23 @@
-/*  ==============================================================================================================================================================================  *
+/* ================================================================================================================================================================================ *
+ *                                                                                                                                                                                  *
+ *                                       C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( s t a v e s )                                        *
+ *                                                                                                                                                                                  *
+ * ================================================================================================================================================================================ *
+ *  This part installs vanilla staves stuff.                                                                                                                                        *
+ * ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
- *      - Replace macros with functions whenever possible.                                                                                                                          *
+ *      - Replaced macros with functions whenever possible.                                                                                                                         *
  *      - Coding simplification:                                                                                                                                                    *
- *  		Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
- *  ==============================================================================================================================================================================  */
+ *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                              *
+ * ================================================================================================================================================================================ */
 
-/*  ======================  *
+/* ======================== *
  *          STAVES          *
- *  ======================  */
+ * ======================== */
+
+PRINT @400071 // ~Patching staves...~
+SILENT
 
 // Staff of Command
 ACTION_IF (FILE_EXISTS_IN_GAME ~staf09.itm~) BEGIN
@@ -25,20 +34,20 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf10.itm~) BEGIN
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			WRITE_ASCII 0x22 ~Q4~			// Quarterstaff (alternate 3)
 			LPM ~clear~
-			SET gradient = 195				// colour index
-			SET location = wpink			// location
+			SET gradient = 195				// sets colour index 195 CHROME_RED
+			SET location = wpink			// location (Bolt-Mace-Staff)
 			LPM ~colour~
-			SET gradient = 100				// colour index
-			SET location = wteal			// location
+			SET gradient = 100				// sets colour index 100 DARK_ASH_GRAY
+			SET location = wteal			// location (Staff minor)
 			LPM ~colour~
-			SET gradient = 202				// Replace colour index 96
-			SET location = wgrey			// location
+			SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 96 CHROME_BLUE
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 96				// colour index
-			SET location = wblue			// location
+			SET gradient = 96				// sets colour index 96 CHROME_BLUE
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 96				// Replace colour index 96
-			SET location = wred				// location
+			SET gradient = 96				// 96 CHROME_BLUE replaces colour index 96 CHROME_BLUE
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -49,27 +58,27 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf11.itm~) BEGIN
 	COPY_EXISTING ~staf11.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			WRITE_ASCII 0x22 ~GS~			// Glowing staff
-			WRITE_ASCII 0x44 ~1GSTAFGS~ #8	// Replace GSTAF01
+			WRITE_ASCII 0x44 ~1GSTAFGS~ #8	// replaces GSTAF01
 			LPM ~clear~
-			SET gradient = 127				// colour index
-			SET location = wpink			// location
+			SET gradient = 127				// sets colour index 127 DARK_BRICK_RED
+			SET location = wpink			// location (Bolt-Mace-Staff)
 			LPM ~colour~
-			SET gradient = 207				// colour index
-			SET location = wteal			// location
+			SET gradient = 207				// sets colour index 207 NOBLE_MINOR2-CHROME_GOLD
+			SET location = wteal			// location (Staff minor)
 			LPM ~colour~
-			SET gradient = 192				// Replace colour index 25
-			SET location = wgrey			// location
+			SET gradient = 192				// 192 CHROME_TEAL replaces colour index 25 DARK_PURE_GOLD
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
 			SET setr = 0
 			SET setg = 0
 			SET setb = 0
-			SET location = wblue			// location
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~glow~
-			SET gradient = 250				// colour index
-			SET location = wblue			// location
+			SET gradient = 250				// sets colour index 250 SHADOW_DRUID_MAJOR-YELLOW_ORANGE
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 220				// colour index
-			SET location = wred				// Replace colour index 27
+			SET gradient = 220				// 220 ELF_MAJOR-MIDNIGHT_BLUE replaces colour index 27 GRAY
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -135,30 +144,30 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf19.itm~) BEGIN
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			WRITE_ASCII 0x22 ~Q3~			// Quarterstaff (alternate 2)
 			LPM ~clear~
-			SET gradient = 209				// colour index
-			SET location = wpink			// location
+			SET gradient = 209				// sets colour index 209 ATH_PEASANT_MINOR-ASH_GRAY
+			SET location = wpink			// location (Bolt-Mace-Staff)
 			LPM ~colour~
-			SET gradient = 208				// colour index
-			SET location = wteal			// location
+			SET gradient = 208				// sets colour index 208 ATH_PEASANT_MAJOR-FADED_WHEAT
+			SET location = wteal			// location (Staff minor)
 			LPM ~colour~
-			SET gradient = 202				// Replace colour index 97
-			SET location = wgrey			// location
+			SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 97
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 244				// colour index
-			SET location = wblue			// location
+			SET gradient = 244				// sets colour index 244 FIGHTER_MINOR-DARK_CADET_GRAY
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 202				// Replace colour index 97
-			SET location = wred				// location
+			SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 97
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 			SET setr = 0
 			SET setg = 0
 			SET setb = 0
-			SET location = wteal			// location
+			SET location = wteal			// location (Staff minor)
 			LPM ~glow~
 			SET setr = 0
 			SET setg = 0
 			SET setb = 0
-			SET location = wgrey			// location
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~glow~
 		END
 	BUT_ONLY
@@ -169,7 +178,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf20.itm~) BEGIN
 	COPY_EXISTING ~staf20.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			WRITE_ASCII 0x22 ~Q3~			// Quarterstaff (alternate 2)
-			WRITE_ASCII 0x3A ~ISTAF20~ #8	// Replace ISTAF19
+			WRITE_ASCII 0x3A ~ISTAF20~ #8	// replaces ISTAF19
 			WRITE_ASCII 0x76 ~ISTAF20~ #8
 		END
 	BUT_ONLY
@@ -180,27 +189,27 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf21.itm~) BEGIN
 	COPY_EXISTING ~staf21.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			WRITE_ASCII 0x22 ~GS~			// Glowing staff
-			WRITE_ASCII 0x44 ~1GSTAFGS~ #8	// Replace GSTAF01
+			WRITE_ASCII 0x44 ~1GSTAFGS~ #8	// replaces GSTAF01
 			LPM ~clear~
-			SET gradient = 220				// colour index
-			SET location = wpink			// location
+			SET gradient = 220				// sets colour index 220 ELF_MAJOR-MIDNIGHT_BLUE
+			SET location = wpink			// location (Bolt-Mace-Staff)
 			LPM ~colour~
-			SET gradient = 225				// colour index
-			SET location = wteal			// location
+			SET gradient = 225				// sets colour index 225 DROW_MINOR-CORNSILK
+			SET location = wteal			// location (Staff minor)
 			LPM ~colour~
-			SET gradient = 232				// Replace colour index 36
-			SET location = wgrey			// location
+			SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 36 LIGHT_DIRTY_YELLOW
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
 			SET setr = 0
 			SET setg = 0
 			SET setb = 0
-			SET location = wblue			// location
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~glow~
-			SET gradient = 239				// colour index
-			SET location = wblue			// location
+			SET gradient = 239				// sets colour index 239 CLERIC_EVIL_MAJOR-PALE_BRONZ
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 240				// Replace colour index 36
-			SET location = wred				// location
+			SET gradient = 240				// 240 CLERIC_EVIL_MINOR-PALE_RUST replaces colour index 36 LIGHT_DIRTY_YELLOW
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -211,35 +220,35 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf22.itm~) BEGIN
 	COPY_EXISTING ~staf22.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			WRITE_ASCII 0x22 ~GS~			// Glowing staff
-			WRITE_ASCII 0x3A ~ISTAF22~ #8	// Replace ISTAF21
+			WRITE_ASCII 0x3A ~ISTAF22~ #8	// replaces ISTAF21
 			WRITE_ASCII 0x76 ~ISTAF22~ #8
-			WRITE_ASCII 0x44 ~1GSTAFGS~ #8	// Replace GSTAF01
+			WRITE_ASCII 0x44 ~1GSTAFGS~ #8	// replaces GSTAF01
 			LPM ~clear~
-			SET gradient = 220				// colour index
-			SET location = wpink			// location
+			SET gradient = 220				// sets colour index 220 ELF_MAJOR-MIDNIGHT_BLUE
+			SET location = wpink			// location (Bolt-Mace-Staff)
 			LPM ~colour~
-			SET gradient = 207				// colour index
-			SET location = wteal			// location
+			SET gradient = 207				// sets colour index 207 NOBLE_MINOR2-CHROME_GOLD
+			SET location = wteal			// location (Staff minor)
 			LPM ~colour~
-			SET gradient = 248				// Replace colour index 36
-			SET location = wgrey			// location
+			SET gradient = 248				// 248 OGRE_MAJOR-BATTLESHIP_GRAY replaces colour index 36 LIGHT_DIRTY_YELLOW
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
 			SET setr = 0
 			SET setg = 0
 			SET setb = 0
-			SET location = wblue			// location
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~glow~
 			SET setr = 30
 			SET setg = 30
 			SET setb = 20
 			SET speed = 0x19
-			SET location = wblue			// location
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~pulse~
-			SET gradient = 224				// colour index
+			SET gradient = 224				// sets colour index 224 DROW_MAJOR-MAIZE
 			SET location = wblue			// location
 			LPM ~colour~
-			SET gradient = 240				// Replace colour index 36
-			SET location = wred				// location
+			SET gradient = 240				// 240 CLERIC_EVIL_MINOR-PALE_RUST replaces colour index 36 LIGHT_DIRTY_YELLOW
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
@@ -259,23 +268,23 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf24.itm~) BEGIN
 	COPY_EXISTING ~staf24.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			WRITE_ASCII 0x22 ~Q2~			// Quarterstaff (alternate 1)
-			WRITE_ASCII 0x3A ~ISTAF24~ #8	// Replace ISTAF18
+			WRITE_ASCII 0x3A ~ISTAF24~ #8	// replaces ISTAF18
 			WRITE_ASCII 0x76 ~ISTAF24~ #8
 			LPM ~clear~
-			SET gradient = 198				// colour index
-			SET location = wpink			// location
+			SET gradient = 198				// sets colour index 198 BLACK_SCARLET
+			SET location = wpink			// location (Bolt-Mace-Staff)
 			LPM ~colour~
-			SET gradient = 216				// colour index
-			SET location = wteal			// location
+			SET gradient = 216				// sets colour index 216 PIRATE_MAJOR-CHROME_GOLDENROD
+			SET location = wteal			// location (Staff minor)
 			LPM ~colour~
-			SET gradient = 208				// Replace colour index 39
-			SET location = wgrey			// location
+			SET gradient = 208				// 208 ATH_PEASANT_MAJOR-FADED_WHEAT replaces colour index 39 DARK_DIRT_BROWN
+			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
-			SET gradient = 254				// colour index
-			SET location = wblue			// location
+			SET gradient = 254				// sets colour index 254 EBONY
+			SET location = wblue			// location (Head/Blade minor)
 			LPM ~colour~
-			SET gradient = 254				// Replace colour index 39
-			SET location = wred				// location
+			SET gradient = 254				// 254 EBONY replaces colour index 39 DARK_DIRT_BROWN
+			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
