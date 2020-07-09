@@ -1,25 +1,35 @@
-// Alpha blended solars and elementals
-// Half-way implemented in the game, broken upon delivery.
-
-/*  ==============================================================================================================================================================================  *
+/* ================================================================================================================================================================================ *
+ *                                                                                                                                                                                  *
+ *                                    C O M P O N E N T   :   F i x e d   a n i m a t i o n s   f o r   s o l a r s   a n d   e l e m en t a l s                                    *
+ *                                                                                                                                                                                  *
+ * ================================================================================================================================================================================ *
+ *  This component fixes alpha blending rendering for solar animations on ToB based games, as well as blended fire elementals.                                                      *
+ *  (Half-way implemented in the game, broken upon delivery).                                                                                                                       *
+ * ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
- *      - The Imp's BWP Fixpack fix for Solar swords without graphic artifacts (http://www.shsforums.net/topic/58208-planetar-animation-glitch/ ): Fixed MASLG1S1.BAM and           *
- *        MSOLG2S1.BAM files. Source: https://github.com/omni-axa/BiG-World-Fixpack/commit/de7b3ce8439d8efa8e7427d1ad66efd0f48e547e                                                 *
  *      - Variable needed for installation (1pp_solar_weapons) is read from 1pp-config-default.ini or 1pp-config.ini files.                                                         *
+ *        1pp-config-default.ini or 1pp-config.ini files.                                                                                                                           *
  *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is     *
  *        installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file    *
  *        provides a standard installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and   *
  *        save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini,    *
  *        the installation process will prevent any installation failure by reverting it back to its default value.                                                                 *
- *  ==============================================================================================================================================================================  */
+ *      - The Imp's BWP Fixpack fix for Solar swords without graphic artifacts (http://www.shsforums.net/topic/58208-planetar-animation-glitch/ ): Fixed MASLG1S1.BAM and           *
+ *        MSOLG2S1.BAM files. Source: https://github.com/omni-axa/BiG-World-Fixpack/commit/de7b3ce8439d8efa8e7427d1ad66efd0f48e547e                                                 *
+ * ================================================================================================================================================================================ */
+
+/* =============== *
+ *  PATCHING .EXE  *
+ * =============== */
 
 OUTER_SET fail = 0
 CLEAR_ARRAYS
 
 ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN
 
-	PRINT @300000 /* Installing patch for Win/nix */
+	PRINT @300000 // ~Installing solars and elementals animations patch for Win/nix...~
+	SILENT
 
 	// BUILDING ARRAYS
 	ACTION_DEFINE_ASSOCIATIVE_ARRAY binarycheck BEGIN
@@ -143,54 +153,69 @@ ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_C
 				END
 			END
 		END ELSE BEGIN
-			PATCH_PRINT @300001 /* Error: the source size does not seem to match. Stopping installation for safety purposes. */
-			PATCH_FAIL @300002 /* Could not patch successfully. */
+			PATCH_PRINT @300001 // ~Error: the source size does not seem to match. Stopping installation for safety purposes.~
+			PATCH_FAIL  @300002 // ~Could not patch executable successfully.~
 		END
 
 	// END// uncomment for game files (end of EXISTS_IN)
 
 	ACTION_IF (fail = 1) BEGIN
-		FAIL @300003 /* Error: Executable does not appear to be compatible. */
+		FAIL @300003 // ~Error: Executable does not appear to be compatible.~
 	END
 END
 
 
 ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~osx~) BEGIN
-	FAIL @300004 /* Sorry! This component currently does not support OSX. */
+	FAIL @300004 // ~Sorry! This component currently does not support OSX.~
 END
 
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~MSOGG1.BAM~) BEGIN
+/* ================== *
+ *  SOLAR ANIMATIONS  *
+ * ================== */
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~msogg1.bam~) BEGIN
 
 	// The Imp's BWP Fixpack fix for Solar swords without graphic artifacts: http://www.shsforums.net/topic/58208-planetar-animation-glitch/
 	// Modify MASLG1S1.BAM and MSOLG2S1.BAM files.
 	ACTION_IF (1pp_solar_weapons = 1) BEGIN
 
-		ACTION_FOR_EACH animation IN ~MASLG1~ ~MASLG11~ ~MASLG12~ ~MASLG13~ ~MASLG14~ ~MASLG15~ ~MASLG1BW~ ~MASLG1S1~ ~MASLG2~ ~MASLG21~ ~MASLG22~ ~MASLG23~ ~MASLG24~ ~MASLG25~ ~MASLG26~ ~MASLG2BW~ ~MASLG2S1~ ~MSOLG1~ ~MSOLG11~ ~MSOLG12~ ~MSOLG13~ ~MSOLG14~ ~MSOLG15~ ~MSOLG1BW~ ~MSOLG1S1~ ~MSOLG2~ ~MSOLG21~ ~MSOLG22~ ~MSOLG23~ ~MSOLG24~ ~MSOLG25~ ~MSOLG26~ ~MSOLG2BW~ ~MSOLG2S1~ BEGIN
+		PRINT @300006 // ~Installing files for solars with new weapons appearance (solid object with glow)...~
+		SILENT
+
+		ACTION_FOR_EACH animation IN ~maslg1~ ~maslg11~ ~maslg12~ ~maslg13~ ~maslg14~ ~maslg15~ ~maslg1bw~ ~maslg1s1~ ~maslg2~ ~maslg21~ ~maslg22~ ~maslg23~ ~maslg24~ ~maslg25~ ~maslg26~ ~maslg2bw~ ~maslg2s1~ ~msolg1~ ~msolg11~ ~msolg12~ ~msolg13~ ~msolg14~ ~msolg15~ ~msolg1bw~ ~msolg1s1~ ~msolg2~ ~msolg21~ ~msolg22~ ~msolg23~ ~msolg24~ ~msolg25~ ~msolg26~ ~msolg2bw~ ~msolg2s1~ BEGIN
 			COPY ~1pp/additions/solars/%animation%.bam~ ~override~
 		END
 	END
 
 	ACTION_IF (1pp_solar_weapons = 2) BEGIN
 
-		ACTION_FOR_EACH animation IN ~MASLG1~ ~MASLG11~ ~MASLG12~ ~MASLG13~ ~MASLG14~ ~MASLG15~ ~MASLG1BW~ ~MASLG1S1~ ~MASLG2~ ~MASLG21~ ~MASLG22~ ~MASLG23~ ~MASLG24~ ~MASLG25~ ~MASLG26~ ~MASLG2BW~ ~MASLG2S1~ ~MSOLG1~ ~MSOLG11~ ~MSOLG12~ ~MSOLG13~ ~MSOLG14~ ~MSOLG15~ ~MSOLG2~ ~MSOLG21~ ~MSOLG22~ ~MSOLG23~ ~MSOLG24~ ~MSOLG25~ ~MSOLG26~ BEGIN
+		PRINT @300007 // ~Installing files for solars with same weapons appearance as in BGII (blurry bright glow all over)...~
+		SILENT
+
+		ACTION_FOR_EACH animation IN ~maslg1~ ~maslg11~ ~maslg12~ ~maslg13~ ~maslg14~ ~maslg15~ ~maslg1bw~ ~maslg1s1~ ~maslg2~ ~maslg21~ ~maslg22~ ~maslg23~ ~maslg24~ ~maslg25~ ~maslg26~ ~maslg2bw~ ~maslg2s1~ ~msolg1~ ~msolg11~ ~msolg12~ ~msolg13~ ~msolg14~ ~msolg15~ ~msolg2~ ~msolg21~ ~msolg22~ ~msolg23~ ~msolg24~ ~msolg25~ ~msolg26~ BEGIN
 			COPY ~1pp/additions/solars/%animation%.bam~ ~override~
 		END
-		ACTION_FOR_EACH animation IN ~MSOLG1BW~ ~MSOLG1S1~ ~MSOLG2BW~ ~MSOLG2S1~ BEGIN
+		ACTION_FOR_EACH animation IN ~msolg1bw~ ~msolg1s1~ ~msolg2bw~ ~msolg2s1~ BEGIN
 			COPY ~1pp/additions/solars/superglowy/%animation%.bam~ ~override~
 		END
 	END
 
 END ELSE BEGIN
 
-	PRINT @300006 /* Game does not appear to have content for solar animations. Skipping. */
+	PRINT @300008 // ~Game does not appear to have content for solar animations. Skipping.~
 
 END
 
 
-PRINT @300007 /* Installing files for elementals... */
+/* =============== *
+ *  PATCHING .EXE  *
+ * =============== */
 
-ACTION_FOR_EACH file IN ~MFIEG1.BAM~ ~MFIEG11.bam~ ~MFIEG12.bam~ ~MFIEG13.bam~ ~MFIEG14.bam~ ~MFIEG15.bam~ ~MFIEG1B.BMP~ ~MFIEG2.bam~ ~MFIEG21.BAM~ ~MFIEG22.bam~ ~MFIEG23.bam~ ~MFIEG24.bam~ ~MFIEG25.bam~ ~MFIEG26.bam~ ~MFIEG2B.BMP~ ~MFIEG31.BMP~ ~MFIEG3B.BMP~ ~MFISG1.BAM~ ~MFISG11.bam~ ~MFISG12.bam~ ~MFISG13.bam~ ~MFISG14.bam~ ~MFISG15.bam~ ~MFISG2.bam~ ~MFISG21.BAM~ ~MFISG22.bam~ ~MFISG23.bam~ ~MFISG24.bam~ ~MFISG25.bam~ ~MFISG26.bam~ BEGIN
+PRINT @300009 // ~Installing files for elementals...~
+SILENT
+
+ACTION_FOR_EACH file IN ~mfieg1.bam~ ~mfieg11.bam~ ~mfieg12.bam~ ~mfieg13.bam~ ~mfieg14.bam~ ~mfieg15.bam~ ~mfieg1b.bmp~ ~mfieg2.bam~ ~mfieg21.bam~ ~mfieg22.bam~ ~mfieg23.bam~ ~mfieg24.bam~ ~mfieg25.bam~ ~mfieg26.bam~ ~mfieg2b.bmp~ ~mfieg31.bmp~ ~mfieg3b.bmp~ ~mfisg1.bam~ ~mfisg11.bam~ ~mfisg12.bam~ ~mfisg13.bam~ ~mfisg14.bam~ ~mfisg15.bam~ ~mfisg2.bam~ ~mfisg21.bam~ ~mfisg22.bam~ ~mfisg23.bam~ ~mfisg24.bam~ ~mfisg25.bam~ ~mfisg26.bam~ BEGIN
 	COPY ~1pp/core/misc/%file%~ ~override~
 END
 
