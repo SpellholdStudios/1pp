@@ -23,7 +23,7 @@
  *          MISCELLANEOUS          *
  * =============================== */
 
-PRINT @400042 // ~Patching miscellaneous items...~
+PRINT @400032 // ~Patching miscellaneous items...~
 SILENT
 
 // Water's Edge +3

@@ -18,7 +18,7 @@
  *          Builds an array to define new gems lore values to identify.                                                                                                             *
  * ================================================================================================================================================================================ */
 
-PRINT @400041 // ~Patching gems...~
+PRINT @400031 // ~Patching gems...~
 SILENT
 
 OUTER_SET uname = 0

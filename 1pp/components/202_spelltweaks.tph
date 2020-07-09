@@ -1,7 +1,7 @@
 // varied 'Armour' visual effects
 // IWD style Cause Wounds spells
 
-/*  ==============================================================================================================================================================================  *
+/* ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
  *      - BWP Fixpack patch for individualised armor effects {202_spelltweaks.tph.patch): modifies opcode #215 visual effect in ALL spell headers.                                  *
@@ -13,11 +13,11 @@
  *        the installation process will prevent any installation failure by reverting it back to its default value.                                                                 *
  *      - Coding simplification:                                                                                                                                                    *
  *  		Avoid copying and overwriting the same files again and again...                                                                                                         *
- *  ==============================================================================================================================================================================  */
+ * ================================================================================================================================================================================ */
 
-/*  ============================  *
+/* ============================== *
  *  INDIVIDUALISED ARMOR EFFECTS  *
- *  ============================  */
+ * ============================== */
 PRINT @202000 /* Installing individualised armour effects... */
 
 ACTION_FOR_EACH item IN ~1WDGARMR.VVC~ ~1WDSARMR.VVC~ ~GARMORH.BAM~ ~SARMORH.BAM~ BEGIN
@@ -65,9 +65,9 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~SPWI414.SPL~) BEGIN
 END
 
 
-/*  =================================  *
+/* =================================== *
  *  PnP/IWD STYLE CAUSE WOUNDS SPELLS  *
- *  =================================  */
+ * =================================== */
 PRINT @202001 /* Installing PnP/IWD-style 'cause wounds' spells... */
 
 ACTION_FOR_EACH item IN ~1WDCCDAM.BAM~ ~1WDCCDAM.VVC~ ~1WDCLDAM.BAM~ ~1WDCLDAM.VVC~ ~1WDCLWA.bam~ ~1WDCLWB.bam~ ~1WDCLWC.bam~ ~1WDCMDAM.BAM~ ~1WDCMDAM.VVC~ ~1WDCMWA.bam~ ~1WDCMWB.bam~ ~1WDCMWC.bam~ ~1WDCSDAM.BAM~ ~1WDCSDAM.VVC~ BEGIN

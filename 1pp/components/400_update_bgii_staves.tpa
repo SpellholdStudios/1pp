@@ -16,7 +16,7 @@
  *          STAVES          *
  * ======================== */
 
-PRINT @400071 // ~Patching staves...~
+PRINT @400055 // ~Patching staves...~
 SILENT
 
 // Staff of Command

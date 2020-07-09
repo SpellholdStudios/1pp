@@ -37,7 +37,7 @@
  *          ONE-HANDED SWORDS          *
  * =================================== */
 
-PRINT @400061 // ~Patching swords...~
+PRINT @400051 // ~Patching swords...~
 SILENT
 
 // Bastard Sword
@@ -1272,7 +1272,7 @@ END
  *          NEW SWORD          *
  * =========================== */
 
-PRINT @400062 // ~Installing new swords...~
+PRINT @400052 // ~Installing new swords...~
 SILENT
 
 // Viper's Edge +2

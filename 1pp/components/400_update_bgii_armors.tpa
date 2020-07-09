@@ -34,7 +34,7 @@
  *          LEATHER ARMORS          *
  * ================================ */
 
-PRINT @400081 // ~Patching leather armors...~
+PRINT @400061 // ~Patching leather armors...~
 SILENT
 
 // Leather Armor
@@ -463,7 +463,7 @@ END
  *          CHAIN AND SPLINT MAIL ARMORS          *
  * ============================================== */
 
-PRINT @400082 // ~Patching chain and splint mail armors...~
+PRINT @400062 // ~Patching chain and splint mail armors...~
 SILENT
 
 // Chain Mail Armor
@@ -983,7 +983,7 @@ END
  *          CLOAKS          *
  * ======================== */
 
-PRINT @400083 // ~Patching cloaks...~
+PRINT @400063 // ~Patching cloaks...~
 SILENT
 
 // Algernon's Cloak
@@ -1054,7 +1054,7 @@ END
  *          PLATE MAILS          *
  * ============================= */
 
-PRINT @400084 // ~Patching plate mails...~
+PRINT @400064 // ~Patching plate mails...~
 SILENT
 
 // Plate Mail
@@ -1350,7 +1350,7 @@ END
  * ============================ */
 
 ACTION_IF (is_tutu) BEGIN
-	PRINT @400085 // ~Patching specific tutu armors...~
+	PRINT @400065 // ~Patching specific tutu armors...~
 	SILENT
 
 	// Chain Mail Armor
@@ -1438,7 +1438,7 @@ END // of ACTION_IF (is_tutu)
 
 ACTION_IF (1pp_armours_appearance = 1) BEGIN
 
-	PRINT @400086 // ~Patching armors (1ppv4 style)...~
+	PRINT @400066 // ~Patching armors (1ppv4 style)...~
 	SILENT
 
 	// 1ppv4 STYLE COPY cheaty
@@ -1715,7 +1715,7 @@ END // end of ACTION_IF (1pp_armours_appearance = 1) // 1ppv4 STYLE
 
 ACTION_IF (1pp_armours_appearance = 2) BEGIN
 
-	PRINT @400087 // ~Patching armors (Baldur's Gate I style)...~
+	PRINT @400067 // ~Patching armors (Baldur's Gate I style)...~
 	SILENT
 
 	// BGI STYLE COPY
@@ -1781,7 +1781,7 @@ END // end BGI STYLE : ACTION_IF (1pp_armours_appearance = 2)
 
 ACTION_IF (1pp_armours_appearance = 3) BEGIN
 
-	PRINT @400088 // ~Patching armors (Baldur's Gate II style)...~
+	PRINT @400068 // ~Patching armors (Baldur's Gate II style)...~
 	SILENT
 
 	COPY ~1pp/item/1ppv4_update/bam/1chan04b.bam~ ~override/ichan04.bam~

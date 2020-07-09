@@ -1,7 +1,10 @@
-// This is where things get... 'interesting'
-// Work with me here, WeiDU
-
-/*  ==============================================================================================================================================================================  *
+/* ================================================================================================================================================================================ *
+ *                                                                                                                                                                                  *
+ *                                C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( p l a c i n g   i t e m s )                                 *
+ *                                                                                                                                                                                  *
+ * ================================================================================================================================================================================ *
+ *  This part scatters items throughout game (This is where things get... Work with me here, WeiDU!)                                                                               *
+ * ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
  *      - Variables needed for installation (1pp_shields_scatter, 1pp_helmets_scatter, 1pp_armours_scatter, 1pp_tutu_bg1_shields and 1pp_tutu_bg1_helmets) are read from            *
@@ -11,336 +14,456 @@
  *        provides a standard installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and   *
  *        save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini,    *
  *        the installation process will prevent any installation failure by reverting it back to its default value.                                                                 *
- *      - Replace macros with functions whenever possible.                                                                                                                          *
+ *      - Added BGT control.                                                                                                                                                        *
+ *      - Replaced macros with functions whenever possible.                                                                                                                         *
  *      - Lollorian's BWP Fixpack patch for Ashes of Embers compatibility (400_1pp_update_bgii.tph.patch): Renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix     *
  *        (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian).                                                                          *
  *        Source: http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849                                                                                   *
- *      - Replace macros with functions whenever possible.                                                                                                                          *
+ *      - Replaces macros with functions whenever possible.                                                                                                                         *
  *      - Coding simplification:                                                                                                                                                    *
- *  		Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
- *  		Replace two ADD_STORE_ITEM #1 with one ADD_STORE_ITEM #2.                                                                                                               *
- *  		Replace LAUNCH_PATCH_MACRO ADD_AREA_ITEM with LPF ADD_AREA_ITEM.                                                                                                        *
- *  		Replace combo ADD_STORE_ITEM + REMOVE_STORE_ITEM with LPF REPLACE_STORE_ITEM.                                                                                           *
+ *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                   *
+ *          Replaced two ADD_STORE_ITEM #1 with one ADD_STORE_ITEM #2.                                                                                                              *
+ *          Replaced LAUNCH_PATCH_MACRO ADD_AREA_ITEM with LPF ADD_AREA_ITEM.                                                                                                       *
+ *          Replaced combo ADD_STORE_ITEM + REMOVE_STORE_ITEM with LPF REPLACE_STORE_ITEM.                                                                                          *
  *  specific fixes:                                                                                                                                                                 *
  *  ---------------                                                                                                                                                                 *
- *      - #305-310: dmark1.sto (Fovem, Docks merchant) & trmer02.sto (Trademeet merchant): set number_in_stock to 2, otherwise the former code did not work (was supposed to add    *
- *                  one Plate and remove the Plate +1, but there was already 1 Plate in the store!                                                                                  *
- *  ==============================================================================================================================================================================  */
+ *      - #425 : dmark1.sto (Fovem, Docks merchant) & trmer02.sto (Trademeet merchant): set number_in_stock to 2, otherwise the former code did not work (was supposed to add       *
+ *               one Plate and remove the Plate +1, but there was already 1 Plate in the store!                                                                                     *
+ * ================================================================================================================================================================================ */
 
-/*  ===============================  *
- *  							     *
- *           PLACING ITEMS           *
- *  							     *
- *  ===============================  */
+// -------------------------------- //
+//  PLACING ITEMS             line  //
+// -------------------------------- //
+//  SCATTER SHIELDS         #   45  //
+//  SCATTER HELMETS         #  296  //
+//  SCATTER ARMORS          #  404  //
+//  ADD NEW ITEMS           #  504  //
+//  TUTU STUFF              #  611  //
+// -------------------------------- //
 
-/*  ===============================  *
+/* ================================= *
  *          SCATTER SHIELDS          *
- *  ===============================  */
-ACTION_IF (1pp_shields_scatter = 1) BEGIN
+ * ================================= */
+
+ACTION_IF ((1pp_shields_scatter = 1) AND (MOD_IS_INSTALLED ~1pp.tp2~ 206)) BEGIN
 
 /* --------- *
  *  BG2-ToB  *
  * --------- */
-	ACTION_IF (GAME_IS ~bg2 tob~) BEGIN
+
+	ACTION_IF (GAME_IS ~bg2 bgt tob~) BEGIN
+
+		PRINT @400071 // ~Scattering available extra shields throughout game...~
+		SILENT
 
 		// Jahaboam (Dock)
-		COPY_EXISTING ~dshop02.sto~ ~override~
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD01 new_item = SHLD01A flags = IDENTIFIED END	// Small shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD03 new_item = SHLD03A flags = IDENTIFIED END	// Medium shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD05 new_item = SHLD05A flags = IDENTIFIED END	// Large shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD08 new_item = SHLD08A flags = IDENTIFIED END	// Buckler
+		ACTION_IF (FILE_EXISTS_IN_GAME ~dshop02.sto~ AND FILE_EXISTS_IN_GAME ~shld01a.itm~) BEGIN
+			COPY_EXISTING ~dshop02.sto~ ~override~
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD01 new_item = SHLD01A flags = IDENTIFIED END	// Small shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD03 new_item = SHLD03A flags = IDENTIFIED END	// Medium shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD05 new_item = SHLD05A flags = IDENTIFIED END	// Large shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD08 new_item = SHLD08A flags = IDENTIFIED END	// Buckler
+			BUT_ONLY
+		END
 
 		// Vincenzo's Inn (Umar Hills)
-		COPY_EXISTING ~uhinn01.sto~ ~override~
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 10 STR_VAR old_item = SHLD01 new_item = SHLD01A flags = IDENTIFIED END	// Small shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 5 STR_VAR old_item = SHLD03 new_item = SHLD03A flags = IDENTIFIED END	// Medium shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD05 new_item = SHLD05A flags = IDENTIFIED END	// Large shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 4 STR_VAR old_item = SHLD08 new_item = SHLD08A flags = IDENTIFIED END	// Buckler
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD09 new_item = SHLD09A flags = IDENTIFIED END	// Buckler
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD10 new_item = SHLD10A flags = IDENTIFIED END	// Buckler
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD11 new_item = SHLD11A flags = IDENTIFIED END	// Small shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD12 new_item = SHLD12A flags = IDENTIFIED END	// Small shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD13 new_item = SHLD13A flags = IDENTIFIED END	// Medium shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD14 new_item = SHLD14A flags = IDENTIFIED END	// Medium shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD15 new_item = SHLD15A flags = IDENTIFIED END	// Large shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD16 new_item = SHLD16A flags = IDENTIFIED END	// Large shield
-			ADD_STORE_ITEM ~SHLD17A~   AFTER  ~SHLD10A~ #0 #0 #0 ~IDENTIFIED~ #1													// Buckler +1
+		ACTION_IF (FILE_EXISTS_IN_GAME ~uhinn01.sto~ AND FILE_EXISTS_IN_GAME ~shld01a.itm~) BEGIN
+			COPY_EXISTING ~uhinn01.sto~ ~override~
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 10 STR_VAR old_item = SHLD01 new_item = SHLD01A flags = IDENTIFIED END	// Small shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 5 STR_VAR old_item = SHLD03 new_item = SHLD03A flags = IDENTIFIED END	// Medium shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD05 new_item = SHLD05A flags = IDENTIFIED END	// Large shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 4 STR_VAR old_item = SHLD08 new_item = SHLD08A flags = IDENTIFIED END	// Buckler
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD09 new_item = SHLD09A flags = IDENTIFIED END	// Buckler
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD10 new_item = SHLD10A flags = IDENTIFIED END	// Buckler
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD11 new_item = SHLD11A flags = IDENTIFIED END	// Small shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD12 new_item = SHLD12A flags = IDENTIFIED END	// Small shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD13 new_item = SHLD13A flags = IDENTIFIED END	// Medium shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD14 new_item = SHLD14A flags = IDENTIFIED END	// Medium shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD15 new_item = SHLD15A flags = IDENTIFIED END	// Large shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD16 new_item = SHLD16A flags = IDENTIFIED END	// Large shield
+				ADD_STORE_ITEM ~SHLD17A~   AFTER  ~SHLD10A~ #0 #0 #0 ~IDENTIFIED~ #1													// Buckler +1
+			BUT_ONLY
+		END
 
 		// Merchant (Beherant Diir - Umar Hills)
-		COPY_EXISTING ~uhmer03.sto~ ~override~
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD02 new_item = SHLD02A flags = IDENTIFIED END	// Small shield +1
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD03 new_item = SHLD03A flags = IDENTIFIED END	// Medium shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD08 new_item = SHLD08A flags = IDENTIFIED END	// Buckler
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD09 new_item = SHLD09A flags = IDENTIFIED END	// Buckler
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD11 new_item = SHLD11A flags = IDENTIFIED END	// Small shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD14 new_item = SHLD14A flags = IDENTIFIED END	// Medium shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD16 new_item = SHLD16A flags = IDENTIFIED END	// Large shield
+		ACTION_IF (FILE_EXISTS_IN_GAME ~uhmer03.sto~ AND FILE_EXISTS_IN_GAME ~shld02a.itm~) BEGIN
+			COPY_EXISTING ~uhmer03.sto~ ~override~
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD02 new_item = SHLD02A flags = IDENTIFIED END	// Small shield +1
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD03 new_item = SHLD03A flags = IDENTIFIED END	// Medium shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD08 new_item = SHLD08A flags = IDENTIFIED END	// Buckler
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD09 new_item = SHLD09A flags = IDENTIFIED END	// Buckler
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD11 new_item = SHLD11A flags = IDENTIFIED END	// Small shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD14 new_item = SHLD14A flags = IDENTIFIED END	// Medium shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD16 new_item = SHLD16A flags = IDENTIFIED END	// Large shield
+			BUT_ONLY
+		END
 
 		// Five Flagons
-		COPY_EXISTING ~bdbart01.sto~ ~override~
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD02 new_item = SHLD02A flags = IDENTIFIED END	// Small shield +1
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 5 STR_VAR old_item = SHLD03 new_item = SHLD03A flags = IDENTIFIED END	// Medium shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD04 new_item = SHLD04A flags = IDENTIFIED END	// Medium shield +1
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD06 new_item = SHLD06A flags = IDENTIFIED END	// Large shield +1
+		ACTION_IF (FILE_EXISTS_IN_GAME ~bdbart01.sto~ AND FILE_EXISTS_IN_GAME ~shld02a.itm~) BEGIN
+			COPY_EXISTING ~bdbart01.sto~ ~override~
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD02 new_item = SHLD02A flags = IDENTIFIED END	// Small shield +1
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 5 STR_VAR old_item = SHLD03 new_item = SHLD03A flags = IDENTIFIED END	// Medium shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD04 new_item = SHLD04A flags = IDENTIFIED END	// Medium shield +1
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD06 new_item = SHLD06A flags = IDENTIFIED END	// Large shield +1
+			BUT_ONLY
+		END
 
 		// Brynnlaw Merchant (Storekeep)
-		COPY_EXISTING ~ppstor01.sto~ ~override~
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD02 new_item = SHLD02A flags = IDENTIFIED END	// Small shield +1
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD03 new_item = SHLD03A flags = IDENTIFIED END	// Medium shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD04 new_item = SHLD04A flags = IDENTIFIED END	// Medium shield +1
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD06 new_item = SHLD06A flags = IDENTIFIED END	// Large shield +1
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD08 new_item = SHLD08A flags = IDENTIFIED END	// Buckler
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD10 new_item = SHLD10A flags = IDENTIFIED END	// Buckler
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD15 new_item = SHLD15A flags = IDENTIFIED END	// Large shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD28 new_item = SHLD28A flags = IDENTIFIED END	// Buckler +2
+		ACTION_IF (FILE_EXISTS_IN_GAME ~ppstor01.sto~ AND FILE_EXISTS_IN_GAME ~shld02a.itm~) BEGIN
+			COPY_EXISTING ~ppstor01.sto~ ~override~
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD02 new_item = SHLD02A flags = IDENTIFIED END	// Small shield +1
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD03 new_item = SHLD03A flags = IDENTIFIED END	// Medium shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD04 new_item = SHLD04A flags = IDENTIFIED END	// Medium shield +1
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD06 new_item = SHLD06A flags = IDENTIFIED END	// Large shield +1
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD08 new_item = SHLD08A flags = IDENTIFIED END	// Buckler
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD10 new_item = SHLD10A flags = IDENTIFIED END	// Buckler
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD15 new_item = SHLD15A flags = IDENTIFIED END	// Large shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = SHLD28 new_item = SHLD28A flags = IDENTIFIED END	// Buckler +2
+			BUT_ONLY
+		END
 
 		// Brynnlaw Inn (Innkeeper)
-		COPY_EXISTING ~ppinn01.sto~ ~override~
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD09 new_item = SHLD09A flags = IDENTIFIED END	// Buckler
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD11 new_item = SHLD11A flags = IDENTIFIED END	// Small shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD12 new_item = SHLD12A flags = IDENTIFIED END	// Small shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD14 new_item = SHLD14A flags = IDENTIFIED END	// Medium shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD15 new_item = SHLD15A flags = IDENTIFIED END	// Large shield
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD16 new_item = SHLD16A flags = IDENTIFIED END	// Large shield
-			ADD_STORE_ITEM ~SHLD29A~   AFTER  ~SHLD14A~ #0 #0 #0 ~IDENTIFIED~ #1													// Medium shield +2
+		ACTION_IF (FILE_EXISTS_IN_GAME ~ppinn01.sto~ AND FILE_EXISTS_IN_GAME ~shld09a.itm~) BEGIN
+			COPY_EXISTING ~ppinn01.sto~ ~override~
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD09 new_item = SHLD09A flags = IDENTIFIED END	// Buckler
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD11 new_item = SHLD11A flags = IDENTIFIED END	// Small shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD12 new_item = SHLD12A flags = IDENTIFIED END	// Small shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD14 new_item = SHLD14A flags = IDENTIFIED END	// Medium shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = SHLD15 new_item = SHLD15A flags = IDENTIFIED END	// Large shield
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = SHLD16 new_item = SHLD16A flags = IDENTIFIED END	// Large shield
+				ADD_STORE_ITEM ~SHLD29A~   AFTER  ~SHLD14A~ #0 #0 #0 ~IDENTIFIED~ #1													// Medium shield +2
+			BUT_ONLY
+		END
 
 		// Bridge Merchant (Storekeep)
-		COPY_EXISTING ~bshop02.sto~ ~override~
-			ADD_STORE_ITEM ~shld02p~   AFTER  ~shld05~ #0 #0 #0 ~IDENTIFIED~ #1														// High Quality Large shield
-			ADD_STORE_ITEM ~shld03p~   BEFORE  ~shld05~ #0 #0 #0 ~IDENTIFIED~ #1													// High Quality Medium shield
+		ACTION_IF (FILE_EXISTS_IN_GAME ~bshop02.sto~ AND FILE_EXISTS_IN_GAME ~shld02p.itm~) BEGIN
+			COPY_EXISTING ~bshop02.sto~ ~override~
+				ADD_STORE_ITEM ~SHLD02P~   AFTER  ~SHLD05~ #0 #0 #0 ~IDENTIFIED~ #1														// High Quality Large shield
+				ADD_STORE_ITEM ~SHLD03P~   BEFORE ~SHLD05~ #0 #0 #0 ~IDENTIFIED~ #1														// High Quality Medium shield
+			BUT_ONLY
+		END
 
-		// Black Market Thief
-		COPY_EXISTING ~bmthief.sto~ ~override~
-			ADD_STORE_ITEM ~shld03p~   AFTER  ~shld03~ #0 #0 #0 ~IDENTIFIED~ #1														// High Quality Medium shield
+		// Black Market Thief: High Quality Medium shield
+		ACTION_IF (FILE_EXISTS_IN_GAME ~bmthief.sto~ AND FILE_EXISTS_IN_GAME ~shld03p.itm~) BEGIN
+			COPY_EXISTING ~bmthief.sto~ ~override~
+				ADD_STORE_ITEM ~SHLD03P~   AFTER  ~SHLD03~ #0 #0 #0 ~IDENTIFIED~ #1
+			BUT_ONLY
+		END
 
 		// Mira
-		COPY_EXISTING ~shop01.sto~ ~override~
-			ADD_STORE_ITEM ~shld02p~   AFTER  ~shld05~ #0 #0 #0 ~IDENTIFIED~ #1														// High Quality Large shield
-			ADD_STORE_ITEM ~shld03p~   AFTER  ~shld03~ #0 #0 #0 ~IDENTIFIED~ #1														// High Quality Medium shield
+		ACTION_IF (FILE_EXISTS_IN_GAME ~shop01.sto~ AND FILE_EXISTS_IN_GAME ~shld02p.itm~) BEGIN
+			COPY_EXISTING ~shop01.sto~ ~override~
+				ADD_STORE_ITEM ~SHLD02P~   AFTER  ~SHLD05~ #0 #0 #0 ~IDENTIFIED~ #1														// High Quality Large shield
+				ADD_STORE_ITEM ~SHLD03P~   AFTER  ~SHLD03~ #0 #0 #0 ~IDENTIFIED~ #1														// High Quality Medium shield
+			BUT_ONLY
+		END
 
-		// Arnolinus
-		COPY_EXISTING ~shop02.sto~ ~override~
-			ADD_STORE_ITEM ~shld04p~   AFTER  ~shld14~ #0 #0 #0 ~IDENTIFIED~ #3														// Medium shield
+		// Arnolinus: Medium shield
+		ACTION_IF (FILE_EXISTS_IN_GAME ~shop02.sto~ AND FILE_EXISTS_IN_GAME ~shld04p.itm~) BEGIN
+			COPY_EXISTING ~shop02.sto~ ~override~
+				ADD_STORE_ITEM ~SHLD04P~   AFTER  ~SHLD14~ #0 #0 #0 ~IDENTIFIED~ #3
+			BUT_ONLY
+		END
 
-		// Copper Coronet (Gwen fix: useful?)
-		COPY_EXISTING ~hendak.sto~ ~override~
-			ADD_STORE_ITEM ~shld04p~   AFTER  ~shld03~ #0 #0 #0 ~IDENTIFIED~ #2														// Medium shield
+		// Copper Coronet: Medium shield (Gwen fix: useful?)
+		ACTION_IF (FILE_EXISTS_IN_GAME ~hendak.sto~ AND FILE_EXISTS_IN_GAME ~shld04p.itm~) BEGIN
+			COPY_EXISTING ~hendak.sto~ ~override~
+				ADD_STORE_ITEM ~SHLD04P~   AFTER  ~SHLD03~ #0 #0 #0 ~IDENTIFIED~ #2
+			BUT_ONLY
+		END
 
-		// Copper Coronet (Gwen fix: useful?)
-		COPY_EXISTING ~lehtinan.sto~ ~override~
-			ADD_STORE_ITEM ~shld04p~   AFTER  ~shld03~ #0 #0 #0 ~IDENTIFIED~ #2														// Medium shield
+		// Copper Coronet: Medium shield (Gwen fix: useful?)
+		ACTION_IF (FILE_EXISTS_IN_GAME ~lehtinan.sto~ AND FILE_EXISTS_IN_GAME ~shld04p.itm~) BEGIN
+			COPY_EXISTING ~lehtinan.sto~ ~override~
+				ADD_STORE_ITEM ~SHLD04P~   AFTER  ~SHLD03~ #0 #0 #0 ~IDENTIFIED~ #2
+			BUT_ONLY
+		END
 
-		// Trademeet Merchant
-		COPY_EXISTING ~trmer02.sto~ ~override~
-			ADD_STORE_ITEM ~shld05p~   AFTER  ~bull03~ #0 #0 #0 ~IDENTIFIED~ #1														// Corvyr's Blessing
+		// Trademeet Merchant: Corvyr's Blessing
+		ACTION_IF (FILE_EXISTS_IN_GAME ~trmer02.sto~ AND FILE_EXISTS_IN_GAME ~shld05p.itm~) BEGIN
+			COPY_EXISTING ~trmer02.sto~ ~override~
+				ADD_STORE_ITEM ~SHLD05P~   AFTER  ~BULL03~ #0 #0 #0 ~IDENTIFIED~ #1
+			BUT_ONLY
+		END
 
-		// Shadow Thief Fence (Arledrian)
+		// Shadow Thief Fence (Arledrian): Kiel's Buckler
 		COPY_EXISTING ~arled.sto~ ~override~
-			ADD_STORE_ITEM ~shld20~   AFTER  ~scrl1m~ #0 #0 #0 ~IDENTIFIED~ #1														// Kiel's Buckler
+			ADD_STORE_ITEM ~SHLD20~   AFTER  ~SCRL1M~ #0 #0 #0 ~IDENTIFIED~ #1
+		BUT_ONLY
 
-		// Kich (Trademeet)
-		COPY_EXISTING ~trthf02.sto~ ~override~
-			ADD_STORE_ITEM ~shld23a~   AFTER  ~shld06~ #0 #0 #0 ~IDENTIFIED~ #1														// Wall of th eNorth +2
+		// Kich (Trademeet): Wall of the North +2
+		ACTION_IF (FILE_EXISTS_IN_GAME ~trthf02.sto~ AND FILE_EXISTS_IN_GAME ~shld23a.itm~) BEGIN
+			COPY_EXISTING ~trthf02.sto~ ~override~
+				ADD_STORE_ITEM ~SHLD23A~   AFTER  ~SHLD06~ #0 #0 #0 ~IDENTIFIED~ #1
+			BUT_ONLY
+		END
 
-		// Merchant Drow
-		COPY_EXISTING ~uddrow23.sto~ ~override~
-			ADD_STORE_ITEM ~shld27a~   AFTER  ~sw2h07~ #0 #0 #0 ~IDENTIFIED~ #1														// Tahcaluss +3
+		// Merchant Drow: Tahcaluss +3
+		ACTION_IF (FILE_EXISTS_IN_GAME ~uddrow23.sto~ AND FILE_EXISTS_IN_GAME ~shld27a.itm~) BEGIN
+			COPY_EXISTING ~uddrow23.sto~ ~override~
+				ADD_STORE_ITEM ~SHLD27A~   AFTER  ~SW2H07~ #0 #0 #0 ~IDENTIFIED~ #1
+			BUT_ONLY
+		END
 
-		// Shop Drow
-		COPY_EXISTING ~uddrow24.sto~ ~override~
-			ADD_STORE_ITEM ~shld08p~   AFTER  ~amul20~ #0 #0 #0 ~IDENTIFIED~ #1														// Tarloc's Contingency +1
+		// Shop Drow: Tarloc's Contingency +1
+		ACTION_IF (FILE_EXISTS_IN_GAME ~uddrow24.sto~ AND FILE_EXISTS_IN_GAME ~shld08p.itm~) BEGIN
+			COPY_EXISTING ~uddrow24.sto~ ~override~
+				ADD_STORE_ITEM ~SHLD08P~   AFTER  ~AMUL20~ #0 #0 #0 ~IDENTIFIED~ #1
+			BUT_ONLY
+		END
 
-		// Temple of Helm (Sir Lothtyran)
-		COPY_EXISTING ~temhelm.sto~ ~override~
-			ADD_STORE_ITEM ~shld09p~   BEFORE  ~shld30~ #0 #0 #0 ~IDENTIFIED~ #1													// Shield of Devotion +1
+		// Temple of Helm (Sir Lothtyran): Shield of Devotion +1
+		ACTION_IF (FILE_EXISTS_IN_GAME ~temhelm.sto~ AND FILE_EXISTS_IN_GAME ~shld09p.itm~) BEGIN
+			COPY_EXISTING ~temhelm.sto~ ~override~
+				ADD_STORE_ITEM ~SHLD09P~   BEFORE  ~SHLD30~ #0 #0 #0 ~IDENTIFIED~ #1
+			BUT_ONLY
+		END
 
 
 		// Spellhold: Buckler +2 in container Crate 3 (#3)
-		COPY_EXISTING ~ar1500.are~ ~override~
-			LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 3 STR_VAR item_to_add = SHLD01P END
+		ACTION_IF (FILE_EXISTS_IN_GAME ~shld01p.itm~) BEGIN
+			COPY_EXISTING ~ar1500.are~ ~override~
+				LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 3 STR_VAR item_to_add = SHLD01P END
+			BUT_ONLY
+		END
 
-		// Sphere (Living Room 2nd Floor): Polished Shield +1 in Container 3 (#1)
-		COPY_EXISTING ~ar0416.are~ ~override~
-			LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 1 STR_VAR item_to_add = SHLD24A END
+		// Living Room 2nd Floor: Polished Shield +1 in Container 3 (#1)
+		ACTION_IF (FILE_EXISTS_IN_GAME ~shld24a.itm~) BEGIN
+			COPY_EXISTING ~ar0416.are~ ~override~
+				LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 1 STR_VAR item_to_add = SHLD24A END
+			BUT_ONLY
+		END
 
 		// Cave Between Underdark and Exit from Underdark: Large Shield +2 in Container 2 (#2)
-		COPY_EXISTING ~ar2401.are~ ~override~
-			LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 2 STR_VAR item_to_add = SHLD30A END
+		ACTION_IF (FILE_EXISTS_IN_GAME ~shld30a.itm~) BEGIN
+			COPY_EXISTING ~ar2401.are~ ~override~
+				LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 2 STR_VAR item_to_add = SHLD30A END
+			BUT_ONLY
+		END
 
 		// Final Judgement Spellhold Test: Gorm's Arm +3 in Container 1 (#1)
-		COPY_EXISTING ~ar1508.are~ ~override~
-			LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 1 STR_VAR item_to_add = SHLD31A END
+		ACTION_IF (FILE_EXISTS_IN_GAME ~shld31a.itm~) BEGIN
+			COPY_EXISTING ~ar1508.are~ ~override~
+				LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 1 STR_VAR item_to_add = SHLD31A END
+			BUT_ONLY
+		END
 
 		// Temple of Oghma: Font of Virtue +2 in container Table 1 (#6)
-		COPY_EXISTING ~ar0319.are~ ~override~
-			LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 6 STR_VAR item_to_add = SHLD26A END
+		ACTION_IF (FILE_EXISTS_IN_GAME ~shld26a.itm~) BEGIN
+			COPY_EXISTING ~ar0319.are~ ~override~
+				LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 6 STR_VAR item_to_add = SHLD26A END
+			BUT_ONLY
+		END
 
 		// Windspear Hills: Sartessa's Vengeance +1 in container Shelf 3 (#4)
-		COPY_EXISTING ~ar1200.are~ ~override~
-			LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 4 STR_VAR item_to_add = SHLD07P END
+		ACTION_IF (FILE_EXISTS_IN_GAME ~shld07p.itm~) BEGIN
+			COPY_EXISTING ~ar1200.are~ ~override~
+				LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 4 STR_VAR item_to_add = SHLD07P END
+			BUT_ONLY
+		END
 
-		// Storehouse (Ihtafeer's Storehouse): Redshield +1, +4 vs. Monstrous in Container 1 (#1)
-		COPY_EXISTING ~ar1902.are~ ~override~
-			LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 1 STR_VAR item_to_add = SHLD06P END
+		// Storehouse (Ihtafeer's Storehouse): Redshield +1, +4 vs. monstrous in Container 1 (#1)
+		ACTION_IF (FILE_EXISTS_IN_GAME ~shld06p.itm~) BEGIN
+			COPY_EXISTING ~ar1902.are~ ~override~
+				LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 1 STR_VAR item_to_add = SHLD06P END
+			BUT_ONLY
+		END
 
 		// Fentan's House: Pellan's Shield +2 in Container 1 (#1)
-		COPY_EXISTING ~ar2002.are~ ~override~
-			LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 1 STR_VAR item_to_add = SHLD19A END
+		ACTION_IF (FILE_EXISTS_IN_GAME ~shld19a.itm~) BEGIN
+			COPY_EXISTING ~ar2002.are~ ~override~
+				LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 1 STR_VAR item_to_add = SHLD19A END
+			BUT_ONLY
+		END
 
 		// Barracks in the Docks: Shield of the Falling Stars +1 in container Chest 1 (#1)
-		COPY_EXISTING ~ar0332.are~ ~override~
-			LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 1 STR_VAR item_to_add = SHLD07A END
+		ACTION_IF (FILE_EXISTS_IN_GAME ~shld07a.itm~) BEGIN
+			COPY_EXISTING ~ar0332.are~ ~override~
+				LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 1 STR_VAR item_to_add = SHLD07A END
+			BUT_ONLY
+		END
 
-	END // game is BG2-TOB
+	END // of ACTION_IF (GAME_IS ~bg2 bgt tob~)
 
-	ACTION_IF (GAME_IS ~tutu tutu_totsc~) BEGIN
+	ACTION_IF (is_tutu) BEGIN // GAME_IS ~tutu tutu_totsc~
 
 	END
 
 END // of SCATTER SHIELDS
 
 
-/*  ===============================  *
+/* ================================= *
  *          SCATTER HELMETS          *
- *  ===============================  */
-ACTION_IF (1pp_helmets_scatter = 1) BEGIN
+ * ================================= */
+
+ACTION_IF ((1pp_helmets_scatter = 1) AND (MOD_IS_INSTALLED ~1pp.tp2~ 208)) BEGIN
 
 /* --------- *
  *  BG2-ToB  *
  * --------- */
-	ACTION_IF (GAME_IS ~bg2 tob~) BEGIN
+
+	ACTION_IF (GAME_IS ~bg2 bgt tob~) BEGIN
+
+		PRINT @400072 // ~Scattering available extra helmets throughout game...~
+		SILENT
 
 		// Jae'llat's House: Helm of Opposite Alignment in container Shelf 1 (#1)
 		COPY_EXISTING ~ar2209.are~ ~override~
 			LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 1 STR_VAR item_to_add = HELM02 END
+		BUT_ONLY
 
-		// Temple of the Forgotten God - Amaunator (Unseeing Eye Plot): Eilistraee's Boon +1 in Container 1 (#1)
-		COPY_EXISTING ~ar0203.are~ ~override~
-			LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 1 STR_VAR item_to_add = XOBAND03 END
+		ACTION_IF (FILE_EXISTS_IN_GAME ~xoband03.itm~) BEGIN
+			// Temple of the Forgotten God - Amaunator (Unseeing Eye Plot): Eilistraee's Boon +1 in Container 1 (#1)
+			COPY_EXISTING ~ar0203.are~ ~override~
+				LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 1 STR_VAR item_to_add = XOBAND03 END
+			BUT_ONLY
 
-		// Wolfwere Hideout: Circlet of the Archmagi in Container 1 (#1)
-		COPY_EXISTING ~ar1403.are~ ~override~
-			LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 1 STR_VAR item_to_add = XOBAND04 END
+			// Wolfwere Hideout: Circlet of the Archmagi in Container 1 (#1)
+			COPY_EXISTING ~ar1403.are~ ~override~
+				LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 1 STR_VAR item_to_add = XOBAND04 END
+			BUT_ONLY
+		END
 
-
-		// Delosar's Inn
+		// Delosar's Inn: Helmet
 		COPY_EXISTING ~binnkeep.sto~ ~override~
-			ADD_STORE_ITEM ~helm12~   AFTER  ~helm01~ #0 #0 #0 ~IDENTIFIED~ #3			// Helmet
+			ADD_STORE_ITEM ~HELM12~   AFTER  ~HELM01~ #0 #0 #0 ~IDENTIFIED~ #3
+		BUT_ONLY
 
-		// Bridge Merchant (Storekeep)
+		// Bridge Merchant (Storekeep): Helmet
 		COPY_EXISTING ~bshop02.sto~ ~override~
-			ADD_STORE_ITEM ~helm10~   AFTER  ~helm08~ #0 #0 #0 ~IDENTIFIED~ #2			// Helmet
+			ADD_STORE_ITEM ~HELM10~   AFTER  ~HELM08~ #0 #0 #0 ~IDENTIFIED~ #2
+		BUT_ONLY
 
-		// Min Minling (Umar Hills)
+		// Min Minling (Umar Hills): Helmet
 		COPY_EXISTING ~uhmer02.sto~ ~override~
-			ADD_STORE_ITEM ~helm15~   AFTER  ~amul13~ #0 #0 #0 ~IDENTIFIED~ #2			// Helmet
+			ADD_STORE_ITEM ~HELM15~   AFTER  ~AMUL13~ #0 #0 #0 ~IDENTIFIED~ #2
+		BUT_ONLY
 
-		// Vyatri (Trademeet: Traveler's Rest)
+		// Vyatri (Trademeet: Traveler's Rest): Helmet
 		COPY_EXISTING ~trinnk01.sto~ ~override~
-			ADD_STORE_ITEM ~helm15~   AFTER  ~helm01~ #0 #0 #0 ~IDENTIFIED~ #9			// Helmet
+			ADD_STORE_ITEM ~HELM15~   AFTER  ~HELM01~ #0 #0 #0 ~IDENTIFIED~ #9
+		BUT_ONLY
 
-		// Adventurer Mart
+		// Adventurer Mart: Helmet
 		COPY_EXISTING ~ribald.sto~ ~override~
-			ADD_STORE_ITEM ~helm22~   AFTER  ~helm13~ #0 #0 #0 ~IDENTIFIED~ #2			// Helmet
+			ADD_STORE_ITEM ~HELM22~   AFTER  ~HELM13~ #0 #0 #0 ~IDENTIFIED~ #2
+		BUT_ONLY
 
-		// Copper Coronet (Gwen fix: useful?)
+		// Copper Coronet: Helmet (Gwen fix: useful?)
 		COPY_EXISTING ~hendak.sto~ ~override~
-			ADD_STORE_ITEM ~helm22~   AFTER  ~blun06~ #0 #0 #0 ~IDENTIFIED~ #1			// Helmet
+			ADD_STORE_ITEM ~HELM22~   AFTER  ~BLUN06~ #0 #0 #0 ~IDENTIFIED~ #1
+		BUT_ONLY
 
-		// Elence Fielding (Umar Hills)
+		// Elence Fielding (Umar Hills): Helmet
 		COPY_EXISTING ~uhmer01.sto~ ~override~
-			ADD_STORE_ITEM ~helm22~   AFTER  ~amul10~ #0 #0 #0 ~IDENTIFIED~ #1			// Helmet
+			ADD_STORE_ITEM ~HELM22~   AFTER  ~AMUL10~ #0 #0 #0 ~IDENTIFIED~ #1
+		BUT_ONLY
 
-		// Jahaboam (Dock)
-		COPY_EXISTING ~dshop02.sto~ ~override~
-			ADD_STORE_ITEM ~xoband01~	AFTER  ~potn20~ #0 #0 #0 ~IDENTIFIED~ #2		// Circlet
+		ACTION_IF (FILE_EXISTS_IN_GAME ~xoband01.itm~) BEGIN
+			// Jahaboam (Dock): Circlet
+			COPY_EXISTING ~dshop02.sto~ ~override~
+				ADD_STORE_ITEM ~XOBAND01~	AFTER  ~POTN20~ #0 #0 #0 ~IDENTIFIED~ #2
+			BUT_ONLY
 
-		// Black Market Thief
-		COPY_EXISTING ~bmthief.sto~ ~override~
-			ADD_STORE_ITEM ~xoband01~   AFTER  ~dagg16~ #0 #0 #0 ~IDENTIFIED~ #2		// Circlet
+			// Black Market Thief: Circlet
+			COPY_EXISTING ~bmthief.sto~ ~override~
+				ADD_STORE_ITEM ~XOBAND01~   AFTER  ~DAGG16~ #0 #0 #0 ~IDENTIFIED~ #1
+			BUT_ONLY
 
-		// Copper Coronet
-		COPY_EXISTING ~bernard.sto~ ~override~
-			ADD_STORE_ITEM ~xoband01~   AFTER  ~amul13~ #0 #0 #0 ~IDENTIFIED~ #2		// Circlet
+			// Copper Coronet: Circlet
+			COPY_EXISTING ~bernard.sto~ ~override~
+				ADD_STORE_ITEM ~XOBAND01~   AFTER  ~AMUL13~ #0 #0 #0 ~IDENTIFIED~ #2
+			BUT_ONLY
 
-		// Priest of Waukeen (Waukeen's Temple)
-		COPY_EXISTING ~govwau01.sto~ ~override~
-			ADD_STORE_ITEM ~xoband02~	BEFORE  ~potn08~ #0 #0 #0 ~IDENTIFIED~ #1		// Silver Circlet
+			// Priest of Waukeen (Waukeen's Temple): Silver Circlet
+			COPY_EXISTING ~govwau01.sto~ ~override~
+				ADD_STORE_ITEM ~XOBAND02~	BEFORE  ~POTN08~ #0 #0 #0 ~IDENTIFIED~ #1
+			BUT_ONLY
 
-		// Merchant Drow
-		COPY_EXISTING ~uddrow23.sto~ ~override~
-			ADD_STORE_ITEM ~xoband02~	AFTER  ~amul10~ #0 #0 #0 ~IDENTIFIED~ #2		// Silver Circlet
+			// Merchant Drow: Silver Circlet
+			COPY_EXISTING ~uddrow23.sto~ ~override~
+				ADD_STORE_ITEM ~XOBAND02~	AFTER  ~AMUL10~ #0 #0 #0 ~IDENTIFIED~ #2
+			BUT_ONLY
 
-		// Priestess of Umberlee (Temple of Umberlee)
-		COPY_EXISTING ~ppumb01.sto~ ~override~
-			ADD_STORE_ITEM ~xoband02~	BEFORE  ~potn08~ #0 #0 #0 ~IDENTIFIED~ #1		// Silver Circlet
+			// Priestess of Umberlee (Temple of Umberlee): Silver Circlet
+			COPY_EXISTING ~ppumb01.sto~ ~override~
+				ADD_STORE_ITEM ~XOBAND02~	BEFORE  ~POTN08~ #0 #0 #0 ~IDENTIFIED~ #1
+			BUT_ONLY
+		END
 
-	END // of game is BG2-ToB
+	END // of ACTION_IF (GAME_IS ~bg2 bgt tob~)
 
-	ACTION_IF (GAME_IS ~tutu tutu_totsc~) BEGIN
+	ACTION_IF (is_tutu) BEGIN // GAME_IS ~tutu tutu_totsc~
 
 	END // of game is tutu
 
 END // of SCATTER HELMETS
 
 
-/*  ==============================  *
+/* ================================ *
  *          SCATTER ARMORS          *
- *  ==============================  */
+ * ================================ */
+
 ACTION_IF (1pp_armours_scatter = 1) THEN BEGIN
 
 /* --------- *
  *  BG2-ToB  *
  * --------- */
-	ACTION_IF (GAME_IS ~bg2 tob~) BEGIN
 
-		// Shadow Thief Fence Arledrian
+	ACTION_IF (GAME_IS ~bg2 bgt tob~) BEGIN
+
+		PRINT @400073 // ~Scattering available alternate armors throughout game...~
+		SILENT
+
+		// Shadow Thief Fence Arledrian: vanilla Plate Mail --> Plate Mail +3: 'The Practical Defense'
 		ACTION_IF (FILE_EXISTS_IN_GAME ~arled.sto~ AND FILE_EXISTS_IN_GAME ~plat08.itm~) THEN BEGIN
 			COPY_EXISTING ~arled.sto~ ~override~
-				ADD_STORE_ITEM ~plat08~   AFTER  ~chan05~ #0 #0 #0 ~IDENTIFIED~ #1		// vanilla Plate Mail --> Plate Mail +3: 'The Practical Defense'
+				ADD_STORE_ITEM ~PLAT08~   AFTER  ~CHAN05~ #0 #0 #0 ~IDENTIFIED~ #1
+			BUT_ONLY
 		END
 
-		// Fovem (Docks merchant): fix number_in_stock to 2, otherwise the former code did not work (was supposed to add one Plate and remove the Plate +1, but there was already 1 Plate in the store).
-		COPY_EXISTING ~dmark1.sto~ ~override~
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = PLAT01 new_item = PLAT01 flags = IDENTIFIED END	// Plate Mail
-			REMOVE_STORE_ITEM ~plat10~
+		// Fovem (Docks merchant) and Trademeet merchant: fix number_in_stock to 2, otherwise the former code did not work (was supposed to add one Plate and remove the Plate +1, but there was already 1 Plate in the store).
+		ACTION_FOR_EACH shop IN ~dmark1~ ~trmer02~ BEGIN
+			COPY_EXISTING ~%shop%.sto~ ~override~
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = PLAT01 new_item = PLAT01 flags = IDENTIFIED END	// Plate Mail
+				REMOVE_STORE_ITEM ~PLAT10~
+			BUT_ONLY
+		END
 
-		// Trademeet merchant: same fix.
-		COPY_EXISTING ~trmer02.sto~ ~override~
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = PLAT01 new_item = PLAT01 flags = IDENTIFIED END	// Plate Mail
-			REMOVE_STORE_ITEM ~plat10~
+		// Adventurer Mart and Copper Coronet: Full Plate Mail +1 (Plate of the Dark +1)
+		ACTION_FOR_EACH shop IN ~ribald3~ ~bernard5~ ~bernard6~ BEGIN
+			COPY_EXISTING ~%shop%.sto~ ~override~
+				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = PLAT14 new_item = PLAT05 flags = IDENTIFIED END
+			BUT_ONLY
+		END
 
-		// Adventurer Mart
-		COPY_EXISTING ~ribald3.sto~ ~override~
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = PLAT14 new_item = PLAT05 flags = IDENTIFIED END	// Full Plate Mail +1 (Plate of the Dark +1)
-
-		// Copper Coronet
-		COPY_EXISTING ~bernard5.sto~ ~override~
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = PLAT14 new_item = PLAT05 flags = IDENTIFIED END	// Full Plate Mail +1 (Plate of the Dark +1)
-		COPY_EXISTING ~bernard6.sto~ ~override~
-			LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = PLAT14 new_item = PLAT05 flags = IDENTIFIED END	// Full Plate Mail +1 (Plate of the Dark +1)
-
-		// Beherant Diir (Umar Hills)
+		// Beherant Diir (Umar Hills): Ankheg Plate Mail
 		COPY_EXISTING ~uhmer03.sto~ ~override~
-			ADD_STORE_ITEM ~plat06~   AFTER  ~chan01~ #0 #0 #0 ~IDENTIFIED~ #1			// Ankheg Plate Mail
+			ADD_STORE_ITEM ~PLAT06~   AFTER  ~CHAN01~ #0 #0 #0 ~IDENTIFIED~ #1
+		BUT_ONLY
 
 		// Merchant Drow
 		COPY_EXISTING ~uddrow23.sto~ ~override~
-			ADD_STORE_ITEM ~plat06~   AFTER  ~chan01~ #0 #0 #0 ~IDENTIFIED~ #4			// Ankheg Plate Mail
-			ADD_STORE_ITEM ~plat09~   AFTER  ~plat06~ #0 #0 #0 ~IDENTIFIED~ #1			// Mithral Field Plate +2
+			ADD_STORE_ITEM ~PLAT06~   AFTER  ~CHAN01~ #0 #0 #0 ~IDENTIFIED~ #4			// Ankheg Plate Mail
+			ADD_STORE_ITEM ~PLAT09~   AFTER  ~PLAT06~ #0 #0 #0 ~IDENTIFIED~ #1			// Mithral Field Plate +2
+		BUT_ONLY
 
-		// Temple of Helm (Sir Lothtyran)
+		// Temple of Helm (Sir Lothtyran): Mithral Field Plate +2
 		COPY_EXISTING ~temhelm.sto~ ~override~
-			ADD_STORE_ITEM ~plat09~   AFTER  ~plat04~ #0 #0 #0 ~IDENTIFIED~ #1			// Mithral Field Plate +2
+			ADD_STORE_ITEM ~PLAT09~   AFTER  ~PLAT04~ #0 #0 #0 ~IDENTIFIED~ #1
+		BUT_ONLY
 
 		// Chain Mail Armor
 		ACTION_IF (FILE_EXISTS_IN_GAME ~chan01b.itm~) THEN BEGIN
 			COPY_EXISTING ~bshop02.sto~ ~override~	// Bridge Merchant (Storekeep)
 				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 3 STR_VAR old_item = CHAN01 new_item = CHAN01B flags = IDENTIFIED END
+			BUT_ONLY
 			COPY_EXISTING ~shop06.sto~ ~override~	// Hes (Waukyne)
 				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 5 STR_VAR old_item = CHAN01 new_item = CHAN01B flags = IDENTIFIED END
+			BUT_ONLY
 			COPY_EXISTING ~trmer01.sto~ ~override~	// Peddler (Trademeet)
 				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 2 STR_VAR old_item = CHAN01 new_item = CHAN01B flags = IDENTIFIED END
+			BUT_ONLY
 		END
 
 		// Chain Mail +1
@@ -349,12 +472,14 @@ ACTION_IF (1pp_armours_scatter = 1) THEN BEGIN
 						  ~bernard4.sto~ ~override~
 						  ~ppstor01.sto~ ~override~	// Brynnlaw Merchant (Storekeep)
 				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = CHAN02 new_item = CHAN02B flags = IDENTIFIED END
+			BUT_ONLY
 		END
 
 		// vanilla Mail of the Dead +2 ==> Werebane Mail +2
 		ACTION_IF (FILE_EXISTS_IN_GAME ~chan03b.itm~) THEN BEGIN
 			COPY_EXISTING ~lehtinan.sto~ ~override~	// Copper Coronet (Gwen fix: useful ?)
 				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 1 STR_VAR old_item = CHAN08 new_item = CHAN03B flags = IDENTIFIED END
+			BUT_ONLY
 		END
 
 		// Splint Mail
@@ -363,73 +488,85 @@ ACTION_IF (1pp_armours_scatter = 1) THEN BEGIN
 						  ~shop07.sto~ ~override~	// Storekeep (Waukyne)
 						  ~thumb.sto~ ~override~	// The Thumb (Sea's Bounty)
 				LPF REPLACE_STORE_ITEM INT_VAR number_in_stock = 5 STR_VAR old_item = CHAN04 new_item = CHAN04B flags = IDENTIFIED END
+			BUT_ONLY
 		END
 
-	END // game is BG2-ToB
+	END // of ACTION_IF (GAME_IS ~bg2 bgt tob~)
 
-	ACTION_IF (GAME_IS ~tutu tutu_totsc~) BEGIN
+	ACTION_IF (is_tutu) BEGIN // GAME_IS ~tutu tutu_totsc~
 
 	END // game is
 
 END // of SCATTER ARMORS
 
 
-/*  ============================================  *
+/* ============================================== *
  *          POPULATE GAME WITH NEW ITEMS          *
- *  ============================================  */
+ * ============================================== */
 
 /* --------- *
  *  BG2-ToB  *
  * --------- */
-ACTION_IF (GAME_IS ~bg2 tob~) BEGIN
+
+ACTION_IF (GAME_IS ~bg2 bgt tob~) BEGIN
+
+	PRINT @400074 // ~Scattering new items throughout game...~
+	SILENT
 
 	// Jysstev's Estate (Oisig Plot): Water's Edge +3 in Container 2 (#2)
-	COPY_EXISTING ~ar1006.are~ ~override~
-		LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 2 STR_VAR item_to_add = SW1HWK END
+	ACTION_IF (FILE_EXISTS_IN_GAME ~sw1hwk.itm~) THEN BEGIN
+		COPY_EXISTING ~ar1006.are~ ~override~
+			LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 2 STR_VAR item_to_add = SW1HWK END
+		BUT_ONLY
+	END
 
 	// Underdark: Narbucchad's Demise +5 in container Chest 17 (#33)
 	ACTION_IF (FILE_EXISTS_IN_GAME ~pstafm1.itm~) THEN BEGIN
 		COPY_EXISTING ~ar2100.are~ ~override~
 			LPF ADD_AREA_ITEM INT_VAR container_to_add_to = 33 STR_VAR item_to_add = PSTAFM1 END
+		BUT_ONLY
 	END
 
-	// Sphere (Demon Plane): Viper's Edge +2 in new container
-	COPY_EXISTING ~ar0414.are~ ~override~
-		LPF fj_are_structure
-			INT_VAR
-				fj_type        = 8	// nonvisible
-				fj_loc_x       = 702
-				fj_loc_y       = 1856
-				fj_box_left    = 684
-				fj_box_top     = 1838
-				fj_box_right   = 720
-				fj_box_bottom  = 1874
-				fj_trap_loc_x  = 703
-				fj_trap_loc_y  = 1856
-				fj_vertex_0    = 693 + (1844 << 16)
-				fj_vertex_1    = 699 + (1844 << 16)
-				fj_vertex_2    = 706 + (1847 << 16)
-				fj_vertex_3    = 713 + (1855 << 16)
-				fj_vertex_4    = 712 + (1864 << 16)
-				fj_vertex_5    = 701 + (1868 << 16)
-				fj_vertex_6    = 693 + (1865 << 16)
-				fj_vertex_7    = 688 + (1857 << 16)
-				fj_vertex_8    = 688 + (1849 << 16)
-				fj_trap_detect = 100
-				fj_trap_remove_diff = 90
-				fj_trap_active = 1
-			STR_VAR
-				fj_structure_type = container
-				fj_trap_script = GT010
-				fj_name        = ~Niche~
-		END
-		LPF fj_are_structure
-			INT_VAR
-				fj_con_itm_idx    = SHORT_AT 0x74 - 1	// a new container will be last in the file
-			STR_VAR
-				fj_name           = sw1p01
-				fj_structure_type = itm
-		END
+	// Sphere (Demon Plane): Viper's Edge +2 in a new container
+	ACTION_IF (FILE_EXISTS_IN_GAME ~sw1p01.itm~) THEN BEGIN
+		COPY_EXISTING ~ar0414.are~ ~override~
+			LPF fj_are_structure
+				INT_VAR
+					fj_type        = 8						// nonvisible
+					fj_loc_x       = 702
+					fj_loc_y       = 1856
+					fj_box_left    = 684
+					fj_box_top     = 1838
+					fj_box_right   = 720
+					fj_box_bottom  = 1874
+					fj_trap_loc_x  = 703
+					fj_trap_loc_y  = 1856
+					fj_vertex_0    = 693 + (1844 << 16)
+					fj_vertex_1    = 699 + (1844 << 16)
+					fj_vertex_2    = 706 + (1847 << 16)
+					fj_vertex_3    = 713 + (1855 << 16)
+					fj_vertex_4    = 712 + (1864 << 16)
+					fj_vertex_5    = 701 + (1868 << 16)
+					fj_vertex_6    = 693 + (1865 << 16)
+					fj_vertex_7    = 688 + (1857 << 16)
+					fj_vertex_8    = 688 + (1849 << 16)
+					fj_trap_detect = 100
+					fj_trap_remove_diff = 90
+					fj_trap_active = 1
+				STR_VAR
+					fj_structure_type = container
+					fj_trap_script = GT010					// WIZARD_DISINTEGRATE
+					fj_name        = ~Niche~
+			END
+			LPF fj_are_structure
+				INT_VAR
+					fj_con_itm_idx    = SHORT_AT 0x74 - 1	// a new container will be last in the file
+				STR_VAR
+					fj_name           = sw1p01
+					fj_structure_type = itm
+			END
+		BUT_ONLY
+	END
 
 	// Drow Bartender (Tavern Drow)
 	COPY_EXISTING ~uddrow22.sto~ ~override~
@@ -446,6 +583,7 @@ ACTION_IF (GAME_IS ~bg2 tob~) BEGIN
 		ADD_STORE_ITEM ~dwsw1h01~   AFTER  ~amul13~ #0 #0 #0 ~IDENTIFIED~ #4
 		ADD_STORE_ITEM ~dwsw1h02~   AFTER  ~amul13~ #0 #0 #0 ~IDENTIFIED~ #7
 		ADD_STORE_ITEM ~dwhalb01~   AFTER  ~amul13~ #0 #0 #0 ~IDENTIFIED~ #4
+	BUT_ONLY
 
 	// Merchant Drow
 	COPY_EXISTING ~uddrow23.sto~ ~override~
@@ -464,15 +602,21 @@ ACTION_IF (GAME_IS ~bg2 tob~) BEGIN
 		PATCH_FOR_EACH item IN ~blun02~ ~chan04~ ~halb01~ ~sper01~~sw1h04~ ~sw1h05~ ~sw1h43~ ~xbow04~ BEGIN
 			REMOVE_STORE_ITEM ~%item%~
 		END
+	BUT_ONLY
 
-END // game is BG2-ToB
+END // of ACTION_IF (GAME_IS ~bg2 bgt tob~)
+
 
 /* ---------------- *
  *  TUTU-TUTU_TOSC  *
  * ---------------- */
-ACTION_IF (GAME_IS ~tutu tutu_totsc~) BEGIN
 
-	ACTION_IF (1pp_tutu_bg1_shields = 2) THEN BEGIN // Do you want your shield setting to apply to Tutu/BG1 shields as well (warning: replaces Tutu's default shields)
+ACTION_IF (is_tutu) BEGIN // GAME_IS ~tutu tutu_totsc~
+
+	ACTION_IF (1pp_tutu_bg1_shields = 2) THEN BEGIN // Do you want your shield setting to apply to Tutu/BG1 shields as well (warning: replaces Tutu's default shields)? - 2 = Yes please.
+
+		PRINT @400075 // ~Applying shield settings to Tutu/BG1 shields as well (warning: replaces Tutu's default shields)...~
+		SILENT
 
 		ACTION_FOR_EACH shield IN ~shld01~ ~shld02~ ~shld03~ ~shld04~ ~shld05~ ~shld06~ ~shld07~ ~shld08~ ~shld09~ ~shld10~ ~shld11~ ~shld12~ ~shld13~ ~shld14~ ~shld15~ ~shld16~ ~shld18~ ~shld19~ ~shld20~ BEGIN
 			COPY_EXISTING ~%shield%.itm~ ~override/_%shield%.itm~
@@ -480,7 +624,10 @@ ACTION_IF (GAME_IS ~tutu tutu_totsc~) BEGIN
 
 	END
 
-	ACTION_IF (1pp_tutu_bg1_helmets = 2) THEN BEGIN // Do you want your BG2 helmet inventory icon choices to apply to Tutu/BG1 helmets as well (warning: replaces Tutu's default helmets)?
+	ACTION_IF (1pp_tutu_bg1_helmets = 2) THEN BEGIN // Do you want your BG2 helmet inventory icon choices to apply to Tutu/BG1 helmets as well (warning: replaces Tutu's default helmets)? - 2 = Yes please.
+
+		PRINT @400076 // ~Applying BG2 helmet inventory icon choices to Tutu/BG1 helmets as well (warning: replaces Tutu's default helmets)...~
+		SILENT
 
 		ACTION_FOR_EACH helm IN ~helm01~ ~helm02~ ~helm03~ ~helm04~ ~helm05~ ~helm06~ ~helm07~ ~helm08~ ~helm09~ ~helm10~ ~helm11~ ~helm12~ ~helm13~ ~helm14~ ~helm15~ BEGIN
 			COPY_EXISTING ~%helm%.itm~ ~override/_%helm%.itm~
@@ -488,4 +635,4 @@ ACTION_IF (GAME_IS ~tutu tutu_totsc~) BEGIN
 
 	END
 
-END // game is tutu tutu_totsc
+END // of GAME_IS ~tutu tutu_totsc~

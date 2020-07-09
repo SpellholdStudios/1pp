@@ -18,7 +18,7 @@
  *          NEW STAVES          *
  * ============================ */
 
-PRINT @400072 // ~Installing new staves...~
+PRINT @400056 // ~Installing new staves...~
 SILENT
 
 // Gwen fix: moved PSSTAFMxx items from automatic copy to avoid overwriting them.

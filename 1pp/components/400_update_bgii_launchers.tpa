@@ -15,15 +15,15 @@
 // ----------------------------- //
 //     ITEMS               line  //
 // ----------------------------- //
-//  SLINGS               #   17  //
-//  CROSSBOWS            #  177  //
+//  SLINGS               #   23  //
+//  CROSSBOWS            #  183  //
 // ----------------------------- //
 
 /* ======================== *
  *          SLINGS          *
  * ======================== */
 
-PRINT @400051 // ~Patching slings...~
+PRINT @400041 // ~Patching slings...~
 SILENT
 
 // Sling
@@ -183,7 +183,7 @@ END
  *          CROSSBOWS          *
  * =========================== */
 
-PRINT @400052 // ~Patching crossbows...~
+PRINT @400042 // ~Patching crossbows...~
 SILENT
 
 // Heavy Crossbow

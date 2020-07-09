@@ -8,6 +8,9 @@
 <strong>Langues :</strong> <a href="README.md">anglais</a>, français<br />
 <strong>Plateformes :</strong> Windows, linux
 
+<strong>Site internet du mod :</strong> <a href="http://www.spellholdstudios.net/ie/1pp">Spellhold Studios</a><br />
+<strong>Forum du mod :</strong> <a href="http://www.shsforums.net/index.php?showforum=159">Infinity Animations</a>
+
 
 <center><a href="#intro">Présentation</a> &#x2B25; <a href="#installation">Installation</a> &#x2B25; <a href="#components">Liste des composants</a> &#x2B25; <a href="#101">Détail des composants</a> &#x2B25; <a href="#credits">Remerciements</a> &#x2B25; <a href="#version">Historique des versions</a></center></br></br>
 
@@ -326,6 +329,7 @@ Vous trouverez la liste des options et leur signification dans le fichier <a hre
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_solar_weapons</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">ARMES PORTÉES PAR LES SOLAIRES<br><br>
 		Vous pouvez choisir deux rendus visuels pour les armes portées par les solaires. Lequel préférez-vous ?<br><br>
 		<span style="color: #781808; padding-left:20px">1 = Nouvelle apparence (des objets pleins entourés d'une lueur) [par défaut]</span><br>
 		<span style="padding-left:20px;">2 = Comme dans le jeu BGII de base (formées par une lueur éclatante et floue)</span></td>
@@ -719,7 +723,7 @@ Ce composant apporte des corrections aux éléments suivants : animations de chien
 
 Pour toute question ou demande d'assistance, veuillez consulter le <a href="http://www.shsforums.net/index.php?showforum=159">forum du mod</a>.
 
-#### Programme d'installation et contenu : Erephine
+#### Programme d'installation et contenu : <a href="http://www.shsforums.net/user/2954-erephine/">Erephine</a>
 
 
 #### Logiciels et outils utilisés pour la création de ce mod (parmi d'autres)
@@ -745,13 +749,15 @@ Pour toute question ou demande d'assistance, veuillez consulter le <a href="http
 
 ## Historique des versions
 
-##### Version 4.2.0 - xx mm 2019
+##### Version 4.2.0 - jour mois 2019
+
+Note du traducteur : l'historique n'est volontairement pas entièrement traduit afin de faciliter la mise à jour continue du mod.</br>
 
 a. General overhaul and re-looking:
   - Les options d'installation sont externalisés dans le fichier 1pp-config-default.ini. Si vous souhaitez les modifier, veuillez consulter ce <a href="#config">chapitre</a>.
-  - Correction et intégration des patches correctifs de Lolorian et intégration des autres patches du BWP Fixpack fixes (merci à The Imp et aux autres !).
+  - Correction et intégration des patches correctifs de Lollorian et intégration des autres patches du BWP Fixpack fixes (merci à The Imp et aux autres !).
   - Découpage de l'énorme composant principal [400] en plus petits.
-  - Ajout de commentaires dans la mesure du possible.
+  - Ajout de commentaires dans les fichiers de code chaque fois que possible.
   - Compatibilité partielle avec les mods <a href="https://www.gibberlings3.net/files/file/969-item-revisions/">Item Revisions</a>, <a href="https://www.gibberlings3.net/files/file/970-spell-revisions/">Spell Revisions</a> et <a href="https://www.gibberlings3.net/files/file/948-iwdification/">IWDification</a> : comme ces mods sont toujours publiés en version beta, J'ai abandonné toute velléité de fournir un code totalement compatible avec eux. Ce serait une perte de temps puisqu'il serait sans aucun doute obsolète dans quelques semaines.
   - Correction de fautes de frappe qui empêchaient la modification de certains objets (ou modifiaient d'autres objets à leur place...).
   - Révision totale du composant Rendu des projectiles amélioré [401] : élimine les doublons des opcodes #83 and #197, clone les effets existants plutôt que d'en ajouter de nouveaux...

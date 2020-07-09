@@ -783,12 +783,12 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
   - Added ToBEx compatibility.
   - TODO Provided partial <a href="https://www.gibberlings3.net/files/file/969-item-revisions/">Item Revisions</a>, <a href="https://www.gibberlings3.net/files/file/970-spell-revisions/">Spell Revisions</a> and <a href="https://www.gibberlings3.net/files/file/948-iwdification/">IWDification</a> compatibility in a rather soft way: As SR, IR and IWDification are still beta versions, I gave up trying to write a plain compatibility with them. It would be certainly obsolete in a few months, therefore a waste of time.
   - TODO Fixed typos and misspellings preventing a few items to be patched (or patching wrong ones...).
-  - TODO Component Improved projectile effects [401] fully re-written: clears duplicated vanilla #89 and #197 opcodes, clones existing effects existants instead of adding new ones...
+  - TODO Component Improved projectile effects [401] fully re-written: cleared duplicated vanilla #89 and #197 opcodes, cloned existing effects existants instead of adding new ones...
   - Coding simplification:
-    - TODO Replaced macros with functions whenever possible.
+    - Replaced macros with functions whenever possible.
     - Copied entire folders instead of infinite lines (`COPY \~1pp/folder/file.ext\~ \~override\~` or `ACTION_FOR_EACH file IN list BEGIN COPY \~1pp/folder/file.ext\~ \~override\~ END`).
-    - TODO Grouped actions or patches with `ACTION_FOR_EACH` and `PATCH_FOR_EACH` whenever possible.
-    - TODO Used new and more efficient WeiDU functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. `ADD_ITEM_EQEFFECT`, `ALTER_EFFECT` and ALTER_ITEM_HEADER replace so many lines of codes!).
+    - Grouped actions or patches with `ACTION_FOR_EACH` and `PATCH_FOR_EACH` whenever possible.
+    - Used new and more efficient WeiDU functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. `ADD_ITEM_EQEFFECT`, `ALTER_EFFECT` and `ALTER_ITEM_HEADER` replaced so many lines of codes!).
     - Avoided copying and overwriting the same files again and again...
   - Updated all readme files (1pp now supports translated readmes).
   - Added French translation (Gwendolyne).
@@ -800,13 +800,13 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
   - Uploaded mod to official Spellhold Studios GitHub mirror account.
 
 <ins>b. Components specific changes and fixes</ins>
-  - [101] 1ppv4: Core paperdolls - main component (101_base.tph, 101_ia.tph, 101_iwd.tph, 101_obj.tph)
+  - [101] 1ppv4: Core paperdolls - main component (101_base.tph, 101_ia.tph, 101_iwd.tph and 101_obj.tph)
     - Replaced `GAME_IS` conditions with variables checks to speed up install time.
     - Copy entire folders instead of infinite lines.
     - Infinity Animations paperdolls for Legacy animations (101_ia.tph): Replaced `READLN` action "*Use 1pp or IWD style female dwarf paperdolls?*" with reading new setting (1pp_fdwarf) from *1pp-config-default.ini* or *1pp-config-user.ini* [default value = 2 (1pp style)].
 	- Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to the creature types.
 
-  - [102-103] 1ppv4: Extended palette entries (102_compat.tph, 103_extpal.tph)
+  - [102-103] 1ppv4: Extended palette entries (102_compat.tph and 103_extpal.tph)
     - Replaced `GAME_IS` conditions with variables checks to speed up install time.
     - Copy entire folders instead of infinite lines.
 
@@ -900,9 +900,9 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
       - book06.itm (Tome of Clear Thought), book07.itm (Tome of Leadership and Influence) and book08.itm (Tome of Understanding): harmonized header icon with new inventory icon (IBOOK768) for consistency.
     - swords specific fixes (400_update_bgii_swords.tpa):
       - Does not overwrite Varscona's icon with a clone of ISW1H41 (Long Sword +2) because EE does not validate this change.
-      - sw1h31.itm (Daystar +2): as 1PP (Core content patches) sets its icon to ISW1H34 (Albruin +1), but EE does not validate this change, this version reverts to its original inventory icon ISW1H31, and this component switches back its colorisation with Albruin.
-      - sw1h34.itm (Albruin +1): as 1PP (Core content patches) sets its icon to ISW1H31 (Daystar +2), but EE does not validate this change, this version reverts to its original inventory icon ISW1H31; and this component switches back colorisation with Daystar.
-      - sw1h41.itm (Long Sword +2): as 1PP (Core content patches) sets its icon to SW1H06 (Varscona +2 icon), but EE does not validate this change, this version reverts to its original inventory icon ISW1H41. Then, this component removes its re-colorisation and sets it to SW1H73 (Long Sword +3) that deserves those settings.
+      - sw1h31.itm (Daystar +2): as 1PP (Core content patches) sets its icon to isw1h34 (Albruin +1), but EE does not validate this change, this version reverts to its original inventory icon isw1h31, and this component switches back its colorisation with Albruin.
+      - sw1h34.itm (Albruin +1): as 1PP (Core content patches) sets its icon to isw1h31 (Daystar +2), but EE does not validate this change, this version reverts to its original inventory icon isw1h31; and this component switches back colorisation with Daystar.
+      - sw1h41.itm (Long Sword +2): as 1PP (Core content patches) sets its icon to SW1H06 (Varscona +2 icon), but EE does not validate this change, this version reverts to its original inventory icon isw1h41. Then, this component removes its re-colorisation and sets it to sw1h73 (Long Sword +3) that deserves those settings.
       - sw2h06.itm and sw1h13.itm (Spider's Bane +2): harmonized both versions. Now they get the same icon and coloration (no change from vanilla SW1H13 as its colors fit the new icon installed by 1PP).
       - sw2h07.itm (Harbinger +3): does not overwrite Harbinger's icon and copy an alternate resource for modding purpose. This way, Harbinger keeps its golden icon which fits to its colors settings.
       - SW1P01.itm (Viper's Edge +2): removed the #134 global effect (Petrification) otherwise it would be impossible to wield the sword. Fixed wrong coding (the extended effects were not implemented) and modified the cursed effects probabilities, so that they don't stack when not necessary (e.g. why should you be poisoned when petrified?).
@@ -910,12 +910,12 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
       - blun16.itm (The Sleeper +2): new 1pp_sleeper setting gives the choice to turn it into a flail. If turned into a flail, modifies minimum strength value and uses a new icon (IBLUN16B) to avoid overwriting the vanilla one (let's keep it for modders!).
     - armors specific fixes (400_update_bgii_armors.tpa):
       - chan03B.itm (Werebane Mail +2): added missing identified name.
-      - plat15.itm (Pride of the Legion +2): reverted its inventory and description icons (wrongly set to IPLAT23 and CPLAT05) as EE does not validate this change.
+      - plat15.itm (Pride of the Legion +2): reverted its inventory and description icons (wrongly set to iplat23 and cplat05) as EE does not validate this change.
       - plat23.itm (Full Plate Mail +2): removed from the patches as EE does not validate them (this silver and golden full plate was turned into a black one!).
     - new staves specific fixes (400_update_bgii_staves2.tpa):
       - Avoids copying and overwriting the same files again and again...
-      - MACRO GW_ADJUST_TOOLTIP: ADDS new colums in tooltip.2da (makes sure it contains at least 4 columns, so we can add Narbucchad's Demise ability).
-      - FUNCTION GW_ADD_TOOLTIP: ADDS new entries in tooltip.2da.
+      - Macro `GW_ADJUST_TOOLTIP`: Adds new colums in tooltip.2da (makes sure it contains at least four columns, so we can add Narbucchad's Demise ability).
+      - Function `GW_ADD_ITEM_TOOLTIPS`: Adds new entries in tooltip.2da.
     - scatters items specific fixes (400_update_bgii_scatter.tph):
       - Coding simplification:
         - Replaced combo `ADD_STORE_ITEM` + `REMOVE_STORE_ITEM` with `LPF REPLACE_STORE_ITEM`.
@@ -924,8 +924,8 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 
   - [401] 1ppv4: Improved projectile effects (401_projectiles.tph)
     - Code fully re-written with new functions to provide automatic process.
-      - Function GW_CLEAR_DUPLICATED_OPCODES: does not stack anymore opcodes #83 and #197, clears duplicated vanilla #89 and #197 effects in SPL and ITM files and checks if protection from SPEAR and/or Bounce SPEAR is already set before adding it.
-      - Function GW_MODIFY_PROJ replaces BWP Fixpack patch (<a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/401_projectiles.tph.patch">401_projectiles.tph.patch</a>): modifies projectile value only when needed (does not patch melee headers anymore), replaces ADD_ITEM_EQEFFECT, ADD_ITEM_EFFECT, ADD_SPELL_EFFECT and macros with the newer and more efficient CLONE_EFFECT WeiDU function to give new opcodes #83 and #197 the same settings than existing ones (target, resist_dispel, duration, power...). It modifies all extended headers and avoids writing lines of codes!
+      - Function `GW_CLEAR_DUPLICATED_OPCODES`: does not stack anymore opcodes #83 and #197, clears duplicated vanilla #89 and #197 effects in SPL and ITM files and checks if protection from SPEAR and/or Bounce SPEAR is already set before adding it.
+      - Function `GW_MODIFY_PROJ` replaces BWP Fixpack patch (<a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/401_projectiles.tph.patch">401_projectiles.tph.patch</a>): modifies projectile value only when needed (does not patch melee headers anymore), replaces `ADD_ITEM_EQEFFECT`, `ADD_ITEM_EFFECT`, `ADD_SPELL_EFFECT` and macros with the newer and more efficient `CLONE_EFFECT` WeiDU function to give new opcodes #83 and #197 the same settings than existing ones (target, resist_dispel, duration, power...). It modifies all extended headers and avoids writing lines of codes!
       - Provided partial IR and SR compatibility in a rather soft way.
     - specific fixes:
       - ax1h08.itm (Hangard's Axe +2), ax1h09.itm (Rifthome Axe +3), ax1h10.itm (Azuredge +3) and ax1h16.itm (K'logarath +4): added IR compatibility (patches itemB files).
@@ -933,12 +933,12 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
       - Sets new projectiles to Quivers of Plenty, Cases of Plenty, Bags of Plenty and Sling of Everard: Why quivers and launchers needing no ammo should not get new 1pp projectiles?
       - dagg11.itm (Boomerang Dagger +2) and dagg12.itm (Firetooth +3): added IR compatibility (patches itemB files).
       - sper04.itm (Javelin): switched Thrown and Melee strings ref in tooltip.2da.
-      - items aurstaf, dragring, magebra, slayerwp and globblu4 (Blue Globe): added missing protections from new normal 1pp ammo projectiles (1axe05, 1dagg05 and 1dart01). The code was only providing protection from 1arow01 and 1bolt01 new projectiles.
+      - items aurstaf, dragring, magebra, slayerwp and globblu4 (Blue Globe): added missing protections from new normal 1pp ammo projectiles (1dagg05 and 1dart01). The code was only providing protection from 1arow01 and 1bolt01 new projectiles.
       - npshld.itm (Delryn Family Shield): same fix as above + IR compatibility (protection from all types of missiles, including magic ones).
       - shld24.itm (Reflection Shield +1): same fix as above + cleared duplicate entries and adds IR compatibility (IR replaces opcode #197 with opcode #83).
       - brac18.itm (Gloves of Missile Snaring): Don't forget to add Protection from projectiles if IR is installed.
-      - spin546.spl (Inertial Barrier), spcl721.spl (Storm Shield) & spcl914.spl (Greater Evasion): patched all headers (was patching only the first one), fixed wrong duration, target, power, resist dispel... Added missing protections from new normal 1pp ammo projectiles (1axe05, 1dagg05 and 1dart01). The code was only providing protection from 1arow01 and 1bolt01 new projectiles.
-      - Protection From Normal Missiles spells (spra303, spwi311, & cdwi311 -added from BG2 Fixpack): same fixes as above + SR compatibility (protection from all types of missiles, including magic ones).
+      - spin546.spl (Inertial Barrier), spcl721.spl (Storm Shield) & spcl914.spl (Greater Evasion): patched all headers (was patching only the first one), fixed wrong duration, target, power, resist dispel... Added missing protections from new normal 1pp ammo projectiles (1dagg05 and 1dart01). The code was only providing protection from 1arow01 and 1bolt01 new projectiles.
+      - Protection From Normal Missiles spells (spra303, spwi311, & cdwi311 - added by BG2 Fixpack): same fixes as above & SR compatibility (protection from all types of missiles, including magic ones).
       - sppr613.spl (Physical Mirror): cleared duplicate entries and added SR compatibility (SR replaces opcode #197 with opcode #83).
       - Included Entropy Shield spell (protection from new 1pp projectiles) if IWDIfication is installed.
 

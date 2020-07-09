@@ -40,7 +40,7 @@ ACTION_IF (1pp_shields_shadows = 2) BEGIN	// shadow shields on paperdolls (1 = N
 
 END
 
-PRINT @400022 // ~Patching shields...~
+PRINT @400012 // ~Patching shields...~
 SILENT
 
 // Small Shield
@@ -1408,7 +1408,7 @@ END
 
 ACTION_IF (1pp_shields_appearance = 2) BEGIN
 
-	PRINT @400023 // ~Switching shields to Baldur's Gate I style by exchange...~
+	PRINT @400013 // ~Switching shields to Baldur's Gate I style by exchange...~
 	SILENT
 	ACTION_FOR_EACH shield IN ~shld01~ ~shld02~ ~shld03~ ~shld04~ ~shld05~ ~shld06~ ~shld07~ ~shld08~ ~shld09~ ~shld10~ ~shld11~ ~shld12~ ~shld13~ ~shld14~ ~shld15~ ~shld16~ ~shld17~ ~shld19~ ~shld23~ ~shld24~ ~shld26~ ~shld27~ ~shld28~ ~shld29~ ~shld30~ ~shld31~ BEGIN
 		ACTION_IF (FILE_EXISTS_IN_GAME ~%shield%a.itm~) BEGIN
@@ -1426,7 +1426,7 @@ END	// of ACTION_IF (1pp_shields_appearance = 2)
  *          NEW SHIELDS          *
  * ============================= */
 
-PRINT @400024 // ~Installing new shields...~
+PRINT @400014 // ~Installing new shields...~
 SILENT
 
 // Wall of the North +2

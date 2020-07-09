@@ -1,6 +1,6 @@
 /* ================================================================================================================================================================================ *
  *                                                                                                                                                                                  *
- *                                      C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( w e a p o n s )                                       *
+ *                                C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   (b l u n t    w e a p o n s )                                 *
  *                                                                                                                                                                                  *
  * ================================================================================================================================================================================ *
  *  This part installs blunt weapons stuff (Blunty, the skull that met this!).                                                                                                      *
@@ -30,7 +30,7 @@
  *  		BLUNT          *
  * ======================= */
 
-PRINT @400063 // ~Patching blunt weapons...~
+PRINT @400053 // ~Patching blunt weapons...~
 SILENT
 
 // Club

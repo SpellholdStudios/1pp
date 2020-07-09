@@ -36,7 +36,7 @@
  *          AXES          *
  * ====================== */
 
-PRINT @400055 // ~Patching axes...~
+PRINT @400045 // ~Patching axes...~
 SILENT
 
 // Battle Axe +1
@@ -344,7 +344,7 @@ END
  *          DAGGERS          *
  * ========================= */
 
-PRINT @400056 // ~Patching daggers...~
+PRINT @400046 // ~Patching daggers...~
 SILENT
 
 // Dagger
@@ -734,7 +734,7 @@ END
  *          HAMMERS          *
  * ========================= */
 
-PRINT @400057 // ~Patching hammers...~
+PRINT @400047 // ~Patching hammers...~
 SILENT
 
 // War Hammer
@@ -1135,7 +1135,7 @@ END
  *          SPEARS          *
  * ======================== */
 
-PRINT @400058 // ~Patching spears...~
+PRINT @400048 // ~Patching spears...~
 SILENT
 
 // Spear
@@ -1347,7 +1347,7 @@ END
  *          HALBERDS          *
  * ========================== */
 
-PRINT @400059 // ~Patching halberds...~
+PRINT @400049 // ~Patching halberds...~
 SILENT
 
 // Halberd

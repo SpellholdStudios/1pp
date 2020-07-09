@@ -11,10 +11,9 @@
  *  -----------                                                                                                                                                                     *
  *      - Variables needed for installation (1pp_gui_soa, 1pp_updated_fonts and 1pp_mixed_labels) are read from 1pp-config-default.ini or 1pp-config-user.ini files.                *
  *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is     *
- *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is     *
  *        installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file    *
  *        provides a standard installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and   *
- *        save this file as 1pp-config-user.ini. The installation process will read both .ini files and prioritize user values. If a value is not set or mismatched in user's file  *
+ *        save it as 1pp-config-user.ini. The installation process will read both .ini files and prioritize user values. If a value is not set or mismatched in user's file         *
  *        1pp-config-user.ini, the installation process will prevent any installation failure by reverting it back to its default value.                                            *
  *      - Coding simplification:                                                                                                                                                    *
  *          Replaced `GAME_IS` conditions with variables checks to speed up install time.                                                                                           *
