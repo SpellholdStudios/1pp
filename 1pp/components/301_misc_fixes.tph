@@ -1,13 +1,35 @@
-// Miscellaneous fixes
+/* ================================================================================================================================================================================ *
+ *                                                                                                                                                                                  *
+ *                                    C O M P O N E N T   :   M i s c e l l a n e o u s   f i x e s                                    *
+ *                                                                                                                                                                                  *
+ * ================================================================================================================================================================================ *
+ *  This component installs the following fixes:
+ *      - dog animations (corrupted palette)
+ *      - sitting static peasant woman (bad BAM conversion)
+ *      - alternate fire giant animation slot (was useless as the animation had no unified palette, thus impossible to fill).                                                      *
+ *  It also fixes an engine related bug on SoA/ToB and IWD:TotLM that will have helmets randomly render wrong sequences when changing equipment, making them 'float' off your character.
+ *  Finally, it contains a fix for bugged shield z-buffering on SoA, ToB, IWD:TotLM and IWDII on BGII character animations.
+ * ================================================================================================================================================================================ *
+ *  change-log:                                                                                                                                                                     *
+ *  -----------                                                                                                                                                                     *
+ *      - The Imp's BWP Fixpack fix for Solar swords without graphic artifacts (http://www.shsforums.net/topic/58208-planetar-animation-glitch/ ): Fixed MASLG1S1.BAM and           *
+ *        MSOLG2S1.BAM files. Source: https://github.com/omni-axa/BiG-World-Fixpack/commit/de7b3ce8439d8efa8e7427d1ad66efd0f48e547e                                                 *
+ * ================================================================================================================================================================================ */
 
-/*  =======  *
+/* ====================== *
+ *  ENGINE HELMET GLITCH  *
+ * ====================== */
+
+/* --------- *
  *  BG2-ToB  *
- *  =======  */
-ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
+ * --------- */
+
+ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // GAME_IS ~bg2 tob tutu tutu_totsc ca~
 
 	OUTER_SET fail = 0
 
-	PRINT @301000 /* Fixing BGII engine helmet glitch - check */
+	PRINT @301000 // ~Fixing BGII engine helmet glitch - check.~
+	SILENT
 
 	ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN // don't have mac info yet
 		COPY ~bgmain.exe~ ~bgmain.exe~
@@ -18,7 +40,8 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 					WRITE_BYTE 0x752A51 0x33
 					WRITE_BYTE 0x752A55 0x35
 				END ELSE BEGIN
-					PATCH_PRINT @301001 /* Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only). */
+					PATCH_PRINT @301001 // ~Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only).~
+					PATCH_SILENT
 					SET fail = 1
 				END
 
@@ -29,11 +52,12 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 					WRITE_BYTE 0x6ed10d 0x33
 					WRITE_BYTE 0x6ed111 0x35
 				END ELSE BEGIN
-					PATCH_PRINT @301001 /* Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only). */
+					PATCH_PRINT @301001 // ~Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only).~
+					PATCH_SILENT
 					SET fail = 1
 				END
 			END ELSE BEGIN
-				PATCH_PRINT @301001 /* Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only). */
+				PATCH_PRINT @301001 // ~Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only).~
 				SET fail = 1
 			END
 	END ELSE BEGIN
@@ -41,23 +65,25 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 	END
 
 	ACTION_IF (fail == 1) BEGIN
-		PRINT @301002 /* Could not patch bgmain successfully, skipping. */
+		PRINT @301002 // ~Could not patch bgmain successfully, skipping.~
 	END
 
 END
 
 
-/*  ==============  *
+/* ---------------- *
  *  IWD with TotLm  *
- *  ==============  */
+ * ---------------- */
+
 ACTION_IF (GAME_IS ~totlm~) BEGIN
 
 	OUTER_SET fail = 0
 
-	PRINT @301003 /* Fixing BGII engine helmet glitch (IWD) - check */
+	PRINT @301003 // ~Fixing BGII engine helmet glitch (IWD) - check~
+	SILENT
 
 	ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN // don't have mac info yet
-		COPY ~IDmain.exe~ ~IDmain.exe~
+		COPY ~idmain.exe~ ~idmain.exe~
 			// determine which version of the game is used, and set the base offset accordingly
 			PATCH_IF (SOURCE_SIZE == 6873088) BEGIN // IWD 1.4.2
 				READ_BYTE 0x3da815 tst_val
@@ -66,7 +92,7 @@ ACTION_IF (GAME_IS ~totlm~) BEGIN
 					WRITE_BYTE 0x3da816 0x86
 					WRITE_BYTE 0x3da952 0xe8
 				END ELSE BEGIN
-					PATCH_PRINT @301004 /* Error: could not determine which version of IWD you are using. Please double check that you installed TotLM (v1.4.2) */
+					PATCH_PRINT @301004 // ~Error: could not determine which version of IWD you are using. Please double check that you installed TotLM (v1.4.2).~
 					SET fail = 1
 				END
 			END
@@ -75,20 +101,26 @@ ACTION_IF (GAME_IS ~totlm~) BEGIN
 	END
 
 	ACTION_IF (fail == 1) BEGIN
-		PRINT @301005 /* Could not patch idmain successfully, skipping. */
+		PRINT @301005 // ~Could not patch idmain successfully, skipping.~
 	END
 
 END
 
 
-/*  =======  *
+/* ================================== *
+ *  SHIELD ANIMATION Z-BUFFER GLITCH  *
+ * ================================== */
+
+/* --------- *
  *  BG2-ToB  *
- *  =======  */
-ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
+ * --------- */
+
+ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // GAME_IS ~bg2 tob tutu tutu_totsc ca~
 
 	OUTER_SET fail = 0
 
-	PRINT @301006 /* Fixing BGII shield animation z-buffer glitch - check */
+	PRINT @301006 // ~Fixing BGII shield animation z-buffer glitch - check~
+	SILENT
 
 	ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN // don't have mac info yet
 		COPY ~bgmain.exe~ ~bgmain.exe~
@@ -99,7 +131,8 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 					WRITE_BYTE 0x453DB7 0x01
 					WRITE_BYTE 0x453DB1 0x01 // comment this out for original idle handling
 				END ELSE BEGIN
-					PATCH_PRINT @301001 /* Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only). */
+					PATCH_PRINT @301001 // ~Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only).~
+					PATCH_SILENT
 				SET fail = 1
 				END
 			END
@@ -109,11 +142,12 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 					WRITE_BYTE 0x4108dc 0x01
 					WRITE_BYTE 0x4108d6 0x01
 				END ELSE BEGIN
-					PATCH_PRINT @301001 /* Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only). */
+					PATCH_PRINT @301001 // ~Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only).~
+					PATCH_SILENT
 					SET fail = 1
 				END
 			END ELSE BEGIN
-				PATCH_PRINT @301001 /* Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only). */
+				PATCH_PRINT @301001 // ~Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only).~
 				SET fail = 1
 			END
 	END ELSE BEGIN
@@ -121,23 +155,25 @@ ACTION_IF (GAME_IS ~bg2 tob tutu tutu_totsc ca~) BEGIN
 	END
 
 	ACTION_IF (fail == 1) BEGIN
-		PRINT @301002 /* Could not patch bgmain successfully, skipping. */
+		PRINT @301002 // ~Could not patch bgmain successfully, skipping.~
 	END
 
 END
 
 
-/*  ==============  *
+/* ---------------- *
  *  IWD with TotLm  *
- *  ==============  */
+ * ---------------- */
+
 ACTION_IF (GAME_IS ~totlm~) BEGIN
 
 	OUTER_SET fail = 0
 
-	PRINT @301007 /* Fixing BGII shield animation z-buffer glitch (IWD) - check */
+	PRINT @301007 // ~Fixing BGII shield animation z-buffer glitch (IWD) - check~
+	SILENT
 
 	ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN // don't have mac info yet
-		COPY ~IDmain.exe~ ~IDmain.exe~
+		COPY ~idmain.exe~ ~idmain.exe~
 			// determine which version of the game is used, and set the base offset accordingly
 			PATCH_IF (SOURCE_SIZE == 6873088) BEGIN // IWD 1.4.2
 				READ_BYTE 0x3e676c tst_val
@@ -145,7 +181,7 @@ ACTION_IF (GAME_IS ~totlm~) BEGIN
 					WRITE_BYTE 0x3e676c 0x01
 					WRITE_BYTE 0x3e6766 0x01
 				END ELSE BEGIN
-					PATCH_PRINT @301004 /* Error: could not determine which version of IWD you are using. Please double check that you installed TotLM (v1.4.2) */
+					PATCH_PRINT @301004 // ~Error: could not determine which version of IWD you are using. Please double check that you installed TotLM (v1.4.2).~
 					SET fail = 1
 				END
 			END
@@ -154,20 +190,22 @@ ACTION_IF (GAME_IS ~totlm~) BEGIN
 	END
 
 	ACTION_IF (fail == 1) BEGIN
-		PRINT @301005 /* Could not patch idmain successfully, skipping. */
+		PRINT @301005 // ~Could not patch idmain successfully, skipping.~
 	END
 
 END
 
 
-/*  ====  *
+/* ------ *
  *  IWD2  *
- *  ====  */
-ACTION_IF (GAME_IS ~iwd2~) BEGIN
+ * ------ */
+
+ACTION_IF (is_iwd2) BEGIN // GAME_IS ~iwd2~
 
 	OUTER_SET fail = 0
 
-	PRINT @301008 /* Fixing BGII shield animation z-buffer glitch (IWD2) - check */
+	PRINT @301008 // ~Fixing BGII shield animation z-buffer glitch (IWD2) - check.~
+	SILENT
 
 	ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN // don't have mac info yet
 		COPY ~IWD2.exe~ ~IWD2.exe~
@@ -178,7 +216,7 @@ ACTION_IF (GAME_IS ~iwd2~) BEGIN
 					WRITE_BYTE 0x2cd9f0 0x01
 					WRITE_BYTE 0x2cd9ea 0x01
 				END ELSE BEGIN
-					PATCH_PRINT @301009 /* Error: could not determine which version of IWD you are using. Please double check that you patched IWD2 to v2.0.l */
+					PATCH_PRINT @301009 // ~Error: could not determine which version of IWD2 you are using. Please double check that you patched IWD2 to v2.0.l.~
 					SET fail = 1
 				END
 			END
@@ -187,32 +225,45 @@ ACTION_IF (GAME_IS ~iwd2~) BEGIN
 	END
 
 	ACTION_IF (fail == 1) BEGIN
-		PRINT @301010 /* Could not patch iwd2 successfully, skipping. */
+		PRINT @301010 // ~Could not patch iwd2 successfully, skipping.~
 	END
 
 END
 
 
 
-PRINT @301011 /* Fixed palettes for dog animations - check */
+/* ========================= *
+ *  DOG ANIMATIONS PALETTES  *
+ * ========================= */
 
-ACTION_FOR_EACH file IN ~MDOG_MO.BMP~ ~MDOG_WA.BMP~ ~MDOG_WI.BMP~ BEGIN
+PRINT @301011 // ~Fixing palettes for dog animations.~
+SILENT
+
+ACTION_FOR_EACH file IN ~mdog_mo~ ~mdog_wa~ ~mdog_wi~ BEGIN
+	COPY ~1pp/core/misc/%file%.bmp~ ~override~
+END
+
+
+/* ======================================== *
+ *  SITTING STATIC PEASANT WOMAN ANIMATION  *
+ * ======================================== */
+
+PRINT @301012 // ~Fixing sitting static peasant woman animation.~
+SILENT
+
+ACTION_FOR_EACH file IN ~ssiwm.bam~ BEGIN
 	COPY ~1pp/core/misc/%file%~ ~override~
 END
 
 
+/* ======================================== *
+ *  ALTERNATE FIRE GIANT PALETTE/ANIMATION  *
+ * ======================================== */
 
-PRINT @301012 /* Fixed sitting static peasant woman animation - check */
+PRINT @301013 // ~Fixing alternate fire giant palette/animation.~
+SILENT
 
-ACTION_FOR_EACH file IN ~SSIWM.BAM~ BEGIN
-	COPY ~1pp/core/misc/%file%~ ~override~
-END
-
-
-
-PRINT @301013 /* Fixed alternate fire giant palette/animation - check */
-
-ACTION_FOR_EACH file IN ~MFIGG1B.BMP~ ~MFIGG2.BAM~ ~MFIGG21.BAM~ ~MFIGG22.BAM~ ~MFIGG23.BAM~ ~MFIGG24.BAM~ ~MFIGG25.BAM~ ~MFIGG26.BAM~ BEGIN
+ACTION_FOR_EACH file IN ~mfigg1b.bmp~ ~mfigg2.bam~ ~mfigg21.bam~ ~mfigg22.bam~ ~mfigg23.bam~ ~mfigg24.bam~ ~mfigg25.bam~ ~mfigg26.bam~ BEGIN
 	COPY ~1pp/core/misc/%file%~ ~override~
 END
 
