@@ -1,70 +1,78 @@
-// Split from main installer
-// Work with me here, WeiDU
-
-/*  ===============================================================================================================================================================================  *
+/* ================================================================================================================================================================================= *
+ *                                                                                                                                                                                   *
+ *                                          C O M P O N E N T   :   I m p r o v e d   p r o j e c t i l e   e f f e c t s                                                            *
+ *                                                                                                                                                                                   *
+ * ================================================================================================================================================================================= *
+ *  This component improves projectile effects for Baldur's Gate II engine based IE games.                                                                                           *
+ *  Includes coloured bolt and bullet projectiles, axes and darts, and what is even neater, you can actually see the ammunition change on your paperdoll!                            *
+ *  Split from main installer as of v4.1.0. (Work with me here, WeiDU!)                                                                                                              *
+ * ================================================================================================================================================================================= *
  *  change-log:                                                                                                                                                                      *
  *  -----------                                                                                                                                                                      *
  *      - Coding simplification:                                                                                                                                                     *
- *			Avoid copying and overwriting the same files again and again...                                                                                                          *
- *			Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                      *
+ *          Avoid copying and overwriting the same files again and again...                                                                                                          *
+ *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                    *
  *                                                                                                                                                                                   *
  *      - Code re-written with new functions to provide automatic process:                                                                                                           *
- *			1. Clears duplicated vanilla #89 and #197 effects in SPL and ITM files (function GW_CLEAR_DUPLICATED_OPCODES).                                                           *
- *	  		2. Checks if protection from SPEAR and/or Bounce SPEAR is already set before adding it (function GW_CLEAR_DUPLICATED_OPCODES).                                           *
- *			3. Function GW_MODIFY_PROJ replaces BWP Fixpack patch (401_projectiles.tph.patch: Modifies the projectile value only when needed (does not patch melee headers anymore). *
- *			   It Replaces ADD_ITEM_EQEFFECT, ADD_ITEM_EFFECT, ADD_SPELL_EFFECT and macros with the newer and more efficient CLONE_EFFECT WeiDU function to give new opcodes #83 and *
- *             #197 the same settings than existing ones (target, resist_dispel, duration, power...). It modifies all extended headers and avoids writing lines of codes!            *
- *			5. Provides partial IR and SR compatibility in a rather softer way.                                                                                                      *
+ *          1. Cleared duplicated vanilla #89 and #197 effects in SPL and ITM files (function GW_CLEAR_DUPLICATED_OPCODES).                                                          *
+ *          2. Checked if protection from SPEAR and/or Bounce SPEAR is already set before adding it (function GW_CLEAR_DUPLICATED_OPCODES).                                          *
+ *          3. Function GW_MODIFY_PROJ replaces BWP Fixpack patch (401_projectiles.tph.patch: Modifies the projectile value only when needed (does not patch melee headers anymore). *
+ *             It replaces ADD_ITEM_EQEFFECT, ADD_ITEM_EFFECT, ADD_SPELL_EFFECT and macros with the newer and more efficient CLONE_EFFECT WeiDU function to give new opcodes #83     *
+ *             and #197 the same settings than existing ones (target, resist_dispel, duration, power...). It modifies all extended headers and avoids writing lines of codes!        *
+ *          5. Provided partial IR and SR compatibility in a rather softer way.                                                                                                      *
  *                                                                                                                                                                                   *
  *  specific fixes:                                                                                                                                                                  *
  *  ---------------                                                                                                                                                                  *
- *      - #201  ==> ax1h08.itm (Hangard's Axe +2), ax1h09.itm (Rifthome Axe +3), ax1h10.itm (Azuredge +3) & ax1h16.itm (K'logarath +4): add IR compatibility (patches itemB files).  *
- *      - #357  ==> bolt09.itm (Bolt +3): fixes typo (was patching bolt06 instead of bolt09).                                                                                        *
- *      - #465	==> Quivers of Plenty, Cases of Plenty, Bags of Plenty & Sling of Everard: Why quivers and launchers needing no ammo should not get new 1pp projectiles?             *
- *      - #514  ==> dagg11.itm (Boomerang Dagger +2) and dagg12.itm (Firetooth +3): add IR compatibility (patches itemB files).                                                      *
- *      - #629	==> sper04.itm (Javelin): switches Thrown and Melee strings ref in tooltip.2da. Use function GW_ADD_TOOLTIP to add new entries in tooltip.2da.                       *
- *      - #672  ==> spells and items protecting from or bouncing projectiles: add missing protections from new normal 1pp amo projectiles (1axe05, 1dagg05 and 1dart01).             *
+ *      - #199  ==> ax1h05.itm and ax1h06.itm (Throwing Axe +2), ax1h08.itm (Hangard's Axe +2), ax1h09.itm (Rifthome Axe +3), ax1h10.itm (Azuredge +3) & ax1h16.itm (K'logarath +4): *
+ *                  added IR compatibility (patches itemB files).                                                                                                                    *
+ *      - #370  ==> bolt09.itm (Bolt +3): fixed typo (was patching bolt06 instead of bolt09).                                                                                        *
+ *      - #481	==> Quivers of Plenty, Cases of Plenty, Bags of Plenty & Sling of Everard: Why quivers and launchers needing no ammo should not get new 1pp projectiles?             *
+ *      - #523  ==> dagg05.itm (Throwing Dagger), dagg11.itm (Boomerang Dagger +2) and dagg12.itm (Firetooth +3): added IR compatibility (patches itemB files).                      *
+ *      - #664	==> sper04.itm (Javelin): switched Thrown and Melee strings ref in tooltip.2da. Use function GW_ADD_ITEM_TOOLTIPS to add new entries in tooltip.2da.                 *
+ *      - #701  ==> spells and items protecting from or bouncing projectiles: add missing protections from new normal 1pp amo projectiles (1dagg05 and 1dart01).                     *
  *					The code was only providing protection from 1arow01 and 1bolt01 new projectiles.                                                                                 *
- *      - #714  ==> npshld.itm (Delryn Family Shield): same fix as above + IR compatibility (protection from all types of missiles, including magic ones).                           *
- *      - #746  ==> shld24.itm (Reflection Shield +1): same fix as above + clears duplicate entries and adds IR compatibility (IR replaces opcode #197 with opcode #83).             *
- *      - #769	==>	brac18.itm (Gloves of Missile Snaring): Don't forget to add Protection from projectiles if IR is installed.                                                      *
- *      - #790	==>	spin546.spl (Inertial Barrier), spcl721.spl (Storm Shield) & spcl914.spl (Greater Evasion): patches all headers (was patching only the first header), fixes      *
- *                  wrong duration, target, power, resist dispel... Adds missing protections from new normal 1pp ammo projectiles (1axe05, 1dagg05 and 1dart01). The code was only   *
+ *      - #742  ==> npshld.itm (Delryn Family Shield): same fix as above + IR compatibility (protection from all types of missiles, including magic ones).                           *
+ *      - #776  ==> shld24.itm (Reflection Shield +1): same fix as above + cleared duplicate entries and adds IR compatibility (IR replaces opcode #197 with opcode #83).            *
+ *      - #800	==>	brac18.itm (Gloves of Missile Snaring): Don't forget to add Protection from projectiles if IR is installed.                                                      *
+ *      - #821	==>	spin546.spl (Inertial Barrier), spcl721.spl (Storm Shield) abd spcl914.spl (Greater Evasion): patched all headers (was patching only the first header), fixed    *
+ *                  wrong duration, target, power, resist dispel... Added missing protections from new normal 1pp ammo projectiles (1dagg05 and 1dart01). The code was only          *
  *                  providing protection from 1arow01 and 1bolt01 new projectiles.                                                                                                   *
- *      - #813	==> Protection From Normal Missiles spells (spra303, spwi311, & cdwi311 added from BG2 Fixpack): same fixes as above + SR compatibility (protection from all types   *
+ *      - #844	==> Protection From Normal Missiles spells (spra303, spwi311, & cdwi311 added from BG2 Fixpack): same fixes as above + SR compatibility (protection from all types   *
  *                  of missiles, including magic ones)..                                                                                                                             *
- *      - #846	==> sppr613.spl (Physical Mirror): clear duplicate entries and adds SR compatibility (SR replaces opcode #197 with opcode #83).                                      * 
- *      - #870	==>	Includes Entropy Shield spell (protection from new 1pp projectiles) if IWDIfication is installed.                                                                *
- *  ===============================================================================================================================================================================  */
+ *      - #874	==> sppr613.spl (Physical Mirror): cleared duplicate entries and added SR compatibility (SR replaces opcode #197 with opcode #83).                                   * 
+ *      - #901	==>	Included Entropy Shield spell (protection from new 1pp projectiles) if IWDIfication is installed.                                                                *
+ * ================================================================================================================================================================================= */
 
 // ----------------------------- //
 //    ITEMS                line  //
 // ----------------------------- //
-//  ARROWS               #   66  //
-//  AXES                 #  180  //
-//  BOLTS                #  246  //
-//  BULLETS              #  372  //
-//  DAGGERS              #  494  //
-//  DARTS                #  556  //
-//  JAVELIN              #  629  //
-//  PATCH SPELLS & ITEMS #  669  //
+//  ARROWS               #   71  //
+//  AXES                 #  187  //
+//  BOLTS                #  256  //
+//  BULLETS              #  385  //
+//  DAGGERS              #  510  //
+//  DARTS                #  575  //
+//  JAVELIN              #  651  //
+//  PATCH SPELLS & ITEMS #  695  //
 // ----------------------------- //
 
-PRINT @401000 /* Installing */
-
-LAM ~Locations~
+PRINT @400001 // ~Copying resources...~
+SILENT
 
 // Gwen fix: removes SPER04.ITM from the list to avoid overwriting the file.
-ACTION_FOR_EACH resource IN ~ARARROW.BAM~ ~ARROWEX.PRO~ ~ARROWFLB.PRO~ ~ARROWFLG.PRO~ ~ARROWFLI.PRO~ ~ARROWFLM.PRO~ ~AXE.BAM~ ~AXE.PRO~ ~AXEEX.PRO~ ~BOLT.BAM~ ~BOLT.PRO~ ~BOLTEX.PRO~ ~DAGGER.BAM~ ~DART.BAM~ ~DART.PRO~ ~DARTEX.PRO~ ~MAGICSTN.BAM~ ~SPEAR.BAM~ ~SPEAR.PRO~ ~SPEAREX.PRO~ ~SPFLMARR.BAM~ ~ISPER04.BAM~ BEGIN
+ACTION_FOR_EACH resource IN ~ararrow.bam~ ~arrowex.pro~ ~arrowflb.pro~ ~arrowflg.pro~ ~arrowfli.pro~ ~arrowflm.pro~ ~axe.bam~ ~axe.pro~ ~axeex.pro~ ~bolt.bam~ ~bolt.pro~ ~boltex.pro~ ~dagger.bam~ ~dart.bam~ ~dart.pro~ ~dartex.pro~ ~magicstn.bam~ ~spear.bam~ ~spear.pro~ ~spearex.pro~ ~spflmarr.bam~ ~isper04.bam~ BEGIN
 
 	COPY ~1pp/additions/projectiles_1pp/%resource%~ ~override~
 
 END
 
 
-/*  ======================  *
+/* ======================== *
  *          ARROWS          *
- *  ======================  */
+ * ======================== */
+
+PRINT @401001 // ~Installing arrow projectiles and patching items...~
+SILENT
 
 ACTION_FOR_EACH 1pp_proj IN 1arow01 1arow02 1arow03 1arow04 1arow05 1arow07 1arow10 1arow11 1arow15 BEGIN	// 1pp new arrows projectiles
 
@@ -73,10 +81,10 @@ ACTION_FOR_EACH 1pp_proj IN 1arow01 1arow02 1arow03 1arow04 1arow05 1arow07 1aro
 END
 //TODO : VERIF CLEAR_IDS_MAP
 // Arrow
-ACTION_FOR_EACH arrow IN ~AROW01~ ~_AROW01~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%arrow%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%arrow%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH arrow IN ~arow01~ ~_arow01~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%arrow%.itm~) BEGIN
+		COPY_EXISTING ~%arrow%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROWHVY" new_proj = "1arow01" END
 			END
 		BUT_ONLY
@@ -84,10 +92,10 @@ ACTION_FOR_EACH arrow IN ~AROW01~ ~_AROW01~ BEGIN
 END
 
 // Arrow +1
-ACTION_FOR_EACH arrow IN ~AROW02~ ~_AROW02~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%arrow%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%arrow%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH arrow IN ~arow02~ ~_arow02~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%arrow%.itm~) BEGIN
+		COPY_EXISTING ~%arrow%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROWHVY" new_proj = "1arow02" END
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROW" new_proj = "1arow02" END	// Gwen fix: IR compatibility
 			END
@@ -95,12 +103,11 @@ ACTION_FOR_EACH arrow IN ~AROW02~ ~_AROW02~ BEGIN
 	END
 END
 
-
 // Arrow of Slaying
-ACTION_FOR_EACH arrow IN ~AROW03~ ~_AROW03~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%arrow%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%arrow%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH arrow IN ~arow03~ ~_arow03~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%arrow%.itm~) BEGIN
+		COPY_EXISTING ~%arrow%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROW" new_proj = "1arow03" END
 			END
 		BUT_ONLY
@@ -108,10 +115,10 @@ ACTION_FOR_EACH arrow IN ~AROW03~ ~_AROW03~ BEGIN
 END
 
 // Acid Arrow
-ACTION_FOR_EACH arrow IN ~AROW04~ ~_AROW04~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%arrow%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%arrow%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH arrow IN ~arow04~ ~_arow04~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%arrow%.itm~) BEGIN
+		COPY_EXISTING ~%arrow%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROW" new_proj = "1arow04" END
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROWFLG" new_proj = "1arow04" END	// Gwen fix: IR compatibility
 			END
@@ -120,10 +127,10 @@ ACTION_FOR_EACH arrow IN ~AROW04~ ~_AROW04~ BEGIN
 END
 
 // Arrow of Biting
-ACTION_FOR_EACH arrow IN ~AROW05~ ~_AROW05~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%arrow%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%arrow%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH arrow IN ~arow05~ ~_arow05~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%arrow%.itm~) BEGIN
+		COPY_EXISTING ~%arrow%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROW" new_proj = "1arow05" END
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROWHVY" new_proj = "1arow05" END	// Gwen fix: IR compatibility
 			END
@@ -132,10 +139,10 @@ ACTION_FOR_EACH arrow IN ~AROW05~ ~_AROW05~ BEGIN
 END
 
 // Arrow of Dispelling
-ACTION_FOR_EACH arrow IN ~AROW07~ ~_AROW07~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%arrow%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%arrow%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH arrow IN ~arow07~ ~_arow07~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%arrow%.itm~) BEGIN
+		COPY_EXISTING ~%arrow%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROW" new_proj = "1arow07" END
 			END
 		BUT_ONLY
@@ -143,10 +150,10 @@ ACTION_FOR_EACH arrow IN ~AROW07~ ~_AROW07~ BEGIN
 END
 
 // Arrow of Piercing
-ACTION_FOR_EACH arrow IN ~AROW10~ ~_AROW10~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%arrow%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%arrow%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH arrow IN ~arow10~ ~_arow10~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%arrow%.itm~) BEGIN
+		COPY_EXISTING ~%arrow%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROW" new_proj = "1arow10" END
 			END
 		BUT_ONLY
@@ -154,10 +161,10 @@ ACTION_FOR_EACH arrow IN ~AROW10~ ~_AROW10~ BEGIN
 END
 
 // Arrow +2
-ACTION_FOR_EACH arrow IN ~AROW11~ ~_AROW11~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%arrow%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%arrow%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH arrow IN ~arow11~ ~_arow11~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%arrow%.itm~) BEGIN
+		COPY_EXISTING ~%arrow%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROW" new_proj = "1arow11" END
 			END
 		BUT_ONLY
@@ -165,10 +172,10 @@ ACTION_FOR_EACH arrow IN ~AROW11~ ~_AROW11~ BEGIN
 END
 
 // Arrow +3
-ACTION_FOR_EACH arrow IN ~AROW15~ ~_AROW15~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%arrow%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%arrow%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH arrow IN ~arow15~ ~_arow15~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%arrow%.itm~) BEGIN
+		COPY_EXISTING ~%arrow%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROW" new_proj = "1arow15" END
 			END
 		BUT_ONLY
@@ -176,9 +183,12 @@ ACTION_FOR_EACH arrow IN ~AROW15~ ~_AROW15~ BEGIN
 END
 
 
-/*  ======================  *
+/* ======================== *
  *           AXES           *
- *  ======================  */
+ * ======================== */
+
+PRINT @401002 // ~Installing axe projectiles and patching items...~
+SILENT
 
 ACTION_FOR_EACH 1pp_proj IN 1axe05 1axe08 1axe09 1axe10 1axe16 BEGIN	// 1pp new axes projectiles
 
@@ -187,10 +197,10 @@ ACTION_FOR_EACH 1pp_proj IN 1axe05 1axe08 1axe09 1axe10 1axe16 BEGIN	// 1pp new 
 END
 
 // Throwing Axe +2
-ACTION_FOR_EACH axe IN ~AX1H05~ ~_AX1H05~ ~AX1H06~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%axe%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH axe IN ~ax1h05~ ~_ax1h05~ ~ax1h06~ ~ax1h0b5~ ~ax1h0b5~ BEGIN // Gwen fix: add IR compatibility
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.itm~) BEGIN
+		COPY_EXISTING ~%axe%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "AXE" new_proj = "1axe05" END
 			END
 		BUT_ONLY
@@ -198,10 +208,10 @@ ACTION_FOR_EACH axe IN ~AX1H05~ ~_AX1H05~ ~AX1H06~ BEGIN
 END
 
 // Hangard's Axe +2
-ACTION_FOR_EACH axe IN ~AX1H08~ ~AX1H08B~ BEGIN			// Gwen fix: add IR compatibility
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%axe%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH axe IN ~ax1h08~ ~ax1h08b~ BEGIN		// Gwen fix: add IR compatibility
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.itm~) BEGIN
+		COPY_EXISTING ~%axe%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "AXE" new_proj = "1axe08" END
 			END
 		BUT_ONLY
@@ -209,10 +219,10 @@ ACTION_FOR_EACH axe IN ~AX1H08~ ~AX1H08B~ BEGIN			// Gwen fix: add IR compatibil
 END
 
 // Rifthome Axe +3
-ACTION_FOR_EACH axe IN ~AX1H09~ ~AX1H09B~ BEGIN			// Gwen fix: add IR compatibility
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%axe%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH axe IN ~ax1h09~ ~ax1h09b~ BEGIN		// Gwen fix: add IR compatibility
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.itm~) BEGIN
+		COPY_EXISTING ~%axe%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "AXE" new_proj = "1axe09" END
 			END
 		BUT_ONLY
@@ -220,10 +230,10 @@ ACTION_FOR_EACH axe IN ~AX1H09~ ~AX1H09B~ BEGIN			// Gwen fix: add IR compatibil
 END
 
 // Azuredge +3
-ACTION_FOR_EACH axe IN ~AX1H10~ ~AX1H10B~ BEGIN			// Gwen fix: add IR compatibility
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%axe%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH axe IN ~ax1h10~ ~ax1h10b~ BEGIN		// Gwen fix: add IR compatibility
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.itm~) BEGIN
+		COPY_EXISTING ~%axe%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "AXE" new_proj = "1axe10" END
 			END
 		BUT_ONLY
@@ -231,10 +241,10 @@ ACTION_FOR_EACH axe IN ~AX1H10~ ~AX1H10B~ BEGIN			// Gwen fix: add IR compatibil
 END
 
 // K'logarath +4
-ACTION_FOR_EACH axe IN ~AX1H16~ ~AX1H16B~ BEGIN			// Gwen fix: add IR compatibility
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%axe%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH axe IN ~ax1h16~ ~ax1h16b~ BEGIN		// Gwen fix: add IR compatibility
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.itm~) BEGIN
+		COPY_EXISTING ~%axe%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "AXE" new_proj = "1axe16" END
 			END
 		BUT_ONLY
@@ -242,9 +252,12 @@ ACTION_FOR_EACH axe IN ~AX1H16~ ~AX1H16B~ BEGIN			// Gwen fix: add IR compatibil
 END
 
 
-/*  =======================  *
+/* ========================= *
  *           BOLTS           *
- *  =======================  */
+ * ========================= */
+
+PRINT @401003 // ~Installing bolt projectiles and patching items...~
+SILENT
 
 ACTION_FOR_EACH 1pp_proj IN 1bolt01 1bolt02 1bolt03 1bolt04 1bolt05 1bolt06 1bolt09 BEGIN	// 1pp new bolts projectiles
 
@@ -253,13 +266,13 @@ ACTION_FOR_EACH 1pp_proj IN 1bolt01 1bolt02 1bolt03 1bolt04 1bolt05 1bolt06 1bol
 END
 
 // Bolt
-ACTION_FOR_EACH bolt IN ~BOLT01~ ~_BOLT01~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%bolt%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%bolt%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH bolt IN ~bolt01~ ~_bolt01~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bolt%.itm~) BEGIN
+		COPY_EXISTING ~%bolt%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN			// protects against invalid files
 				LPM ~clear~
-				SET gradient = 27						// colour index
-				SET location = wpink					// location
+				SET gradient = 27						// sets colour index 27 GRAY
+				SET location = wpink					// location (Bolt-Mace-Staff)
 				LPM ~colour~
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "BOLT" new_proj = "1bolt01" END
 			END
@@ -268,13 +281,13 @@ ACTION_FOR_EACH bolt IN ~BOLT01~ ~_BOLT01~ BEGIN
 END
 
 // Bolt +1
-ACTION_FOR_EACH bolt IN ~BOLT02~ ~_BOLT02~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%bolt%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%bolt%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH bolt IN ~bolt02~ ~_bolt02~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bolt%.itm~) BEGIN
+		COPY_EXISTING ~%bolt%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN			// protects against invalid files
 				LPM ~clear~
-				SET gradient = 90						// colour index
-				SET location = wpink					// location
+				SET gradient = 90						// sets colour index 90 MOLDY_GOLD
+				SET location = wpink					// location (Bolt-Mace-Staff)
 				LPM ~colour~
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "BOLT" new_proj = "1bolt02" END
 			END
@@ -283,13 +296,13 @@ ACTION_FOR_EACH bolt IN ~BOLT02~ ~_BOLT02~ BEGIN
 END
 
 // Bolt of Lightning
-ACTION_FOR_EACH bolt IN ~BOLT03~ ~_BOLT03~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%bolt%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%bolt%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH bolt IN ~bolt03~ ~_bolt03~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bolt%.itm~) BEGIN
+		COPY_EXISTING ~%bolt%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN			// protects against invalid files
 				LPM ~clear~
-				SET gradient = 218						// colour index
-				SET location = wpink					// location
+				SET gradient = 218						// sets colour index 218 ELF_HAIR-CHROME_BLUE_GRAY
+				SET location = wpink					// location (Bolt-Mace-Staff)
 				LPM ~colour~
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "BOLT" new_proj = "1bolt03" END
 			END
@@ -298,13 +311,13 @@ ACTION_FOR_EACH bolt IN ~BOLT03~ ~_BOLT03~ BEGIN
 END
 
 // Bolt of Biting
-ACTION_FOR_EACH bolt IN ~BOLT04~ ~_BOLT04~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%bolt%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%bolt%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH bolt IN ~bolt04~ ~_bolt04~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bolt%.itm~) BEGIN
+		COPY_EXISTING ~%bolt%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN			// protects against invalid files
 				LPM ~clear~
-				SET gradient = 252						// colour index
-				SET location = wpink					// location
+				SET gradient = 252						// sets colour index 252 DUERGAR_MAJOR-GHOULISH_GREEN
+				SET location = wpink					// location (Bolt-Mace-Staff)
 				LPM ~colour~
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "BOLT" new_proj = "1bolt04" END
 			END
@@ -313,13 +326,13 @@ ACTION_FOR_EACH bolt IN ~BOLT04~ ~_BOLT04~ BEGIN
 END
 
 // Bolt of Polymorphing
-ACTION_FOR_EACH bolt IN ~BOLT05~ ~_BOLT05~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%bolt%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%bolt%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH bolt IN ~bolt05~ ~_bolt05~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bolt%.itm~) BEGIN
+		COPY_EXISTING ~%bolt%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN			// protects against invalid files
 				LPM ~clear~
-				SET gradient = 227						// colour index
-				SET location = wpink					// location
+				SET gradient = 227						// sets colour index 227 METAL_WILD-CORAL
+				SET location = wpink					// location (Bolt-Mace-Staff)
 				LPM ~colour~
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "BOLT" new_proj = "1bolt05" END
 			END
@@ -328,13 +341,13 @@ ACTION_FOR_EACH bolt IN ~BOLT05~ ~_BOLT05~ BEGIN
 END
 
 // Bolt +2
-ACTION_FOR_EACH bolt IN ~BOLT06~ ~_BOLT06~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%bolt%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%bolt%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH bolt IN ~bolt06~ ~_bolt06~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bolt%.itm~) BEGIN
+		COPY_EXISTING ~%bolt%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN			// protects against invalid files
 				LPM ~clear~
-				SET gradient = 81						// colour index
-				SET location = wpink					// location
+				SET gradient = 81						// sets colour index 81 FADED_GOLD
+				SET location = wpink					// location (Bolt-Mace-Staff)
 				LPM ~colour~
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "BOLT" new_proj = "1bolt06" END
 			END
@@ -343,24 +356,24 @@ ACTION_FOR_EACH bolt IN ~BOLT06~ ~_BOLT06~ BEGIN
 END
 
 // Blessed Bolt
-ACTION_IF (FILE_EXISTS_IN_GAME ~BOLT08.ITM~) THEN BEGIN
-	COPY_EXISTING ~BOLT08.ITM~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_IF (FILE_EXISTS_IN_GAME ~bolt08.itm~) BEGIN
+	COPY_EXISTING ~bolt08.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN			// protects against invalid files
 			LPM ~clear~
-			SET gradient = 208						// colour index
-			SET location = wpink					// location
+			SET gradient = 208						// sets colour index 208 ATH_PEASANT_MAJOR-FADED_WHEAT
+			SET location = wpink					// location (Bolt-Mace-Staff)
 			LPM ~colour~
 		END
 	BUT_ONLY
 END
 
 // Bolt +3: fixes typo (was patching bolt06 instead of bolt09).
-ACTION_IF (FILE_EXISTS_IN_GAME ~BOLT09.ITM~) THEN BEGIN
-	COPY_EXISTING ~BOLT09.ITM~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_IF (FILE_EXISTS_IN_GAME ~bolt09.itm~) BEGIN
+	COPY_EXISTING ~bolt09.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 186						// colour index
-			SET location = wpink					// location
+			SET gradient = 186						// sets colour index 186 DARK_PLUM
+			SET location = wpink					// location (Bolt-Mace-Staff)
 			LPM ~colour~
 			LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "BOLT" new_proj = "1bolt09" END
 		END
@@ -368,9 +381,12 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~BOLT09.ITM~) THEN BEGIN
 END
 
 
-/*  =========================  *
+/* =========================== *
  *           BULLETS           *
- *  =========================  */
+ * =========================== */
+
+PRINT @401004 // ~Installing bullet projectiles and patching items...~
+SILENT
 
 ACTION_FOR_EACH 1pp_proj IN 1bull02 1bull03 1bull04 1bull05 1bull06 BEGIN	// 1pp new bullets projectiles
 
@@ -379,13 +395,13 @@ ACTION_FOR_EACH 1pp_proj IN 1bull02 1bull03 1bull04 1bull05 1bull06 BEGIN	// 1pp
 END
 
 // Bullet
-ACTION_FOR_EACH bullet IN ~BULL01~ ~_BULL01~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%bullet%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%bullet%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH bullet IN ~bull01~ ~_bull01~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bullet%.itm~) BEGIN
+		COPY_EXISTING ~%bullet%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 27						// colour index
-				SET location = wgrey					// location
+				SET gradient = 27						// sets colour index 27 GRAY
+				SET location = wgrey					// location (Head/Blade/Staff major)
 				LPM ~colour~
 			END
 		BUT_ONLY
@@ -393,13 +409,13 @@ ACTION_FOR_EACH bullet IN ~BULL01~ ~_BULL01~ BEGIN
 END
 
 // Bullet +1
-ACTION_FOR_EACH bullet IN ~BULL02~ ~_BULL02~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%bullet%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%bullet%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH bullet IN ~bull02~ ~_bull02~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bullet%.itm~) BEGIN
+		COPY_EXISTING ~%bullet%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 218						// colour index
-				SET location = wgrey					// location
+				SET gradient = 218						// sets colour index 218 ELF_HAIR-CHROME_BLUE_GRAY
+				SET location = wgrey					// location (Head/Blade/Staff major)
 				LPM ~colour~
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "BULLET" new_proj = "1bull02" END
 			END
@@ -408,13 +424,13 @@ ACTION_FOR_EACH bullet IN ~BULL02~ ~_BULL02~ BEGIN
 END
 
 // Bullet +2
-ACTION_FOR_EACH bullet IN ~BULL03~ ~_BULL03~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%bullet%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%bullet%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH bullet IN ~bull03~ ~_bull03~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%bullet%.itm~) BEGIN
+		COPY_EXISTING ~%bullet%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
-				SET gradient = 70						// colour index
-				SET location = wgrey					// location
+				SET gradient = 70						// sets colour index 70 LIGHT_METALLIC_RED
+				SET location = wgrey					// location (Head/Blade/Staff major)
 				LPM ~colour~
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "BULLET" new_proj = "1bull03" END
 			END
@@ -423,12 +439,12 @@ ACTION_FOR_EACH bullet IN ~BULL03~ ~_BULL03~ BEGIN
 END
 
 // Sunstone Bullet +1
-ACTION_IF (FILE_EXISTS_IN_GAME ~BULL04.ITM~) THEN BEGIN
-	COPY_EXISTING ~BULL04.ITM~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_IF (FILE_EXISTS_IN_GAME ~bull04.itm~) BEGIN
+	COPY_EXISTING ~bull04.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 115						// colour index
-			SET location = wgrey					// location
+			SET gradient = 115						// sets colour index 115 SUNKISSED
+			SET location = wgrey					// location (Head/Blade/Staff major)
 			LPM ~colour~
 			LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "BULLET" new_proj = "1bull04" END
 		END
@@ -436,12 +452,12 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~BULL04.ITM~) THEN BEGIN
 END
 
 // Bullet +3
-ACTION_IF (FILE_EXISTS_IN_GAME ~BULL05.ITM~) THEN BEGIN
-	COPY_EXISTING ~BULL05.ITM~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_IF (FILE_EXISTS_IN_GAME ~bull05.itm~) BEGIN
+	COPY_EXISTING ~bull05.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 148						// colour index
-			SET location = wgrey					// location
+			SET gradient = 148						// sets colour index 148 SKY_BLUE
+			SET location = wgrey					// location (Head/Blade/Staff major)
 			LPM ~colour~
 			LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "BULLET" new_proj = "1bull05" END
 		END
@@ -449,12 +465,12 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~BULL05.ITM~) THEN BEGIN
 END
 
 // Bullet +4
-ACTION_IF (FILE_EXISTS_IN_GAME ~BULL06.ITM~) THEN BEGIN
-	COPY_EXISTING ~BULL06.ITM~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_IF (FILE_EXISTS_IN_GAME ~bull06.itm~) BEGIN
+	COPY_EXISTING ~bull06.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
-			SET gradient = 19						// colour index
-			SET location = wgrey					// location
+			SET gradient = 19						// sets colour index 19 DARK_ROSE_RED
+			SET location = wgrey					// location (Head/Blade/Staff major)
 			LPM ~colour~
 			LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "BULLET" new_proj = "1bull06" END
 		END
@@ -478,9 +494,9 @@ END
 
 ACTION_PHP_EACH 1pp_proj_quivers AS quiver => proj BEGIN
 
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%quiver%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%quiver%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%quiver%.itm~) BEGIN
+		COPY_EXISTING ~%quiver%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = EVAL "%quiver_1%" new_proj = EVAL "%proj%" END
 			END
 		BUT_ONLY
@@ -490,9 +506,12 @@ END
 ACTION_CLEAR_ARRAY 1pp_proj_quivers
 
 
-/*  =========================  *
+/* =========================== *
  *           DAGGERS           *
- *  =========================  */
+ * =========================== */
+
+PRINT @401005 // ~Installing dagger projectiles and patching items...~
+SILENT
 
 ACTION_FOR_EACH 1pp_proj IN 1dagg05 1dagg11 1dagg12 1dagg16 BEGIN	// 1pp new daggers projectiles
 
@@ -501,10 +520,10 @@ ACTION_FOR_EACH 1pp_proj IN 1dagg05 1dagg11 1dagg12 1dagg16 BEGIN	// 1pp new dag
 END
 
 // Throwing Dagger
-ACTION_FOR_EACH dagger IN ~DAGG05~ ~_DAGG05~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%dagger%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH dagger IN ~dagg05~ ~_dagg05~ ~dagg05b~ BEGIN	// Gwen fix: add IR compatibility
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
+		COPY_EXISTING ~%dagger%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "DAGGER" new_proj = "1dagg05" END
 			END
 		BUT_ONLY
@@ -512,10 +531,10 @@ ACTION_FOR_EACH dagger IN ~DAGG05~ ~_DAGG05~ BEGIN
 END
 
 // Boomerang Dagger +2
-ACTION_FOR_EACH dagger IN ~DAGG11~ ~DAGG11B~ BEGIN		// Gwen fix: add IR compatibility
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%dagger%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH dagger IN ~dagg11~ ~dagg11b~ BEGIN	// Gwen fix: add IR compatibility
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
+		COPY_EXISTING ~%dagger%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "DAGGER" new_proj = "1dagg11" END
 			END
 		BUT_ONLY
@@ -523,10 +542,10 @@ ACTION_FOR_EACH dagger IN ~DAGG11~ ~DAGG11B~ BEGIN		// Gwen fix: add IR compatib
 END
 
 // Firetooth +3
-ACTION_FOR_EACH dagger IN ~DAGG12~ ~DAGG12B~ BEGIN		// Gwen fix: add IR compatibility
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%dagger%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH dagger IN ~dagg12~ ~dagg12b~ BEGIN	// Gwen fix: add IR compatibility
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
+		COPY_EXISTING ~%dagger%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "DAGGER" new_proj = "1dagg12" END
 			END
 		BUT_ONLY
@@ -534,27 +553,30 @@ ACTION_FOR_EACH dagger IN ~DAGG12~ ~DAGG12B~ BEGIN		// Gwen fix: add IR compatib
 END
 
 // Poisoned Throwing Dagger
-ACTION_IF (FILE_EXISTS_IN_GAME ~DAGG16.ITM~) THEN BEGIN
-	COPY_EXISTING ~DAGG16.ITM~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_IF (FILE_EXISTS_IN_GAME ~dagg16.itm~) BEGIN
+	COPY_EXISTING ~dagg16.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "DAGGER" new_proj = "1dagg16" END
 		END
 	BUT_ONLY
 END
 
 // Returning Throwing Dagger +1 (Mod Song and Silence)
-ACTION_IF (FILE_EXISTS_IN_GAME ~a!thtd.ITM~) THEN BEGIN
-	COPY_EXISTING ~a!thtd.ITM~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_IF (FILE_EXISTS_IN_GAME ~a!thtd.itm~) BEGIN
+	COPY_EXISTING ~a!thtd.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "DAGGER" new_proj = "1dagg16" END
 		END
 	BUT_ONLY
 END
 
 
-/*  =======================  *
+/* ========================= *
  *           DARTS           *
- *  =======================  */
+ * ========================= */
+
+PRINT @401006 // ~Installing dart projectiles and patching items...~
+SILENT
 
 ACTION_FOR_EACH 1pp_proj IN 1dart01 1dart02 1dart03 1dart04 1dart05 1dart08 BEGIN	// 1pp new darts projectiles
 
@@ -563,10 +585,10 @@ ACTION_FOR_EACH 1pp_proj IN 1dart01 1dart02 1dart03 1dart04 1dart05 1dart08 BEGI
 END
 
 // Dart
-ACTION_FOR_EACH dart IN ~DART01~ ~_DART01~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%dart%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%dart%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH dart IN ~dart01~ ~_dart01~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%dart%.itm~) BEGIN
+		COPY_EXISTING ~%dart%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "DART" new_proj = "1dart01" END
 			END
 		BUT_ONLY
@@ -574,10 +596,10 @@ ACTION_FOR_EACH dart IN ~DART01~ ~_DART01~ BEGIN
 END
 
 // Dart +1
-ACTION_FOR_EACH dart IN ~DART02~ ~_DART02~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%dart%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%dart%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH dart IN ~dart02~ ~_dart02~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%dart%.itm~) BEGIN
+		COPY_EXISTING ~%dart%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "DART" new_proj = "1dart02" END
 			END
 		BUT_ONLY
@@ -585,10 +607,10 @@ ACTION_FOR_EACH dart IN ~DART02~ ~_DART02~ BEGIN
 END
 
 // Dart of Stunning
-ACTION_FOR_EACH dart IN ~DART03~ ~_DART03~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%dart%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%dart%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH dart IN ~dart03~ ~_dart03~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%dart%.itm~) BEGIN
+		COPY_EXISTING ~%dart%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "DART" new_proj = "1dart03" END
 			END
 		BUT_ONLY
@@ -596,10 +618,10 @@ ACTION_FOR_EACH dart IN ~DART03~ ~_DART03~ BEGIN
 END
 
 // Dart of Wounding
-ACTION_FOR_EACH dart IN ~DART04~ ~_DART04~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%dart%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%dart%.ITM~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_FOR_EACH dart IN ~dart04~ ~_dart04~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%dart%.itm~) BEGIN
+		COPY_EXISTING ~%dart%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "DART" new_proj = "1dart04" END
 			END
 		BUT_ONLY
@@ -607,82 +629,91 @@ ACTION_FOR_EACH dart IN ~DART04~ ~_DART04~ BEGIN
 END
 
 // Asp's Nest
-ACTION_IF (FILE_EXISTS_IN_GAME ~DART05.ITM~) THEN BEGIN
-	COPY_EXISTING ~DART05.ITM~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_IF (FILE_EXISTS_IN_GAME ~dart05.itm~) BEGIN
+	COPY_EXISTING ~DART05.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "DART" new_proj = "1dart05" END
 		END
 	BUT_ONLY
 END
 
 // Crimson Dart +3
-ACTION_IF (FILE_EXISTS_IN_GAME ~DART08.ITM~) THEN BEGIN
-	COPY_EXISTING ~DART08.ITM~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN	// protects against invalid files
+ACTION_IF (FILE_EXISTS_IN_GAME ~dart08.itm~) BEGIN
+	COPY_EXISTING ~dart08.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "DART" new_proj = "1dart08" END
 		END
 	BUT_ONLY
 END
 
 
-/*  =========================  *
+/* =========================== *
  *           JAVELIN           *
- *  =========================  */
+ * =========================== */
+
+PRINT @401007 // ~Installing javelins...~
+SILENT
 
 // Javelin
-COPY ~1pp\additions\projectiles_1pp/SPER04.ITM~ ~override~
-	SAY NAME1 @401101 /* Javelin */
+COPY ~1pp\additions\projectiles_1pp/sper04.itm~ ~override~
+	SAY NAME1 @401101
 	SAY NAME2 @401101
-	SAY UNIDENTIFIED_DESC @401102 /* The javelin is a type of light spear designed for throwing, usually with a narrower tip. While this makes it less resilient and powerful in close quarter combat, it can be a deadly weapon if the advantage of its range is used to its fullest extent.
+	SAY UNIDENTIFIED_DESC @401102
+BUT_ONLY
 
-STATISTICS:
+// Reads how many columns are in tooltip.2da file.
+// -----------------------------------------------
+LAM ~GW_READ_COL_TOOLTIP~
 
-Damage: 1D6
-Damage type: piercing
-Weight: 5
-Speed Factor: 6
-Proficiency Type: Spear
-Type: 2-handed
-Requires: 5 Strength
-Not Usable By:
- Cleric
- Mage
- Thief */
+// Gwen fix: switched Thrown and Melee strings ref in tooltip.2da.
+LAF ~GW_ADD_ITEM_TOOLTIPS~ STR_VAR GW_objet = ~SPER04~ GW_tooltips = ~@401103 @400917~ END	// Thrown - Melee
 
-// Gwen fix: switch Thrown and Melee strings ref in tooltip.2da.
-LAF ~GW_ADD_TOOLTIP~ STR_VAR GW_item_tooltip0 = "401104" GW_item_tooltip1 = "401103" GW_objet = "SPER04" END	// Thrown, Melee
+// Pure cosmetic, but so cool!
+// ---------------------------
+COPY_EXISTING ~tooltip.2da~ ~override~
+	PRETTY_PRINT_2DA
+BUT_ONLY
+
 
 // Cutpurse (Bridge)
 COPY_EXISTING ~bshop01.sto~ ~override~
-	ADD_STORE_ITEM ~sper04~   AFTER  ~dart01~ #10 #0 #0 ~IDENTIFIED~ #10
+	ADD_STORE_ITEM ~SPER04~   AFTER  ~DART01~ #10 #0 #0 ~IDENTIFIED~ #10
+BUT_ONLY
 
 // Peddler (Trademeet)
 COPY_EXISTING ~trmer01.sto~ ~override~
-	ADD_STORE_ITEM ~sper04~   AFTER  ~dart01~ #10 #0 #0 ~IDENTIFIED~ #5
+	ADD_STORE_ITEM ~SPER04~   AFTER  ~DART01~ #10 #0 #0 ~IDENTIFIED~ #5
+BUT_ONLY
 
 // Maheer (Waukeen's Promenade)
 COPY_EXISTING ~shop03.sto~ ~override~
-	ADD_STORE_ITEM ~sper04~   AFTER  ~sper02~ #10 #0 #0 ~IDENTIFIED~ #10
+	ADD_STORE_ITEM ~SPER04~   AFTER  ~SPER02~ #10 #0 #0 ~IDENTIFIED~ #10
+BUT_ONLY
 
 
-/*  =================================================================================================  *
+/* =================================================================================================== *
  *           ADD 1pp PROJECTILES TO SPELLS AND ITEMS PROTECTING FROM OR BOUNCING PROJECTILES           *
- *  =================================================================================================  */
+ * =================================================================================================== */
 
-// Gwen fix: add missing protections from new normal 1pp amo projectiles (1axe05, 1dagg05 and 1dart01). The code was only providing protection from 1arow01 and 1bolt01 new projectiles.
-ACTION_FOR_EACH item IN ~AURSTAF~ ~DRAGRING~ ~MAGEBRAC~ ~SLAYERWP~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.ITM~) THEN BEGIN
-		COPY_EXISTING ~%item%.ITM~ ~override~
+PRINT @401008 // ~Patching vanilla spells and items with 1pp new projectiles...~
+SILENT
+
+// Gwen fix: added missing protections from new normal 1pp amo projectiles (1dagg05 and 1dart01). The code was only providing protection from 1arow01 and 1bolt01 new projectiles.
+
+// Creatures miscellaneous protective items
+ACTION_FOR_EACH item IN ~aurstaf~ ~dragring~ ~magebrac~ ~slayerwp~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
+		COPY_EXISTING ~%item%.itm~ ~override~
 			LPF ~GW_DEF_OFFSETS_FILE~ RET GW_oe GW_oc GW_al GW_fx GW_fi GW_fc GW_min_size END
-			PATCH_IF (SOURCE_SIZE > GW_min_size) THEN BEGIN	// protects against invalid files
+			PATCH_IF (SOURCE_SIZE > GW_min_size) BEGIN	// protects against invalid files
 				LPF ~GW_CLEAR_DUPLICATED_OPCODES~ INT_VAR GW_opcode_to_check = 83 GW_effects_type = 2 RET GW_param2_55 END
-				PATCH_FOR_EACH proj IN 1arow01 1bolt01 1axe05 1dagg05 1dart01 BEGIN
+					PATCH_FOR_EACH proj IN 1arow01 1bolt01 1dagg05 1dart01 BEGIN
 					SET projnb = IDS_OF_SYMBOL (~projectl~ ~%proj%~)
 					PATCH_IF projnb > 0 BEGIN
 						LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 83 parameter2 = projnb STR_VAR insert = last END
 					END
 				END
-				// Special case: SPEAR (55) needs a special treatment.
+				// Gwen Special case fix: SPEAR (55) needs a special treatment because some items do not bestow protection from spear projectile (used by the new javelin weapon).
 				PATCH_IF GW_param2_55 = 0 BEGIN
 					LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 83 parameter2 = 55 STR_VAR insert = last END
 				END
@@ -692,18 +723,18 @@ ACTION_FOR_EACH item IN ~AURSTAF~ ~DRAGRING~ ~MAGEBRAC~ ~SLAYERWP~ BEGIN
 END
 
 // Blue Globe: same fix as above
-ACTION_IF (FILE_EXISTS_IN_GAME ~GLOBBLU4.ITM~) THEN BEGIN
-	COPY_EXISTING ~GLOBBLU4.ITM~ ~override~
+ACTION_IF (FILE_EXISTS_IN_GAME ~globblu4.itm~) BEGIN
+	COPY_EXISTING ~globblu4.itm~ ~override~
 		LPF ~GW_DEF_OFFSETS_FILE~ RET GW_oe GW_oc GW_al GW_fx GW_fi GW_fc GW_min_size END
-		PATCH_IF (SOURCE_SIZE > GW_min_size) THEN BEGIN	// protects against invalid files
+		PATCH_IF (SOURCE_SIZE > GW_min_size) BEGIN	// protects against invalid files
 			LPF ~GW_CLEAR_DUPLICATED_OPCODES~ INT_VAR GW_opcode_to_check = 83 GW_effects_type = 2 RET GW_param2_55 END
-			PATCH_FOR_EACH proj IN 1arow01 1bolt01 1axe05 1dagg05 1dart01 BEGIN
+			PATCH_FOR_EACH proj IN 1arow01 1bolt01 1dagg05 1dart01 BEGIN
 				SET projnb = IDS_OF_SYMBOL (~projectl~ ~%proj%~)
 				PATCH_IF projnb > 0 BEGIN
 					LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 multi_match = 1 match_opcode = 83 parameter2 = projnb STR_VAR insert = last END
 				END
 			END
-			// Special case: SPEAR (55) needs a special treatment.
+				// Gwen Special case fix: SPEAR (55) needs a special treatment because some items do not bestow protection from spear projectile (used by the new javelin weapon).
 			PATCH_IF GW_param2_55 = 0 BEGIN
 				LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 multi_match = 1 match_opcode = 83 parameter2 = 55 STR_VAR insert = last END
 			END
@@ -712,11 +743,11 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~GLOBBLU4.ITM~) THEN BEGIN
 END
 
 // Delryn Family Shield
-//Gwen fix: same fix as above + adds IR compatibility (protection from all types of missiles, including magic ones).
-ACTION_IF (FILE_EXISTS_IN_GAME ~NPSHLD.ITM~) THEN BEGIN
-	COPY_EXISTING ~NPSHLD.ITM~ ~override~
+// Gwen fix: same fix as above + added IR compatibility (protection from all types of missiles, including magic ones).
+ACTION_IF (FILE_EXISTS_IN_GAME ~npshld.itm~) BEGIN
+	COPY_EXISTING ~npshld.itm~ ~override~
 		LPF ~GW_DEF_OFFSETS_FILE~ RET GW_oe GW_oc GW_al GW_fx GW_fi GW_fc GW_min_size END
-		PATCH_IF (SOURCE_SIZE > GW_min_size) THEN BEGIN		// protects against invalid files
+		PATCH_IF (SOURCE_SIZE > GW_min_size) BEGIN		// protects against invalid files
 			LPF ~GW_CLEAR_DUPLICATED_OPCODES~ INT_VAR GW_opcode_to_check = 83 GW_effects_type = 2 RET GW_param2_55 END
 			PATCH_IF IR_INSTALLED BEGIN
 				PATCH_FOR_EACH proj IN						// 1pp new projectiles
@@ -727,14 +758,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~NPSHLD.ITM~) THEN BEGIN
 					END
 				END
 			END ELSE BEGIN
-				PATCH_FOR_EACH proj IN 1arow01 1bolt01 1axe05 1dagg05 1dart01 BEGIN
+				PATCH_FOR_EACH proj IN 1arow01 1bolt01 1dagg05 1dart01 BEGIN
 					SET projnb = IDS_OF_SYMBOL (~projectl~ ~%proj%~)
 					PATCH_IF projnb > 0 BEGIN
 						LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 multi_match = 1 match_opcode = 83 parameter2 = projnb STR_VAR insert = last END
 					END
 				END
 			END
-			// Special case: SPEAR (55) needs a special traitment.
+				// Gwen Special case fix: SPEAR (55) needs a special treatment because some items do not bestow protection from spear projectile (used by the new javelin weapon).
 			PATCH_IF GW_param2_55 = 0 BEGIN
 				LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 multi_match = 1 match_opcode = 83 parameter2 = 55 STR_VAR insert = last END
 			END
@@ -743,23 +774,23 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~NPSHLD.ITM~) THEN BEGIN
 END
 
 // Reflection Shield +1
-// Gwen fix: clears duplicate entries and adds IR compatibility (IR replaces opcode #197 with opcode #83).
-ACTION_IF (FILE_EXISTS_IN_GAME ~shld24.ITM~) THEN BEGIN
-	COPY_EXISTING ~shld24.ITM~ ~override~
+// Gwen fix: cleared duplicate entries and added IR compatibility (IR replaces opcode #197 with opcode #83).
+ACTION_IF (FILE_EXISTS_IN_GAME ~shld24.itm~) BEGIN
+	COPY_EXISTING ~shld24.itm~ ~override~
 		LPF ~GW_DEF_OFFSETS_FILE~ RET GW_oe GW_oc GW_al GW_fx GW_fi GW_fc GW_min_size END
-		PATCH_IF (SOURCE_SIZE > GW_min_size) THEN BEGIN	// protects against invalid files
+		PATCH_IF (SOURCE_SIZE > GW_min_size) BEGIN	// protects against invalid files
 			PATCH_FOR_EACH GW_opcode IN 83 197 BEGIN
 				LPF ~GW_CLEAR_DUPLICATED_OPCODES~ INT_VAR GW_opcode_to_check = GW_opcode GW_effects_type = 2 RET GW_param2_55 END
 				PATCH_FOR_EACH proj IN					// 1pp new projectiles
 					1arow01 1arow02 1arow03 1arow04 1arow05 1arow07 1arow10 1arow11 1arow15 1axe05 1axe08 1axe09 1axe10 1axe16 1bolt01 1bolt02 1bolt03 1bolt04 1bolt05 1bolt06 1bolt09 1bull02 1bull03 1bull04 1bull05 1bull06 1dagg05 1dagg11 1dagg12 1dagg16 1dart01 1dart02 1dart03 1dart04 1dart05 1dart08 BEGIN
 					SET projnb = IDS_OF_SYMBOL (~projectl~ ~%proj%~)
 					PATCH_IF projnb > 0 BEGIN
-						LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 multi_match = 1 match_opcode = GW_opcode parameter2 = projnb STR_VAR insert = last END
+						LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = GW_opcode parameter2 = projnb STR_VAR insert = last END
 					END
 				END
-				// Special case: SPEAR (55) needs a special treatment.
+				// Gwen Special case fix: SPEAR (55) needs a special treatment because some items do not bestow protection from spear projectile (used by the new javelin weapon).
 				PATCH_IF GW_param2_55 = 0 BEGIN
-					LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 multi_match = 1 match_opcode = GW_opcode parameter2 = 55 STR_VAR insert = last END
+					LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = GW_opcode parameter2 = 55 STR_VAR insert = last END
 				END
 			END
 		END
@@ -767,10 +798,10 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld24.ITM~) THEN BEGIN
 END
 
 // Gwen fix: Don't forget Gloves of Missile Snaring if IR is installed!
-ACTION_IF (FILE_EXISTS_IN_GAME ~brac18.ITM~) THEN BEGIN
-	COPY_EXISTING ~brac18.ITM~ ~override~
+ACTION_IF (FILE_EXISTS_IN_GAME ~brac18.itm~) AND (IR_INSTALLED) BEGIN
+	COPY_EXISTING ~brac18.itm~ ~override~
 		LPF ~GW_DEF_OFFSETS_FILE~ RET GW_oe GW_oc GW_al GW_fx GW_fi GW_fc GW_min_size END
-		PATCH_IF (SOURCE_SIZE > GW_min_size) THEN BEGIN	// protects against invalid files
+		PATCH_IF (SOURCE_SIZE > GW_min_size) BEGIN	// protects against invalid files
 			LPF ~GW_CLEAR_DUPLICATED_OPCODES~ INT_VAR GW_opcode_to_check = 83 GW_effects_type = 2 RET GW_param2_55 END
 			PATCH_FOR_EACH proj IN						// 1pp new projectiles
 				1arow01 1arow02 1arow03 1arow04 1arow05 1arow07 1arow10 1arow11 1arow15 1axe05 1axe08 1axe09 1axe10 1axe16 1bolt01 1bolt02 1bolt03 1bolt04 1bolt05 1bolt06 1bolt09 1bull02 1bull03 1bull04 1bull05 1bull06 1dagg05 1dagg11 1dagg12 1dagg16 1dart01 1dart02 1dart03 1dart04 1dart05 1dart08 BEGIN
@@ -779,7 +810,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~brac18.ITM~) THEN BEGIN
 					LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 83 parameter2 = projnb STR_VAR insert = last END
 				END
 			END
-			// Special case: SPEAR (55) needs a special treatment.
+				// Gwen Special case fix: SPEAR (55) needs a special treatment because some items do not bestow protection from spear projectile (used by the new javelin weapon).
 			PATCH_IF GW_param2_55 = 0 BEGIN
 				LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 83 parameter2 = 55 STR_VAR insert = last END
 			END
@@ -788,20 +819,20 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~brac18.ITM~) THEN BEGIN
 END
 
 // Inertial Barrier - Storm Shield - Greater Evasion
-// Gwen fix: patches all headers (was patching only the first header), fixes wrong duration, target, power, resist dispel... Adds missing protections from new normal 1pp ammo projectiles (1axe05, 1dagg05 and 1dart01). The code was only providing protection from 1arow01 and 1bolt01 new projectiles.
-ACTION_FOR_EACH spell IN ~SPIN546~ ~SPCL721~ ~SPCL914~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.SPL~) THEN BEGIN
-		COPY_EXISTING ~%spell%.SPL~ ~override~
+// Gwen fix: patched all headers (was patching only the first header), fixed wrong duration, target, power, resist dispel... Added missing protections from new normal 1pp ammo projectiles (1dagg05 and 1dart01). The code was only providing protection from 1arow01 and 1bolt01 new projectiles.
+ACTION_FOR_EACH spell IN ~spin546~ ~spcl721~ ~spcl914~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.spl~) BEGIN
+		COPY_EXISTING ~%spell%.spl~ ~override~
 			LPF ~GW_DEF_OFFSETS_FILE~ RET GW_oe GW_oc GW_al GW_fx GW_fi GW_fc GW_min_size END
-			PATCH_IF (SOURCE_SIZE > GW_min_size) THEN BEGIN	// protects against invalid files
+			PATCH_IF (SOURCE_SIZE > GW_min_size) BEGIN	// protects against invalid files
 				LPF ~GW_CLEAR_DUPLICATED_OPCODES~ INT_VAR GW_opcode_to_check = 83 GW_effects_type = 2 RET GW_param2_55 END
-				PATCH_FOR_EACH proj IN 1arow01 1bolt01 1axe05 1dagg05 1dart01 BEGIN
+				PATCH_FOR_EACH proj IN 1arow01 1bolt01 1dagg05 1dart01 BEGIN
 					SET projnb = IDS_OF_SYMBOL (~projectl~ ~%proj%~)
 					PATCH_IF projnb > 0 BEGIN
 						LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 multi_match = 1 match_opcode = 83 parameter2 = projnb STR_VAR insert = last END
 					END
 				END
-				// Special case: SPEAR (55) needs a special treatment.
+				// Gwen Special case fix: SPEAR (55) needs a special treatment because some items do not bestow protection from spear projectile (used by the new javelin weapon).
 				PATCH_IF GW_param2_55 = 0 BEGIN
 					LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 multi_match = 1 match_opcode = 83 parameter2 = 55 STR_VAR insert = last END
 				END
@@ -811,12 +842,12 @@ ACTION_FOR_EACH spell IN ~SPIN546~ ~SPCL721~ ~SPCL914~ BEGIN
 END
 
 // Protection From Normal Missiles (adds CDWI311 from BG2 Fixpack)
-//Gwen fix: same as above + add SR compatibility (protection from all types of missiles, including magic ones).
-ACTION_FOR_EACH spell IN ~SPRA303~ ~SPWI311~ ~CDWI311~ BEGIN
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.SPL~) THEN BEGIN
+// Gwen fix: same as above + added SR compatibility (protection from all types of missiles, including magic ones).
+ACTION_FOR_EACH spell IN ~spra303~ ~spwi311~ ~cdwi311~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%spell%.SPL~) BEGIN
 		COPY_EXISTING ~%spell%.SPL~ ~override~
 			LPF ~GW_DEF_OFFSETS_FILE~ RET GW_oe GW_oc GW_al GW_fx GW_fi GW_fc GW_min_size END
-			PATCH_IF (SOURCE_SIZE > GW_min_size) THEN BEGIN	// protects against invalid files
+			PATCH_IF (SOURCE_SIZE > GW_min_size) BEGIN	// protects against invalid files
 				LPF ~GW_CLEAR_DUPLICATED_OPCODES~ INT_VAR GW_opcode_to_check = 83 GW_effects_type = 2 RET GW_param2_55 END
 				PATCH_IF SR_INSTALLED BEGIN
 					PATCH_FOR_EACH proj IN					// 1pp new projectiles
@@ -827,14 +858,14 @@ ACTION_FOR_EACH spell IN ~SPRA303~ ~SPWI311~ ~CDWI311~ BEGIN
 						END
 					END
 				END ELSE BEGIN
-					PATCH_FOR_EACH proj IN 1arow01 1bolt01 1axe05 1dagg05 1dart01 BEGIN
+					PATCH_FOR_EACH proj IN 1arow01 1bolt01 1dagg05 1dart01 BEGIN
 						SET projnb = IDS_OF_SYMBOL (~projectl~ ~%proj%~)
 						PATCH_IF projnb > 0 BEGIN
 							LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 multi_match = 1 match_opcode = 83 parameter2 = projnb STR_VAR insert = last END
 						END
 					END
 				END
-				// Special case: SPEAR (55) needs a special treatment.
+				// Gwen Special case fix: SPEAR (55) needs a special treatment because some items do not bestow protection from spear projectile (used by the new javelin weapon).
 				PATCH_IF GW_param2_55 = 0 BEGIN
 					LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 multi_match = 1 match_opcode = 83 parameter2 = 55 STR_VAR insert = last END
 				END
@@ -844,11 +875,11 @@ ACTION_FOR_EACH spell IN ~SPRA303~ ~SPWI311~ ~CDWI311~ BEGIN
 END
 
 // Physical Mirror
-// Gwen fix: clears duplicate entries and adds SR compatibility (SR replaces opcode #197 with opcode #83).
-ACTION_IF (FILE_EXISTS_IN_GAME ~sppr613.spl~) THEN BEGIN
+// Gwen fix: cleared duplicate entries and added SR compatibility (SR replaces opcode #197 with opcode #83).
+ACTION_IF (FILE_EXISTS_IN_GAME ~sppr613.spl~) BEGIN
 	COPY_EXISTING ~sppr613.spl~ ~override~
 		LPF ~GW_DEF_OFFSETS_FILE~ RET GW_oe GW_oc GW_al GW_fx GW_fi GW_fc GW_min_size END
-		PATCH_IF (SOURCE_SIZE > GW_min_size) THEN BEGIN	// protects against invalid files
+		PATCH_IF (SOURCE_SIZE > GW_min_size) BEGIN	// protects against invalid files
 			PATCH_FOR_EACH GW_opcode IN 83 197 BEGIN
 				LPF ~GW_CLEAR_DUPLICATED_OPCODES~ INT_VAR GW_opcode_to_check = GW_opcode GW_effects_type = 2 RET GW_param2_55 END
 				PATCH_FOR_EACH proj IN					// 1pp new projectiles
@@ -858,7 +889,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sppr613.spl~) THEN BEGIN
 						LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 multi_match = 1 match_opcode = GW_opcode parameter2 = projnb STR_VAR insert = last END
 					END
 				END
-				// Special case: SPEAR (55) needs a special treatment.
+				// Gwen Special case fix: SPEAR (55) needs a special treatment because some items do not bestow protection from spear projectile (used by the new javelin weapon).
 				PATCH_IF GW_param2_55 = 0 BEGIN
 					LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 multi_match = 1 match_opcode = GW_opcode parameter2 = 55 STR_VAR insert = last END
 				END
@@ -870,10 +901,10 @@ END
 // Gwen fix: Don't forget Entropy Shield spell if IWDIfication is installed!
 ACTION_IF (FILE_CONTAINS_EVALUATED(~spell.ids~ ~CLERIC_ENTROPY_SHIELD~)) BEGIN
 	LAF RES_NUM_OF_SPELL_NAME STR_VAR spell_name = CLERIC_ENTROPY_SHIELD RET spell_num spell_res END
-	ACTION_IF (FILE_EXISTS_IN_GAME ~%spell_res%.SPL~) THEN BEGIN
-		COPY_EXISTING ~%spell_res%.SPL~ ~override~
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%spell_res%.spl~) BEGIN
+		COPY_EXISTING ~%spell_res%.spl~ ~override~
 			LPF ~GW_DEF_OFFSETS_FILE~ RET GW_oe GW_oc GW_al GW_fx GW_fi GW_fc GW_min_size END
-			PATCH_IF (SOURCE_SIZE > GW_min_size) THEN BEGIN	// protects against invalid files
+			PATCH_IF (SOURCE_SIZE > GW_min_size) BEGIN	// protects against invalid files
 				LPF ~GW_CLEAR_DUPLICATED_OPCODES~ INT_VAR GW_opcode_to_check = 83 GW_effects_type = 0 RET GW_param2_55 END
 				PATCH_FOR_EACH proj IN						// 1pp new projectiles
 					1arow01 1arow02 1arow03 1arow04 1arow05 1arow07 1arow10 1arow11 1arow15 1axe05 1axe08 1axe09 1axe10 1axe16 1bolt01 1bolt02 1bolt03 1bolt04 1bolt05 1bolt06 1bolt09 1bull02 1bull03 1bull04 1bull05 1bull06 1dagg05 1dagg11 1dagg12 1dagg16 1dart01 1dart02 1dart03 1dart04 1dart05 1dart08 BEGIN
@@ -882,7 +913,7 @@ ACTION_IF (FILE_CONTAINS_EVALUATED(~spell.ids~ ~CLERIC_ENTROPY_SHIELD~)) BEGIN
 						LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 multi_match = 1 match_opcode = 83 parameter2 = projnb STR_VAR insert = above END
 					END
 				END
-				// Special case: SPEAR (55) needs a special treatment.
+				// Gwen Special case fix: SPEAR (55) needs a special treatment because some items do not bestow protection from spear projectile (used by the new javelin weapon).
 				PATCH_IF GW_param2_55 = 0 BEGIN
 					LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 multi_match = 1 match_opcode = 83 parameter2 = 55 STR_VAR insert = above END
 				END
