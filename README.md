@@ -786,7 +786,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
   - TODO Component Improved projectile effects [401] fully re-written: cleared duplicated vanilla #89 and #197 opcodes, cloned existing effects existants instead of adding new ones...
   - Coding simplification:
     - Replaced macros with functions whenever possible.
-    - Copied entire folders instead of infinite lines (`COPY \~1pp/folder/file.ext\~ \~override\~` or `ACTION_FOR_EACH file IN list BEGIN COPY \~1pp/folder/file.ext\~ \~override\~ END`).
+    - Copied entire folders instead of infinite lines of code (`COPY \~1pp/folder/file.ext\~ \~override\~` or `ACTION_FOR_EACH file IN list BEGIN COPY \~1pp/folder/file.ext\~ \~override\~ END`).
     - Grouped actions or patches with `ACTION_FOR_EACH` and `PATCH_FOR_EACH` whenever possible.
     - Used new and more efficient WeiDU functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. `ADD_ITEM_EQEFFECT`, `ALTER_EFFECT` and `ALTER_ITEM_HEADER` replaced so many lines of codes!).
     - Avoided copying and overwriting the same files again and again...
@@ -794,41 +794,46 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
   - Added French translation (Gwendolyne).
   - Traification. Feel free to provide me with translations. I will include them as soon as possible.
   - TODO Removed unused files.
-  - TODO Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to the creature types.
+  - Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to creature types. 
   - TODO Lower cased files.
   - Updated WeiDU installer to v246.
   - Uploaded mod to official Spellhold Studios GitHub mirror account.
 
 <ins>b. Components specific changes and fixes</ins>
   - [101] 1ppv4: Core paperdolls - main component (101_base.tph, 101_ia.tph, 101_iwd.tph and 101_obj.tph)
-    - Replaced `GAME_IS` conditions with variables checks to speed up install time.
-    - Copy entire folders instead of infinite lines.
+    - Copied entire folders instead of infinite lines of code.
     - Infinity Animations paperdolls for Legacy animations (101_ia.tph): Replaced `READLN` action "*Use 1pp or IWD style female dwarf paperdolls?*" with reading new setting (1pp_fdwarf) from *1pp-config-default.ini* or *1pp-config-user.ini* [default value = 2 (1pp style)].
 	- Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to the creature types.
 
   - [102-103] 1ppv4: Extended palette entries (102_compat.tph and 103_extpal.tph)
-    - Replaced `GAME_IS` conditions with variables checks to speed up install time.
-    - Copy entire folders instead of infinite lines.
+    - Copied entire folders instead of infinite lines of code.
 
   - [104] 1ppv4: GUI additions for BGII (104_core.tph)
-    - Replaced `GAME_IS` conditions with variables checks to speed up install time.
-    - Copy entire folders instead of infinite lines.
+    - Copied entire folders instead of infinite lines.
     - Replaced `READLN` actions "*Do you want to include SoA style loading screens for ToB?*", "*Install updated fonts? (may cause issues with languages using different font .BAMs)*" and "*Use mixed case labels?*" with reading new settings (1pp_gui_soa, 1pp_updated_fonts and 1pp_mixed_labels) from *1pp-config-default.ini* or *1pp-config-user.ini*.
 
   - [105] 1ppv4: Avatar fixes (105_avatars.tph)
-    - Replaced `GAME_IS` conditions with variables checks to speed up install time.
-    - Copy entire folders instead of infinite lines.
+    - Copied entire folders instead of infinite lines of code.
+
+  - [106-107-108-109] 1ppv4: Female Dwarves (106_f_dwarves_bg2.tph, 107_f_dwarves_iwd2.tph, 108_f_dwarves_odd2.tph and 109_f_dwarves_iwd.tph)
+    - Copied entire folders instead of infinite lines of code.
+
+  - [110-111-112] 1ppv4: Female Dwarves (110_thieves_iwd.tph, 111_thieves_bg2.tph and 112_thieves_iwd2.tph)
+    - Copied entire folders instead of infinite lines of code.
 
   - [113] 1ppv4: Smart Avatar & Armour Switching (113_switch.tph)
-    - Replaced `GAME_IS` conditions with variables checks to speed up install time.
-    - Copy entire folders instead of infinite lines.
+    - Copied entire folders instead of infinite lines of code.
     - Used newer and more efficient `ADD_ITEM_EQEFFECT` WeiDU function to replace so many lines of codes.
 
   - [114] 1ppv4: Softer Spell Effects (114_effects.tph)
     - Replaced `READLN` action "*WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS NOT A GOOD IDEA.*" with reading `3D Acceleration=1` in baldur.ini, icewind.ini or icewind2.ini before running the component.
     - Replaced `READLN` actions "*Install IWD-style Agannazar's Scorcher or alternate style?*", and "*Install less obtrusive dispel magic effect?*" with reading new settings (1pp_agannazar_scorcher and 1pp_dispel_magic_effect) from *1pp-config-default.ini* or *1pp-config-user.ini*.
-    - Replaced `GAME_IS` conditions with variables checks to speed up install time.
     - Function `GW_MODIFY_PROJ` replaces <a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/114_effects.tph.patch">Lollorian's BWP Fixpack misc patchified code changes</a> (modify new projectile values in ALL spell headers) which was inefficient and patched nothing. Moreover, it was using a wrong offset coding for ITM files. Source: <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">commit</a>.
+    - Provided BG2 Fixpack and partial SR compatibility in a rather softer way.
+    - specific fixes:
+      - spin897.spl (Gas Spore): added BG2 Fixpack compatibility. BG2 Fixpack replaces CLOUDKIL.pro with cdnpcsym.pro, preventing 1pp to replace it with 1pgspore.pro.
+      - spwi614.spl (Death fog): added Acid Fog SR compatibility. SR replaces CLOUDKIL.pro with dvafog.pro, preventing 1pp to replace it with 1pdeathf.pro.
+      - spwi810.spl (Incendiary Cloud): added SR compatibility. SR replaces CLOUDKIL.pro with dvicloud.pro, preventing 1pp to replace it with 1pincind.pro.
 
   - [200] 1ppv4: Core content patches (200_1ppv2_cut.tph)
     - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla ihamm10 icon and installs new ihamm10 1pp icon as ihamm05b), and not to set Borok's Fist's icon to Runehammers.

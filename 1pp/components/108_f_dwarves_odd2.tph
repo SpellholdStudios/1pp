@@ -1,16 +1,16 @@
-/* ================================================================================================================================================================================= *
- *                                                                                                                                                                                   *
- *                                                  C O M P O N E N T   :   F e m a l e   D w a r v e s   f o r   o d d   I W D I I                                                  *
- *                                                                                                                                                                                   *
- * ================================================================================================================================================================================= *
- *  This component patches Baldur's Gate II engine games to use separate avatar animations for female dwarves and mages of small races, and includes game content for all of these.  *
- *  .exe patching and relevant code courtesy of Mike1072. experimental IWD .exe patching to be blamed on me.                                                                         *
- * ================================================================================================================================================================================= *
- *  change-log:                                                                                                                                                                      *
- *  -----------                                                                                                                                                                      *
- *      - Coding simplification:                                                                                                                                                     *
- *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).   *
- * ================================================================================================================================================================================= */
+/* ================================================================================================================================================================================== *
+ *  v 4.2.0                                                                                                                                                                           *
+ *                                                  C O M P O N E N T   :   F e m a l e   D w a r v e s   f o r   o d d   I W D I I                                                   *
+ *                                                                                                                                                                                    *
+ * ================================================================================================================================================================================== *
+ *  This component patches Baldur's Gate II engine games to use separate avatar animations for female dwarves and mages of small races, and includes game content for all of these.   *
+ *  .exe patching and relevant code courtesy of Mike1072. experimental IWD .exe patching to be blamed on me.                                                                          *
+ * ================================================================================================================================================================================== *
+ *  change-log:                                                                                                                                                                       *
+ *  -----------                                                                                                                                                                       *
+ *      - Coding simplification:                                                                                                                                                      *
+ *          Copied entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ * ================================================================================================================================================================================== */
 
 SILENT
 OUTER_SET fail = 0
@@ -18,8 +18,10 @@ OUTER_SET fail = 0
 /* =================== *
  *  PATCHING IWD2.EXE  *
  * =================== */
-ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN	// don't have mac info yet
-	COPY ~IWD2.exe~ ~IWD2.exe~
+
+ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN // don't have mac info yet
+
+	COPY ~iwd2.exe~ ~iwd2.exe~
 		PATCH_IF (SOURCE_SIZE == 5029888) BEGIN // is IWD2
 			READ_BYTE "0x2c42e3" "check_r"
 			PATCH_IF ("%check_r%" = 0x68) BEGIN
@@ -929,6 +931,7 @@ ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_C
 			PATCH_PRINT @103019 // ~Error: the source size does not seem to match. Stopping installation for safety purposes.~
 			SET fail = 1
 		END
+
 END	// of ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~)
 
 ACTION_IF (fail = 1) BEGIN
@@ -940,7 +943,7 @@ END
  *  INSTALLING THE ACTUAL COMPONENT CONTENT, YAY  *
  * ============================================== */
 
-PRINT @106002 /* Copying new files */
+PRINT @106002 // ~Copying new files.~
 SILENT
 
 /* ----------------------------------------------------- *

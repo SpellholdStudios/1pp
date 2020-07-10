@@ -1,21 +1,22 @@
-/* =================================================================================================================================================================================== *
- *                                                                                                                                                                                     *
- *                                                           C O R E   C O M P O N E N T   :   C o r e   p a p e r d o l l s                                                           *
- *                                                                                                                                                                                     *
- * =================================================================================================================================================================================== *
- *  This component ports Baldur's Gate I style paperdolls for the IWD engine.                                                                                                          *
- *  This part installs paperdolls for IWD base and HoW installs and includes paperdolls for otherwise still pristine games.                                                            *
- * =================================================================================================================================================================================== *
- *  change-log:                                                                                                                                                                        *
- *  -----------                                                                                                                                                                        *
- *      - Coding simplification:                                                                                                                                                       *
- *          Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).     *
- *          Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to the creature types.                                                   *
- * =================================================================================================================================================================================== */
+/* ================================================================================================================================================================================== *
+ *  v 4.2.0                                                                                                                                                                           *
+ *                                                    C O R E   C O M P O N E N T   :   C o r e   p a p e r d o l l s   ( I W D )                                                     *
+ *                                                                                                                                                                                    *
+ * ================================================================================================================================================================================== *
+ *  This component ports Baldur's Gate I style paperdolls for the IWD engine.                                                                                                         *
+ *  This part installs paperdolls for IWD base and HoW installs and includes paperdolls for otherwise still pristine games.                                                           *
+ * ================================================================================================================================================================================== *
+ *  change-log:                                                                                                                                                                       *
+ *  -----------                                                                                                                                                                       *
+ *      - Coding simplification:                                                                                                                                                      *
+ *          Copied entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ *          Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to the creature types.                                                  *
+ * ================================================================================================================================================================================== */
 
 /* ======= *
  *  TotLM  *
  * ======= */
+
 ACTION_IF (GAME_IS ~totlm~) BEGIN
 
 	OUTER_SET fail = 0
@@ -23,10 +24,10 @@ ACTION_IF (GAME_IS ~totlm~) BEGIN
 	PRINT @101400 // ~Fixing the train wreck that is half-BG1-half-BG2 paperdoll calls - check.~
 	SILENT
 
-	ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN	// don't have mac info yet
+	ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN // don't have mac info yet
 		COPY ~IDmain.exe~ ~IDmain.exe~
 			// determine which version of the game is used, and set the base offset accordingly
-			PATCH_IF (SOURCE_SIZE == 6873088) BEGIN	// IWD 1.4.2
+			PATCH_IF (SOURCE_SIZE == 6873088) BEGIN // IWD 1.4.2
 				READ_BYTE 0x3d5c2b tst_val
 				PATCH_IF (tst_val = 0x6c) BEGIN
 					WRITE_BYTE 0x3d5c2b 0x70
@@ -56,6 +57,7 @@ END
 /* ===== *
  *  HoW  *
  * ===== */
+
 ACTION_IF (GAME_IS ~how~) BEGIN
 
 	OUTER_SET fail = 0

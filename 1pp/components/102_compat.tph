@@ -1,17 +1,17 @@
-/* =================================================================================================================================================================================== *
- *                                                                                                                                                                                     *
- *                                                F O R C E D   C O M P O N E N T   :   E x t e n d e d   p a l e t t e   e n t r i e s                                                *
- *                                                                                                                                                                                     *
- * =================================================================================================================================================================================== *
- *  This component adds new colour gradients to Infinity Engine games, raising the count of available colours from 116 to 256.                                                         *
- *  This part installs the basic files needed for 1pp to work properly but does not support using the new colours as character colours for installs that do not support the binary     *
- *  patch (OSX).                                                                                                                                                                       *
- *  Compatibility install for extended palette entries: no .exe patching -- required for following components.                                                                         *
- * =================================================================================================================================================================================== */
+/* ================================================================================================================================================================================ *
+ *  v 4.2.0                                                                                                                                                                         *
+ *                      F O R C E D   C O M P O N E N T   :   E x t e n d e d   p a l e t t e   e n t r i e s   ( c o m p a t i b i l i t y   i n s t a l l )                       *
+ *                                                                                                                                                                                  *
+ * ================================================================================================================================================================================ *
+ *  This component adds new colour gradients to Infinity Engine games, raising the count of available colours from 116 to 256.                                                      *
+ *  This part installs the basic files needed for 1pp to work properly but does not support using the new colours as character colours for installs that do not support the binary  *
+ *  patch (OSX).                                                                                                                                                                    *
+ *  Compatibility install for extended palette entries: no .exe patching -- required for following components.                                                                      *
+ * ================================================================================================================================================================================ */
 
 PRINT @103016 // ~Copying files...~
-
 SILENT
+
 COPY ~1pp/core/1pp_ext_pal/files/mpalette.bmp~ ~override~
 COPY ~1pp/core/1pp_ext_pal/files/mpal256.bmp~ ~override~
 COPY ~1pp/core/1pp_ext_pal/files/ranges12.bmp~ ~override~

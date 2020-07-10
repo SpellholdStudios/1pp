@@ -1,16 +1,16 @@
-/* ================================================================================================================================================================================= *
- *                                                                                                                                                                                   *
- *                                                       C O M P O N E N T   :   F e m a l e   D w a r v e s   f o r   B G I I                                                       *
- *                                                                                                                                                                                   *
- * ================================================================================================================================================================================= *
- *  This component patches Baldur's Gate II engine games to use separate avatar animations for female dwarves and mages of small races, and includes game content for all of these.  *
- *  .exe patching and relevant code courtesy of Mike1072.                                                                                                                            *
- * ================================================================================================================================================================================= *
- *  change-log:                                                                                                                                                                      *
- *  -----------                                                                                                                                                                      *
- *      - Coding simplification:                                                                                                                                                     *
- *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).   *
- * ================================================================================================================================================================================= */
+/* ================================================================================================================================================================================== *
+ *  v 4.2.0                                                                                                                                                                           *
+ *                                                       C O M P O N E N T   :   F e m a l e   D w a r v e s   f o r   B G I I                                                        *
+ *                                                                                                                                                                                    *
+ * ================================================================================================================================================================================== *
+ *  This component patches Baldur's Gate II engine games to use separate avatar animations for female dwarves and mages of small races, and includes game content for all of these.   *
+ *  .exe patching and relevant code courtesy of Mike1072.                                                                                                                             *
+ * ================================================================================================================================================================================== *
+ *  change-log:                                                                                                                                                                       *
+ *  -----------                                                                                                                                                                       *
+ *      - Coding simplification:                                                                                                                                                      *
+ *          Copied entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ * ================================================================================================================================================================================== */
 
 SILENT
 OUTER_SET fail = 0
@@ -18,7 +18,9 @@ OUTER_SET fail = 0
 /* ===================== *
  *  PATCHING BGMAIN.EXE  *
  * ===================== */
-ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN	// don't have mac info yet
+
+ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN // don't have mac info yet
+
 	// patch executable to write references to new avatars
 	COPY ~bgmain.exe~ ~bgmain.exe~
 		// determine which version of the game is used, and set the base offset accordingly
@@ -33,6 +35,7 @@ ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_C
 		END
 		ELSE BEGIN
 			PATCH_PRINT @103008 // ~Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only).~
+			PATCH_SILENT
 			SET fail = 1
 		END
 
@@ -62,10 +65,12 @@ ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_C
 					WRITE_ASCIIE actual_off ~%new_val%~ #4
 				END ELSE BEGIN
 					PATCH_PRINT @106000 // ~Error: the value we are trying to replace at offset %actual_off% (%cur_val%) in bgmain does not match what was expected (%old_val%). Stopping installation for safety purposes.~
+					PATCH_SILENT
 					SET fail = 1
 				END
 			END
 		END
+
 END	// of ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~)
 
 ACTION_IF (fail == 1) BEGIN

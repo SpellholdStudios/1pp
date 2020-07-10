@@ -1,27 +1,28 @@
 /* =================================================================================================================================================================================== *
- *                                                                                                                                                                                     *
- *                                                           C O M P O N E N T   :   A v a t a r   f i x e s   [1ppv3 (4!)]                                                            *
+ *  v 4.2.0                                                                                                                                                                            *
+ *                                                      C O M P O N E N T   :   A v a t a r   f i x e s   [ 1 p p v 3   ( 4 ! ) ]                                                      *
  *                                                                                                                                                                                     *
  * =================================================================================================================================================================================== *
  *  This component contains fixes and improvements for several avatar series of Baldur's Gate II character animations, along with updated paperdolls to better match the new content.  *
  *  Like whoa, this is huge..                                                                                                                                                          *
- *  Gwen fix: not anymore, since it now (copies entire folders and gets rid of copy xxxxxA1... A9, G1... G19, CA, SA, SX, SX!                                                          *
+ *  Gwen fix: not anymore, since it now copies entire folders and gets rid of copy xxxxxA1... A9, G1... G19, CA, SA, SX, SX!                                                           *
  * =================================================================================================================================================================================== *
  *  change-log:                                                                                                                                                                        *
  *  -----------                                                                                                                                                                        *
  *      - Coding simplification:                                                                                                                                                       *
  *          Replaced `GAME_IS` conditions with variables checks to speed up install time.                                                                                              *
- *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).     *
+ *          Copied entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).   *
  * =================================================================================================================================================================================== */
 
 SILENT
-/* ====================================== *
- *  Improved Animation for: Elven Female  *
- * ====================================== */
+/* ===================================== *
+ *  Improved Animation for Elven Female  *
+ * ===================================== */
 
 /* ----------------------------------------- *
  *  Female Elves with leather armour (EFB2)  *
  * ----------------------------------------- */
+
 COPY ~1pp/core/1pp_avatars/f/efb2~ ~override~
 
 ACTION_IF (is_bg2 OR is_tob OR is_tutu OR is_iwd) BEGIN // GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~
@@ -43,19 +44,21 @@ END
  *  Female Elven Cleric with plate mail (EFC4)   *
  *  Female Elven Fighter with plate mail (EFF4)  *
  * --------------------------------------------- */
+
 COPY ~1pp/core/1pp_avatars/f/efb3~ ~override~
 COPY ~1pp/core/1pp_avatars/f/efc4~ ~override~
 COPY ~1pp/core/1pp_avatars/f/eff4~ ~override~
  
 
-/* ====================================== *
- *  Improved Animation for: Female Human  *
- * ====================================== */
+/* ===================================== *
+ *  Improved Animation for Female Human  *
+ * ===================================== */
 
 /* ----------------------------------------- *
  *  Female Human unarmoured (HFB1)           *
  *  Female Human with leather armour (HFB2)  *
  * ----------------------------------------- */
+
 COPY ~1pp/core/1pp_avatars/f/hfb1~ ~override~
 COPY ~1pp/core/1pp_avatars/f/hfb2~ ~override~
 
@@ -90,6 +93,7 @@ END
 /* ------------------------------------- *
  *  Female Human with chain mail (HFB3)  *
  * ------------------------------------- */
+
 COPY ~1pp/core/1pp_avatars/f/hfb3~ ~override~
 
 ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // GAME_IS ~bg2 tob tutu tutu_totsc ca~
@@ -123,6 +127,7 @@ END
 /* -------------------------------------------- *
  *  Female Human Cleric with plate mail (HFC4)  *
  * -------------------------------------------- */
+
 COPY ~1pp/core/1pp_avatars/f/hfc4~ ~override~
 
 ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // GAME_IS ~bg2 tob tutu tutu_totsc ca~
@@ -156,6 +161,7 @@ END
 /* --------------------------------------------- *
  *  Female Human Fighter with plate mail (HFF4)  *
  * --------------------------------------------- */
+
 COPY ~1pp/core/1pp_avatars/f/hff4~ ~override~
 
 ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // GAME_IS ~bg2 tob tutu tutu_totsc ca~
@@ -189,6 +195,7 @@ END
 /* ------------------------------------- *
  *  Female Human unarmoured mage (HFW1)  *
  * ------------------------------------- */
+
 COPY ~1pp/core/1pp_avatars/f/hfw1~ ~override~
 
 ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // GAME_IS ~bg2 tob tutu tutu_totsc ca~
@@ -222,6 +229,7 @@ END
 /* ------------------------------------------ *
  *  Female Human mage with light robe (HFW2)  *
  * ------------------------------------------ */
+
 COPY ~1pp/core/1pp_avatars/f/hfw2~ ~override~
 
 ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // GAME_IS ~bg2 tob tutu tutu_totsc ca~
@@ -253,9 +261,10 @@ ACTION_IF (is_iwd) BEGIN // GAME_IS ~totlm how~
 END
 
 
-/* ============================================================= *
- *  Improved Animation for: Female Halflings (IFB1, IFB2, IFB3)  *
- * ============================================================= */
+/* ============================================================ *
+ *  Improved Animation for Female Halflings (IFB1, IFB2, IFB3)  *
+ * ============================================================ */
+
 COPY ~1pp/core/1pp_avatars/f/ifb~ ~override~
 
 ACTION_IF (is_bg2 OR is_tob OR is_tutu OR is_iwd) BEGIN // (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~)
@@ -275,17 +284,18 @@ END
 /* -------------------------------------------- *
  *  Fix frame error in halfling clerics (IFC4)  *
  * -------------------------------------------- */
-COPY ~1pp/core/1pp_avatars/f/ifc~ ~override~
 
+COPY ~1pp/core/1pp_avatars/f/ifc~ ~override~
 
 COPY ~1pp/core/1pp_avatars/f/efw4/cefw4a6.bam~ ~override~
 
 COPY ~1pp/core/1pp_avatars/m/emw4/cemw4a6.bam~ ~override~
 
 
-/* ======================================================== *
- *  Improved Animation for: Dwarves with chain mail (DMB3)  *
- * ======================================================== */
+/* ======================================================= *
+ *  Improved Animation for Dwarves with chain mail (DMB3)  *
+ * ======================================================= */
+
 COPY ~1pp/core/1pp_avatars/m/dmb3~ ~override~
 
 ACTION_IF (is_bg2 OR is_tob OR is_tutu OR is_iwd) BEGIN // (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~)
@@ -303,9 +313,10 @@ ACTION_IF (is_bg2 OR is_tob OR is_tutu OR is_iwd) BEGIN // (GAME_IS ~totlm how b
 END
 
 
-/* =========================================================== *
- *  Improved Animation for: Male Elves with chain mail (EMB3)  *
- * =========================================================== */
+/* ========================================================== *
+ *  Improved Animation for Male Elves with chain mail (EMB3)  *
+ * ========================================================== */
+
 COPY ~1pp/core/1pp_avatars/m/emb3~ ~override~
 
 ACTION_IF (is_bg2 OR is_tob OR is_tutu OR is_iwd) BEGIN // (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~)
@@ -323,9 +334,10 @@ ACTION_IF (is_bg2 OR is_tob OR is_tutu OR is_iwd) BEGIN // (GAME_IS ~totlm how b
 END
 
 
-/* =============================================================== *
- *  Improved Animation for: Male Human with leather armour (HMB2)  *
- * =============================================================== */
+/* ============================================================== *
+ *  Improved Animation for Male Human with leather armour (HMB2)  *
+ * ============================================================== */
+
 COPY ~1pp/core/1pp_avatars/m/hmb2~ ~override~
 
 ACTION_IF (is_bg2 OR is_tob OR is_tutu OR is_iwd) BEGIN // (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~)
@@ -343,9 +355,10 @@ ACTION_IF (is_bg2 OR is_tob OR is_tutu OR is_iwd) BEGIN // (GAME_IS ~totlm how b
 END
 
 
-/*  =========================================================  *
- *  Improved Animation for: Male Human with chain mail (HMB3)  *
- *  =========================================================  */
+/*  ========================================================  *
+ *  Improved Animation for Male Human with chain mail (HMB3)  *
+ *  ========================================================  */
+
 COPY ~1pp/core/1pp_avatars/m/hmb3~ ~override~
 
 ACTION_IF (is_bg2 OR is_tob OR is_tutu OR is_iwd) BEGIN // (GAME_IS ~totlm how bg2 tob tutu tutu_totsc ca~)

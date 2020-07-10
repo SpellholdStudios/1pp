@@ -1,26 +1,36 @@
-/* =================================================================================================================================================================================== *
- *                                                                                                                                                                                     *
- *                                                F O R C E D   C O M P O N E N T   :   E x t e n d e d   p a l e t t e   e n t r i e s                                                *
- *                                                                                                                                                                                     *
- * =================================================================================================================================================================================== *
- *  This component adds new colour gradients to Infinity Engine games, raising the count of available colours from 116 to 256. It also includes a new random colour table making use   *
- *  of them for Baldur's Gate II and new colour set files for Icewind Dale II, giving you more skin/hair colour choices for the various races.                                         *
- *  It also fixes a few minor problems with standard gradients.                                                                                                                        *
- *  This part is a complete install patching the game executable, enabling full use of the extended colour entries.                                                                    *
- * =================================================================================================================================================================================== *
- *  change-log:                                                                                                                                                                        *
- *  -----------                                                                                                                                                                        *
- *      - Coding simplification:                                                                                                                                                       *
- *          Replaced `GAME_IS` conditions with variables checks to speed up install time.                                                                                              *
- *          Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).     *
- * =================================================================================================================================================================================== */
+/* ================================================================================================================================================================================== *
+ *  v 4.2.0                                                                                                                                                                           *
+ *                                F O R C E D   C O M P O N E N T   :   E x t e n d e d   p a l e t t e   e n t r i e s   ( f u l l   i n s t a l l )                                 *
+ *                                                                                                                                                                                    *
+ * ================================================================================================================================================================================== *
+ *  This component adds new colour gradients to Infinity Engine games, raising the count of available colours from 116 to 256. It also includes a new random colour table making      *
+ *  use of them for Baldur's Gate II and new colour set files for Icewind Dale II, giving you more skin/hair colour choices for the various races.                                    *
+ *  It also fixes a few minor problems with standard gradients.                                                                                                                       *
+ *  This part is a complete install patching the game executable, enabling full use of the extended colour entries.                                                                   *
+ * ================================================================================================================================================================================== *
+ *  change-log:                                                                                                                                                                       *
+ *  -----------                                                                                                                                                                       *
+ *      - Coding simplification:                                                                                                                                                      *
+ *          Replaced `GAME_IS` conditions with variables checks to speed up install time.                                                                                             *
+ *          Copied entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ * ================================================================================================================================================================================== */
+
+// -------------------------------- //
+//  GAME                      line  //
+// -------------------------------- //
+//  BG2-ToB                 #   57  //
+//  IWD                     #  107  //
+//  IWD2                    #  157  //
+//  WRITE COLOURS           #  207  //
+//  TOB COLOURS             #  302  //
+// -------------------------------- //
 
 OUTER_SET fail = 0
 OUTER_SET bpoff = 0x36
 
 PRINT @103000 // ~Reading settings...~
-
 SILENT
+
 COPY ~1pp/core/1pp_ext_pal/files/__setting.bmp~ ~1pp/core/1pp_ext_pal/files/__setting.bmp~
 	PATCH_IF (SOURCE_SIZE = 1336) BEGIN
 		FOR (i = 0 ; i < 256 ; ++i) BEGIN
@@ -46,7 +56,9 @@ SILENT
 /* ========= *
  *  BG2-ToB  *
  * ========= */
+
 ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // GAME_IS ~bg2 tob tutu tutu_totsc ca~
+
 	COPY ~bgmain.exe~ ~bgmain.exe~
 		// determine which version of the game is used
 		PATCH_IF (SOURCE_SIZE == 7839790 || SOURCE_SIZE == 7843840) BEGIN	// ToB v26498
@@ -83,6 +95,7 @@ ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // GAME_IS ~bg2 tob tutu tutu_tots
 				END
 			END
 		END
+
 	ACTION_IF (fail == 1) BEGIN
 		FAIL @103008 // ~Error: could not determine which version of BG2 you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only).~
 	END
@@ -93,7 +106,9 @@ END
 /* ===== *
  *  IWD  *
  * ===== */
+
 ACTION_IF (is_iwd) BEGIN // GAME_IS ~totlm how~
+
 	COPY ~IDMain.exe~ ~IDMain.exe~
 		// determine which version of the game is used
 		PATCH_IF (SOURCE_SIZE == 6873088) BEGIN	// is IDMain 142
@@ -130,6 +145,7 @@ ACTION_IF (is_iwd) BEGIN // GAME_IS ~totlm how~
 				END
 			END
 		END
+
 	ACTION_IF (fail == 1) BEGIN
 		FAIL @103011 // ~Error: could not determine which version of IWD you are using. Make sure your game is patched to 1.4.1 (HoW) or 1.4.2 (TotL).~
 	END
@@ -140,8 +156,10 @@ END
 /* ====== *
  *  IWD2  *
  * ====== */
+
 ACTION_IF (is_iwd2) BEGIN // GAME_IS ~iwd2~
-	COPY ~IWD2.exe~ ~IWD2.exe~
+
+	COPY ~iwd2.exe~ ~iwd2.exe~
 		// trial and error
 		PATCH_IF (SOURCE_SIZE == 5029888) BEGIN	// is IWD2
 			PATCH_PRINT @103012 // ~IWD v2.0.1.0 found.~
@@ -161,7 +179,7 @@ ACTION_IF (is_iwd2) BEGIN // GAME_IS ~iwd2~
 			END
 		END
 		PATCH_IF (%tryweird% == 1) BEGIN	// is odd
-			PATCH_PRINT @103013 // ~normal patch failed, weird IWD2.exe suspected. Trying alternate patch.~
+			PATCH_PRINT @103013 // ~Normal patch failed, weird IWD2.exe suspected. Trying alternate patch.~
 			PATCH_SILENT
 			SET replace_pattern = 0x0085E8D8
 			SET replace_value = 0x008A47D4
@@ -177,8 +195,9 @@ ACTION_IF (is_iwd2) BEGIN // GAME_IS ~iwd2~
 				END
 			END
 		END
+
 	ACTION_IF (fail == 1) BEGIN
-		FAIL @103014 //~Error: Unknown type of IWDII executable.~
+		FAIL @103014 // ~Error: Unknown type of IWDII executable.~
 	END
 
 END
@@ -187,7 +206,9 @@ END
 /* =============== *
  *  Write colours  *
  * =============== */
+
 ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // GAME_IS ~bg2 tob tutu tutu_totsc ca~
+
 	COPY ~bgmain.exe~ ~bgmain.exe~
 		// determine which version of the game is used, and set the base offset accordingly
 		PATCH_IF (SOURCE_SIZE == 7839790 || SOURCE_SIZE == 7843840) BEGIN	// ToB v26498
@@ -206,10 +227,12 @@ ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // GAME_IS ~bg2 tob tutu tutu_tots
 				WRITE_LONG (base_off + (~%i%~*4)) rdgrd
 			END
 		END
+
 END
 
 ACTION_IF (is_iwd) BEGIN // GAME_IS ~totlm how~
-	COPY ~IDMain.exe~ ~IDMain.exe~
+
+	COPY ~idmain.exe~ ~idmain.exe~
 		// determine which version of the game is used, and set the base offset accordingly
 		PATCH_IF (SOURCE_SIZE == 6873088) BEGIN			// is IDMain 142
 			SET base_off = 0x6658D4
@@ -227,15 +250,17 @@ ACTION_IF (is_iwd) BEGIN // GAME_IS ~totlm how~
 				WRITE_LONG (base_off + (~%i%~*4)) rdgrd
 			END
 		END
+
 END
 
 ACTION_IF (is_iwd2) BEGIN // GAME_IS ~iwd2~
-	COPY ~IWD2.exe~ ~IWD2.exe~
+
+	COPY ~iwd2.exe~ ~iwd2.exe~
 		// determine which version of the game is used, and set the base offset accordingly
 		PATCH_IF (SOURCE_SIZE == 5029888) BEGIN	// is IWD2
 			SET base_off = 0x4A47D4
 		END ELSE BEGIN
-			PATCH_PRINT @103014 //~Error: Unknown type of IWDII executable.~
+			PATCH_PRINT @103014 // ~Error: Unknown type of IWDII executable.~
 			SET fail = 1
 		END
 
@@ -245,15 +270,17 @@ ACTION_IF (is_iwd2) BEGIN // GAME_IS ~iwd2~
 				WRITE_LONG (base_off + (~%i%~*4)) rdgrd
 			END
 		END
+
 END
 
 ACTION_IF (fail == 1) BEGIN
 	FAIL @103015 // ~Could not patch successfully.~
 END
 
-PRINT @103016 // ~Copying files...~
 
+PRINT @103016 // ~Copying files...~
 SILENT
+
 COPY ~1pp/core/1pp_ext_pal/files/mpalette.bmp~ ~override~
 COPY ~1pp/core/1pp_ext_pal/files/mpal256.bmp~  ~override~
 COPY ~1pp/core/1pp_ext_pal/files/ranges12.bmp~ ~override~
@@ -274,6 +301,7 @@ END
 /* ===== *
  *  ToB  *
  * ===== */
+
 ACTION_IF (is_tob OR is_tutu) BEGIN // GAME_IS ~tob tutu tutu_totsc ca~
 
 	CLEAR_ARRAYS
@@ -1036,7 +1064,6 @@ ACTION_IF (is_tob OR is_tutu) BEGIN // GAME_IS ~tob tutu tutu_totsc ca~
 				END
 			END
 		END
-
 		ELSE BEGIN
 			PATCH_PRINT @103019 // ~Error: the source size does not seem to match. Stopping installation for safety purposes.~
 			PATCH_FAIL  @103020 // ~Could not patch successfully. Make sure you are using the component for the right version!~
@@ -1044,7 +1071,7 @@ ACTION_IF (is_tob OR is_tutu) BEGIN // GAME_IS ~tob tutu tutu_totsc ca~
 	// END// uncomment for game files (end of EXISTS_IN)
 
 	ACTION_IF (fail = 1) BEGIN
-		FAIL @103021 // ~Error: Executable does not appear to be compatible.~
+		FAIL @103021 // ~ Error: Executable does not appear to be compatible.~
 	END
 
 	CLEAR_ARRAYS

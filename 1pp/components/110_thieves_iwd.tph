@@ -1,28 +1,29 @@
-/* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
- *                                                  C O M P O N E N T   :   U n i q u e   T h i e f   A v a t a r s   f o r   I W D                                                 *
- *                                                                                                                                                                                  *
- * ================================================================================================================================================================================ *
- *  This component will patch your executable to support full thief animation sequences and install content for them (Unique animations for different thief armour levels).         *
- *  Note: IWD HoW .exe patching is only required if you'd like to have armour and chain mail on thieves.                                                                            *
- *  (leather and unarmoured work fine) | IWD II should not need it at all.                                                                                                          *
- * ================================================================================================================================================================================ *
- *  change-log:                                                                                                                                                                     *
- *  -----------                                                                                                                                                                     *
- *      - Coding simplification:                                                                                                                                                    *
- *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
- * ================================================================================================================================================================================ */
+/* ================================================================================================================================================================================== *
+ *  v 4.2.0                                                                                                                                                                           *
+ *                                                  C O M P O N E N T   :   U n i q u e   T h i e f   A v a t a r s   f o r   I W D                                                   *
+ *                                                                                                                                                                                    *
+ * ================================================================================================================================================================================== *
+ *  This component will patch your executable to support full thief animation sequences and install content for them (Unique animations for different thief armour levels).           *
+ *  Note: IWD HoW .exe patching is only required if you'd like to have armour and chain mail on thieves.                                                                              *
+ *  (leather and unarmoured work fine) | IWD II should not need it at all.                                                                                                            *
+ * ================================================================================================================================================================================== *
+ *  change-log:                                                                                                                                                                       *
+ *  -----------                                                                                                                                                                       *
+ *      - Coding simplification:                                                                                                                                                      *
+ *          Copied entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ * ================================================================================================================================================================================== */
 
 /* =============== *
  *  EXE PATCH IWD  *
  * =============== */
+
 SILENT
 OUTER_SET fail = 0
 OUTER_SET found = 0
 
 ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN
 
-	COPY ~IDMain.exe~ ~IDMain.exe~
+	COPY ~idmain.exe~ ~idmain.exe~
 		PATCH_IF (SOURCE_SIZE == 6873088) BEGIN	// is IDMain 142
 			PATCH_PRINT @109000 // ~Icewind Dale v1.4.2 found (TotL).~
 			PATCH_SILENT
@@ -35,11 +36,11 @@ ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_C
 				SET fail = 1
 			END
 		END ELSE BEGIN
-			PATCH_PRINT @100901 // ~Warning: Icewind Dale is not patched to 1.4.2; trying 1.4.1.~
+			PATCH_PRINT @100901 // ~Warning: Icewind Dale is not patched to 1.4.2. Trying 1.4.1...~
 		END
 
 	SILENT
-	COPY ~IDMain.exe~ ~IDMain.exe~
+	COPY ~idmain.exe~ ~idmain.exe~
 		PATCH_IF (SOURCE_SIZE == 6840320) BEGIN	// is IDMain 141
 			PATCH_PRINT @109002 // ~Icewind Dale v1.4.1 found (HoW only).~
 			PATCH_SILENT
@@ -47,7 +48,7 @@ ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_C
 			READ_BYTE "0x3CF7D0" "check_r"
 			PATCH_IF ("%check_r%" = 0x32) BEGIN
 				WRITE_BYTE 0x3CF7D0 0x34
-			ELSE BEGIN
+			END ELSE BEGIN
 				PATCH_PRINT ~Error: the value we are trying to replace at offset 0x3CF7D0 (%check_r%) does not match what was expected (32). Stopping installation.~
 				SET fail = 1
 			END
@@ -119,7 +120,7 @@ COPY ~1pp/core/1pp_thieves_galore/files/cimt3~ ~override~
  *  PAPERDOLLS  *
  * ============ */
 
-PRINT @110000 // ~Paperdolls (IWD install).~
+PRINT @110000 // ~Installing paperdolls (IWD)...~
 SILENT
 
 ACTION_FOR_EACH paperdoll IN ~cdft1inv~ ~cdft2inv~ ~cdft3inv~ ~cdmt1inv~ ~cdmt2inv~ ~cdmt3inv~ ~ceft1inv~ ~ceft2inv~ ~ceft3inv~ ~cemt1inv~ ~cemt2inv~ ~cemt3inv~ ~chmt1inv~ ~chmt2inv~ ~chmt3inv~ ~cift1inv~ ~cift2inv~ ~cift3inv~ ~cimt1inv~ ~cimt2inv~ ~cimt3inv~ ~chft1inv~ ~chft2inv~ ~chft3inv~ BEGIN

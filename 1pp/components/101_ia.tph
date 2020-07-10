@@ -1,23 +1,24 @@
-/* =================================================================================================================================================================================== *
- *                                                                                                                                                                                     *
- *                                                           C O R E   C O M P O N E N T   :   C o r e   p a p e r d o l l s                                                           *
- *                                                                                                                                                                                     *
- * =================================================================================================================================================================================== *
- *  This component ports Baldur's Gate I style paperdolls for the Baldur's Gate II engine.                                                                                             *
- *  This part adds native support for Infinity Animations if detected, including support for installs of HoW using BG1 animations via the 1pp IWD animation fixpack.                   *
- *  It includes paperdolls for Legacy animations (IA).                                                                                                                                 *
- * =================================================================================================================================================================================== *
- *  change-log:                                                                                                                                                                        *
- *  -----------                                                                                                                                                                        *
- *      - Variable needed for installation (1pp_fdwarf) is read from 1pp-config-default.ini or 1pp-config-user.ini files.                                                              *
- *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is        *
- *        installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file       *
- *        provides a standard installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and      *
- *        save this file as 1pp-config-user.ini. The installation process will read both .ini files and prioritize user values. If a value is not set or mismatched in user's file     *
- *        1pp-config-user.ini, the installation process will prevent any installation failure by reverting it back to its default value.                                               *
- *      - Coding simplification:                                                                                                                                                       *
- *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).     *
- * =================================================================================================================================================================================== */
+/* ================================================================================================================================================================================== *
+ *  v 4.2.0                                                                                                                                                                           *
+ *                                             C O R E   C O M P O N E N T   :   C o r e   p a p e r d o l l s   ( I A   c o n t e n t )                                              *
+ *                                                                                                                                                                                    *
+ * ================================================================================================================================================================================== *
+ *  This component ports Baldur's Gate I style paperdolls for the Baldur's Gate II engine.                                                                                            *
+ *  This part adds native support for Infinity Animations if detected, including support for installs of HoW using BG1 animations via the 1pp IWD animation fixpack.                  *
+ *  It includes paperdolls for Legacy animations (IA).                                                                                                                                *
+ * ================================================================================================================================================================================== *
+ *  change-log:                                                                                                                                                                       *
+ *  -----------                                                                                                                                                                       *
+ *      - Variable needed for installation (1pp_fdwarf) is read from 1pp-config-default.ini or 1pp-config-user.ini files.                                                             *
+ *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is       *
+ *        installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file      *
+ *        provides a standard installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and     *
+ *        save it as 1pp-config-user.ini. The installation process will read both .ini files and prioritize user values. If a value is not set or mismatched in user's file           *
+ *        1pp-config-user.ini, the installation process will prevent any installation failure by reverting it back to its default value.                                              *
+ *      - Coding simplification:                                                                                                                                                      *
+ *          Replaced `GAME_IS` conditions with variables checks to speed up install time.                                                                                             *
+ *          Copied entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ * ================================================================================================================================================================================== */
 
 /*DEPRECATED as of v4.2.0
 ACTION_FOR_EACH paperdoll IN ~xdmc1inv~ ~xdmc2inv~ ~xdmc3inv~ ~xdmc4inv~ ~xdmf1inv~ ~xdmf2inv~ ~xdmf3inv~ ~xdmf4inv~ ~xdmt1inv~ ~xdmt2inv~ ~xdmw1inv~ ~xdmw2inv~ ~xdmw3inv~ ~xdmw4inv~ ~xefc1inv~ ~xefc2inv~ ~xefc3inv~ ~xefc4inv~ ~xeff1inv~ ~xeff2inv~ ~xeff3inv~ ~xeff4inv~ ~xeft1inv~ ~xeft2inv~ ~xefw1inv~ ~xefw2inv~ ~xefw3inv~ ~xefw4inv~ ~xemc1inv~ ~xemc2inv~ ~xemc3inv~ ~xemc4inv~ ~xemf1inv~ ~xemf2inv~ ~xemf3inv~ ~xemf4inv~ ~xemt1inv~ ~xemt2inv~ ~xemw1inv~ ~xemw2inv~ ~xemw3inv~ ~xemw4inv~ ~xhfc1inv~ ~xhfc2inv~ ~xhfc3inv~ ~xhfc4inv~ ~xhff1inv~ ~xhff2inv~ ~xhff3inv~ ~xhff4inv~ ~xhft1inv~ ~xhft2inv~ ~xhfw1inv~ ~xhfw2inv~ ~xhfw3inv~ ~xhfw4inv~ ~xhmc1inv~ ~xhmc2inv~ ~xhmc3inv~ ~xhmc4inv~ ~xhmf1inv~ ~xhmf2inv~ ~xhmf3inv~ ~xhmf4inv~ ~xhmt1inv~ ~xhmt2inv~ ~xhmw1inv~ ~xhmw2inv~ ~xhmw3inv~ ~xhmw4inv~ ~xifc1inv~ ~xifc2inv~ ~xifc3inv~ ~xifc4inv~ ~xiff1inv~ ~xiff2inv~ ~xiff3inv~ ~xiff4inv~ ~xift1inv~ ~xift2inv~ ~ximc1inv~ ~ximc2inv~ ~ximc3inv~ ~ximc4inv~ ~ximf1inv~ ~ximf2inv~ ~ximf3inv~ ~ximf4inv~ ~ximt1inv~ ~ximt2inv~ BEGIN
@@ -43,6 +44,7 @@ END
 /* ===== *
  *  IWD  *
  * ===== */
+
 ACTION_IF (is iwd) BEGIN // GAME_IS ~totlm how~
 
 	// IWD style for female dwarf paperdolls
@@ -57,6 +59,6 @@ ACTION_IF (is iwd) BEGIN // GAME_IS ~totlm how~
 		END
 	END
 
-END	// of game is IWD
+END // of game is IWD
 
 // END of COMPONENT

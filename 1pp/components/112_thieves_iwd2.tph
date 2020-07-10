@@ -1,17 +1,17 @@
-/* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
- *                                                 C O M P O N E N T   :   U n i q u e   T h i e f   A v a t a r s   f o r   I W D 2                                                *
- *                                                                                                                                                                                  *
- * ================================================================================================================================================================================ *
- *  This component will patch your executable to support full thief animation sequences and install content for them (Unique animations for different thief armour levels).         *
- *  Note: IWD HoW .exe patching is only required if you'd like to have armour and chain mail on thieves.                                                                            *
- *  (leather and unarmoured work fine) | IWD II should not need it at all.                                                                                                          *
- * ================================================================================================================================================================================ *
- *  change-log:                                                                                                                                                                     *
- *  -----------                                                                                                                                                                     *
- *      - Coding simplification:                                                                                                                                                    *
- *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
- * ================================================================================================================================================================================ */
+/* ================================================================================================================================================================================== *
+ *  v 4.2.0                                                                                                                                                                           *
+ *                                                 C O M P O N E N T   :   U n i q u e   T h i e f   A v a t a r s   f o r   I W D 2                                                  *
+ *                                                                                                                                                                                    *
+ * ================================================================================================================================================================================== *
+ *  This component will patch your executable to support full thief animation sequences and install content for them (Unique animations for different thief armour levels).           *
+ *  Note: IWD HoW .exe patching is only required if you'd like to have armour and chain mail on thieves.                                                                              *
+ *  (leather and unarmoured work fine) | IWD II should not need it at all.                                                                                                            *
+ * ================================================================================================================================================================================== *
+ *  change-log:                                                                                                                                                                       *
+ *  -----------                                                                                                                                                                       *
+ *      - Coding simplification:                                                                                                                                                      *
+ *          Copied entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ * ================================================================================================================================================================================== */
 
 /* ================== *
  *  COPY NEW CONTENT  *
@@ -67,7 +67,7 @@ COPY ~1pp/core/1pp_thieves_galore/files/cimt3~ ~override~
  * ================================ */
 // We are duplicating the plate armour animations here to avoid massive crashing
 
-PRINT @111003 /* Paperdolls (BGII install). */
+PRINT @110001 // ~Creating T4 duplicates...~
 SILENT
 
 ACTION_FOR_EACH category IN ~df~ ~dm~ ~ef~ ~hf~ ~hm~ ~if~ ~im~ BEGIN

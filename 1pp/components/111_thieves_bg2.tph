@@ -1,27 +1,29 @@
-/* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
- *                                                  C O M P O N E N T   :   U n i q u e   T h i e f   A v a t a r s   f o r   B G 2                                                 *
- *                                                                                                                                                                                  *
- * ================================================================================================================================================================================ *
- *  This component will patch your executable to support full thief animation sequences and install content for them (Unique animations for different thief armour levels).         *
- *  Note: IWD HoW .exe patching is only required if you'd like to have armour and chain mail on thieves.                                                                            *
- *  (leather and unarmoured work fine) | IWD II should not need it at all.                                                                                                          *
- * ================================================================================================================================================================================ *
- *  change-log:                                                                                                                                                                     *
- *  -----------                                                                                                                                                                     *
- *      - Coding simplification:                                                                                                                                                    *
- *  		Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
- * ================================================================================================================================================================================ */
+/* ================================================================================================================================================================================== *
+ *  v 4.2.0                                                                                                                                                                           *
+ *                                                  C O M P O N E N T   :   U n i q u e   T h i e f   A v a t a r s   f o r   B G 2                                                   *
+ *                                                                                                                                                                                    *
+ * ================================================================================================================================================================================== *
+ *  This component will patch your executable to support full thief animation sequences and install content for them (Unique animations for different thief armour levels).           *
+ *  Note: IWD HoW .exe patching is only required if you'd like to have armour and chain mail on thieves.                                                                              *
+ *  (leather and unarmoured work fine) | IWD II should not need it at all.                                                                                                            *
+ * ================================================================================================================================================================================== *
+ *  change-log:                                                                                                                                                                       *
+ *  -----------                                                                                                                                                                       *
+ *      - Coding simplification:                                                                                                                                                      *
+ *          Copied entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ * ================================================================================================================================================================================== */
 
 /* =================== *
  *  EXE PATCH BG2-ToB  *
  * =================== */
+
 SILENT
 OUTER_SET fail = 0
 OUTER_SET found = 0
 
 ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_CASE ~unix~) BEGIN
-	COPY ~BGMain.exe~ ~BGMain.exe~
+
+	COPY ~bgmain.exe~ ~bgmain.exe~
 		PATCH_IF (SOURCE_SIZE == 7417902) BEGIN // is BGMain SoA
 			PATCH_PRINT @111000 // ~BGII SoA found (v23037).~
 			PATCH_SILENT
@@ -871,7 +873,7 @@ ACTION_IF (~%WEIDU_OS%~ STRING_EQUAL_CASE ~win32~ || ~%WEIDU_OS%~ STRING_EQUAL_C
 			END
 		END
 
-	COPY ~BGMain.exe~ ~BGMain.exe~
+	COPY ~bgmain.exe~ ~bgmain.exe~
 		PATCH_IF (SOURCE_SIZE == 7839790) BEGIN // is BGMain ToB
 			PATCH_PRINT @111001 // ~BGII ToB found (v26498).~
 			PATCH_SILENT
@@ -1768,7 +1770,7 @@ COPY ~1pp/core/1pp_thieves_galore/files/cimt3~ ~override~
  *  PAPERDOLLS  *
  * ============ */
 
-PRINT @111003 /* Paperdolls (BGII install). */
+PRINT @111003 // ~Installing paperdolls (BGII)...~
 SILENT
 
 ACTION_FOR_EACH paperdoll IN ~cdft1inv~ ~cdft2inv~ ~cdft3inv~ ~cdmt1inv~ ~cdmt2inv~ ~cdmt3inv~ ~ceft1inv~ ~ceft2inv~ ~ceft3inv~ ~cemt1inv~ ~cemt2inv~ ~cemt3inv~ ~cgft1inv~ ~cgft2inv~ ~cgft3inv~ ~cgmt1inv~ ~cgmt2inv~ ~cgmt3inv~ ~chft1inv~ ~chft2inv~ ~chft3inv~ ~chmt1inv~ ~chmt2inv~ ~chmt3inv~ ~cift1inv~ ~cift2inv~ ~cift3inv~ ~cimt1inv~ ~cimt2inv~ ~cimt3inv~ ~coft1inv~ ~coft2inv~ ~coft3inv~ ~comt1inv~ ~comt3inv~ BEGIN
@@ -1787,7 +1789,7 @@ END
  * ================================ */
 // We are duplicating the plate armour animations here to avoid massive crashing
 
-PRINT @110001 // ~Paperdolls (BGII install).~
+PRINT @110001 // ~Creating T4 duplicates...~
 SILENT
 
 ACTION_FOR_EACH category IN ~df~ ~dm~ ~ef~ ~hf~ ~hm~ ~if~ ~im~ BEGIN
