@@ -23,7 +23,9 @@ Readme writing in progress... Don't try to download and install this mod as it i
 
 [Read the mod's readme](https://spellholdstudios.github.io/readmes/1pp-readme-english.html)
 
-[Download the mod at Spellhold Studios](http://www.shsforums.net/files/file/1006-1ppv410/)<br>
+[Download the mod at Spellhold Studios](http://www.shsforums.net/files/file/1006-1pp/)<br>
+
+&#9888; :exclamation: :arrow_forward: :heavy_exclamation_mark: :ballot_box_with_check: :white_check_mark:  :warning:<br>
 
 &nbsp;
 
@@ -780,8 +782,8 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
   - TODO Installation options have been moved into *1pp-config-default.ini* file. If you want to modify them, please read this <a href="#config">chapter</a>.
   - TODO Split huge [400] Core updates and item patches component into smaller ones for more comfortable readability and maintenance (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).
   - TODO Integrated all BWP Fixpack fixes (thanks Lollorian, The Imp and others!).
-  - Added ToBEx compatibility.
-  - TODO Provided partial <a href="https://www.gibberlings3.net/files/file/969-item-revisions/">Item Revisions</a>, <a href="https://www.gibberlings3.net/files/file/970-spell-revisions/">Spell Revisions</a> and <a href="https://www.gibberlings3.net/files/file/948-iwdification/">IWDification</a> compatibility in a rather soft way: As SR, IR and IWDification are still beta versions, I gave up trying to write a plain compatibility with them. It would be certainly obsolete in a few months, therefore a waste of time.
+  - Added BG2 Fixpack and ToBEx compatibility.
+  - TODO Added partial <a href="https://www.gibberlings3.net/files/file/969-item-revisions/">Item Revisions</a>, <a href="https://www.gibberlings3.net/files/file/970-spell-revisions/">Spell Revisions</a> and <a href="https://www.gibberlings3.net/files/file/948-iwdification/">IWDification</a> compatibility in a rather soft way: As SR, IR and IWDification are still beta versions, I gave up trying to write a plain compatibility with them. It would be certainly obsolete in a few months, therefore a waste of time. :wink:
   - TODO Fixed typos and misspellings preventing a few items to be patched (or patching wrong ones...).
   - TODO Component Improved projectile effects [401] fully re-written: cleared duplicated vanilla #89 and #197 opcodes, cloned existing effects existants instead of adding new ones...
   - Coding simplification:
@@ -802,7 +804,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 <ins>b. Components specific changes and fixes</ins>
   - [101] 1ppv4: Core paperdolls - main component (101_base.tph, 101_ia.tph, 101_iwd.tph and 101_obj.tph)
     - Copied entire folders instead of infinite lines of code.
-    - Infinity Animations paperdolls for Legacy animations (101_ia.tph): Replaced `READLN` action "*Use 1pp or IWD style female dwarf paperdolls?*" with reading new setting (1pp_fdwarf) from *1pp-config-default.ini* or *1pp-config-user.ini* [default value = 2 (1pp style)].
+    - Infinity Animations paperdolls for Legacy animations (101_ia.tph): replaced `READLN` action "*Use 1pp or IWD style female dwarf paperdolls?*" with reading new setting (1pp_fdwarf) from *1pp-config-default.ini* or *1pp-config-user.ini* [default value = 2 (1pp style)].
 	- Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to the creature types.
 
   - [102-103] 1ppv4: Extended palette entries (102_compat.tph and 103_extpal.tph)
@@ -829,19 +831,19 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
     - Replaced `READLN` action "*WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS NOT A GOOD IDEA.*" with reading `3D Acceleration=1` in baldur.ini, icewind.ini or icewind2.ini before running the component.
     - Replaced `READLN` actions "*Install IWD-style Agannazar's Scorcher or alternate style?*", and "*Install less obtrusive dispel magic effect?*" with reading new settings (1pp_agannazar_scorcher and 1pp_dispel_magic_effect) from *1pp-config-default.ini* or *1pp-config-user.ini*.
     - Function `GW_MODIFY_PROJ` replaces <a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/114_effects.tph.patch">Lollorian's BWP Fixpack misc patchified code changes</a> (modify new projectile values in ALL spell headers) which was inefficient and patched nothing. Moreover, it was using a wrong offset coding for ITM files. Source: <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">commit</a>.
-    - Provided BG2 Fixpack and partial SR compatibility in a rather softer way.
+    - Added BG2 Fixpack and partial SR compatibility in a rather softer way.
     - specific fixes:
       - spin897.spl (Gas Spore): added BG2 Fixpack compatibility. BG2 Fixpack replaces CLOUDKIL.pro with cdnpcsym.pro, preventing 1pp to replace it with 1pgspore.pro.
       - spwi614.spl (Death fog): added Acid Fog SR compatibility. SR replaces CLOUDKIL.pro with dvafog.pro, preventing 1pp to replace it with 1pdeathf.pro.
       - spwi810.spl (Incendiary Cloud): added SR compatibility. SR replaces CLOUDKIL.pro with dvicloud.pro, preventing 1pp to replace it with 1pincind.pro.
 
   - [200] 1ppv4: Core content patches (200_1ppv2_cut.tph)
-    - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla ihamm10 icon and installs new ihamm10 1pp icon as ihamm05b), and not to set Borok's Fist's icon to Runehammers.
-    - Replaced `READLN` action "*Do you want to include updated potion graphics?*" with reading new setting (1pp_potions_icons) from *1pp-config-default.ini* or *1pp-config-user.ini*.
+    - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla ihamm10 icon and installs new ihamm10 1pp icon as ihamm05b), and not to set Borok's Fist's icon to Runehammers [default value = 1 (Yes)].
+    - Replaced `READLN` action "*Do you want to include updated potion graphics?*" with reading new setting (1pp_potions_icons) from *1pp-config-default.ini* or *1pp-config-user.ini* [default value = 2 (Heavens no -- *Everything* but Potions!)].
     - Code simplified or re-written with newer functions to provide automatic process:
       - Replaced `WRITE_LONG 0x3E 0` and `WRITE_ASCII 0x3A \~ISHLDS01\~` with `WRITE_ASCII 0x3A \~ISHLDS01\~ #8`. Id. with offsets 0x48 0x44, and 0x5C 0x58.
       - Used `DELETE_EFFECT` and `CLONE_EFFECT` combo to add new equipped color effects, which avoids writing lines of codes!
-    - 1ppv2 BAMs: saved a few vanilla inventory icons for modding purpose (Club of Detonation +3, Splint Mail +1, Chain Mail +3, Mage Robe of Cold Resistance, Mage Robe of Fire Resistance, Mage Robe of Electric Resistance, Knave's Robe, Traveler's Robe, Adventurer's Robe, Robes of the Good, Neutral, and Evil Archmagi, Suryris's Blade +2, Ravager +4, Halberd +3, The Eyes of Truth, Helm of the Rock, Leather Armor, Studded Leather Armor, Plate Mail, Mithral Field Plate +2, Quiver of Plenty +1, Bastard Sword +2, Celestial Fury +3, Short Sword of Mask +4, Angurvadal +4, Foebane +3, Purifier +4, Yamato +4, Usuno's Blade +4, Spectral Brand +4, Hindo's Doom +3, Bastard Sword +3, Katana +3, Scimitar +3, The Answerer +4, Gram the Sword of Grief +5). Instead of definitively overwriting them, it now saves them with V suffixe before overwriting them, and does not overwrite anymore the following icons that are irrelevant (EE does not validate this change) : does not replace iax1h14.bam (Axe of the Unyielding +3) with the very inaccurate IWD Celebrant's Blade icon, idagg11.bam (Boomerang Dagger) with a clone of imisc75 (Dagger of Venom), and isw1h06.bam (Varscona +2) with a clone of isw1h41 (Long Sword +2). Does not overwrite Harbinger's icon and copies an alternate resource for modding purpose (1isw2h07). This way, Harbinger keeps its golden icon which fits to its colors settings.
+    - 1ppv2 BAMs: for modding purpose, created copies of a few vanilla inventory (Club of Detonation +3, Splint Mail +1, Chain Mail +3, Mage Robe of Cold Resistance, Mage Robe of Fire Resistance, Mage Robe of Electric Resistance, Knave's Robe, Traveler's Robe, Adventurer's Robe, Robes of the Good, Neutral, and Evil Archmagi, Suryris's Blade +2, Ravager +4, Halberd +3, The Eyes of Truth, Helm of the Rock, Leather Armor, Studded Leather Armor, Plate Mail, Mithral Field Plate +2, Quiver of Plenty +1, Bastard Sword +2, Celestial Fury +3, Short Sword of Mask +4, Angurvadal +4, Foebane +3, Purifier +4, Yamato +4, Usuno's Blade +4, Spectral Brand +4, Hindo's Doom +3, Bastard Sword +3, Katana +3, Scimitar +3, The Answerer +4, Gram the Sword of Grief +5). Instead of definitively overwriting them, it now saves them with V suffixe before overwriting them, and does not overwrite anymore the following icons that are irrelevant (EE does not validate this change) : does not replace iax1h14.bam (Axe of the Unyielding +3) with the very inaccurate IWD Celebrant's Blade icon, idagg11.bam (Boomerang Dagger) with a clone of imisc75 (Dagger of Venom), and isw1h06.bam (Varscona +2) with a clone of isw1h41 (Long Sword +2). Does not overwrite Harbinger's icon and copies an alternate resource for modding purpose (1isw2h07). This way, Harbinger keeps its golden icon which fits to its colors settings.
     - specific fixes:
       - dagg21.itm & dagg22.itm (Daggers of the Star): reverted to their original inventory icon idagg21. 1PP sets them to idagg18 (Shadow Thief Dagger icon), but EE does not validate this change.
       - halb07.itm (Halberd +2): reverted to its original inventory icon ihalb07. 1PP sets it to ihalb03 (Suryris's Blade +2 icon), but EE does not validate this change.
@@ -852,13 +854,17 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
       - sw2h11.itm (Two-handed Sword +2): reverted to its original inventory icon isw2h11. 1PP sets it to isw2h03, but EE does not validate this change.
       - sw2h20.itm (Two-handed Sword +3): reverted to its original inventory icon isw2h20. 1PP sets it to isw2h06, but EE does not validate this change.
       - sw1hwk.itm (Water's Edge +3): fixed wrong identified name.
-     - BW Herbs mod patches: fixed typo (was copying bw02ipo1_l.bam instead of bw02ipo1.bam).
+     - BW Herbs mod patches: fixed a typo (was copying bw02ipo1_l.bam instead of bw02ipo1.bam).
 
   - [201] 1ppv4: Consistent spell and scroll icons (201_spellsandscrolls.tph)
     - Integrated BWP Fixpack patch: restored Energy Blades spell and scroll icons (SPWI920) overwritten with Black Blade of Disaster's ones.
 
   - [202] 1ppv4: Spell tweaks (202_spelltweaks.tph)
-    - Integrated Lollorian's BWP Fixpack patch for individualised armor effects {<a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/202_spelltweaks.tph.patch">202_spelltweaks.tph.patch</a>): modifies opcode #215 visual effect in ALL spell headers. Source: <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/57211cf3a29cfd8381b62b3df13d3d04ed9f5fb2">commit</a>.
+    - Replaced `READLN` action "*WARNING: SPPR142/1342 (Cause Light Wounds, Cause Medium Wounds) seem to be already taken by a previously installed mod. Proceeding to install may cause issues.*" with a new code using `!FILE_CONTAINS_EVALUATED(\~spell.ids\~ \~\~)`. This will avoid to overwrite existing spells.
+    - Replaced `READLN` action "*Do you want existing 'cause wound' spells to use IWD-style icons? (healing icon in red)*" with reading new settings (1pp_iwd_cause_wounds_icons) from *1pp-config-default.ini* or *1pp-config-user.ini* [default value = 1 (Yes)].
+    - Replaced BWP Fixpack <a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/202_spelltweaks.tph.patch">Lollorian's patchified Armor animation changes</a> (202_spelltweaks.tph.patch: modifies opcode #215 visual effect in ALL spell headers) with WeiDU innate `ALTER_EFFECT` function. Source: <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/57211cf3a29cfd8381b62b3df13d3d04ed9f5fb2">commit</a>.
+    - Added SR compatibility for individualised armour effects. 1PP patches also op#215 with GARMORH resource (spwi317.spl: Ghost Armor).
+    - Added IWDIfication and SR compatibility for Installing PnP/IWD-style 'cause wounds' spells in a rather softer way.
 
   - [208] 1ppv4: Additional Helmet Animations (208_v4_helmets.tph)
     - Integrated <a href="http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/page-12#entry561441">Lollorian's BWP Fixpack JC Helm animation crash fix for IA BG1 animation compatibility</a> (patch <a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/208_v4_helmets.tph.patch">208_v4_helmets.tph.patch</a>): 1ppv4's helmet component seems to cause crashes when helmets using the JC animation are equipped by NPCs using BG1 animations from Infinity Animations. <a ref="http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/?p=561441">Source</a>
