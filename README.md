@@ -1,9 +1,8 @@
 
-<img align="right" src="1pp/documentation/files/shsweb.ico">
 ![Latest Release](https://img.shields.io/github/v/release/SpellholdStudios/1pp?include_prereleases&color=darkred)<a name="top" id="top"> </a>
 ![Platform](https://img.shields.io/static/v1?label=platform&message=windows%20%7C%20linux&color=informational)
 ![Language](https://img.shields.io/static/v1?label=language&message=English%20%7C%20French&color=limegreen)
-[floatr]Texte ou image[/floatr]
+<img align="right" src="1pp/documentation/files/images/fr-flag-32.png">
 <div align="right">Texte ou image</div>
 
 <div align="center"><h1>1pp (One Pixel Productions) - WIP</h1>
