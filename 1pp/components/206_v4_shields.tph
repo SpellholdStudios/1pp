@@ -1,5 +1,5 @@
 /* ================================================================================================================================================================================ *
- *   O n e                                                                                                                                                                          *
+ *  v 4.2.0                                                                                                                                                                  O n e  *
  *                                           C O M P O N E N T   :   A d d i t i o n a l   S h i e l d   A n i m a t i o n s   (c o r e)                                            *
  *                                                                                                                                                                                  *
  * ================================================================================================================================================================================ *
@@ -9,7 +9,7 @@
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
  *      - Coding simplification:                                                                                                                                                    *
- *          Copy entire folders instead of infinite lines and group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                   *
+ *          Copied entire folders instead of infinite lines and group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                 *
  * ================================================================================================================================================================================ */
 
 PRINT @206000 // ~Copying files...~
@@ -76,4 +76,4 @@ ACTION_IF (is_bg2 OR is_tob OR is_tutu OR is_iwd) BEGIN // (GAME_IS ~totlm how b
 
 END
 
-//END of COMPONENT
+// END of COMPONENT

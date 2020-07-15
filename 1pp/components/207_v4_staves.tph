@@ -1,15 +1,15 @@
-/* =============================================================================================================================================== *
- *   T w o                                                                                                                                         *
- *                                       C O M P O N E N T   :   W i z a r d s '    S t a v e s   (c o r e)                                        *
- *                                                                                                                                                 *
- * =============================================================================================================================================== *
- *  his component includes one new animation (wizard's staff) as well as several new paperdoll appearances for regular colourable quarterstaves.   *
- * =============================================================================================================================================== *
- *  change-log:                                                                                                                                    *
- *  -----------                                                                                                                                    *
- *      - Coding simplification:                                                                                                                   *
- *          Copy entire folders instead of infinite lines and group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.  *
- * =============================================================================================================================================== */
+/* ================================================================================================================================================= *
+ *  v 4.2.0                                                                                                                                   T w o  *
+ *                                        C O M P O N E N T   :   W i z a r d s '    S t a v e s   (c o r e)                                         *
+ *                                                                                                                                                   *
+ * ================================================================================================================================================= *
+ *  his component includes one new animation (wizard's staff) as well as several new paperdoll appearances for regular colourable quarterstaves.     *
+ * ================================================================================================================================================= *
+ *  change-log:                                                                                                                                      *
+ *  -----------                                                                                                                                      *
+ *      - Coding simplification:                                                                                                                     *
+ *          Copied entire folders instead of infinite lines and group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.  *
+ * ================================================================================================================================================= */
 
 PRINT @207000 // ~Copying files...~
 SILENT

@@ -1,18 +1,18 @@
-/* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
- *                                            C O M P O N E N T   :   C o n s i s t e n t   s p e l l   a n d   s c r o l l   i c o n s                                             *
- *                                                                                                                                                                                  *
- * ================================================================================================================================================================================ *
- *  This component harmonises spell icons introduced in Baldur's Gate II with the ones in the original game.                                                                        *
- *  It updates icons found in the spellbook as well as the stone styled UI icons along with spell scrolls.                                                                          *
- *  (proper scroll, 'stone' and mage book icons for spells and abilities introduced in SoA/ToB)                                                                                     *
- * ================================================================================================================================================================================ *
- *  change-log:                                                                                                                                                                     *
- *  -----------                                                                                                                                                                     *
- *      - BWP Fixpack patch: restores Energy Blades spell and scroll icons (SPWI920) overwritten with Black Blade of Disaster's ones.                                               *
- *     - Coding simplification:                                                                                                                                                     *
- *          Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
- * ================================================================================================================================================================================ */
+/* ================================================================================================================================================================================== *
+ *  v 4.2.0                                                                                                                                                                           *
+ *                                             C O M P O N E N T   :   C o n s i s t e n t   s p e l l   a n d   s c r o l l   i c o n s                                              *
+ *                                                                                                                                                                                    *
+ * ================================================================================================================================================================================== *
+ *  This component harmonises spell icons introduced in Baldur's Gate II with the ones in the original game.                                                                          *
+ *  It updates icons found in the spellbook as well as the stone styled UI icons along with spell scrolls.                                                                            *
+ *  (proper scroll, 'stone' and mage book icons for spells and abilities introduced in SoA/ToB)                                                                                       *
+ * ================================================================================================================================================================================== *
+ *  change-log:                                                                                                                                                                       *
+ *  -----------                                                                                                                                                                       *
+ *      - BWP Fixpack patch: restores Energy Blades spell and scroll icons (SPWI920) overwritten with Black Blade of Disaster's ones.                                                 *
+ *      - Coding simplification:                                                                                                                                                      *
+ *          Copied entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ * ================================================================================================================================================================================== */
 
 /* DEPRECATED as of v4.2.0
 ENCHAXE ENCHLSW ENCHMAC ENCHSSW ENRAGE IBLKBLAD ICRITICL IHARM IMORSWOR ISCRL1Z ISCRL5A ISCRL5B ISCRL5C ISCRL5D ISCRL5E ISCRL5F ISCRL5G ISCRL5H ISCRL5I ISCRL5J ISCRL5K ISCRL5L ISCRL5M ISCRL5N ISCRL5O ISCRL5P ISCRL5Q
@@ -26,4 +26,4 @@ SPWI120 SPWI123 SPWI124 SPWI125 SPWI220 SPWI221 SPWI222 SPWI223 SPWI224 SPWI318 
 SILENT
 COPY ~1pp/item/spells_and_scrolls/files~ ~override~
 
-//END of COMPONENT
+// END of COMPONENT

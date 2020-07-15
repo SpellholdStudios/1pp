@@ -1,5 +1,5 @@
 /* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
+ *  v 4.2.0                                                                                                                                                                         *
  *                                                    C O M P O N E N T   :   G e m s   a n d   o t h e r   S h e a n i g a n s                                                     *
  *                                                                                                                                                                                  *
  * ================================================================================================================================================================================ *
@@ -15,7 +15,7 @@
  *        1pp-config-user.ini, the installation process will prevent any installation failure by reverting it back to its default value.                                            *
  *      - Coding simplification:                                                                                                                                                    *
  *          Code re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2).                                                   *
- *          Builds an array to define new gems lore values to identify.                                                                                                             *
+ *          Build an array to define new gems lore values to identify.                                                                                                              *
  * ================================================================================================================================================================================ */
 
 PRINT @400031 // ~Patching gems...~
@@ -141,4 +141,4 @@ END
 
 ACTION_CLEAR_ARRAY 1pp_gemlores
 
-//END of COMPONENT
+// END of COMPONENT SECTION

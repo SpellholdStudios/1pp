@@ -1,5 +1,5 @@
 /* ================================================================================================================== *
- *                                                                                                                    *
+ *  v 4.2.0                                                                                                           *
  *                                C O M P O N E N T   :   L e g a c y   S h i e l d s                                 *
  *                                                                                                                    *
  * ================================================================================================================== *
@@ -11,7 +11,7 @@
  *  change-log:                                                                                                       *
  *  -----------                                                                                                       *
  *     - Coding simplification:                                                                                       *
- *          Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                       *
+ *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                     *
  * ================================================================================================================== */
 
 
@@ -145,4 +145,4 @@ COPY ~1pp/additions/obj_bl/wqsd4a5.bam~ ~override~
 COPY ~1pp/additions/obj_bl/wqsd4g1.bam~ ~override~
 COPY ~1pp/additions/obj_bl/wqsd4ss.bam~ ~override~
 
-//END of COMPONENT
+// END of COMPONENT

@@ -1,20 +1,15 @@
-/* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
- *                                    C O M P O N E N T   :   M i s c e l l a n e o u s   f i x e s                                    *
- *                                                                                                                                                                                  *
- * ================================================================================================================================================================================ *
- *  This component installs the following fixes:
- *      - dog animations (corrupted palette)
- *      - sitting static peasant woman (bad BAM conversion)
- *      - alternate fire giant animation slot (was useless as the animation had no unified palette, thus impossible to fill).                                                      *
- *  It also fixes an engine related bug on SoA/ToB and IWD:TotLM that will have helmets randomly render wrong sequences when changing equipment, making them 'float' off your character.
- *  Finally, it contains a fix for bugged shield z-buffering on SoA, ToB, IWD:TotLM and IWDII on BGII character animations.
- * ================================================================================================================================================================================ *
- *  change-log:                                                                                                                                                                     *
- *  -----------                                                                                                                                                                     *
- *      - The Imp's BWP Fixpack fix for Solar swords without graphic artifacts (http://www.shsforums.net/topic/58208-planetar-animation-glitch/ ): Fixed MASLG1S1.BAM and           *
- *        MSOLG2S1.BAM files. Source: https://github.com/omni-axa/BiG-World-Fixpack/commit/de7b3ce8439d8efa8e7427d1ad66efd0f48e547e                                                 *
- * ================================================================================================================================================================================ */
+/* ====================================================================================================================================================================================== *
+ *  v 4.2.0                                                                                                                                                                               *
+ *                                                             C O M P O N E N T   :   M i s c e l l a n e o u s   f i x e s                                                              *
+ *                                                                                                                                                                                        *
+ * ====================================================================================================================================================================================== *
+ *  This component installs the following fixes:                                                                                                                                          *
+ *      - dog animations (corrupted palette).                                                                                                                                             *
+ *      - sitting static peasant woman (bad BAM conversion).                                                                                                                              *
+ *      - alternate fire giant animation slot (was useless as the animation had no unified palette, thus impossible to fill).                                                             *
+ *  It also fixes an engine related bug on SoA/ToB and IWD:TotLM that will have helmets randomly render wrong sequences when changing equipment, making them 'float' off your character.  *
+ *  Finally, it contains a fix for bugged shield z-buffering on SoA, ToB, IWD:TotLM and IWDII on BGII character animations.                                                               *
+ * ====================================================================================================================================================================================== */
 
 /* ====================== *
  *  ENGINE HELMET GLITCH  *
@@ -267,4 +262,4 @@ ACTION_FOR_EACH file IN ~mfigg1b.bmp~ ~mfigg2.bam~ ~mfigg21.bam~ ~mfigg22.bam~ ~
 	COPY ~1pp/core/misc/%file%~ ~override~
 END
 
-//END of COMPONENT
+// END of COMPONENT

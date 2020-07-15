@@ -1,5 +1,5 @@
 /* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
+ *  v 4.2.0                                                                                                                                                                         *
  *                                    C O M P O N E N T   :   F i x e d   a n i m a t i o n s   f o r   s o l a r s   a n d   e l e m en t a l s                                    *
  *                                                                                                                                                                                  *
  * ================================================================================================================================================================================ *
@@ -8,15 +8,14 @@
  * ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
- *      - Variable needed for installation (1pp_solar_weapons) is read from 1pp-config-default.ini or 1pp-config.ini files.                                                         *
- *        1pp-config-default.ini or 1pp-config.ini files.                                                                                                                           *
+ *      - Variable needed for installation (1pp_solar_weapons) is read from 1pp-config-default.ini or 1pp-config-user.ini files.                                                    *
  *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is     *
  *        installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file    *
  *        provides a standard installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and   *
- *        save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini,    *
- *        the installation process will prevent any installation failure by reverting it back to its default value.                                                                 *
- *      - The Imp's BWP Fixpack fix for Solar swords without graphic artifacts (http://www.shsforums.net/topic/58208-planetar-animation-glitch/ ): Fixed MASLG1S1.BAM and           *
- *        MSOLG2S1.BAM files. Source: https://github.com/omni-axa/BiG-World-Fixpack/commit/de7b3ce8439d8efa8e7427d1ad66efd0f48e547e                                                 *
+ *        save it as 1pp-config-user.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in user's file          *
+ *        1pp-config-user.ini, the installation process will prevent any installation failure by reverting it back to its default value.                                            *
+ *      - Integrated The Imp's BWP Fixpack fix for Solar swords without graphic artifacts (http://www.shsforums.net/topic/58208-planetar-animation-glitch/ ): Fixed MASLG1S1.BAM    *
+ *        and MSOLG2S1.BAM files. Source: https://github.com/omni-axa/BiG-World-Fixpack/commit/de7b3ce8439d8efa8e7427d1ad66efd0f48e547e                                             *
  * ================================================================================================================================================================================ */
 
 /* =============== *
@@ -208,9 +207,9 @@ END ELSE BEGIN
 END
 
 
-/* =============== *
- *  PATCHING .EXE  *
- * =============== */
+/* ============================ *
+ *  FIRE ELEMENTALS ANIMATIONS  *
+ * ============================ */
 
 PRINT @300009 // ~Installing files for elementals...~
 SILENT
@@ -219,4 +218,4 @@ ACTION_FOR_EACH file IN ~mfieg1.bam~ ~mfieg11.bam~ ~mfieg12.bam~ ~mfieg13.bam~ ~
 	COPY ~1pp/core/misc/%file%~ ~override~
 END
 
-//END of COMPONENT
+// END of COMPONENT

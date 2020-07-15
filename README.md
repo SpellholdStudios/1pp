@@ -25,12 +25,12 @@ Readme writing in progress... Don't try to download and install this mod as it i
 
 [Download the mod at Spellhold Studios](http://www.shsforums.net/files/file/1006-1pp/)<br>
 
-&#9888; :exclamation: :arrow_forward: :heavy_exclamation_mark: :ballot_box_with_check: :white_check_mark:  :warning:<br>
+&#9888; =  :warning: :exclamation: = :heavy_exclamation_mark: :arrow_forward: blue :ballot_box_with_check: blue :white_check_mark: green<br>
 
 &nbsp;
 
 <div align="center">
-<a href="#intro">Overview</a> &#x2B25; <a href="#installation">Installation</a> &#x2B25; <a href="#components">Components</a> &#x2B25; <a href="#101">Mod Details</a> &#x2B25; <a href="#credits">Credits</a> &#x2B25; <a href="#version">Version History</a></br>
+<a href="#intro">Overview</a> &#x2B25; <a href="#installation">Installation</a> &#x2B25; <a href="#compat">Compatibility</a> &#x2B25; <a href="#components">Components</a> &#x2B25; <a href="#101">Mod Details</a> &#x2B25; <a href="#credits">Credits</a> &#x2B25; <a href="#version">Version History</a></br>
 </div>
 
 
@@ -56,13 +56,13 @@ Visit the <a href="http://www.spellholdstudios.net/ie/1pp">website</a> or <a hre
 This mod is designed to work on the following classical Infinity Engine games:
 
 - The original Baldur's Gate II (BG2, or just SoA), with or without the Throne of Bhaal (ToB) expansion.
-- The conversion projects Baldur's Gate Trilogy (BGT) and Baldur's Gate Tutu (Tutu).
+- The conversion projects <a href="http://www.shsforums.net/forum/261-bgt-weidu/">Baldur's Gate Trilogy (BGT)</a> and <a href="http://www.pocketplane.net/mambo/index.php?option=com_content&task=blogcategory&id=143&Itemid=98">Baldur's Gate Tutu</a> (Tutu).
 - The original Icewind Dale (IWD) with either of its expansions, Heart of Winter (HoW) and Trials of the Luremaster (TotLM).
 - Icewind Dale II (IWD2).
 
-1pp is a WeiDU mod, and therefore should be compatible with all WeiDU mods. However, we cannot test every single one. If you encounter any bugs, please report them on the forum!
+1PP is a WeiDU mod, and therefore should be compatible with all WeiDU mods. However, we cannot test every single one. If you encounter any bugs, please <a href="http://www.shsforums.net/forum/159-1pp/">report them on the forum!</a><br>
 
-BG2 and TOB players are also strongly recommended to download and install the <a href="http://www.gibberlings3.net/bg2fixpack/">BG2 Fixpack</a> before proceeding with the installation of this mod.</br>
+>Although it is not required for the 1PP mod to function properly, BG2 and TOB players are strongly recommended to download and install the latest version of the <a href="http://www.gibberlings3.net/bg2fixpack/">BG2 Fixpack</a> before proceeding with the installation of this mod.<br>
 <div align="right"><a href="#top">Back to top</a></div>
 
 
@@ -73,11 +73,12 @@ BG2 and TOB players are also strongly recommended to download and install the <a
 
 #### Notes
 
-<em>If you've previously installed the mod, remove it before extracting the new version. To do this, run <strong>setup-1pp.exe</strong>, uninstall all previously installed components and delete the 1pp folder.</em>
+*If you've previously installed the mod, remove it before extracting the new version. To do this, run **`setup-1pp.exe`**, un-install all previously installed main component and delete the :file_folder: **stuffofthemagi** folder.*
 
-<em>When installing or uninstalling, <strong>do not close the <acronym title="Disk Operating System">DOS</acronym> window</strong> by clicking on the <strong>X</strong> button! Instead, press the <strong>Enter</strong> key whenever instructed to do so.</em>
+*When installing or un-installing, **do not close the DOS window** by clicking on the **X** button! Instead, press the **Enter** key whenever instructed to do so.*
 
-<em><strong>Disable any antivirus</strong> or other memory-resident software before installing this or any other mod. Some (particularly avast and Norton!) have a tendency to report false positives with mod activity, resulting in failed installs.</em>
+*__Disable any antivirus__ or other memory-resident software before installing this or any other mod. Some (particularly avast and Norton!) have a tendency to report false positives with mod activity, resulting in failed installs.*
+
 
 ## 
 
@@ -85,34 +86,52 @@ BG2 and TOB players are also strongly recommended to download and install the <a
 
 1pp for Windows is distributed as an extractable compressed archive and includes a WeiDU installer.
 
-Extract the contents of the mod archive into the folder of the game you wish to modify, using <a href="http://www.7-zip.org/download.html">7zip</a>, <a href="http://www.rarlab.com/download.htm">WinRAR</a>, or another file compression utility that handles .zip files. When properly extracted, your game directory will contain <strong>setup-1pp.exe</strong> and the folder <strong>1pp</strong>. To install, double-click <strong>setup-1pp.exe</strong> and follow the instructions on screen.
+Extract the contents of the mod archive into the folder of the game you wish to modify (*the folder which contains the "CHITIN.KEY" file*), using <a href="http://www.7-zip.org/download.html">7zip</a>, <a href="http://www.rarlab.com/download.htm">WinRAR</a>, or another file compression utility that handles .zip files. On successful extraction, there should be a :file_folder: 1pp folder and a setup-1pp.exe file in your game folder. To install, simply double-click **`setup-1pp.exe`** and follow the instructions on screen.
 
-You can run <strong>setup-1pp.exe</strong> in your game folder to reinstall, uninstall or otherwise change components.
+Run **`setup-1pp.exe`** in your game folder to reinstall, un-install or otherwise change the components settings.
 
 ## 
 
-#### Note for Complete Uninstallation
+#### Mac OS X
 
-In addition to the methods above for removing individual components, you can completely uninstall the mod using <strong>setup-1pp --uninstall</strong> at the command line to remove all components without wading through prompts.
+## 
+
+#### Linux
+
+1pp for Linux is distributed in the same compressed archive and does not include a WeiDU installer.
+
+Extract the contents of the mod to the folder of the game you wish to modify.
+
+Download the latest version of WeiDU for Linux from <a href="https://github.com/WeiDUorg/weidu/releases">WeiDU.org</a> and copy weidu and weinstall to /usr/bin. Following that, open a terminal, **`cd`** to your game installation directory, run tolower and answer 'Y' to both queries. You can avoid running the second option (linux.ini) if you've already ran it once in the same directory. To save time, the archive is already tolowered, so there's no need to run the first option (lowercasing file names) either if you've extracted only this mod since the last time you lowercased file names. If you're unsure, running tolower and choosing both options is the safe bet.
+
+To install, run **`weinstall setup-1pp`** in your game folder. Then run **`wine BGMain.exe`** and start playing.
+
+## 
+
+#### Note for Complete Un-installation
+
+In addition to the methods above for removing individual components, you can completely un-install the mod using **`setup-1pp --uninstall`** at the command line to remove all components without wading through prompts.
 
 ## 
 
 #### <a name="config" id="config">:warning: Warning: new installation process
 
-##### As of version 4.2.0, variables needed for installation are read from <a href="1pp/1pp-config-default.ini">1pp-config-default.ini</a> file, or 1pp-config.ini if it exists.
+###### As of version 4.2.0, configuration options needed for installation are read from <a href="https://github.com/SpellholdStudios/1pp/blob/master/1pp/1pp-config-default.ini">1pp-config-default.ini</a> file, or 1pp-config-user.ini if it exists.
 
-The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is installed for and already installed components). All those variables set during installation have been moved into <a href="1pp/1pp-config-default.ini">**_1pp-config-default.ini_**</a> file, found in 1pp folder. This file provides a '_standard_' installation.
+The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is installed for and on already installed components). Those options have been moved into **_1pp-config-default.ini_** file in :file_folder: **1pp** folder. This file provides a '*default*' installation.
 
-If players want to define their own customized installation, they have to edit the file 1pp-config-default.ini in Notepad or another text editor, then save it as **_1pp-config.ini_**. Each line consists of a configuration option, then '=', then a number (or in one case a string). The only thing you should edit is the number (or string).
+If you want to define their own customized installation, you have to edit the file **_1pp-config-default.ini_** with Notepad or another text editor, then save it as **_1pp-config-user.ini_**. Each line consists of a configuration option, then '=', then a number. The only thing you should edit is the number.
 
-The installation process will read both ini files and prioritize user's option values. If a value is not set or mismatched in 1pp-config.ini, any installation failure will be prevented by reverting it back to its default value.
+The installation process will read both ini files and prioritize user's options values. If a value is not set or mismatched in 1pp-config-user.ini, any installation failure will be prevented by reverting it back to its default value.
 
-Please read the <a href="1pp/1pp-config-english.txt">1pp-config-language.txt</a> file (with 'language' being the installation language you chose) to check the variables names and their meanings. Here is a chart listing the options related to the installation process:</br></br>
+Please read the *1pp-config-language.txt* file (with 'language' being the installation language you chose) to check the options names and their meanings.
+
+Here is a chart listing the options related to the installation process:</br></br>
 
 
 <table summary="Installation variables list">
 	<tr style="font-size: 125%; line-height: 160%;">
-		<th style="border: 1px solid #781808; text-align: center; background-color: #781808; color: #e5e5e5; ">Component<br>Variable</th>
+		<th style="border: 1px solid #781808; text-align: center; background-color: #781808; color: #e5e5e5; ">Component<br>Option</th>
 		<th style="border: 1px solid #781808; text-align: center; background-color: #781808; color: #e5e5e5; ">Games supported<br>Description</th>
 	</tr>
 	<tr>
@@ -365,7 +384,7 @@ Please read the <a href="1pp/1pp-config-english.txt">1pp-config-language.txt</a>
 
 The installer includes the following components. The number of each is the component <em>DESIGNATED</em> number which gives it a fixed install position, lets other components detect it and allows automated installers like the BiG World Setup specify component choices.
 
-&#8258; <strong>Game engine and core related content</strong></br>
+&#8258; &#10144; &#10152; &#10173; &#9755; <strong>Game engine and core related content</strong></br>
 ><span style="margin-left: 50px;"><a href="#101">[101] 1ppv4: Core paperdolls</a></span></br>
 ><span style="margin-left: 50px;"><a href="#102">[102-103] 1ppv4: Extended palette entries</a></span></br>
 ><span style="margin-left: 50px;"><a href="#104">[104] 1ppv4: GUI additions for BGII</a></span></br>
@@ -375,7 +394,7 @@ The installer includes the following components. The number of each is the compo
 ><span style="margin-left: 50px;"><a href="#113">[113] 1ppv4: Smart Avatar & Armour Switching</a></span></br>
 ><span style="margin-left: 50px;"><a href="#114">[114] 1ppv4: Softer Spell Effects</a></span></br>
 
-&#8258; <strong>Item patches, additions and implementation</strong></br>
+&#8258; &#x27BD; <strong>Item patches, additions and implementation</strong></br>
 
 ><span style="margin-left: 50px;"><a href="#200">[200] 1ppv4: Core content patches</a></br>
 ><span style="margin-left: 50px;"><a href="#201">[201] 1ppv4: Consistent spell and scroll icons</a></span></br>
@@ -742,14 +761,24 @@ Contains the following fixes: dog animations (corrupted palette), sitting static
 
 ## <a name="credits" id="credits"></a>Credits and Acknowledgements
 
-For support or questions, please visit the <a href="http://www.shsforums.net/index.php?showforum=159">mod forum</a>.
+For support or questions, please visit the <a href="http://www.shsforums.net/forum/159-1pp/">mod forum</a>.
 
-#### Installer & content: <a href="http://www.shsforums.net/user/2954-erephine/">Erephine</a>
+#### Author: <a href="http://www.shsforums.net/user/2954-erephine/">Erephine</a>
 
+## 
 
-#### Tools used in creation (among others)
+#### Special Acknowledgements to:
 
-- <a href="http://www.weidu.org/%7Ethebigg/">WeiDU</a> by Wes Weimer, the bigg and Wisp.
+- <a href="http://www.spellholdstudios.net/">Spellhold Studios</a> team for hosting the mod (<a href="http://www.shsforums.net">Forums</a>).
+- French translation: Gwrndolyne.
+- Everyone else from the <a href="http://gibberlings3.net/forums/">The Gibberlings Three</a>, <a href="http://www.shsforums.net/">Spellhold Studios</a> forums, and the other Infinity Engine gaming and modding communities who offered their help and support.
+- etc.
+
+## 
+
+#### Programs/tools used in creation (among others)
+
+- <a href="https://github.com/WeiDUorg/weidu/releases">WeiDU</a> by Wes Weimer, the bigg and Wisp.
 - <a href="http://notepad-plus-plus.org/">Notepad++</a> by the Notepad++ team, Don Ho, and the spellcheck plug-in.
 - <a href="http://www.shsforums.net/files/file/1048-weidu-highlighter-for-notepad/">WeiDU Notepad++ Highlighters </a> by Argent77.
 - <a href="https://www.adobe.com/products/photoshop.html">Adobe Photoshop</a>.
@@ -759,8 +788,9 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 - <a href="http://www.teambg.eu/?page=tools&amp;cat=32">BAM Workshop</a> by Glenn Flansburg.
 - <a href="http://www.shsforums.net/topic/57564-bamworkshop/">BAMWorkshop 2</a> by Andrew Bridges.
 - <a href="http://www.shsforums.net/files/file/552-developer-files-v2/">1pp dev tools</a> by Erephine.
-- <a href="http://" target="_blank">Hex Editor Neo</a>.
-- <a href="http://" target="_blank">ACDSee Pro</a>.
+- <a href="http://www.new-hex-editor.com/">Hex Editor Neo</a>.
+- <a href="https://www.acdsee.com/">ACDSee Pro</a>.
+- <a href="http://www.bulkrenameutility.co.uk/">Bulk Rename Utility</a>, by TGRMN Software.
 </br>
 <div align="right"><a href="#top">Back to top</a></div>
 
@@ -780,15 +810,15 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
   - Commented code as much as possible.
   - Replaced `GAME_IS` conditions with variables checks to speed up install time.
   - TODO Installation options have been moved into *1pp-config-default.ini* file. If you want to modify them, please read this <a href="#config">chapter</a>.
-  - TODO Split huge [400] Core updates and item patches component into smaller ones for more comfortable readability and maintenance (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).
-  - TODO Integrated all BWP Fixpack fixes (thanks Lollorian, The Imp and others!).
+  - Split huge [400] Core updates and item patches component into smaller ones for more comfortable readability and maintenance (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!). :wink:
+  - Integrated all BWP Fixpack fixes (thanks Lollorian, The Imp and others!).
   - Added BG2 Fixpack and ToBEx compatibility.
   - TODO Added partial <a href="https://www.gibberlings3.net/files/file/969-item-revisions/">Item Revisions</a>, <a href="https://www.gibberlings3.net/files/file/970-spell-revisions/">Spell Revisions</a> and <a href="https://www.gibberlings3.net/files/file/948-iwdification/">IWDification</a> compatibility in a rather soft way: As SR, IR and IWDification are still beta versions, I gave up trying to write a plain compatibility with them. It would be certainly obsolete in a few months, therefore a waste of time. :wink:
-  - TODO Fixed typos and misspellings preventing a few items to be patched (or patching wrong ones...).
-  - TODO Component Improved projectile effects [401] fully re-written: cleared duplicated vanilla #89 and #197 opcodes, cloned existing effects existants instead of adding new ones...
+  - Added 1PP crossmods compatibility (BG1 NPC Project, Bolsa, Improved HaerDalis Swords, Rolles, Ruad, Song and Silence, Stuff of the Magi, The Unusual Oddities Shop).
+  - Fixed typos and misspellings preventing a few items to be patched (or patching wrong ones...).
   - Coding simplification:
     - Replaced macros with functions whenever possible.
-    - Copied entire folders instead of infinite lines of code (`COPY \~1pp/folder/file.ext\~ \~override\~` or `ACTION_FOR_EACH file IN list BEGIN COPY \~1pp/folder/file.ext\~ \~override\~ END`).
+    - Copied entire folders instead of infinite lines of code (`COPY ~1pp/folder/file.ext~ ~override~` or `ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END`).
     - Grouped actions or patches with `ACTION_FOR_EACH` and `PATCH_FOR_EACH` whenever possible.
     - Used new and more efficient WeiDU functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. `ADD_ITEM_EQEFFECT`, `ALTER_EFFECT` and `ALTER_ITEM_HEADER` replaced so many lines of codes!).
     - Avoided copying and overwriting the same files again and again...
@@ -841,9 +871,9 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
     - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla ihamm10 icon and installs new ihamm10 1pp icon as ihamm05b), and not to set Borok's Fist's icon to Runehammers [default value = 1 (Yes)].
     - Replaced `READLN` action "*Do you want to include updated potion graphics?*" with reading new setting (1pp_potions_icons) from *1pp-config-default.ini* or *1pp-config-user.ini* [default value = 2 (Heavens no -- *Everything* but Potions!)].
     - Code simplified or re-written with newer functions to provide automatic process:
-      - Replaced `WRITE_LONG 0x3E 0` and `WRITE_ASCII 0x3A \~ISHLDS01\~` with `WRITE_ASCII 0x3A \~ISHLDS01\~ #8`. Id. with offsets 0x48 0x44, and 0x5C 0x58.
+      - Replaced `WRITE_LONG 0x3E 0` and `WRITE_ASCII 0x3A ~ISHLDS01~` with `WRITE_ASCII 0x3A ~ISHLDS01~ #8`. Id. with offsets 0x48 0x44, and 0x5C 0x58.
       - Used `DELETE_EFFECT` and `CLONE_EFFECT` combo to add new equipped color effects, which avoids writing lines of codes!
-    - 1ppv2 BAMs: for modding purpose, created copies of a few vanilla inventory (Club of Detonation +3, Splint Mail +1, Chain Mail +3, Mage Robe of Cold Resistance, Mage Robe of Fire Resistance, Mage Robe of Electric Resistance, Knave's Robe, Traveler's Robe, Adventurer's Robe, Robes of the Good, Neutral, and Evil Archmagi, Suryris's Blade +2, Ravager +4, Halberd +3, The Eyes of Truth, Helm of the Rock, Leather Armor, Studded Leather Armor, Plate Mail, Mithral Field Plate +2, Quiver of Plenty +1, Bastard Sword +2, Celestial Fury +3, Short Sword of Mask +4, Angurvadal +4, Foebane +3, Purifier +4, Yamato +4, Usuno's Blade +4, Spectral Brand +4, Hindo's Doom +3, Bastard Sword +3, Katana +3, Scimitar +3, The Answerer +4, Gram the Sword of Grief +5). Instead of definitively overwriting them, it now saves them with V suffixe before overwriting them, and does not overwrite anymore the following icons that are irrelevant (EE does not validate this change) : does not replace iax1h14.bam (Axe of the Unyielding +3) with the very inaccurate IWD Celebrant's Blade icon, idagg11.bam (Boomerang Dagger) with a clone of imisc75 (Dagger of Venom), and isw1h06.bam (Varscona +2) with a clone of isw1h41 (Long Sword +2). Does not overwrite Harbinger's icon and copies an alternate resource for modding purpose (1isw2h07). This way, Harbinger keeps its golden icon which fits to its colors settings.
+    - 1ppv2 BAMs: for modding purpose, created copies of a few vanilla inventory (Club of Detonation +3, Splint Mail +1, Chain Mail +3, Mage Robe of Cold Resistance, Mage Robe of Fire Resistance, Mage Robe of Electric Resistance, Knave's Robe, Traveler's Robe, Adventurer's Robe, Robes of the Good, Neutral, and Evil Archmagi, Suryris's Blade +2, Ravager +4, Halberd +3, The Eyes of Truth, Helm of the Rock, Leather Armor, Studded Leather Armor, Plate Mail, Mithral Field Plate +2, Quiver of Plenty +1, Bastard Sword +2, Celestial Fury +3, Short Sword of Mask +4, Angurvadal +4, Foebane +3, Purifier +4, Yamato +4, Usuno's Blade +4, Spectral Brand +4, Hindo's Doom +3, Bastard Sword +3, Katana +3, Scimitar +3, The Answerer +4, Gram the Sword of Grief +5). Instead of definitively overwriting them, it now saves them with V suffixe before overwriting them, and does not overwrite anymore the following icons that are irrelevant (EE does not validate this change) : does not replace iax1h14.bam (Axe of the Unyielding +3) with the very inaccurate IWD Celebrant's Blade icon, idagg11.bam (Boomerang Dagger) with a clone of imisc75 (Dagger of Venom), and isw1h06.bam (Varscona +2) with a clone of isw1h41 (Long Sword +2). Does not overwrite Harbinger's icon and copies an alternate resource for modding purpose (1isw2h07). This way, Harbinger keeps its golden icon which fits to its colors settings.        // Gwen fix: removes iax1h14.bam from the copying process because EE does not validate this change (IWD icon: The Celebrant's Blade).     // Gwen fix: Does not overwrite Harbinger's icon and copies an alternate resource for modding purpose. This way, Harbinger keeps its golden icon which fits to its colors settings.
     - specific fixes:
       - dagg21.itm & dagg22.itm (Daggers of the Star): reverted to their original inventory icon idagg21. 1PP sets them to idagg18 (Shadow Thief Dagger icon), but EE does not validate this change.
       - halb07.itm (Halberd +2): reverted to its original inventory icon ihalb07. 1PP sets it to ihalb03 (Suryris's Blade +2 icon), but EE does not validate this change.
@@ -853,80 +883,88 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
       - sw2h10.itm and sw2h19.itm (Carsomyr +5 and +6): reverted to their original inventory icon isw2h10. 1PP sets them to isw2h20, but EE does not validate this change.
       - sw2h11.itm (Two-handed Sword +2): reverted to its original inventory icon isw2h11. 1PP sets it to isw2h03, but EE does not validate this change.
       - sw2h20.itm (Two-handed Sword +3): reverted to its original inventory icon isw2h20. 1PP sets it to isw2h06, but EE does not validate this change.
-      - sw1hwk.itm (Water's Edge +3): fixed wrong identified name.
+      - sw1hwk.itm (Water's Edge +3): wrong identified name fix moved from 400_update_bgii_misc.tpa because Core content patches component installs it and is a pre-requisite for Core updates and item patches component.
      - BW Herbs mod patches: fixed a typo (was copying bw02ipo1_l.bam instead of bw02ipo1.bam).
 
   - [201] 1ppv4: Consistent spell and scroll icons (201_spellsandscrolls.tph)
     - Integrated BWP Fixpack patch: restored Energy Blades spell and scroll icons (SPWI920) overwritten with Black Blade of Disaster's ones.
 
   - [202] 1ppv4: Spell tweaks (202_spelltweaks.tph)
-    - Replaced `READLN` action "*WARNING: SPPR142/1342 (Cause Light Wounds, Cause Medium Wounds) seem to be already taken by a previously installed mod. Proceeding to install may cause issues.*" with a new code using `!FILE_CONTAINS_EVALUATED(\~spell.ids\~ \~\~)`. This will avoid to overwrite existing spells.
-    - Replaced `READLN` action "*Do you want existing 'cause wound' spells to use IWD-style icons? (healing icon in red)*" with reading new settings (1pp_iwd_cause_wounds_icons) from *1pp-config-default.ini* or *1pp-config-user.ini* [default value = 1 (Yes)].
+    - Replaced `READLN` action "*WARNING: SPPR142/1342 (Cause Light Wounds, Cause Medium Wounds) seem to be already taken by a previously installed mod. Proceeding to install may cause issues.*" with a new code using `!FILE_CONTAINS_EVALUATED(~spell.ids~ ~~)`. This will avoid to overwrite existing spells.
+    - Replaced `READLN` action "*Do you want existing 'cause wound' spells to use IWD-style icons? (healing icon in red)*" with reading new setting (1pp_iwd_cause_wounds_icons) from *1pp-config-default.ini* or *1pp-config-user.ini* [default value = 1 (Yes)].
     - Replaced BWP Fixpack <a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/202_spelltweaks.tph.patch">Lollorian's patchified Armor animation changes</a> (202_spelltweaks.tph.patch: modifies opcode #215 visual effect in ALL spell headers) with WeiDU innate `ALTER_EFFECT` function. Source: <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/57211cf3a29cfd8381b62b3df13d3d04ed9f5fb2">commit</a>.
     - Added SR compatibility for individualised armour effects. 1PP patches also op#215 with GARMORH resource (spwi317.spl: Ghost Armor).
     - Added IWDIfication and SR compatibility for Installing PnP/IWD-style 'cause wounds' spells in a rather softer way.
 
+  - [203] 1ppv4: Restored flame sword animations (203_fslong.tph)
+    - Copied entire folders instead of infinite lines of code.
+    - Used new *1pp_compatibility.tph library* to improve 1PP crossmods compatibility (Improved HaerDalis Swords).
+
+  - [204] 1ppv4: Colourable Quarterstaves (204_qsbase.tph)
+    - Copied entire folders instead of infinite lines of code.
+    - Used new *1pp_compatibility.tph library* to improve 1PP crossmods compatibility (Bolsa, Rolles, Ruad, Stuff of the Magi and The Unusual Oddities Shop).
+
   - [208] 1ppv4: Additional Helmet Animations (208_v4_helmets.tph)
-    - Integrated <a href="http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/page-12#entry561441">Lollorian's BWP Fixpack JC Helm animation crash fix for IA BG1 animation compatibility</a> (patch <a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/208_v4_helmets.tph.patch">208_v4_helmets.tph.patch</a>): 1ppv4's helmet component seems to cause crashes when helmets using the JC animation are equipped by NPCs using BG1 animations from Infinity Animations. <a ref="http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/?p=561441">Source</a>
+    - Integrated <a href="http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/page-12#entry561441">Lollorian's BWP Fixpack JC Helm animation crash fix for IA BG1 animation compatibility</a> (patch <a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/208_v4_helmets.tph.patch">208_v4_helmets.tph.patch</a>): 1ppv4's helmet component seems to cause crashes when helmets using the JC animation are equipped by NPCs using BG1 animations from Infinity Animations. <a ref="http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/?p=561441">Source</a>.
 
   - [210] 1ppv4: Increased paperdoll object variety (210_v4_ppd_variety.tph)
-    - Simplified codes creating undroppable clones of weapons (notably with tutu_var) replacing primary weapon with undroppable clone and moving it to inventory.
+    - Simplified codes creating undroppable clones of weapons (in particular with tutu_var) replacing primary weapon with undroppable clone and moving it to inventory.
     - CRE files: used `READ_LONG 0x28` instead of `READ_SHORT 0x28` (dword!).
     - ITM files: used `WRITE_LONG 0x18 (THIS BAND BNOT BIT2)` to remove droppable flag instead of writing the offset new value.
 
-  - [300] 1ppv4: 1ppv4: Fixed animations for solars and elementals (300_solar_fix.tph)
-    - Integrated <a href="http://www.shsforums.net/topic/58208-planetar-animation-glitch/">The Imp's BWP Fixpack fix for Solar swords without graphic artifacts</a>: fixed MASLG1S1.BAM and MSOLG2S1.BAM files. Source: <a href="https://github.com/omni-axa/BiG-World-Fixpack/commit/de7b3ce8439d8efa8e7427d1ad66efd0f48e547e">commit</a>.
-
   - [400] 1ppv4: Core updates and item patches (400_1pp_update_bgii.tph)
     - Split this huge component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).
-    - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers.
-    - Added a new setting (1pp_sleeper) allowing to make alternate the turning of The Sleeper into a flail. In any case, 1PP does not overwrites its original inventory bam with a new one, but installs a new icon (IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose.
-    - Replaced the tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically writes values in tooltip.2da from the tra file.
-    - Integrated <a href=http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849">Lollorian's BWP Fixpack patch for Ashes of Embers compatibility</a> (400_1pp_update_bgii.tph.patch): Renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">Source</a>.
+    - Replaced `READLN` action "*Do you want gems to require some lore to identify?*" with reading new setting (1pp_gemlore) from *1pp-config-default.ini* or *1pp-config-user.ini* [default value = 1 (Yes)].
+    - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers [TODOTODOTODOTODOTODO].
+    - Added a new setting (1pp_sleeper) allowing to make alternate the turning of The Sleeper into a flail. In any case, 1PP does not overwrites its original inventory bam with a new one, but installs a new icon (IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose [TODOTODOTODOTODOTODO].
+    - Replaced tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically writes values in tooltip.2da from the tra files.
+    - Integrated <a href=http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849">Lollorian's BWP Fixpack patch for Ashes of Embers compatibility</a> (400_1pp_update_bgii.tph.patch): renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">Source</a>.
     - Added ToBEx compatibility for circlets: item flag EE/Ex: Toggle critical hits flag (BIT25).
     - Gems sub-component: code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Build an array to define new gems lore values to identify. .Same library used for IWD and BG2 based games.
     - Code simplified or re-written with newer functions to provide automatic process:
-      - Replaced `WRITE_LONG 0x3E 0` and `WRITE_ASCII 0x3A \~ISHLDS01\~` with `WRITE_ASCII 0x3A \~ISHLDS01\~ #8`. Id. with offsets 0x48 0x44, and 0x5C 0x58.
-
+      - Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.
+      - Replaced macros with functions whenever possible.
+      - Replaced `WRITE_LONG 0x3E 0` and `WRITE_ASCII 0x3A ~ISHLDS01~` with `WRITE_ASCII 0x3A ~ISHLDS01~ #8`. Id. with offsets 0x48 0x44, and 0x5C 0x58.
+      - Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (BG1 NPC Project, Rolles, Ruad, Song and Silence, Stuff of the Magi, The Unusual Oddities Shop).
     - shields specific fixes (400_update_bgii_shields.tpa):
-      - shld02.itm (Small Shield +1): `LPM \~clear\~` was missing, and the code stacked op#7 global effects.
+      - shld02.itm (Small Shield +1): `LPM ~clear~` was missing, and the code stacked op#7 global effects.
       - shld31a.itm (Gorm's Arm +3): fixed wrong coding (`WRITE_SHORT` instead of `WRITE_BYTE` for Minimum strength value).
       - shld01p.itm (Buckler +2): fixed wrong coding (op#0 parameter1 0xfffffe - 16777214 ?? - should be -3), added opcode #0 with parameter1 = -3 and parameter2 = 4 to add missing protection vs piercing weapons, added missing price, and fixed item description to fit ITM file.
-      - x#ajshld.itm (Ilvastarr Family Shield - The BG1 NPC Project mod): fixed typo (was copying #ajshld instead of x#ajshld).
-      - shld06p.itm (Redshield +1, +4 vs. monstrous): fixed wrong coding (op#219: switch parameter1 and 2, and parameter2 2 - EA.IDS - should be 3 - GENERAL.IDS), added an external effect (shld06P.eff), and replaced op#178 with op#177, otherwise opcode #178 won't work.
-      - shld07p.itm (Sartessa's Vengeance +1): fixed wrong coding for add magical flag [replace `WRITE_BYTE 0x1b 0x6c` with `WRITE_LONG 0x18 (THIS | BIT6)`].
+      - shld06p.itm (Redshield +1, +4 vs. monstrous): fixed wrong coding (op#219: switch parameter1 and 2, and parameter2 2 - EA.IDS - should be 3 - GENERAL.IDS), added an external effect (shld06p.eff), and replaced op#178 with op#177, otherwise opcode #178 won't work.
+      - shld07p.itm (Sartessa's Vengeance +1): fixed wrong coding for add magical flag [replaced `WRITE_BYTE 0x1b 0x6c` with `WRITE_LONG 0x18 (THIS | BIT6)`].
       - shld08p.itm (Tarloc's Contingency +1): code simplified (1tarsp.spl) and fixed wrong coding for Casting sound (1tarss.spl).
       - shld09p.itm (Shield of Devotion +1): fixed wrong coding op#62 (parameter2 should be 4, not 3).
+      - x#ajshld.itm (Ilvastarr Family Shield - The BG1 NPC Project mod): fixed a typo (was patching #ajshld instead of x#ajshld).
     - helmets specific fixes (400_update_bgii_helmets.tpa):
-      - helm33.itm (Gold Horned Helm): fixed typo (was copying helm22 instead of helm33).
-      - xoband02.itm (Silver Circlet): fixed wrong coding opcodes #33, 34 & 35 (parameter2 originally set to 1 should be 0) and added opcodes #36 & 37 to match item description (+1 to saving throws).
+      - helm33.itm (Gold Horned Helm): fixed a typo (was patching helm22 instead of helm33).
+      - xoband02.itm (Silver Circlet): fixed wrong coding opcodes #33, 34 & 35 (parameter2 originally set to 1 should be 0) and added opcodes #36 & 37 to match item description (+1 to Saving Throws).
       - xoband03.itm (Eilistraee's Boon +1): same fixes for opcodes #33, 34, 35, 36 & 37. Fixed wrong coding op#31: parameter1 originally set to 110, should be 10, and parameter2 switched from 2 to 0 to match item description (+10% magic damage resistance).
       - xoband04.itm (Circlet of the Archmagi): same fixes for opcodes #33, 34, 35, 36 & 37. Added one missing equipped effects (`LPM ADD_ITEM_EQEFFECT #19`).
     - weapons specific fixes (400_update_bgii_weapons.tpa):
-      - dagg12.itm (Firetooth +3): fixed typos in `LPM \~pulse\~` macro (redundant setr variable set to 152 and 189 should be setg and setb, otherwise they overwrite the setr value and don't set the correct setg and setb values).
+      - dagg12.itm (Firetooth +3): fixed typos in `LPM ~pulse~` macro (redundant setr variable set to 152 and 189 should be setg and setb, otherwise they overwrite the setr value and don't set the correct setg and setb values).
       - halb08.itm (Duskblade +2): fixed a typo patching halb06 instead of halb08.
-      - hamm10.itm & hamm11.itm (Runehammers): new 1pp_hammers_icons setting gives the choice to assign them, or not, the Borok's Fist's icon.
+      - hamm10.itm & hamm11.itm (Runehammers): new 1pp_hammers_icons setting gives the choice to assign it, or not, the Borok's Fist's icon.
     - miscellaneous specific fixes (400_update_bgii_misc.tpa):
+      - sw1hwk.itm (Water's Edge +3): wrong identified name fix moved into 200_1ppv2_cut.tph because Core content patches component installs it and is a pre-requisite.
       - misc89.itm (Edwin's Amulet): added bgmisc89 (BGT and IR compatibility).
       - book06.itm (Tome of Clear Thought), book07.itm (Tome of Leadership and Influence) and book08.itm (Tome of Understanding): harmonized header icon with new inventory icon (IBOOK768) for consistency.
     - swords specific fixes (400_update_bgii_swords.tpa):
       - Does not overwrite Varscona's icon with a clone of ISW1H41 (Long Sword +2) because EE does not validate this change.
-      - sw1h31.itm (Daystar +2): as 1PP (Core content patches) sets its icon to isw1h34 (Albruin +1), but EE does not validate this change, this version reverts to its original inventory icon isw1h31, and this component switches back its colorisation with Albruin.
-      - sw1h34.itm (Albruin +1): as 1PP (Core content patches) sets its icon to isw1h31 (Daystar +2), but EE does not validate this change, this version reverts to its original inventory icon isw1h31; and this component switches back colorisation with Daystar.
+      - sw1h31.itm (Daystar +2): as 1PP (Core content patches) sets its icon to isw1h34 (Albruin +1), but EE does not validate this change, this version reverts to its original inventory icon isw1h31 and this component switches back its colorisation with Albruin.
+      - sw1h34.itm (Albruin +1): as 1PP (Core content patches) sets its icon to isw1h31 (Daystar +2), but EE does not validate this change, this version reverts to its original inventory icon isw1h31 and this component switches back its colorisation with Daystar.
       - sw1h41.itm (Long Sword +2): as 1PP (Core content patches) sets its icon to SW1H06 (Varscona +2 icon), but EE does not validate this change, this version reverts to its original inventory icon isw1h41. Then, this component removes its re-colorisation and sets it to sw1h73 (Long Sword +3) that deserves those settings.
       - sw2h06.itm and sw1h13.itm (Spider's Bane +2): harmonized both versions. Now they get the same icon and coloration (no change from vanilla SW1H13 as its colors fit the new icon installed by 1PP).
       - sw2h07.itm (Harbinger +3): does not overwrite Harbinger's icon and copy an alternate resource for modding purpose. This way, Harbinger keeps its golden icon which fits to its colors settings.
-      - SW1P01.itm (Viper's Edge +2): removed the #134 global effect (Petrification) otherwise it would be impossible to wield the sword. Fixed wrong coding (the extended effects were not implemented) and modified the cursed effects probabilities, so that they don't stack when not necessary (e.g. why should you be poisoned when petrified?).
+      - sw1p01.itm (Viper's Edge +2): removed the op#134 global effect (Petrification) otherwise it would be impossible to wield the sword. :wink: Fixed wrong coding (the extended effects were not implemented) and modified the cursed effects probabilities, so that they don't stack when not necessary (e.g. why should you be poisoned when petrified?).
     - blunt weapons specific fixes (400_update_bgii_blunt.tpa):
       - blun16.itm (The Sleeper +2): new 1pp_sleeper setting gives the choice to turn it into a flail. If turned into a flail, modifies minimum strength value and uses a new icon (IBLUN16B) to avoid overwriting the vanilla one (let's keep it for modders!).
-    - armors specific fixes (400_update_bgii_armors.tpa):
-      - chan03B.itm (Werebane Mail +2): added missing identified name.
-      - plat15.itm (Pride of the Legion +2): reverted its inventory and description icons (wrongly set to iplat23 and cplat05) as EE does not validate this change.
-      - plat23.itm (Full Plate Mail +2): removed from the patches as EE does not validate them (this silver and golden full plate was turned into a black one!).
     - new staves specific fixes (400_update_bgii_staves2.tpa):
       - Avoids copying and overwriting the same files again and again...
-      - Macro `GW_ADJUST_TOOLTIP`: Adds new colums in tooltip.2da (makes sure it contains at least four columns, so we can add Narbucchad's Demise ability).
-      - Function `GW_ADD_ITEM_TOOLTIPS`: Adds new entries in tooltip.2da.
+      - Rewrote tooltip.2da appending to make sure it contains at least four columns, so we can add all Narbucchad's Demise staves abilities. Macro `GW_ADJUST_TOOLTIP` adds new columns in tooltip.2da. Function `GW_ADD_ITEM_TOOLTIPS`  adds new entries in tooltip.2da.
+    - armors specific fixes (400_update_bgii_armors.tpa):
+      - chan03b.itm (Werebane Mail +2): added missing identified name.
+      - plat15.itm (Pride of the Legion +2): reverted its inventory and description icons (wrongly set to iplat23 and cplat05) as EE does not validate this change.
+      - plat23.itm (Full Plate Mail +2): removed from the patches as EE does not validate them (this silver and golden full plate was turned into a black one!).
     - scatters items specific fixes (400_update_bgii_scatter.tph):
       - Coding simplification:
         - Replaced combo `ADD_STORE_ITEM` + `REMOVE_STORE_ITEM` with `LPF REPLACE_STORE_ITEM`.
@@ -935,23 +973,27 @@ For support or questions, please visit the <a href="http://www.shsforums.net/ind
 
   - [401] 1ppv4: Improved projectile effects (401_projectiles.tph)
     - Code fully re-written with new functions to provide automatic process.
-      - Function `GW_CLEAR_DUPLICATED_OPCODES`: does not stack anymore opcodes #83 and #197, clears duplicated vanilla #89 and #197 effects in SPL and ITM files and checks if protection from SPEAR and/or Bounce SPEAR is already set before adding it.
-      - Function `GW_MODIFY_PROJ` replaces BWP Fixpack patch (<a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/401_projectiles.tph.patch">401_projectiles.tph.patch</a>): modifies projectile value only when needed (does not patch melee headers anymore), replaces `ADD_ITEM_EQEFFECT`, `ADD_ITEM_EFFECT`, `ADD_SPELL_EFFECT` and macros with the newer and more efficient `CLONE_EFFECT` WeiDU function to give new opcodes #83 and #197 the same settings than existing ones (target, resist_dispel, duration, power...). It modifies all extended headers and avoids writing lines of codes!
-      - Provided partial IR and SR compatibility in a rather soft way.
+      - Function `GW_CLEAR_DUPLICATED_OPCODES`: does not stack anymore opcodes #83 and #197, clears duplicated vanilla op#89 and #197 effects in SPL and ITM files and checks if protection from SPEAR and/or Bounce SPEAR is already set before adding it.
+      - Function `GW_MODIFY_PROJ` replaces BWP Fixpack patch (<a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/401_projectiles.tph.patch">401_projectiles.tph.patch</a>): now it modifies projectile value only when needed (does not patch melee headers anymore), replaces `ADD_ITEM_EQEFFECT`, `ADD_ITEM_EFFECT`, `ADD_SPELL_EFFECT` and macros with the newer and more efficient `CLONE_EFFECT` WeiDU function to give new opcodes #83 and #197 the same settings than existing ones (target, resist_dispel, duration, power...). It modifies all extended headers and avoids writing lines of codes!
+      - Added partial IR and SR compatibility in a rather soft way.
+      - Improved 1PP crossmods compatibility (Rolles, Ruad, Stuff of the Magi).
     - specific fixes:
       - ax1h08.itm (Hangard's Axe +2), ax1h09.itm (Rifthome Axe +3), ax1h10.itm (Azuredge +3) and ax1h16.itm (K'logarath +4): added IR compatibility (patches itemB files).
-      - bolt09.itm (Bolt +3): fixed typo (was patching bolt06 instead of bolt09).
+      - bolt09.itm (Bolt +3): fixed a typo (was patching bolt06 instead of bolt09).
       - Sets new projectiles to Quivers of Plenty, Cases of Plenty, Bags of Plenty and Sling of Everard: Why quivers and launchers needing no ammo should not get new 1pp projectiles?
-      - dagg11.itm (Boomerang Dagger +2) and dagg12.itm (Firetooth +3): added IR compatibility (patches itemB files).
+      - dagg05.itm (Throwing Dagger), dagg11.itm (Boomerang Dagger +2) and dagg12.itm (Firetooth +3): added IR compatibility (patches itemB files).
       - sper04.itm (Javelin): switched Thrown and Melee strings ref in tooltip.2da.
       - items aurstaf, dragring, magebra, slayerwp and globblu4 (Blue Globe): added missing protections from new normal 1pp ammo projectiles (1dagg05 and 1dart01). The code was only providing protection from 1arow01 and 1bolt01 new projectiles.
       - npshld.itm (Delryn Family Shield): same fix as above + IR compatibility (protection from all types of missiles, including magic ones).
-      - shld24.itm (Reflection Shield +1): same fix as above + cleared duplicate entries and adds IR compatibility (IR replaces opcode #197 with opcode #83).
+      - shld24.itm (Reflection Shield +1): same fix as above + cleared duplicate entries and added IR compatibility (IR replaces opcode #197 with opcode #83).
       - brac18.itm (Gloves of Missile Snaring): Don't forget to add Protection from projectiles if IR is installed.
       - spin546.spl (Inertial Barrier), spcl721.spl (Storm Shield) & spcl914.spl (Greater Evasion): patched all headers (was patching only the first one), fixed wrong duration, target, power, resist dispel... Added missing protections from new normal 1pp ammo projectiles (1dagg05 and 1dart01). The code was only providing protection from 1arow01 and 1bolt01 new projectiles.
       - Protection From Normal Missiles spells (spra303, spwi311, & cdwi311 - added by BG2 Fixpack): same fixes as above & SR compatibility (protection from all types of missiles, including magic ones).
       - sppr613.spl (Physical Mirror): cleared duplicate entries and added SR compatibility (SR replaces opcode #197 with opcode #83).
       - Included Entropy Shield spell (protection from new 1pp projectiles) if IWDIfication is installed.
+
+  - [300] 1ppv4: 1ppv4: Fixed animations for solars and elementals (300_solar_fix.tph)
+    - Integrated <a href="http://www.shsforums.net/topic/58208-planetar-animation-glitch/">The Imp's BWP Fixpack fix for Solar swords without graphic artifacts</a>: fixed MASLG1S1.BAM and MSOLG2S1.BAM files. Source: <a href="https://github.com/omni-axa/BiG-World-Fixpack/commit/de7b3ce8439d8efa8e7427d1ad66efd0f48e547e">commit</a>.
 
 ## 
 

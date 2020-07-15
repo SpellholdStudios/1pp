@@ -1,16 +1,16 @@
 /* ================================================================================================================================================================================== *
- *                                                                                                                                                                                    *
+ *  v 4.2.0                                                                                                                                                                           *
  *                                            C O M P O N E N T   :   A t t a c h a b l e   W i n g s   (1 p p   v 7)                                                                 *
  *                                                                                                                                                                                    *
  * ================================================================================================================================================================================== *
  *  This component adds equippable wings for elven characters (with some restrictions).                                                                                               *
- *  'Presented in Aerievision)                                                                                                                                                        *
+ *  (Presented in Aerievision)                                                                                                                                                        *
  * ================================================================================================================================================================================== *
  *  change-log:                                                                                                                                                                       *
  *  -----------                                                                                                                                                                       *
  *      - Coding simplification:                                                                                                                                                      *
  *          Replaced `GAME_IS` conditions with variables checks to speed up install time.                                                                                             *
- *          Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).    *
+ *          Copied entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
  * ================================================================================================================================================================================== */
 
 PRINT @209000 // Copying...

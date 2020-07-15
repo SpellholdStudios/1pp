@@ -1,5 +1,5 @@
 /* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
+ *  v 4.2.0                                                                                                                                                                           *
  *                                          C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( B G 2 )                                           *
  *                                                                                                                                                                                  *
  * ================================================================================================================================================================================ *
@@ -1853,7 +1853,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~ubull4a.itm~) BEGIN
 END
 
 
-ACTION_FOR_EACH resource IN ~ARARROW.BAM~ ~MAGICSTN.BAM~ BEGIN
+ACTION_FOR_EACH resource IN ~ararrow.bam~ ~magicstn.bam~ BEGIN
 	COPY ~1pp/additions/projectiles_1pp/%resource%~ ~override~
 END
 

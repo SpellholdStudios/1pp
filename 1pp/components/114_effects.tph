@@ -22,7 +22,7 @@
  *      - Code re-written with new functions to provide automatic process:                                                                                                          *
  *          1. Function GW_MODIFY_PROJ replaces Lollorian's BWP Fixpack misc patchified code changes (114_effects.tph.patch; modifies new projectile values in ALL spell headers)   *
  *             which was inefficient and patched nothing. Moreover, it was using a wrong offset when patching itm files.                                                            *
- *          2. Provided BG2 Fixpack and partial SR compatibility in a rather softer way.                                                                                            *
+ *          2. Added BG2 Fixpack and partial SR compatibility in a rather softer way.                                                                                               *
  *                                                                                                                                                                                  *
  *  specific fixes:                                                                                                                                                                 *
  *  ---------------                                                                                                                                                                 *

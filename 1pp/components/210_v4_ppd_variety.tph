@@ -1,5 +1,5 @@
 /* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
+ *  v 4.2.0                                                                                                                                                                         *
  *                                     C O M P O N E N T   :   I n c r e a s e d   p a p e r d o l l   o b j e c t   v a r i e t y   (c o r e)                                      *
  *                                                                                                                                                                                  *
  * ================================================================================================================================================================================ *
@@ -11,12 +11,13 @@
  *      - CRE files: READ_LONG 0x28 instead of READ_SHORT 0x28 (dword!).                                                                                                            *
  *      - Coding simplification:                                                                                                                                                    *
  *          Replaced `GAME_IS` conditions with variables checks to speed up install time.                                                                                           *
- *          Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
- *          Simplified codes creating undroppable clones of weapons (notably with tutu_var) replacing primary weapon with undroppable clone and moving it to inventory.             *
- *          ITM files: use WRITE_LONG 0x18 (THIS BAND BNOT BIT2) to remove droppable flag instead of writing the offset new value.                                                  *
+ *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                   *
+ *          Simplified codes creating undroppable clones of weapons (in particular with tutu_var) replacing primary weapon with undroppable clone and moving it to inventory.       *
+ *          ITM files: used WRITE_LONG 0x18 (THIS BAND BNOT BIT2) to remove droppable flag instead of writing the offset new value.                                                 *
  * ================================================================================================================================================================================ */
 
 SILENT
+
 ACTION_FOR_EACH paperdoll IN ~wphf0oin~ ~wphf1oin~ ~wphf3oin~ ~wphm2oin~ ~wphs0oin~ ~wplbsinv~ ~wplf0inv~ ~wplf0oin~ ~wplf1inv~ ~wplf1oin~ ~wplf3inv~ ~wplf3oin~ ~wplm2inv~ ~wplm2oin~ ~wplq2inv~ ~wplq3inv~ ~wplq4inv~ ~wpls0inv~ ~wpls0oin~ ~wpmbsinv~ ~wpmf0inv~ ~wpmf0oin~ ~wpmf1inv~ ~wpmf1oin~ ~wpmf2inv~ ~wpmf2oin~ ~wpmf3inv~ ~wpmf3oin~ ~wpmm2inv~ ~wpmm2oin~ ~wpmq2inv~ ~wpmq3inv~ ~wpmq4inv~ ~wpms0inv~ ~wpms0oin~ ~wpnbsinv~ ~wpnf0inv~ ~wpnf0oin~ ~wpnf1inv~ ~wpnf1oin~ ~wpnf3inv~ ~wpnf3oin~ ~wpnm2inv~ ~wpnm2oin~ ~wpnq2inv~ ~wpnq3inv~ ~wpnq4inv~ ~wpns0inv~ ~wpns0oin~ ~wpsbsinv~ ~wpsf0inv~ ~wpsf0oin~ ~wpsf1inv~ ~wpsf1oin~ ~wpsf3inv~ ~wpsf3oin~ ~wpsm2inv~ ~wpsm2oin~ ~wpsq2inv~ ~wpsq3inv~ ~wpsq4inv~ ~wpss0inv~ ~wpss0oin~ BEGIN
 	COPY ~1pp/additions/obj_1pp/%paperdoll%.bam~ ~override~
 END
@@ -32,6 +33,7 @@ SILENT
 /* -------- *
  *  Flails  *
  * -------- */
+
 ACTION_FOR_EACH set IN ~f0~ ~f1~ ~f3~ BEGIN
 
 	ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
@@ -51,6 +53,7 @@ END
 /* ------ *
  *  Mace  *
  * ------ */
+
 ACTION_FOR_EACH set IN ~m2~ BEGIN
 
 	ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
@@ -70,6 +73,7 @@ END
 /* -------------- *
  *  Quaterstaves  *
  * -------------- */
+
 ACTION_FOR_EACH set IN ~q2~ ~q3~ ~q4~ BEGIN
 
 	ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
@@ -89,6 +93,7 @@ END
 /* --------------- *
  *  Bastard sword  *
  * --------------- */
+
 ACTION_FOR_EACH set IN ~s0~ BEGIN
 
 	ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
@@ -108,6 +113,7 @@ END
 /* ----------- *
  *  Short Bow  *
  * ----------- */
+
 ACTION_FOR_EACH set IN ~bs~ BEGIN
 
 	ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
@@ -127,6 +133,7 @@ END
 /* --------------------------- *
  *  harmonising morning stars  *
  * --------------------------- */
+
 ACTION_FOR_EACH set IN ~ms~ BEGIN
 	ACTION_FOR_EACH category IN ~l~ ~m~ ~n~ ~s~ BEGIN
 		ACTION_FOR_EACH sequence IN ~a1~ ~a3~ ~a5~ ~a7~ ~a8~ ~a9~ ~g1~ ~oa7~ ~oa8~ ~oa9~ ~og1~ BEGIN
@@ -139,6 +146,7 @@ END
 /* ======================== *
  *  CREATE WEAPON OVERLAYS  *
  * ======================== */
+
 PRINT @210001 // ~Patching creatures for weapon overlays.~
 SILENT
 
@@ -147,6 +155,7 @@ SILENT
 /* -------------- *
  *  sword clones  *
  * -------------- */
+
 ACTION_FOR_EACH sword IN ~01~ ~02~ ~03~ ~18~ ~34~ ~37~ ~38~ ~39~ ~42~ ~62~ ~63~ ~64~ ~65~ ~72~ BEGIN
 	ACTION_FOR_EACH tutu_game IN ~~ ~_~ BEGIN
 		ACTION_IF (FILE_EXISTS_IN_GAME ~%tutu_game%sw1h%sword%.itm~) BEGIN
@@ -162,6 +171,7 @@ END
 /* ------------ *
  *  bow clones  *
  * ------------ */
+
 ACTION_FOR_EACH ~bow~ IN ~05~ ~06~ ~08~ ~14~ ~15~ ~18~ ~19~ ~20~ ~21~ ~26~ BEGIN
 	ACTION_FOR_EACH tutu_game IN ~~ ~_~ BEGIN
 		ACTION_IF (FILE_EXISTS_IN_GAME ~%tutu_game%bow%bow%.itm~) BEGIN
@@ -235,6 +245,7 @@ COPY_EXISTING_REGEXP GLOB ~^.+\.cre$~ ~override~
 --------------------------------------------------------------------------------------------------------
      ==> DEBUGGING CONTROL %SOURCE_RES% = primary weapon %primitem% replaced with %new_item%
 --------------------------------------------------------------------------------------------------------"
+							PATCH_SILENT
 						END
 					END
 				END
@@ -396,6 +407,7 @@ COPY_EXISTING_REGEXP GLOB ~^.+\.cre$~ ~override~
 --------------------------------------------------------------------------------------------------------
      ==> DEBUGGING CONTROL %SOURCE_RES% = secondary weapon %primitem% replaced with %new_item%
 --------------------------------------------------------------------------------------------------------"
+							PATCH_SILENT
 						END
 					END
 				END
@@ -525,4 +537,4 @@ COPY_EXISTING_REGEXP GLOB ~^.+\.cre$~ ~override~
 	END
 BUT_ONLY
 
-//END of COMPONENT
+// END of COMPONENT
