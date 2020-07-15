@@ -1,23 +1,24 @@
-/* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
- *                                C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( m i s c e l l a n e o u s )                                 *
- *                                                                                                                                                                                  *
- * ================================================================================================================================================================================ *
- *  This part installs miscellaneous stuff.                                                                                                                                         *
- * ================================================================================================================================================================================ *
- *  change-log:                                                                                                                                                                     *
- *  -----------                                                                                                                                                                     *
- *      - Replaced macros with functions whenever possible.                                                                                                                         *
- *      - Coding simplification:                                                                                                                                                    *
- *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                              *
- *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                   *
- *                                                                                                                                                                                  *
- *  specific fixes:                                                                                                                                                                 *
- *  ---------------                                                                                                                                                                 *
- *      - #68   ==> misc89.itm (Edwin's Amulet): added bgmisc89 (BGT and IR compatibility).                                                                                         *
- *      - #88   ==> book06.itm (Tome of Clear Thought), book07.itm (Tome of Leadership and Influence) and book08.itm (Tome of Understanding): harmonized header icon with new       *
- *                  inventory icon (IBOOK768) for consistency.                                                                                                                      *
- * ================================================================================================================================================================================ */
+/* ================================================================================================================================================================================= *
+ *  v 4.2.0                                                                                                                                                                          *
+ *                                 C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( m i s c e l l a n e o u s )                                 *
+ *                                                                                                                                                                                   *
+ * ================================================================================================================================================================================= *
+ *  This part installs miscellaneous stuff.                                                                                                                                          *
+ * ================================================================================================================================================================================= *
+ *  change-log:                                                                                                                                                                      *
+ *  -----------                                                                                                                                                                      *
+ *      - Replaced macros with functions whenever possible.                                                                                                                          *
+ *      - Coding simplification:                                                                                                                                                     *
+ *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
+ *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                    *
+ *                                                                                                                                                                                   *
+ *  specific fixes:                                                                                                                                                                  *
+ *  ---------------                                                                                                                                                                  *
+ *      - #30   ==> sw1hwk.itm (Water's Edge +3): wrong identified name fix moved into 200_1ppv2_cut.tph because Core content patches component installs it and is a pre-requisite.  *
+ *      - #69   ==> misc89.itm (Edwin's Amulet): added bgmisc89 (BGT and IR compatibility).                                                                                          *
+ *      - #89   ==> book06.itm (Tome of Clear Thought), book07.itm (Tome of Leadership and Influence) and book08.itm (Tome of Understanding): harmonized header icon with new        *
+ *                  inventory icon (IBOOK768) for consistency.                                                                                                                       *
+ * ================================================================================================================================================================================= */
 
 /* =============================== *
  *          MISCELLANEOUS          *
@@ -26,14 +27,14 @@
 PRINT @400032 // ~Patching miscellaneous items...~
 SILENT
 
-// Water's Edge +3
+/* Water's Edge +3: DEPRECATED as of v4.2.0 ==> wrong identified name fix moved into 200_1ppv2_cut.tph (because Core content patches component installs it and is a pre-requisite).
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1hwk.itm~) BEGIN
 	COPY_EXISTING ~sw1hwk.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
 			SAY NAME2 @400801
 		END
 	BUT_ONLY
-END
+END*/
 
 // Harps
 ACTION_FOR_EACH harp IN ~misc3m~ ~misc3n~ ~misc3o~ ~miscbr~ ~wa2harp~ BEGIN
@@ -142,4 +143,4 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~quiver06.itm~) BEGIN
 	BUT_ONLY
 END
 
-//END of COMPONENT
+// END of COMPONENT SECTION
