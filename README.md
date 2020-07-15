@@ -3,7 +3,7 @@
 ![Platform](https://img.shields.io/static/v1?label=platform&message=windows%20%7C%20linux&color=informational)
 ![Language](https://img.shields.io/static/v1?label=language&message=English%20%7C%20French&color=limegreen)
 <a href="README_FR.md"><img align="right" src="1pp/documentation/files/images/fr-flag-32.png"></a>
-<div align="right">Texte ou image</div>
+
 
 <div align="center"><h1>1pp (One Pixel Productions) - WIP</h1>
 
@@ -13,9 +13,6 @@
 
 
 **Author:** Erephine<br />  
-<strong>Version:</strong> 4.2.0  
-**Languages:** English, <a href="README_FR.md">French</a>  
-
 **Mod Website:** <a href="http://www.spellholdstudios.net/ie/1pp">Spellhold Studios</a><br />  
 **Mod forum:** <a href="http://www.shsforums.net/forum/159-1pp/">One Pixel Productions</a>  
 
@@ -31,7 +28,7 @@ Readme writing in progress... Don't try to download and install this mod as it i
 &nbsp;
 
 <div align="center">
-<a href="#intro">Overview</a> &#x2B25; <a href="#installation">Installation</a> &#x2B25; <a href="#compat">Compatibility</a> &#x2B25; <a href="#components">Components</a> &#x2B25; <a href="#101">Mod Details</a> &#x2B25; <a href="#credits">Credits</a> &#x2B25; <a href="#version">Version History</a></br>
+<a href="#intro">Overview</a> &#x2B25; <a href="#compat">Compatibility</a> &#x2B25; <a href="#installation">Installation</a> &#x2B25; <a href="#components">Components</a> &#x2B25; <a href="#101">Mod Details</a> &#x2B25; <a href="#credits">Credits</a> &#x2B25; <a href="#version">Version History</a></br>
 </div>
 
 
@@ -70,7 +67,7 @@ This mod is designed to work on the following classical Infinity Engine games:
 <hr>
 
 
-## <a name="compat" id="compat"></a>Installation
+## <a name="installation" id="installation"></a>Installation
 
 #### Notes
 
@@ -132,7 +129,15 @@ Please read the *1pp-config-language.txt* file (with 'language' being the instal
 Here is a chart listing the options related to the installation process:</br></br>
 
 
-<table summary="Installation variables list">
+| Option<br>Component | Games supported<br>Install Option Description |
+| :---: | --- |
+| **101 female dwarf paperdolls style** | (only available for Heart of Winter or Trials of the Luremaster if Infinity Animations is installed) |
+| 1pp_fdwarf | FEMALE DWARF PAPERDOLLS STYLE<br>Use 1pp or IWD style female dwarf paperdolls?<br><br>1 = IWD<br>2 = 1pp [default]<br> |
+| mymod_variable3 | blabla<br> |
+| mymod_variable4 | blabla<br> |
+
+
+<table summary="Installation options list">
 	<tr style="font-size: 125%; line-height: 160%;">
 		<th style="border: 1px solid #781808; text-align: center; background-color: #781808; color: #e5e5e5; ">Component<br>Option</th>
 		<th style="border: 1px solid #781808; text-align: center; background-color: #781808; color: #e5e5e5; ">Games supported<br>Description</th>
@@ -639,7 +644,6 @@ Proper reconstruction and re-renders of the Baldur's Gate I shield animations, s
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
 
 <div align="center"><img src="1pp/documentation/files/206a.jpg">
-
 <img src="1pp/documentation/files/206b.jpg"></div><br>
 
 This component includes updated versions of Baldur's Gate II's shield animations, as well as several completely new animation types. Also included is one variant that shares common animations but has distinct paperdolls.</br>

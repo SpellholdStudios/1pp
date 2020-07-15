@@ -1,18 +1,33 @@
-# <a name="top" id="top"></a>1pp (One Pixel Productions)
 
-### Un mod de Spellhold Studios pour les jeux Infinity Engine
-
-
-<strong>Auteure :</strong> Erephine<br />
-<strong>Version :</strong> 4.2.0<br />
-<strong>Langues :</strong> <a href="README.md">anglais</a>, français<br />
-<strong>Plateformes :</strong> Windows, linux
-
-<strong>Site internet du mod :</strong> <a href="http://www.spellholdstudios.net/ie/1pp">Spellhold Studios</a><br />
-<strong>Forum du mod :</strong> <a href="http://www.shsforums.net/index.php?showforum=159">Infinity Animations</a>
+![Dernière version](https://img.shields.io/github/v/release/SpellholdStudios/1pp?include_prereleases&color=darkred)<a name="top" id="top"> </a>
+![Plateformes](https://img.shields.io/static/v1?label=platform&message=windows%20%7C%20linux&color=informational)
+![Langues](https://img.shields.io/static/v1?label=language&message=Anglais%20%7C%20Français&color=limegreen)
+<a href="README.md"><img align="right" src="1pp/documentation/files/images/uk-flag-32.png"></a>
 
 
-<center><a href="#intro">Présentation</a> &#x2B25; <a href="#installation">Installation</a> &#x2B25; <a href="#components">Liste des composants</a> &#x2B25; <a href="#101">Détail des composants</a> &#x2B25; <a href="#credits">Remerciements</a> &#x2B25; <a href="#version">Historique des versions</a></center></br></br>
+<div align="center"><h1>1pp (One Pixel Productions) - WIP</h1>
+
+<h3>Un mod de Spellhold Studios pour les jeux Infinity Engine<h3>
+
+</div><br />
+
+
+**Auteure :** Erephine<br />  
+**Site internet du mod :** <a href="http://www.spellholdstudios.net/ie/1pp">Spellhold Studios</a><br />  
+**Forum du mod :** <a href="http://www.shsforums.net/forum/159-1pp/">One Pixel Productions</a>  
+
+Readme writing in progress... Don't try to download and install this mod as it is a WIP version and its install will fail, because of missing files still in development or in beta testing
+
+
+[Read the mod's readme](https://spellholdstudios.github.io/readmes/1pp-readme-english.html)
+
+[Download the mod at Spellhold Studios](http://www.shsforums.net/files/file/1006-1pp/)<br>
+
+&nbsp;
+
+<div align="center">
+<a href="#intro">Présentation</a> &#x2B25; <a href="#compat">Compatibilité</a> &#x2B25; <a href="#installation">Installation</a> &#x2B25; <a href="#components">Composants</a> &#x2B25; <a href="#101">Détail des composants</a> &#x2B25; <a href="#credits">Remerciements</a> &#x2B25; <a href="#version">Historique des versions</a></br>
+</div>
 
 
 <hr>
@@ -25,8 +40,8 @@ Mis à jour et simplifié sous la forme d'un programme d'installation unique, 1ppv
 
 Ce mod transforme certaines icônes d'inventaire d'objets de Baldur's Gate II au style de Baldur's Gate, et remplace certains éléments du jeu par un contenu qui corresponde à la qualité à laquelle nous étions habitués. D'un point de vue technique, One Pixel Productions s'efforce donc de corriger les « défauts cosmétiques » qui n'auraient jamais dû survivre au passage du contrôle qualité. Il comporte de nombreux composants détaillés plus <a href="#components">bas</a>.
 
-Consultez le <a href="http://www.spellholdstudios.net/ie/1pp">site internet du mod</a> ou son <a href="http://www.shsforums.net/index.php?showforum=159">forum</a> pour découvrir toutes les dernières mises à jour.</br>
-<div style="text-align:right"><a href="#components">Retour en haut de page</a></div>
+Consultez le <a href="http://www.spellholdstudios.net/ie/1pp">site internet du mod</a> ou son <a href="http://www.shsforums.net/forum/159-1pp/">forum</a> pour découvrir toutes les dernières mises à jour.</br>
+<div align="right"><a href="#top">Retour en haut de page</a></div>
 
 
 <hr>
@@ -37,20 +52,20 @@ Consultez le <a href="http://www.spellholdstudios.net/ie/1pp">site internet du m
 Ce mod est conçu pour fonctionner sur les jeux Infinity Engine suivants :
 
 - Baldur's Gate II (Les Ombres d'Amn : BG2-SoA), avec ou sans son extension Trône de Bhaal (Throne of Bhaal : ToB).
-- Les mods de conversion Baldur's Gate Trilogy (BGT) et Baldur's Gate Tutu (Tutu).
+- Les mods de conversion <a href="http://www.shsforums.net/forum/261-bgt-weidu/">Baldur's Gate Trilogy (BGT)</a> et <a href="http://www.pocketplane.net/mambo/index.php?option=com_content&task=blogcategory&id=143&Itemid=98">Baldur's Gate Tutu</a> (Tutu).
 - Icewind Dale (IWD) avec au moins l'une de ses extensions Heart of Winter (HoW) ou Trials of the Luremaster (TotLM).
 - Icewind Dale II (IWD2).
 
-1pp est un mod <acronym title="Weimer Dialogue Utility">WeiDU</acronym> et devrait par conséquent être compatible avec n'importe quel mod WeiDU. Si vous rencontrez des bugs, veuillez les signaler dans le forum, s'il vous plaît.
+1pp est un mod WeiDU et devrait par conséquent être compatible avec n'importe quel mod WeiDU. Si vous rencontrez des bugs, veuillez les signaler dans le <a href="http://www.shsforums.net/forum/159-1pp/">forum</a>, s'il vous plaît.<br>
 
-Si vous jouez avec BG2-ToB ou BGT, je vous recommande fortement d'installer la dernière version du <a href="http://www.gibberlings3.net/bg2fixpack/">BG2 Fixpack</a> avant d'installer ce mod.</br>
-<div style="text-align:right"><a href="#components">Retour en haut de page</a></div>
+>Si vous jouez avec BG2-ToB ou BGT, je vous recommande fortement d'installer la dernière version du <a href="http://www.gibberlings3.net/bg2fixpack/">BG2 Fixpack</a> avant d'installer ce mod.</br>
+<div align="right"><a href="#top">Retour en haut de page</a></div>
 
 
 <hr>
 
 
-## <a name="compat" id="compat"></a>Installation
+## <a name="installation" id="installation"></a>Installation
 
 #### Mise en garde
 
@@ -64,11 +79,21 @@ Si vous jouez avec BG2-ToB ou BGT, je vous recommande fortement d'installer la d
 
 #### Windows
 
-1pp pour Windows est livré et installé avec <acronym title="Weimer Dialogue Utility">WeiDU</acronym>, et est diffusé sous forme d'archive.
+1pp pour Windows est livré et installé avec WeiDU, et est diffusé sous forme d'archive.
 
 Vous devez extraire les fichiers de l'archive dans votre répertoire de jeu (<em>le dossier qui contient le fichier CHITIN.KEY</em>) à l'aide de <a href="http://www.7-zip.org/download.html">7zip</a> ou de <a href="http://www.rarlab.com/download.htm">WinRAR</a>. Une fois l'archive extraite correctement, vous devriez trouver le répertoire <strong>1pp</strong> et le fichier <strong>setup-1pp.exe</strong> dans votre répertoire de jeu. Pour installer le mod, il suffit de double-cliquer sur <strong>setup-1pp.exe</strong> et de suivre les instructions affichées à l'écran.
 
 Vous pouvez lancer <strong>setup-1pp.exe</strong> dans votre répertoire de jeu pour réinstaller, désinstaller, ou encore changer des composants.
+
+## 
+
+#### Mac OS X
+
+TODO text
+
+## 
+
+#### Linux
 
 ## 
 
@@ -336,7 +361,7 @@ Vous trouverez la liste des options et leur signification dans le fichier <a hre
 	</tr>
 </table><br>
 
-<div style="text-align:right"><a href="#components">Retour en haut de page</a></div>
+<div align="right"><a href="#components">Retour en haut de page</a></div>
 
 
 <hr>
@@ -390,7 +415,7 @@ C'est le composant qui est à l'origine de ce projet. Il convertit les paperdolls
 
 ###### <em>N'oubliez pas que ce composant ne modifie ni les icônes, ni les couleurs des objets ; il n'est donc pas recommandé de l'installer seul. Cependant, il constitue un pré-requis pour presque tous les composants suivants.</em></br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -413,7 +438,7 @@ L'installation complète modifie l'exécutable du jeu, permettant un usage complet
 Avec l'installation complète, les choix supplémentaires de couleurs pour la peau et les cheveux sont disponibles automatiquement dans les écrans du jeu.</br>
 Quant aux couleurs des vêtements, le complément standard de 34 couleurs primaires et secondaires sera disponible dans les écrans de création et de personnalisation de personnage. Pour bénéficier de plus de couleurs de vêtements, il suffit de cliquer sur « Personnaliser » > « Couleurs » dans l'écran des personnages pour accéder à un jeu supplémentaire de 34 couleurs.</br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -426,7 +451,7 @@ Disponible pour : <span style="color:#060">SoA</span>, <span style="color:#700">
 Cette interface retravaillée pour Baldur's Gate II SoA/ToB a pour but d'adoucir les arêtes trop prononcées des écrans sans s'éloigner du design d'origine. Parmi les modifications majeures, une horloge remplace la « boîte » d'origine, les «&#160;parchemins sans bords » de nombreux écrans font place à des parchemins plus réalistes (voir les captures d'écran dans le lien plus bas), et une option permet de modifier les polices de caractères.</br>
 <a href="1pp/documentation/files/gui_readme-french.html">Plus d'images »</a></br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -440,7 +465,7 @@ Disponible pour : <span style="color:#060">SoA</span>, <span style="color:#700">
 Ce composant corrige et améliore plusieurs séries d'animations d'avatars de personnages de Baldur's Gate II, et met à jour leurs paperdolls pour mieux refléter les modifications effectuées.</br>
 <a href="1pp/documentation/files/avafix_readme-french.html">Plus de captures d'écran »</a></br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -454,7 +479,7 @@ Disponible pour : <span style="color:#060">SoA</span>, <span style="color:#700">
 Ce composant modifie le moteur du jeu de Baldur's Gate II pour qu'il utilise des animations d'avatar différenciées pour les femmes naines et les magiciennes des races de petite taille, et installe le contenu nécessaire pour qu'elles soient opérationnelles dans le jeu.</br>
 <a href="1pp/documentation/files/dwarf_readme-french.html">Plus de captures d'écran »</a></br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -470,7 +495,7 @@ Dans BGII, les voleurs ne disposent d'animations que pour un niveau d'armure (le
 Ce composant modifie l'exécutable du jeu pour qu'il utilise l'ensemble des animations des voleurs, et installe le contenu nécessaire pour qu'elles soient opérationnelles.</br>
 <a href="1pp/documentation/files/thieves_readme-french.html">Consulter le readme d'origine »</a></br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -483,7 +508,7 @@ Disponible pour : <span style="color:#060">SoA</span>, <span style="color:#700">
 Ce composant permet d'afficher correctement les armures et les robes lorsque les personnages de toutes les classes s'en équipent. Il contourne la limitation du moteur du jeu qui n'affiche pas les robes portées par les guerriers, prêtres et voleurs, ni les armures portées par les magiciens, en changeant l'animation des personnages selon les types d'armure dont ils sont équipés.</br>
 <a href="1pp/documentation/files/switch_readme-french.html">Consulter le readme d'origine »</a></br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -497,7 +522,7 @@ Disponible pour : <span style="color:#060">SoA (partial)</span>, <span style="co
 Ce composant améliore sensiblement certains effets visuels de sorts des jeux IE utilisant le moteur de Baldur's Gate II en les dotant d'un léger effet d'alpha blending [<em>NdT : simulation de transparence</em>]. Notez qu'il ne fonctionnera correctement qu'avec l'activation de l'accélération 3D. Si vous jouez en mode Rendu logiciel, il n'est pas recommandé d'installer ce composant.</br>
 <a href="1pp/documentation/files/effects_readme-french.html">Plus de captures d'écran »</a></br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -511,7 +536,7 @@ Disponible pour : <span style="color:#060">SoA</span>, <span style="color:#700">
 Pour l'essentiel, ce composant reprend les modifications d'icônes d'inventaire des objets de 1ppv2. En d'autres termes, il améliore la qualité graphique des icônes dans BGII, particulièrement dans l'expansion ToB. Il met aussi à jour des icônes et les objets associés ajoutés par certains mods. Il constitue le socle sur lequel 1ppv4 a été conçu pour SoA/ToB.</br>
 <a href="1pp/documentation/files/v2_readme-french.html">Consulter le readme d'origine »</a></br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -524,7 +549,7 @@ Disponible pour : <span style="color:#060">SoA</span>, <span style="color:#700">
 Ce composant harmonise le graphisme des icônes de sorts utilisé par Baldur's Gate II avec celui du jeu original. Il met aussi à jour les icônes dans les livres de sorts, dans les écrans utilisateurs, ainsi que celles des parchemins de sort.</br>
 <a href="1pp/documentation/files/spic_readme-french.html">Plus de captures d'écran »</a></br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -536,7 +561,7 @@ Disponible pour : <span style="color:#060">SoA</span>, <span style="color:#700">
 
 Des ajustements mineurs de sorts pour SoA/ToB, comme l'attribution d'effets visuels distincts aux sorts d'armure (Armure fantomatique, Armure spirituelle), ainsi que le remaniement des sorts de type « cause des blessures », en les alignant sur leurs équivalents P&amp;P et en les rendant véritablement viables.</br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -550,7 +575,7 @@ Disponible pour : <span style="color:#060">SoA</span>, <span style="color:#700">
 Ce composant rétablit les animations spécifiques des épées enflammées pour Baldur's Gate II (identiques à celles du jeu original). Il installe aussi des épées courtes enflammées, ajoutant ainsi une nouvelle catégorie d'objet dans le jeu.</br>
 <a href="1pp/documentation/files/fs_readme-french.html">Consulter le readme d'origine »</a></br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -564,7 +589,7 @@ Disponible pour : <span style="color:#060">SoA</span>, <span style="color:#700">
 Ce composant permet de personnaliser l'apparence des bâtons en les colorant par segment (des parties prédéfinies du bâton, contrairement au jeu qui leur attribue une couleur uniforme) ; ce qui permet de diversifier les bâtons du jeu et de faire correspondre leur apparence à celles de leurs icônes dans l'écran d'inventaire. Il patche aussi les bâtons du jeu pour profiter de ce nouveau contenu.</br>
 <a href="1pp/documentation/files/qs_readme-french.html">Consulter les notes de développement »</a></br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -577,7 +602,7 @@ Disponible pour : <span style="color:#060">SoA</span>, <span style="color:#700">
 
 Ce composant remplace les animations classiques de boucliers par celles de Baldur's Gate I, correctement reconstruites et redessinées. Il a été réalisé grâce au soutien inestimable de l'équipe de BG:EE.</br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -594,7 +619,7 @@ Ce composant installe des versions modifiées des animations de boucliers de Bald
 
 ###### <em>N'oubliez-pas qu'il s'agit d'un composant basique : il ne modifie aucun objet. Son installation permettra aux composants suivants de vous proposer des options supplémentaires lors de la mise à jour des objets et des sorts.</em></br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -609,7 +634,7 @@ Ce composant installe une nouvelle animation de bâton (le bâton du magicien), ai
 
 ###### <em>N'oubliez-pas qu'il s'agit d'un composant basique : il ne modifie aucun objet. Son installation permettra aux composants suivants de vous proposer des options supplémentaires lors de la mise à jour des objets et des sorts.</em></br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -625,7 +650,7 @@ Ce composant améliore les animations de casques de Baldur's Gate II original, et
 
 ###### <em>N'oubliez-pas qu'il s'agit d'un composant basique : il ne modifie aucun objet. Son installation permettra aux composants suivants de vous proposer des options supplémentaires lors de la mise à jour des objets et des sorts.</em></br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -641,7 +666,7 @@ Ce composant ajoute des ailes dont les personnages elfes peuvent s'équiper (avec
 
 ###### <em>N'oubliez-pas qu'il s'agit d'un composant basique : il ne modifie aucun objet. Son installation permettra aux composants suivants de vous proposer des options supplémentaires lors de la mise à jour des objets et des sorts.</em></br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -656,7 +681,7 @@ Ce composant augmente la variété de paperdolls disponibles en ajoutant des varia
 
 ###### <em>N'oubliez-pas qu'il s'agit d'un composant basique : il ne modifie aucun objet. Son installation permettra aux composants suivants de vous proposer des options supplémentaires lors de la mise à jour des objets et des sorts.</em></br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -676,7 +701,7 @@ Dans les versions précédentes, divers choix vous étaient proposés pendant d'inst
 Depuis la version 4.2.0, les options d'installation sont externalisés dans le fichier 1pp-config-default.ini. Si vous souhaitez les modifier, veuillez lire ce <a href="#config">chapitre</a>.</br></br>
 Pour avoir un aperçu complet des options, veuillez consulter le lien ci-dessous. Si vous souhaitez affecter des couleurs pré-définies aux objets non magiques, choisissez les options 2 ou 3 de l'option COULEURS DES OBJETS PRÉ-DÉFINIES.</br>
 <a href="1pp/documentation/files/v4u_readme-french.html">Autres options d'installation »</a></br>
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -690,7 +715,7 @@ Disponible pour : <span style="color:#060">SoA</span>, <span style="color:#700">
 
 Ce composant améliore les effets visuels des projectiles de Baldur's Gate II. Vous pourrez détecter quel genre de billes, flèches ou carreaux sont tirés sur vous, ou si vous êtes vraiment distrait(e), que <em>vous</em> tirez. Il comprend des projectiles colorés de billes, de carreaux, de haches et de fléchettes, et, ce qui est encore plus chouette, vous pouvez distinguer les différents types de munitions sur votre paperdoll !</br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -702,7 +727,7 @@ Disponible pour : <span style="color:#700">ToB</span>, <span style="color:#080">
 
 Ce composant modifie le rendu visuel des animations des solaires dans les jeux utilisant le moteur de ToB, ainsi que celui des élémentaires de feu (plus transparents).</br>
 
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 ------------------------
 
@@ -713,7 +738,7 @@ Disponible pour : <span style="color:#060">SoA</span>, <span style="color:#700">
 <img src="1pp/documentation/files/301.jpg">
 
 Ce composant apporte des corrections aux éléments suivants : animations de chien (palette corrompue), de roturière assise (mauvaise conversion des fichiers BAM), variante de l'animation de géant du feu (qui était inutilisable car elle ne disposait pas d'une palette uniforme). Il corrige aussi un bug dans SoA/ToB et IWD:TotLM, lié au moteur du jeu, qui affiche de manière aléatoire de mauvaises séquences des casques lorsque vous changez d'équipement, les faisant «&#160;flotter » sur votre personnage. Enfin, il contient un correctif au bug du tampon de profondeur [<em>NdT : gestion de l'élimination des parties cachées</em>] des boucliers sur les animations de personnages de BGII dans SoA, ToB, IWD:TotLM et IWDII.</br>
-<div style="text-align:right"><a href="#components">Retour à la liste des composants</a></div>
+<div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
 
 <hr>
@@ -741,7 +766,7 @@ Pour toute question ou demande d'assistance, veuillez consulter le <a href="http
 - <a href="http://" target="_blank">Hex Editor Neo</a>.
 - <a href="http://" target="_blank">ACDSee Pro</a>.
 </br>
-<div style="text-align:right"><a href="#components">Retour en haut de page</a></div>
+<div align="right"><a href="#components">Retour en haut de page</a></div>
 
 
 <hr>
@@ -898,4 +923,4 @@ b. Modifications relatives à chaque composant :
 ##### Version 4.0.0 - 6 août 2012
 
 - Sortie initiale.
-<div style="text-align:right"><a href="#components">Retour en haut de page</a></div>
+<div align="right"><a href="#components">Retour en haut de page</a></div>
