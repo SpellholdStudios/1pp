@@ -1,8 +1,10 @@
 
-![Latest Release](https://img.shields.io/github/v/release/SpellholdStudios/1pp?include_prereleases&color=darkred)<a name="top" id="top"> </a>[floatr]Texte ou image[/floatr]
+<img align="right" src="1pp/documentation/files/shsweb.ico">
+![Latest Release](https://img.shields.io/github/v/release/SpellholdStudios/1pp?include_prereleases&color=darkred)<a name="top" id="top"> </a>
 ![Platform](https://img.shields.io/static/v1?label=platform&message=windows%20%7C%20linux&color=informational)
 ![Language](https://img.shields.io/static/v1?label=language&message=English%20%7C%20French&color=limegreen)
-
+[floatr]Texte ou image[/floatr]
+<div align="right">Texte ou image</div>
 
 <div align="center"><h1>1pp (One Pixel Productions) - WIP</h1>
 
@@ -431,7 +433,7 @@ The installer includes the following components. The number of each is the compo
 
 Supports: <span style="color:#006600">SoA</span>, <span style="color:#770000">ToB</span>, <span style="color:#008800">Tutu</span>, <span style="color:#009FB9">HoW</span>, <span style="color:#666666;">IWDII (placeholder)</span></br>
 
-<div align="center"><img src="1pp/documentation/files/101.jpg"><</div>/br>
+<div align="center"><img src="1pp/documentation/files/101.jpg"></div></br>
 
 The component that essentially started it all, this is a port of Baldur's Gate I style paperdolls for the Baldur's Gate II engine (used in SoA/ToB and HoW). Included are reworked 1ppv4 paperdolls for all race/class combinations matching vanilla animations as well as equipped object overlays. New in this version is detection and native support for Infinity Animations, including support for installs of HoW using BG1 animations via the <a href="http://www.shsforums.net/files/file/972-1pp-animation-fixes-for-iwd-totlm/">1pp IWD animation fixpack</a>.
 
@@ -637,9 +639,9 @@ Proper reconstruction and re-renders of the Baldur's Gate I shield animations, s
 <strong>Requires: <a href="#101">[101]</a></strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
 
-<div align="center"><img src="1pp/documentation/files/206a.jpg"></div>
+<div align="center"><img src="1pp/documentation/files/206a.jpg">
 
-<img src="1pp/documentation/files/206b.jpg">
+<img src="1pp/documentation/files/206b.jpg"></div>
 
 This component includes updated versions of Baldur's Gate II's shield animations, as well as several completely new animation types. Also included is one variant that shares common animations but has distinct paperdolls.</br>
 
