@@ -23,7 +23,7 @@ Readme writing in progress... Don't try to download and install this mod as it i
 
 [Download the mod at Spellhold Studios](http://www.shsforums.net/files/file/1006-1pp/)<br>
 
-&#9888; =  :warning: | :exclamation: = :heavy_exclamation_mark: | :arrow_forward: | blue :ballot_box_with_check: | blue :white_check_mark: green<br>
+&#9888; =  :warning: | :exclamation: = :heavy_exclamation_mark: | blue :arrow_forward: | blue :ballot_box_with_check: | blue :white_check_mark: green<br>
 
 &nbsp;
 
@@ -145,12 +145,12 @@ Here is a chart listing the options related to the installation process:</br></b
 		<th style="border: 1px solid #781808; text-align: center; background-color: #781808; color: #e5e5e5; ">Games supported<br>Description</th>
 	</tr>
 	<tr>
-		<td>**<span style="text-align: center;">101 female dwarf paperdolls style</span><**</td>
+		<td><strong><span style="text-align: center;">101 female dwarf paperdolls style</span></strong></td>
 		<td>(only available for Heart of Winter or Trials of the Luremaster if Infinity Animations is installed)</td>
 	</tr>
 	<tr>
-		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">101 female dwarf paperdolls style</span>**</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(only available for <span style="color:#088">Heart of Winter</span> or <span style="color:#088">Trials of the Luremaster</span> if Infinity Animations is installed)</center></td>
+		<td><div align="center">101 female dwarf paperdolls style</div></td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><div align="center">(only available for Heart of Winter or Trials of the Luremaster if Infinity Animations is installed)</div></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_fdwarf</td>
@@ -161,7 +161,7 @@ Here is a chart listing the options related to the installation process:</br></b
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">104 GUI additions for BGII</span>**</td>
-		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; padding-left:5px; padding-right:5px; ">(<span style="color:#060">BG2</span>, <span style="color:#700">ToB</span>, <span style="color:#080">tutu</span>, <span style="color:#080">tutu_totsc</span> and ca)</td>
+		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; padding-left:5px; padding-right:5px; ">(BG2, ToB, tutu, tutu_totsc and ca)</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_gui_soa</td>
@@ -186,8 +186,8 @@ Here is a chart listing the options related to the installation process:</br></b
 		<span style="padding-left:20px;">2 = No</span></td>
 	</tr>
 	<tr>
-		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">114 Softer Spell Effects</span>**</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(<span style="color:#060">BG2</span>, <span style="color:#700">ToB</span>, <span style="color:#080">tutu</span>, <span style="color:#080">tutu_totsc</span> and ca)</center></td>
+		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**114 Softer Spell Effects**</td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(BG2, ToB, tutu, tutu_totsc and ca)</center></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_agannazar_scorcher</td>
@@ -205,7 +205,7 @@ Here is a chart listing the options related to the installation process:</br></b
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">200 Core content patches</span>**</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(<span style="color:#060">BG2</span>, <span style="color:#700">ToB</span>, <span style="color:#080">tutu</span>, <span style="color:#080">tutu_totsc</span> and ca)</center></td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(BG2, ToB, tutu, tutu_totsc and ca)</center></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_hammers_icons</td>
@@ -223,7 +223,7 @@ Here is a chart listing the options related to the installation process:</br></b
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">202 Spell tweaks</span>**</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(<span style="color:#060">BG2</span>, <span style="color:#700">ToB</span>, <span style="color:#080">tutu</span>, <span style="color:#080">tutu_totsc</span> and ca)</center></td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(BG2, ToB, tutu, tutu_totsc and ca)</center></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_iwd_cause_wounds_icons</td>
@@ -241,7 +241,7 @@ Here is a chart listing the options related to the installation process:</br></b
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">400 Core updates and item patches</span>**</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(<span style="color:#060">BG2</span>, <span style="color:#700">ToB</span>, <span style="color:#080">tutu</span>, <span style="color:#080">tutu_totsc</span> and ca). Requires component 200 Core content patches</center></td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(BG2, ToB, tutu, tutu_totsc and ca). Requires component 200 Core content patches</center></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_shields_appearance<br><br>
@@ -336,7 +336,7 @@ Here is a chart listing the options related to the installation process:</br></b
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_tutu_bg1_shields<br><br>
-		(only available for <span style="color:#080">tutu</span> and <span style="color:#080">tutu_totsc</span>)</td>
+		(only available for tutu and tutu_totsc)</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">APPLY SAME SHIELD SETTING TO Tutu/BG1 SHIELDS<br><br>
 		Do you want your shield setting to apply to Tutu/BG1 shields as well (warning: replaces Tutu's default shields)?<br><br>
 		<span style="color: #781808; padding-left:20px;">1 = No [default]</span><br>
@@ -344,7 +344,7 @@ Here is a chart listing the options related to the installation process:</br></b
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_tutu_bg1_helmets<br><br>
-		(only available for <span style="color:#080">tutu</span> and <span style="color:#080">tutu_totsc</span>)</td>
+		(only available for tutu and tutu_totsc)</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">APPLY SAME BG2 HELMET INVENTORY ICON SETTING TO Tutu/BG1 HELMETS<br><br>
 		Do you want your BG2 helmet inventory icon choices to apply to Tutu/BG1 helmets as well (warning: replaces Tutu's default helmets)?<br><br>
 		<span style="color: #781808; padding-left:20px;">1 = No [default]</span><br>
@@ -359,7 +359,7 @@ Here is a chart listing the options related to the installation process:</br></b
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">400 Core updates and item patches</span>**</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(<span style="color:#088">HoW</span> and <span style="color:#088">TotLM</span>)</center></td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(HoW and TotLM)</center></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_gemlore</td>
@@ -377,7 +377,7 @@ Here is a chart listing the options related to the installation process:</br></b
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">300 Fixed animations for solars and elementals</span>**</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(<span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#080">tutu_totsc</span> and ca)</center></td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(ToB, tutu, tutu_totsc and ca)</center></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_solar_weapons</td>
@@ -441,7 +441,7 @@ The installer includes the following components. The number of each is the compo
 
 ### <a name="101" id="101"></a>[101] 1ppv4: Core paperdolls
 
-Supports: <span style="color:#006600">SoA</span>, <span style="color:#770000">ToB</span>, <span style="color:#008800">Tutu</span>, <span style="color:#009FB9">HoW</span>, <span style="color:#666666;">IWDII (placeholder)</span></br>
+Supports: SoA, ToB, Tutu, HoW, IWDII (placeholder)</br>
 
 <div align="center"><img src="1pp/documentation/files/101.jpg"></div><br>
 
@@ -456,7 +456,7 @@ The component that essentially started it all, this is a port of Baldur's Gate I
 ### <a name="102" id="102"></a>[102-103] 1ppv4: Extended palette entries
 
 **Non-optional component**</br>
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
+Supports: SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/102.jpg"></div><br>
 
@@ -482,7 +482,7 @@ As for clothing colours, during character creation and from the inventory the st
 
 ### <a name="104" id="104"></a>[104] 1ppv4: GUI additions for BGII
 
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu (if using the BG2 GUI)</span></br>
+Supports: SoA, ToB, Tutu (if using the BG2 GUI)</br>
 
 <div align="center"><img src="1pp/documentation/files/104.jpg"></div><br>
 
@@ -496,7 +496,7 @@ A reworked graphical user interface for Baldur's Gate II SoA/ToB. This aims to g
 ### <a name="105" id="105"></a>[105] 1ppv4: Avatar fixes
 
 **Requires: <a href="#101">[101]</a>**</br>
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
+Supports: SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/105.jpg"></div><br>
 
@@ -510,7 +510,7 @@ This component contains fixes and improvements for several avatar series of Bald
 ### <a name="106" id="106"></a>[106-109] 1ppv4: Female Dwarves
 
 **Requires: <a href="#101">[101]</a>**</br>
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
+Supports: SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/106.jpg"></div><br>
 
@@ -524,7 +524,7 @@ This component patches Baldur's Gate II engine games to use separate avatar anim
 ### <a name="110" id="110"></a>[110-112] 1ppv4: Thieves Galore
 
 **Requires: <a href="#101">[101]</a> <a href="#106">[106-109]</a>**
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
+Supports: SoA, ToB, tutu, HoW, IWDII</br>
 ###### Note: Due to the way patching is currently handled, this component will fail if Infinity Animations is already installed. To resolve this issue, install IA after this component.
 
 <div align="center"><img src="1pp/documentation/files/110.jpg"></div><br>
@@ -539,7 +539,7 @@ This component will patch your executable to support full thief animation sequen
 
 ### <a name="113" id="113"></a>[113] 1ppv4: Smart Avatar & Armour Switching
 
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
+Supports: SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/113.jpg"></div><br>
 
@@ -553,7 +553,7 @@ This component allows armour and robes to properly show up for characters of any
 ### <a name="114" id="114"></a>[114] 1ppv4: Softer Spell Effects
 
 **Requires enabled 3D support**</br>
-Supports: <span style="color:#060">SoA (partial)</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII (placeholder)</span></br>
+Supports: SoA (partial), ToB, tutu, HoW, IWDII (placeholder)</br>
 
 <div align="center"><img src="1pp/documentation/files/114.jpg"></div><br>
 
@@ -567,7 +567,7 @@ Substantially improved spell effects with smooth alpha blending for Baldur's Gat
 ### <a name="200" id="200"></a>[200] 1ppv4: Core content patches
 
 **Requires: <a href="#101">[101]</a>**</br>
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span></br>
+Supports: SoA, ToB, tutu</br>
 
 <div align="center"><img src="1pp/documentation/files/200.jpg"></div><br>
 
@@ -580,7 +580,7 @@ This is essentially the inventory icon/item related patches of 1ppv2. In other w
 
 ### <a name="201" id="201"></a>[201] 1ppv4: Consistent spell and scroll icons
 
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span></br>
+Supports: SoA, ToB, tutu</br>
 
 <div align="center"><img src="1pp/documentation/files/201.jpg"></div><br>
 
@@ -593,7 +593,7 @@ This component harmonises spell icons introduced in Baldur's Gate II with the on
 
 ### <a name="202" id="202"></a>[202] 1ppv4: Spell tweaks
 
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span></br>
+Supports: SoA, ToB, tutu</br>
 
 <div align="center"><img src="1pp/documentation/files/202.jpg"></div><br>
 
@@ -606,7 +606,7 @@ Minor spell tweaks for SoA/ToB, giving armour spells distinct appearances (ghost
 ### <a name="203" id="203"></a>[203] 1ppv4: Restored flame sword animations
 
 **Requires: <a href="#101">[101]</a>**</br>
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
+Supports: SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/203.jpg"></div><br>
 
@@ -620,7 +620,7 @@ This component restores separate flame sword animations for Baldur's Gate II (si
 ### <a name="204" id="204"></a>[204] 1ppv4: Colourable Quarterstaves
 
 **Requires: <a href="#101">[101]</a>**</br>
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
+Supports: SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/204.jpg"></div><br>
 
@@ -634,7 +634,7 @@ This component makes quarterstaves colourable by segment (as opposed to uniform)
 ### <a name="205" id="205"></a>[205] 1ppv4: Legacy Shields v2
 
 **Requires: <a href="#101">[101]</a>**</br>
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
+Supports: SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/205.jpg"></div><br>
 
@@ -647,7 +647,7 @@ Proper reconstruction and re-renders of the Baldur's Gate I shield animations, s
 ### <a name="206" id="206"></a>[206] 1ppv4: Additional Shield Animations (core)
 
 **Requires: <a href="#101">[101]</a>**</br>
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
+Supports: SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/206a.jpg">
 <img src="1pp/documentation/files/206b.jpg"></div><br>
@@ -663,7 +663,7 @@ This component includes updated versions of Baldur's Gate II's shield animations
 ### <a name="207" id="207"></a>[207] 1ppv4: Wizards' Staves (core)
 
 **Requires: <a href="#101">[101]</a>**</br>
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
+Supports: SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/207.jpg"></div><br>
 
@@ -678,7 +678,7 @@ This component includes one new animation (wizard's staff) as well as several ne
 ### <a name="208" id="208"></a>[208] 1ppv4: Additional Helmet Animations (core)
 
 **Requires: <a href="#101">[101]</a>**</br>
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
+Supports: SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/208a.jpg">
 <img src="1pp/documentation/files/208b.jpg"></div><br>
@@ -694,7 +694,7 @@ This component includes improved content for Baldur's Gate II's vanilla helmet a
 ### <a name="209" id="209"></a>[209] 1ppv4: Attachable wings (core)
 
 **Requires: <a href="#101">[101]</a>**</br>
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
+Supports: SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/209.jpg"></div><br>
 
@@ -710,7 +710,7 @@ This component adds equippable wings for elven characters (with some restriction
 ### <a name="210" id="210"></a>[210] 1ppv4: Increased paperdoll object variety (core)
 
 **Requires: <a href="#101">[101]</a>**</br>
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
+Supports: SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/210.jpg"></div><br>
 
@@ -726,7 +726,7 @@ This component increases paperdoll variety by adding various alternates sharing 
 
 **Requires: <a href="#101">[101]</a> <a href="#200">[200]</a> (on SoA/ToB/Tutu)**</br>
 **Suggested: <a href="#203">[203]</a> <a href="#204">[204]</a> <a href="#205">[205]</a> <a href="#206">[206]</a> <a href="#207">[207]</a> <a href="#208">[208]</a> <a href="#209">[209]</a> <a href="#210">[210]</a>**</br>
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span></br>
+Supports: SoA, ToB, tutu, HoW</br>
 
 This is the main 1ppv4 update component. Make sure you have all components you would like to see used installed before proceeding (suggested components will provide additional content and install choices). The following screenshots depict standard installation choices, except where noted otherwise.</br>
 
@@ -745,7 +745,7 @@ For a full, visual guide to choices see the link below. Consider choosing 'yes' 
 ### <a name="401" id="401"></a>[401] 1ppv4: Improved projectile effects
 
 **Requires: <a href="#200">[200]</a> <a href="#400">[400]</a>**</br>
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span></br>
+Supports: SoA, ToB, tutu</br>
 
 <div align="center"><img src="1pp/documentation/files/401.jpg">
 <img src="1pp/documentation/files/401b.jpg"></div><br>
@@ -758,7 +758,7 @@ This component improves projectile effects around Baldur's Gate II. Be able to s
 
 ### <a name="300" id="300"></a>[300] 1ppv4: Fixed animations for solars and elementals
 
-Supports: <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span></br>
+Supports: ToB, tutu</br>
 
 <div align="center"><img src="1pp/documentation/files/300.jpg"></div><br>
 
@@ -770,7 +770,7 @@ This component fixes rendering for solar animations on ToB based games, as well 
 
 ### <a name="301" id="301"></a>[301] 1ppv4: Miscellaneous content fixes
 
-Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
+Supports: SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/301.jpg"></div><br>
 
