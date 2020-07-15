@@ -1,5 +1,5 @@
 /* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
+ *  v 4.2.0                                                                                                                                                                         *
  *                                    C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( l a u n c h e r s )                                     *
  *                                                                                                                                                                                  *
  * ================================================================================================================================================================================ *
@@ -7,15 +7,16 @@
  * ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
- *      - Replace macros with functions whenever possible.                                                                                                                          *
  *      - Coding simplification:                                                                                                                                                    *
- *          Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
+ *          Replaced macros with functions whenever possible.                                                                                                                       *
+ *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                              *
+ *          Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (Rolles).                                                                                 *
  * ================================================================================================================================================================================ */
 
 // ----------------------------- //
 //     ITEMS               line  //
 // ----------------------------- //
-//  SLINGS               #   23  //
+//  SLINGS               #   24  //
 //  CROSSBOWS            #  183  //
 // ----------------------------- //
 
@@ -89,15 +90,14 @@ END
 // Arla's Dragonbane +3
 ACTION_IF (FILE_EXISTS_IN_GAME ~slng05.itm~) BEGIN
 	COPY_EXISTING ~slng05.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET gradient = 164				// 164 RAW_UMBER replaces colour index 28 BLUISH_SILVER
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-			SET gradient = 208				// sets colour index 208 ATH_PEASANT_MAJOR-FADED_WHEAT
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-		END
+		LPF ~1pp_slng05~ END
+	BUT_ONLY
+END
+
+// Sling +4 Arla's Dragonbane (Rolles mod)
+ACTION_IF (FILE_EXISTS_IN_GAME ~s#slng01.itm~) BEGIN
+	COPY_EXISTING ~s#slng01.itm~ ~override~
+		LPF ~1pp_slng05~ END
 	BUT_ONLY
 END
 
@@ -476,4 +476,4 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~xbow18.itm~) BEGIN
 	BUT_ONLY
 END
 
-//END of COMPONENT
+// END of COMPONENT SECTION
