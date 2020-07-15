@@ -387,7 +387,8 @@ Here is a chart listing the options related to the installation process:</br></b
 The installer includes the following components. The number of each is the component <em>DESIGNATED</em> number which gives it a fixed install position, lets other components detect it and allows automated installers like the BiG World Setup specify component choices.
 
 &#10173; <strong>Game engine and core related content</strong></br>
-><span style="margin-left: 50px;"><a href="#101">[101] 1ppv4: Core paperdolls</a></span></br>
+
+><span style="margin-left: 50px;"><a href="#101">[101] 1ppv4: Core paperdolls</a> <em>[main 1ppv4 update component]</em></span></br>
 ><span style="margin-left: 50px;"><a href="#102">[102-103] 1ppv4: Extended palette entries</a></span></br>
 ><span style="margin-left: 50px;"><a href="#104">[104] 1ppv4: GUI additions for BGII</a></span></br>
 ><span style="margin-left: 50px;"><a href="#105">[105] 1ppv4: Avatar fixes</a></span></br>
@@ -395,6 +396,8 @@ The installer includes the following components. The number of each is the compo
 ><span style="margin-left: 50px;"><a href="#110">[110-112] 1ppv4: Thieves Galore</a></span></br>
 ><span style="margin-left: 50px;"><a href="#113">[113] 1ppv4: Smart Avatar & Armour Switching</a></span></br>
 ><span style="margin-left: 50px;"><a href="#114">[114] 1ppv4: Softer Spell Effects</a></span></br>
+
+## 
 
 &#10173; <strong>Item patches, additions and implementation</strong></br>
 
@@ -410,8 +413,10 @@ The installer includes the following components. The number of each is the compo
 ><span style="margin-left: 50px;"><a href="#209">[209] 1ppv4: Attachable wings (core)</a></span></br>
 ><span style="margin-left: 50px;"><a href="#210">[210] 1ppv4: Increased paperdoll object variety (core)</a></span></br>
 
-><span style="margin-left: 50px;"><a href="#400">[400] 1ppv4: Core updates and item patches</a> <em>[main 1ppv4 update component]</em></br>
+><span style="margin-left: 50px;"><a href="#400">[400] 1ppv4: Core updates and item patches</a> <em>[main 1ppv4 update component]</em></span></br>
 ><span style="margin-left: 50px;"><a href="#401">[401] 1ppv4: Improved projectile effects</a></span></br>
+
+## 
 
 &#10173; <strong>Extras and non-character related fixes</strong></br>
 
@@ -445,12 +450,12 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 
 This component adds new colour gradients to Infinity Engine games, raising the count of available colours from 116 to 256. It also includes a new random colour table making use of them for Baldur's Gate II and new colour set files for Icewind Dale II, giving you more skin/hair colour choices for the various races.</br>
 It also fixes a few minor problems with standard gradients.</br>
-&#9755; <a href="1pp/documentation//files/extpal_readme.html">Read more</a></br></br>
+&#9755; <a href="1pp/documentation//files/extpal_readme.html">Read more</a></br>
 
 ## 
 
 <strong>[102] Compatibility install</strong></br>
-For installs that do not support the binary patch (OSX), this installs the basic files needed for 1pp to work properly but does not support using the new colours as character colours.</br></br>
+For installs that do not support the binary patch (OSX), this installs the basic files needed for 1pp to work properly but does not support using the new colours as character colours.</br>
 
 ## 
 

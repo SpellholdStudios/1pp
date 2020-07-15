@@ -1,23 +1,24 @@
-/* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
- *                                              C O M P O N E N T   :   R e s t o r e d   f l a m e   s w o r d   a n i m a t i o n s                                               *
- *                                                                                                                                                                                  *
- * ================================================================================================================================================================================ *
- *  This component restores separate flame sword animations for Baldur's Gate II (similar to the ones in the original).                                                             *
- *  It also includes flame short swords, adding a new item type to the game. (Original ode by Nythrun!)                                                                             *
- * ================================================================================================================================================================================ *
- *  change-log:                                                                                                                                                                     *
- *  -----------                                                                                                                                                                     *
- *     - Coding simplification:                                                                                                                                                     *
- *          Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
- * ================================================================================================================================================================================ */
+/* ================================================================================================================================================================================== *
+ *  v 4.2.0                                                                                                                                                                           *
+ *                                               C O M P O N E N T   :   R e s t o r e d   f l a m e   s w o r d   a n i m a t i o n s                                                *
+ *                                                                                                                                                                                    *
+ * ================================================================================================================================================================================== *
+ *  This component restores separate flame sword animations for Baldur's Gate II (similar to the ones in the original).                                                               *
+ *  It also includes flame short swords, adding a new item type to the game. (Original code by Nythrun!)                                                                              *
+ * ================================================================================================================================================================================== *
+ *  change-log:                                                                                                                                                                       *
+ *  -----------                                                                                                                                                                       *
+ *     - Coding simplification:                                                                                                                                                       *
+ *          Copied entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ *          Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (Improved HaerDalis Swords).                                                                *
+ * ================================================================================================================================================================================== */
 
 // ----------------------------- //
 //     ITEMS               line  //
 // ----------------------------- //
-//  FLAME LONG SWORDS    #   24  //
-//  FLAME SHORT SWORDS   #  135  //
-//  MODS FLAME SWORDS    #  270  //
+//  FLAME LONG SWORDS    #   25  //
+//  FLAME SHORT SWORDS   #  136  //
+//  MODS FLAME SWORDS    #  258  //
 // ----------------------------- //
 
 /* =================== *
@@ -157,24 +158,8 @@ COPY ~1pp/additions/obj_anim/f2/fs_s_files~ ~override~
 // Chaos Blade
 ACTION_IF (FILE_EXISTS_IN_GAME ~npsw06.itm~) BEGIN
 	COPY_EXISTING ~npsw06.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
-			WRITE_ASCII 0x22 ~F2~		// Flaming sword (blue) - replaces SS Short sword
-			LPM ~clear~
-			SET gradient = 99			// sets colour index 99 GOLDEN_BROWN
-			SET location = wgrey		// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 93			// sets colour index 93 DARK_CEMENT_GRAY
-			SET location = wred			// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-			SET gradient = 108			// 108 PINKISH_GRAY replaces colour index 27 GRAY
-			SET location = wblue		// location (Head/Blade minor)
-			LPM ~colour~
-			SET setr = 0x4C				// Set Red
-			SET setg = 0x17				// Set Green
-			SET setb = 0x20				// Set Blue
-			SET location = wblue		// location (Head/Blade minor)
-			LPM ~glow~
-		END
+		LPF ~1pp_npsw06~ END
+	BUT_ONLY
 END
 
 // Arbane's Sword of Agility +2
@@ -198,6 +183,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h27.itm~) BEGIN
 			SET location = wblue		// location (Head/Blade minor)
 			LPM ~glow~
 		END
+	BUT_ONLY
 END
 
 // Selûne's Blade
@@ -231,6 +217,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sblade.itm~) BEGIN
 			SET location = wblue		// location (Head/Blade minor)
 			LPM ~glow~
 		END
+	BUT_ONLY
 END
 
 // Blade of Searing +3
@@ -254,6 +241,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h39.itm~) BEGIN
 			SET location = wred			// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~glow~
 		END
+	BUT_ONLY
 END
 
 // Short Sword +1
@@ -269,12 +257,14 @@ END
 /* =================== *
  *  MODS FLAME SWORDS  *
  * =================== */
+
 PRINT @203004 // ~Installing flame sword mod item patches (if found).~
 SILENT
 
 /* ----------- *
  *  Chloe mod  *
  * ----------- */
+
 ACTION_IF (FILE_EXISTS_IN_GAME ~chlosw1.itm~) BEGIN
 
 	COPY ~1pp/additions/obj_anim/f2/fs_s_items/cchak01.bam~ ~override~
@@ -296,6 +286,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chlosw1.itm~) BEGIN
 		SAY NAME2 @203101
 		SAY UNIDENTIFIED_DESC @203102
 		SAY IDENTIFIED_DESC @203102
+	BUT_ONLY
 
 	// Rage of Akadia
 	COPY ~1pp/additions/obj_anim/f2/fs_s_items/chlosw2.itm~ ~override~
@@ -303,6 +294,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chlosw1.itm~) BEGIN
 		SAY NAME2 @203103
 		SAY UNIDENTIFIED_DESC @203104
 		SAY IDENTIFIED_DESC @203104
+	BUT_ONLY
 
 	// Fury of Akadia
 	COPY ~1pp/additions/obj_anim/f2/fs_s_items/chlosw3.itm~ ~Override~
@@ -310,6 +302,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chlosw1.itm~) BEGIN
 		SAY NAME2 @203105
 		SAY UNIDENTIFIED_DESC @203106
 		SAY IDENTIFIED_DESC @203106
+	BUT_ONLY
 
 	// Lathandar's Flame
 	COPY ~1pp/additions/obj_anim/f2/fs_s_items/chlosw4.itm~ ~override~
@@ -317,6 +310,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chlosw1.itm~) BEGIN
 		SAY NAME2 @203107
 		SAY UNIDENTIFIED_DESC @203108
 		SAY IDENTIFIED_DESC @203108
+	BUT_ONLY
 
 	// Lathandar's Blaze
 	COPY ~1pp/additions/obj_anim/f2/fs_s_items/chlosw5.itm~ ~override~
@@ -324,6 +318,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chlosw1.itm~) BEGIN
 		SAY NAME2 @203109
 		SAY UNIDENTIFIED_DESC @203110
 		SAY IDENTIFIED_DESC @203110
+	BUT_ONLY
 
 	// Lathandar's Inferno
 	COPY ~1pp/additions/obj_anim/f2/fs_s_items/chlosw6.itm~ ~override~
@@ -331,11 +326,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~chlosw1.itm~) BEGIN
 		SAY NAME2 @203111
 		SAY UNIDENTIFIED_DESC @203112
 		SAY IDENTIFIED_DESC @203112
+	BUT_ONLY
+
 END
 
 /* -------------- *
  *  Yasraena mod  *
  * -------------- */
+
 // Fireflower
 ACTION_IF (FILE_EXISTS_IN_GAME ~fireflow.itm~) BEGIN
 	COPY_EXISTING ~fireflow.itm~ ~override~
@@ -362,6 +360,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~fireflow.itm~) BEGIN
 			SET location = wblue		// location (Head/Blade minor)
 			LPM ~glow~
 		END
+	BUT_ONLY
 END
 
 // Fireflower +5
@@ -390,16 +389,30 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~fireflo2.itm~) BEGIN
 			SET location = wblue		// location (Head/Blade minor)
 			LPM ~glow~
 		END
+	BUT_ONLY
 END
 
 /* ---------------- *
  *  IWD in BG2 mod  *
  * ---------------- */
+
+// Flaming Long Sword +2
 ACTION_IF (FILE_EXISTS_IN_GAME ~ulswd3a.itm~) BEGIN
 	COPY_EXISTING ~ulswd3a.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN // protects against invalid files
 			WRITE_ASCII 0x22 ~FS~
 		END
+	BUT_ONLY
+END
+
+/* ------------------------------- *
+ *  Improved HaerDalis Swords mod  *
+ * ------------------------------- */
+
+// Chaos Blade
+ACTION_IF (FILE_EXISTS_IN_GAME ~news06.itm~) BEGIN
+	COPY_EXISTING ~news06.itm~ ~override~
+		LPF ~1pp_npsw06~ END
 	BUT_ONLY
 END
 
@@ -415,4 +428,4 @@ ACTION_FOR_EACH category IN ~l~ ~m~ ~s~ BEGIN
 	END
 END
 
-//END of COMPONENT
+// END of COMPONENT
