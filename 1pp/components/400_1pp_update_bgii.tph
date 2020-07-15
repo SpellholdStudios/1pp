@@ -1,32 +1,32 @@
-/* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
- *                                          C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( B G 2 )                                           *
- *                                                                                                                                                                                  *
- * ================================================================================================================================================================================ *
- *  This is where things get... 'interesting'. This is the main 1ppv4 update component.                                                                                             *
- *  (Work with me here, WeiDU!)                                                                                                                                                     *
- * ================================================================================================================================================================================ *
- *  change-log:                                                                                                                                                                     *
- *  -----------                                                                                                                                                                     *
- *      - Split this huge component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).                  *
- *      - Variables needed for installation are read from 1pp-config-default.ini or 1pp-config-user.ini files.                                                                      *
- *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is     *
- *        installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file    *
- *        provides a standard installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and   *
- *        save it as 1pp-config-user.ini. The installation process will read both .ini files and prioritize user values. If a value is not set or mismatched in user's file         *
- *        1pp-config-user.ini, the installation process will prevent any installation failure by reverting it back to its default value.                                            *
- *      - Gems sub-component (#110) : code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Build    *
- *        an array to define new gems lore values to identify. Same library used for IWD and BG2 games.                                                                             *
- *      - Replaced macros with functions whenever possible.                                                                                                                         *
- *      - Coding simplification:                                                                                                                                                    *
- *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                              *
- *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                   *
- *                                                                                                                                                                                  *
- *  specific fixes:                                                                                                                                                                 *
- *  ---------------                                                                                                                                                                 *
- *      - #42   ==>	Does not overwrite Varscona's icon with a clone of ISW1H41 (Long Sword +2) because EE does not validate this change.                                            *
- *      - #47   ==> Adds a new setting (1pp_sleeper) allowing to make alternate the turning of The Sleeper into a flail. In any case, 1PP does not overwrites anymore its original  *
- *                  inventory bam with a new one, but installs a new icon(IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose.          *
+/* ================================================================================================================================================================================= *
+ *  v 4.2.0                                                                                                                                                                          *
+ *                                           C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( B G 2 )                                           *
+ *                                                                                                                                                                                   *
+ * ================================================================================================================================================================================= *
+ *  This is where things get... 'interesting'. This is the main 1ppv4 update component.                                                                                              *
+ *  (Work with me here, WeiDU!)                                                                                                                                                      *
+ * ================================================================================================================================================================================= *
+ *  change-log:                                                                                                                                                                      *
+ *  -----------                                                                                                                                                                      *
+ *      - Split this huge component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).                   *
+ *      - Variables needed for installation are read from 1pp-config-default.ini or 1pp-config-user.ini files.                                                                       *
+ *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is      *
+ *        installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file     *
+ *        provides a standard installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and    *
+ *        save it as 1pp-config-user.ini. The installation process will read both .ini files and prioritize user values. If a value is not set or mismatched in user's file          *
+ *        1pp-config-user.ini, the installation process will prevent any installation failure by reverting it back to its default value.                                             *
+ *      - Gems sub-component (#110) : code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Build     *
+ *        an array to define new gems lore values to identify. Same library used for IWD and BG2 games.                                                                              *
+ *      - Replaced macros with functions whenever possible.                                                                                                                          *
+ *      - Coding simplification:                                                                                                                                                     *
+ *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
+ *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                    *
+ *                                                                                                                                                                                   *
+ *  specific fixes:                                                                                                                                                                  *
+ *  ---------------                                                                                                                                                                  *
+ *      - #42   ==>	Does not overwrite Varscona's icon with a clone of ISW1H41 (Long Sword +2) because EE does not validate this change.                                             *
+ *      - #47   ==> Added a new setting (1pp_sleeper) allowing to make alternate the turning of The Sleeper into a flail. In any case, 1PP does not overwrites anymore its original  *
+ *                  inventory bam with a new one, but installs a new icon(IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose.           *
  * ================================================================================================================================================================================ */
 
 /* ============================= *
