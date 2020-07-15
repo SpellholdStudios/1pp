@@ -129,16 +129,6 @@ Please read the *1pp-config-language.txt* file (with 'language' being the instal
 Here is a chart listing the options related to the installation process:</br></br>
 
 
-| Option<br>Component | Games supported<br>Install Option Description |
-| :---: | --- |
-| **101 female dwarf paperdolls style** | (only available for Heart of Winter or Trials of the Luremaster if Infinity Animations is installed) |
-| 1pp_fdwarf | FEMALE DWARF PAPERDOLLS STYLE<br><br>Use 1pp or IWD style female dwarf paperdolls?<br><br>1 = IWD<br>2 = 1pp [default]<br> |
-| **104 GUI additions for BGII** | (BG2, ToB, tutu, tutu_totsc and ca) |
-| 1pp_gui_soa | SoA STYLE LOADING SCREENS FOR ToB<br><br>Do you want to include SoA style loading screens for ToB?<br><br>1 = Yes [default]<br>2 = Keep loading screens unchanged |
-| 1pp_updated_fonts | UPDATED FONTS<br><br>Install updated fonts? (may cause issues with languages using different font .BAMs)<br><br>1 = Yes<br>2 = Keep fonts unchanged [default] |
-| 1pp_mixed_labels | UPDATED FONTS<br><br>Install updated fonts? (may cause issues with languages using different font .BAMs)<br><br>1 = Yes<br>2 = Keep fonts unchanged [default] |
-
-
 <table summary="Installation options list">
 	<tr style="font-size: 125%; line-height: 160%;">
 		<th style="border: 1px solid #781808; text-align: center; background-color: #781808; color: #e5e5e5; ">Component<br>Option</th>
@@ -152,8 +142,8 @@ Here is a chart listing the options related to the installation process:</br></b
 		<td><div align="center">1pp_fdwarf</div></td>
 		<td>FEMALE DWARF PAPERDOLLS STYLE<br><br>
 		Use 1pp or IWD style female dwarf paperdolls?<br><br>
-		1. IWD
-		2. 1pp [default]</td>
+		1 = IWD<br>
+		2 = 1pp [default]</td>
 	</tr>
 	<tr>
 		<td><div align="center"><strong>104 GUI additions for BGII</strong></div></td>
@@ -161,25 +151,25 @@ Here is a chart listing the options related to the installation process:</br></b
 	</tr>
 	<tr>
 		<td><div align="center">1pp_gui_soa</div></td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">SoA STYLE LOADING SCREENS FOR ToB<br><br>
+		<td>SoA STYLE LOADING SCREENS FOR ToB<br><br>
 		Do you want to include SoA style loading screens for ToB?<br><br>
-		<span style="color: #781808; padding-left:20px;">1 = Yes [default]</span><br>
-		<span style="padding-left:20px;">2 = Keep loading screens unchanged</span></td>
+		1 = Yes [default]<br>
+		2 = Keep loading screens unchanged</td>
 	</tr>
 	<tr>
 		<td><div align="center">1pp_updated_fonts</div></td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">UPDATED FONTS<br><br>
+		<td>UPDATED FONTS<br><br>
 		Install updated fonts? (may cause issues with languages using different font .BAMs)<br><br>
-		<span style="color: #781808; padding-left:20px;">1 = Yes</span><br>
-		<span style="padding-left:20px;">2 = Keep fonts unchanged [default]</span></td>
+		1 = Yes<br>
+		2 = Keep fonts unchanged [default]</td>
 	</tr>
 	<tr>
 		<td><div align="center">1pp_mixed_labels</div><br><br>
 		(Only available with Updated fonts installed)</div></td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">MIXED CASE LABELS<br><br>
+		<td>MIXED CASE LABELS<br><br>
 		Use mixed case labels?<br><br>
-		<span style="color: #781808; padding-left:20px";>1 = Yes [default]</span><br>
-		<span style="padding-left:20px;">2 = No</span></td>
+		1 = Yes [default]<br>
+		2 = No</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**114 Softer Spell Effects**</td>
