@@ -1,5 +1,5 @@
 /* ================================================================================================================================================================================= *
- *                                                                                                                                                                                   *
+ *  v 4.2.0                                                                                                                                                                          *
  *                                          C O M P O N E N T   :   I m p r o v e d   p r o j e c t i l e   e f f e c t s                                                            *
  *                                                                                                                                                                                   *
  * ================================================================================================================================================================================= *
@@ -14,46 +14,47 @@
  *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                    *
  *                                                                                                                                                                                   *
  *      - Code re-written with new functions to provide automatic process:                                                                                                           *
- *          1. Cleared duplicated vanilla #89 and #197 effects in SPL and ITM files (function GW_CLEAR_DUPLICATED_OPCODES).                                                          *
+ *          1. Cleared duplicated vanilla op#89 and #197 effects in SPL and ITM files (function GW_CLEAR_DUPLICATED_OPCODES).                                                        *
  *          2. Checked if protection from SPEAR and/or Bounce SPEAR is already set before adding it (function GW_CLEAR_DUPLICATED_OPCODES).                                          *
  *          3. Function GW_MODIFY_PROJ replaces BWP Fixpack patch (401_projectiles.tph.patch: Modifies the projectile value only when needed (does not patch melee headers anymore). *
  *             It replaces ADD_ITEM_EQEFFECT, ADD_ITEM_EFFECT, ADD_SPELL_EFFECT and macros with the newer and more efficient CLONE_EFFECT WeiDU function to give new opcodes #83     *
  *             and #197 the same settings than existing ones (target, resist_dispel, duration, power...). It modifies all extended headers and avoids writing lines of codes!        *
- *          5. Provided partial IR and SR compatibility in a rather softer way.                                                                                                      *
+ *          4. Added partial IR and SR compatibility in a rather softer way.                                                                                                         *
+ *          5. Improved 1PP crossmods compatibility (Rolles, Ruad, Stuff of the Magi).                                                                                               *
  *                                                                                                                                                                                   *
  *  specific fixes:                                                                                                                                                                  *
  *  ---------------                                                                                                                                                                  *
- *      - #199  ==> ax1h05.itm and ax1h06.itm (Throwing Axe +2), ax1h08.itm (Hangard's Axe +2), ax1h09.itm (Rifthome Axe +3), ax1h10.itm (Azuredge +3) & ax1h16.itm (K'logarath +4): *
+ *      - #218  ==> ax1h05.itm and ax1h06.itm (Throwing Axe +2), ax1h08.itm (Hangard's Axe +2), ax1h09.itm (Rifthome Axe +3), ax1h10.itm (Azuredge +3) & ax1h16.itm (K'logarath +4): *
  *                  added IR compatibility (patches itemB files).                                                                                                                    *
- *      - #370  ==> bolt09.itm (Bolt +3): fixed typo (was patching bolt06 instead of bolt09).                                                                                        *
- *      - #481	==> Quivers of Plenty, Cases of Plenty, Bags of Plenty & Sling of Everard: Why quivers and launchers needing no ammo should not get new 1pp projectiles?             *
- *      - #523  ==> dagg05.itm (Throwing Dagger), dagg11.itm (Boomerang Dagger +2) and dagg12.itm (Firetooth +3): added IR compatibility (patches itemB files).                      *
- *      - #664	==> sper04.itm (Javelin): switched Thrown and Melee strings ref in tooltip.2da. Use function GW_ADD_ITEM_TOOLTIPS to add new entries in tooltip.2da.                 *
- *      - #701  ==> spells and items protecting from or bouncing projectiles: add missing protections from new normal 1pp amo projectiles (1dagg05 and 1dart01).                     *
+ *      - #398  ==> bolt09.itm (Bolt +3): fixed a typo (was patching bolt06 instead of bolt09).                                                                                      *
+ *      - #517	==> Quivers of Plenty, Cases of Plenty, Bags of Plenty & Sling of Everard: Why quivers and launchers needing no ammo should not get new 1pp projectiles?             *
+ *      - #558  ==> dagg05.itm (Throwing Dagger), dagg11.itm (Boomerang Dagger +2) and dagg12.itm (Firetooth +3): added IR compatibility (patches itemB files).                      *
+ *      - #713	==> sper04.itm (Javelin): switched Thrown and Melee strings ref in tooltip.2da. Use function GW_ADD_ITEM_TOOLTIPS to add new entries in tooltip.2da.                 *
+ *      - #746  ==> spells and items protecting from or bouncing projectiles: add missing protections from new normal 1pp amo projectiles (1dagg05 and 1dart01).                     *
  *					The code was only providing protection from 1arow01 and 1bolt01 new projectiles.                                                                                 *
- *      - #742  ==> npshld.itm (Delryn Family Shield): same fix as above + IR compatibility (protection from all types of missiles, including magic ones).                           *
- *      - #776  ==> shld24.itm (Reflection Shield +1): same fix as above + cleared duplicate entries and adds IR compatibility (IR replaces opcode #197 with opcode #83).            *
- *      - #800	==>	brac18.itm (Gloves of Missile Snaring): Don't forget to add Protection from projectiles if IR is installed.                                                      *
- *      - #821	==>	spin546.spl (Inertial Barrier), spcl721.spl (Storm Shield) abd spcl914.spl (Greater Evasion): patched all headers (was patching only the first header), fixed    *
+ *      - #790  ==> npshld.itm (Delryn Family Shield): same fix as above + IR compatibility (protection from all types of missiles, including magic ones).                           *
+ *      - #821  ==> shld24.itm (Reflection Shield +1): same fix as above + cleared duplicate entries and added IR compatibility (IR replaces opcode #197 with opcode #83).           *
+ *      - #845	==>	brac18.itm (Gloves of Missile Snaring): Don't forget to add Protection from projectiles if IR is installed.                                                      *
+ *      - #866	==>	spin546.spl (Inertial Barrier), spcl721.spl (Storm Shield) abd spcl914.spl (Greater Evasion): patched all headers (was patching only the first header), fixed    *
  *                  wrong duration, target, power, resist dispel... Added missing protections from new normal 1pp ammo projectiles (1dagg05 and 1dart01). The code was only          *
  *                  providing protection from 1arow01 and 1bolt01 new projectiles.                                                                                                   *
- *      - #844	==> Protection From Normal Missiles spells (spra303, spwi311, & cdwi311 added from BG2 Fixpack): same fixes as above + SR compatibility (protection from all types   *
+ *      - #889	==> Protection From Normal Missiles spells (spra303, spwi311, & cdwi311 added from BG2 Fixpack): same fixes as above + SR compatibility (protection from all types   *
  *                  of missiles, including magic ones)..                                                                                                                             *
- *      - #874	==> sppr613.spl (Physical Mirror): cleared duplicate entries and added SR compatibility (SR replaces opcode #197 with opcode #83).                                   * 
- *      - #901	==>	Included Entropy Shield spell (protection from new 1pp projectiles) if IWDIfication is installed.                                                                *
+ *      - #922	==> sppr613.spl (Physical Mirror): cleared duplicate entries and added SR compatibility (SR replaces opcode #197 with opcode #83).                                   * 
+ *      - #946	==>	Included Entropy Shield spell (protection from new 1pp projectiles) if IWDIfication is installed.                                                                *
  * ================================================================================================================================================================================= */
 
 // ----------------------------- //
 //    ITEMS                line  //
 // ----------------------------- //
-//  ARROWS               #   71  //
-//  AXES                 #  187  //
-//  BOLTS                #  256  //
-//  BULLETS              #  385  //
-//  DAGGERS              #  510  //
-//  DARTS                #  575  //
-//  JAVELIN              #  651  //
-//  PATCH SPELLS & ITEMS #  695  //
+//  ARROWS               #   72  //
+//  AXES                 #  206  //
+//  BOLTS                #  284  //
+//  BULLETS              #  413  //
+//  DAGGERS              #  546  //
+//  DARTS                #  611  //
+//  JAVELIN              #  696  //
+//  PATCH SPELLS & ITEMS #  740  //
 // ----------------------------- //
 
 PRINT @400001 // ~Copying resources...~
@@ -97,7 +98,7 @@ ACTION_FOR_EACH arrow IN ~arow02~ ~_arow02~ BEGIN
 		COPY_EXISTING ~%arrow%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROWHVY" new_proj = "1arow02" END
-				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROW" new_proj = "1arow02" END	// Gwen fix: IR compatibility
+				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROW" new_proj = "1arow02" END	// Gwen fix: added IR compatibility
 			END
 		BUT_ONLY
 	END
@@ -120,7 +121,7 @@ ACTION_FOR_EACH arrow IN ~arow04~ ~_arow04~ BEGIN
 		COPY_EXISTING ~%arrow%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROW" new_proj = "1arow04" END
-				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROWFLG" new_proj = "1arow04" END	// Gwen fix: IR compatibility
+				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROWFLG" new_proj = "1arow04" END	// Gwen fix: added IR compatibility
 			END
 		BUT_ONLY
 	END
@@ -132,10 +133,19 @@ ACTION_FOR_EACH arrow IN ~arow05~ ~_arow05~ BEGIN
 		COPY_EXISTING ~%arrow%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROW" new_proj = "1arow05" END
-				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROWHVY" new_proj = "1arow05" END	// Gwen fix: IR compatibility
+				LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "ARROWHVY" new_proj = "1arow05" END	// Gwen fix: added IR compatibility
 			END
 		BUT_ONLY
 	END
+END
+
+// Bow of Uden (Ruad mod)
+ACTION_IF (FILE_EXISTS_IN_GAME ~u#bow02.itm~) BEGIN
+	COPY_EXISTING ~u#bow02.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPF ALTER_ITEM_HEADER INT_VAR projectile = (IDS_OF_SYMBOL (projectl 1arow05) + 1) END
+		END
+	BUT_ONLY
 END
 
 // Arrow of Dispelling
@@ -169,6 +179,15 @@ ACTION_FOR_EACH arrow IN ~arow11~ ~_arow11~ BEGIN
 			END
 		BUT_ONLY
 	END
+END
+
+// Enchanted Bow of Arvoreen (Ruad mod)
+ACTION_IF (FILE_EXISTS_IN_GAME ~u#bow01.itm~) BEGIN
+	COPY_EXISTING ~u#bow01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPF ALTER_ITEM_HEADER INT_VAR header_type = 2 projectile = (IDS_OF_SYMBOL (projectl 1arow11) + 1) END
+		END
+	BUT_ONLY
 END
 
 // Arrow +3
@@ -216,6 +235,15 @@ ACTION_FOR_EACH axe IN ~ax1h08~ ~ax1h08b~ BEGIN		// Gwen fix: add IR compatibili
 			END
 		BUT_ONLY
 	END
+END
+
+// Battle Axe +4 Ice and Fire (Rolles mod)
+ACTION_IF (FILE_EXISTS_IN_GAME ~s#ax1h01.itm~) BEGIN
+	COPY_EXISTING ~s#ax1h01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPF ALTER_ITEM_HEADER INT_VAR header_type = 2 projectile = (IDS_OF_SYMBOL (projectl 1axe08) + 1) END
+		END
+	BUT_ONLY
 END
 
 // Rifthome Axe +3
@@ -367,7 +395,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bolt08.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Bolt +3: fixes typo (was patching bolt06 instead of bolt09).
+// Bolt +3: fixed a typo (was patching bolt06 instead of bolt09).
 ACTION_IF (FILE_EXISTS_IN_GAME ~bolt09.itm~) BEGIN
 	COPY_EXISTING ~bolt09.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -477,6 +505,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bull06.itm~) BEGIN
 	BUT_ONLY
 END
 
+// Sling +4 Arla's Dragonbane (Rolles mod)
+ACTION_IF (FILE_EXISTS_IN_GAME ~s#slng01.itm~) BEGIN
+	COPY_EXISTING ~s#slng01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPF ALTER_ITEM_HEADER INT_VAR projectile = (IDS_OF_SYMBOL (projectl 1bull06) + 1) END
+		END
+	BUT_ONLY
+END
 
 // Gwen fix: Why quivers and launchers needing no ammo should not get new 1pp projectiles?
 
@@ -520,7 +556,7 @@ ACTION_FOR_EACH 1pp_proj IN 1dagg05 1dagg11 1dagg12 1dagg16 BEGIN	// 1pp new dag
 END
 
 // Throwing Dagger
-ACTION_FOR_EACH dagger IN ~dagg05~ ~_dagg05~ ~dagg05b~ BEGIN	// Gwen fix: add IR compatibility
+ACTION_FOR_EACH dagger IN ~dagg05~ ~_dagg05~ ~dagg05b~ BEGIN	// Gwen fix: added IR compatibility
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
 		COPY_EXISTING ~%dagger%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -531,7 +567,7 @@ ACTION_FOR_EACH dagger IN ~dagg05~ ~_dagg05~ ~dagg05b~ BEGIN	// Gwen fix: add IR
 END
 
 // Boomerang Dagger +2
-ACTION_FOR_EACH dagger IN ~dagg11~ ~dagg11b~ BEGIN	// Gwen fix: add IR compatibility
+ACTION_FOR_EACH dagger IN ~dagg11~ ~dagg11b~ BEGIN	// Gwen fix: added IR compatibility
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
 		COPY_EXISTING ~%dagger%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -542,7 +578,7 @@ ACTION_FOR_EACH dagger IN ~dagg11~ ~dagg11b~ BEGIN	// Gwen fix: add IR compatibi
 END
 
 // Firetooth +3
-ACTION_FOR_EACH dagger IN ~dagg12~ ~dagg12b~ BEGIN	// Gwen fix: add IR compatibility
+ACTION_FOR_EACH dagger IN ~dagg12~ ~dagg12b~ BEGIN	// Gwen fix: added IR compatibility
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
 		COPY_EXISTING ~%dagger%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -642,6 +678,15 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~dart08.itm~) BEGIN
 	COPY_EXISTING ~dart08.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "DART" new_proj = "1dart08" END
+		END
+	BUT_ONLY
+END
+
+// Crimson Flame Dart (Ruad)
+ACTION_IF (FILE_EXISTS_IN_GAME ~u#dart01.itm~) BEGIN
+	COPY_EXISTING ~u#dart01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPF ALTER_ITEM_HEADER INT_VAR projectile = (IDS_OF_SYMBOL (projectl 1dart08) + 1) END
 		END
 	BUT_ONLY
 END
@@ -923,4 +968,54 @@ ACTION_IF (FILE_CONTAINS_EVALUATED(~spell.ids~ ~CLERIC_ENTROPY_SHIELD~)) BEGIN
 	END
 END
 
-//END of COMPONENT
+
+/* ------------ *
+ *  Rolles mod  *
+ * ------------ */
+
+// Enhanced Shield of Balduran
+ACTION_IF (FILE_EXISTS_IN_GAME ~s#shld01.itm~) BEGIN
+	COPY_EXISTING ~s#shld01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			PATCH_FOR_EACH proj IN	// 1pp new projectiles
+				1arow01 1arow02 1arow03 1arow04 1arow05 1arow07 1arow10 1arow11 1arow15 1axe05 1axe08 1axe09 1axe10 1axe16 1bolt01 1bolt02 1bolt03 1bolt04 1bolt05 1bolt06 1bolt09 1bull02 1bull03 1bull04 1bull05 1bull06 1dagg05 1dagg11 1dagg12 1dagg16 1dart01 1dart02 1dart03 1dart04 1dart05 1dart08 BEGIN
+				SET projnb = IDS_OF_SYMBOL (~projectl~ ~%proj%~)
+				PATCH_IF projnb > 0 BEGIN
+					LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 197 parameter2 = projnb STR_VAR insert = above END
+				END
+			END
+		END
+	BUT_ONLY
+END
+
+
+/* ----------------------- *
+ *  Stuff of the Magi mod  *
+ * ----------------------- */
+
+// Girdle of the Magi
+ACTION_IF (FILE_EXISTS_IN_GAME ~wzrdbelt.itm~) BEGIN
+	COPY_EXISTING ~wzrdbelt.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			PATCH_IF ((MOD_IS_INSTALLED ~stuffofthemagi.tp2~ 0) OR (MOD_IS_INSTALLED ~stuffofthemagi.tp2~ 1)) BEGIN
+				// Use new, less cheesy items
+				PATCH_FOR_EACH proj IN 1arow01 1bolt01 1dagg05 1dart01 BEGIN
+					SET projnb = IDS_OF_SYMBOL (~projectl~ ~%proj%~)
+					PATCH_IF projnb > 0 BEGIN
+						LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 83 parameter2 = projnb STR_VAR insert = last END
+					END
+				END
+			END ELSE BEGIN // PATCH_IF ((MOD_IS_INSTALLED ~stuffofthemagi.tp2~ 2) OR (MOD_IS_INSTALLED ~stuffofthemagi.tp2~ 3)) BEGIN
+				// Use original, overpowered items
+				PATCH_FOR_EACH proj IN 1arow01 1arow02 1arow03 1arow04 1arow05 1arow07 1arow10 1arow11 1arow15 1axe05 1axe08 1axe09 1axe10 1axe16 1bolt01 1bolt02 1bolt03 1bolt04 1bolt05 1bolt06 1bolt09 1bull02 1bull03 1bull04 1bull05 1bull06 1dagg05 1dagg11 1dagg12 1dagg16 1dart01 1dart02 1dart03 1dart04 1dart05 1dart08 BEGIN
+					SET projnb = IDS_OF_SYMBOL (~projectl~ ~%proj%~)
+					PATCH_IF projnb > 0 BEGIN
+						LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 83 parameter2 = projnb STR_VAR insert = above END
+					END
+				END
+			END
+		END
+	BUT_ONLY
+END
+
+// END of COMPONENT
