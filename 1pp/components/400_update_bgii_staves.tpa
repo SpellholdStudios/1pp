@@ -1,5 +1,5 @@
 /* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
+ *  v 4.2.0                                                                                                                                                                         *
  *                                       C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( s t a v e s )                                        *
  *                                                                                                                                                                                  *
  * ================================================================================================================================================================================ *
@@ -10,6 +10,7 @@
  *      - Replaced macros with functions whenever possible.                                                                                                                         *
  *      - Coding simplification:                                                                                                                                                    *
  *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                              *
+ *          Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (Bolsa, Rolles, Ruad, Stuff of the Magi, The Unusual Oddities Shop).                      *
  * ================================================================================================================================================================================ */
 
 /* ======================== *
@@ -31,56 +32,14 @@ END
 // Staff of Curing
 ACTION_IF (FILE_EXISTS_IN_GAME ~staf10.itm~) BEGIN
 	COPY_EXISTING ~staf10.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~Q4~			// Quarterstaff (alternate 3)
-			LPM ~clear~
-			SET gradient = 195				// sets colour index 195 CHROME_RED
-			SET location = wpink			// location (Bolt-Mace-Staff)
-			LPM ~colour~
-			SET gradient = 100				// sets colour index 100 DARK_ASH_GRAY
-			SET location = wteal			// location (Staff minor)
-			LPM ~colour~
-			SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 96 CHROME_BLUE
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 96				// sets colour index 96 CHROME_BLUE
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-			SET gradient = 96				// 96 CHROME_BLUE replaces colour index 96 CHROME_BLUE
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-		END
+		LPF ~1pp_staf10~ END
 	BUT_ONLY
 END
 
 // Staff of the Magi
 ACTION_IF (FILE_EXISTS_IN_GAME ~staf11.itm~) BEGIN
 	COPY_EXISTING ~staf11.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~GS~			// Glowing staff
-			WRITE_ASCII 0x44 ~1GSTAFGS~ #8	// replaces GSTAF01
-			LPM ~clear~
-			SET gradient = 127				// sets colour index 127 DARK_BRICK_RED
-			SET location = wpink			// location (Bolt-Mace-Staff)
-			LPM ~colour~
-			SET gradient = 207				// sets colour index 207 NOBLE_MINOR2-CHROME_GOLD
-			SET location = wteal			// location (Staff minor)
-			LPM ~colour~
-			SET gradient = 192				// 192 CHROME_TEAL replaces colour index 25 DARK_PURE_GOLD
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET setr = 0
-			SET setg = 0
-			SET setb = 0
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~glow~
-			SET gradient = 250				// sets colour index 250 SHADOW_DRUID_MAJOR-YELLOW_ORANGE
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-			SET gradient = 220				// 220 ELF_MAJOR-MIDNIGHT_BLUE replaces colour index 27 GRAY
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-		END
+		LPF ~1pp_staf11~ END
 	BUT_ONLY
 END
 
@@ -326,4 +285,81 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf12.itm~) BEGIN
 	BUT_ONLY
 END
 
-//END of COMPONENT
+
+/* =================== *
+ *     MOD STAVES      *
+ * =================== */
+
+PRINT @400015 // ~Patching mod items (if found)...~
+SILENT
+
+/* ----------- *
+ *  Bolsa mod  *
+ * ----------- */
+
+// Staff of Magus
+ACTION_IF (FILE_EXISTS_IN_GAME ~mhconti.itm~) BEGIN
+	COPY_EXISTING ~mhconti.itm~ ~override~
+		LPF ~1pp_staf11~ END
+	BUT_ONLY
+END
+
+
+/* ------------ *
+ *  Rolles mod  *
+ * ------------ */
+
+// Enhanced Staff of Curing
+ACTION_IF (FILE_EXISTS_IN_GAME ~s#staf01.itm~) BEGIN
+	COPY_EXISTING ~s#staf01.itm~ ~override~
+		LPF ~1pp_staf10~ END
+	BUT_ONLY
+END
+
+// Enhanced Staff of the Magi
+ACTION_IF (FILE_EXISTS_IN_GAME ~s#staf02.itm~) BEGIN
+	COPY_EXISTING ~s#staf02.itm~ ~override~
+		LPF ~1pp_staf11~ END
+	BUT_ONLY
+END
+
+
+/* -------------------- *
+ *  Ruad Ro'fhessa mod  *
+ * -------------------- */
+
+// Staff of Resurrection
+ACTION_IF (FILE_EXISTS_IN_GAME ~u#staf04.itm~) BEGIN
+	COPY_EXISTING ~u#staf04.itm~ ~override~
+		LPF ~1pp_staf10~ END
+	BUT_ONLY
+END
+
+
+/* ----------------------- *
+ *  Stuff of the Magi mod  *
+ * ----------------------- */
+
+// Staff of the Magi
+ACTION_IF (FILE_EXISTS_IN_GAME ~wzrdstaf.itm~) BEGIN
+	COPY_EXISTING ~wzrdstaf.itm~ ~override~
+		LPF ~1pp_staf11~ END
+	BUT_ONLY
+END
+
+
+/* ------------------------------- *
+ *  The Unusual Oddities Shop mod  *
+ * ------------------------------- */
+
+// Staff of the Dragon +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~r#asmstf.itm~) BEGIN
+	COPY_EXISTING ~r#asmstff.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~Q3~			// Quarterstaff (alternate 2)
+		END
+	BUT_ONLY
+END
+
+
+// END of COMPONENT SECTION
