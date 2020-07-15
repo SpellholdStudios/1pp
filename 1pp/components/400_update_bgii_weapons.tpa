@@ -1,5 +1,5 @@
 /* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
+ *  v 4.2.0                                                                                                                                                                         *
  *                                      C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( w e a p o n s )                                       *
  *                                                                                                                                                                                  *
  * ================================================================================================================================================================================ *
@@ -8,28 +8,29 @@
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
  *      - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon   *
- *        as IHAMM05B), and not to set Borok's Fist's icon to Runehammers.                                                                                                          *
+ *        as IHAMM05B), and not to set Borok's Fist's icon to Runehammers (#853).                                                                                                   *
  *      - Replaced macros with functions whenever possible.                                                                                                                         *
  *      - Coding simplification:                                                                                                                                                    *
  *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                              *
  *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                   *
+ *          Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (Rolles, Ruad, The Unusual Oddities Shop).                                                *
  *                                                                                                                                                                                  *
  *  specific fixes:                                                                                                                                                                 *
  *  ---------------                                                                                                                                                                 *
- *      - #508  ==> dagg12.itm (Firetooth +3): fix typos in LPM ~pulse~ macro (redundant setr set to 152 and 189 should be setg and setb, otherwise they overwrite the setr value   *
- *                  and don't set the correct setg and setb values).                                                                                                                *
- *      - #1011 ==> hamm10.itm & hamm11.itm (Runehammers): 1pp_hammers_icons setting gives the choice to assign them, or not, the Borok's Fist's icon.                              *
- *      - #1511 ==> halb08.itm (Duskblade +2): fixed a typo patching halb06 instead of halb08.                                                                                      *
+ *      - #495  ==> dagg12.itm (Firetooth +3): fixed typos in LPM ~pulse~ macro (redundant setr set to 152 and 189 should be setg and setb, otherwise they overwrite the setr       *
+ *                  value and don't set the correct setg and setb values).                                                                                                          *
+ *      - #986  ==> hamm10.itm & hamm11.itm (Runehammers): 1pp_hammers_icons setting gives the choice to assign them, or not, the Borok's Fist's icon.                              *
+ *      - #1487 ==> halb08.itm (Duskblade +2): fixed a typo patching halb06 instead of halb08.                                                                                      *
  * ================================================================================================================================================================================ */
 
 // ----------------------------- //
 //  WEAPONS                line  //
 // ----------------------------- //
-//  AXES                 #   36  //
-//  DAGGERS              #  344  //
-//  HAMMERS              #  734  //
-//  SPEARS               # 1135  //
-//  HALBERDS             # 1347  //
+//  AXES                 #   37  //
+//  DAGGERS              #  331  //
+//  HAMMERS              #  717  //
+//  SPEARS               # 1111  //
+//  HALBERDS             # 1323  //
 // ----------------------------- //
 
 /* ====================== *
@@ -240,28 +241,14 @@ END
 // Frostreaver +3
 ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h13.itm~) BEGIN
 	COPY_EXISTING ~ax1h13.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET setr = 0
-			SET setg = 0
-			SET setb = 0
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~glow~
-			SET setr = 0
-			SET setg = 0
-			SET setb = 0
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~glow~
-			SET gradient = 231				// 231 KOBOLD_MINOR-CHROME_COOL_GRAY replaces colour index 96 CHROME_BLUE
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 196				// 196 PINK-TINTED_CERULEAN replaces colour index 96 CHROME_BLUE
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-			SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 96 CHROME_BLUE
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-		END
+		LPF ~1pp_ax1h13~ END
+	BUT_ONLY
+END
+
+// Battle Axe +4 Ice and Fire (Rolles mod)
+ACTION_IF (FILE_EXISTS_IN_GAME ~s#ax1h01.itm~) BEGIN
+	COPY_EXISTING ~s#ax1h01.itm~ ~override~
+		LPF ~1pp_ax1h13~ END
 	BUT_ONLY
 END
 
@@ -568,18 +555,14 @@ END
 // Dagger +2
 ACTION_IF (FILE_EXISTS_IN_GAME ~dagg15.itm~) BEGIN
 	COPY_EXISTING ~dagg15.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET gradient = 207				// 207 NOBLE_MINOR2-CHROME_GOLD replaces colour index 25 DARK_PURE_GOLD
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 237				// 237 CLERIC_NEUTRAL_MAJOR-TAUPE replaces colour index 66 FADED_BLACK
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-			SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 27 GRAY
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-		END
+		LPF ~1pp_dagg15~ END
+	BUT_ONLY
+END
+
+// Throwing Dagger Silent Death (Rolles mod)
+ACTION_IF (FILE_EXISTS_IN_GAME ~s#dagg01.itm~) BEGIN
+	COPY_EXISTING ~s#dagg01.itm~ ~override~
+		LPF ~1pp_dagg15~ END
 	BUT_ONLY
 END
 
@@ -825,7 +808,7 @@ END
 		BUT_ONLY
 END
 
-// Gwen fix: adds a new setting allowing to make alternate the overwriting of the Runehammer icon and not to set Borok's Fist's icon to Runehammers.
+// Gwen fix: added a new setting allowing to make alternate the overwriting of the Runehammer icon and not to set Borok's Fist's icon to Runehammers.
 // The Kneecapper +1 (tutu)
 ACTION_IF (FILE_EXISTS_IN_GAME ~_hamm04.itm~) BEGIN
 	COPY_EXISTING ~_hamm04.itm~ ~override~
@@ -912,24 +895,17 @@ END
 // Dwarven Thrower +3
 ACTION_IF (FILE_EXISTS_IN_GAME ~hamm06.itm~) BEGIN
 	COPY_EXISTING ~hamm06.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET setr = 0
-			SET setg = 0
-			SET setb = 0
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~glow~
-			SET gradient = 6				// 6 DARK_SILVER replaces colour index 91 DARK_CHOCOLATE
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 253				// 253 DUERGAR_MINOR-PALE_TAUPE replaces colour index 27 GRAY
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-			SET gradient = 245				// 245 MAGE_MAJOR-CHROME_SEA_GRAY replaces colour index 27 GRAY
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-		END
+		LPF ~1pp_hamm06~ END
 	BUT_ONLY
+END
+
+// Dwarven Thrower +4 and Universal Thrower +5 (Rolles mod)
+ACTION_FOR_EACH hammer IN ~s#hamm01~ ~s#hamm02~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%hammer%.itm~) BEGIN
+		COPY_EXISTING ~%hammer%.itm~ ~override~
+			LPF ~1pp_hamm06~ END
+		BUT_ONLY
+	END
 END
 
 // Hammer of Thunderbolts +3
@@ -1557,25 +1533,14 @@ END
 // Ravager +4
 ACTION_IF (FILE_EXISTS_IN_GAME ~halb10.itm~) BEGIN
 	COPY_EXISTING ~halb10.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x58 ~CHALB07~ #8	// replaces PHALB10
-			LPM ~clear~
-			SET setr = 241
-			SET setg = 188
-			SET setb = 112
-			SET speed = 0x32
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~pulse~
-			SET gradient = 240				// 240 CLERIC_EVIL_MINOR-PALE_RUST replaces colour index 27 GRAY
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 253				// 253 DUERGAR_MINOR-PALE_TAUPE replaces colour index 27 GRAY
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-			SET gradient = 237				// 237 CLERIC_NEUTRAL_MAJOR-TAUPE replaces colour index 99 GOLDEN_BROWN
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-		END
+		LPF ~1pp_halb10~ END
+	BUT_ONLY
+END
+
+// Halberd of Knowing +5 (The Unusual Oddities Shop mod)
+ACTION_IF (FILE_EXISTS_IN_GAME ~r#ashalb.itm~) BEGIN
+	COPY_EXISTING ~r#ashalb.itm~ ~override~
+		LPF ~1pp_halb10~ END
 	BUT_ONLY
 END
 
@@ -1630,4 +1595,13 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~halb12.itm~) BEGIN
 	BUT_ONLY
 END
 
-//END of COMPONENT
+// Dragon's Tooth (Ruad mod)
+ACTION_IF (FILE_EXISTS_IN_GAME ~u#halb01.itm~) BEGIN
+	COPY_EXISTING ~u#halb01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 7 parameter1 = 195 END	// 195 CHROME RED replaces colour index 33 CHROME_MAGENTA
+		END
+	BUT_ONLY
+END
+
+// END of COMPONENT SECTION
