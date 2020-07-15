@@ -1,25 +1,25 @@
 /* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
+ *  v 4.2.0                                                                                                                                                                         *
  *                                C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( p l a c i n g   i t e m s )                                 *
  *                                                                                                                                                                                  *
  * ================================================================================================================================================================================ *
- *  This part scatters items throughout game (This is where things get... Work with me here, WeiDU!)                                                                               *
+ *  This part scatters items throughout game (This is where things get... Work with me here, WeiDU!)                                                                                *
  * ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
  *      - Variables needed for installation (1pp_shields_scatter, 1pp_helmets_scatter, 1pp_armours_scatter, 1pp_tutu_bg1_shields and 1pp_tutu_bg1_helmets) are read from            *
- *        1pp-config-default.ini or 1pp-config.ini files.                                                                                                                           *
+ *        1pp-config-default.ini or 1pp-config-user.ini files.                                                                                                                      *
  *        The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is     *
  *        installed for and already installed components). All those variables set during installation have been moved into 1pp-config-default.ini file in 1pp folder. This file    *
  *        provides a standard installation. If players want to define their own customized installation, they have to modify the variables involved in 1pp-config-default.ini and   *
- *        save this file as 1pp-config.ini. The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in 1pp-config.ini,    *
- *        the installation process will prevent any installation failure by reverting it back to its default value.                                                                 *
+ *        save it as 1pp-config-user.ini. The installation process will read both .ini files and prioritize user values. If a value is not set or mismatched in user's file         *
+ *        1pp-config-user.ini, the installation process will prevent any installation failure by reverting it back to its default value.                                            *
  *      - Added BGT control.                                                                                                                                                        *
  *      - Replaced macros with functions whenever possible.                                                                                                                         *
  *      - Lollorian's BWP Fixpack patch for Ashes of Embers compatibility (400_1pp_update_bgii.tph.patch): Renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix     *
  *        (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian).                                                                          *
  *        Source: http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849                                                                                   *
- *      - Replaces macros with functions whenever possible.                                                                                                                         *
+ *      - Replaced macros with functions whenever possible.                                                                                                                         *
  *      - Coding simplification:                                                                                                                                                    *
  *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                   *
  *          Replaced two ADD_STORE_ITEM #1 with one ADD_STORE_ITEM #2.                                                                                                              *
@@ -636,3 +636,5 @@ ACTION_IF (is_tutu) BEGIN // GAME_IS ~tutu tutu_totsc~
 	END
 
 END // of GAME_IS ~tutu tutu_totsc~
+
+// END of COMPONENT SECTION
