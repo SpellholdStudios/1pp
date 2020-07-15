@@ -1,5 +1,5 @@
 
-![Latest Release](https://img.shields.io/github/v/release/SpellholdStudios/1pp?include_prereleases&color=darkred)<a name="top" id="top"> </a>
+![Latest Release](https://img.shields.io/github/v/release/SpellholdStudios/1pp?include_prereleases&color=darkred)<a name="top" id="top"> </a>[floatr]Texte ou image[/floatr]
 ![Platform](https://img.shields.io/static/v1?label=platform&message=windows%20%7C%20linux&color=informational)
 ![Language](https://img.shields.io/static/v1?label=language&message=English%20%7C%20French&color=limegreen)
 
@@ -431,7 +431,7 @@ The installer includes the following components. The number of each is the compo
 
 Supports: <span style="color:#006600">SoA</span>, <span style="color:#770000">ToB</span>, <span style="color:#008800">Tutu</span>, <span style="color:#009FB9">HoW</span>, <span style="color:#666666;">IWDII (placeholder)</span></br>
 
-<img src="1pp/documentation/files/101.jpg" style="align=center;" /></br>
+<div align="center"><img src="1pp/documentation/files/101.jpg"><</div>/br>
 
 The component that essentially started it all, this is a port of Baldur's Gate I style paperdolls for the Baldur's Gate II engine (used in SoA/ToB and HoW). Included are reworked 1ppv4 paperdolls for all race/class combinations matching vanilla animations as well as equipped object overlays. New in this version is detection and native support for Infinity Animations, including support for installs of HoW using BG1 animations via the <a href="http://www.shsforums.net/files/file/972-1pp-animation-fixes-for-iwd-totlm/">1pp IWD animation fixpack</a>.
 
@@ -472,7 +472,7 @@ As for clothing colours, during character creation and from the inventory the st
 
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu (if using the BG2 GUI)</span></br>
 
-<img src="1pp/documentation/files/104.jpg" style="margin : 0 auto; ">
+<div align="center"><img src="1pp/documentation/files/104.jpg"></div>
 
 A reworked graphical user interface for Baldur's Gate II SoA/ToB. This aims to get rid of a lot of the rough edges present in the original while maintaining a similar feel. Major changes include a time dial that is not just a box, getting rid of 'infinite parchment' (see additional screenshots) and an optional choice of updated fonts.</br>
 &#9755; <a href="1pp/documentation/files/gui_readme.html">See more</a></br>
@@ -486,7 +486,7 @@ A reworked graphical user interface for Baldur's Gate II SoA/ToB. This aims to g
 <strong>Requires: <a href="#101">[101]</a></strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
 
-<img src="1pp/documentation/files/105.jpg">
+<div align="center"><img src="1pp/documentation/files/105.jpg"></div>
 
 This component contains fixes and improvements for several avatar series of Baldur's Gate II character animations, along with updated paperdolls to better match the new content.</br>
 &#9755; <a href="1pp/documentation/files/avafix_readme.html">See more</a></br>
@@ -500,7 +500,7 @@ This component contains fixes and improvements for several avatar series of Bald
 <strong>Requires: <a href="#101">[101]</a></strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
 
-<img src="1pp/documentation/files/106.jpg">
+<div align="center"><img src="1pp/documentation/files/106.jpg"></div>
 
 This component patches Baldur's Gate II engine games to use separate avatar animations for female dwarves and mages of small races, and includes game content for all of these.</br>
 &#9755; <a href="1pp/documentation/files/dwarf_readme.html">See more</a></br>
@@ -515,7 +515,7 @@ This component patches Baldur's Gate II engine games to use separate avatar anim
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
 ###### Note: Due to the way patching is currently handled, this component will fail if Infinity Animations is already installed. To resolve this issue, install IA after this component.
 
-<img src="1pp/documentation/files/110.jpg">
+<div align="center"><img src="1pp/documentation/files/110.jpg"></div>
 
 In standard BGII only one armour level of thieves had unique animations (leather armour). Any other armour level would revert to the default unarmoured animation. On the inventory, the first two armour levels had unique paperdolls, anything else would revert to the unarmoured paperdoll.</br>
 This component will patch your executable to support full thief animation sequences and install content for them.</br>
@@ -529,7 +529,7 @@ This component will patch your executable to support full thief animation sequen
 
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
 
-<img src="1pp/documentation/files/113.jpg">
+<div align="center"><img src="1pp/documentation/files/113.jpg"></div>
 
 This component allows armour and robes to properly show up for characters of any class when equipped. While normally robes would not show up for fighter/cleric/thief animations, and armour would not show up for mage animations, this is circumvented by changing the character animation accordingly while such items are equipped.</br>
 &#9755; <a href="1pp/documentation/files/switch_readme.html">See original readme</a></br>
@@ -543,7 +543,7 @@ This component allows armour and robes to properly show up for characters of any
 <strong>Requires enabled 3D support</strong></br>
 Supports: <span style="color:#060">SoA (partial)</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII (placeholder)</span></br>
 
-<img src="1pp/documentation/files/114.jpg">
+<div align="center"><img src="1pp/documentation/files/114.jpg"></div>
 
 Substantially improved spell effects with smooth alpha blending for Baldur's Gate II engine based IE games. Note that 3D support has to be enabled for this component to work properly - if you run your game with software rendering mode, it is not recommended to install this.</br>
 &#9755; <a href="1pp/documentation/files/effects_readme.html">See more information</a></br>
@@ -557,7 +557,7 @@ Substantially improved spell effects with smooth alpha blending for Baldur's Gat
 <strong>Requires: <a href="#101">[101]</a></strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span></br>
 
-<img src="1pp/documentation/files/200.jpg">
+<div align="center"><img src="1pp/documentation/files/200.jpg"></div>
 
 This is essentially the inventory icon/item related patches of 1ppv2. In other words, lots of random icon improvements for BGII, especially on the ToB side of things, as well as some mod item patches and updates. It will form the basis on which 1ppv4 is built on SoA/ToB.</br>
 &#9755; <a href="1pp/documentation/files/v2_readme.html">See original readme</a></br>
@@ -570,7 +570,7 @@ This is essentially the inventory icon/item related patches of 1ppv2. In other w
 
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span></br>
 
-<img src="1pp/documentation/files/201.jpg">
+<div align="center"><img src="1pp/documentation/files/201.jpg"></div>
 
 This component harmonises spell icons introduced in Baldur's Gate II with the ones in the original game. It updates icons found in the spellbook as well as the stone styled UI icons along with spell scrolls.</br>
 &#9755; <a href="1pp/documentation/files/spic_readme.html">See more</a></br>
@@ -583,7 +583,7 @@ This component harmonises spell icons introduced in Baldur's Gate II with the on
 
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span></br>
 
-<img src="1pp/documentation/files/202.jpg">
+<div align="center"><img src="1pp/documentation/files/202.jpg"></div>
 
 Minor spell tweaks for SoA/ToB, giving armour spells distinct appearances (ghost armour, spirit armour) as well as reworked 'cause wounds' type of spells, bringing them into line with their p&amp;p equivalents and actually making them viable.</br>
 
@@ -596,7 +596,7 @@ Minor spell tweaks for SoA/ToB, giving armour spells distinct appearances (ghost
 <strong>Requires: <a href="#101">[101]</a></strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
 
-<img src="1pp/documentation/files/203.jpg">
+<div align="center"><img src="1pp/documentation/files/203.jpg"></div>
 
 This component restores separate flame sword animations for Baldur's Gate II (similar to the ones in the original). It also includes flame short swords, adding a new item type to the game.</br>
 &#9755; <a href="1pp/documentation/files/fs_readme.html">See original readme</a></br>
@@ -610,7 +610,7 @@ This component restores separate flame sword animations for Baldur's Gate II (si
 <strong>Requires: <a href="#101">[101]</a></strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
 
-<img src="1pp/documentation/files/204.jpg">
+<div align="center"><img src="1pp/documentation/files/204.jpg"></div>
 
 This component makes quarterstaves colourable by segment (as opposed to uniform) to allow more variety in-game and match inventory depictions. It also includes item patches to make use of the new content.</br>
 &#9755; <a href="1pp/documentation/files/qs_readme.html">See developer reference</a></br>
@@ -624,7 +624,7 @@ This component makes quarterstaves colourable by segment (as opposed to uniform)
 <strong>Requires: <a href="#101">[101]</a></strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
 
-<img src="1pp/documentation/files/205.jpg">
+<div align="center"><img src="1pp/documentation/files/205.jpg"></div>
 
 Proper reconstruction and re-renders of the Baldur's Gate I shield animations, superseding the old legacy ports; thanks to invaluable support from the BG:EE team.</br>
 
@@ -637,7 +637,7 @@ Proper reconstruction and re-renders of the Baldur's Gate I shield animations, s
 <strong>Requires: <a href="#101">[101]</a></strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
 
-<img src="1pp/documentation/files/206a.jpg">
+<div align="center"><img src="1pp/documentation/files/206a.jpg"></div>
 
 <img src="1pp/documentation/files/206b.jpg">
 
@@ -654,7 +654,7 @@ This component includes updated versions of Baldur's Gate II's shield animations
 <strong>Requires: <a href="#101">[101]</a></strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
 
-<img src="1pp/documentation/files/207.jpg">
+<div align="center"><img src="1pp/documentation/files/207.jpg"></div>
 
 This component includes one new animation (wizard's staff) as well as several new paperdoll appearances for regular colourable quarterstaves.</br>
 
@@ -669,8 +669,8 @@ This component includes one new animation (wizard's staff) as well as several ne
 <strong>Requires: <a href="#101">[101]</a></strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
 
-<img src="1pp/documentation/files/208a.jpg">
-<img src="1pp/documentation/files/208b.jpg">
+<div align="center"><img src="1pp/documentation/files/208a.jpg">
+<img src="1pp/documentation/files/208b.jpg"></div>
 
 This component includes improved content for Baldur's Gate II's vanilla helmet animations, and introduces five new helmet animations (one not pictured). It also introduces circlets which actually render on model!</br>
 
@@ -685,7 +685,7 @@ This component includes improved content for Baldur's Gate II's vanilla helmet a
 <strong>Requires: <a href="#101">[101]</a></strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
 
-<img src="1pp/documentation/files/209.jpg">
+<div align="center"><img src="1pp/documentation/files/209.jpg"></div>
 
 This adds equippable wings for elven characters (with some restrictions).</br>
 &#9755; <a href="files/wings_readme.html">See readme &amp; developer notes</a></br>
@@ -701,7 +701,7 @@ This adds equippable wings for elven characters (with some restrictions).</br>
 <strong>Requires: <a href="#101">[101]</a></strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
 
-<img src="1pp/documentation/files/210.jpg">
+<div align="center"><img src="1pp/documentation/files/210.jpg"></div>
 
 This component increases paperdoll variety by adding various alternates sharing existing object animations. Included are separate paperdoll appearances for bastard swords, various types of flails, maces, short bows, and more (not all of them pictured).</br>
 
@@ -719,9 +719,9 @@ Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</spa
 
 This is the main 1ppv4 update component. Make sure you have all components you would like to see used installed before proceeding (suggested components will provide additional content and install choices). The following screenshots depict standard installation choices, except where noted otherwise.</br>
 
-<img src="1pp/documentation/files/400h4.jpg">
+<div align="center"><img src="1pp/documentation/files/400h4.jpg">
 <img src="1pp/documentation/files/400s4.jpg">
-<img src="1pp/documentation/files/400ss.jpg">
+<img src="1pp/documentation/files/400ss.jpg"></div>
 
 Before v4.2.0, various content choices were presented to you during installation (depending on which IE game you are installing for and installed components).</br>
 As of version 4.2.0, installation options are moved into 1pp-config-default.ini file. If you want to modify them, please read this <a href="#config">chapter</a>.</br></br>
@@ -736,8 +736,8 @@ For a full, visual guide to choices see the link below. Consider choosing 'yes' 
 <strong>Requires: <a href="#200">[200]</a> <a href="#400">[400]</a></strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span></br>
 
-<img src="1pp/documentation/files/401.jpg">
-<img src="1pp/documentation/files/401b.jpg">
+<div align="center"><img src="1pp/documentation/files/401.jpg">
+<img src="1pp/documentation/files/401b.jpg"></div>
 
 This component improves projectile effects around Baldur's Gate II. Be able to see what kind of bullets/arrows/bolts are shot at you (or if you're really absent-minded, which <em>you</em> are shooting). Includes coloured bolt and bullet projectiles, axes and darts, and what is even neater, you can actually see the ammunition change on your paperdoll!</br>
 
@@ -749,7 +749,7 @@ This component improves projectile effects around Baldur's Gate II. Be able to s
 
 Supports: <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span></br>
 
-<img src="1pp/documentation/files/300.jpg">
+<div align="center"><img src="1pp/documentation/files/300.jpg"></div>
 
 Fixed rendering for solar animations on ToB based games, as well as blended fire elementals.</br>
 
@@ -761,7 +761,7 @@ Fixed rendering for solar animations on ToB based games, as well as blended fire
 
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
 
-<img src="1pp/documentation/files/301.jpg">
+<div align="center"><img src="1pp/documentation/files/301.jpg"></div>
 
 Contains the following fixes: dog animations (corrupted palette), sitting static peasant woman (bad BAM conversion), alternate fire giant animation slot (was useless as the animation had no unified palette, thus impossible to fill). It also fixes an engine related bug on SoA/ToB and IWD:TotLM that will have helmets randomly render wrong sequences when changing equipment, making them 'float' off your character. Finally, it contains a fix for bugged shield z-buffering on SoA, ToB, IWD:TotLM and IWDII on BGII character animations.</br>
 <div align="right"><a href="#components">Back to components list</a></div>
