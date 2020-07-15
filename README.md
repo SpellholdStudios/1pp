@@ -431,7 +431,7 @@ The installer includes the following components. The number of each is the compo
 
 Supports: <span style="color:#006600">SoA</span>, <span style="color:#770000">ToB</span>, <span style="color:#008800">Tutu</span>, <span style="color:#009FB9">HoW</span>, <span style="color:#666666;">IWDII (placeholder)</span></br>
 
-<img src="1pp/documentation/files/101.jpg"></br>
+<img src="1pp/documentation/files/101.jpg" align="center" /></br>
 
 The component that essentially started it all, this is a port of Baldur's Gate I style paperdolls for the Baldur's Gate II engine (used in SoA/ToB and HoW). Included are reworked 1ppv4 paperdolls for all race/class combinations matching vanilla animations as well as equipped object overlays. New in this version is detection and native support for Infinity Animations, including support for installs of HoW using BG1 animations via the <a href="http://www.shsforums.net/files/file/972-1pp-animation-fixes-for-iwd-totlm/">1pp IWD animation fixpack</a>.
 
@@ -446,7 +446,7 @@ The component that essentially started it all, this is a port of Baldur's Gate I
 <strong>Non-optional component</strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
 
-<img src="1pp/documentation/files/102.jpg">
+<div align="center"><img src="1pp/documentation/files/102.jpg">/div>
 
 This component adds new colour gradients to Infinity Engine games, raising the count of available colours from 116 to 256. It also includes a new random colour table making use of them for Baldur's Gate II and new colour set files for Icewind Dale II, giving you more skin/hair colour choices for the various races.</br>
 It also fixes a few minor problems with standard gradients.</br>
