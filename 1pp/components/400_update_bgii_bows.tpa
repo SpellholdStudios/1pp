@@ -1,5 +1,5 @@
 /* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
+ *  v 4.2.0                                                                                                                                                                         *
  *                                         C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( b o w s )                                          *
  *                                                                                                                                                                                  *
  * ================================================================================================================================================================================ *
@@ -11,6 +11,7 @@
  *      - Coding simplification:                                                                                                                                                    *
  *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                              *
  *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                   *
+ *          Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (Rolles, Ruad).                                                                           *
  * ================================================================================================================================================================================ */
 
 /* ====================== *
@@ -245,18 +246,7 @@ END
 // Elven Court Bow +3
 ACTION_IF (FILE_EXISTS_IN_GAME ~bow12.itm~) BEGIN
 	COPY_EXISTING ~bow12.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET gradient = 235				// 235 CLERIC_GOOD_MAJOR-GLAUCOUS_GRAY replaces colour index 65 REALLY_DARK_GRAY
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 246				// 246 MAGE_MINOR-CHROME_PINE replaces colour index 103 PINE_GREEN
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-			SET gradient = 246				// sets colour index 246 MAGE_MINOR-CHROME_PINE
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-		END
+		LPF ~1pp_bow12~ END
 	BUT_ONLY
 END
 
@@ -301,20 +291,7 @@ END
 // Tansheron's Bow +3
 ACTION_IF (FILE_EXISTS_IN_GAME ~bow15.itm~) BEGIN
 	COPY_EXISTING ~bow15.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~BS~			// Shortbow - replaces BW Longbow
-			WRITE_ASCII 0x44 ~GBOW02~ #8	// replaces GBOW01
-			LPM ~clear~
-			SET gradient = 6				// 6 DARK_SILVER replaces colour index 75 SOLID_BLACK
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 237				// 237 CLERIC_NEUTRAL_MAJOR-TAUPE replaces colour index 19 DARK_ROSE_RED
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-			SET gradient = 90				// sets colour index 90 MOLDY_GOLD
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-		END
+		LPF ~1pp_bow15~ END
 	BUT_ONLY
 END
 
@@ -492,4 +469,35 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bow26.itm~) BEGIN
 	BUT_ONLY
 END
 
-//END of COMPONENT
+
+/* =================== *
+ *      MOD BOWS       *
+ * =================== */
+
+PRINT @400015 // ~Patching mod items (if found)...~
+SILENT
+
+/* ------------ *
+ *  Rolles mod  *
+ * ------------ */
+
+// Tansheron's Bow +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~s#bow01.itm~) BEGIN
+	COPY_EXISTING ~s#bow01.itm~ ~override~
+		LPF ~1pp_bow15~ END
+	BUT_ONLY
+END
+
+
+/* -------------------- *
+ *  Ruad Ro'fhessa mod  *
+ * -------------------- */
+
+// Bow of Uden
+ACTION_IF (FILE_EXISTS_IN_GAME ~u#bow02.itm~) BEGIN
+	COPY_EXISTING ~u#bow02.itm~ ~override~
+		LPF ~1pp_bow12~ END
+	BUT_ONLY
+END
+
+// END of COMPONENT SECTION
