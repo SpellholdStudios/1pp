@@ -1,5 +1,5 @@
 /* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
+ *  v 4.2.0                                                                                                                                                                         *
  *                                       C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( a r m o r s )                                        *
  *                                                                                                                                                                                  *
  * ================================================================================================================================================================================ *
@@ -7,27 +7,28 @@
  * ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
- *      - Replaced macros with functions whenever possible.                                                                                                                          *
+ *      - Replaced macros with functions whenever possible.                                                                                                                         *
  *      - Coding simplification:                                                                                                                                                    *
- *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
- *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                              *
+ *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                   *
+ *          Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (Rolles, Ruad).                                                                           *
  *                                                                                                                                                                                  *
  *  specific fixes:                                                                                                                                                                 *
  *  ---------------                                                                                                                                                                 *
- *      - #1490 ==> chan03b.itm (Werebane Mail +2): added missing identified name.                                                                                                   *
- *      - #1590 ==> plat15.itm (Pride of the Legion +2): reverted its inventory and description icons (set to IPLAT23 and CPLAT05) as EE does not validate this change.              *
- *      - #1630 ==> plat23.itm (Full Plate Mail +2): removed from the patches as EE does not validate them (this silver and golden full plate was turned into a black one!).        *
+ *      - #1485 ==> chan03b.itm (Werebane Mail +2): added missing identified name.                                                                                                  *
+ *      - #1585 ==> plat15.itm (Pride of the Legion +2): reverted its inventory and description icons (set to IPLAT23 and CPLAT05) as EE does not validate this change.             *
+ *      - #1625 ==> plat23.itm (Full Plate Mail +2): removed from the patches as EE does not validate them (this silver and golden full plate was turned into a black one!).        *
  * ================================================================================================================================================================================ */
 
 // -------------------------------- //
 //  ARMORS                    line  //
 // -------------------------------- //
-//  LEATHER ARMORS          #   34  //
-//  CHAIN & SPLINT MAILS    #  463  //
-//  CLOAKS                  #  983  //
-//  PLATE MAILS             # 1054  //
-//  TUTU STUFF              # 1349  //
-//  ARMORS APPEARANCE       # 1436  //
+//  LEATHER ARMORS          #   35  //
+//  CHAIN & SPLINT MAILS    #  458  //
+//  CLOAKS                  #  978  //
+//  PLATE MAILS             # 1049  //
+//  TUTU STUFF              # 1344  //
+//  ARMORS APPEARANCE       # 1431  //
 // -------------------------------- //
 
 /* ================================ *
@@ -168,19 +169,17 @@ END
 // Shadow Armor
 ACTION_IF (FILE_EXISTS_IN_GAME ~leat08.itm~) BEGIN
 	COPY_EXISTING ~leat08.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET gradient = 164				// 164 RAW_UMBER replaces colour index 27 GRAY
-			SET location = agrey			// location (Belt/Amulet)
-			LPM ~colour~
-			SET gradient = 254				// 254 EBONY replaces colour index 21 DARK_IRON_GRAY
-			SET location = ared				// location (Strap/Leather)
-			LPM ~colour~
-			SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 21 DARK_IRON_GRAY
-			SET location = ablue			// location (Armor/Trimming)
-			LPM ~colour~
-		END
+		LPF ~1pp_leat08~ END
 	BUT_ONLY
+END
+
+// Pikim's Armor and Hide of Shades (Ruad mod)
+ACTION_FOR_EACH leather IN ~u#leat01~ ~u#leat02~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%leather%.itm~) BEGIN
+		COPY_EXISTING ~%leather%.itm~ ~override~
+			LPF ~1pp_leat08~ END
+		BUT_ONLY
+	END
 END
 
 // Karajah's Life and Death +3
@@ -406,18 +405,14 @@ END
 // Studded Leather of Thorns +6
 ACTION_IF (FILE_EXISTS_IN_GAME ~leat23.itm~) BEGIN
 	COPY_EXISTING ~leat23.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET gradient = 211				// 211 MERCHANT_MINOR-DARK_BRASS replaces colour index 103 PINE_GREEN
-			SET location = agrey			// location (Belt/Amulet)
-			LPM ~colour~
-			SET gradient = 230				// KOBOLD_MAJOR-DEEP_AVOCADO replaces colour index 53 GREEN
-			SET location = ared				// location (Strap/Leather)
-			LPM ~colour~
-			SET gradient = 240				// 240 CLERIC_EVIL_MINOR-PALE_RUST replaces colour index 103 PINE_GREEN
-			SET location = ablue			// location (Armor/Trimming)
-			LPM ~colour~
-		END
+		LPF ~1pp_leat23~ END
+	BUT_ONLY
+END
+
+// Dream of the Thief (Rolles mod)
+ACTION_IF (FILE_EXISTS_IN_GAME ~s#leat01.itm~) BEGIN
+	COPY_EXISTING ~s#leat011.itm~ ~override~
+		LPF ~1pp_leat23~ END
 	BUT_ONLY
 END
 
@@ -1487,7 +1482,7 @@ ACTION_IF (1pp_armours_appearance = 1) BEGIN
 		BUT_ONLY
 	END
 
-	// vanilla Mail of the Dead +2 ==> Werebane Mail +2. Gwen fix: add armor name
+	// vanilla Mail of the Dead +2 ==> Werebane Mail +2. Gwen fix: added armor name
 	ACTION_IF (FILE_EXISTS_IN_GAME ~chan03.itm~) BEGIN
 		COPY_EXISTING ~chan03.itm~ ~override/chan03b.itm~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -1627,7 +1622,7 @@ ACTION_IF (1pp_armours_appearance = 1) BEGIN
 		BUT_ONLY
 	END
 
-	/* Full Plate Mail +2 (Gwen fix): remove from the patches as EE does not validate them (this silver and golden full plate was turned into a black one!).
+	/* Full Plate Mail +2 (Gwen fix): removed from the patches as EE does not validate them (this silver and golden full plate was turned into a black one!).
 	ACTION_IF (FILE_EXISTS_IN_GAME ~plat23.itm~) BEGIN
 		COPY_EXISTING ~plat23.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -1789,4 +1784,4 @@ ACTION_IF (1pp_armours_appearance = 3) BEGIN
 
 END
 
-//END of COMPONENT
+// END of COMPONENT SECTION
