@@ -1,5 +1,5 @@
 /* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
+ *  v 4.2.0                                                                                                                                                                         *
  *                                C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   (b l u n t    w e a p o n s )                                 *
  *                                                                                                                                                                                  *
  * ================================================================================================================================================================================ *
@@ -19,10 +19,11 @@
  *      - Coding simplification:                                                                                                                                                    *
  *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                              *
  *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                   *
+ *          Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (Rolles, Ruad).                                                                           *
  *                                                                                                                                                                                  *
  *  specific fixes:                                                                                                                                                                 *
  *  ---------------                                                                                                                                                                 *
- *      - #624  ==> blun16.itm (The Sleeper +2): if turned into a flail, modified minimum strength and damage values and used a new icon (IBLUN16B) to avoid overwriting the        *
+ *      - #614  ==> blun16.itm (The Sleeper +2): if turned into a flail, modified minimum strength and damage values and used a new icon (IBLUN16B) to avoid overwriting the        *
  *                  vanilla one (let's keep it for modders!).                                                                                                                       *
  * ================================================================================================================================================================================ */
 
@@ -142,18 +143,7 @@ END
 // Wyvern's Tail +2
 ACTION_IF (FILE_EXISTS_IN_GAME ~blun17.itm~) BEGIN
 	COPY_EXISTING ~blun17.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET gradient = 213				// 213 TRADE_PEASANT_MINOR-VIRIDIAN replaces colour index 7 LIGHT_METALLIC_GREEN
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 236				// 236 CLERIC_GOOD_MINOR-DARK_PINE replaces colour index 7 LIGHT_METALLIC_GREEN
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-			SET gradient = 246				// 246 MAGE_MINOR-CHROME_PINE replaces colour index 7 LIGHT_METALLIC_GREEN
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-		END
+		LPF ~1pp_blun17~ END
 	BUT_ONLY
 END
 
@@ -652,4 +642,38 @@ ACTION_IF (1pp_sleeper = 1) BEGIN
 	END
 END
 
-//END of COMPONENT
+
+/* ============================ *
+ *      MOD BLUNT WEAPONS       *
+ * ============================ */
+
+PRINT @400015 // ~Patching mod items (if found)...~
+SILENT
+
+/* ------------ *
+ *  Rolles mod  *
+ * ------------ */
+
+// Mace of Disruption +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~s#mace01.itm~) BEGIN
+	COPY_EXISTING ~s#mace01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~M2~			// Mace (alternate)
+		END
+	BUT_ONLY
+END
+
+
+/* -------------------- *
+ *  Ruad Ro'fhessa mod  *
+ * -------------------- */
+
+// The Drowsy Wyvern
+ACTION_IF (FILE_EXISTS_IN_GAME ~u#blun01.itm~) BEGIN
+	COPY_EXISTING ~u#blun01.itm~ ~override~
+		LPF ~1pp_blun17~ END
+	BUT_ONLY
+END
+
+
+// END of COMPONENT SECTION
