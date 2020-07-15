@@ -1,5 +1,5 @@
 /* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
+ *  v 4.2.0                                                                                                                                                                         *
  *                                      C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( h e l m e t s )                                       *
  *                                                                                                                                                                                  *
  * ================================================================================================================================================================================ *
@@ -11,11 +11,12 @@
  *      - Coding simplification:                                                                                                                                                    *
  *  		Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                              *
  *  		Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                   *
+ *          Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (Stuff of the Magi).                                                                      *
  *                                                                                                                                                                                  *
  *  specific fixes:                                                                                                                                                                 *
  *  ---------------                                                                                                                                                                 *
- *      - #826  ==> helm33.itm (Gold Horned Helm): fixed a typo (was copying helm22 instead of helm33). Id. #2610.                                                                  *
- *      - #2712 ==> Circlets: Added Lollorian's patch for Ashes of Embers compatibility.                                                                                            *
+ *      - #826  ==> helm33.itm (Gold Horned Helm): fixed a typo (was patching helm22 instead of helm33). Id. #2610.                                                                 *
+ *      - #2713 ==> Circlets: Added Lollorian's patch for Ashes of Embers compatibility.                                                                                            *
  * ================================================================================================================================================================================ */
 
 /* =============================== *
@@ -824,7 +825,7 @@ ACTION_IF (1pp_helmets_appearance = 1) BEGIN
 
 	// Gold Horned Helm
 	ACTION_IF (FILE_EXISTS_IN_GAME ~helm33.itm~) BEGIN
-		COPY_EXISTING ~helm33.itm~ ~override~	// fix typo (was copying helm32 instead of helm33)
+		COPY_EXISTING ~helm33.itm~ ~override~	// fix typo (was patching helm32 instead of helm33)
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				WRITE_ASCII 0x22 ~J3~			// replaces H3 (not modified in EE)
 				LPM ~clear~
@@ -2720,10 +2721,10 @@ END	// of ACTION_IF (1pp_helmets_appearance = 3) = BG2 style HELMETS
  *                                                                                                                                                                                   *
  *  Fix wrong coding:                                                                                                                                                                *
  *  -----------------                                                                                                                                                                *
- *  - #2734 ==> Silver Circlet (xoband02.itm): Opcodes #33, 34 & 35: parameter2 originally set to 1 should be 0, adds #36 & 37 to match item description = +1 to all saving throws.  *
- *  - #2784 ==> Eilistraee's Boon +1 (xoband03.itm). Same fix for opcodes #33, 34, 35, 36 & 37.                                                                                      *
+ *  - #2735 ==> Silver Circlet (xoband02.itm): Opcodes #33, 34 & 35: parameter2 originally set to 1 should be 0, adds #36 & 37 to match item description = +1 to all saving throws.  *
+ *  - #2785 ==> Eilistraee's Boon +1 (xoband03.itm). Same fix for opcodes #33, 34, 35, 36 & 37.                                                                                      *
  *              Op#31: parameter1 originally set to 110 should be 10, and parameter2 switched from 2 to 0 to match item description (+10% Magic damage Resistance).                  *
- *  - #2814 ==> Circlet of the Archmagi (xoband04.itm): Same fix for opcodes #33, 34, 35, 36 & 37. Added one missing equipped effects (`LPM ADD_ITEM_EQEFFECT #19`).                 *
+ *  - #2815 ==> Circlet of the Archmagi (xoband04.itm): Same fix for opcodes #33, 34, 35, 36 & 37. Added one missing equipped effects (`LPM ADD_ITEM_EQEFFECT #19`).                 *
  * ================================================================================================================================================================================= */
 
 PRINT @400028 // ~Installing and patching circlets...~
@@ -2884,4 +2885,17 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~helm28.itm~) BEGIN
 	BUT_ONLY
 END
 
-//END of COMPONENT
+
+/* ----------------------- *
+ *  Stuff of the Magi mod  *
+ * ----------------------- */
+
+// Circlet of the Magi
+ACTION_IF (FILE_EXISTS_IN_GAME ~wzrdhelm.itm~) BEGIN
+	COPY_EXISTING ~wzrdhelm.itm~ ~override~
+		WRITE_ASCII 0x22 ~JB~	// Circlet
+		LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 101 opcode = 7 parameter1 = 207 parameter2 = 52 STR_VAR insert = first END	// Set Color: 207 NOBLE_MINOR2-CHROME_GOLD
+	BUT_ONLY
+END
+
+// END of COMPONENT SECTION
