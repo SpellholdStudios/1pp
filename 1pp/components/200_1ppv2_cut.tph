@@ -1,9 +1,7 @@
 /* =========================================================================================================================================================================================== *
- *                                                                                                                                                                                             *
+ *  v 4.2.0                                                                                                                                                                                    *
  *                                                                 C O M P O N E N T   :   C o r e   c o n t e n t   p a t c h                                                                 *
  *                                                                                                                                                                                             *
- * =========================================================================================================================================================================================== *
- *  This component improves spell effects with smooth alpha blending for Baldur's Gate II engine based IE games.                                                                               *
  * =========================================================================================================================================================================================== *
  *  This is essentially the inventory icon/item related patches of 1ppv2 cut and updated (go 2004!). In other words, lots of random icon improvements for BGII, especially on the ToB side     *
  *  of things, as well as some mod item patches and updates. It will form the basis on which 1ppv4 is built on SoA/ToB.                                                                        *
@@ -17,33 +15,35 @@
  *        The installation process will read both ini files and prioritize user values. If a value is not set or mismatched in in user's file 1pp-config-user.ini, the installation process    *
  *        will prevent any installation failure by reverting it back to its default value.                                                                                                     *
  *      - Replaced macros with functions whenever possible.                                                                                                                                    *
- *      - 1ppv2 BAMs: for modding purpose, creates copies of a few vanilla inventory icons (with "v" suffix) before overwriting them (#826). Does not overwrite anymore the following those    *
- *        that are irrelevant (EE does not validate this change): does not replace iax1h14.bam (Axe of the Unyielding +3) with the very inaccurate IWD Celebrant's Blade icon {#835),          *
+ *      - 1ppv2 BAMs: for modding purpose, creates copies of a few vanilla inventory icons (with "v" suffix) before overwriting them (#825). Does not overwrite anymore the following those    *
+ *        that are irrelevant (EE does not validate this change): does not replace iax1h14.bam (Axe of the Unyielding +3) with the very inaccurate IWD Celebrant's Blade icon {#836),          *
  *        idagg11.bam (Boomerang Dagger) with a clone of imisc75 (Dagger of Venom, #868), and isw1h06.bam (Varscona +2) with a clone of isw1h41 (Long Sword +2, #918). Does not overwrite      *
- *        Harbinger's icon and copies an alternate resource for modding purpose (1isw2h07). This way, Harbinger keeps its golden icon which fits to its colors settings (#949).                *
- *      - Adds a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (#861: saves vanilla ihamm10 icon and installs new ihamm10 1pp icon as      *
+ *        Harbinger's icon and copies an alternate resource for modding purpose (1isw2h07). This way, Harbinger keeps its golden icon which fits to its colors settings (#950).                *
+ *      - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (#875: saves vanilla ihamm10 icon and installs new ihamm10 1pp icon as     *
  *        ihamm05b), and not to set Borok's Fist's icon to Runehammers.                                                                                                                        *
  *      - Coding simplification:                                                                                                                                                               *
- *          Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                                          *
- *          Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                                *
+ *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                                         *
+ *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                              *
  *                                                                                                                                                                                             *
  *  Code re-written with newer functions to provide automatic process:                                                                                                                         *
  *  ------------------------------------------------------------------                                                                                                                         *
- *    . - Use newer and more efficient WeiDU ALTER_EFFECT and ALTER_ITEM_HEADER functions to replace so many lines of codes.                                                                   *
- *      - Use DELETE_EFFECT and CLONE_EFFECT combo to add new equiped color effects, which avoids writing lines of codes!                                                                      *
+ *    . - Used newer and more efficient WeiDU ALTER_EFFECT and ALTER_ITEM_HEADER functions to replace so many lines of codes.                                                                  *
+ *      - Used DELETE_EFFECT and CLONE_EFFECT combo to add new equipped color effects, which avoids writing lines of codes!                                                                    *
  *                                                                                                                                                                                             *
  *  specific fixes:                                                                                                                                                                            *
  *  ---------------                                                                                                                                                                            *
- *      - #97   ==> dagg21.itm & dagg22.itm (Daggers of the Star): reverts to their original inventory icon idagg21. 1PP sets them to idagg18 (Shadow Thief Dagger icon), but EE does          *
+ *      - #96   ==> dagg21.itm & dagg22.itm (Daggers of the Star): reverted to their original inventory icon idagg21. 1PP sets them to idagg18 (Shadow Thief Dagger icon), but EE does         *
  *                  not validate this change.                                                                                                                                                  *
- *      - #110  ==> halb07.itm (Halberd +2): reverts to its original inventory icon ihalb07. 1PP sets it to ihalb03 (Suryris's Blade +2 icon), but EE does not validate this change.           *
- *      - #677  ==> sw1h31.itm (Daystar +2): reverts to its original inventory icon isw1h31. 1PP sets it to isw1h34 (Albruin +1), but EE does not validate this change.                        *
- *      - #686  ==> sw1h34.itm (Albruin +1): reverts to its original inventory icon isw1h34. 1PP sets it to isw1h31 (Daystar +2), but EE does not validate this change.                        *
- *      - #695  ==> sw1h41.itm (Long Sword +2): reverts to its original inventory icon ISW1H41. 1PP sets it to sw1h06 (Varscona +2 icon), but EE does not validate this change.                *
- *      - #781  ==> sw2h10.itm and sw2h19.itm (Carsomyr +5 and +6): reverts to their original inventory icon isw2h10. 1PP sets them to isw2h20, but EE does not validate this change.          *
- *      - #795  ==> sw2h11.itm (Two-handed Sword +2): reverts to its original inventory icon isw2h11. 1PP sets it to isw2h03, but EE does not validate this change.                            *
- *      - #804  ==> sw2h20.itm (Two-handed Sword +3): reverts to its original inventory icon isw2h20. 1PP sets it to isw2h06, but EE does not validate this change.                            *
- *      - #991  ==> BW Herbs mod patches: fix typo (was copying bw02ipo1_l.bam instead of bw02ipo1.bam).                                                                                       *
+ *      - #110  ==> halb07.itm (Halberd +2): reverted to its original inventory icon ihalb07. 1PP sets it to ihalb03 (Suryris's Blade +2 icon), but EE does not validate this change.          *
+ *      - #676  ==> sw1h31.itm (Daystar +2): reverted to its original inventory icon isw1h31. 1PP sets it to isw1h34 (Albruin +1), but EE does not validate this change.                       *
+ *      - #686  ==> sw1h34.itm (Albruin +1): reverted to its original inventory icon isw1h34. 1PP sets it to isw1h31 (Daystar +2), but EE does not validate this change.                       *
+ *      - #695  ==> sw1h41.itm (Long Sword +2): reverted to its original inventory icon ISW1H41. 1PP sets it to sw1h06 (Varscona +2 icon), but EE does not validate this change.               *
+ *      - #783  ==> sw2h10.itm and sw2h19.itm (Carsomyr +5 and +6): reverted to their original inventory icon isw2h10. 1PP sets them to isw2h20, but EE does not validate this change.         *
+ *      - #796  ==> sw2h11.itm (Two-handed Sword +2): reverted to its original inventory icon isw2h11. 1PP sets it to isw2h03, but EE does not validate this change.                           *
+ *      - #806  ==> sw2h20.itm (Two-handed Sword +3): reverted to its original inventory icon isw2h20. 1PP sets it to isw2h06, but EE does not validate this change.                           *
+ *      - #968  ==> sw1hwk.itm (Water's Edge +3): wrong identified name fix moved from 400_update_bgii_misc.tpa because Core content patches component installs it and is a pre-requisite      *
+ *                  for Core updates and item patches component.                                                                                                                               *
+ *      - #994  ==> BW Herbs mod patches: fixed a typo (was copying bw02ipo1_l.bam instead of bw02ipo1.bam.                                                                                    *
  * =========================================================================================================================================================================================== */
 
 // ----------------------------- //
@@ -53,9 +53,9 @@
 //  HELMETS              #  144  //
 //  SHIELDS              #  257  //
 //  SWORDS               #  631  //
-//  1ppv2 BAMs           #  818  //
-//  POTIONS              #  971  //
-//  BW HERBS STUFF       #  983  //
+//  1ppv2 BAMs           #  819  //
+//  POTIONS              #  974  //
+//  BW HERBS STUFF       #  986  //
 // ----------------------------- //
 SILENT
 
@@ -93,9 +93,9 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~compon05.itm~) BEGIN
 	BUT_ONLY
 END
 
-/* DEPRECATED as of v4.2.0
 // Dagger of the Star: modify inventory icon (also modified by 400_1pp_update).
 // Gwen fix: reverts to their original inventory icon IDAGG21. 1PP sets it to IDAGG18 (Shadow Thief Dagger icon), but EE does not validate this change.
+/* DEPRECATED as of v4.2.0
 ACTION_FOR_EACH ~item~ IN ~dagg21~ ~dagg22~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
 		COPY_EXISTING ~%item%.itm~ ~override~
@@ -117,7 +117,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~halb07.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Case of Plenty +1 - Case of Plenty +2 (also modified by 400_1pp_update): modify inventory icon.
+// Case of Plenty +1 - Case of Plenty +2 (also modified by 400_1pp_update): modifies inventory icon.
 ACTION_FOR_EACH item IN ~quiver02~ ~quiver04~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
 		COPY_EXISTING ~%item%.itm~ ~override~
@@ -268,7 +268,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld01.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Small Shield +1: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
+// Small Shield +1: modifies item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld02.itm~) BEGIN
 	COPY_EXISTING ~shld02.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISHLD02~ #8		// replaces ISHLDS02
@@ -292,7 +292,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld03.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Medium Shield +1: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
+// Medium Shield +1: modifies item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld04.itm~) BEGIN
 	COPY_EXISTING ~shld04.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISHLD04~ #8		// replaces ISHLDM02
@@ -316,7 +316,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld05.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Large Shield +1: modify item icons and colours, and adds two effects (also modified by 400_1pp_update).
+// Large Shield +1: modifies item icons and colours, and adds two effects (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld06.itm~) BEGIN
 	COPY_EXISTING ~shld06.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISHLD06~ #8		// replaces ISHLDL02
@@ -331,7 +331,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld06.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Shield of the Falling Stars +1: modify item icons and colours, and adds two effects (also modified by 400_1pp_update).
+// Shield of the Falling Stars +1: modifies item icons and colours, and adds two effects (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld07.itm~) BEGIN
 	COPY_EXISTING ~shld07.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISHLD07~ #8		// replaces ISHLDL02
@@ -368,7 +368,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld09.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Buckler: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
+// Buckler: modifies item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld10.itm~) BEGIN
 	COPY_EXISTING ~shld10.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISHLD10~ #8		// replaces ISHLDB01
@@ -445,7 +445,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld16.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Buckler +1: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
+// Buckler +1: modifies item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld17.itm~) BEGIN
 	COPY_EXISTING ~shld17.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISHLD17~ #8		// replaces ISHLDB02
@@ -469,7 +469,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld18.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Pellan's Shield +2: modify item icons and colours, and adds two effects (also modified by 400_1pp_update).
+// Pellan's Shield +2: modifies item icons and colours, and adds two effects (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld19.itm~) BEGIN
 	COPY_EXISTING ~shld19.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISHLD19~ #8		// replaces ISHLDL02
@@ -495,7 +495,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld20.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Dragon Scale Shield +2: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
+// Dragon Scale Shield +2: modifies item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld21.itm~) BEGIN
 	COPY_EXISTING ~shld21.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISHLDDS~ #8		// replaces ISHLD21
@@ -505,7 +505,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld21.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Fortress Shield +3: modify item icons and colours, and adds two effects (also modified by 400_1pp_update).
+// Fortress Shield +3: modifies item icons and colours, and adds two effects (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld23.itm~) BEGIN
 	COPY_EXISTING ~shld23.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISHLDFS~ #8		// replaces ISHLD23
@@ -520,7 +520,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld23.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Reflection Shield +1: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
+// Reflection Shield +1: modifies item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld24.itm~) BEGIN
 	COPY_EXISTING ~shld24.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISHLDRF~ #8		// replaces ISHLD24
@@ -533,7 +533,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld24.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Shield of Harmony +2: modify item icons and colours (also modified by 400_1pp_update).
+// Shield of Harmony +2: modifies item icons and colours (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld25.itm~) BEGIN
 	COPY_EXISTING ~shld25.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISHLDHM~ #8		// replaces ISHLD25
@@ -545,7 +545,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld25.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Shield of the Lost +2: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
+// Shield of the Lost +2: modifies item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld26.itm~) BEGIN
 	COPY_EXISTING ~shld26.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISHLDVR~ #8		// replaces ISHLD26
@@ -558,7 +558,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld26.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Saving Grace +3: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
+// Saving Grace +3: modifies item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld27.itm~) BEGIN
 	COPY_EXISTING ~shld27.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISHLDGN~ #8		// replaces ISHLD27
@@ -571,7 +571,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld27.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Small Shield +2: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
+// Small Shield +2: modifies item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld28.itm~) BEGIN
 	COPY_EXISTING ~shld28.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISHLDK2~ #8		// replaces ISHLD28
@@ -584,7 +584,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld28.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Medium Shield +2: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
+// Medium Shield +2: modifies item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld29.itm~) BEGIN
 	COPY_EXISTING ~shld29.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISHLD13~ #8		// replaces ISHLD29
@@ -597,7 +597,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld29.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Large Shield +2: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
+// Large Shield +2: modifies item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld30.itm~) BEGIN
 	COPY_EXISTING ~shld30.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISHLD07~ #8		// replaces ISHLD30
@@ -611,7 +611,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld30.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Darksteel Shield +4: modify item icons and colours, and adds one effect (also modified by 400_1pp_update).
+// Darksteel Shield +4: modifies item icons and colours, and adds one effect (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld31.itm~) BEGIN
 	COPY_EXISTING ~shld31.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -675,7 +675,7 @@ END
 
 /* DEPRECATED as of v4.2.0
 // Daystar +2: modify inventory icon (also modified by 400_1pp_update).
-// Gwen fix: reverts to its original inventory icon ISW1H31. 1PP sets it ISW1H34 (Albruin +1), but EE does not validate this change.
+// Gwen fix: reverted to its original inventory icon ISW1H31. 1PP sets it ISW1H34 (Albruin +1), but EE does not validate this change.
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h31.itm~) BEGIN
 	COPY_EXISTING ~sw1h31.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISW1H34~ #8		// replaces ISW1H31
@@ -684,7 +684,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h31.itm~) BEGIN
 END
 
 // Albruin +1: modify inventory icon (also modified by 400_1pp_update).
-// Gwen fix: reverts to its original inventory icon ISW1H34. 1PP sets it to SW1H31 (Daystar +2 icon), but EE does not validate this change.
+// Gwen fix: reverted to its original inventory icon ISW1H34. 1PP sets it to SW1H31 (Daystar +2 icon), but EE does not validate this change.
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h34.itm~) BEGIN
 	COPY_EXISTING ~sw1h34.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISW1H31~ #8		// replaces ISW1H34
@@ -693,14 +693,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h34.itm~) BEGIN
 END
 
 // Long Sword +2: modify inventory icon (also modified by 400_1pp_update).
-// Gwen fix: reverts to its original inventory icon ISW1H41. 1PP sets it to SW1H06 (Varscona +2 icon), but EE does not validate this change.
+// Gwen fix: reverted to its original inventory icon ISW1H41. 1PP sets it to SW1H06 (Varscona +2 icon), but EE does not validate this change.
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h41.itm~) BEGIN
 	COPY_EXISTING ~sw1h41.itm~ ~override~
 		WRITE_ASCII 0x3A ~ISW1H06~ #8		// replaces ISW1H41
 		LPF ~ALTER_ITEM_HEADER~ INT_VAR header_type = 1 STR_VAR icon = ISW1H06 END
 	BUT_ONLY
-END
-*/
+END*/
+
 // Water's Edge +3: modify inventory icon (also modified by 400_1pp_update).
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h52.itm~) BEGIN
 	COPY_EXISTING ~sw1h52.itm~ ~override~
@@ -778,6 +778,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~demosum4.itm~) BEGIN
 		END
 	BUT_ONLY
 END
+
 /* DEPRECATED as of v4.2.0
 // Carsomyr +5 & +6: modify inventory icon (also modified by 400_1pp_update).
 // Gwen fix: reverts to their original inventory icon ISW2H10. 1PP sets it to ISW2H20, but EE does not validate this change.
@@ -964,7 +965,9 @@ COPY ~1pp/item/v2_copy/iwand09.bam~		~override~				// Wand of Polymorphing (over
 COPY ~1pp/item/v2_copy/iwand10.bam~		~override~				// Wand of Monster Summoning (overwrite)
 COPY ~1pp/item/v2_copy/iwand11.bam~		~override~				// Wand of the Heavens (overwrite)
 
-COPY ~1pp/item/v2_copy/sw1hwk.itm~		~override~				// Water's Edge +3
+// Water's Edge +3: wrong identified name fix moved from 400_update_bgii_misc.tpa because Core content patches component installs it and is a pre-requisite for Core updates and item patches component.
+COPY ~1pp/item/v2_copy/sw1hwk.itm~		~override~
+	SAY NAME2 @400801
 
 
 /* ========================= *
