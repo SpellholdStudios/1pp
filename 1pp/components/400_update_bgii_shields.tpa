@@ -1,5 +1,5 @@
 /* ================================================================================================================================================================================== *
- *                                                                                                                                                                                    *
+ *  v 4.2.0                                                                                                                                                                           *
  *                                       C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( s h i e l d s )                                        *
  *                                                                                                                                                                                    *
  * ================================================================================================================================================================================== *
@@ -11,19 +11,20 @@
  *      - Coding simplification:                                                                                                                                                      *
  *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                                *
  *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *          Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (BG1 NPC Project, Rolles, Song and Silence, The Unusual Oddities Shop).                     *
  *                                                                                                                                                                                    *
  *  specific fixes:                                                                                                                                                                   *
  *  ---------------                                                                                                                                                                   *
- *      - #101  ==> shld02.itm (Small Shield +1): LPM ~clear~ was missing, and the code stacked opcode #7 global effects.                                                             *
- *      - #1490 ==> shld31a.itm (Gorm's Arm +3): fixed wrong coding (WRITE_SHORT instead of WRITE_BYTE for Minimum strength).                                                         *
- *      - #1501 ==> shld01p.itm (Buckler +2): fixed wrong coding (opcode #0 parameter1 0xfffffe - 16777214 ?? - should be -3), add opcode #0 with parameter1 = -3 and parameter2 = 4  *
+ *      - #82   ==> shld02.itm (Small Shield +1): LPM ~clear~ was missing, and the code stacked opcode #7 global effects.                                                             *
+ *      - #1456 ==> shld31a.itm (Gorm's Arm +3): fixed wrong coding (WRITE_SHORT instead of WRITE_BYTE for Minimum strength).                                                         *
+ *      - #1475 ==> shld01p.itm (Buckler +2): fixed wrong coding (opcode #0 parameter1 0xfffffe - 16777214 ?? - should be -3), add opcode #0 with parameter1 = -3 and parameter2 = 4  *
  *                  to add missing protection vs piercing weapons, added missing price, and fix item description to fit ITM file.                                                     *
- *      - #1595 ==> x#ajshld.itm (Ilvastarr Family Shield - The BG1 NPC Project mod): fixed typo (was copying #AJSHLD instead of X#AJSHLD).                                           *
- *      - #1708 ==> shld06p.itm (Redshield +1, +4 vs. Monstrous): fixed wrong coding (opcode #219: switch parameter1 and 2, and parameter2 2 - EA.IDS - should be 3 - GENERAL.IDS),   *
+ *      - #1622 ==> shld06p.itm (Redshield +1, +4 vs. Monstrous): fixed wrong coding (opcode #219: switch parameter1 and 2, and parameter2 2 - EA.IDS - should be 3 - GENERAL.IDS),   *
  *                  added an external effect (shld06p.eff) and replaced opcode #178 with opcode #177, otherwise opcode #178 won't work.                                               *
- *      - #1743 ==> shld07p.itm (Sartessa's Vengeance +1): fixed wrong coding for add magical flag [replaced WRITE_BYTE 0x1b 0x6c with WRITE_LONG 0x18 (THIS | BIT6)].                *
- *      - #1820 ==> shld08p.itm (Tarloc's Contingency +1): code simplified (1tarsp.spl) and fixed wrong coding for Casting sound (1tarss.spl).                                        *
- *      - #1875 ==> shld09p.itm (Shield of Devotion +1): fixed wrong coding (op#62: parameter2 should be 4, not 3).                                                                   *
+ *      - #1657 ==> shld07p.itm (Sartessa's Vengeance +1): fixed wrong coding for add magical flag [replaced WRITE_BYTE 0x1b 0x6c with WRITE_LONG 0x18 (THIS | BIT6)].                *
+ *      - #1707 ==> shld08p.itm (Tarloc's Contingency +1): code simplified (1tarsp.spl) and fixed wrong coding for Casting sound (1tarss.spl).                                        *
+ *      - #1762 ==> shld09p.itm (Shield of Devotion +1): fixed wrong coding (op#62: parameter2 should be 4, not 3).                                                                   *
+ *      - #1812 ==> x#ajshld.itm (Ilvastarr Family Shield - The BG1 NPC Project mod): fixed typo (was patching #AJSHLD instead of X#AJSHLD).                                          *
  * ================================================================================================================================================================================== */
 
 /* =============================== *
@@ -1331,24 +1332,7 @@ END
 // Shield of the Order +4
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld32.itm~) BEGIN
 	COPY_EXISTING ~shld32.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C3~			// replaces D3 Medium shield
-			LPM ~clear~
-			SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 42 BEIGE
-			SET location = sgrey			// location (Hub)
-			LPM ~colour~
-			SET gradient = 93				// sets colour index 93 DARK_CEMENT_GRAY
-			SET location = steal			// location (Interior)
-			LPM ~colour~
-			SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 94 RHUBARB
-			SET location = sblue			// location (Body/trim)
-			LPM ~colour~
-			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 127			// sets colour index 127 DARK_BRICK_RED
-				SET location = spink		// location (Panel)
-				LPM ~colour~
-			END
-		END
+		LPF ~1pp_shld32~ END
 	BUT_ONLY
 END
 
@@ -1378,25 +1362,7 @@ END
 // Shield of Balduran
 ACTION_IF (FILE_EXISTS_IN_GAME ~wa2shiel.itm~) BEGIN
 	COPY_EXISTING ~wa2shiel.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C3~			// replaces D3 Medium shield
-			WRITE_ASCII 0x44 ~GMSHLD~ #8
-			LPM ~clear~
-			SET gradient = 227				// 227 METAL_WILD-CORAL replaces colour index 98 LEAF_GREEN
-			SET location = sgrey			// location (Hub)
-			LPM ~colour~
-			SET gradient = 66				// sets colour index 66 FADED_BLACK
-			SET location = steal			// location (Interior)
-			LPM ~colour~
-			SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 41 MEDIUM_BROWN
-			SET location = sblue			// location (Body/trim)
-			LPM ~colour~
-			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 254			// sets colour index 254 EBONY
-				SET location = spink		// location (Panel)
-				LPM ~colour~
-			END
-		END
+		LPF ~1pp_wa2shiel~ END
 	BUT_ONLY
 END
 
@@ -1537,31 +1503,6 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld17a.itm~) BEGIN
 		END
 END
 
-// Skald's Battered Buckler (Mod Song and Silence)
-ACTION_IF (FILE_EXISTS_IN_GAME ~a!brsb.itm~) BEGIN
-	COPY_EXISTING ~a!brsb.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x3A ~1SHLD172~ #8	// replaces A!IBRSB
-			WRITE_ASCII 0x44 ~GSHLD08~ #8	// replaces GSSHLD
-			WRITE_ASCII 0x58 ~CSHLD09~ #8	// replaces A!CBRSB
-			LPM ~clear~
-			SET gradient = 210				// sets colour index 210 MERCHANT_MAJOR-AMBER
-			SET location = sred				// location (Grip)
-			LPM ~colour~
-			SET gradient = 215				// sets colour index 215 GYPSY_MINOR-CHROME_VERMILLION
-			SET location = sblue			// location (Body/trim)
-			LPM ~colour~
-			SET gradient = 222				// sets colour index 222 DROW_HAIR-PLATINUM_GRAY
-			SET location = sgrey			// location (Hub)
-			LPM ~colour~
-			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 210			// sets colour index 210 MERCHANT_MAJOR-AMBER
-				SET location = spink		// location (Panel)
-				LPM ~colour~
-			END
-		END
-END
-
 // High Quality Large Shield
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld15.itm~) BEGIN
 	COPY_EXISTING ~shld15.itm~ ~override/shld02p.itm~
@@ -1588,33 +1529,6 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld15.itm~) BEGIN
 			SET gradient = 244				// sets colour index 244 FIGHTER_MINOR-DARK_CADET_GRAY
 			SET location = spink			// location (Panel)
 			LPM ~colour~
-		END
-	BUT_ONLY
-END
-
-// Ilvastarr Family Shield (The BG1 NPC Project mod): typo fixed (X#AJSHLD instead of #AJSHLD)
-ACTION_IF (FILE_EXISTS_IN_GAME ~x#ajshld.itm~) BEGIN
-	COPY_EXISTING ~x#ajshld.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C6~
-			WRITE_ASCII 0x3A ~1SHLDAJ~ #8	// replaces X#ISHAJ
-			WRITE_ASCII 0x44 ~GLSHLD~ #8	// replaces _GSHLD03
-			WRITE_ASCII 0x58 ~1CSHLDAJ~ #8	// replaces X#CSHAJ
-			LPM ~clear~
-			SET gradient = 226				// sets colour index 226 METAL_NORMAL-EIGENGRAU
-			SET location = sgrey			// location (Hub)
-			LPM ~colour~
-			SET gradient = 90				// sets colour index 90 MOLDY_GOLD
-			SET location = steal			// location (Interior)
-			LPM ~colour~
-			SET gradient = 226				// sets colour index 226 METAL_NORMAL-EIGENGRAU
-			SET location = sblue			// location (Body/trim)
-			LPM ~colour~
-			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 20			// sets colour index 20 DARK_MOLDY_GREEN
-				SET location = spink		// location (Panel)
-				LPM ~colour~
-			END
 		END
 	BUT_ONLY
 END
@@ -1790,33 +1704,6 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld05.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Great shield White Oak (BG1NPC mod)
-ACTION_IF (FILE_EXISTS_IN_GAME ~x#fash01.itm~) BEGIN
-	COPY_EXISTING ~x#fash01.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			WRITE_ASCII 0x22 ~C6~
-			WRITE_ASCII 0x3A ~1SHLDL04~ #8	// replaces ISHLD01
-			WRITE_ASCII 0x44 ~GLSHLD~ #8
-			WRITE_ASCII 0x58 ~1CSHLDL4~ #8	// replaces CSHLD03
-			LPM ~clear~
-			SET gradient = 232				// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
-			SET location = sgrey			// location (Hub)
-			LPM ~colour~
-			SET gradient = 54				// sets colour index 54 DARK_GREEN
-			SET location = steal			// location (Interior)
-			LPM ~colour~
-			SET gradient = 205				// sets colour index 205 NOBLE_MINOR2-CHROME_GRAY
-			SET location = sblue			// location (Body/trim)
-			LPM ~colour~
-			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
-				SET gradient = 230			// sets colour index KOBOLD_MAJOR-DEEP_AVOCADO
-				SET location = spink		// location (Panel)
-				LPM ~colour~
-			END
-		END
-	BUT_ONLY
-END
-
 // Tarloc's Contingency +1 : code simplified
 ACTION_IF (FILE_EXISTS_IN_GAME ~shld04.itm~) BEGIN
 	COPY_EXISTING ~shld04.itm~ ~override/shld08p.itm~
@@ -1909,4 +1796,125 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~shld04.itm~) BEGIN
 	BUT_ONLY
 END
 
-// END of COMPONENT
+
+
+/* ============================= *
+ *          MOD SHIELDS          *
+ * ============================= */
+
+PRINT @400015 // ~Patching mod items (if found)...~
+SILENT
+
+/* ------------------------- *
+ *  The BG1 NPC Project mod  *
+ * ------------------------- */
+
+// Ilvastarr Family Shield: typo fixed (X#AJSHLD instead of #AJSHLD)
+ACTION_IF (FILE_EXISTS_IN_GAME ~x#ajshld.itm~) BEGIN
+	COPY_EXISTING ~x#ajshld.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C6~
+			WRITE_ASCII 0x3A ~1SHLDAJ~ #8	// replaces X#ISHAJ
+			WRITE_ASCII 0x44 ~GLSHLD~ #8	// replaces _GSHLD03
+			WRITE_ASCII 0x58 ~1CSHLDAJ~ #8	// replaces X#CSHAJ
+			LPM ~clear~
+			SET gradient = 226				// sets colour index 226 METAL_NORMAL-EIGENGRAU
+			SET location = sgrey			// location (Hub)
+			LPM ~colour~
+			SET gradient = 90				// sets colour index 90 MOLDY_GOLD
+			SET location = steal			// location (Interior)
+			LPM ~colour~
+			SET gradient = 226				// sets colour index 226 METAL_NORMAL-EIGENGRAU
+			SET location = sblue			// location (Body/trim)
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 20			// sets colour index 20 DARK_MOLDY_GREEN
+				SET location = spink		// location (Panel)
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+// Great shield White Oak
+ACTION_IF (FILE_EXISTS_IN_GAME ~x#fash01.itm~) BEGIN
+	COPY_EXISTING ~x#fash01.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x22 ~C6~
+			WRITE_ASCII 0x3A ~1SHLDL04~ #8	// replaces ISHLD01
+			WRITE_ASCII 0x44 ~GLSHLD~ #8
+			WRITE_ASCII 0x58 ~1CSHLDL4~ #8	// replaces CSHLD03
+			LPM ~clear~
+			SET gradient = 232				// sets colour index 232 HOBGOBLIN_SKIN-CINDER_GRAY
+			SET location = sgrey			// location (Hub)
+			LPM ~colour~
+			SET gradient = 54				// sets colour index 54 DARK_GREEN
+			SET location = steal			// location (Interior)
+			LPM ~colour~
+			SET gradient = 205				// sets colour index 205 NOBLE_MINOR2-CHROME_GRAY
+			SET location = sblue			// location (Body/trim)
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 230			// sets colour index KOBOLD_MAJOR-DEEP_AVOCADO
+				SET location = spink		// location (Panel)
+				LPM ~colour~
+			END
+		END
+	BUT_ONLY
+END
+
+
+/* ------------ *
+ *  Rolles mod  *
+ * ------------ */
+
+// Enhanced Shield of Balduran
+ACTION_IF (FILE_EXISTS_IN_GAME ~s#shld01.itm~) BEGIN
+	COPY_EXISTING ~s#shld01.itm~ ~override~
+		LPF ~1pp_wa2shiel~ END
+	BUT_ONLY
+END
+
+
+/* ---------------------- *
+ *  Song and Silence mod  *
+ * ---------------------- */
+
+// Skald's Battered Buckler
+ACTION_IF (FILE_EXISTS_IN_GAME ~a!brsb.itm~) BEGIN
+	COPY_EXISTING ~a!brsb.itm~ ~override~
+		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+			WRITE_ASCII 0x3A ~1SHLD172~ #8	// replaces A!IBRSB
+			WRITE_ASCII 0x44 ~GSHLD08~ #8	// replaces GSSHLD
+			WRITE_ASCII 0x58 ~CSHLD09~ #8	// replaces A!CBRSB
+			LPM ~clear~
+			SET gradient = 210				// sets colour index 210 MERCHANT_MAJOR-AMBER
+			SET location = sred				// location (Grip)
+			LPM ~colour~
+			SET gradient = 215				// sets colour index 215 GYPSY_MINOR-CHROME_VERMILLION
+			SET location = sblue			// location (Body/trim)
+			LPM ~colour~
+			SET gradient = 222				// sets colour index 222 DROW_HAIR-PLATINUM_GRAY
+			SET location = sgrey			// location (Hub)
+			LPM ~colour~
+			PATCH_IF (1pp_forced_item_colours = 1 || 1pp_forced_item_colours = 2 || 1pp_forced_item_colours = 3) BEGIN
+				SET gradient = 210			// sets colour index 210 MERCHANT_MAJOR-AMBER
+				SET location = spink		// location (Panel)
+				LPM ~colour~
+			END
+		END
+END
+
+
+/* ------------------------------- *
+ *  The Unusual Oddities Shop mod  *
+ * ------------------------------- */
+
+// Shield of the Lords +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~r#asshld.itm~) BEGIN
+	COPY_EXISTING ~r#asshld.itm~ ~override~
+		LPF ~1pp_shld32~ END
+	BUT_ONLY
+END
+
+// END of COMPONENT SECTION
