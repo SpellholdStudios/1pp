@@ -431,7 +431,7 @@ The installer includes the following components. The number of each is the compo
 
 Supports: <span style="color:#006600">SoA</span>, <span style="color:#770000">ToB</span>, <span style="color:#008800">Tutu</span>, <span style="color:#009FB9">HoW</span>, <span style="color:#666666;">IWDII (placeholder)</span></br>
 
-<img src="1pp/documentation/files/101.jpg" align="center" /></br>
+<img src="1pp/documentation/files/101.jpg" style="align=center;" /></br>
 
 The component that essentially started it all, this is a port of Baldur's Gate I style paperdolls for the Baldur's Gate II engine (used in SoA/ToB and HoW). Included are reworked 1ppv4 paperdolls for all race/class combinations matching vanilla animations as well as equipped object overlays. New in this version is detection and native support for Infinity Animations, including support for installs of HoW using BG1 animations via the <a href="http://www.shsforums.net/files/file/972-1pp-animation-fixes-for-iwd-totlm/">1pp IWD animation fixpack</a>.
 
@@ -446,7 +446,7 @@ The component that essentially started it all, this is a port of Baldur's Gate I
 <strong>Non-optional component</strong></br>
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu</span>, <span style="color:#088">HoW</span>, <span style="color:#666">IWDII</span></br>
 
-<div align="center"><img src="1pp/documentation/files/102.jpg">/div>
+<div align="center"><img src="1pp/documentation/files/102.jpg"></div>
 
 This component adds new colour gradients to Infinity Engine games, raising the count of available colours from 116 to 256. It also includes a new random colour table making use of them for Baldur's Gate II and new colour set files for Icewind Dale II, giving you more skin/hair colour choices for the various races.</br>
 It also fixes a few minor problems with standard gradients.</br>
@@ -472,7 +472,7 @@ As for clothing colours, during character creation and from the inventory the st
 
 Supports: <span style="color:#060">SoA</span>, <span style="color:#700">ToB</span>, <span style="color:#080">Tutu (if using the BG2 GUI)</span></br>
 
-<img src="1pp/documentation/files/104.jpg">
+<img src="1pp/documentation/files/104.jpg" style="margin : 0 auto; ">
 
 A reworked graphical user interface for Baldur's Gate II SoA/ToB. This aims to get rid of a lot of the rough edges present in the original while maintaining a similar feel. Major changes include a time dial that is not just a box, getting rid of 'infinite parchment' (see additional screenshots) and an optional choice of updated fonts.</br>
 &#9755; <a href="1pp/documentation/files/gui_readme.html">See more</a></br>
