@@ -164,7 +164,7 @@ Here is a chart listing the options related to the installation process:</br></b
 		2 = Keep fonts unchanged [default]</td>
 	</tr>
 	<tr>
-		<td><div align="center">1pp_mixed_labels</div><br><br>
+		<td><div align="center">1pp_mixed_labels<br><br>
 		(Only available with Updated fonts installed)</div></td>
 		<td>MIXED CASE LABELS<br><br>
 		Use mixed case labels?<br><br>
@@ -172,205 +172,205 @@ Here is a chart listing the options related to the installation process:</br></b
 		2 = No</td>
 	</tr>
 	<tr>
-		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**114 Softer Spell Effects**</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(BG2, ToB, tutu, tutu_totsc and ca)</center></td>
+		<td><div align="center"><strong>114 Softer Spell Effects</strong></div></td>
+		<td><div align="center">(BG2, ToB, tutu, tutu_totsc and ca)</div></td>
 	</tr>
 	<tr>
-		<td style="border: 1px solid #781808; text-align: center; ">1pp_agannazar_scorcher</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">IWD-STYLE AGANNAZAR's SCORCHER<br><br>
+		<td><div align="center">1pp_agannazar_scorcher</div></td>
+		<td>IWD-STYLE AGANNAZAR's SCORCHER<br><br>
 		Install IWD-style Agannazar's Scorcher or alternate style?<br><br>
-		<span style="padding-left:20px;">1 = IWD style</span><br>
-		<span style="color: #781808; padding-left:20px;">2 = BGII alternate [defaut]</span></td>
+		1 = IWD style<br>
+		2 = BGII alternate [defaut]</td>
 	</tr>
 	<tr>
-		<td style="border: 1px solid #781808; text-align: center; ">1pp_dispel_magic_effect</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">LESS OBTRUSIVE DISPEL MAGIC EFFECT<br><br>
+		<td<div align="center">1pp_dispel_magic_effect</div></td>
+		<td>LESS OBTRUSIVE DISPEL MAGIC EFFECT<br><br>
 		Install less obtrusive dispel magic effect?<br><br>
-		<span style="color: #781808; padding-left:20px;">1 = Yes [default]</span><br>
-		<span style="padding-left:20px;">2 = No (install improved stock effect instead)</span></td>
+		1 = Yes [default]<br>
+		2 = No (install improved stock effect instead)</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">200 Core content patches</span>**</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(BG2, ToB, tutu, tutu_totsc and ca)</center></td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><div align="center">(BG2, ToB, tutu, tutu_totsc and ca)</div></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_hammers_icons</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">RUNEHAMMER INVENTORY ICONS<br><br>
 		This component overwrites the vanilla Runnehammer icon and sets it to Borok's Fist +2, then assigns Borok's Fist's icon to Runehammer. Do you want to apply those changes?<br><br>
-		<span style="color: #781808; padding-left:20px;">1 = Yes [default]</span><br>
-		<span style="padding-left:20px;">2 = No, assign the new icon to Borok's Fist, but keep Runnehammer icon for their respective hammers.</span></td>
+		1 = Yes [default]<br>
+		2 = No, assign the new icon to Borok's Fist, but keep Runnehammer icon for their respective hammers.</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_potions_icons</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">UPDATED POTIONS ICONS<br><br>
 		Do you want to include updated potion graphics?<br><br>
-		<span style="padding-left:20px;">1 = Yes</span><br>
-		<span style="color: #781808; padding-left:20px;">2 = No, everything but Potions! [default]</span></td>
+		1 = Yes<br>
+		2 = No, everything but Potions! [default]<</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">202 Spell tweaks</span>**</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(BG2, ToB, tutu, tutu_totsc and ca)</center></td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><div align="center">(BG2, ToB, tutu, tutu_totsc and ca)</div></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_iwd_cause_wounds_icons</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">IWD-STYLE ICONS FOR 'CAUSE WOUND' SPELLS<br><br>
 		Do you want existing 'cause wound' spells to use IWD-style icons? (healing icon in red)<br><br>
-		<span style="color: #781808; padding-left:20px;">1 = Yes [default]</span><br>
-		<span style="padding-left:20px;">2 = No, keep BG2 icons for existing spells.</span></td>
+		1 = Yes [default]<br>
+		2 = No, keep BG2 icons for existing spells.</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_cure_spells_conflict</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">OVERWRITE CAUSE LIGHT WOUNDS AND CAUSE MEDIUM WOUNDS SPELLS<br><br>
 		If SPPR142/1342 (Cause Light Wounds, Cause Medium Wounds) are already taken by a previously installed mod, proceeding to install may cause issues.<br><br>
-		<span style="color: #781808; padding-left:20px;">1 = Yes, install [par défaut]</span><br>
-		<span style="padding-left:20px;">2 = No, cancel installation</span></td>
+		1 = Yes, install [par défaut]<br>
+		2 = No, cancel installation</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">400 Core updates and item patches</span>**</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(BG2, ToB, tutu, tutu_totsc and ca). Requires component 200 Core content patches</center></td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><div align="center">(BG2, ToB, tutu, tutu_totsc and ca). Requires component 200 Core content patches</div></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_shields_appearance<br><br>
 		Requires component 206 Additional Shield Animations (core)</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">SHIELDS APPEARANCE<br><br>
 		This sets the standard appearance of shields in the game in the sense that these will be the ones you mostly find in stores, etc. Does not necessarily affect magical items or prevent you from finding other items.<br><br>
-		<span style="color: #781808; padding-left:20px;">1 = 1ppv4-Baldur's Gate II style [default]</span><br>
-		<span style="padding-left:20px;">2 = Baldur's Gate I style</span><br>
-		<span style="padding-left:20px;">3 = Faux Baldur's Gate I style (use BG1 icons but not animations)</span><br>
-		<span style="padding-left:20px;">4 = Skip this part of the install</span></td>
+		1 = 1ppv4-Baldur's Gate II style [default]<br>
+		2 = Baldur's Gate I style<br>
+		3 = Faux Baldur's Gate I style (use BG1 icons but not animations)<br>
+		4 = Skip this part of the install</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_shields_scatter<br><br>
 		Requires component 206 Additional Shield Animations (core)</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">SCATTER SHIELDS THROUGHOUT GAME<br><br>
 		This determines whether the available extra shields are scattered throughout the game world (in the form of new items, random finds, etc.) for you to find or not.<br><br>
-		<span style="color: #781808; padding-left:20px;">1 = Yes [default]</span><br>
-		<span style="padding-left:20px;">2 = No</span></td>
+		1 = Yes [default]<br>
+		2 = No</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_helmets_appearance<br><br>
 		Requires component 208 Additional Helmet Animations (core)</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">HELMETS APPEARANCE<br><br>
 		This sets the standard appearance of helmets in the game in the sense that these will be the ones you mostly find in stores, etc. Does not necessarily affect magical items or prevent you from finding other items.<br><br>
-		<span style="color: #781808; padding-left:20px;">1 = 1ppv4 style [default]</span><br>
-		<span style="padding-left:20px;">2 = Faux Baldur's Gate I style (use BG1 icons but not animations)</span><br>
-		<span style="padding-left:20px;">3 = Baldur's Gate II style</span><br>
-		<span style="padding-left:20px;">4 = Skip this part of the install</span></td>
+		1 = 1ppv4 style [default]<br>
+		2 = Faux Baldur's Gate I style (use BG1 icons but not animations)<br>
+		3 = Baldur's Gate II style<br>
+		4 = Skip this part of the install</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_helmets_scatter<br><br>
 		Requires component 208 Additional Helmet Animations (core)</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">HELMETS THROUGHOUT GAME<br><br>
 		This determines whether the available extra helmets are scattered throughout the game world (in the form of new items, random finds, etc.) for you to find or not.<br><br>
-		<span style="color: #781808; padding-left:20px">1 = Yes [default]</span><br>
-		<span style="padding-left:20px;">2 = No</span></td>
+		<span style="color: #781808; padding-left:20px">1 = Yes [default]<br>
+		2 = No</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_helmets_compatibility<br><br>
 		Requires component 208 Additional Helmet Animations (core)</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">HELMETS COMPATIBILITY<br><br>
 		This is mainly for unsupported third party mods and determines the animation these will use.<br><br>
-		<span style="color: #781808; padding-left:20px;">1 = updated Baldur's Gate II style [default]</span><br>
-		<span style="padding-left:20px;">2 = based on Baldur's Gate I style (automatically set when 1pp_helmets_appearance = 2)</span><br>
-		<span style="padding-left:20px;">3 = Skip this part of the install</span></td>
+		1 = updated Baldur's Gate II style [default]<br>
+		2 = based on Baldur's Gate I style (automatically set when 1pp_helmets_appearance = 2)<br>
+		3 = Skip this part of the install</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_armours_appearance</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">ARMOUR ITEM ICONS<br><br>
 		This sets the standard appearance of armour inventory icons in the game. Does not necessarily affect magical items or prevent you from finding other items.<br><br>
-		<span style="color: #781808; padding-left:20px;">1 = 1ppv4 style [default]</span><br>
-		<span style="padding-left:20px;">2 = Baldur's Gate I style</span><br>
-		<span style="padding-left:20px;">3 = Baldur's Gate II style</span><br>
-		<span style="padding-left:20px;">4 = Skip this part of the install</span></td>
+		1 = 1ppv4 style [default]<br>
+		2 = Baldur's Gate I style<br>
+		3 = Baldur's Gate II style<br>
+		4 = Skip this part of the install</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_armours_scatter</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">SCATTER ARMOURS THROUGHOUT GAME<br><br>
 		This determines whether the available alternates are scattered throughout the game world (in the form of new items, random finds, etc.) for you to find or not.<br><br>
-		<span style="color: #781808; padding-left:20px">1 = Yes [default]</span><br>
-		<span style="padding-left:20px;">2 = No</span></td>
+		<span style="color: #781808; padding-left:20px">1 = Yes [default]<br>
+		2 = No</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_forced_item_colours</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">FORCED ITEM COLOURS<br><br>
 		This determines which item colours are set/uneditable for equipped items. By default, magical items have set item colours while non magical shields/helmets do not (allowing you to customise them via your clothing colour).<br><br>
-		<span style="color: #781808; padding-left:20px;">1 = Yes for magical items/No for non-magical items [default]</span><br>
-		<span style="padding-left:20px;">2 = Yes for both magical and non-magical items</span><br>
-		<span style="padding-left:20px;">3 = Yes for both magical and non-magical items, but exclude BG1 legacy shields</span><br>
-		<span style="padding-left:20px;">4 = No for either magical nor non-magical items</span></td>
+		1 = Yes for magical items/No for non-magical items [default]<br>
+		2 = Yes for both magical and non-magical items<br>
+		3 = Yes for both magical and non-magical items, but exclude BG1 legacy shields<br>
+		4 = No for either magical nor non-magical items</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_shields_shadows</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">PAPERDOLL SHADOWS (SHIELDS)<br><br>
 		Traditionally, equipped objects do not render shadows on paperdolls. Enable this option if you want shields to cast shadows on paperdolls<br><br>
-		<span style="padding-left:20px;">1 = No</span><br>
-		<span style="color: #781808; padding-left:20px;">2 = Yes [default]</span></td>
+		1 = No<br>
+		2 = Yes [default]</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_helmets_shadows</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">PAPERDOLL SHADOWS (HELMETS)<br><br>
 		Traditionally, equipped objects do not render shadows on paperdolls. Enable this option if you want helmets to cast shadows on paperdolls.<br><br>
-		<span style="padding-left:20px;">1 = No</span><br>
-		<span style="color: #781808; padding-left:20px;">2 = Yes [default]</span></td>
+		1 = No<br>
+		2 = Yes [default]</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_gemlore</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">GEMS LORE<br><br>
 		Do you want gems to require some lore to identify?<br><br>
-		<span style="color: #781808; padding-left:20px;">1 = Yes [default]</span><br>
-		<span style="padding-left:20px;">2 = No</span></td>
+		1 = Yes [default]<br>
+		2 = No</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_tutu_bg1_shields<br><br>
 		(only available for tutu and tutu_totsc)</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">APPLY SAME SHIELD SETTING TO Tutu/BG1 SHIELDS<br><br>
 		Do you want your shield setting to apply to Tutu/BG1 shields as well (warning: replaces Tutu's default shields)?<br><br>
-		<span style="color: #781808; padding-left:20px;">1 = No [default]</span><br>
-		<span style="padding-left:20px;">2 = Yes</span></td>
+		1 = No [default]<br>
+		2 = Yes</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_tutu_bg1_helmets<br><br>
 		(only available for tutu and tutu_totsc)</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">APPLY SAME BG2 HELMET INVENTORY ICON SETTING TO Tutu/BG1 HELMETS<br><br>
 		Do you want your BG2 helmet inventory icon choices to apply to Tutu/BG1 helmets as well (warning: replaces Tutu's default helmets)?<br><br>
-		<span style="color: #781808; padding-left:20px;">1 = No [default]</span><br>
-		<span style="padding-left:20px;">2 = Yes</span></td>
+		1 = No [default]<br>
+		2 = Yes</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_sleeper</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">TURN THE SLEEPER INTO A FLAIL<br><br>
 		Do you want to turn the morningstar +2 The Sleeper into a flail?<br><br>
-		<span style="color: #781808; padding-left:20px">1 = Yes [par défaut]</span><br>
-		<span style="padding-left:20px;">2 = No, but install the alternate flail icon IBLUN16B as a new resource for modders.</span></td>
+		<span style="color: #781808; padding-left:20px">1 = Yes [par défaut]<br>
+		2 = No, but install the alternate flail icon IBLUN16B as a new resource for modders.</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">400 Core updates and item patches</span>**</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(HoW and TotLM)</center></td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><div align="center">(HoW and TotLM)</div></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_gemlore</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">GEMS LORE<br><br>
 		Do you want gems to require some lore to identify?<br><br>
-		<span style="color: #781808; padding-left:20px;">1 = Yes [default]</span><br>
-		<span style="padding-left:20px;">2 = No</span></td>
+		1 = Yes [default]<br>
+		2 = No</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_forced_item_colours_iwd</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">ITEM COLOURS FOR NON-MAGICAL ITEMS IN IWD<br><br>
 		This determines whether item colours are set for common, non magical shields/helmets. By default, these remain unset so the player can choose their own (matching their clothing colour). By enabling this option, item colours are set for all items.<br><br>
-		<span style="color: #781808; padding-left:20px">1 = No [default]</span><br>
-		<span style="padding-left:20px;">2 = Yes</span></td>
+		<span style="color: #781808; padding-left:20px">1 = No [default]<br>
+		2 = Yes</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">300 Fixed animations for solars and elementals</span>**</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><center>(ToB, tutu, tutu_totsc and ca)</center></td>
+		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><div align="center">(ToB, tutu, tutu_totsc and ca)</div></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_solar_weapons</td>
 		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">FIXES ANIMATIONS FOR SOLARS AND ELEMENTALS<br><br>
 		There are two choices for the appearance of weapons wielded by solars. Please pick your preference:<br><br>
-		<span style="color: #781808; padding-left:20px">1 = New appearance (solid object with glow) [default]</span><br>
-		<span style="padding-left:20px;">2 = As in BGII vanilla (blurry bright glow all over)</span></td>
+		<span style="color: #781808; padding-left:20px">1 = New appearance (solid object with glow) [default]<br>
+		2 = As in BGII vanilla (blurry bright glow all over)</td>
 	</tr>
 </table><br>
 
