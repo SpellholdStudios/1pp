@@ -1,23 +1,25 @@
-/* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
- *                                                     C O M P O N E N T   :   C o l o u r a b l e   Q u a r t e r s t a v e s                                                      *
- *                                                                                                                                                                                  *
- * ================================================================================================================================================================================ *
- *  This component makes quarterstaves colourable by segment (as opposed to uniform) to allow more variety in-game and match inventory depictions.                                  *
- *  It also includes item patches to make use of the new content. (Presented in Technicolour!)                                                                                      *
- * ================================================================================================================================================================================ *
- *  change-log:                                                                                                                                                                     *
- *  -----------                                                                                                                                                                     *
- *     - Coding simplification:                                                                                                                                                     *
- *          Copy entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
- * ================================================================================================================================================================================ */
+/* ================================================================================================================================================================================== *
+ *  v 4.2.0                                                                                                                                                                           *
+ *                                                      C O M P O N E N T   :   C o l o u r a b l e   Q u a r t e r s t a v e s                                                       *
+ *                                                                                                                                                                                    *
+ * ================================================================================================================================================================================== *
+ *  This component makes quarterstaves colourable by segment (as opposed to uniform) to allow more variety in-game and match inventory depictions.                                    *
+ *  It also includes item patches to make use of the new content. (Presented in Technicolour!)                                                                                        *
+ * ================================================================================================================================================================================== *
+ *  change-log:                                                                                                                                                                       *
+ *  -----------                                                                                                                                                                       *
+ *     - Coding simplification:                                                                                                                                                       *
+ *          Copied entire folders instead of infinite lines (COPY ~1pp/folder/file.ext~ ~override~ or ACTION_FOR_EACH file IN list BEGIN COPY ~1pp/folder/file.ext~ ~override~ END).  *
+ *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *          Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (Bolsa, Rolles, Ruad, Stuff of the Magi and The Unusual Oddities Shop).                     *
+ * ================================================================================================================================================================================== */
 
 // ----------------------------- //
 //     ITEMS               line  //
 // ----------------------------- //
-//  CORE ITEM PATCHES    #   43  //
-//  ORDINARY STAVES      #  242  //
-//  MODS STAVES          #  900  //
+//  CORE ITEM PATCHES    #   45  //
+//  ORDINARY STAVES      #  253  //
+//  MODS STAVES          #  823  //
 // ----------------------------- //
 
 /* =============================== *
@@ -69,6 +71,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~enstaff.itm~) BEGIN
 			SET location = wred		// location * compatibility
 			LPM ~colour~
 		END
+	BUT_ONLY
 END
 
 // Quarterstaff
@@ -92,6 +95,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~hgnya01.itm~) BEGIN
 			SET location = wred		// location * compatibility
 			LPM ~colour~
 		END
+	BUT_ONLY
 END
 
 // Quarterstaff
@@ -130,6 +134,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~hgwra01.itm~) BEGIN
 			SET location = wred		// location * compatibility
 			LPM ~pulse~
 		END
+	BUT_ONLY
 END
 
 // Shaman's Staff
@@ -153,6 +158,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~misc5t.itm~) BEGIN
 			SET location = wred		// location * compatibility
 			LPM ~colour~
 		END
+	BUT_ONLY
 END
 
 // Staff
@@ -176,6 +182,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~misc9o.itm~) BEGIN
 			SET location = wred		// location * compatibility
 			LPM ~colour~
 		END
+	BUT_ONLY
 END
 
 // Rod of Smiting
@@ -196,6 +203,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~rods04.itm~) BEGIN
 			SET location = wblue	// location (Head/Blade minor)
 			LPM ~colour~
 		END
+	BUT_ONLY
 END
 
 // Rod of Terror
@@ -216,6 +224,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~rods05.itm~) BEGIN
 			SET location = wblue	// location (Head/Blade minor)
 			LPM ~colour~
 		END
+	BUT_ONLY
 END
 
 // Quarterstaff
@@ -236,11 +245,13 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sahstaff.itm~) BEGIN
 			SET location = wred		// location * compatibility
 			LPM ~colour~
 		END
+	BUT_ONLY
 END
 
-/* ----------------- *
+
+/* ================= *
  *  ORDINARY STAVES  *
- * ----------------- */
+ * ================= */
 
 // Quarterstaff
 ACTION_FOR_EACH item IN ~staf01~ ~_staf01~ BEGIN
@@ -309,6 +320,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf03.itm~) BEGIN
 			SET location = wred		// location * compatibility
 			LPM ~colour~
 		END
+	BUT_ONLY
 END
 
 // Quarterstaff
@@ -431,55 +443,21 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf09.itm~) BEGIN
 			SET location = wred		// location * compatibility
 			LPM ~colour~
 		END
+	BUT_ONLY
 END
 
 // Staff of Curing
 ACTION_IF (FILE_EXISTS_IN_GAME ~staf10.itm~) BEGIN
 	COPY_EXISTING ~staf10.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
-			LPM ~clear~
-			SET gradient = 96		// sets colour index 96 CHROME_BLUE
-			SET location = wgrey	// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 100		// sets colour index 100 DARK_ASH_GRAY
-			SET location = wteal	// location (Staff minor)
-			LPM ~colour~
-			SET gradient = 96		// sets colour index 96 CHROME_BLUE
-			SET location = wpink	// location (Bolt-Mace-Staff)
-			LPM ~colour~
-			SET gradient = 102		// sets colour index 102 SEA_BLUE
-			SET location = wblue	// location (Head/Blade minor)
-			LPM ~colour~
-			SET gradient = 96		// sets colour index 96 CHROME_BLUE
-			SET location = wred		// location * compatibility
-			LPM ~colour~
-		END
+		LPF ~1pp_staf10_0~ END
+	BUT_ONLY
 END
 
 // Staff of the Magi
 ACTION_IF (FILE_EXISTS_IN_GAME ~staf11.itm~) BEGIN
 	COPY_EXISTING ~staf11.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
-			SET opcode_to_delete = 7
-			LPM DELETE_ITEM_EQEFFECT
-			SET opcode_to_delete = 8
-			LPM DELETE_ITEM_EQEFFECT
-			SET gradient = 112		// 112 SEA_FOAM replaces colour index 25 DARK_PURE_GOLD
-			SET location = wgrey	// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 113		// sets colour index 113 FOG
-			SET location = wteal	// location (Staff minor)
-			LPM ~colour~
-			SET gradient = 93		// sets colour index 93 DARK_CEMENT_GRAY
-			SET location = wpink	// location (Bolt-Mace-Staff)
-			LPM ~colour~
-			SET gradient = 98		// sets colour index 98 LEAF_GREEN
-			SET location = wblue	// location (Head/Blade minor)
-			LPM ~colour~
-			SET gradient = 27		// sets colour index 27 GRAY
-			SET location = wred		// location * compatibility
-			LPM ~colour~
-		END
+		LPF ~1pp_staf11_0~ END
+	BUT_ONLY
 END
 
 // Staff of Power
@@ -503,6 +481,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf12.itm~) BEGIN
 			SET location = wred		// location * compatibility
 			LPM ~colour~
 		END
+	BUT_ONLY
 END
 
 // Staff of Thunder and Lightning +2
@@ -532,6 +511,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf13.itm~) BEGIN
 			SET location = wteal	// location (Staff minor)
 			LPM ~pulse~
 		END
+	BUT_ONLY
 END
 
 // Staff of the Woodlands +4
@@ -555,6 +535,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf14.itm~) BEGIN
 			SET location = wred		// location * compatibility
 			LPM ~colour~
 		END
+	BUT_ONLY
 END
 
 // Staff of Air +2
@@ -578,6 +559,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf15.itm~) BEGIN
 			SET location = wred		// location * compatibility
 			LPM ~colour~
 		END
+	BUT_ONLY
 END
 
 // Staff of Earth +2
@@ -601,6 +583,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf16.itm~) BEGIN
 			SET location = wred		// location * compatibility
 			LPM ~colour~
 		END
+	BUT_ONLY
 END
 
 // Staff of Fire +2
@@ -624,6 +607,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf17.itm~) BEGIN
 			SET location = wred		// location * compatibility
 			LPM ~colour~
 		END
+	BUT_ONLY
 END
 
 // Quarterstaff +2
@@ -647,6 +631,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf18.itm~) BEGIN
 			SET location = wred		// location * compatibility
 			LPM ~colour~
 		END
+	BUT_ONLY
 END
 
 // Cleric's Staff +3
@@ -695,6 +680,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf19.itm~) BEGIN
 			SET location = wred		// location * compatibility
 			LPM ~glow~
 		END
+	BUT_ONLY
 END
 
 // Staff of Rynn +4
@@ -742,106 +728,41 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf20.itm~) BEGIN
 			SET setb = 0xCA
 			SET location = wred		// location * compatibility
 			LPM ~glow~
+		END
+	BUT_ONLY
+END
+
+// Staff of the Ram +4 and +6
+ACTION_FOR_EACH item IN ~staf21~ ~staf22~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
+		COPY_EXISTING ~%item%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+				LPM ~clear~
+				SET gradient = 42		// 42 BEIGE replaces colour index 36 LIGHT_DIRTY_YELLOW
+				SET location = wgrey	// location (Head/Blade/Staff major)
+				LPM ~colour~
+				SET gradient = 37		// sets colour index 37 DARK_DIRTY_YELLOW
+				SET location = wteal	// location (Staff minor)
+				LPM ~colour~
+				SET gradient = 36		// sets colour index 36 LIGHT_DIRTY_YELLOW
+				SET location = wpink	// location (Bolt-Mace-Staff)
+				LPM ~colour~
+				SET gradient = 42		// sets colour index 42 BEIGE
+				SET location = wblue	// location (Head/Blade minor)
+				LPM ~colour~
+				SET gradient = 36		// sets colour index 36 LIGHT_DIRTY_YELLOW
+				SET location = wred		// location * compatibility
+				LPM ~colour~
+			END
+		BUT_ONLY
 	END
-END
-
-// Staff of the Ram +4
-ACTION_IF (FILE_EXISTS_IN_GAME ~staf21.itm~) BEGIN
-	COPY_EXISTING ~staf21.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
-			LPM ~clear~
-			SET gradient = 42		// 42 BEIGE replaces colour index 36 LIGHT_DIRTY_YELLOW
-			SET location = wgrey	// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 37		// sets colour index 37 DARK_DIRTY_YELLOW
-			SET location = wteal	// location (Staff minor)
-			LPM ~colour~
-			SET gradient = 36		// sets colour index 36 LIGHT_DIRTY_YELLOW
-			SET location = wpink	// location (Bolt-Mace-Staff)
-			LPM ~colour~
-			SET gradient = 42		// sets colour index 42 BEIGE
-			SET location = wblue	// location (Head/Blade minor)
-			LPM ~colour~
-			SET gradient = 36		// sets colour index 36 LIGHT_DIRTY_YELLOW
-			SET location = wred		// location * compatibility
-			LPM ~colour~
-		END
-END
-
-// Staff of the Ram +6
-ACTION_IF (FILE_EXISTS_IN_GAME ~staf22.itm~) BEGIN
-	COPY_EXISTING ~staf22.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
-			LPM ~clear~
-			SET gradient = 42		// 42 BEIGE replaces colour index 36 LIGHT_DIRTY_YELLOW
-			SET location = wgrey	// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 37		// sets colour index 37 DARK_DIRTY_YELLOW
-			SET location = wteal	// location (Staff minor)
-			LPM ~colour~
-			SET gradient = 36		// sets colour index 36 LIGHT_DIRTY_YELLOW
-			SET location = wpink	// location (Bolt-Mace-Staff)
-			LPM ~colour~
-			SET gradient = 42		// sets colour index 42 BEIGE
-			SET location = wblue	// location (Head/Blade minor)
-			LPM ~colour~
-			SET gradient = 36		// sets colour index 36 LIGHT_DIRTY_YELLOW
-			SET location = wred		// location * compatibility
-			LPM ~colour~
-		END
 END
 
 // Serpent Shaft
 ACTION_IF (FILE_EXISTS_IN_GAME ~staf23.itm~) BEGIN
 	COPY_EXISTING ~staf23.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
-			LPM ~clear~
-			SET gradient = 36		// 36 LIGHT_DIRTY_YELLOW replaces colour index 53
-			SET location = wgrey	// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 35		// sets colour index 35 LIGHT_YELLOW-DARK_PURPLE
-			SET location = wteal	// location (Staff minor)
-			LPM ~colour~
-			SET gradient = 86		// sets colour index 86 CHROME_GREEN
-			SET location = wpink	// location (Bolt-Mace-Staff)
-			LPM ~colour~
-			SET gradient = 37		// sets colour index 37 DARK_DIRTY_YELLOW
-			SET location = wblue	// location (Head/Blade minor)
-			LPM ~colour~
-			SET gradient = 52		// sets colour index 52 LIGHT_GREEN
-			SET location = wred		// location * compatibility
-			LPM ~colour~
-			SET setr = 0x21
-			SET setg = 0xC0
-			SET setb = 0x00
-			SET speed = 0x28
-			SET location = wgrey	// location (Head/Blade/Staff major)
-			LPM ~pulse~
-			SET setr = 0x37
-			SET setg = 0xA6
-			SET setb = 0x00
-			SET speed = 0x28
-			SET location = wteal	// location (Staff minor)
-			LPM ~pulse~
-			SET setr = 0x21
-			SET setg = 0xD2
-			SET setb = 0x00
-			SET speed = 0x28
-			SET location = wpink	// location (Bolt-Mace-Staff)
-			LPM ~pulse~
-			SET setr = 0x21
-			SET setg = 0xC0
-			SET setb = 0x00
-			SET speed = 0x28
-			SET location = wblue	// location (Head/Blade minor)
-			LPM ~pulse~
-			SET setr = 0x21
-			SET setg = 0xC0
-			SET setb = 0x00
-			SET speed = 0x28
-			SET location = wred		// location * compatibility
-			LPM ~pulse~
-		END
+		LPF ~1pp_staf23_0~ END
+	BUT_ONLY
 END
 
 // Quarterstaff +3
@@ -865,6 +786,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~staf24.itm~) BEGIN
 			SET location = wred		// location * compatibility
 			LPM ~colour~
 		END
+	BUT_ONLY
 END
 
 // Staff of Arundel +3
@@ -893,6 +815,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~wastaff.itm~) BEGIN
 			SET location = wteal	// location (Staff minor)
 			LPM ~glow~
 		END
+	BUT_ONLY
 END
 
 
@@ -904,6 +827,17 @@ PRINT @204004 // ~Installing mod item patches (if found).~
 
 PRINT @204003 // ~Patching...~
 SILENT
+
+/* ----------- *
+ *  Bolsa mod  *
+ * ----------- */
+
+// Staff of Magus
+ACTION_IF (FILE_EXISTS_IN_GAME ~mhconti.itm~) BEGIN
+	COPY_EXISTING ~mhconti.itm~ ~override~
+		LPF ~1pp_staf11_0~ END
+	BUT_ONLY
+END
 
 /* ---------------------------------------------- *
  *  Herbs and Potions Add-in for BG2 by Baronius  *
@@ -1047,4 +981,60 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bw02st6.itm~) BEGIN
 		END
 END
 
-//END of COMPONENT
+
+/* ------------ *
+ *  Rolles mod  *
+ * ------------ */
+
+// Enhanced Staff of Curing
+ACTION_IF (FILE_EXISTS_IN_GAME ~s#staf01.itm~) BEGIN
+	COPY_EXISTING ~s#staf01.itm~ ~override~
+		LPF ~1pp_staf10_0~ END
+	BUT_ONLY
+END
+
+// Enhanced Staff of the Magi
+ACTION_IF (FILE_EXISTS_IN_GAME ~s#staf02.itm~) BEGIN
+	COPY_EXISTING ~s#staf02.itm~ ~override~
+		LPF ~1pp_staf11_0~ END
+	BUT_ONLY
+END
+
+
+/* -------------------- *
+ *  Ruad Ro'fhessa mod  *
+ * -------------------- */
+
+// Staff of Resurrection
+ACTION_IF (FILE_EXISTS_IN_GAME ~u#staf04.itm~) BEGIN
+	COPY_EXISTING ~u#staf04.itm~ ~override~
+		LPF ~1pp_staf10_0~ END
+	BUT_ONLY
+END
+
+
+/* ----------------------- *
+ *  Stuff of the Magi mod  *
+ * ----------------------- */
+
+// Staff of the Magi
+ACTION_IF (FILE_EXISTS_IN_GAME ~wzrdstaf.itm~) BEGIN
+	COPY_EXISTING ~wzrdstaf.itm~ ~override~
+		LPF ~1pp_staf11_0~ END
+	BUT_ONLY
+END
+
+
+/* ------------------------------- *
+ *  The Unusual Oddities Shop mod  *
+ * ------------------------------- */
+
+// Staff of the Dragon +3
+ACTION_IF (FILE_EXISTS_IN_GAME ~r#asmstf.itm~) BEGIN
+	COPY_EXISTING ~r#asmstff.itm~ ~override~
+		LPF ~1pp_staf23_0~ END
+	BUT_ONLY
+END
+
+
+// END of COMPONENT
