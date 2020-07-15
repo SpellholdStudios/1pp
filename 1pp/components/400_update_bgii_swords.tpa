@@ -1,5 +1,5 @@
 /* ================================================================================================================================================================================ *
- *                                                                                                                                                                                  *
+ *  v 4.2.0                                                                                                                                                                         *
  *                                       C O M P O N E N T   :   C o r e   u p d a t e s   a n d   i t e m   p a t c h e s   ( s w o r d s )                                        *
  *                                                                                                                                                                                  *
  * ================================================================================================================================================================================ *
@@ -7,30 +7,32 @@
  * ================================================================================================================================================================================ *
  *  change-log:                                                                                                                                                                     *
  *  -----------                                                                                                                                                                     *
- *      - Replace macros with functions whenever possible.                                                                                                                          *
  *      - Coding simplification:                                                                                                                                                    *
- *          Replace WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                               *
- *          Group actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                     *
+ *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                              *
+ *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                   *
+ *          Replaced macros with functions whenever possible.                                                                                                                         *
+ *          Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (Rolles, Ruad).                                                                           *
  *                                                                                                                                                                                  *
  *  specific fixes:                                                                                                                                                                 *
  *  ---------------                                                                                                                                                                 *
- *      - #427  ==> sw1h31.itm (Daystar +2): reverted to its original inventory icon ISW1H31. 1PP (Core content patches) sets it ISW1H34 (Albruin +1), but EE does not validate     *
+ *      - #418  ==> sw1h31.itm (Daystar +2): reverted to its original inventory icon ISW1H31. 1PP (Core content patches) sets it ISW1H34 (Albruin +1), but EE does not validate     *
  *                  this change. Then switched back its colorisation with Albruin (400_1pp_update).                                                                                 *
- *      - #488  ==> sw1h34.itm (Albruin +1): reverted to its original inventory icon ISW1H34. 1PP (Core content patches) sets it ISW1H31 (Daystar +2), but EE does not validate     *
+ *      - #450  ==> sw1h34.itm (Albruin +1): reverted to its original inventory icon ISW1H34. 1PP (Core content patches) sets it ISW1H31 (Daystar +2), but EE does not validate     *
  *                  this change. Then switched back its colorisation with Daystar (400_1pp_update).                                                                                 *
- *      - #606  ==> sw1h41.itm (Long Sword +2): reverted to its original inventory icon ISW1H41. 1PP (Core content patches) sets it to SW1H06 (Varscona +2 icon), but EE does not   *
+ *      - #557  ==> sw1h41.itm (Long Sword +2): reverted to its original inventory icon ISW1H41. 1PP (Core content patches) sets it to SW1H06 (Varscona +2 icon), but EE does not   *
  *                   validate this change. Then removed the colorisation modified by 400_1pp_update and sets it to SW1H73 (Long Sword +3) that deserves those settings.             *
- *      - #1088 ==> sw2h06.itm and sw1h13.itm (Spider's Bane +2): harmonized both versions. Now they get the same icon and coloration (no change from vanilla SW2H13 as its colors  *
+ *      - #1039 ==> sw2h06.itm and sw1h13.itm (Spider's Bane +2): harmonized both versions. Now they get the same icon and coloration (no change from vanilla SW2H13 as its colors  *
  *                  fit the new icon installed by 1PP).                                                                                                                             *
- *      - #1278 ==> sw1p01.itm (Viper's Edge +2): a lot od modifications to make this new sword efficient!                                                                          *
+ *      - #1188 ==> sw1p01.itm (Viper's Edge +2): a lot of modifications to make this new sword efficient!                                                                          *
  * ================================================================================================================================================================================ */
 
 // ----------------------------- //
 //     ITEMS               line  //
 // ----------------------------- //
-//  ONE-HANDED SWORDS    #   37  //
-//  TWO-HANDED SWORDS    # 1045  //
-//  NEW SWORD            # 1272  //
+//  ONE-HANDED SWORDS    #   39  //
+//  TWO-HANDED SWORDS    #  996  //
+//  NEW SWORD            # 1182  //
+//  MOD SWORDS           # 1253  //
 // ----------------------------- //
 
 /* =================================== *
@@ -373,18 +375,7 @@ END
 // Cutthroat +4
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h28.itm~) BEGIN
 	COPY_EXISTING ~sw1h28.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET gradient = 99				// sets colour index 99 GOLDEN_BROWN
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 212				// 212 TRADE_PEASANT_MAJOR-CHROME_SLATE replaces colour index 97 LIGHT_MINTY_BLUE
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-			SET gradient = 29				// sets colour index 29 RED-TINTED_BLACK
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-		END
+		LPF ~1pp_sw1h28~ END
 	BUT_ONLY
 END
 
@@ -428,36 +419,7 @@ END
 // Gwen fix: as 1PP (Core content patches) sets its icon to ISW1H34 (Albruin +1), but EE does not validate this change, reverts to its original inventory icon ISW1H31. Then switches back colorisation with Albruin.
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h31.itm~) BEGIN
 	COPY_EXISTING ~sw1h31.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET setr = 199					// replaces colour index 0
-			SET setg = 199					// replaces colour index 160
-			SET setb = 39					// replaces colour index 191
-			SET speed = 0x3f
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~pulse~
-			SET setr = 255
-			SET setg = 255
-			SET setb = 53
-			SET speed = 0x3c
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~pulse~
-			SET setr = 255
-			SET setg = 255
-			SET setb = 53
-			SET speed = 0x3c
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~pulse~
-			SET gradient = 250				// 250 SHADOW_DRUID_MAJOR-YELLOW_ORANGE replaces colour index 25 DARK_PURE_GOLD
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 16 SILVERISH_GOLD
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-			SET gradient = 224				// 224 DROW_MAJOR-MAIZE replaces colour index 25 DARK_PURE_GOLD
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-		END
+		LPF ~1pp_sw1h31~ END
 	BUT_ONLY
 END
 
@@ -588,18 +550,7 @@ END
 // Blade of Roses +3
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h40.itm~) BEGIN
 	COPY_EXISTING ~sw1h40.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET gradient = 234				// 234 HOBGOBLIN_MINOR-INDIAN_RED replaces colour index 46 RED
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 27				// sets colour index 27 GRAY
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-			SET gradient = 127				// 127 DARK_BRICK_RED replaces colour index 47 PURE_DARK_RED
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-		END
+		LPF ~1pp_sw1h40~ END
 	BUT_ONLY
 END
 
@@ -1090,19 +1041,10 @@ END
 ACTION_FOR_EACH sword IN ~sw2h06~ ~_sw2h06~ ~sw2h13~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
 		COPY_EXISTING ~%sword%.itm~ ~override~
+			LPF ~1pp_sw2h13~ END
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				WRITE_ASCII 0x3A ~ISW2H13~ #8	// Replace ISW2H06
 				WRITE_ASCII 0x76 ~ISW2H13~ #8
-				LPM ~clear~
-				SET gradient = 104				// restores 104 DARK_CHROME_PURPLE (1PP was replacing colour index 5 MEDIUM_SILVER with 186 DARK_PLUM).
-				SET location = wgrey			// location (Head/Blade/Staff major)
-				LPM ~colour~
-				SET gradient = 27				// 27 GRAY replaces colour index 5 MEDIUM_SILVER
-				SET location = wblue			// location (Head/Blade minor)
-				LPM ~colour~
-				SET gradient = 104				// restores 104 DARK_CHROME_PURPLE (1PP was replacing colour index 66 FADED_BLACK with 209 ATH_PEASANT_MINOR-ASH_GRAY)
-				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-				LPM ~colour~
 			END
 		BUT_ONLY
 	END
@@ -1151,25 +1093,10 @@ END
 // Carsomyr +5
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw2h10.itm~) BEGIN
 	COPY_EXISTING ~sw2h10.itm~ ~override~
+		LPF ~1pp_sw2h10~ END
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			WRITE_ASCII 0x3A ~ISW2H10~ #8	// Gwen note: useless?
 			WRITE_ASCII 0x76 ~ISW2H10~ #8	// id.
-			LPM ~clear~
-			SET setr = 0					// replaces colour index 225
-			SET setg = 0					// replaces colour index 212
-			SET setb = 0
-			SET speed = 0x30				// Replaces 0x32
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~pulse~
-			SET gradient = 207				// 207 NOBLE_MINOR2-CHROME_GOLD replaces colour index 25 DARK_PURE_GOLD
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 249				// 249 OGRE_MINOR-METALLIC_SLATE replaces colour index 27 GRAY
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-			SET gradient = 207				// 207 NOBLE_MINOR2-CHROME_GOLD replaces colour index 47 PURE_DARK_RED
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
 		END
 	BUT_ONLY
 END
@@ -1221,24 +1148,7 @@ END
 // Flame of the North +2
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw2h12.itm~) BEGIN
 	COPY_EXISTING ~sw2h12.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET setr = 179
-			SET setg = 156
-			SET setb = 212
-			SET speed = 0x64
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~pulse~
-			SET gradient = 244				// 244 FIGHTER_MINOR-DARK_CADET_GRAY replaces colour index 60 DARK_PURPLE
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 176				// 176 STEEL_BLUE replaces colour index 104 DARK_CHROME_PURPLE
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-			SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 60 DARK_PURPLE
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-		END
+		LPF ~1pp_sw2h12~ END
 	BUT_ONLY
 END
 
@@ -1338,4 +1248,65 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h04.itm~) BEGIN
 	BUT_ONLY
 END
 
-//END of COMPONENT
+
+/* ============================ *
+ *          MOD SWORDS          *
+ * ============================ */
+
+PRINT @400015 // ~Patching mod items (if found)...~
+SILENT
+
+/* ------------ *
+ *  Rolles mod  *
+ * ------------ */
+
+// Sacred Justice (Long Sword)
+ACTION_IF (FILE_EXISTS_IN_GAME ~s#sw1h01.itm~) BEGIN
+	COPY_EXISTING ~s#sw1h01.itm~ ~override~
+		LPF ~1pp_sw1h31~ END
+	BUT_ONLY
+END
+
+// Sacred Justice (Two-handed Sword)
+ACTION_IF (FILE_EXISTS_IN_GAME ~s#sw2h01.itm~) BEGIN
+	COPY_EXISTING ~s#sw2h01.itm~ ~override~
+		LPF ~1pp_sw2h10~ END
+	BUT_ONLY
+END
+
+// Destroyer +4 & Destroyer +5
+ACTION_FOR_EACH sword IN ~s#sw2h02~ ~s#sw2h03~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%sword%.itm~) BEGIN
+		COPY_EXISTING ~%sword%.itm~ ~override~
+			LPF ~1pp_sw2h13~ END
+		BUT_ONLY
+	END
+END
+
+
+/* -------------------- *
+ *  Ruad Ro'fhessa mod  *
+ * -------------------- */
+
+// Kiss of Death
+ACTION_IF (FILE_EXISTS_IN_GAME ~u#sw1h09.itm~) BEGIN
+	COPY_EXISTING ~u#sw1h09.itm~ ~override~
+		LPF ~1pp_sw1h28~ END
+	BUT_ONLY
+END
+
+// Blade of the Red Rose +4
+ACTION_IF (FILE_EXISTS_IN_GAME ~u#sw1h01.itm~) BEGIN
+	COPY_EXISTING ~u#sw1h01.itm~ ~override~
+		LPF ~1pp_sw1h40~ END
+	BUT_ONLY
+END
+
+// Lava's Bane
+ACTION_IF (FILE_EXISTS_IN_GAME ~u#sw2h02.itm~) BEGIN
+	COPY_EXISTING ~u#sw2h02.itm~ ~override~
+		LPF ~1pp_sw2h12~ END
+	BUT_ONLY
+END
+
+// END of COMPONENT SECTION
