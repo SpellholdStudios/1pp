@@ -183,29 +183,29 @@ Here is a chart listing the options related to the installation process:</br></b
 		2 = BGII alternate [defaut]</td>
 	</tr>
 	<tr>
-		<td<div align="center">1pp_dispel_magic_effect</div></td>
+		<td><div align="center">1pp_dispel_magic_effect</div></td>
 		<td>LESS OBTRUSIVE DISPEL MAGIC EFFECT<br><br>
 		Install less obtrusive dispel magic effect?<br><br>
 		1 = Yes [default]<br>
 		2 = No (install improved stock effect instead)</td>
 	</tr>
 	<tr>
-		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">200 Core content patches</span>**</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><div align="center">(BG2, ToB, tutu, tutu_totsc and ca)</div></td>
+		<td><div align="center"><strong>200 Core content patches</strong></div></td>
+		<td><div align="center">(BG2, ToB, tutu, tutu_totsc and ca)</div></td>
 	</tr>
 	<tr>
-		<td style="border: 1px solid #781808; text-align: center; ">1pp_hammers_icons</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">RUNEHAMMER INVENTORY ICONS<br><br>
+		<td><div align="center">1pp_hammers_icons</div></td>
+		<td>RUNEHAMMER INVENTORY ICONS<br><br>
 		This component overwrites the vanilla Runnehammer icon and sets it to Borok's Fist +2, then assigns Borok's Fist's icon to Runehammer. Do you want to apply those changes?<br><br>
 		1 = Yes [default]<br>
 		2 = No, assign the new icon to Borok's Fist, but keep Runnehammer icon for their respective hammers.</td>
 	</tr>
 	<tr>
-		<td style="border: 1px solid #781808; text-align: center; ">1pp_potions_icons</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">UPDATED POTIONS ICONS<br><br>
+		<td><div align="center">1pp_potions_icons</div></td>
+		<td>UPDATED POTIONS ICONS<br><br>
 		Do you want to include updated potion graphics?<br><br>
 		1 = Yes<br>
-		2 = No, everything but Potions! [default]<</td>
+		2 = No, everything but Potions! [default]</td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">202 Spell tweaks</span>**</td>
