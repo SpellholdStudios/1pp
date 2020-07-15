@@ -208,26 +208,19 @@ Here is a chart listing the options related to the installation process:</br></b
 		2 = No, everything but Potions! [default]</td>
 	</tr>
 	<tr>
-		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">202 Spell tweaks</span>**</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><div align="center">(BG2, ToB, tutu, tutu_totsc and ca)</div></td>
+		<td><div align="center"><strong>202 Spell tweaks</strong></div></td>
+		<td><div align="center">(BG2, ToB, tutu, tutu_totsc and ca)</div></td>
 	</tr>
 	<tr>
-		<td style="border: 1px solid #781808; text-align: center; ">1pp_iwd_cause_wounds_icons</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">IWD-STYLE ICONS FOR 'CAUSE WOUND' SPELLS<br><br>
+		<td><div align="center">1pp_iwd_cause_wounds_icons</div></td>
+		<td>IWD-STYLE ICONS FOR 'CAUSE WOUND' SPELLS<br><br>
 		Do you want existing 'cause wound' spells to use IWD-style icons? (healing icon in red)<br><br>
 		1 = Yes [default]<br>
 		2 = No, keep BG2 icons for existing spells.</td>
 	</tr>
 	<tr>
-		<td style="border: 1px solid #781808; text-align: center; ">1pp_cure_spells_conflict</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">OVERWRITE CAUSE LIGHT WOUNDS AND CAUSE MEDIUM WOUNDS SPELLS<br><br>
-		If SPPR142/1342 (Cause Light Wounds, Cause Medium Wounds) are already taken by a previously installed mod, proceeding to install may cause issues.<br><br>
-		1 = Yes, install [par défaut]<br>
-		2 = No, cancel installation</td>
-	</tr>
-	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">400 Core updates and item patches</span>**</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><div align="center">(BG2, ToB, tutu, tutu_totsc and ca). Requires component 200 Core content patches</div></td>
+		<td><div align="center">(BG2, ToB, tutu, tutu_totsc and ca). Requires component 200 Core content patches</div></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_shields_appearance<br><br>
@@ -345,7 +338,7 @@ Here is a chart listing the options related to the installation process:</br></b
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">400 Core updates and item patches</span>**</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><div align="center">(HoW and TotLM)</div></td>
+		<td"><div align="center">(HoW and TotLM)</div></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_gemlore</td>
@@ -363,7 +356,7 @@ Here is a chart listing the options related to the installation process:</br></b
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; padding-top:20px; padding-bottom:20px; ">**<span style="color: #781808;">300 Fixed animations for solars and elementals</span>**</td>
-		<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px; padding-top:20px; padding-bottom:20px; "><div align="center">(ToB, tutu, tutu_totsc and ca)</div></td>
+		<td><div align="center">(ToB, tutu, tutu_totsc and ca)</div></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid #781808; text-align: center; ">1pp_solar_weapons</td>
