@@ -16,8 +16,11 @@
 **Mod Website:** <a href="http://www.spellholdstudios.net/ie/1pp">Spellhold Studios</a>  
 **Mod forum:** <a href="http://www.shsforums.net/forum/159-1pp/">One Pixel Productions</a>  
 
+## 
+
 Readme writing in progress... Don't try to download and install this mod as it is a WIP version and its install will fail, because of missing files still in development or in beta testing
 
+## 
 
 [Read the mod's readme](https://spellholdstudios.github.io/readmes/1pp-readme-english.html)
 
@@ -69,7 +72,7 @@ This mod is designed to work on the following classical Infinity Engine games:
 
 #### Notes
 
-*If you've previously installed the mod, remove it before extracting the new version. To do this, run **`setup-1pp.exe`**, un-install all previously installed main component and delete the &#x1F4C1; :file_folder: **1pp** folder.*
+*If you've previously installed the mod, remove it before extracting the new version. To do this, run **`setup-1pp.exe`**, un-install all previously installed main component and delete the :file_folder: **1pp** folder.*
 
 *When installing or un-installing, **do not close the DOS window** by clicking on the **X** button! Instead, press the **Enter** key whenever instructed to do so.*
 
@@ -90,7 +93,7 @@ Run **`setup-1pp.exe`** in your game folder to reinstall, un-install or otherwis
 
 #### Mac OS X
 
-TODO text
+Unfortunately, this mod is not currently fully compatible with OS X because a few components patching exe file do not support OS X. If you wish to make it so, please post your interest in the <a href="http://www.shsforums.net/forum/159-1pp/">forum</a>. (It may help to examine your game launcher and the contents of the existing patch in an editor if you have any technical expertise.)
 
 ## 
 
@@ -116,7 +119,7 @@ In addition to the methods above for removing individual components, you can com
 
 ###### As of version 4.2.0, configuration options needed for installation are read from <a href="https://github.com/GwendolyneFreddy/1pp/blob/master/1pp/1pp-config-default.ini">1pp-config-default.ini</a> file, or 1pp-config-user.ini if it exists.
 
-The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is installed for and on already installed components). All those options set during installation have been moved into **_1pp-config-default.ini_** file in &#x1F4C1; :file_folder: **1pp** folder. This file provides a '*default*' installation.
+The previous version interrupted installation with plain text prompts allowing players to customise components to their liking (depending on which IE game the mod is installed for and on already installed components). All those options set during installation have been moved into **_1pp-config-default.ini_** file in :file_folder: **1pp** folder. This file provides a '*default*' installation.
 
 If you want to define your own customized installation, you have to edit the file **_1pp-config-default.ini_** with Notepad or another text editor, then save it as **_1pp-config-user.ini_**. Each line consists of a configuration option, then '=', then a number. The only thing you should edit is the number.
 
@@ -465,7 +468,7 @@ Supports: SoA, ToB, Tutu (if using the BG2 GUI)</br>
 <div align="center"><img src="1pp/documentation/files/images/104.jpg"></div><br>
 
 A reworked graphical user interface for Baldur's Gate II SoA/ToB. This aims to get rid of a lot of the rough edges present in the original while maintaining a similar feel. Major changes include a time dial that is not just a box, getting rid of 'infinite parchment' (see additional screenshots) and an optional choice of updated fonts.</br>
-&#9755; <a href="1pp/documentation/files/gui_readme.html">See more</a></br>
+&#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/gui_readme.html">See more</a></br>
 
 <div align="right"><a href="#components">Back to components list</a></div>
 
@@ -479,7 +482,7 @@ Supports: SoA, ToB, tutu, HoW, IWDII</br>
 <div align="center"><img src="1pp/documentation/files/images/105.jpg"></div><br>
 
 This component contains fixes and improvements for several avatar series of Baldur's Gate II character animations, along with updated paperdolls to better match the new content.</br>
-&#9755; <a href="1pp/documentation/files/avafix_readme.html">See more</a></br>
+&#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/avafix_readme.html">See more</a></br>
 
 <div align="right"><a href="#components">Back to components list</a></div>
 
@@ -493,7 +496,7 @@ Supports: SoA, ToB, tutu, HoW, IWDII</br>
 <div align="center"><img src="1pp/documentation/files/images/106.jpg"></div><br>
 
 This component patches Baldur's Gate II engine games to use separate avatar animations for female dwarves and mages of small races, and includes game content for all of these.</br>
-&#9755; <a href="1pp/documentation/files/dwarf_readme.html">See more</a></br>
+&#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/dwarf_readme.html">See more</a></br>
 
 <div align="right"><a href="#components">Back to components list</a></div>
 
@@ -509,7 +512,7 @@ Supports: SoA, ToB, tutu, HoW, IWDII</br>
 
 In standard BGII only one armour level of thieves had unique animations (leather armour). Any other armour level would revert to the default unarmoured animation. On the inventory, the first two armour levels had unique paperdolls, anything else would revert to the unarmoured paperdoll.</br>
 This component will patch your executable to support full thief animation sequences and install content for them.</br>
-&#9755; <a href="1pp/documentation/files/thieves_readme.html">See original readme</a></br>
+&#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/thieves_readme.html">See original readme</a></br>
 
 <div align="right"><a href="#components">Back to components list</a></div>
 
@@ -522,7 +525,7 @@ Supports: SoA, ToB, tutu, HoW, IWDII</br>
 <div align="center"><img src="1pp/documentation/files/images/113.jpg"></div><br>
 
 This component allows armour and robes to properly show up for characters of any class when equipped. While normally robes would not show up for fighter/cleric/thief animations, and armour would not show up for mage animations, this is circumvented by changing the character animation accordingly while such items are equipped.</br>
-&#9755; <a href="1pp/documentation/files/switch_readme.html">See original readme</a></br>
+&#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/switch_readme.html">See original readme</a></br>
 
 <div align="right"><a href="#components">Back to components list</a></div>
 
@@ -536,7 +539,7 @@ Supports: SoA (partial), ToB, tutu, HoW, IWDII (placeholder)</br>
 <div align="center"><img src="1pp/documentation/files/images/114.jpg"></div><br>
 
 Substantially improved spell effects with smooth alpha blending for Baldur's Gate II engine based IE games. Note that 3D support has to be enabled for this component to work properly - if you run your game with software rendering mode, it is not recommended to install this.</br>
-&#9755; <a href="1pp/documentation/files/effects_readme.html">See more information</a></br>
+&#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/effects_readme.html">See more information</a></br>
 
 <div align="right"><a href="#components">Back to components list</a></div>
 
@@ -550,7 +553,7 @@ Supports: SoA, ToB, tutu</br>
 <div align="center"><img src="1pp/documentation/files/images/200.jpg"></div><br>
 
 This is essentially the inventory icon/item related patches of 1ppv2. In other words, lots of random icon improvements for BGII, especially on the ToB side of things, as well as some mod item patches and updates. It will form the basis on which 1ppv4 is built on SoA/ToB.</br>
-&#9755; <a href="1pp/documentation/files/v2_readme.html">See original readme</a></br>
+&#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/v2_readme.html">See original readme</a></br>
 
 <div align="right"><a href="#components">Back to components list</a></div>
 
@@ -563,7 +566,7 @@ Supports: SoA, ToB, tutu</br>
 <div align="center"><img src="1pp/documentation/files/images/201.jpg"></div><br>
 
 This component harmonises spell icons introduced in Baldur's Gate II with the ones in the original game. It updates icons found in the spellbook as well as the stone styled UI icons along with spell scrolls.</br>
-&#9755; <a href="1pp/documentation/files/spic_readme.html">See more</a></br>
+&#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/spic_readme.html">See more</a></br>
 
 <div align="right"><a href="#components">Back to components list</a></div>
 
@@ -589,7 +592,7 @@ Supports: SoA, ToB, tutu, HoW, IWDII</br>
 <div align="center"><img src="1pp/documentation/files/images/203.jpg"></div><br>
 
 This component restores separate flame sword animations for Baldur's Gate II (similar to the ones in the original). It also includes flame short swords, adding a new item type to the game.</br>
-&#9755; <a href="1pp/documentation/files/fs_readme.html">See original readme</a></br>
+&#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/fs_readme.html">See original readme</a></br>
 
 <div align="right"><a href="#components">Back to components list</a></div>
 
@@ -603,7 +606,7 @@ Supports: SoA, ToB, tutu, HoW, IWDII</br>
 <div align="center"><img src="1pp/documentation/files/images/204.jpg"></div><br>
 
 This component makes quarterstaves colourable by segment (as opposed to uniform) to allow more variety in-game and match inventory depictions. It also includes item patches to make use of the new content.</br>
-&#9755; <a href="1pp/documentation/files/qs_readme.html">See developer reference</a></br>
+&#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/qs_readme.html">See developer reference</a></br>
 
 <div align="right"><a href="#components">Back to components list</a></div>
 
@@ -677,7 +680,7 @@ Supports: SoA, ToB, tutu, HoW, IWDII</br>
 <div align="center"><img src="1pp/documentation/files/images/209.jpg"></div><br>
 
 This component adds equippable wings for elven characters (with some restrictions).</br>
-&#9755; <a href="files/wings_readme.html">See readme &amp; developer notes</a></br>
+&#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/wings_readme.html">See readme &amp; developer notes</a></br>
 
 ###### <em>Note that this is a core component; by itself it does not contain any item patches. If installed, the content will instead be used by following 1ppv4 components to give you more options when updating.</em></br>
 
@@ -715,7 +718,7 @@ This is the main 1ppv4 update component. Make sure you have all components you w
 Before v4.2.0, various content choices were presented to you during installation (depending on which IE game you are installing for and installed components).</br>
 As of version 4.2.0, installation options are moved into 1pp-config-default.ini file. If you want to modify them, please read this <a href="#config">chapter</a>.</br></br>
 For a full, visual guide to choices see the link below. Consider choosing 'yes' to setting ITEM COLOURS FOR NON-MAGICAL ITEMS (setting 2/3).</br>
-&#9755; <a href="1pp/documentation/files/v4u_readme.html">Alternative install choices</a></br>
+&#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/v4u_readme.html">Alternative install choices</a></br>
 <div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------

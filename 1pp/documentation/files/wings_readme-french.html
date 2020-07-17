@@ -1,453 +1,18 @@
 ﻿<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
+
+<head>
 	<meta charset="UTF-8">
-	<style type="text/css">
-/*<![CDATA[*/
-<!-- 
-	body {
-		cursor: default;
-		text-align: center;
-		counter-reset:kman;
-		color: #000;
-		*background-color: #D1D1D1;
-		margin-top: 20px;
-		margin-bottom: -20px;
-		*background: #d1d1d1;
-		background: -moz-radial-gradient(center, ellipse cover,  #d1d1d1 0%, #afafaf 83%, #8e8e8e 100%);
-		background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#d1d1d1), color-stop(83%,#afafaf), color-stop(100%,#8e8e8e));
-		background: -webkit-radial-gradient(center, ellipse cover,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
-		background: -o-radial-gradient(center, ellipse cover,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
-		background: -ms-radial-gradient(center, ellipse cover,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
-		background: radial-gradient(ellipse at center,  #d1d1d1 0%,#afafaf 83%,#8e8e8e 100%);
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1d1d1', endColorstr='#8e8e8e',GradientType=1 );
-		background-size: auto 33.4%;
-		background: #e3e3db url('shsbkgd.jpg');
-	}
+	<link rel="stylesheet" href="styles/style_1pp.css" type="text/css">
 
-	#wrap {
-		text-align: left;
-		margin: 0 auto;
-		margin-top: 20px;
-		width: 88%;
-		font-family: Verdana, Tahoma, Arial, sans-serif;
-		font-size: 12px;
-		color: #333;
-	}
-
-	#headerdiv-top {
-		counter-reset:hman;
-		text-align: center;
-		font-family: Verdana, Tahoma, Arial, sans-serif;
-		font-size: 250%;
-		font-weight: bold;
-		line-height: 73%;
-		color #020F1D;
-		background-color: #e5e5e5;
-		padding: 15px 0px 15px 0px;
-		margin: 0px auto;
-		border-left: solid 1px #781808;
-		border-right: solid 1px #781808;
-		border-bottom: solid 1px #781808;
-		border-top: solid 5px #781808;
-		position: relative;
-		display: block;
-		box-shadow: 6px 6px 9px rgba(0,0,0,.3);
-	}
-	#headerdiv-top-fw {
-		font-size: 40%;
-		color: #750000;
-		margin: 0px;
-		padding-top: 9px;
-		display: block;
-	}
-
-	#headerdiv-bottom {
-		text-align: center;
-		font-family: Verdana, Tahoma, Arial, sans-serif;
-		font-size: 12px;
-		color: #555;
-		padding: 8px 0px 8px 0px;
-		margin: 0px auto;
-		border-left: solid 1px #781808;
-		border-right: solid 1px #781808;
-		border-bottom: solid 5px #781808;
-		border-top: solid 1px #781808;
-		background-color: #e5e5e5;
-		position: relative;
-		display: block;
-		box-shadow: 6px 6px 9px rgba(0,0,0,.3);
-	}
-	#headerdiv-bottom .about {
-		margin: 7px 0 0 0;
-		padding: 0;
-		font-style: italic;
-		color: #555;
-	}
-	#headerdiv-bottom .menu {
-		font-weight: bold;
-		margin: 0;
-		color: #999;
-	}
-
-	#footer {
-		text-align: center;
-		background: #e5e5e5;
-		border: 1px solid #781808;
-		border-top: 5px solid #781808;
-		border-bottom: 5px solid #781808;
-		font-size: 75%;
-		padding: 5px 0 13px 0;
-	}
-
-	#maindiv {
-		margin: 0 auto;
-		margin-top: -20px;
-		width: 80%;
-	}
-	#maindiv .content {
-		counter-increment: kman;
-		counter-reset: h2;
-		background-color: #e8e8e6;
-		padding: 0 0 25px 0;
-		margin: 50px auto;
-		border-width: 1px 1px 4px 10px;
-		border-style: solid;
-		border-color: #781808;
-		position: relative;
-		display: block;
-		box-shadow: 6px 6px 9px rgba(0,0,0,.3);
-	}
-	#maindiv .content::before {
-		content: counter(kman, lower-roman);
-		font-size: 100%;
-		font-weight: bold;
-		text-align: center;
-		color: #eee;
-		background-color: #781808;
-		width: 50px;
-		top: 0px;
-		left: 0px;
-		display: block;
-	}
-
-	#maindiv .important {
-		font-size: 95%;
-		font-family: Verdana;
-		text-align: left;
-		background-color: #deded9;
-		border-width: 1px 4px 1px 4px;
-		border-style: solid;
-		border-color: #781808;
-		padding: 10px;
-		margin: 10px auto;
-		width: 80%;
-		line-height: 160%;
-	}
-	#maindiv .important::before {
-		display: none;
-	}
-	#maindiv .important p {
-		width: 100%;
-		font-size: 100%;
-		text-indent: 0px;
-		margin: 5px 0 5px 0;
-		line-height: 180%;
-	}
-
-	.tocplus{
-		counter-increment:hman;
-	}
-	.toc::before {
-		content: counter(hman, lower-roman) '.';
-		counter-increment:hman;
-		font-size: 100%;
-		color: #781808;
-		font-style:italic;
-		position:absolute
-	}
-
-	#maindiv p {
-		font-size: 100%;
-		font-style: normal;
-		text-align: justify;
-		line-height: 150%;
-		padding: 0px;
-		margin: 10px auto;
-		width: 90%;
-		display: block;
-	}
-
-	#maindiv address {
-		font-size: 95%;
-		font-style: normal;
-		font-weight: bold;
-		text-decoration: none;
-		color: #BBB;
-		background-color: #781808;
-		padding: 3px 0px 0px;
-		margin: 0px;
-		width: 100%;
-		position: absolute;
-		bottom: -1px;
-		left: 0px;
-		display: block;
-		text-align: right;
-	}
-
-
-	/*	Lists  */
-	#maindiv ul {
-		line-height: 170%;
-		margin-left: 4%;
-		width: 87%;
-	}
-	#maindiv ul li {
-		line-height: 150%;
-	}
-	#maindiv ul li ul {
-		margin: 0px;
-		width: 96%;
-	}
-	#maindiv ul li ul li {
-	}
-	#maindiv ul li ul li ul {
-		margin-left: -1%;
-		width: 98%;
-	}
-	#maindiv ul li ul li ul li {
-	}
-	ul.c1 {margin-left: 32px;}
-
-
-	/*	Liens internet  */
-	a:hover,
-	a:active {
-		color: #222;
-		border-bottom: 1px solid black;
-	}
-	a:link,
-	a:visited {
-		color: #781808;
-		font-weight: bold;
-		text-decoration: none;
-	}
-
-	#headerdiv-bottom .menu a:link,
-	#headerdiv-bottom .menu a:visited {
-		color: #333;
-	}
-	#headerdiv-bottom .menu a:focus,
-	#headerdiv-bottom .menu a:hover {
-		color: #781808;
-	}
-
-	#maindiv address a:active {
-		color: #fff;
-		text-decoration: line-through;
-		border: none;
-	}
-	#maindiv address a:link,
-	#maindiv address a:visited {
-		font-weight: bold;
-		text-decoration: underline;
-		background-color: transparent;
-		color: #eaeaea !important;
-		padding-right: 5px;
-		padding-left: 6px;
-	}
-	#maindiv address a:focus,
-	#maindiv address a:hover {
-		text-decoration: none;
-		color: #F1F1F1;
-		border: 0;
-	}
-
-
-	h2 {
-		display: block;
-		font-family: Verdana, Trebuchet MS, Arial, serif;
-		text-align: left;
-		text-indent: 30px;
-		padding: 0px;
-		margin: 20px 0 0 0;
-		border-bottom: dotted 2px #d0d0d0;
-		border-top: dotted 2px #d0d0d0;
-		background: #deded9;
-		font-size: 160%;
-	}
-	h2::first-letter {
-		color: #781808;
-		background-color: transparent;
-	}
-	h2 .com {
-		color: #781808;
-		background-color: transparent;
-		margin-right:30px;
-	}
-
-	h3,
-	h4,
-	h5 {
-		margin: 10px 40px 10px 40px;
-		padding: 0;
-	}
-
-	h3 {
-		font-size: 125%;
-		font-style: italic;
-		margin: 10px 40px 10px 40px;
-		padding: 0;
-	}
-
-	h4 {
-		font-size: 125%;
-	}
-
-	h5 {
-		margin: 10px 40px 10px 40px;
-		padding: 0;
-		font-size: 100%;
-	}
-
-	h6 {
-		width: 100%;
-		margin: 10px 0 15px 0;
-		background-color: #ECECEC;
-		text-align: left;
-		text-indent: 30px;
-		font-size: 100%;
-		font-style: italic;
-		padding-top: 1px;
-		padding-bottom: 1px;
-		border-bottom: solid 1px #bbb;
-		border-top: solid 1px #bbb;
-	}
-
-	.com {
-		color: #781808;
-		background-color: transparent;
-	}
-
-
-	/* Additional stuff */
-
-	.t1 {
-		font-weight: bold;
-		width: 26%;
-		text-align: right;
-		clear: right;
-		float: left;
-		line-height: 22px;
-	}
-	.t2 {
-		text-align: left;
-		width: 73%;
-		float: right;
-		line-height: 22px;
-	}
-
-	.one {
-		position: relative;
-	}
-	.one:before {
-		content: '1';
-		display: block;
-		position: absolute;
-		bottom: -.45em; 
-		font-size:100%;font-family:palatino;line-height:100%;color: #750000;
-		left: 0;
-		right: 0;
-		opacity: .5;
-		-webkit-transform: scaleY(-.5);
-		-moz-transform: scaleY(-.5);
-		-o-transform: scaleY(-.5);
-		transform: scaleY(-.5);
-	}
-	.one:after {
-		background: -webkit-gradient(linear, left top, left center, from(rgba(229,229,229,0)), to(rgb(229,229,229)));
-		background: -moz-linear-gradient(top, rgba(229,229,229,0), rgb(229,229,229));
-		content: ' ';
-		height: 2em;
-		display: block;
-		position: absolute;
-		bottom: -.6em; /* You should change this value to fit your font */
-		left: 0;
-		right: 0;
-	}
-
-	.pp {
-		position: relative;
-	}
-	.pp:before {
-		content: 'pp';
-		display: block;
-		position: absolute;
-		bottom: -.90em; 
-		left: 0.25em;
-		right: 0;
-		opacity: .5;
-		-webkit-transform: scaleY(-.5);
-		-moz-transform: scaleY(-.5);
-		-o-transform: scaleY(-.5);
-		transform: scaleY(-.5);
-	}
-	.pp:after {
-		background: -webkit-gradient(linear, left top, left center, from(rgba(229,229,229,0)), to(rgb(229,229,229)));
-		background: -moz-linear-gradient(top, rgba(229,229,229,0), rgb(229,229,229));
-		content: ' ';
-		height: 2em;
-		display: block;
-		position: absolute;
-		bottom: -.9em; /* You should change this value to fit your font */
-		left: 0.25em;
-		right: 0;
-	}
-
-	.screen {background-size:contain;background-repeat:no-repeat}
-	.screen img{max-width:100%; opacity:1;transition: opacity 1.25s ease-in-out;
-		-moz-transition: opacity 1.25s ease-in-out;
-		-webkit-transition: opacity 1.25s ease-in-out;
-	}
-	.screen img:hover{max-width:100%; opacity:0}
-
-	.v4 {
-		position: relative;
-	}
-	.v4:before {
-		content: 'VERSION 4';
-		display: block;
-		position: absolute;
-		bottom: -4em; 
-		left: 0em;
-		right: 0;
-		opacity: .5;
-		-webkit-transform: scaleY(-.5);
-		-moz-transform: scaleY(-.5);
-		-o-transform: scaleY(-.5);
-		transform: scaleY(-.5);
-	}
-	.v4:after {
-		background: -webkit-gradient(linear, left top, left center, from(rgba(229,229,229,0)), to(rgb(229,229,229)));
-		background: -moz-linear-gradient(top, rgba(229,229,229,0), rgb(229,229,229));
-		content: ' ';
-		height: 2em;
-		display: block;
-		position: absolute;
-		bottom: -4em; /* You should change this value to fit your font */
-		left: 0em;
-		right: 0;
-	}
-
--->
-/*]]>*/
-</style>
 	<title>
 		Spellhold Studios - 1ppv4 [Attachable wings readme &amp; development reference]
 	</title>
-	<link href="shsweb.ico" rel="icon" type="bmp" />
-  </head>
+	<link href="images/shsweb.ico" rel="icon" type="bmp" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
 
   <body>
 	<div id="wrap">
@@ -462,10 +27,10 @@
 		<p class="about">
 			Auteure : Erephine
 		</p>
-		<p class="about">
-			<a href="http://www.spellholdstudios.net/ie/1pp">Site internet du mod</a> &#8226; <a href="http://www.shsforums.net/index.php?showforum=159">Forum du mod</a> &#8226; <a href="http://www.shsforums.net/files/file/1006-1ppv410/">Téléchargement</a> &#8226; <a href="https://github.com/SpellholdStudios/1pp">GitHub</a> &#8226; Version : 7.0.0
+		<p class="about" style="padding: 2px 0px 4px 0px">
+			<a href="http://www.spellholdstudios.net/ie/1pp">Site internet du mod</a> &#8226; <a href="http://www.shsforums.net/forum/159-1pp/">Forum du mod</a> &#8226; <a href="http://www.shsforums.net/files/file/1006-1ppv410/">Téléchargement</a> &#8226; <a href="https://github.com/SpellholdStudios/1pp">GitHub</a> &#8226; Version : 7.0.0
 		</p>
-		<hr style="color: #781808; background-color: #781808;">
+		<hr>
 		<p class="menu">
 			<a href="#intro">Documentation</a>
 		</p>
@@ -513,9 +78,9 @@
 				L'objet fourni n'est utilisable que par les elfes. Si vous contrevenez à cette règle, vous serez consterné(e) de constater que les ailes n'apparaissent pas sur les personnages non-elfes. En fait, l'objet fera crasher votre partie.</li>
 			<li>Ne pas associer avec</li>
 				<ul>
-					<li style="margin-left:-4%">des robes flottantes</br>
-					(Je déconseille fortement de les mettre sur un personnage qui portera des robes avec une cape. Si vous avez des notions basiques d'anatomie, vous comprendrez pourquoi. Cela aura l'air très étrange.)</li>
-					<li style="margin-left:-4%">des boucliers, des arcs et des armes dans la main secondaire</br>
+					<li style="margin-left:-6%">des robes flottantes</br>
+					(Je déconseille fortement de les mettre sur un personnage portant des robes avec une cape. Si vous avez des notions basiques d'anatomie, vous comprendrez pourquoi. Cela aura l'air très étrange.)</li>
+					<li style="margin-left:-6%">des boucliers, des arcs et des armes dans la main secondaire</br>
 					(Cela ne plantera pas le jeu, mais le rendu visuel de ce type d'objet ne s'effectuera pas correctement. Inversement, les épées à deux mains, les hallebardes, les bâtons, etc., fonctionnent correctement. Quant aux arbalètes, elles produisent un effet désagréable mineur sur le parperdoll, mais fonctionnent parfaitement sur l'avatar.)</li>
 				</ul>
 		  </ul></br>
@@ -525,10 +90,10 @@
 		</p></br>
 
 
-		<hr style="width: 90%; color: #781808; background-color: #781808; " /><br>
+		<hr style="width: 90%;"><br>
 
 
-		<h4>SI VOUS SOUHAITEZ UTILISER CES AILES DANS UN MOD</h4>
+		<h4>SI VOUS SOUHAITEZ UTILISER CES AILES DANS UN MOD</h4><br>
 
 		<p>
 			Choisissez un objet et modifiez son champ « animation d'objet » (Equipped appearance dans NI) par « ZW ». Ce doit être un casque, et il doit être placé dans le slot d'équipement adéquat. Et oui, cela signifie que vous ne pouvez pas porter un casque en même temps que les ailes.</br></br>
@@ -543,10 +108,10 @@
 		</p></br>
 
 
-		<hr style="width: 90%; color: #781808; background-color: #781808; " /><br>
+		<hr style="width: 90%;"><br>
 
 
-		<h4>UNE AUTRE VERSION DES AILES</h4>
+		<h4>UNE AUTRE VERSION DES AILES</h4><br>
 
 		<p>
 			Les ailes installées par défaut sont optimisées pour les femmes elfes (si vous ne l'aviez pas remarqué sur les captures d'écran). Cela concerne à la fois l'animation de l'avatar et son paperdoll.</br></br>
@@ -563,10 +128,10 @@
 		</p></br>
 
 
-		<hr style="width: 90%; color: #781808; background-color: #781808; " /><br>
+		<hr style="width: 90%;"><br>
 
 
-		<h4>POURQUOI TOUTES CES RESTRICTIONS ?</h4>
+		<h4>POURQUOI TOUTES CES RESTRICTIONS ?</h4><br>
 
 		<p>
 			<em>1. Pourquoi mon humain, mon demi-orque et mon nain ne peuvent-ils pas porter d'ailes ?</em></br></br>
@@ -595,7 +160,7 @@
 		</p></br>
 
 		<address>
-			<span class="footer">1ppv4 &gt; Documentation</span> &#8226;<a href="#top">HAUT DE PAGE</a>
+			<span class="footer">1ppv4 Ailes amovibles &gt; Documentation</span> &#8226;<a href="#top">HAUT DE PAGE</a>
 		</address>
 	  </div>
 
