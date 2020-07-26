@@ -18,7 +18,7 @@
 
 ## 
 
-Readme writing in progress... Don't try to download and install this mod as it is a WIP version and its install will fail, because of missing files still in development or in beta testing
+:warning: Readme writing in progress... Don't try to download and install this mod as it is a WIP version and its install will fail, because of missing files still in development or in beta testing
 
 ## 
 
@@ -443,16 +443,18 @@ Supports: SoA, ToB, tutu, HoW, IWDII</br>
 
 This component adds new colour gradients to Infinity Engine games, raising the count of available colours from 116 to 256. It also includes a new random colour table making use of them for Baldur's Gate II and new colour set files for Icewind Dale II, giving you more skin/hair colour choices for the various races.</br>
 It also fixes a few minor problems with standard gradients.</br>
-&#9755; <a href="1pp/documentation//files/extpal_readme.html">Read more</a></br>
+&#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/extpal_readme.html">Read more</a></br>
 
 ## 
 
-**[102] Compatibility install**</br>
+#### [102] Compatibility install
+
 For installs that do not support the binary patch (OSX), this installs the basic files needed for 1pp to work properly but does not support using the new colours as character colours.</br>
 
 ## 
 
-**[103] Full install**</br>
+##### [103] Full install
+
 Complete install patching the game executable, enabling full use of the extended colour entries.</br>
 When installing the full version, extra choices for skin and hair colour will automatically become available from the ingame selection.</br>
 As for clothing colours, during character creation and from the inventory the standard complement of 34 primary and secondary colours will be offered. To access more clothing colours, choose 'customise' » 'colours' from the character sheet to gain access to yet another set of 34 colours.</br>
