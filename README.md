@@ -823,7 +823,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
   - TODO Added *1pp.ini* metadata file to support AL|EN's "Project Infinity".
   - TODO Replaced `AUTHOR` keyword with `SUPPORT`.
   - TODO Added components `DESIGNATED` numbers and `LABELS`.
-  - TODO Added "*always.tpa*" library.
+  - Added "*always.tpa*" library.
   - Commented code as much as possible.
   - Replaced `GAME_IS` conditions with variables checks to speed up install time.
   - TODO Installation options have been moved into *1pp-config-default.ini* file. If you want to modify them, please read this <a href="#config">chapter</a>.
@@ -837,7 +837,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
     - Replaced macros with functions whenever possible.
     - Copied entire folders instead of infinite lines of code.
     - Grouped actions or patches with `ACTION_FOR_EACH` and `PATCH_FOR_EACH` whenever possible.
-    - Used new and more efficient WeiDU functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. `ADD_ITEM_EQEFFECT`, `ALTER_EFFECT` and `ALTER_ITEM_HEADER` replace so many lines of codes!).
+    - Used new and more efficient WeiDU functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize coding (e.g. `ADD_ITEM_EQEFFECT`, `ALTER_EFFECT` and `ALTER_ITEM_HEADER` replace so many lines of codes!).
     - Avoided copying and overwriting the same files again and again...
   - Re-formated and updated all readme files (1pp now supports translated readmes).
   - Added French translation (Gwendolyne).

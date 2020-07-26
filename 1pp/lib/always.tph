@@ -50,10 +50,10 @@ COPY ~spell_rev\shared\dvsrv4here.mrk~      ~override~  // Used to detect if SR 
 	OUTER_SPRINT configuration-default "1pp-config-default.ini" // default configuration file to read initial variable options
 	OUTER_SPRINT configuration-user    "1pp-config-user.ini"    // user created file, not included inside mod archive. If exists, it will overwrite variable options from 1pp-config-default file
 
-	INCLUDE ~%MOD_FOLDER%/lib/1pp_functions.tpa~				// Loads macros and functions library dealing with tooltip appending and specific EE items descriptions.
+	INCLUDE ~%MOD_FOLDER%/lib/1pp_functions.tpa~				// Loads Gwendolyne's patch macros and functions library to optimize coding
 	INCLUDE ~%MOD_FOLDER%/lib/1pp_compatibility.tph~			// Loads functions restoring items coloration for EE games or if 1PP relevant components are installed.
 	INCLUDE ~%MOD_FOLDER%/lib/1pp_macros.tpa~					// Loads 1PP macros dealing with items coloring.
-	INCLUDE ~%MOD_FOLDER%/lib/1pp_read_configuration.tph~
+	INCLUDE ~%MOD_FOLDER%/lib/1pp_read_configuration.tph~		// Loads macros and functions reading .ini configuration files.
 	LAM ~Locations~												// DEFINES location field values needed to alter items' colors.
 /* Uncomment this line for debugging purpose*/
 PRINT "-----------------------------------------------------------------------------------------------------------------------
