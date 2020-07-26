@@ -1,0 +1,744 @@
+/* =========================================================== *
+ *                                                             *
+ *                   I N S T A L L A T I O N                   *
+ *                                                             *
+ * =========================================================== */
+
+/* =========================================== *
+ *  ipp_read_configuration.tph and always.tph  *
+ * =========================================== */
+@1      = ~Configuration option 1pp_%variable_0% value (%wrong_value%) does not match its scope and has been reset to its default value (%value%).~
+@2      = ~Configuration option 1pp_%variable_0% does not exist: it has been set to its default value (%value%).~
+@3      = ~LIST OF CONFIGURATION OPTIONS SET FOR INSTALLATION:
+---------------------------------------------------
+	1pp_fdwarf = %1pp_fdwarf%
+	1pp_gui_soa = %1pp_gui_soa%
+	1pp_updated_fonts = %1pp_updated_fonts%
+	1pp_mixed_labels = %1pp_mixed_labels%
+	1pp_agannazar_scorcher = %1pp_agannazar_scorcher%
+	1pp_dispel_magic_effect = %1pp_dispel_magic_effect%
+	1pp_hammers_icons = %1pp_hammers_icons%
+	1pp_potions_icons = %1pp_potions_icons%
+	1pp_iwd_cause_wounds_icons = %1pp_iwd_cause_wounds_icons%
+	1pp_shields_shadows = %1pp_shields_shadows%
+	1pp_shields_appearance = %1pp_shields_appearance%
+	1pp_shields_scatter = %1pp_shields_scatter%
+	1pp_helmets_shadows = %1pp_helmets_shadows%
+	1pp_helmets_appearance = %1pp_helmets_appearance%
+	1pp_helmets_scatter = %1pp_helmets_scatter%
+	1pp_helmets_compatibility = %1pp_helmets_compatibility%
+	1pp_armours_appearance = %1pp_armours_appearance%
+	1pp_armours_scatter = %1pp_armours_scatter%
+	1pp_forced_item_colours = %1pp_forced_item_colours%
+	1pp_gemlore = %1pp_gemlore%
+	1pp_tutu_bg1_shields = %1pp_tutu_bg1_shields%
+	1pp_tutu_bg1_helmets = %1pp_tutu_bg1_helmets%
+	1pp_sleeper = %1pp_sleeper%
+	1pp_forced_item_colours_iwd = %1pp_forced_item_colours_iwd%
+	1pp_solar_weapons = %1pp_solar_weapons%
+---------------------------------------------------~
+
+@10     = ~This component requires the Core paperdolls component to be installed.~
+@11     = ~This component is only compatible with BGII, ToB, Tutu, BGT, CA, TotLM, HoW and IWD2 installations.~
+@12     = ~This component is only available for games based on BGII engine (skipping).~
+@13     = ~This component requires the Core content patch component to be installed.~
+
+
+/* ============================================ *
+ *                Core paperdolls               *
+ * ============================================ */
+@101    = ~1ppv4: Core paperdolls (main component)~
+@1011   = ~Installing BGII variant.~
+@1012   = ~Detected Infinity Animations (legacy character animations).~
+@1013   = ~Installing IA support...~
+
+// 101_ia.tph traified
+/* DEPRECATED as of v4.2.0
+Variable needed for installation (1pp_fdwarf) is read from 1pp-config-default.ini or 1pp-config-user.ini files
+
+@101200 = ~Use 1pp or IWD style female dwarf paperdolls?
+
+1. IWD
+2. 1pp
+
+PLEASE ENTER 1 OR 2~ */
+
+// 101_iwd.tph traified
+// --------------------
+@1014   = ~Installing IWD HoW/TotLM variant.~
+@101400 = ~Fixing the train wreck that is half-BG1-half-BGII paperdoll calls - check.~
+@101401 = ~Error: could not determine which version of IWD you are using. Please double check that you installed TotLM (v1.4.2).~
+@101402 = ~Could not patch idmain successfully, skipping.~
+@101403 = ~Error: could not determine which version of IWD you are using. Please double check that you installed HoW (v1.4.1).~
+
+@1015   = ~Installing paperdoll equipped objects.~
+@1016   = ~IWD2 - Skipping (placeholder component for compatibility).~
+
+
+/* ============================================ *
+ *           Extended palette entries           *
+ * ============================================ */
+@1020    = ~1ppv4: Extended palette entries~
+@102     = ~Compatibility install only~
+@103     = ~Full install (recommended)~
+
+// 102_compat.tph & 103_extpal.tph traified
+// ----------------------------------------
+@103000 = ~Reading settings...~
+@103001 = ~__setting.bmp appears to be invalid.~
+@103002 = ~Error occurred during installation.~
+@103003 = ~Patching...~
+@103004 = ~ToB v26498 found.~
+@103005 = ~failed at %address%~
+@103006 = ~found %check_v%, should be %replace_pattern%~
+@103007 = ~SoA v23037 found.~
+@103008 = ~Error: could not determine which version of BGII you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only).~
+@103009 = ~IWD v1.4.2 found (TotLM).~
+@103010 = ~IWD v1.4.1 found (HoW).~
+@103011 = ~Error: could not determine which version of IWD you are using. Make sure your game is patched to 1.4.1 (HoW) or 1.4.2 (TotLM).~
+@103012 = ~IWD v2.0.1.0 found.~
+@103013 = ~Normal patch failed, weird IWD2.exe suspected. Trying alternate patch.~
+@103014 = ~Error: Unknown type of IWDII executable.~
+@103015 = ~Could not patch successfully.~
+@103016 = ~Copying files...~
+@103017 = ~Copying IWDII colour tables...~
+@103018 = ~Copying BG random colour table...~
+@103019 = ~Error: the source size does not seem to match. Stopping installation for safety purposes.~
+@103020 = ~Could not patch successfully. Make sure you are using the component for the right version!~
+@103021 = ~Error: Executable does not appear to be compatible.~
+
+
+/* ============================================ *
+ *            GUI additions for BGII            *
+ * ============================================ */
+@104    = ~1ppv4: GUI additions for BGII~
+@1041   = ~Game is not BGII (skipping).~
+
+// 104_core.tph traified
+// ---------------------
+@104000 = ~Warning: install this *only* if using BGII's standard GUI.~
+
+/* DEPRECATED as of v4.2.0:
+Variables now set in 1pp-config-default.ini or 1pp-config-user.ini
+
+1pp_gui_soa
+@104001 = ~Do you want to include SoA style loading screens for ToB?
+
+1. Yes please.
+2. Keep loading screens unchanged.
+
+PLEASE ENTER 1 OR 2~
+
+1pp_updated_fonts
+@104002 = ~Install updated fonts? (may cause issues with languages using different font .BAMs)
+
+1. Yes please.
+2. Keep fonts unchanged.
+
+PLEASE ENTER 1 OR 2~
+
+1pp_mixed_labels
+@104003 = ~Use mixed case labels?
+
+1. Yes please.
+2. No thank you.
+
+PLEASE ENTER 1 OR 2~ */
+
+
+/* ============================================ *
+ *                 Avatar fixes                 *
+ * ============================================ */
+@105   = ~1ppv4: Avatar fixes~
+@105000 = ~The End.~
+
+
+/* ============================================ *
+ *                Female Dwarves                *
+ * ============================================ */
+@1060   = ~1ppv4: Female Dwarves~
+@106    = ~Separate Avatars for Female Dwarves - Baldur's Gate II~
+@107    = ~Separate Avatars for Female Dwarves - Icewind Dale II~
+@108    = ~Separate Avatars for Female Dwarves - Icewind Dale II EU~
+@109    = ~Separate Avatars for Female Dwarves - Icewind Dale I HoW~
+
+// 106_f_dwarves_bg2 traified
+// --------------------------
+@106000 = ~Error: the value we are trying to replace at offset %actual_off% (%cur_val%) in bgmain does not match what was expected (%old_val%). Stopping installation for safety purposes.~
+@106001 = ~Could not patch bgmain successfully.~
+@106002 = ~Copying new files...~
+@106003 = ~Updating paperdolls...~
+
+// 109_f_dwarves_iwd.tph traified
+// ------------------------------
+@109000 = ~Icewind Dale v1.4.2 found (TotLM).~
+@109001 = ~Warning: Icewind Dale is not patched to 1.4.2. Trying 1.4.1...~
+@109002 = ~Icewind Dale v1.4.1 found (HoW only).~
+@109003 = ~Game is not v1.4.1.~
+@109004 = ~Type of executable is unknown. Make sure your game is patched to 1.4.1 (HoW) or 1.4.2 (TotLM).~
+
+
+/* ============================================ *
+ *                Thieves Galore                *
+ * ============================================ */
+@1100   = ~1ppv4: Thieves Galore~
+@110    = ~IWD HoW/TotLM - Unique Thief Avatars~
+@111    = ~BGII - Unique Thief Avatars~
+@112    = ~IWDII - Unique Thief Avatars~
+
+// 110_thieves_iwd.tph traified
+// ----------------------------
+@110000 = ~Installing paperdolls (IWD)...~
+@110001 = ~Creating T4 duplicates...~
+
+// 111_thieves_bg2.tph traified
+// ----------------------------
+@111000 = ~BGII SoA found (v23037).~
+@111001 = ~BGII ToB found (v26498).~
+@111002 = ~Type of executable is unknown. Make sure your game is patched to v26498 (ToB) or v23037 (SoA).~
+@111003 = ~Installing paperdolls (BGII)...~
+
+
+/* ============================================ *
+ *       Smart Avatar & Armour Switching        *
+ * ============================================ */
+@113    = ~1ppv4: Smart Avatar & Armour Switching~
+
+// 113_switch.tph traified
+// -----------------------
+@113000 = ~BGII detected.~
+@113001 = ~Installing : Improved Improved Galactygon's Avatar Switching.~
+@113002 = ~Installing avatar switching code and files.~
+@113003 = ~Patching armour and robes (BGII style).~
+@113004 = ~IWD HoW/TotLM detected.~
+@113005 = ~Installing: IWD Avatar Switching.~
+@113006 = ~Installing avatar switching files.~
+@113007 = ~Patching armour and robes (IWD style).~
+@113008 = ~IWDII detected.~
+@113009 = ~Installing: IWDII Avatar Switching.~
+@113010 = ~Copying .2da~
+@113011 = ~Patching armour and robes (IWDII style).~
+
+
+/* ============================================ *
+ *             Softer Spell Effects             *
+ * ============================================ */
+@114    = ~1ppv4: Softer Spell Effects~
+
+// 114_effects.tph traified
+// ------------------------
+@1140   = ~WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BGII in software rendering mode IS NOT A GOOD IDEA.~
+//@114001 = ~Aborted.~
+@114002 = ~Installing...~
+@114003 = ~Patching executable for alpha blended AoE projectiles...~
+@114004 = ~Could not patch bgmain successfully, installing only supported effects.~
+@114005 = ~Copying effects...~
+@114006 = ~Installing improved fire effects for ToB...~
+@114007 = ~%check_r% is not %value2% at %value1_0%~
+@114008 = ~Error: Executable does not seem to be ToB, skipping.~
+
+@114011 = ~Setting up projectiles...~
+
+/* DEPRECATED as of v4.2.0:
+
+Replaced by reading 3D Acceleration=1 in baldur.ini before running the component.
+@114000 = ~WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS NOT A GOOD IDEA.
+
+1. I understand and want to continue.
+2. Cancel installation.
+
+PLEASE ENTER 1 OR 2~
+
+Variables now set in 1pp-config-default.ini or 1pp-config-user.ini
+
+1pp_agannazar_scorcher
+@114009 = ~Install IWD-style Agannazar's Scorcher or alternate style?
+
+1. IWD style
+2. BGII alternate
+
+PLEASE ENTER 1 OR 2~
+
+1pp_dispel_magic_effect
+@114010 = ~Install less obtrusive dispel magic effect?
+
+1. Yes
+2. No (install improved stock effect instead)
+
+PLEASE ENTER 1 OR 2~ */
+
+
+/* ============================================ *
+ *             Core content patches             *
+ * ============================================ */
+@200    = ~1ppv4: Core content patches~
+@2001   = ~Installing 1ppv2 base (adjusted).~
+
+// 200_1ppv2_cut.tph traified
+// --------------------------
+@200001 = ~Copying...~
+@200003 = ~BW Herbs mod detected. Installing patches...~
+
+/* DEPRECATED as of v4.2.0:
+
+New setting set in 1pp-config-default.ini or 1pp-config-user.ini
+
+1pp_hammers_icons
+@200000 = ~HAMMERS INVENTORY ICONS
+This component overwrites the vanilla Runehammer icon and sets it to Borok's Fist +2, then assigns Borok's Fist's icon to Runehammer. Do you want to apply those changes? 'Standard' options marked with [default]
+
+1. Yes please. [default]
+2. No, assign the new icon to Borok's Fist, but keep the Runehammer icon for their respective hammers.
+
+PLEASE ENTER 1 OR 2~
+
+Variable now set in 1pp-config-default.ini or 1pp-config-user.ini
+
+1pp_potions_icons
+@200002 = ~Do you want to include updated potion graphics?
+
+1. Yes please.
+2. Heavens no -- *Everything* but Potions!
+
+PLEASE ENTER 1 OR 2~ */
+
+
+/* ============================================ *
+ *      Consistent spell and scroll icons       *
+ * ============================================ */
+@201    = ~1ppv4: Consistent spell and scroll icons~
+
+
+/* ============================================ *
+ *                 Spell tweaks                 *
+ * ============================================ */
+@202    = ~1ppv4: Spell tweaks~
+
+// 202_spelltweaks.tph traified
+// ----------------------------
+@202000 = ~Installing individualised armour effects...~
+@202001 = ~Installing PnP/IWD-style 'cause wounds' spells...~
+@202002 = ~Installing IWD-style icons for 'cause wound' spells...~
+@202003 = ~Installing new 'Cause Light Wounds' spell.~
+@202004 = ~Installing new 'Cause Medium Wounds' spell.~
+@202005 = ~Spell Revisions detected: patching 'Cause Light Wounds' spell.~
+@202006 = ~Spell Revisions detected: patching 'Cause Moderate Wounds' spell.~
+@202007 = ~Spell Revisions detected: patching 'Cause Serious Wounds' spell.~
+@202008 = ~Spell Revisions detected: patching 'Cause Critical Wounds' spell.~
+@202009 = ~Spell Revisions detected: patching 'Harm' spell.~
+
+/* DEPRECATED as of v4.2.0:
+Variables now set in 1pp-config-default.ini or 1pp-config-user.ini
+
+1pp_iwd_cause_wounds_icons
+@202002 = ~Do you want existing 'cause wound' spells to use IWD-style icons? (healing icon in red)
+
+1. Yes please.
+2. No, keep BG2 icons for existing spells.
+
+PLEASE ENTER 1 OR 2~
+
+Replaced the following setting with new code
+@202004 = ~WARNING: SPPR142/1342 (Cause Light Wounds, Cause Medium Wounds) seem to be already taken by a previously installed mod. Proceeding to install may cause issues.
+
+1. I understand and want to continue.
+2. Cancel installation.
+
+PLEASE ENTER 1 OR 2~*/
+
+
+/* ============================================ *
+ *       Restored flame sword animations        *
+ * ============================================ */
+@203    = ~1ppv4: Restored flame sword animations~
+
+// 203_fslong.tph traified
+// -----------------------
+@203000 = ~Installing flame long swords...~
+@203001 = ~Copying...~
+@203002 = ~Patching...~
+@203003 = ~Installing flame short swords...~
+@203004 = ~Installing flame sword mod item patches (if found).~
+@203005 = ~Restoring flame swords for BG1 animations...~
+
+
+/* ============================================ *
+ *           Colourable Quarterstaves           *
+ * ============================================ */
+@204    = ~1ppv4: Colourable Quarterstaves~
+
+// 204_qsbase.tph traified
+// ------------------------
+@204000 = ~Installing Colourable Quarterstaves core~
+@204001 = ~Copying...~
+@204002 = ~Installing core item patches~
+@204003 = ~Patching...~
+@204004 = ~Installing mod item patches (if found).~
+
+
+/* ============================================ *
+ *                Legacy Shields                *
+ * ============================================ */
+@205    = ~1ppv4: Legacy Shields~
+
+// 205_s_legacy.tph traified
+// ------------------------
+@205000 = ~Copying v2 D1...~
+@205001 = ~Patching D1 shields...~
+@205002 = ~Copying v2 D2...~
+@205003 = ~Copying v2 D3...~
+@205004 = ~Copying v2 D4...~
+
+
+/* ============================================ *
+ *     Additional Shield Animations (core)      *
+ * ============================================ */
+@206    = ~1ppv4: Additional Shield Animations (core)~
+
+// 206_v4_shields.tph traified
+// ---------------------------
+@206000 = ~Copying files...~
+@206001 = ~Expanding C13...~
+@206002 = ~Building BG1 animation compatibility...~
+@206003 = ~Installing paperdoll images...~
+
+
+/* ============================================ *
+ *            Wizards' Staves (core)            *
+ * ============================================ */
+@207    = ~1ppv4: Wizards' Staves (core)~
+
+// 207_v4_staves.tph traified
+// --------------------------
+@207000 = ~Copying files...~
+@207001 = ~Building BG1 animation compatibility...~
+@207002 = ~Installing paperdoll images...~
+
+
+/* ============================================ *
+ *      Additional Helmet Animations (core      *
+ * ============================================ */
+@208    = ~1ppv4: Additional Helmet Animations (core)~
+
+// 208_v4_helmets.tph traified
+// ---------------------------
+@208000 = ~Copying files...~
+@208001 = ~Building BG1 animation compatibility...~
+@208002 = ~Padding H6 for BGII...~
+@208003 = ~Installing paperdoll images...~
+
+
+/* ============================================ *
+ *           Attachable wings (core)            *
+ * ============================================ */
+@209    = ~1ppv4: Attachable wings (core)~
+
+// 209_v4_wings.tph traified
+// -------------------------
+@209000 = ~Copying...~
+@209001 = ~Installing test items...~
+@209002 = ~Building crash protection for BG1 animations and non-elves...~
+
+
+/* ============================================ *
+ *  Increased paperdoll object variety (core)   *
+ * ============================================ */
+@210    = ~1ppv4: Increased paperdoll object variety (core)~
+@2100   = ~Game does not have paperdolls (skipping).~
+
+// 210_v4_ppd_variety.tph traified
+// -------------------------------
+@210000 = ~Creating mirror animations...~
+@210001 = ~Patching creatures for weapon overlays.~
+@210002 = ~Patching cre files.~
+
+
+/* ============================================ *
+ *         Core updates and item patches        *
+ * ============================================ */
+@400    = ~1ppv4: Core updates and item patches~
+@4000   = ~Installing 1ppv4 for BGII.~
+@4001   = ~Installing 1ppv4 for IWD.~
+
+// 400_1pp_update_bgii.tph traified
+// --------------------------------
+@400001 = ~Copying resources...~
+@400002 = ~Patching & expanding base icon references...~
+@400003 = ~Placing items...~
+
+@400011 = ~Installing shadow shields on paperdolls...~
+@400012 = ~Patching shields...~
+@400013 = ~Switching shields to Baldur's Gate I style by exchange...~
+@400014 = ~Installing new shields...~
+@400015 = ~Patching mod items (if found)...~
+
+@400021 = ~Installing shadow helmets on paperdolls...~
+@400022 = ~Installing helmet compatibility (Updated Baldur's Gate II style)...~
+@400023 = ~Installing helmet compatibility (Based on Baldur's Gate I style)...~
+@400024 = ~Patching helmets (1ppv4 style)...~
+@400025 = ~Patching Tutu helmets...~
+@400026 = ~Patching helmets (Faux Baldur's Gate I style - use BG1 icons but not animations)...~
+@400027 = ~Patching helmets (Baldur's Gate II style)...~
+@400028 = ~Installing and patching circlets...~
+
+@400031 = ~Patching gems...~
+@400032 = ~Patching miscellaneous items...~
+
+@400041 = ~Patching slings...~
+@400042 = ~Patching crossbows...~
+
+@400045 = ~Patching axes...~
+@400046 = ~Patching daggers...~
+@400047 = ~Patching hammers...~
+@400048 = ~Patching spears...~
+@400049 = ~Patching halberds...~
+
+@400051 = ~Patching swords...~
+@400052 = ~Installing new swords...~
+@400053 = ~Patching blunt weapons...~
+@400054 = ~Patching bows...~
+@400055 = ~Patching staves...~
+@400056 = ~Installing new staves...~
+
+@400061 = ~Patching leather armors...~
+@400062 = ~Patching chain and splint mail armors...~
+@400063 = ~Patching cloaks...~
+@400064 = ~Patching plate mails...~
+@400065 = ~Patching specific tutu armors...~
+@400066 = ~Patching armors (1ppv4 style)...~
+@400067 = ~Patching armors (Baldur's Gate I style)...~
+@400068 = ~Patching armors (Baldur's Gate II style)...~
+
+@400071 = ~Scattering available extra shields throughout game...~
+@400072 = ~Scattering available extra helms throughout game...~
+@400073 = ~Scattering available alternate armors throughout game...~
+@400074 = ~Scattering new items throughout game...~
+
+@400075 = ~Applying shield settings to Tutu/BG1 shields as well.
+(warning: replaces Tutu's default shields)...~
+@400076 = ~Applying BGII helmet inventory icon choices to Tutu/BG1 helmets as well.
+(warning: replaces Tutu's default helmets)...~
+
+// 400_1pp_update_iwd.tph traified
+// -------------------------------
+@400081 = ~Patching content related to additional shield animations component...~
+@400082 = ~Installing helmet compatibility...~
+@400083 = ~Patching content related to additional helmet animations component...~
+@400084 = ~Patching content related to "Increased paperdoll object variety"...~
+@400085 = ~Patching ammunitions...~
+@400086 = ~Installing scimitar animations and patching items...~
+
+
+/* DEPRECATED as of v4.2.0:
+
+Useless
+@400000 = ~WARNING: What this component installs/offers to install depends on what other components are installed (e.g. it can only make use of additional object animations if they are available). If you have not yet installed a previous component of this mod that you would like to, now is the time.
+
+1. I understand and want to continue.
+2. Cancel installation for now.
+
+PLEASE ENTER 1 OR 2~
+@400001 = ~Aborted.~
+
+Variables now set in 1pp-config-default.ini or 1pp-config-user.ini:
+
+@400003 = ~NOTE: As 1ppv4 is rather huge, it makes sense to include some options to pick from the material. This is going to happen in a number of plain text questions (such as this one), but if you like you can skip the whole process and just go with a 'standard install' if you'd like to call it that.
+
+1. Yes, I want to carefully decide how I want things to look and work.
+2. Just install already!
+
+PLEASE ENTER 1 OR 2~
+
+@400004 = ~SETTING 1: SHIELD APPEARANCE
+This sets the standard appearance of shields in the game in the sense that these will be the ones you mostly find in stores, etc. Does not necessarily affect magical items or prevent you from finding other items. 'Standard' options marked with [default]
+
+1. 1ppv4-Baldur's Gate II style [default]
+2. Baldur's Gate I style
+3. Faux Baldur's Gate I style (use BG1 icons but not animations)
+4. Skip this part of the install
+
+PLEASE ENTER 1, 2, 3 OR 4~
+
+@400005 = ~SETTING 1B: SCATTER SHIELDS THROUGHOUT GAME
+This determines whether the available extra shields are scattered throughout the game world (in the form of new items, random finds, etc.) for you to find or not. 'Standard' option marked with [default]
+
+1. Yes [default]
+2. No
+
+PLEASE ENTER 1 OR 2~
+
+@400006 = ~SETTING 2: HELMET APPEARANCE
+This sets the standard appearance of helmets in the game in the sense that these will be the ones you mostly find in stores, etc. Does not necessarily affect magical items or prevent you from finding other items. 'Standard' options marked with [default]
+
+1. 1ppv4 style [default]
+2. Faux Baldur's Gate I style (use BG1 icons but not animations)
+3. Baldur's Gate II style
+4. Skip this part of the install
+
+PLEASE ENTER 1, 2, 3 OR 4~
+
+@400007 = ~SETTING 2B: SCATTER HELMETS THROUGHOUT GAME
+This determines whether the available extra helmets are scattered throughout the game world (in the form of new items, random finds, etc.) for you to find or not. 'Standard' option marked with [default]
+
+1. Yes [default]
+2. No
+
+PLEASE ENTER 1 OR 2~
+
+@400008 = ~SETTING 2C: HELMET COMPATIBILITY
+This is mainly for unsupported third party mods and determines the animation these will use. 'Standard' options marked with [default]
+
+1. updated Baldur's Gate II style [default]
+2. based on Baldur's Gate I style
+3. Skip this part of the install
+
+PLEASE ENTER 1, 2 OR 3~
+
+@400009 = ~SETTING 3: ARMOUR ITEM ICONS
+This sets the standard appearance of armour inventory icons in the game. Does not necessarily affect magical items or prevent you from finding other items. 'Standard' options marked with [default]
+
+1. 1ppv4 style [default]
+2. Baldur's Gate I style
+3. Baldur's Gate II style
+4. Skip this part of the install
+
+PLEASE ENTER 1, 2, 3 OR 4~
+
+@400010 = ~SETTING 3B: SCATTER ARMOUR THROUGHOUT GAME
+This determines whether the available alternates are scattered throughout the game world (in the form of new items, random finds, etc.) for you to find or not. 'Standard' option marked with [default]
+
+1. Yes [default]
+2. No
+
+PLEASE ENTER 1 OR 2~
+
+@400011 = ~SETTING 4: FORCED ITEM COLOURS
+This determines which item colours are set/uneditable for equipped items. By default, magical items have set item colours while non-magical shields/helmets do not (allowing you to customise them via your clothing colour).
+
+1. Yes for magical items/No for non-magical items [default]
+2. Yes for both magical and non-magical items
+3. Yes for both magical and non-magical items, but exclude BG1 legacy shields
+4. No for either magical nor non-magical items
+
+PLEASE ENTER 1, 2, 3 OR 4~
+
+@400012 = ~SETTING 5A: PAPERDOLL SHADOWS (SHIELDS)
+Traditionally, equipped objects do not render shadows on paperdolls. Enable this option if you want shields to cast shadows on paperdolls.
+
+1. No
+2. Yes [default]
+
+PLEASE ENTER 1 OR 2~
+
+@400013 = ~SETTING 5B: PAPERDOLL SHADOWS (HELMETS)
+Traditionally, equipped objects do not render shadows on paperdolls. Enable this option if you want helmets to cast shadows on paperdolls.
+
+1. No
+2. Yes [default]
+
+PLEASE ENTER 1 OR 2~
+
+@400016 = ~Do you want gems to require some lore to identify?
+
+1. Yes please.
+2. No thank you.
+
+PLEASE ENTER 1 OR 2~
+
+@400019 = ~Do you want your shield setting to apply to Tutu/BG1 shields as well (warning: replaces Tutu's default shields)?
+
+1. No, thank you. [default]
+2. Yes please.
+
+PLEASE ENTER 1 OR 2~
+
+@400020 = ~Do you want your BG2 helmet inventory icon choices to apply to Tutu/BG1 helmets as well (warning: replaces Tutu's default helmets)?
+
+1. No, thank you. [default]
+2. Yes please.
+
+PLEASE ENTER 1 OR 2~
+
+// New setting
+@400021 = ~Do you want to turn the morningstar +2 The Sleeper into a flail? 'Standard' options marked with [default]
+
+1. Yes please. [default]
+2. No, but install the alternate flail icon IBLUN16B as a new resource for modders.
+
+PLEASE ENTER 1 OR 2~
+
+@401000 = ~SETTING 1: ITEM COLOURS FOR NON-MAGICAL ITEMS
+This determines whether item colours are set for common, non magical shields/helmets. By default, these remain unset so the player can choose their own (matching their clothing colour). By enabling this option, item colours are set for all items.
+
+1. No [default]
+2. Yes
+
+PLEASE ENTER 1 OR 2~*/
+
+
+/* ============================================ *
+ *         Improved projectile effects          *
+ * ============================================ */
+@401    = ~1ppv4: Improved projectile effects~
+@4010   = ~Installing improved projectiles for BGII.~
+
+// 401_projectiles.tph traified
+@401001 = ~Installing arrow projectiles and patching items...~
+@401002 = ~Installing axe projectiles and patching items...~
+@401003 = ~Installing bolt projectiles and patching items...~
+@401004 = ~Installing bullet projectiles and patching items...~
+@401005 = ~Installing dagger projectiles and patching items...~
+@401006 = ~Installing dart projectiles and patching items...~
+@401007 = ~Installing javelins...~
+@401008 = ~Patching vanilla spells and items with 1pp new projectiles...~
+
+
+/* ============================================ *
+ *  Fixed animations for solars and elementals  *
+ * ============================================ */
+@300   = ~1ppv4: Fixed animations for solars and elementals~
+@3000  = ~Game is not ToB-based (skipping).~
+//@12     = ~This component is only available for games based on BG2 engine (skipping).~
+
+// 300_solar_fix.tph traified
+@300000 = ~Installing solars and elementals animations patch for Win/nix...~
+@300001 = ~Error: the source size does not seem to match. Stopping installation for safety purposes.~
+@300002 = ~Could not patch executable successfully.~
+@300003 = ~Error: Executable does not appear to be compatible.~
+@300004 = ~Sorry! This component currently does not support OSX.~
+@300006 = ~Installing files for solars with new weapons appearance (solid object with glow)...~
+@300007 = ~Installing files for solars with same weapons appearance as in BGII (blurry bright glow all over)...~
+@300008 = ~Game does not appear to have content for solar animations. Skipping.~
+@300009 = ~Installing files for elementals...~
+
+/* DEPRECATED ad of v4.2.0:
+Variable now set in 1pp-config-default.ini or 1pp-config-user.ini
+
+@300005 = ~There are two choices for the appearance of weapons wielded by solars. Please pick your preference:
+
+1. New appearance (solid object with glow)
+2. As in BGII vanilla (blurry bright glow all over)
+
+PLEASE ENTER 1 OR 2~ */
+
+
+/* ============================================ *
+ *         Miscellaneous content fixes          *
+ * ============================================ */
+@301   = ~1ppv4: Miscellaneous content fixes~
+
+// 301_misc_fixes.tph traified
+@301000 = ~Fixing BGII engine helmet glitch - check.~
+@301001 = ~Error: could not determine which version of BGII you are using. Please double check that you installed the v26498 patch (if you have ToB) or the v24037 patch (if you have SoA only).~
+@301002 = ~Could not patch bgmain successfully, skipping.~
+@301003 = ~Fixing BGII engine helmet glitch (IWD) - check.~
+@301004 = ~Error: could not determine which version of IWD you are using. Please double check that you installed TotLM (v1.4.2).~
+@301005 = ~Could not patch idmain successfully, skipping.~
+@301006 = ~Fixing BGII shield animation z-buffer glitch - check.~
+@301007 = ~Fixing BGII shield animation z-buffer glitch (IWD) - check.~
+@301008 = ~Fixing BGII shield animation z-buffer glitch (IWD2) - check.~
+@301009 = ~Error: could not determine which version of IWD2 you are using. Please double check that you patched IWD2 to v2.0.l.~
+@301010 = ~Could not patch iwd2 successfully, skipping.~
+@301011 = ~Fixing palettes for dog animations.~
+@301012 = ~Fixing sitting static peasant woman animation.~
+@301013 = ~Fixing alternate fire giant palette/animation.~

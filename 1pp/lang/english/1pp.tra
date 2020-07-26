@@ -1,0 +1,1019 @@
+/* ============================================ *
+ *                Core paperdolls               *
+ * ============================================ */
+/* ============================================ *
+ *           Extended palette entries           *
+ * ============================================ */
+/* ============================================ *
+ *            GUI additions for BGII            *
+ * ============================================ */
+/* ============================================ *
+ *                 Avatar fixes                 *
+ * ============================================ */
+/* ============================================ *
+ *                Female Dwarves                *
+ * ============================================ */
+/* ============================================ *
+ *                Thieves Galore                *
+ * ============================================ */
+/* ============================================ *
+ *       Smart Avatar & Armour Switching        *
+ * ============================================ */
+/* ============================================ *
+ *             Softer Spell Effects             *
+ * ============================================ */
+/* ============================================ *
+ *             Core content patches             *
+ * ============================================ */
+/* ============================================ *
+ *      Consistent spell and scroll icons       *
+ * ============================================ */
+
+/* ============================================ *
+ *                 Spell tweaks                 *
+ * ============================================ */
+// 202_spelltweaks.tph traified
+@202101 = ~Cause Serious Wounds
+(Necromancy)
+
+Level: 4
+Sphere: Healing
+Range: Touch
+Duration: Permanent
+Casting Time: 7
+Area of Effect: Creature touched
+Saving Throw: 1/2
+
+This spell is the reverse of cure serious wounds. Instead of healing the creature touched, it causes damage. On a successful touch from the priest, the spell inflicts 17 damage upon the target. A successful saving throw against spells halves the damage.~
+
+@202102 = ~Cause Critical Wounds
+(Necromancy)
+
+Level: 5
+Sphere: Healing
+Range: Touch
+Duration: Permanent
+Casting Time: 8
+Area of Effect: Creature touched
+Saving Throw: 1/2
+
+This spell is the reverse of cure critical wounds. Instead of healing the creature touched, it causes damage. On a successful touch from the priest, the spell inflicts 27 damage upon the target. A successful saving throw against spells halves the damage.~
+
+@202103 = ~Harm
+(Necromancy)
+
+Level: 6
+Sphere: Healing
+Range: Touch
+Duration: Permanent
+Casting Time: 1 round
+Area of Effect: Creature touched
+Saving Throw: Special
+
+This spell is the reverse of Heal. Instead of healing the creature touched, it causes damage. On a successful touch from the priest, the target will suffer 1d6 points of damage per level of the caster, up to a maximum of 15d6 points of damage at 15th level. If the target fails its saving throw, its remaining hit points will be reduced to 1.~
+
+@202104 = ~Cause Light Wounds~
+@202105 = ~Cause Light Wounds
+(Necromancy)
+
+Level: 1
+Sphere: Healing
+Range: Touch
+Duration: Permanent
+Casting Time: 5
+Area of Effect: Creature touched
+Saving Throw: 1/2
+
+This spell is the reverse of cure light wounds. Instead of healing the creature touched, it causes damage. On a successful touch from the priest, the spell inflicts 8 damage upon the target. A successful saving throw against spells halves the damage.~
+
+@202106 = ~Cause Medium Wounds~
+@202107 = ~Cause Medium Wounds
+(Necromancy)
+
+Level: 3
+Sphere: Healing
+Range: Touch
+Duration: Permanent
+Casting Time: 5
+Area of Effect: Creature touched
+Saving Throw: 1/2
+
+This spell is the reverse of cure medium wounds. Instead of healing the creature touched, it causes damage. On a successful touch from the priest, the spell inflicts 13 damage upon the target. A successful saving throw against spells halves the damage.~
+
+/* ============================================ *
+ *       Restored flame sword animations        *
+ * ============================================ */
+// 203_fslong.tph traified
+@203101 = ~Wrath of Akadia~
+@203102 = ~Wrath of Akadia
+Chloe growls at you when you try to look at her weapon, but reluctantly agrees to tell you what it does:
+
+STATISTICS:
+
+Charge abilities:
+- Blur once per day
+
+Equipped abilities:
+- Immunity to blindness
+
+THACO: +3
+Damage: 1d8+3, +1d2 electrical damage
+Damage type: slashing
+Speed Factor: 3
+Proficiency Type: Scimitar
+Type: One-handed
+
+Weight: 4
+
+Usable only by :
+ Chloe~
+
+@203103 = ~Rage of Akadia~
+@203104 = ~Rage of Akadia
+Chloe growls at you when you try to look at her weapon, but reluctantly agrees to tell you what it does:
+
+STATISTICS:
+
+Charge abilities:
+- Blur three times per day
+- Improved Haste once per day
+
+Equipped abilities:
+- Immunity to blindness and confusion
+
+Combat abilities:
+- 10% chance each hit that target will be stunned
+
+THACO: +3
+Damage: 1d8+4, +1d4 electrical damage
+Damage type: slashing
+Speed Factor: 2
+Proficiency Type: Scimitar
+Type: One-handed
+
+Weight: 4
+
+Usable only by :
+ Chloe~
+
+@203105 = ~Fury of Akadia~
+@203106 = ~Fury of Akadia
+Chloe growls at you when you try to look at her weapon, but reluctantly agrees to tell you what it does:
+
+STATISTICS:
+
+Charge abilities:
+- Blur three times per day
+- Improved Haste three times per day
+
+Equipped abilities:
+- Immunity to blindness, confusion and hold
+
+Combat abilities:
+- 10% chance each hit that target will be stunned and electroshocked (1d12 damage)
+
+THACO: +6
+Damage: 1d8+6, +1d6 electrical damage
+Damage type: slashing
+Speed Factor: 1
+Proficiency Type: Scimitar
+Type: One-handed
+
+Weight: 4
+
+Usable only by :
+ Chloe~
+
+@203107 = ~Lathandar's Flame~
+@203108 = ~Lathandar's Flame
+Chloe growls at you when you try to look at her weapon, but reluctantly agrees to tell you what it does:
+
+STATISTICS:
+
+Charge abilities:
+- Flame Arrow once per day
+- Protection from the Negative Plane once per day
+
+Equipped abilities:
+- Fire Resistance: +25%
+
+THACO: +2
+Damage: 1d6+2, +1d2 fire damage
+Damage type: piercing
+Speed Factor: 2
+Proficiency Type: Short sword
+Type: One-handed
+
+Weight: 4
+
+Usable only by :
+ Chloe~
+
+@203109 = ~Lathandar's Blaze~
+@203110 = ~Lathandar's Blaze
+Chloe growls at you when you try to look at her weapon, but reluctantly agrees to tell you what it does:
+
+STATISTICS:
+
+Charge abilities:
+- Flame strike once per day
+
+Equipped abilities:
+- Negative Plane Protection
+- Fire Resistance: +50%
+
+Combat abilities:
+- 10% chance each hit of blinding the target
+
+THACO: +3
+Damage: 1d6+3, +1d4 fire damage
+Damage type: piercing
+Speed Factor: 1
+Proficiency Type: Short sword
+Type: One-handed
+
+Weight: 4
+
+Usable only by :
+ Chloe~
+
+@203111 = ~Lathandar's Inferno~
+@203112 = ~Lathandar's Inferno
+Chloe growls at you when you try to look at her weapon, but reluctantly agrees to tell you what it does:
+
+STATISTICS:
+
+Charge abilities:
+- False Dawn once per day
+- Sunray once per day
+
+Equipped abilities:
+- Negative Plane Protection
+- Fire Resistance: 100%
+- Luck
+
+Combat abilities:
+- 10% chance each hit of blinding the target and doing an extra 1d12 points fire damage
+
+THACO: +5
+Damage: 1d6+5, +1d6 fire damage
+Damage type: piercing
+Speed Factor: 0
+Proficiency Type: Short sword
+Type: One-handed
+
+Weight: 4
+
+Usable only by :
+ Chloe~
+
+/* ============================================ *
+ *           Colourable Quarterstaves           *
+ * ============================================ */
+/* ============================================ *
+ *                Legacy Shields                *
+ * ============================================ */
+/* ============================================ *
+ *     Additional Shield Animations (core)      *
+ * ============================================ */
+/* ============================================ *
+ *            Wizards' Staves (core)            *
+ * ============================================ */
+/* ============================================ *
+ *      Additional Helmet Animations (core      *
+ * ============================================ */
+
+/* ============================================ *
+ *           Attachable wings (core)            *
+ * ============================================ */
+// 209_v4_wings.tph traified
+@209101 = ~Wings~
+@209102 = ~These soft and feathered wings seem to be fashioned in a celestial design. Upon closer inspection they turn out to be dummies worn on two satin ribbons attached to their base. Though not radiating a noticeable magical aura, the wings do seem to move with their bearer in a way that defies their supposed mechanism.
+
+STATISTICS:
+
+Type: Wings
+Requires:
+ Wearer must be an elf
+
+Weight: 2~ // Gwen fix: uses BGEE #27583 strref for better 1pp, Infinity Animations and EE compatibility.
+
+/* ============================================ *
+ *  Increased paperdoll object variety (core)   *
+ * ============================================ */
+
+/* ============================================ *
+ *         Core updates and item patches        *
+ * ============================================ */
+
+/* ----------------------------- *
+ *  400_update_bgii_shields.tpa  *
+ * ----------------------------- */
+@400501 = ~Wall of the North +2~
+@400502 = ~Legend has it that this shield was carved from The Great Glacier by a mischievous spirit and found floating down the Icelace River. Whether true or not, it is easily apparent how such legends may have been conceived. The highly enchanted tower shield is extremely cold to the touch and resists any attempt to warm it. Its defensive properties are such that comparisons to the impenetrable wall of the glacier certainly seem apt.
+
+STATISTICS:
+
+Equipped abilities:
+- Armor Class: +3, +5 vs missiles
+- Slashing and Piercing Resistance: +15%
+- Fire Resistance: +70%
+- Cold Resistance: -20%
+
+Weight: 3
+Requires:
+ 15 Strength
+
+Not usable by:
+ Bard
+ Druid
+ Mage
+ Thief
+ Monk
+ Kensai~
+
+@400503 = ~Polished Shield +1~
+@400504 = ~This shield is part of a set that was originally forged in Waterdeep to deal with a group of medusas which had taken residence in an ancient temple. Apart from being somewhat more protective than a regular shield through its enchantments, it also shields the user from most gaze attacks and some spells, reflecting them back upon the caster.
+
+STATISTICS:
+
+Equipped abilities:
+- Armor Class: +2
+- Gaze reflection
+
+Weight: 3
+Requires:
+ 4 Strength
+
+Not usable by:
+ Bard
+ Druid
+ Mage
+ Thief
+ Monk
+ Kensai~
+
+@400505 = ~Font of Virtue +2~
+@400506 = ~Once the shield of a powerful priest of Oghma, this shield imbues the wearer with an aura of patience and a sixth sense for waiting for the right time to strike, allowing them to weather and deflect incoming blows with surprising ease. While designed to protect in combat, the aura of the enchantment extends beyond the confines of battle itself, evoking a deeper sense of perception and measured understanding.
+
+STATISTICS:
+
+Equipped abilities:
+- Armor Class: +3
+- Wisdom: +1
+
+Weight: 5
+Requires:
+ 12 Strength
+
+Not usable by:
+ Bard
+ Druid
+ Mage
+ Thief
+ Monk
+ Kensai~
+
+@400507 = ~Tahcaluss +3~
+@400508 = ~This highly enchanted shield of Drow origin protects the wielder better than even some full sets of armour could. Enemy blows are led astray and even the heaviest strikes seem to glance off the glistening shield harmlessly. This protection comes at a cost, however, as the shield drains the user's life energy, leading to fatigue and harming the wielder over time.
+
+STATISTICS:
+
+Equipped abilities:
+- Armor Class: +4
+- Drains life over time
+
+Weight: 5
+Requires:
+ 12 Strength
+
+Not usable by:
+ Bard
+ Druid
+ Mage
+ Thief
+ Monk
+ Kensai~
+
+@400509 = ~Gorm's Arm +3~ // strref #27584 (BGEE)
+@400510 = ~This large shield of dwarven darksteel provides more protection than most suits of armor. It was forged and enchanted with one goal, and one goal only: to keep the wielder protected in combat. What might seem a redundant point to make becomes clear when one looks at the sacrifices that have been made towards this aim. Far heavier than most shields of its size and imbued with an antimagical aura, it is somewhat cumbersome to use in battle, and casting with it in hand is virtually impossible.
+
+STATISTICS:
+
+Equipped abilities:
+- Magic Resistance: +50%
+- Disables spellcasting
+
+Armor Class: +5 (+6 vs. missiles)
+
+Weight: 20
+Requires:
+ 17 Strength
+
+Not usable by:
+ Bard
+ Druid
+ Mage
+ Thief
+ Moine
+ Kensai~ // strref #27585 (BGEE)
+/*Equipped abilities in BG:EE:
+– Armor Class: +5
+*/
+
+@400511 = ~Buckler +2~
+@400512 = ~This legendary buckler was the property of Kenstrel of Baldur's Gate. A trickster and member of the thieves' guild, it is said that he swindled it off a band of travelling adventurers, 'demonstrating' it to be cursed and an omen of bad luck that would follow them wherever they went. After the third time their inn was invaded by scores of hideous, badger-like creatures, causing significant damage to the establishment, along with other mishaps that began to plague their lives, they eventually agreed to hand it over for Kenstrel to rid it of its curse, which unsurprisingly was the last they ever saw of him.
+
+STATISTICS:
+
+Armor Class: +3, +4 vs missiles
+
+Weight: 2
+Requires:
+ 4 Strength
+
+Unusable by:
+ Mage
+ Monk
+ Kensai~
+
+@400513 = ~High Quality Large Shield~ // strref #27586 (BGEE)
+@400514 = ~The body shield, also known as the kite or tower shield, is a massive metal or wooden shield reaching nearly from the chin to the toe of the user. It must be firmly fastened to the forearm and the shield hand must firmly grip it at all times. Naturally, this precludes use of the shield hand for anything but holding the body shield in place. This tower shield is of particularly fine craftsmanship, allowing it to be lighter and less cumbersome to wield in combat.
+
+STATISTICS:
+
+Equipped abilities:
+- Armor Class: +1, +2 vs. missiles
+
+Weight: 10
+Requires:
+ 10 Strength
+
+Not usable by:
+ Bard
+ Druid
+ Mage
+ Thief
+ Moine
+ Kensai~ // strref #27587 (BGEE)
+
+@400515 = ~High Quality Medium Shield~ // strref #27588 (BGEE)
+@400516 = ~A medium shield is carried in the same manner as a small shield. Unlike the small shield, however, its weight prevents the character from using his shield hand for anything other than carrying the medium shield. Medium shields are usually made of metal, range from three to four feet in diameter, and can be of any shape, from round to square to a dragon's spread wings. This medium shield is of particularly refined craftsmanship, allowing it to be somewhat lighter and less cumbersome in battle.
+
+STATISTICS:
+
+Equipped abilities:
+- Armor Class: +1
+
+Weight: 4
+Requires:
+ 8 Strength
+
+Not usable by:
+ Bard
+ Druid
+ Mage
+ Thief
+ Moine
+ Kensai~ // strref #27589 (BGEE)
+
+@400517 = ~Corvyr's Blessing~ // strref #27590 (BGEE)
+@400518 = ~This shield was carried into battle by High Paladin Corvyr in an assault against a notorious undead fortress. Long after his comrades had fallen, for days he tore into their seemingly endless numbers before he was eventually overcome as well. As the tower was later cleared with the help of a certain magical cube, his shield was retrieved. A previously ordinary piece of equipment, it seems to have absorbed some of the resolve and determination of his final days.
+
+STATISTICS:
+
+Equipped abilities:
+- Armor Class: +1
+- Constitution +1
+- Save vs. Death: 150%
+
+Weight: 6
+Requires:
+ 12 Strength
+
+Not usable by:
+ Bard
+ Druid
+ Mage
+ Thief
+ Moine
+ Kensai~ // strref #27591 (BGEE)
+
+@400519 = ~Redshield +1, +4 vs. monstrous~ // strref #27592 (BGEE)
+@400520 = ~Little is known about this shield, other than the fact it was recovered from the Wealdath and seems to have been enchanted specifically to combat roving monsters. While its superior craftsmanship and enchantment by no means make it a bad piece of equipment in any given situation, its true power becomes evident only upon fighting the more monstrous inhabitants of Faerun.
+
+STATISTICS:
+
+Equipped abilities:
+- Armor Class: +2
+- THAC0 +1 and AC +4 vs. monstrous enemies
+
+Weight: 6
+Requires:
+ 12 Strength
+
+Not usable by:
+ Bard
+ Druid
+ Mage
+ Thief
+ Moine
+ Kensai~ // strref #27593 (BGEE)
+
+@400521 = ~Sartessa's Vengeance +1~ // strref #27594 (BGEE)
+@400522 = ~This was the personal shield of Sartessa, a half-elven Ranger of the Wood of Sharp Teeth. Called to a quest by divine intervention at a young age, she travelled the long way to Luskan seeking to restore peace to the Sword Coast in troubled times. Betrayed near the end of her journey by her long time companion and forced to slay him in self-defence, she forged this shield, imbued with her grim determination to complete her quest despite knowing that alone, such attempt would likely end in death. Powerful enchantments were placed on this shield to stop it from falling into the wrong hands, and although they have faded somewhat with time, it would be foolhardy of anyone to try and wield it that does not resemble her both in spirit and body.
+
+STATISTICS:
+
+Equipped abilities:
+- Armor Class: +2, +2 vs. missiles, humanoids, male opponents and charmed or controlled creatures
+- Aura cleansing
+- Immunity to Backstab
+- Immunity to permanent death
+- Improved critical hit chance
+
+Weight: 5
+Requires:
+ 3 Strength
+ 12 Charisma
+
+Only usable by:
+ Ranger
+ Elf
+ Neutral or Chaotic Good~ // strref #27595 (BGEE)
+
+@400523 = ~Tarloc's Contingency +1~ // strref #27596 (BGEE)
+@400524 = ~Some say a positive mindset is key to victory. The creator of this shield, a dark elven sorcerer in life and feared lich in undeath clearly had a different idea. Considering the comparative weakness of those concerned with the arcane arts and lack of suitable armour unacceptable, he set out to create the perfect piece of equipment if worst came to worst - a likely scenario for a mage stuck in close range combat. Ever since, the powerful enchantments on this shield have frequently saved the lives of countless of owners in a pinch or allowed them to escape by the skin of their teeth, equally frequently at the cost of sacrificing their travelling companions.
+
+STATISTICS:
+
+Equipped abilities:
+- Armor Class: +2
+- Casts Fireshield (Blue) on user in combat
+- 20% chance to recover spells when seriously injured
+- 5% chance to gain invisibility when hit
+- Encases user in Otiluke's Resilient Sphere if critically wounded or rendered helpless
+
+Weight: 6
+Requires:
+ 10 Strength
+
+Only usable by:
+ Mage~ // strref #27597 (BGEE)
+
+@400525 = ~Shield of Devotion +1~ // strref #27598 (BGEE)
+@400526 = ~This shield can be traced to a line of paladins of Velen, who carried shields like this one into battle on mounted expeditions to the Nelanther Isles under the blessing of Torm. Celebrated in lore for their memorable armour as the Red Riders their ceaseless dedication and resilience was a vital force in establishing peace to the region. Although long since dispersed, their legacy is highly sought after as traces of their original blessing still infuse these sets of armour, granting the wearer divine favour and increased stamina.
+
+STATISTICS:
+
+Equipped abilities:
+- Armor Class: +2
+- Hit Points: +10%
+- Grants an additional spell for spell levels 1-3
+
+Weight: 6
+Requires:
+ 10 Strength
+
+Only usable by:
+ Paladin
+ Cleric~ // strref #27599 (BGEE)
+
+/* ----------------------------- *
+ *  400_update_bgii_helmets.tpa  *
+ * ----------------------------- */
+@400601 = ~Circlet~ // strref #27600 (BGEE)
+@400602 = ~Silver Circlet~ // strref #27601 (BGEE)
+@400603 = ~A circlet is a circular band, typically made of precious metal, worn on the head as an ornament or symbol of status. Circlets carrying low-level enchantments are commonly worn by mages across Faerun.
+
+Weight: 1~ // strref #27602 (BGEE)
+@400604 = ~A circlet is a circular band, typically made of precious metal, worn on the head as an ornament or symbol of status. This silver circlet is enchanted to bring the wearer luck in battle, slightly improving the chance of successful Saving Throws.
+
+STATISTICS:
+
+Equipped abilities:
+- Saving Throws: +1
+
+Weight: 1~ // strref #27603 (BGEE)
+
+@400605 = ~Eilistraee's Boon +1~ // strref #27604 (BGEE)
+@400606 = ~This circlet is made of the purest silver, and embedded with a green and shimmering jewel that seems to emit a faint glow when caught by moonlight. It was blessed by the Drow goddess Eilistraee, granting the wearer increased protection against harmful magic.
+
+STATISTICS:
+
+Equipped abilities:
+- Saving Throws: +1
+- Magic damage Resistance: +10%
+
+Weight: 1~ // strref #27605 (BGEE)
+
+@400607 = ~Circlet of the Archmagi~ // strref #27606 (BGEE)
+@400608 = ~This powerful circlet was enchanted to complement the robes customarily worn by arch mages, building even further on their magical protection and benefits. Due to the nature of the enchantment, it can only be worn by mages.
+
+STATISTICS:
+
+Equipped abilities:
+- Armor Class: +1
+- Saving Throws: +1
+- Intelligence: +1
++1 to armour class
+
+Weight: 1
+
+Only usable by:
+ Mage~ // strref #27607 (BGEE)
+
+/* ------------------------ *
+ *  400_update_gemlore.tpa  *
+ * ------------------------ */
+@400701 = ~This looks to be a gemstone of some sort. You are sure it could fetch a nice sum if you knew its value and origin, but as it is you might as well try to sell a lump of glass.~
+
+/* -------------------------- *
+ *  400_update_bgii_misc.tpa  *
+ * -------------------------- */
+@400801 = ~Water's Edge +3~ // strref #94451 (BG2EE)
+
+/* ---------------------------- *
+ *  400_update_bgii_swords.tpa  *
+ * ---------------------------- */
+@400802 = ~Viper's Edge +2~ // strref #27609 (BGEE)
+@400803 = ~This immensely powerful relic is just as strongly enchanted as it is cursed. Its blade shimmers in a slick, intoxicating tinge of green, likely literally as well as metaphorically. The sword's grip and hilt are lined by curved thorns which make it hard to see how this weapon could be effectively wielded in battle. Judging by the dried crusts around them, many have still tried, and you cannot deny feeling a tempting curiosity on your part. Said to be originally the weapon of a medusa queen of a long forgotten age bestowed to whom by the gods of old themselves, the exact origins of this blade have been lost to time. Whatever its provenance, it has since travelled through many hands (albeit the majority not of the living persuasion). The common thread running through all these encounters was that their eventual end was rarely of a voluntary nature and nothing good ever came from them.
+
+STATISTICS:
+
+Cursed:
+- Constitution: -1 (permanent)
+- Maximum Hit Points: -10%
+- Intolerance to common healing potions
+- Chance of poisoning the user through contact
+- User may become prone to blood rage
+- May cause passing wild magic spikes in magic users
+
+Passive abilities:
+- Dexterity: +2
+- +1 attack per round
+- Improved Backstab damage
+- Temporary regeneration on critical health
+
+Active abilities:
+- Instantly annihilates weak undead
+- May petrify target on successful hit
+- May inflict knock back
+- May badly poison on successful hit
+- Poison may paralyse humanoid targets
+- Poison may overwhelm simpleminded creatures and temporarily make them pliable to suggestion
+
+THAC0: +2
+Damage: 1d8+2
+Damage type: slashing
+Speed Factor: 3
+Proficiency Type: Long Sword
+Type: One-handed
+Requires:
+ 6 Strength
+
+Weight: 3
+
+Not usable by:
+ Druid
+ Cleric
+ Mage
+ Beast Master~ // from strref #27610 (BGEE)
+/*Note: wrong Weight in BGEE: 4~*/
+
+/* --------------------------- *
+ *  400_update_bgii_blunt.tpa  *
+ * --------------------------- */
+@400804 = ~War Flail + 2: The Sleeper
+This belonged to Ssitalc, an uncharacteristically evil elf known as the Slaver of the Sword Coast. Until his sudden death several years ago, Ssitalc commanded a large force of human, dwarven and gnomish brigands, using the Sleeper to keep them in line. It has a chance to incapacitate any human, dwarf, gnome, or halfling by inducing deep slumber, though elves are conveniently immune.
+
+STATISTICS:
+
+Combat abilities:
+- Any human or demi-human, excluding elves, hit by the Sleeper must save vs. Poison with a +4 bonus or fall asleep for 18 seconds.
+
+THAC0: +2
+Damage: 1d6+2
+Damage type: crushing
+Speed Factor: 5
+Proficiency Type: Flail/Morningstar
+Type: One-handed
+Requires:
+ 13 Strength
+
+Weight: 9
+
+Not usable by:
+ Druid
+ Mage
+ Thief
+ Monk
+ Beast Master~ // from BG2 strref #39479
+
+/* ---------------------------- *
+ *  400_update_bgii_armors.tpa  *
+ * ---------------------------- */
+@400811 = ~The Practical Defense +3~ // strref #23974 (BGEE)
+@400812 = ~Plate Mail +3: 'The Practical Defense'
+The traveling adventurer could ask for no better a suit of armor in all the land. Specially commissioned by Bolhur "Thunderaxe" at GREAT expense, this suit was his most prized, even if not his most ornate. Eminently practical, Bolhur demanded armor that would offer superior protection while hampering him in the least. By "hampering" he did not just mean in movement or weight, though this suit is just over one-third the weight of normal plate mail: his ideal suit should also be able to withstand the rigors of his wanderings with little maintenance. This is not to say that Bolhur "Thunderaxe" neglected his armors (to say as such would get your ears boxed) but the regime of spit and polish required for a "gentleman's" suit was beyond his caring. Save the tassels and gilding of Full Plate for kings and heads of state; a working dwarf cares more for utility than looks.
+
+STATISTICS:
+
+Armor Class: 0 (-3 vs. slashing)
+Weight: 18
+Requires:
+ 12 Strength
+
+Not usable by:
+ Bard
+ Druid
+ Mage
+ Thief
+ Monk
+ Barbarian
+ Archer
+ Beast Master
+ Stalker
+ Kensai~ // strref #27611 (BGEE)
+
+@400813 = ~Werebane Mail +2~
+@400814 = ~Chain mail +2: 'Werebane'
+These magical sets of silver chain mail were commissioned and worn by a virtuous band of paladins who set out to rid the world of the blight of lycanthropy. The continued presence of lycanthropes in the realms and the appearance of these sets of armour in mercantile stocks suggests they were less than successful.
+
+STATISTICS:
+
+Armor Class: 3 (1 vs. slashing; 5 vs. crushing)
+Weight: 10
+Requires:
+ 8 Strength
+
+Not usable by:
+ Druid
+ Mage
+ Thief
+ Monk
+ Archer
+ Beast Master
+ Stalker
+ Kensai~
+
+/* ----------------------------- *
+ *  400_update_bgii_staves2.tpa  *
+ * ----------------------------- */
+@400901 = ~Wizard's Staff~ // strref #27612 (BGEE)
+@400902 = ~Narbucchad's Demise +5~ // strref #27613 (BGEE)
+@400903 = ~It does not take years of study in the arcane to be able to tell that this finely crafted staff is highly enchanted. In shape and construction, it seems almost more reminiscent of a wand than a staff used for striking. Its precise workings however are lost on you, rendering it little more than a decorative bauble.
+
+STATISTICS:
+
+Damage: 1d6
+Damage type: crushing
+Speed Factor: 4
+Proficiency Type: Quarterstaff
+Type: Two-handed
+Requires:
+ 5 Strength
+
+Weight: 4~ // strref #27614 (BGEE)
+@400904 = ~This finely crafted staff is the long lost legacy of Narbucchad II, a legendary wizard and tyrant of Tashalar (although perhaps better known for the latter). In some circles known as Narbucchad's Fickle Finger, this weapon represents the culmination of his reign. Driven by paranoia and mistrust, Narbucchad successively eliminated his guard in fear of attempts at assassination, and channelled all of his magic into a weapon after his own that could strike down any foe or number of would-be assailants at a time. Originally devised for such dire circumstances only, he quickly grew fond of its potential to cut all sorts of quarrels short and before long came to rely upon it wholly.
+However, the staff required frequent recharging as its enchantments, albeit powerful, would quickly drain in frequent use and spring the orb of power from its socket, requiring careful reinsertion. Many stories circulated of those who had survived and escaped by whim of his Fickle Finger and thus known, it happened to fail him at rather a crucial moment before long.
+Both the staff and his reign were eventually lost to the annals of history, the former, in absence of his spells reduced to an elaborate bauble. How it ended up here is anyone's guess, but the fact that it appears to be fully charged suggests a tale worthy of its own.
+
+STATISTICS:
+
+Combat abilities:
+- Can be used as a melee or ranged weapon.
+- As a ranged weapon, it is alternatively possible for latent magic of the user to be channelled (no charge consumed).
+
+Charge abilities:
+- Narbucchad's Demise:
+  Release the orb's full potential in an intensely powerful blast that will strike any targets within range of the wielder.
+
+THAC0: +2
+Damage: 1d6+3
+Damage type: crushing
+Speed Factor: 1
+Proficiency Type: Quarterstaff
+Type: Two-handed
+Requires:
+ 5 Strength
+
+Weight: 3
+
+Only usable by:
+ Mage~ // strref #27615 (BGEE)
+
+@400905 = ~Narbucchad's Demise +4~ // strref #27616 (BGEE)
+@400906 = ~This finely crafted staff is the long lost legacy of Narbucchad II, a legendary wizard and tyrant of Tashalar (although perhaps better known for the latter). In some circles known as Narbucchad's Fickle Finger, this weapon represents the culmination of his reign. Driven by paranoia and mistrust, Narbucchad successively eliminated his guard in fear of attempts at assassination, and channelled all of his magic into a weapon after his own that could strike down any foe or number of would-be assailants at a time. Originally devised for such dire circumstances only, he quickly grew fond of its potential to cut all sorts of quarrels short and before long came to rely upon it wholly.
+However, the staff required frequent recharging as its enchantments, albeit powerful, would quickly drain in frequent use and spring the orb of power from its socket, requiring careful reinsertion. Many stories circulated of those who had survived and escaped by whim of his Fickle Finger and thus known, it happened to fail him at rather a crucial moment before long.
+Both the staff and his reign were eventually lost to the annals of history, the former, in absence of his spells reduced to an elaborate bauble. How it ended up here is anyone's guess. Its charge seems to have lessened slightly after having replaced the jewel.
+
+STATISTICS:
+
+Combat abilities:
+- Can be used as a melee or ranged weapon.
+- As a ranged weapon, it is alternatively possible for latent magic of the user to be channelled (no charge consumed).
+
+Charge abilities:
+- Narbucchad's Demise:
+  Release the orb's full potential in an intensely powerful blast that will strike any targets within range of the wielder.
+
+THAC0: +2
+Damage: 1d6+3
+Damage type: crushing
+Speed Factor: 1
+Proficiency Type: Quarterstaff
+Type: Two-handed
+Requires:
+ 5 Strength
+
+Weight: 3
+
+Only usable by:
+ Mage~ // strref #27617 (BGEE)
+
+@400907 = ~Narbucchad's Demise +3~ // strref #27618 (BGEE)
+@400908 = ~This finely crafted staff is the long lost legacy of Narbucchad II, a legendary wizard and tyrant of Tashalar (although perhaps better known for the latter). In some circles known as Narbucchad's Fickle Finger, this weapon represents the culmination of his reign. Driven by paranoia and mistrust, Narbucchad successively eliminated his guard in fear of attempts at assassination, and channelled all of his magic into a weapon after his own that could strike down any foe or number of would-be assailants at a time. Originally devised for such dire circumstances only, he quickly grew fond of its potential to cut all sorts of quarrels short and before long came to rely upon it wholly.
+However, the staff required frequent recharging as its enchantments, albeit powerful, would quickly drain in frequent use and spring the orb of power from its socket, requiring careful reinsertion. Many stories circulated of those who had survived and escaped by whim of his Fickle Finger and thus known, it happened to fail him at rather a crucial moment before long.
+Both the staff and his reign were eventually lost to the annals of history, the former, in absence of his spells reduced to an elaborate bauble. How it ended up here is anyone's guess. Its charge seems to have lessened after having replaced the jewel.
+
+STATISTICS:
+
+Combat abilities:
+- Can be used as a melee or ranged weapon.
+- As a ranged weapon, it is alternatively possible for latent magic of the user to be channelled (no charge consumed).
+
+Charge abilities:
+- Narbucchad's Demise:
+  Release the orb's full potential in an intensely powerful blast that will strike any targets within range of the wielder.
+
+THAC0: +2
+Damage: 1d6+3
+Damage type: crushing
+Speed Factor: 1
+Proficiency Type: Quarterstaff
+Type: Two-handed
+Requires:
+ 5 Strength
+
+Weight: 3
+
+Only usable by:
+ Mage~ // strref #27619 (BGEE)
+
+@400909 = ~Narbucchad's Demise +2~ // strref #27620 (BGEE)
+@400910 = ~This finely crafted staff is the long lost legacy of Narbucchad II, a legendary wizard and tyrant of Tashalar (although perhaps better known for the latter). In some circles known as Narbucchad's Fickle Finger, this weapon represents the culmination of his reign. Driven by paranoia and mistrust, Narbucchad successively eliminated his guard in fear of attempts at assassination, and channelled all of his magic into a weapon after his own that could strike down any foe or number of would-be assailants at a time. Originally devised for such dire circumstances only, he quickly grew fond of its potential to cut all sorts of quarrels short and before long came to rely upon it wholly.
+However, the staff required frequent recharging as its enchantments, albeit powerful, would quickly drain in frequent use and spring the orb of power from its socket, requiring careful reinsertion. Many stories circulated of those who had survived and escaped by whim of his Fickle Finger and thus known, it happened to fail him at rather a crucial moment before long.
+Both the staff and his reign were eventually lost to the annals of history, the former, in absence of his spells reduced to an elaborate bauble. How it ended up here is anyone's guess. Once again, the staff seems weaker after replacing the gem. Inopportune timing aside, you begin to see how the staff earned its name.
+
+STATISTICS:
+
+Combat abilities:
+- Can be used as a melee or ranged weapon.
+- As a ranged weapon, it is alternatively possible for latent magic of the user to be channelled (no charge consumed).
+
+Charge abilities:
+- Narbucchad's Demise:
+  Release the orb's full potential in a powerful blast that will strike any targets within range of the wielder.
+
+THAC0: +2
+Damage: 1d6+2
+Damage type: crushing
+Speed Factor: 1
+Proficiency Type: Quarterstaff
+Type: Two-handed
+Requires:
+ 5 Strength
+
+Weight: 3
+
+Only usable by:
+ Mage~ // strref #27621 (BGEE)
+
+@400911 = ~Narbucchad's Demise +1~ // strref #27622 (BGEE)
+@400912 = ~This finely crafted staff is the long lost legacy of Narbucchad II, a legendary wizard and tyrant of Tashalar (although perhaps better known for the latter). In some circles known as Narbucchad's Fickle Finger, this weapon represents the culmination of his reign. Driven by paranoia and mistrust, Narbucchad successively eliminated his guard in fear of attempts at assassination, and channelled all of his magic into a weapon after his own that could strike down any foe or number of would-be assailants at a time. Originally devised for such dire circumstances only, he quickly grew fond of its potential to cut all sorts of quarrels short and before long came to rely upon it wholly.
+However, the staff required frequent recharging as its enchantments, albeit powerful, would quickly drain in frequent use and spring the orb of power from its socket, requiring careful reinsertion. Many stories circulated of those who had survived and escaped by whim of his Fickle Finger and thus known, it happened to fail him at rather a crucial moment before long.
+Both the staff and his reign were eventually lost to the annals of history, the former, in absence of his spells reduced to an elaborate bauble. How it ended up here is anyone's guess. Some residual power remains in the orb.
+
+STATISTICS:
+
+Combat abilities:
+- Can be used as a melee or ranged weapon.
+- As a ranged weapon, it is alternatively possible for latent magic of the user to be channelled (no charge consumed).
+
+Charge abilities:
+- Narbucchad's Demise:
+  Release the orb's full potential in a powerful blast that will strike any targets within range of the wielder.
+
+THAC0: +2
+Damage: 1d6+1
+Damage type: crushing
+Speed Factor: 1
+Proficiency Type: Quarterstaff
+Type: Two-handed
+Requires:
+ 5 Strength
+
+Weight: 3
+
+Only usable by:
+ Mage~ // strref #27623 (BGEE)
+
+@400913 = ~This finely crafted staff is the long lost legacy of Narbucchad II, a legendary wizard and tyrant of Tashalar (although perhaps better known for the latter). In some circles known as Narbucchad's Fickle Finger, this weapon represents the culmination of his reign. Driven by paranoia and mistrust, Narbucchad successively eliminated his guard in fear of attempts at assassination, and channelled all of his magic into a weapon after his own that could strike down any foe or number of would-be assailants at a time. Originally devised for such dire circumstances only, he quickly grew fond of its potential to cut all sorts of quarrels short and before long came to rely upon it wholly.
+However, the staff required frequent recharging as its enchantments, albeit powerful, would quickly drain in frequent use and spring the orb of power from its socket, requiring careful reinsertion. Many stories circulated of those who had survived and escaped by whim of his Fickle Finger and thus known, it happened to fail him at rather a crucial moment before long.
+Both the staff and his reign were eventually lost to the annals of history, the former, in absence of his spells reduced to an elaborate bauble. How it ended up here is anyone's guess. A small trace of power remains in the gem, just barely allowing you to channel your own magic through it.
+
+STATISTICS:
+
+Combat abilities:
+- Can be used as a melee or ranged weapon.
+(No longer contains enough charge to draw on)
+
+Charge abilities:
+- Narbucchad's Demise:
+  Release the orb's remaining force in one blast that will strike any targets within range of the wielder.
+
+THAC0: +1
+Damage: 1d6+1
+Damage type: crushing
+Speed Factor: 1
+Proficiency Type: Quarterstaff
+Type: Two-handed
+Requires:
+ 5 Strength
+
+Weight: 3
+
+Only usable by:
+ Mage~ // strref #27624 (BGEE)
+
+@400914 = ~Narbucchad's Demise~ // strref #27625 (BGEE)
+@400915 = ~In shape and construction, this staff seems almost more reminiscent of a wand than a weapon used for striking. Apart from its elegant craftsmanship it appears to be a perfectly ordinary staff.
+
+STATISTICS:
+
+Damage: 1d6
+Damage type: crushing
+Weight: 4
+Speed Factor: 4
+Proficiency Type: Quarterstaff
+Type: 2-handed
+Requires:
+ 5 Strength~ // strref #27626 (BGEE)
+@400916 = ~This finely crafted staff is the long lost legacy of Narbucchad II, a legendary wizard and tyrant of Tashalar (although perhaps better known for the latter). In some circles known as Narbucchad's Fickle Finger, this weapon represents the culmination of his reign. Driven by paranoia and mistrust, Narbucchad successively eliminated his guard in fear of attempts at assassination, and channelled all of his magic into a weapon after his own that could strike down any foe or number of would-be assailants at a time. Originally devised for such dire circumstances only, he quickly grew fond of its potential to cut all sorts of quarrels short and before long came to rely upon it wholly.
+However, the staff required frequent recharging as its enchantments, albeit powerful, would quickly drain in frequent use and spring the orb of power from its socket, requiring careful reinsertion. Many stories circulated of those who had survived and escaped by whim of his Fickle Finger and thus known, it happened to fail him at rather a crucial moment before long.
+Both the staff and his reign were eventually lost to the annals of history, the former, in absence of his spells reduced to an elaborate bauble. How it ended up here is anyone's guess.
+
+STATISTICS:
+
+Damage: 1d6
+Damage type: crushing
+Speed Factor: 1
+Proficiency Type: Quarterstaff
+Type: Two-handed
+Requires:
+ 5 Strength
+
+Weight: 3
+
+Only usable by:
+ Mage~ // strref #27627 (BGEE)
+
+@400917 = ~Melee~				// strref #15529 (BG2)
+@400918 = ~Ranged, powered~		// strref #27628 (BGEE)
+@400919 = ~Ranged, channelled~	// strref #27629 (BGEE)
+@400920 = ~Ranged~				// strref #27630 (BGEE)
+
+/* ============================================ *
+ *         Improved projectile effects          *
+ * ============================================ */
+// 401_projectiles.tph traified
+@401101 = ~Javelin~ // strref #27631 (BGEE)
+@401102 = ~The javelin is a type of light spear designed for throwing, usually with a narrower tip. While this makes it less resilient and powerful in close quarter combat, it can be a deadly weapon if the advantage of its range is used to its fullest extent.
+
+STATISTICS:
+
+Damage: 1d6
+Damage type: piercing
+Speed Factor: 6
+Proficiency Type: Spear
+Type: Two-handed
+Requires:
+ 5 Strength
+
+Weight: 5
+
+Not usable by:
+ Cleric
+ Mage
+ Thief
+ Monk
+ Beast Master~ // strref #27632 (BGEE)
+@401103 = ~Thrown~	// strref #15527 (BG2)
+
+/* ============================================ *
+ *  Fixed animations for solars and elementals  *
+ * ============================================ */
+/* ============================================ *
+ *         Miscellaneous content fixes          *
+ * ============================================ */
