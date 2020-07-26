@@ -1,0 +1,997 @@
+/* ============================================ *
+ *                Core paperdolls               *
+ * ============================================ */
+/* ============================================ *
+ *           Extended palette entries           *
+ * ============================================ */
+/* ============================================ *
+ *            GUI additions for BGII            *
+ * ============================================ */
+/* ============================================ *
+ *                 Avatar fixes                 *
+ * ============================================ */
+/* ============================================ *
+ *                Female Dwarves                *
+ * ============================================ */
+/* ============================================ *
+ *                Thieves Galore                *
+ * ============================================ */
+/* ============================================ *
+ *       Smart Avatar & Armour Switching        *
+ * ============================================ */
+/* ============================================ *
+ *             Softer Spell Effects             *
+ * ============================================ */
+/* ============================================ *
+ *             Core content patches             *
+ * ============================================ */
+/* ============================================ *
+ *      Consistent spell and scroll icons       *
+ * ============================================ */
+
+/* ============================================ *
+ *                 Spell tweaks                 *
+ * ============================================ */
+// 202_spelltweaks.tph traified
+@202101 = ~Blessures graves
+(Nécromancie)
+
+Niveau : 4
+Sphère : Guérison
+Portée : toucher
+Durée : permanente
+Temps d'incantation : 7
+Zone d'effet : créature touchée
+Jet de sauvegarde : demi-dégâts
+
+Ce sort est l'opposé du sort Soins des blessures graves. Au lieu de guérir la créature touchée, il lui inflige des dégâts. Le sort cause 17 points de dommages à la cible touchée par le prêtre. Si celle-ci réussit un jet de sauvegarde contre les sorts, ces dégâts sont réduits de moitié.~
+
+@202102 = ~Blessures critiques
+(Nécromancie)
+
+Niveau : 5
+Sphère : Guérison
+Portée : toucher
+Durée : permanente
+Temps d'incantation : 8
+Zone d'effet : créature touchée
+Jet de sauvegarde : demi-dégâts
+
+Ce sort est l'opposé du sort Soins des blessures critiques. Au lieu de guérir la créature touchée, il lui inflige des dégâts. Le sort cause 27 points de dommages à la cible touchée par le prêtre. Si celle-ci réussit un jet de sauvegarde contre les sorts, ces dégâts sont réduits de moitié.~
+
+@202103 = ~Mise à mal
+(Nécromancie)
+
+Niveau : 6
+Sphère : Guérison
+Portée : toucher
+Durée : permanente
+Temps d'incantation : 1 round
+Zone d'effet : créature touchée
+Jet de sauvegarde : spécial
+
+Ce sort est l'opposé du sort Guérison. Au lieu de guérir la créature touchée, il lui inflige des dégâts. Le sort inflige à la cible 1d6 points de dégâts par niveau du prêtre (jusqu'à un maximum de 15d6 au niveau 15). De plus, si cette dernière rate un jet de sauvegarde contre les sorts, elle se retrouve réduite à 1 point de vie.~
+
+@202104 = ~Blessures légères~
+@202105 = ~Blessures légères
+(Nécromancie)
+
+Niveau : 1
+Sphère : Guérison
+Portée : toucher
+Durée : permanente
+Temps d'incantation : 5
+Zone d'effet : créature touchée
+Jet de sauvegarde : demi-dégâts
+
+Ce sort est l'opposé du sort Soins des blessures légères. Au lieu de guérir la créature touchée, il lui inflige des dégâts. Le sort cause 8 points de dommages à la cible touchée par le prêtre. Si celle-ci réussit un jet de sauvegarde contre les sorts, ces dégâts sont réduits de moitié.~
+
+@202106 = ~Blessures modérées~
+@202107 = ~Blessures modérées
+(Nécromancie)
+
+Niveau : 3
+Sphère : Guérison
+Portée : toucher
+Durée : permanente
+Temps d'incantation : 5
+Zone d'effet : créature touchée
+Jet de sauvegarde : demi-dégâts
+
+Ce sort est l'opposé du sort Soins des blessures modérées. Au lieu de guérir la créature touchée, il lui inflige des dégâts. Le sort cause 13 points de dommages à la cible touchée par le prêtre. Si celle-ci réussit un jet de sauvegarde contre les sorts, ces dégâts sont réduits de moitié.~
+
+/* ============================================ *
+ *       Restored flame sword animations        *
+ * ============================================ */
+// 203_fslong.tph traified
+@203101 = ~Courroux d'Akadie~
+@203102 = ~Courroux d'Akadie
+Chloé maugrée un peu lorsque vous tentez d'examiner son arme, mais elle accepte – non sans rechigner – de vous en dire plus à son sujet :
+
+PARAMÈTRES :
+
+Capacité d'équipement :
+- immunité à la cécité
+
+Capacité de charge :
+- Flou une fois par jour
+
+TAC0 : +3
+Dégâts : 1d8 +3, +1d2 d'électricité
+Type de dégâts : tranchant
+Facteur de vitesse : 3
+Type de compétence : cimeterre/wakizashi/ninja-to
+Type : arme à 1 main
+
+Poids : 4
+
+Utilisable uniquement par :
+ Chloé~
+
+@203103 = ~Rage d'Akadie~
+@203104 = ~Rage d'Akadie
+Chloé maugrée un peu lorsque vous tentez d'examiner son arme, mais elle accepte – non sans rechigner – de vous en dire plus à son sujet :
+
+PARAMÈTRES :
+
+Capacité d'équipement :
+- immunité à la cécité et à la confusion
+
+Capacité de charge :
+- Flou trois fois par jour
+
+Capacité de combat :
+- 10% de chances d'étourdir la cible
+
+TAC0 : +4
+Dégâts : 1d8 +4, +1d4 d'électricité
+Type de dégâts : tranchant
+Facteur de vitesse : 2
+Type de compétence : cimeterre/wakizashi/ninja-to
+Type : arme à 1 main
+
+Poids : 4
+
+Utilisable uniquement par :
+ Chloé~
+
+@203105 = ~Fureur d'Akadie~
+@203106 = ~Chloé maugrée un peu lorsque vous tentez d'examiner son arme, mais elle accepte – non sans rechigner – de vous en dire plus à son sujet :
+
+Fureur d'Akadie
+
+PARAMÈTRES :
+
+Capacité d'équipement :
+- Immunité à la cécité, à la confusion et à l'immobilisation
+
+Capacités de charge :
+- Hâte améliorée trois fois par jour
+- Flou trois fois par jour
+
+Capacité de combat :
+- 10% de chances d'étourdir la cible et de lui infliger 1d12 de dégâts d'électricité supplémentaires
+
+TAC0 : +6
+Dégâts : 1d8 +6, +1d6 d'électricité
+Type de dégâts : tranchant
+Facteur de vitesse : 1
+Type de compétence : cimeterre/wakizashi/ninja-to
+Type : arme à 1 main
+
+Poids : 4
+
+Utilisable uniquement par :
+ Chloé~
+
+@203107 = ~Flamme de Lathandre~
+@203108 = ~Flamme de Lathandre
+Chloé maugrée un peu lorsque vous tentez d'examiner son arme, mais elle accepte – non sans rechigner – de vous en dire plus à son sujet :
+
+PARAMÈTRES :
+
+Capacité d'équipement :
+- Résistance au feu : +25 %
+
+Capacités de charge :
+- Flèche de feu une fois par jour
+- Protection contre le plan négatif une fois par jour
+
+TAC0 : +2
+Dégâts : 1d6 +2, +1d2 de feu
+Type de dégâts : perforant
+Facteur de vitesse : 2
+Type de compétence : épée courte
+Type : arme à 1 main
+
+Poids : 4
+
+Utilisable uniquement par :
+ Chloé~
+
+@203109 = ~Brasier de Lathandre~
+@203110 = ~Brasier de Lathandre
+Chloé maugrée un peu lorsque vous tentez d'examiner son arme, mais elle accepte – non sans rechigner – de vous en dire plus à son sujet :
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+- Protection contre le plan négatif en permanence
+- Résistance au feu : +50 %
+
+Capacité de charge :
+- Colonne de feu une fois par jour
+
+Capacité de combat :
+- 10 % de chances d'aveugler la cible
+
+TAC0 : +3
+Dégâts : 1d6 +3, +1d4 de feu
+Type de dégâts : perforant
+Facteur de vitesse : 1
+Type de compétence : épée courte
+Type : arme à 1 main
+
+Poids : 4
+
+Utilisable uniquement par :
+ Chloé~
+
+@203111 = ~Incendie de Lathandre~
+@203112 = ~Incendie de Lathandre
+Chloé maugrée un peu lorsque vous tentez d'examiner son arme, mais elle accepte – non sans rechigner – de vous en dire plus à son sujet :
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+- Protection contre le plan négatif en permanence
+- Résistance au feu : 100 %
+- Chance
+
+Capacités de charge :
+- Aube illusoire une fois par jour
+- Rayon de soleil une fois par jour
+
+Capacité de combat :
+- 15 % de chances d'aveugler la cible et de lui infliger 1d12 points de dégâts de feu supplémentaires
+
+TAC0 : +5
+Dégâts : 1d6 +5, +1d6 de feu
+Type de dégâts : perforant
+Facteur de vitesse : 0
+Type de compétence : épée courte
+Type : arme à 1 main
+
+Poids : 4
+
+Utilisable uniquement par :
+ Chloé~
+
+/* ============================================ *
+ *           Colourable Quarterstaves           *
+ * ============================================ */
+/* ============================================ *
+ *                Legacy Shields                *
+ * ============================================ */
+/* ============================================ *
+ *     Additional Shield Animations (core)      *
+ * ============================================ */
+/* ============================================ *
+ *            Wizards' Staves (core)            *
+ * ============================================ */
+/* ============================================ *
+ *      Additional Helmet Animations (core      *
+ * ============================================ */
+
+/* ============================================ *
+ *           Attachable wings (core)            *
+ * ============================================ */
+// 209_v4_wings.tph traified
+@209101 = ~Ailes~
+@209102 = ~Ces douces ailes de plumes ont une apparence céleste. Pourtant, en y regardant de plus près, on se rend compte qu'il s'agit de deux fausses ailes reliées entre elles par des rubans en satin attachés à leurs bases. Même si elles n'ont rien de magique, elles semblent se mouvoir avec leur porteur, bien que leur mécanisme supposé ne semble pas pouvoir le leur permettre.
+
+PARAMÈTRES :
+
+Poids : 2
+Type : ailes
+
+Utilisable uniquement par :
+ Elfe~ // Gwen fix: use BGEE #27583 strref for better 1pp, Infinity Animations and EE compatibility.
+
+/* ============================================ *
+ *  Increased paperdoll object variety (core)   *
+ * ============================================ */
+
+/* ============================================ *
+ *         Core updates and item patches        *
+ * ============================================ */
+
+/* ----------------------------- *
+ *  400_update_bgii_shields.tpa  *
+ * ----------------------------- */
+@400501 = ~Mur du Nord +2~
+@400502 = ~Selon la légende, ce bouclier aurait été sculpté dans le Grand Glacier par un esprit espiègle, et aurait été découvert flottant le long de la rivière de Glace. Que ce soit soit vrai ou non, on imagine facilement comment de telles légendes se sont forgées. Ce bouclier tour grandement enchanté est extrêmement froid au toucher et résiste à toute tentative de le réchauffer. Ses propriétés défensives sont telles que la comparaison avec le mur impénétrable du glacier semble certainement appropriée.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+- Résistance aux armes tranchantes et perforantes : +15 %
+- Résistance au feu : +70 %
+- Résistance au froid : -20 %
+
+Classe d'armure : +3, +5 contre les projectiles
+
+Poids : 3
+Force nécessaire : 15
+
+Non utilisable par :
+ Barde
+ Druide
+ Mage
+ Voleur
+ Moine
+ Kensai~
+
+@400503 = ~Bouclier miroir +1~
+@400504 = ~Ce bouclier fait partie d'un ensemble qui a été forgé à Eauprofonde pour affronter un groupe de méduses qui s'étaient installées dans un ancien temple. Ses enchantements ne se contentent pas de le rendre plus efficace qu'un bouclier normal, ils protègent également quiconque le porte de la plupart des attaques de regards et de certains sorts, les renvoyant à leur lanceur.
+
+PARAMÈTRES :
+
+Capacité d'équipement :
+- Renvoie les attaques de regard
+- Pas de protection contre les armes à projectiles
+
+Classe d'armure : +2
+
+Poids : 3
+Force nécessaire : 4
+
+Non utilisable par :
+ Barde
+ Druide
+ Mage
+ Voleur
+ Moine
+ Kensai~
+
+@400505 = ~Bénitier de vertu +2~
+@400506 = ~Ayant appartenu autrefois à un puissant prêtre d'Oghma, ce bouclier confère à quiconque le porte une aura de patience et un sixième sens pour attendre le bon moment pour frapper, ce qui permet d'anticiper et de parer les coups avec une facilité surprenante. S'il est avant tout destiné à protéger pendant les combats, son enchantement dépasse ce cadre en aiguisant les capacités de compréhension de son porteur et en lui insufflant un esprit perspicace plus développé.
+
+PARAMÈTRES :
+
+Capacité d'équipement :
+- Sagesse : +1
+
+Classe d'armure : +3
+
+Poids : 5
+Force nécessaire : 12
+
+Non utilisable par :
+ Barde
+ Druide
+ Mage
+ Voleur
+ Moine
+ Kensai~
+
+@400507 = ~Tahcaluss +3~
+@400508 = ~Ce bouclier de facture drow fortement enchanté offre une meilleure protection que bon nombre d'armures. Il détourne les coups et même les plus puissants semblent ricocher sur sa surface luisante. Cette protection a toutefois un coût, car le bouclier draine l'énergie vitale de celui ou celle qui le porte, entraînant fatigue et blessures au fil du temps.
+
+PARAMÈTRES :
+
+Capacité d'équipement :
+- Draine l'énergie vitale au fil du temps
+
+Classe d'armure : +4
+
+Poids : 5
+Force nécessaire : 12
+
+Non utilisable par :
+ Barde
+ Druide
+ Mage
+ Voleur
+ Moine
+ Kensai~
+
+@400509 = ~Le Bras de Gorm +3~ // strref #27584 (BGEE)
+@400510 = ~Ce grand bouclier en sombracier, un métal nain, offre une meilleure protection que la plupart des armures. Il a été forgé et enchanté dans un seul et unique but : protéger son porteur en combat, ce qui peut sembler redondant à première vue, mais devient clair lorsque l'on considère les sacrifices qui ont été consentis pour y arriver. Bien plus lourd que la plupart des boucliers de cette taille et nimbé d'une aura d'anti-magie, il est quelque peu encombrant à utiliser en plein combat, et il rend l'incantation de sorts virtuellement impossible lorsqu'on le tient en main.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+- Résistance à la magie : +50 %
+- Empêche le lancement de sorts
+
+Classe d'armure : +5, +6 contre les projectiles
+
+Poids : 20
+Force nécessaire : 17
+
+Non utilisable par :
+ Barde
+ Druide
+ Mage
+ Voleur
+ Moine
+ Kensai~ // strref #27585 (BGEE)
+/*
+Capacités d'équipement :
+- classe d'armure : +5
+*/
+
+@400511 = ~Targe +2~
+@400512 = ~Cette targe légendaire appartenait à Kenstrel de Baldur's Gate. On raconte que ce truand, membre de la guilde des voleurs, l'a extorquée à une bande d'aventuriers itinérants, après leur avoir « démontré » qu'elle était maudite et qu'elle était un présage de malchance qui les suivrait partout où ils iraient. Leur auberge ayant été envahie et dévastée trois fois par des dizaines de créatures hideuses, ressemblant à des blaireaux, et d'autres incidents ayant commencé à leur pourrir l'existence, ils finirent par accepter de la remettre à Kenstrel pour qu'il l'en débarrasse de sa malédiction. Sans surprise, ils ne le revirent jamais.
+
+PARAMÈTRES :
+
+Classe d'armure : +3, +4 contre les projectiles
+
+Poids : 2
+Force nécessaire : 4
+
+Non utilisable par :
+ Mage
+ Moine
+ Kensai~
+
+@400513 = ~Grand bouclier de qualité supérieure~ // strref #27586 (BGEE)
+@400514 = ~Aussi appelé bouclier tour, le pavois est un bouclier massif en métal ou en bois couvrant le guerrier pratiquement du menton jusqu'aux doigts de pied. Il doit être bien attaché sur l'avant-bras et maintenu solidement. Naturellement, la main prise ne peut servir qu'à maintenir le pavois en place. D'excellente facture, ce bouclier tour est plus léger et moins encombrant au combat.
+
+PARAMÈTRES :
+
+Capacité d'équipement:
+- Classe d'armure : +1, 2 contre les projectiles
+
+Poids : 10
+Force nécessaire : 10
+
+Non utilisable par :
+ Barde
+ Druide
+ Mage
+ Voleur
+ Moine
+ Kensai~ // strref #27587 (BGEE)
+
+@400515 = ~Écu de qualité supérieure~ // strref #27588 (BGEE)
+@400516 = ~L'écu se porte comme la rondache. Mais contrairement à la rondache, son poids ne permet pas au combattant de porter autre chose. Les écus sont généralement fabriqués en métal, mesurent entre 90 cm et 1,20 m de diamètre et peuvent avoir n'importe quelle forme (carrée, ronde ou comme les ailes déployées d'un dragon). De particulièrement bonne qualité, celui-ci est plus léger et se révèle moins encombrant au combat.
+
+PARAMÈTRES :
+
+Capacité d'équipement:
+- Classe d'armure : +1
+
+Poids : 4
+Force nécessaire : 8
+
+Non utilisable par :
+ Barde
+ Druide
+ Mage
+ Voleur
+ Moine
+ Kensai~ // strref #27589 (BGEE)
+
+@400517 = ~Bénédiction de Corvyr~ // strref #27590 (BGEE)
+@400518 = ~Ce bouclier a été utilisé par le haut paladin Corvyr durant l'assaut d'une célèbre forteresse peuplée de morts-vivants. Bien après que ses camarades soient tombés, il s'est écoulé des jours pendant lesquels il a combattu un nombre apparemment infini de morts-vivants avant d'être finalement vaincu. Son bouclier fut retrouvé plus tard lorsque la tour fut nettoyée de toute présence morte-vivante à l'aide d'un certain cube magique. N'étant auparavant qu'une simple pièce d'équipement basique, cet écu a semble-t-il absorbé une partie de la résolution et de la rage de vaincre exprimées par son dernier propriétaire pendant ses derniers jours.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+- Constitution : +1
+- Jet de sauvegarde contre la mort : 150 %
+
+Classe d'armure : +1
+
+Poids : 6
+Force nécessaire : 12
+
+Non utilisable par :
+ Barde
+ Druide
+ Mage
+ Voleur
+ Moine
+ Kensai~ // strref #27591 (BGEE)
+
+@400519 = ~Armée du Salut +1, +4 contre les monstres~  // strref #27592 (BGEE) Traduit par bouclier rouge dans BGEE, mais ses couleurs ne sont pas rouges !
+@400520 = ~On sait peu de choses sur ce bouclier, sinon qu'il a été récupéré dans la Forêt de Wealdath et qu'il semble avoir été enchanté spécifiquement pour combattre les monstres errants. Si sa facture et son enchantement de qualité supérieure sont loin d'être négligeables dans n'importe quelle situation, son véritable pouvoir ne se manifeste que lorsque son propriétaire combat les monstres habitant Féérûne.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+- TAC0 : +1 contre les monstres
+- Classe d'armure: +4 contre les monstres
+
+Classe d'armure : +2
+
+Poids : 6
+Force nécessaire : 12
+
+Non utilisable par :
+ Barde
+ Druide
+ Mage
+ Voleur
+ Moine
+ Kensai~ // strref #27593 (BGEE)
+
+@400521 = ~Vengeance de Sartessa +1~ // strref #27594 (BGEE)
+@400522 = ~Ce bouclier appartenait à Sartessa, une rôdeuse demi-elfe du Bois des Dents Acérées. Ayant reçu dès son plus jeune âge un appel divin la pressant de restaurer la paix sur la Côte des Épées en ces temps troublés, elle parcourut le long chemin jusqu'à Luskan. Proche du but de son voyage, Sartessa fut trahie par son compagnon de longue-date et forcée de le tuer en se défendant contre ses assauts. À la suite de quoi elle forgea ce bouclier, imprégné de sa détermination amère à accomplir sa quête tout en sachant que seule, elle ne pouvait qu'y trouver la mort, elle forgea ce bouclier. De puissants enchantements ont été placés sur cet objet pour l'empêcher de tomber entre de mauvaises mains, et même si certains se sont dissipés avec le temps, quiconque ne lui ressemblant ni en corps ni en esprit, serait bien imprudent d'essayer de le porter.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+- Purification d'aura
+- Immunité aux attaques sournoises
+- Protection contre la mort
+- Meilleures chances d'effectuer un coup critique
+
+Classe d'armure : +2, +2 supplémentaires contre les projectiles, les humanoïdes, les adversaires de sexe masculin et les créatures charmées ou contrôlées
+
+Poids : 5
+Force nécessaire : 3
+Charisme nécessaire : 12
+
+Utilisable uniquement par :
+ Rôdeur
+ Elfe
+ Personnage d'alignement neutre ou chaotique bon~ // strref #27595 (BGEE)
+
+@400523 = ~Contingence de Tarloc +1~ // strref #27596 (BGEE)
+@400524 = ~D'aucuns disent parfois que seule une attitude positive peut suffire à la victoire. Le créateur de ce bouclier, un sorcier elfe noir de son vivant, puis une liche terrifiante durant sa mort, avait une opinion clairement différente. Considérant comme inacceptable la faiblesse des praticiens des arcanes et leur impossibilité de porter des pièces d'armure décentes, il entreprit de créer ce bouclier, pour le cas où la pire des situations se présenterait à lui... ce qui a de grandes chances de se produire lorsqu'un mage est coincé en combat rapproché. Depuis lors, les puissants enchantements de ce bouclier ont souvent sauvé la vie de ses innombrables propriétaires successifs, ou leur ont permis de s'échapper de justesse, bien souvent aux dépens de leurs compagnons de route.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+- Bouclier de feu (bleu) sur le porteur au combat
+- le porteur a 20 % de chances de récupérer des sorts lorsqu'il est gravement blessé
+- le porteur 5 % de chances de devenir invisible s'il est touché en combat
+- Protège son porteur dans une Sphère résistante d'Otiluke s'il est gravement blessé ou rendu impuissant
+
+Classe d'armure : +2
+
+Poids : 6
+Force nécessaire : 10
+
+Utilisable uniquement par :
+ Mage~ // strref #27597 (BGEE)
+
+@400525 = ~Bouclier de dévotion +1~ // strref #27598 (BGEE)
+@400526 = ~On peut retracer les origines de ce bouclier jusqu'à une lignée de paladins de Velen, qui en portaient de semblables au cours d'expéditions qu'ils menaient dans les Îles Nélanthères, sous le patronage de Torm. Célébrés dans les récits sous le nom de Cavaliers Rouges en raison de leurs armures mémorables, leur volonté sans faille et leur endurance infatigable ont constitué un atout essentiel dans l'établissement de la paix dans la région. Bien qu'ils se soient depuis longtemps dispersés, leur héritage est très fortement recherché, car des traces de leur bénédiction imprègne toujours les pièces d'armure qu'ils utilisaient, octroyant à quiconque les portent des pouvoirs divins et une résistance accrue.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+- Mémoriser un sort supplémentaire des niveaux 1 à 3
+- Points de vie: +10 %
+
+Classe d'armure : +2
+
+Poids : 6
+Force nécessaire : 10
+
+Utilisable uniquement par :
+ Paladin
+ Clerc~ // strref #27599 (BGEE)
+
+/* ----------------------------- *
+ *  400_update_bgii_helmets.tpa  *
+ * ----------------------------- */
+@400601 = ~Bandeau~ // strref #27600 (BGEE)
+@400602 = ~Bandeau d'argent~ // strref #27601 (BGEE)
+@400603 = ~Un bandeau est une fine lanière de métal précieux. Il sert en général d'ornement ou à indiquer le statut de son porteur. Les bandeaux sujets à des enchantements de bas niveau sont souvent utilisés par les magiciens de Féérûne.
+
+Poids : 1~ // strref #27602 (BGEE)
+@400604 = ~Un bandeau est une fine lanière de métal précieux. Il sert en général d'ornement ou à indiquer le statut de son porteur. Ce bandeau en argent est enchanté pour lui porter chance au combat, en améliorant légèrement ses chances de réussir ses jets de sauvegarde.
+
+PARAMÈTRES :
+
+Capacité d'équipement :
+- Jets de sauvegarde : +1
+
+Poids : 1~ // strref #27603 (BGEE)
+
+@400605 = ~Don d'Eilistraée~ // strref #27604 (BGEE)
+@400606 = ~Fait de l'argent le plus pur, ce bandeau est serti d'un joyau vert et chatoyant qui semble émettre une faible lueur lorsqu'il est exposé au clair de lune. Béni par la déesse elfe noire Eilistraée, il protèfe quiconque le porte contre les effets destructeurs de la magie.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+- Jets de sauvegarde : +1
+- Résistance aux dégâts magiques : +10 %
+
+Poids : 1~ // strref #27605 (BGEE)
+
+@400607 = ~Bandeau de l'archimage~ // strref #27606 (BGEE)
+@400608 = ~Ce puissant bandeau a été enchanté pour accompagner les robes habituellement portées par les archimages, renforçant les protections magiques qu'elles octroient. En raison de la nature de son enchantement, il ne peut être porté que par des magiciens.
+
+PARAMÈTRES :
+
+Capacités d'équipement :
+- Classe d'armure : +1
+- Intelligence : +1
+- Jets de sauvegarde : +1
+
+Poids : 1
+
+Utilisable uniquement par :
+ Mage~ // strref #27607 (BGEE)
+
+/* ------------------------ *
+ *  400_update_gemlore.tpa  *
+ * ------------------------ */
+@400701 = ~Il semble s'agir d'une pierre précieuse quelconque. Vous pourriez certainement en tirer un très bon prix si vous en connaissiez la valeur et l'origine, mais, en l'occurrence, vous pourriez aussi bien essayer de vendre un morceau de verre.~
+
+/* -------------------------- *
+ *  400_update_bgii_misc.tpa  *
+ * -------------------------- */
+@400801 = ~Bord de l'eau +3~ // strref #94451 (BG2EE)
+
+/* ---------------------------- *
+ *  400_update_bgii_swords.tpa  *
+ * ---------------------------- */
+@400802 = ~Tranchant de la vipère +2~ // strref #27609 (BGEE)
+@400803 = ~Cette relique immensément puissante est aussi fortement enchantée qu'elle est maudite. Sa lame miroite d'une lueur verte enivrante, au sens propre comme au figuré. Sa garde et son pommeau sont recouverts d'épines incurvées qui en rendent difficile le maniement en combat. À en juger par les croûtes de sang séchées qui les recouvrent, nombreux sont ceux qui s'y sont pourtant essayés, et vous ne pouvez pas réprimer l'élan de tentation qui vous anime. Même si l'on raconte que ce sont les anciens dieux d'une ère depuis longtemps oubliée qui ont offert cette arme à une reine méduse, les origines exactes de cette lame ont été perdues au fil des siècles. Quelle que soit sa provenance, elle est passée depuis entre de nombreuses mains (dont la plupart ne faisaient pas partie du monde des vivants). Les histoires qui courent au sujet de tous ses anciens propriétaires racontent qu'ils ont rencontré une fin brutale, et qu'aucun d'entre eux n'a jamais fait le bien autour de lui.
+
+PARAMÈTRES :
+
+Maudite :
+- Constitution: -1 (de manière permanente)
+- Points de vie maximum réduits de 10 %
+- Intolérance aux potions de soins ordinaires
+- Le porteur peut s'empoisonner en combat
+- Peut rendre son porteur enragé chaque fois qu'il touche un adversaire
+- Peut engendrer des hiatus entropiques temporaires si le porteur utilise la magie
+
+Capacités d'équipement :
+- Dextérité : +2
+- 1 attaque supplémentaire par round
+- dégâts d'attaque sournoise améliorés
+- Permet de régénérer temporairement en cas de blessures critiques
+
+Capacités de combat :
+- Détruit instantanément les morts-vivants de moindre puissance
+- Peut pétrifier la cible à chaque coup réussi
+- Peut renverser la cible à chaque coup réussi
+- Peut empoisonner sévèrement la cible à chaque coup réussi
+- La lame empoisonnée peut paralyser les humanoïdes
+- La lame empoisonnée peut temporairement prendre le contrôle des créatures faibles d'esprit, et les rendre vulnérables à la suggestion
+
+PARAMÈTRES :
+
+TAC0 : +2
+Dégâts : 1d8 +2
+Type de dégâts : tranchant
+Facteur de vitesse : 3
+Type de compétence : épée longue
+Type : arme à 1 main
+Force nécessaire : 6
+
+Poids : 3
+
+Non utilisable par :
+ Druide
+ Clerc
+ Mage
+ Belluaire~ // strref #27610 (BGEE)
+
+/* --------------------------- *
+ *  400_update_bgii_blunt.tpa  *
+ * --------------------------- */
+@400804 = ~Fléau +2 : « Dormeuse »
+Cette arme appartenait à Ssitalc, un elfe mauvais connu comme le Maître esclavagiste de la Côte des Épées. Jusqu'à sa mort soudaine il y a quelques années, Ssitalc dirigeait une importante troupe de brigands humains, nains et gnomes, dans laquelle il maintenait la discipline grâce à la Dormeuse. Celle-ci procure en effet une chance de mettre hors de combat n'importe quel humain, nain, gnome, ou petit-homme, en le faisant tomber dans un profond sommeil. Les elfes sont par contre immunisés contre ce type d'effets.
+
+PARAMÈTRES :
+
+Capacité de combat :
+- Tout humain ou demi-humain, sauf les elfes, touché par la Dormeuse doit réussir un jet de sauvegarde contre le poison, avec un bonus de 4, pour ne pas s'endormir pendant 18 secondes
+
+TAC0 : +2
+Dégâts : 1d6 +2
+Type de dégâts : contondant
+Facteur de vitesse : 5
+Type de compétence : Fléau/Étoile du matin
+Type : arme à 1 main
+Force nécessaire : 13
+
+Poids : 9
+
+Non utilisable par :
+ Druide
+ Mage
+ Voleur
+ Moine
+ Belluaire~
+
+/* ---------------------------- *
+ *  400_update_bgii_armors.tpa  *
+ * ---------------------------- */
+@400811 = ~La Défense pratique +3~ // strref #223974 (BGEE)
+@400812 = ~Armure de plates +3 : « La Défense pratique »
+L'aventurier voyageur ne pourrait trouver meilleure armure. Tout spécialement fabriquée à GRANDS frais pour Bolhur « Hachetonnerre », c'était la plus précieuse de ses armures, bien que n'étant pas la plus ouvragée. Doué d'un esprit pratique hors du commun, Bolhur exigeait d'une armure une protection maximale pour une gêne minimale. Par « gêne », il n'entendait pas seulement entraver ses mouvements ou l'encombrer - même si cette armure ne pèse qu'un peu plus du tiers du poids d'une armure de plates normale. Non, l'armure idéale devait aussi supporter les rigueurs de ses pérégrinations tout en nécessitant le minimum d'entretien. Non pas que Bolhur « Hachetonnerre » négligeât ses armures (une telle insinuation se payait alors d'une bonne claque), mais disons que la pratique du cracher-astiquer que requiert une armure de « gentilhomme » ne faisait pas partie de ses préoccupations. Il laissait les harnois dorés et ornés de pompons aux rois et aux chefs d'État : un nain actif accorde plus d'importance à l'aspect pratique qu'à l'esthétique.
+
+PARAMÈTRES :
+
+Classe d'armure : 0 (-3 contre les armes tranchantes)
+Poids : 18
+Force nécessaire : 12
+
+Non utilisable par :
+ Barde
+ Druide
+ Mage
+ Voleur
+ Moine
+ Barbare
+ Archer
+ Belluaire
+ Traqueur
+ Kensai~ // strref #27611 (BGEE)
+
+@400813 = ~Cotte de mailles +2 Mortloups~
+@400814 = ~Cotte de mailles +2 : « Mortloups »
+Ces cottes de mailles en argent ont été commandées et portées par les membres d'un groupe vertueux de paladins qui avaient entrepris de débarrasser le monde de la gangrène de la lycanthropie. Mais la présence continue de lycanthropes dans les Royaumes et l'apparition de ces armures sur les étals des marchands laissent penser que leur mission n'a pas été une réussite.
+
+PARAMÈTRES :
+
+Classe d'armure : 3 (1 contre les armes tranchantes, 5 contre les armes contondantes)
+Poids : 10
+Force nécessaire : 8
+
+Non utilisable par :
+ Druide
+ Mage
+ Voleur
+ Moine
+ Archer
+ Belluaire
+ Traqueur
+ Kensai~
+
+/* ----------------------------- *
+ *  400_update_bgii_staves2.tpa  *
+ * ----------------------------- */
+@400901 = ~Bâton de magicien~ // strref #27612 (BGEE)
+@400902 = ~Revers de Narbucchad +5~ // strref #27613 (BGEE)
+@400903 = ~Il n'y a pas besoin d'avoir étudié les arcanes pendant des années pour pouvoir affirmer que ce bâton finement ouvragé possède de puissants enchantements. Sa forme et sa structure évoquent plus une baguette qu'un bâton de combat. Cependant, comme ses capacités précises vous demeurent inconnues, il n'a pas plus d'utilité qu'une babiole décorative.
+
+PARAMÈTRES :
+
+Dégâts : 1d6
+Type de dégâts : contondant
+Facteur de vitesse : 4
+Type de compétence : bâton
+Type : arme à 2 mains
+Force nécessaire : 5
+
+Poids : 4~ // strref #27614 (BGEE)
+@400904 = ~Ce bâton finement ouvragé est l'héritage depuis longtemps perdu de Narbucchad II, magicien de légende et tyran de Tashalar (sans doute mieux connu pour ce second fait). Connue dans certains cercles sous le nom de Petit Doigt capricieux de Narbucchad, cette arme symbolise l'apogée de son règne. Paranoïaque et ne faisant confiance à personne, Narbucchad avait éliminé tous les membres successifs de sa garde par peur de tentatives d'assassinat, et avait concentré toute sa magie dans une arme à son image, qui pouvait abattre n'importe quel ennemi, ou n'importe quel nombre d'assaillants en un seul coup. Même si, à l'origine, l'arme était prévue pour contrer toute tentative de meurtre à son encontre, Narbucchad s'enticha rapidement de son efficacité à couper court à toute querelle, et finit bientôt par s'en remettre entièrement à elle.
+Cependant, le bâton avait besoin d'être régulièrement rechargé, car une utilisation fréquente le vidait rapidement de ses enchantements, pourtant puissants, et déchaussait de sa cavité son orbe de pouvoir, qu'il fallait réinsérer avec précaution. De nombreuses histoires se mirent à circuler sur ceux qui avaient survécu et pu s'échapper au gré des fantaisies du Petit Doigt capricieux de Narbucchad ; une fois cela connu, il ne fallut pas longtemps pour qu'il lui fasse défaut à un moment plutôt crucial.
+Son bâton et son règne se sont finalement perdus dans les annales de l'Histoire, le premier, sans ses sortilèges, étant réduit à l'état de babiole décorative. Personne ne sait comment il s'est retrouvé ici, mais le fait qu'il soit complètement rechargé suggère une histoire qui vaudrait le coup d'être entendue.
+
+PARAMÈTRES :
+
+Capacités de combat :
+- Peut être utilisé comme une arme de mêlée ou à distance
+- En tant qu'arme à distance, il est aussi possible de concentrer la magie latente de l'utilisateur (pas de charge dépensée)
+
+Capacité de charge :
+- Revers de Narbucchad : libère tout le potentiel de l'orbe dans une explosion extrêmement puissante qui frappera tous ceux qui se trouvent à sa portée.
+
+TAC0 : +2
+Dégâts : 1d6 +3
+Type de dégâts : contondant
+Facteur de vitesse : 1
+Type de compétence : bâton
+Type : arme à 2 mains
+Force nécessaire : 5
+
+Poids : 3
+
+Utilisable uniquement par :
+ Mage~ // strref #27615 (BGEE)
+
+@400905 = ~Revers de Narbucchad +4~ // strref #27616 (BGEE)
+@400906 = ~Ce bâton finement ouvragé est l'héritage depuis longtemps perdu de Narbucchad II, magicien de légende et tyran de Tashalar (sans doute mieux connu pour ce second fait). Connue dans certains cercles sous le nom de Petit Doigt capricieux de Narbucchad, cette arme symbolise l'apogée de son règne. Paranoïaque et ne faisant confiance à personne, Narbucchad avait éliminé tous les membres successifs de sa garde par peur de tentatives d'assassinat, et avait concentré toute sa magie dans une arme à son image, qui pouvait abattre n'importe quel ennemi, ou n'importe quel nombre d'assaillants en un seul coup. Même si, à l'origine, l'arme était prévue pour contrer toute tentative de meurtre à son encontre, Narbucchad s'enticha rapidement de son efficacité à couper court à toute querelle, et finit bientôt par s'en remettre entièrement à elle.
+Cependant, le bâton avait besoin d'être régulièrement rechargé, car une utilisation fréquente le vidait rapidement de ses enchantements, pourtant puissants, et déchaussait de sa cavité son orbe de pouvoir, qu'il fallait réinsérer avec précaution. De nombreuses histoires se mirent à circuler sur ceux qui avaient survécu et pu s'échapper au gré des fantaisies du Petit Doigt capricieux de Narbucchad ; une fois cela connu, il ne fallut pas longtemps pour qu'il lui fasse défaut à un moment plutôt crucial.
+Son bâton et son règne se sont finalement perdus dans les annales de l'Histoire, le premier, sans ses sortilèges, étant réduit à l'état de babiole décorative. Personne ne sait comment il s'est retrouvé ici. Sa puissance s'est très légèrement affaiblie suite au remplacement de la gemme.
+
+PARAMÈTRES :
+
+Capacités de combat :
+- Peut être utilisé comme une arme de mêlée ou à distance
+- En tant qu'arme à distance, il est aussi possible de concentrer la magie latente de l'utilisateur (pas de charge dépensée)
+
+Capacité de charge :
+- Revers de Narbucchad : libère tout le potentiel de l'orbe dans une explosion extrêmement puissante qui frappera tous ceux qui se trouvent à sa portée.
+
+TAC0 : +2
+Dégâts : 1d6 +3
+Type de dégâts : contondant
+Facteur de vitesse : 1
+Type de compétence : bâton
+Type : arme à 2 mains
+Force nécessaire : 5
+
+Poids : 3
+
+Utilisable uniquement par :
+ Mage~ // strref #27617 (BGEE)
+
+@400907 = ~Revers de Narbucchad +3~ // strref #27618 (BGEE)
+@400908 = ~Ce bâton finement ouvragé est l'héritage depuis longtemps perdu de Narbucchad II, magicien de légende et tyran de Tashalar (sans doute mieux connu pour ce second fait). Connue dans certains cercles sous le nom de Petit Doigt capricieux de Narbucchad, cette arme symbolise l'apogée de son règne. Paranoïaque et ne faisant confiance à personne, Narbucchad avait éliminé tous les membres successifs de sa garde par peur de tentatives d'assassinat, et avait concentré toute sa magie dans une arme à son image, qui pouvait abattre n'importe quel ennemi, ou n'importe quel nombre d'assaillants en un seul coup. Même si, à l'origine, l'arme était prévue pour contrer toute tentative de meurtre à son encontre, Narbucchad s'enticha rapidement de son efficacité à couper court à toute querelle, et finit bientôt par s'en remettre entièrement à elle.
+Cependant, le bâton avait besoin d'être régulièrement rechargé, car une utilisation fréquente le vidait rapidement de ses enchantements, pourtant puissants, et déchaussait de sa cavité son orbe de pouvoir, qu'il fallait réinsérer avec précaution. De nombreuses histoires se mirent à circuler sur ceux qui avaient survécu et pu s'échapper au gré des fantaisies du Petit Doigt capricieux de Narbucchad ; une fois cela connu, il ne fallut pas longtemps pour qu'il lui fasse défaut à un moment plutôt crucial.
+Son bâton et son règne se sont finalement perdus dans les annales de l'Histoire, le premier, sans ses sortilèges, étant réduit à l'état de babiole décorative. Personne ne sait comment il s'est retrouvé ici. Sa puissance semble s'être affaiblie après le remplacement de la gemme.
+
+PARAMÈTRES :
+
+Capacités de combat :
+- Peut être utilisé comme une arme de mêlée ou à distance
+- En tant qu'arme à distance, il est aussi possible de concentrer la magie latente de l'utilisateur (pas de charge dépensée)
+
+Capacité de charge :
+- Revers de Narbucchad : libère tout le potentiel de l'orbe dans une explosion extrêmement puissante qui frappera tous ceux qui se trouvent à sa portée.
+
+TAC0 : +2
+Dégâts : 1d6 +3
+Type de dégâts : contondant
+Facteur de vitesse : 1
+Type de compétence : bâton
+Type : arme à 2 mains
+Force nécessaire : 5
+
+Poids : 3
+
+Utilisable uniquement par :
+ Mage~ // strref #27619 (BGEE)
+
+@400909 = ~Revers de Narbucchad +2~ // strref #27620 (BGEE)
+@400910 = ~Ce bâton finement ouvragé est l'héritage depuis longtemps perdu de Narbucchad II, magicien de légende et tyran de Tashalar (sans doute mieux connu pour ce second fait). Connue dans certains cercles sous le nom de Petit Doigt capricieux de Narbucchad, cette arme symbolise l'apogée de son règne. Paranoïaque et ne faisant confiance à personne, Narbucchad avait éliminé tous les membres successifs de sa garde par peur de tentatives d'assassinat, et avait concentré toute sa magie dans une arme à son image, qui pouvait abattre n'importe quel ennemi, ou n'importe quel nombre d'assaillants en un seul coup. Même si, à l'origine, l'arme était prévue pour contrer toute tentative de meurtre à son encontre, Narbucchad s'enticha rapidement de son efficacité à couper court à toute querelle, et finit bientôt par s'en remettre entièrement à elle.
+Cependant, le bâton avait besoin d'être régulièrement rechargé, car une utilisation fréquente le vidait rapidement de ses enchantements, pourtant puissants, et déchaussait de sa cavité son orbe de pouvoir, qu'il fallait réinsérer avec précaution. De nombreuses histoires se mirent à circuler sur ceux qui avaient survécu et pu s'échapper au gré des fantaisies du Petit Doigt capricieux de Narbucchad ; une fois cela connu, il ne fallut pas longtemps pour qu'il lui fasse défaut à un moment plutôt crucial.
+Son bâton et son règne se sont finalement perdus dans les annales de l'Histoire, le premier, sans ses sortilèges, étant réduit à l'état de babiole décorative. Personne ne sait comment il s'est retrouvé ici. Une fois encore, le remplacement de la gemme a rendu l'arme moins puissante. Le moment fut inopportun, mais vous commencez à comprendre d'où vient le nom de l'arme.
+
+PARAMÈTRES :
+
+Capacités de combat :
+- Peut être utilisé comme une arme de mêlée ou à distance
+- En tant qu'arme à distance, il est aussi possible de concentrer la magie latente de l'utilisateur (pas de charge dépensée)
+
+Capacité de charge :
+- Revers de Narbucchad : libère tout le potentiel de l'orbe dans une explosion extrêmement puissante qui frappera tous ceux qui se trouvent à sa portée.
+
+TAC0 : +2
+Dégâts : 1d6 +2
+Type de dégâts : contondant
+Poids : 3
+Facteur de vitesse : 1
+Type de compétence : bâton
+Type : arme à 2 mains
+Force nécessaire : 5
+
+Utilisable uniquement par :
+ Mage~ // strref #27621 (BGEE)
+
+@400911 = ~Revers de Narbucchad +1~ // strref #27622 (BGEE)
+@400912 = ~Ce bâton finement ouvragé est l'héritage depuis longtemps perdu de Narbucchad II, magicien de légende et tyran de Tashalar (sans doute mieux connu pour ce second fait). Connue dans certains cercles sous le nom de Petit Doigt capricieux de Narbucchad, cette arme symbolise l'apogée de son règne. Paranoïaque et ne faisant confiance à personne, Narbucchad avait éliminé tous les membres successifs de sa garde par peur de tentatives d'assassinat, et avait concentré toute sa magie dans une arme à son image, qui pouvait abattre n'importe quel ennemi, ou n'importe quel nombre d'assaillants en un seul coup. Même si, à l'origine, l'arme était prévue pour contrer toute tentative de meurtre à son encontre, Narbucchad s'enticha rapidement de son efficacité à couper court à toute querelle, et finit bientôt par s'en remettre entièrement à elle.
+Cependant, le bâton avait besoin d'être régulièrement rechargé, car une utilisation fréquente le vidait rapidement de ses enchantements, pourtant puissants, et déchaussait de sa cavité son orbe de pouvoir, qu'il fallait réinsérer avec précaution. De nombreuses histoires se mirent à circuler sur ceux qui avaient survécu et pu s'échapper au gré des fantaisies du Petit Doigt capricieux de Narbucchad ; une fois cela connu, il ne fallut pas longtemps pour qu'il lui fasse défaut à un moment plutôt crucial.
+Son bâton et son règne se sont finalement perdus dans les annales de l'Histoire, le premier, sans ses sortilèges, étant réduit à l'état de babiole décorative. Personne ne sait comment il s'est retrouvé ici. Il reste un peu de magie résiduelle dans l'orbe.
+
+PARAMÈTRES :
+
+Capacités de combat :
+- Peut être utilisé comme une arme de mêlée ou à distance
+- En tant qu'arme à distance, il est aussi possible de concentrer la magie latente de l'utilisateur (pas de charge dépensée)
+
+Capacité de charge :
+- Revers de Narbucchad : libère tout le potentiel de l'orbe dans une explosion extrêmement puissante qui frappera tous ceux qui se trouvent à sa portée.
+
+TAC0 : +2
+Dégâts : 1d6 +1
+Type de dégâts : contondant
+Facteur de vitesse : 1
+Type de compétence : bâton
+Type : arme à 2 mains
+Force nécessaire : 5
+
+Poids : 3
+
+Utilisable uniquement par :
+ Mage~ // strref #27623 (BGEE)
+
+@400913 = ~Ce bâton finement ouvragé est l'héritage depuis longtemps perdu de Narbucchad II, magicien de légende et tyran de Tashalar (sans doute mieux connu pour ce second fait). Connue dans certains cercles sous le nom de Petit Doigt capricieux de Narbucchad, cette arme symbolise l'apogée de son règne. Paranoïaque et ne faisant confiance à personne, Narbucchad avait éliminé tous les membres successifs de sa garde par peur de tentatives d'assassinat, et avait concentré toute sa magie dans une arme à son image, qui pouvait abattre n'importe quel ennemi, ou n'importe quel nombre d'assaillants en un seul coup. Même si, à l'origine, l'arme était prévue pour contrer toute tentative de meurtre à son encontre, Narbucchad s'enticha rapidement de son efficacité à couper court à toute querelle, et finit bientôt par s'en remettre entièrement à elle.
+Cependant, le bâton avait besoin d'être régulièrement rechargé, car une utilisation fréquente le vidait rapidement de ses enchantements, pourtant puissants, et déchaussait de sa cavité son orbe de pouvoir, qu'il fallait réinsérer avec précaution. De nombreuses histoires se mirent à circuler sur ceux qui avaient survécu et pu s'échapper au gré des fantaisies du Petit Doigt capricieux de Narbucchad ; une fois cela connu, il ne fallut pas longtemps pour qu'il lui fasse défaut à un moment plutôt crucial.
+Son bâton et son règne se sont finalement perdus dans les annales de l'Histoire, le premier, sans ses sortilèges, étant réduit à l'état de babiole décorative. Personne ne sait comment il s'est retrouvé ici. Il reste une légère trace de pouvoir dans la gemme, vous permettant à peine de concentrer votre propre magie à travers elle.
+
+PARAMÈTRES :
+
+Capacités de combat :
+- Peut être utilisé comme une arme de mêlée ou à distance
+- (ne contient plus assez de charges pour concentrer son pouvoir)
+
+Capacité de charge :
+- Revers de Narbucchad : libère tout le potentiel de l'orbe dans une explosion extrêmement puissante qui frappera tous ceux qui se trouvent à sa portée.
+
+TAC0 : +1
+Dégâts : 1d6 +1
+Type de dégâts : contondant
+Facteur de vitesse : 1
+Type de compétence : bâton
+Type : arme à 2 mains
+Force nécessaire : 5
+
+Poids : 3
+
+Utilisable uniquement par :
+ Mage~ // strref #27624 (BGEE)
+
+@400914 = ~Revers de Narbucchad~ // strref #27625 (BGEE)
+@400915 = ~La forme et la structure de ce bâton évoquent plus une baguette qu'un bâton de combat. Hormis sa facture élégante, cette arme apparaît être un bâton tout à fait ordinaire.
+
+PARAMÈTRES :
+
+Dégâts : 1d6
+Type de dégâts : contondant
+Poids : 4
+Facteur de vitesse : 4
+Type de compétence : bâton
+Type : arme à 2 mains
+Force nécessaire : 5~ // strref #27626 (BGEE)
+@400916 = ~Ce bâton finement ouvragé est l'héritage depuis longtemps perdu de Narbucchad II, magicien de légende et tyran de Tashalar (sans doute mieux connu pour ce second fait). Connue dans certains cercles sous le nom de Petit Doigt capricieux de Narbucchad, cette arme symbolise l'apogée de son règne. Paranoïaque et ne faisant confiance à personne, Narbucchad avait éliminé tous les membres successifs de sa garde par peur de tentatives d'assassinat, et avait concentré toute sa magie dans une arme à son image, qui pouvait abattre n'importe quel ennemi, ou n'importe quel nombre d'assaillants en un seul coup. Même si, à l'origine, l'arme était prévue pour contrer toute tentative de meurtre à son encontre, Narbucchad s'enticha rapidement de son efficacité à couper court à toute querelle, et finit bientôt par s'en remettre entièrement à elle.
+Cependant, le bâton avait besoin d'être régulièrement rechargé, car une utilisation fréquente le vidait rapidement de ses enchantements, pourtant puissants, et déchaussait de sa cavité son orbe de pouvoir, qu'il fallait réinsérer avec précaution. De nombreuses histoires se mirent à circuler sur ceux qui avaient survécu et pu s'échapper au gré des fantaisies du Petit Doigt capricieux de Narbucchad ; une fois cela connu, il ne fallut pas longtemps pour qu'il lui fasse défaut à un moment plutôt crucial.
+Son bâton et son règne se sont finalement perdus dans les annales de l'Histoire, le premier, sans ses sortilèges, étant réduit à l'état de babiole décorative. Personne ne sait comment il s'est retrouvé ici.
+
+PARAMÈTRES :
+
+Dégâts : 1d6
+Type de dégâts : contondant
+Facteur de vitesse : 1
+Type de compétence : bâton
+Type : arme à 2 mains
+Force nécessaire : 5
+
+Poids : 3
+
+Utilisable uniquement par :
+ Mage~ // strref #27627 (BGEE)
+
+@400917 = ~Mêlée~						// strref #15529 (BG2)
+@400918 = ~À distance, puissance~		// strref #27628 (BGEE)
+@400919 = ~À distance, concentration~	// strref #27629 (BGEE)
+@400920 = ~À distance~					// strref #27630 (BGEE)
+
+/* ============================================ *
+ *         Improved projectile effects          *
+ * ============================================ */
+// 401_projectiles.tph traified
+@401101 = ~Javeline~ // strref #27631 (BGEE)
+@401102 = ~La javeline est un type de lance légère conçue pour être lancée, dotée généralement d'une pointe plus étroite. Bien que cela la rende moins résistante et moins puissante en combat rapproché, son efficacité peut s'avérer mortelle si elle est utilisée en tant qu'arme à distance.
+
+PARAMÈTRES :
+
+Dégâts : 1d6
+Type de dégâts : perforant
+Facteur de vitesse : 6
+Type de compétence : lance
+Type : arme à 2 mains
+Force nécessaire : 5
+
+Poids : 5
+
+Non utilisable par :
+ Clerc
+ Mage
+ Voleur
+ Moine
+ Belluaire~ // strref #27632 (BGEE)
+@401103 = ~Jeté~	// strref #15527 (BG2)
+
+/* ============================================ *
+ *  Fixed animations for solars and elementals  *
+ * ============================================ */
+/* ============================================ *
+ *         Miscellaneous content fixes          *
+ * ============================================ */

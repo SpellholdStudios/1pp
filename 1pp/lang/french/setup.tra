@@ -1,0 +1,842 @@
+/* =========================================================== *
+ *                                                             *
+ *                   I N S T A L L A T I O N                   *
+ *                                                             *
+ * =========================================================== */
+
+/* =========================================== *
+ *  ipp_read_configuration.tph and always.tph  *
+ * =========================================== */
+@1      = ~La valeur de l'option de configuration 1pp_%variable_0% (%wrong_value%) n'est pas conforme et a ete reinitialisee a sa valeur par defaut (%default%).~ //La valeur de l'option de configuration 1pp_%variable_0% (%wrong_value%) n'est pas conforme et a ete reinitialisee a sa valeur par defaut (%value%).
+@2      = ~L'option de configuration 1pp_%variable_0% n'existe pas : elle a ete initialisee a sa valeur par defaut (%default%).~ // L'option de configuration 1pp_%variable_0% n'existe pas : elle a ete initialisee a sa valeur par defaut (%value%).
+@3      = ~RECAPITULATIF DES OPTIONS DE CONFIGURATION UTILISEES POUR L'INSTALLATION :
+--------------------------------------------------------------------------
+	1pp_fdwarf = %1pp_fdwarf%
+	1pp_gui_soa = %1pp_gui_soa%
+	1pp_updated_fonts = %1pp_updated_fonts%
+	1pp_mixed_labels = %1pp_mixed_labels%
+	1pp_agannazar_scorcher = %1pp_agannazar_scorcher%
+	1pp_dispel_magic_effect = %1pp_dispel_magic_effect%
+	1pp_hammers_icons = %1pp_hammers_icons%
+	1pp_potions_icons = %1pp_potions_icons%
+	1pp_iwd_cause_wounds_icons = %1pp_iwd_cause_wounds_icons%
+	1pp_shields_shadows = %1pp_shields_shadows%
+	1pp_shields_appearance = %1pp_shields_appearance%
+	1pp_shields_scatter = %1pp_shields_scatter%
+	1pp_helmets_shadows = %1pp_helmets_shadows%
+	1pp_helmets_appearance = %1pp_helmets_appearance%
+	1pp_helmets_scatter = %1pp_helmets_scatter%
+	1pp_helmets_compatibility = %1pp_helmets_compatibility%
+	1pp_armours_appearance = %1pp_armours_appearance%
+	1pp_armours_scatter = %1pp_armours_scatter%
+	1pp_forced_item_colours = %1pp_forced_item_colours%
+	1pp_gemlore = %1pp_gemlore%
+	1pp_tutu_bg1_shields = %1pp_tutu_bg1_shields%
+	1pp_tutu_bg1_helmets = %1pp_tutu_bg1_helmets%
+	1pp_sleeper = %1pp_sleeper%
+	1pp_forced_item_colours_iwd = %1pp_forced_item_colours_iwd%
+	1pp_solar_weapons = %1pp_solar_weapons%
+--------------------------------------------------------------------------~
+
+@10     = ~Ce composant necessite l'installation du composant principal Paperdolls.~
+@11     = ~Ce composant ne fonctionne que sur BGII, ToB, Tutu, BGT, CA, TotLM, HoW et IWD2.~
+@12     = ~Ce composant n'est disponible que pour des jeux bases sur le moteur de BGII (passe).~
+@13     = ~Ce composant necessite l'installation du composant Corrections de base.~
+
+
+/* ============================================ *
+ *                Core paperdolls               *
+ * ============================================ */
+@101    = ~1ppv4 : Core paperdolls (composant principal)~
+@1011   = ~Installe la version pour BGII.~
+@1012   = ~Infinity Animations a ete detecte (animations de personnages de BG1).~
+@1013   = ~Installe le contenu pour IA...~
+
+// 101_ia.tph traified
+/* DEPRECATED as of v4.2.0
+Variable needed for installation (1pp_fdwarf) is read from 1pp-config-default.ini or 1pp-config-user.ini files
+
+@101200 = ~Quel style graphique de paperdoll voulez-vous utiliser pour les femmes naines ?
+
+1. IWD
+2. 1pp
+
+VEUILLEZ ENTRER 1 ou 2~ */
+
+// 101_iwd.tph traified
+// --------------------
+@1014   = ~Installe la version pour IWD HoW/TotLM.~
+@101400 = ~Corrige le desastre constitue par le recours a des paperdolls provenant pour moitie de BG1, pour moitie de BGII - Lance la verification.~
+@101401 = ~Erreur : impossible d'identifier votre version de IWD. Veuillez verifier que vous avez bien installe TotLM (v1.4.2).~
+@101402 = ~N'a pas reussi a patcher idmain, passe.~
+@101403 = ~Erreur : impossible d'identifier votre version de IWD. Veuillez verifier que vous avez bien installe HoW (v1.4.1).~
+
+@1015   = ~Installe les paperdolls des objets.~
+@1016   = ~IWD2 - Passe (installe un composant fictif pour assurer la compatibilite du mod).~
+
+
+/* ============================================ *
+ *           Extended palette entries           *
+ * ============================================ */
+@1020   = ~1ppv4 : Couleurs de palette etendues~
+@102    = ~Installation minimum pour assurer la compatibilite du mod~
+@103    = ~Installation complete (recommandee)~
+
+// 102_compat.tph & 103_extpal.tph traified
+// ----------------------------------------
+@103000 = ~Lecture des donnees...~
+@103001 = ~Le fichier __setting.bmp semble invalide.~
+@103002 = ~Une erreur s'est produite pendant l'installation.~
+@103003 = ~Patche...~
+@103004 = ~Un jeu ToB v26498 a ete detecte.~
+@103005 = ~echec a l'adresse %address%~
+@103006 = ~la valeur %check_v% trouvee devrait etre %replace_pattern%~
+@103007 = ~Un jeu SoA v23037 a ete detecte.~
+@103008 = ~Erreur : impossible d'identifier votre version de BGII. Veuillez verifier que vous avez bien installe le patch v26498 (pour ToB) ou le patch v24037 (pour SoA).~
+@103009 = ~Un jeu IWD v1.4.2 a ete detecte (TotLM).~
+@103010 = ~Un jeu IWD v1.4.1 a ete detecte (HoW).~
+@103011 = ~Erreur : impossible d'identifier votre version d'IWD. Assurez-vous que votre jeu a les patches 1.4.1 (HoW) ou 1.4.2 (TotLM).~
+@103012 = ~Un jeu IWD v2.0.1.0 a ete detecte.~
+@103013 = ~Le patch normal a echoue, une version bizarre de IWD2.exe est suspectee. Lancement d'un patch alternatif.~
+@103014 = ~Erreur : votre executable IWDII n'est pas reconnu.~
+@103015 = ~N'a pas reussi a patcher l'executable.~
+@103016 = ~Copie les fichiers...~
+@103017 = ~Copie les tables de couleurs de IWDII...~
+@103018 = ~Copie la table de couleurs aleatoires de BG...~
+@103019 = ~Erreur : la taille de l'executable n'est pas conforme. Installation arretee par mesure de securite.~
+@103020 = ~N'a pas reussi a patcher l'executable. Assurez-vous que vous utilisez le composant pour la bonne version !~
+@103021 = ~Erreur : l'executable ne semble pas compatible.~
+
+
+/* ============================================ *
+ *            GUI additions for BGII            *
+ * ============================================ */
+@104    = ~1ppv4 : Modifications de l'interface graphique pour BGII~
+@1041   = ~Votre jeu n'utilise pas le moteur de BGII (passe).~
+
+// 104_core.tph traified
+// ---------------------
+@104000 = ~Attention : n'installez ce composant QUE si vous utilisez l'interface classique de BGII.~
+
+/* DEPRECATED as of v4.2.0
+Variables now set in 1pp-config-default.ini or 1pp-config-user.ini
+
+1pp_gui_soa
+@104001 = ~Voulez-vous donner aux ecrans de chargement de ToB le design de ceux de BGII ?
+
+1. Oui.
+2. Ne pas modifier les ecrans de chargement.
+
+VEUILLEZ ENTRER 1 ou 2~
+
+1pp_updated_fonts
+@104002 = ~Voulez-vous installer les polices modifiees ?
+(cela peut poser probleme avec les langues utilisant d'autres fichiers BAM de polices)
+
+1. Oui.
+2. Ne pas modifer les polices de caracteres.
+
+VEUILLEZ ENTRER 1 ou 2~
+
+1pp_mixed_labels
+@104003 = ~Voulez-vous que les etiquettes soient affichees en casse libre (majuscules et minuscules) ?
+
+1. Oui.
+2. Non merci.
+
+VEUILLEZ ENTRER 1 ou 2~ */
+
+
+/* ============================================ *
+ *                 Avatar fixes                 *
+ * ============================================ */
+@105    = ~1ppv4 : Corrections d'avatars~
+@105000 = ~Fin.~
+
+
+/* ============================================ *
+ *                Female Dwarves                *
+ * ============================================ */
+@1060   = ~1ppv4 : Femmes naines~
+@106    = ~Avatars differencies pour les femmes naines - Baldur's Gate II~
+@107    = ~Avatars differencies pour les femmes naines - Icewind Dale II~
+@108    = ~Avatars differencies pour les femmes naines - Icewind Dale II EU~
+@109    = ~Avatars differencies pour les femmes naines - Icewind Dale I HoW~
+
+// 106_f_dwarves_bg2 traified
+// --------------------------
+@106000 = ~Erreur : la valeur que nous essayons de remplacer a l'offset %actual_off% (%cur_val%) de bgmain ne correspond pas a ce que nous attendions (%old_val%). Installation arretee par mesure de securite.~
+@106001 = ~N'a pas reussi a patcher bgmain.~
+@106002 = ~Copie les nouveaux fichiers...~
+@106003 = ~Met a jour les paperdolls...~
+
+// 109_f_dwarves_iwd.tph traified
+// ------------------------------
+@109000 = ~Icewind Dale v1.4.2 a ete detecte (TotLM).~
+@109001 = ~Attention : Icewind Dale ne dispose pas du patch 1.4.2. Recherche du patch 1.4.1...~
+@109002 = ~Icewind Dale v1.4.1 a ete detecte (HoW).~
+@109003 = ~Le jeu n'est pas la version 1.4.1.~
+@109004 = ~L'executable n'est pas reconnu. Assurez-vous que votre jeu dispose bien des derniers patches 1.4.1 (HoW) ou 1.4.2 (TotLM).~
+
+
+/* ============================================ *
+ *                Thieves Galore                *
+ * ============================================ */
+@1100   = ~1ppv4 : Des voleurs en pagaille~
+@110    = ~IWD HoW/TotLM - Avatars uniques de voleur~
+@111    = ~BGII - Avatars uniques de voleur~
+@112    = ~IWDII - Avatars uniques de voleur~
+
+// 110_thieves_iwd.tph traified
+// ----------------------------
+@110000 = ~Installe les paperdolls (IWD)...~
+@110001 = ~Duplique les avatars et paperdolls porteurs de plates (T4)...~
+
+// 111_thieves_bg2.tph traified
+// ----------------------------
+@111000 = ~BGII SoA a ete detecte (v23037).~
+@111001 = ~BGII ToB a ete detecte (v26498).~
+@111002 = ~L'executable n'est pas reconnu. Assurez-vous que votre jeu dispose bien des derniers patches v26498 (ToB) ou v23037 (SoA).~
+@111003 = ~Installe les paperdolls (BGII)...~
+
+
+/* ============================================ *
+ *       Smart Avatar & Armour Switching        *
+ * ============================================ */
+@113    = ~1ppv4 : Avatar intelligent & Changement d'armure~
+
+// 113_switch.tph traified
+// -----------------------
+@113000 = ~BGII a ete detecte.~
+@113001 = ~Installe le changement d'armure encore ameliore de Galactygon.~
+@113002 = ~Installe les scripts et les fichiers de changement d'avatar.~
+@113003 = ~Patche les armures et les robes (BGII).~
+@113004 = ~IWD HoW/TotLM a ete detecte.~
+@113005 = ~Installe le changement d'avatar pour IWD.~
+@113006 = ~Installe les fichiers de changement d'avatar.~
+@113007 = ~Patche les armures et les robes (IWD).~
+@113008 = ~IWDII a ete detecte.~
+@113009 = ~Installe le changement d'avatar pour IWD2.~
+@113010 = ~Copie les fichiers .2da~
+@113011 = ~Patche les armures et les robes (IWDII).~
+
+
+/* ============================================ *
+ *             Softer Spell Effects             *
+ * ============================================ */
+@114    = ~1ppv4 : Rendu des sorts nuance~
+
+// 114_effects.tph traified
+// ------------------------
+@1140   = ~AVERTISSEMENT : Ce composant ne fonctionnera correctement qu'avec l'activation de l'acceleration 3D (alpha blending). L'installer sur BGII regle en mode Rendu logiciel N'EST PAS UNE BONNE IDEE.~
+//@114001 = ~Abandon.~
+@114002 = ~Lance l'installation...~
+@114003 = ~Patche l'executable pour accepter les projectiles AoE dotes d'alpha blending...~
+@114004 = ~N'a pas reussi a patcher bgmain, n'installe que les effets supportes.~
+@114005 = ~Copie les effets...~
+@114006 = ~Installe les effets de feu ameliores pour ToB...~
+@114007 = ~%check_r% n'est pas egal a %value2% a l'adresse %value1_0%~
+@114008 = ~Erreur : l'executable ne semble pas etre celui de ToB, passe.~
+
+@114011 = ~Installe les projectiles...~
+
+/* DEPRECATED as of v4.2.0:
+
+Replaced by reading 3D Acceleration=1 in baldur.ini before running the component.
+@114000 = ~AVERTISSEMENT : Ce composant ne fonctionnera correctement qu'avec l'activation de l'acceleration 3D (alpha blending). L'installer sur BG2 regle en mode Rendu logiciel N'EST PAS UNE BONNE IDEE.
+
+1. J'ai compris et je souhaite poursuivre l'installation.
+2. Annuler l'installation.
+
+VEUILLEZ ENTRER 1 ou 2~
+
+
+Variables now set in 1pp-config-default.ini or 1pp-config-user.ini
+
+1pp_agannazar_scorcher
+@114009 = ~Installer l'animation de style IWD pour l'Incinerateur d'Agannazar, ou une version BG2 alternative ?
+
+1. Style IWD.
+2. Version alternative de BGII.
+
+VEUILLEZ ENTRER 1 ou 2~
+
+1pp_dispel_magic_effect
+@114010 = ~Installer des effets de dissipation de la magie moins voyants ?
+
+1. Oui.
+2. Non (installer plutot des effets ameliores).
+
+VEUILLEZ ENTRER 1 ou 2~*/
+
+
+/* ============================================ *
+ *             Core content patches             *
+ * ============================================ */
+@200    = ~1ppv4 : Corrections de base~
+@2001   = ~Installe le composant de base de 1ppv2 (mis a jour).~
+
+// 200_1ppv2_cut.tph traified
+// --------------------------
+@200001 = ~Copie les icones d'inventaire...~
+@200003 = ~Le mod BW Herbes et Potions pour BGII a ete detecte. Installe les correctifs...~
+
+/* DEPRECATED as of v4.2.0:
+
+New setting set in 1pp-config-default.ini or 1pp-config-user.ini
+
+1pp_hammers_icons
+@200000 = ~ICONES d'INVENTAIRE des MARTEAUX
+Ce composant ecrase l'icone des Marteaux des Runes et l'attribue au marteau +2 Poing de Borock, puis attribue l'icone de Poing de Borock aux Marteaux des Runes. Voulez-vous appliquer ces modifications ? [defaut] indique l'option "standard".
+
+1. Oui. [defaut]
+2. Non, on attribue la nouvelle icone au marteau Poing de Borock, et on laisse aux Marteaux des Runes leur icone originale.
+
+VEUILLEZ ENTRER 1 OU 2~
+
+Variable now set in 1pp-config-default.ini or 1pp-config-user.ini
+
+1pp_potions_icons
+@200002 = ~Voulez-vous installer les icones de potions modifiees ?
+
+1. Oui.
+2. Surtout pas : TOUT sauf les potions !
+
+VEUILLEZ ENTRER 1 ou 2~ */
+
+
+/* ============================================ *
+ *      Consistent spell and scroll icons       *
+ * ============================================ */
+@201   = ~1ppv4 : Icones de sorts et de parchemins uniformes~
+
+
+/* ============================================ *
+ *                 Spell tweaks                 *
+ * ============================================ */
+@202    = ~1ppv4 : Ajustements de sorts~
+
+// 202_spelltweaks.tph traified
+// ----------------------------
+@202000 = ~Installe des effets differencies pour les sorts d'armure...~
+@202001 = ~Installe les sorts de "blessures" P&P de style IWD...~
+@202002 = ~Installe les icones au design de IWD pour les sorts de "blessures"...~
+@202003 = ~Installe le nouveau sort "Blessures legeres".~
+@202004 = ~Installe le nouveau sort "Blessures moderees".~
+@202005 = ~Spell Revisions a ete detecte : patche le sort "Blessures legeres".~
+@202006 = ~Spell Revisions a ete detecte : patche le sort "Blessures moderees".~
+@202007 = ~Spell Revisions a ete detecte : patche le sort "Blessures graves".~
+@202008 = ~Spell Revisions a ete detecte : patche le sort "Blessures critiques".~
+@202009 = ~Spell Revisions a ete detecte : patche le sort "Mise a mal".~
+
+/* DEPRECATED as of v4.2.0:
+Variables now set in 1pp-config-default.ini or 1pp-config-user.ini
+
+1pp_iwd_cause_wounds_icons
+@202002 = ~Voulez-vous que les sorts de "blessures" existants utilisent des icones au design de IWD ? (icones de soins en rouge)
+
+1. Oui.
+2. Non, conserver les icones de BG2 pour les sorts existants.
+
+VEUILLEZ ENTRER 1 ou 2~
+
+Replaced the following setting with new code
+@202004 = ~ATTENTION : les sorts SPPR142 et SPPR1342 (Blessures legeres, Blessures moderees) semblent deja utilises par un autre mod. Installer ceux de 1pp peut provoquer des problemes.
+
+1. J'ai compris et souhaite poursuivre l'installation.
+2. Annuler l'installation.
+
+VEUILLEZ ENTRER 1 ou 2~*/
+
+
+/* ============================================ *
+ *       Restored flame sword animations        *
+ * ============================================ */
+@203    = ~1ppv4 : Retablissement des animations d'epees enflammees~
+
+// 203_fslong.tph traified
+// -----------------------
+@203000 = ~Installe les epees longues enflammees...~
+@203001 = ~Copie les fichiers...~
+@203002 = ~Patche les fichiers...~
+@203003 = ~Installe les epees courtes enflammees...~
+@203004 = ~Modifie les epees enflammees de mods qui ont ete detectees.~
+@203005 = ~Restaure les animations d'epees enflammees de BG1...~
+
+
+/* ============================================ *
+ *           Colourable Quarterstaves           *
+ * ============================================ */
+@204    = ~1ppv4 : Coloration des batons~
+
+// 204_qsbase.tph traified
+// ------------------------
+@204000 = ~Installe le contenu necessaire a la coloration des batons.~
+@204001 = ~Copie les fichiers...~
+@204002 = ~Installe le correctif principal des objets~
+@204003 = ~Patche les fichiers...~
+@204004 = ~Modifie certains batons de mods qui ont ete detectes.~
+
+
+/* ============================================ *
+ *                Legacy Shields                *
+ * ============================================ */
+@205    = ~1ppv4 : Boucliers de BG1~
+
+// 205_s_legacy.tph traified
+// ------------------------
+@205000 = ~Installe les fichiers d'animation D1 (v2)...~
+@205001 = ~Attribue l'animation D1 a certains boucliers (targes)...~
+@205002 = ~Installe les fichiers d'animation D2 (v2)...~
+@205003 = ~Installe les fichiers d'animation D3 (v2)...~
+@205004 = ~Installe les fichiers d'animation D4 (v2)...~
+
+
+/* ============================================ *
+ *     Additional Shield Animations (core)      *
+ * ============================================ */
+@206    = ~1ppv4 : Animations supplementaires de boucliers (fichiers de base)~
+
+// 206_v4_shields.tph traified
+// ---------------------------
+@206000 = ~Copie les fichiers...~
+@206001 = ~Developpe C13...~
+@206002 = ~Etablit la compatibilite avec les animations de BG1...~
+@206003 = ~Installe les images des paperdolls...~
+
+
+/* ============================================ *
+ *            Wizards' Staves (core)            *
+ * ============================================ */
+@207    = ~1ppv4 : Batons de magiciens (fichiers de base)~
+
+// 207_v4_staves.tph traified
+// --------------------------
+@207000 = ~Copie les fichiers...~
+@207001 = ~Etablit la compatibilite avec les animations de BG1...~
+@207002 = ~Installe les images des paperdolls...~
+
+
+/* ============================================ *
+ *      Additional Helmet Animations (core      *
+ * ============================================ */
+@208    = ~1ppv4 : Animations supplementaires de casques (fichiers de base)~
+
+// 208_v4_helmets.tph traified
+// ---------------------------
+@208000 = ~Copie les fichiers...~
+@208001 = ~Etablit la compatibilite avec les animations de BG1...~
+@208002 = ~Clone H6 pour BGII...~
+@208003 = ~Installe les images des paperdolls...~
+
+
+/* ============================================ *
+ *           Attachable wings (core)            *
+ * ============================================ */
+@209    = ~1ppv4 : Ailes amovibles (fichiers de base)~
+
+// 209_v4_wings.tph traified
+// -------------------------
+@209000 = ~Copie les fichiers...~
+@209001 = ~Installe les objets test...~
+@209002 = ~S'assure que le jeu ne crashera pas avec les animations de BG1 et les personnages non-elfes...~
+
+
+/* ============================================ *
+ *  Increased paperdoll object variety (core)   *
+ * ============================================ */
+@210    = ~1ppv4 : Plus de diversite de paperdolls d'objets (fichiers de base)~
+@2100   = ~Votre jeu n'utilise pas de paperdolls (passe).~
+
+// 210_v4_ppd_variety.tph traified
+// -------------------------------
+@210000 = ~Cree des animations clonees...~
+@210001 = ~Installe des clones d'armes pour les creatures.~
+@210002 = ~Patche les fichiers .CRE~
+
+
+/* ============================================ *
+ *         Core updates and item patches        *
+ * ============================================ */
+@400   = ~1ppv4 : Mise a jour et modification des objets~	// centrales principales fondamentales communes
+@4000  = ~Installe 1ppv4 pour BGII.~
+@4001  = ~Installe 1ppv4 pour IWD.~
+
+// 400_1pp_update_bgii.tph traified
+// --------------------------------
+@400001 = ~Copie les ressources...~
+@400002 = ~Modifie et ajoute des icones...~
+@400003 = ~Place les objets modifies dans le jeu...~
+
+@400011 = ~Installe les ombres des boucliers sur les paperdolls...~
+@400012 = ~Patche les boucliers...~
+@400013 = ~Intervertit les boucliers au style de Baldur's Gate I par echange...~
+@400014 = ~Installe les nouveaux boucliers...~
+@400015 = ~Patche les objets de mods existants...~
+
+@400021 = ~Installe les ombres des casques sur les paperdolls...~
+@400022 = ~Installe la compatibilite des casques (style de Baldur's Gate II mis a jour)...~
+@400023 = ~Installe la compatibilite des casques (style de Baldur's Gate I)...~
+@400024 = ~Patche les casques (style de 1ppv4)...~
+@400025 = ~Patche les casques dans Tutu...~
+@400026 = ~Patche les casques (faux style de Baldur's Gate I - utilise les icones, mais pas les animations de BG1)...~
+@400027 = ~Patche les casques (style de Baldur's Gate II)...~
+@400028 = ~Installe les bandeaux et patche ceux du jeu...~
+
+@400031 = ~Patche les gemmes...~
+@400032 = ~Patche les objets divers...~
+
+@400041 = ~Patche les frondes...~
+@400042 = ~Patche les arbaletes...~
+
+@400045 = ~Patche les haches...~
+@400046 = ~Patche les dagues...~
+@400047 = ~Patche les marteaux...~
+@400048 = ~Patche les lances...~
+@400049 = ~Patche les hallebardes...~
+
+@400051 = ~Patche les epees...~
+@400052 = ~Installe les nouvelles epees...~
+@400053 = ~Patche les armes contondantes...~
+@400054 = ~Patche les arcs...~
+@400055 = ~Patche les batons...~
+@400056 = ~Installe les nouveaux batons...~
+
+@400061 = ~Patche les armures de cuir...~
+@400062 = ~Patche les cottes de maille et les armures feuilletees...~
+@400063 = ~Patche les capes...~
+@400064 = ~Patche les armures de plates...~
+@400065 = ~Patche les armures specifiques a tutu...~
+@400066 = ~Patche les armures (style de 1ppv4)...~
+@400067 = ~Patche les armures (style de Baldur's Gate I)...~
+@400068 = ~Patche les armures (style de Baldur's Gate II)...~
+
+@400071 = ~Repartit les boucliers supplementaires disponibles dans les zones du jeu...~
+@400072 = ~Repartit les casques supplementaires disponibles dans les zones du jeu...~
+@400073 = ~Repartit les armures alternatives disponibles dans les zones du jeu...~
+@400074 = ~Repartit les nouveaux objets dans les zones du jeu...~
+
+@400075 = ~Applique le reglage des visuels des boucliers à ceux de Tutu/BG1.
+(attention : cela remplacera les boucliers par defaut de Tutu)...~
+@400076 = ~Applique vos choix d'icones d'inventaire pour les casques de BGII a ceux de Tutu/BG1.
+(attention : cela remplacera les casques par defaut de Tutu)...~
+
+// 400_1pp_update_iwd.tph traified
+// -------------------------------
+@400081 = ~Patche le contenu relatif au composant animations supplementaires de boucliers...~
+@400082 = ~Installe la compatibilite des casques...~
+@400083 = ~Patche le contenu relatif au composant animations supplementaires de casques...~
+@400084 = ~Patche le contenu relatif au composant "Plus de diversite de paperdolls d'objets"...~
+@400085 = ~Patche les munitions...~
+@400086 = ~Installe les animations de cimeterre et patche les objets...~
+
+
+/* DEPRECATED as of v4.2.0:
+
+Useless
+@400000 = ~AVERTISSEMENT : Ce que ce composant modifie - ou vous propose de modifier - depend des autres composants deja installes (par exemple, il ne peut utiliser des animations d'objets supplementaires que si elles ont ete installees). Si vous souhaitez beneficier des apports de composants precedents et que vous ne les avez pas encore installes, c'est le moment de le faire !
+
+1. J'ai compris et souhaite poursuivre l'installation.
+2. Annuler l'installation pour l'instant.
+
+VEUILLEZ ENTRER 1 ou 2~
+@400001 = ~Abandon.~
+
+Variables now set in 1pp-config-default.ini or 1pp-config-user.ini:
+
+@400003 = ~NOTE : Comme 1ppv4 est un module assez enorme, il s'est avere judicieux de proposer des options d'installation. Elles se materialiseront par plusieurs questions (comme celle-ci). Mais, si vous le souhaitez, vous pouvez sauter l'ensemble du processus de configuration et lancer une "installation standard", ou quelque soit le nom que vous lui donnez.
+
+1. Oui, je veux decider soigneusement comment je veux que les choses aient l'air et fonctionnent.
+2. Installons le tout sans perdre de temps !
+
+VEUILLEZ ENTRER 1 ou 2~
+
+@400004 = ~REGLAGE 1 : VISUEL DES BOUCLIERS
+Ce reglage definit l'apparence standard des boucliers dans le jeu, ou plus exactement la plupart de ceux qui vous trouverez dans les magasins, etc. Il n'affecte pas necessairement les objets magiques, et ne vous empeche pas de trouver d'autres objets. [defaut] indique l'option "standard".
+
+1. Le style de 1ppv4 pour Baldur's Gate II [defaut].
+2. Le style de Baldur's Gate I.
+3. Le faux style de Baldur's Gate I (utilise les icones, mais pas les animations de BG1).
+4. Passer cette partie de l'installation.
+
+VEUILLEZ ENTRER 1, 2, 3 OU 4~
+
+@400005 = ~REGLAGE 1B : DISPERSER LES BOUCLIERS A TRAVERS LE JEU
+Ce reglage determine si les boucliers supplementaires disponibles sont repartis, ou pas, dans les zones du jeu (sous forme de nouveaux objets, de tresors aleatoires, etc.). [defaut] indique l'option "standard".
+
+1. Oui [defaut].
+2. Non.
+
+VEUILLEZ ENTRER 1 OU 2~
+
+@400006 = ~REGLAGE 2: VISUEL DES CASQUES
+Ce reglage definit l'apparence standard des casques dans le jeu, ou plus exactement la plupart de ceux qui vous trouverez dans les magasins, etc. Il n'affecte pas necessairement les objets magiques, et ne vous empeche pas de trouver d'autres objets. [defaut] indique l'option "standard".
+
+1. Le style de 1ppv4 [defaut].
+2. Le faux style de Baldur's Gate I (utilise les icones, mais pas les animations de BG1).
+3. Le style de Baldur's Gate II.
+4. Passer cette partie de l'installation.
+
+VEUILLEZ ENTRER 1, 2, 3 OU 4~
+
+@400007 = ~REGLAGE 2B : DISPERSER LES CASQUES A TRAVERS LE JEU
+Ce reglage determine si les casques supplementaires disponibles sont repartis, ou pas, dans les zones du jeu (sous forme de nouveaux objets, de tresors aleatoires, etc.). [defaut] indique l'option "standard".
+ 
+1. Oui [defaut].
+2. Non.
+
+VEUILLEZ ENTRER 1 OU 2~
+
+@400008 = ~REGLAGE 2C : COMPATIBILITE DES CASQUES
+Ce reglage concerne principalement les objets des mods tiers, et determine les animations qu'ils utiliseront. [defaut] indique l'option "standard".
+
+1. Animations au style de Baldur's Gate II mis a jour [defaut].
+2. Animations au style de Baldur's Gate I.
+3. Passer cette partie de l'installation.
+
+VEUILLEZ ENTRER 1, 2 OU 3~
+
+@400009 = ~REGLAGE 3 : ICONES DES ARMURES
+Ce reglage definit le style graphique standard des icones d'inventaire des armures. Il n'affecte pas necessairement les objets magiques, et ne vous empeche pas de trouver d'autres objets. [defaut] indique l'option "standard".
+
+1. Style de 1ppv4 [defaut].
+2. Style de Baldur's Gate I.
+3. Style de Baldur's Gate II.
+4. Passer cette partie de l'installation.
+
+VEUILLEZ ENTRER 1, 2, 3 OU 4~
+
+@400010 = ~REGLAGE 3B : DISPERSE LES ARMURES A TRAVERS LE JEU
+Ce reglage determine si les armures alternatives disponibles sont reparties, ou pas, dans les zones du jeu (sous forme de nouveaux objets, de tresors aleatoires, etc.). [defaut] indique l'option "standard".
+
+1. Oui [defaut].
+2. Non.
+
+VEUILLEZ ENTRER 1 OU 2~
+
+@400011 = ~REGLAGE 4 : COULEURS DES OBJETS PRE-DEFINIES
+Ce reglage determine si les couleurs des objets portes par les personnages sont fixees et non modifiables. Par defaut, les couleurs des objets magiques sont pre-etablies alors que celles des boucliers et casques non magiques ne le sont pas (vous permettant de les personnaliser avec les couleurs de vos vetements). 
+
+1. Oui pour les objets magiques / Non pour les objets non-magiques [defaut].
+2. Oui pour tous les objets, qu'ils soient magiques ou pas.
+3. Oui pour tous les objets, qu'ils soient magiques ou pas, mais ne concerne pas les boucliers au graphisme de BG1.
+4. Non, ni pour les objets magiques, ni pour les objets non-magiques.
+
+VEUILLEZ ENTRER 1, 2, 3 OU 4~
+
+@400012 = ~REGLAGE 5A : OMBRES SUR LES PAPERDOLLS (BOUCLIERS)
+Normalement, les objets que portent vos personnages ne generent pas d'ombre sur les paperdolls. Activez cette option si vous souhaitez que les boucliers projettent des ombres sur les paperdolls.
+
+1. Non
+2. Oui [defaut]
+
+VEUILLEZ ENTRER 1 OU 2~
+
+@400013 = ~REGLAGE 5B : OMBRES SUR LES PAPERDOLLS (CASQUES)
+Normalement, les objets que portent vos personnages ne generent pas d'ombre sur les paperdolls. Activez cette option si vous souhaitez que les casques projettent des ombres sur les paperdolls.
+
+1. Non.
+2. Oui [defaut].
+
+VEUILLEZ ENTRER 1 OU 2~
+
+@400016 = ~Voulez-vous que les gemmes doivent etre obligatoirement identifiees ?
+
+1. Oui.
+2. Non merci.
+
+VEUILLEZ ENTRER 1 OU 2~
+
+@400019 = ~Voulez-vous appliquer le reglage des visuels des boucliers a ceux de Tutu/BG1 (attention : cela remplacera les boucliers par defaut de Tutu) ?
+
+1. Non, merci. [defaut]
+2. Oui.
+
+VEUILLEZ ENTRER 1 OU 2~
+
+@400020 = ~Voulez-vous appliquer vos choix d'icones d'inventaire pour les casques de BG2 a ceux de Tutu/BG1 (attention : cela remplacera les casques par defaut de Tutu) ?
+
+1. Non, merci. [defaut]
+2. Oui.
+
+VEUILLEZ ENTRER 1 OU 2~
+
+// New setting
+@400021 = ~Voulez-vous transformer en fleau l'etoile du matin La Dormeuse ? [defaut] indique l'option "standard".
+
+1. Oui. [defaut]
+2. Non, mais on installe son icone de fleau alternative IBLUN16B comme nouvelle ressource pour les moddeurs.
+
+VEUILLEZ ENTRER 1 OU 2~
+
+@400100 = ~REGLAGE 1 : COULEURS DES OBJETS NON-MAGIQUES PRE-DEFINIES
+Ce reglage determine si les couleurs des boucliers et des casques non magiques portes par les personnages sont fixees et non modifiables. Par defaut, elles ne le sont pas, vous permettant de les personnaliser avec les couleurs de vos vetements. Activer cette option definit les couleurs de tous les objets.
+
+1. Non [defaut].
+2. Oui.
+
+VEUILLEZ ENTRER 1 OU 2~*/
+
+
+/* ============================================ *
+ *         Improved projectile effects          *
+ * ============================================ */
+@401    = ~1ppv4 : Rendu des projectiles ameliore~
+@4010   = ~Installe le rendu des projectiles ameliores pour BGII.~
+
+// 401_projectiles.tph traified
+@401001 = ~Installe les projectiles de fleches et patche les objets...~
+@401002 = ~Installe les projectiles de haches et patche les objets...~
+@401003 = ~Installe les projectiles de carreaux et patche les objets~
+@401004 = ~Installe les projectiles de billes et patche les objets~
+@401005 = ~Installe les projectiles de dagues et patche les objets~
+@401006 = ~Installe les projectiles de flechettes et patche les objets~
+@401007 = ~Installe les javelines...~
+@401008 = ~Patche les objets et les sorts du jeu avec les nouveaux projectiles de 1pp...~
+
+
+/* ============================================ *
+ *  Fixed animations for solars and elementals  *
+ * ============================================ */
+@300    = ~1ppv4 : Correction des animations des solaires et des elementaires~
+@3000   = ~Votre jeu n'utilise pas le moteur de ToB (passe).~
+
+// 300_solar_fix.tph traified
+@300000 = ~Installe le patch correctif des animations des solaires et des elementaires pour Windows/linux...~
+@300001 = ~Erreur : la taille de l'executable n'est pas conforme. Installation arretee par mesure de securite.~
+@300002 = ~N'a pas reussi a patcher l'executable.~
+@300003 = ~Erreur : l'executable ne semble pas compatible.~
+@300004 = ~Desole ! Pour l'instant, ce composant ne peut pas s'installer pas sur un systeme d'exploitation OSX.~
+@300006 = ~Installe les fichiers pour les solaires avec un nouveau visuel de leurs armes (objets pleins entoures d'une lueur)...~
+@300007 = ~Installe les fichiers pour les solaires with un visuel de leurs armes similaire a celui de BGII (lueur eclatante et floue)...~
+@300008 = ~Votre jeu se semble pas disposer des fichiers d'animation des solaires. Passe.~
+@300009 = ~Installe les fichiers pour les elementaires...~
+
+/* DEPRECATED ad of v4.2.0:
+Variable now set in 1pp-config-default.ini or 1pp-config-user.ini
+
+@300005 = ~Vous pouvez choisir deux rendus visuels pour les armes portees par les solaires. Lequel preferez-vous ?
+
+1. Nouvelle apparence (des objets pleins entoures d'une lueur).
+2. Comme dans le jeu BGII de base (formees par une lueur eclatante et floue).
+
+VEUILLEZ ENTRER 1 OU 2~ */
+
+
+/* ============================================ *
+ *         Miscellaneous content fixes          *
+ * ============================================ */
+@301    = ~1ppv4 : Correction d'autres elements divers~
+
+// 301_misc_fixes.tph traified
+@301000 = ~Corrige le dysfonctionnement des casques du au moteur de BGII - verification.~
+@301001 = ~Erreur : impossible d'identifier votre version de BGII. Veuillez verifier que vous avez bien installe le patch v26498 (pour ToB) ou le patch v24037 (pour SoA).~
+@301002 = ~N'a pas reussi a patcher bgmain, passe.~
+@301003 = ~Correction du dysfonctionnement des casques du au moteur de BGII (pour IWD) - verification.~
+@301004 = ~Erreur : impossible d'identifier votre version IWD. Veuillez verifier que vous avez bien installe TotLM (v1.4.2).~
+@301005 = ~N'a pas reussi a patcher idmain, passe.~
+@301006 = ~Correction du bug du tampon de profondeur des animations de boucliers de BGII - verification.~
+@301007 = ~Correction du bug du tampon de profondeur des animations de boucliers de BGII (IWD) - verification.~
+@301008 = ~Correction du bug du tampon de profondeur des animations de boucliers de BGII (IWD2) - verification.~
+@301009 = ~Erreur : impossible d'identifier votre version de IWD2. Veuillez verifier que vous avez bien installe le patch v2.0.l pour IWD2.~
+@301010 = ~N'a pas reussi a patcher iwd2, passe.~
+@301011 = ~Corrige les palettes des animations de chien.~
+@301012 = ~Corrige l'animation de roturiere assise.~
+@301013 = ~Corrige la variante de l'animation de geant du feu (palette et animations).~
+
+
+/* ============================================ *
+ *                WeiDU prompts                 *
+ * ============================================ */
+@-1000= "Le mod %TP2_FILE_NAME% contient"
+@-1001= "composants optionnels distincts.
+Pour gagner du temps, vous pouvez choisir ce que vous souhaitez faire d'eux
+au niveau general plutot que de repondre aux questions pour chacun.
+"
+@-1002= "Que faut-il faire de tous les composants qui NE sont PAS ENCORE installes ?
+Les [I]nstaller, les [S]auter, dem[A]nder pour chacun ? "
+@-1003= "Que faut-il faire de tous les composants qui sont DEJA installes ?
+Les [R]einstaller, les s[U]pprimer, les [S]auter, dem[A]nder pour chacun ? "
+
+@-1004= "S'IL VOUS PLAIT, envoyez par e-mail le fichier"
+@-1005= "a"
+
+@-1006= "Installer le composant ["
+@-1007= "] ?
+[R]einstaller, co[N]server, s[U]pprimer ou [Q]uitter ? "
+@-1008= "] ?
+[I]nstaller, [N]e pas installer ou [Q]uitter ? "
+
+@-1009= "Entrez une partie du nom du module : "
+
+@-1010= "Reinstallation du composant ["
+@-1011= "] "
+@-1012= "Reinstallation dans la langue"
+
+@-1013= "Suppression de l'ancienne installation de ["
+@-1014= "] au prealable..."
+@-1015= "SUPPRESSION REUSSIE DE L'ANCIEN"
+
+@-1016= "Installation en cours"
+@-1017= "ERREUR pendant l'installation de ["
+@-1018= "], retour a l'etat anterieur"
+@-1019= "INSTALLATION REUSSIE"
+@-1020= "Saute"
+@-1021= "Suppression de ["
+@-1022= "] (composant #"
+@-1023= ")"
+@-1024= "SUPPRESSION REUSSIE DE ["
+
+@-1025= "] ?
+[R]einstaller, co[N]server, s[U]pprimer, [Q]uitter ou choisir un parmi :"
+@-1026= "] ?
+[N]e pas installer, [Q]uitter ou choisir un parmi :"
+@-1027= " (installe actuellement)"
+
+@-1028= "Souhaitez-vous afficher les composants de ["
+@-1029= "] ?
+[Y]Oui, [N]on ? "
+
+@-1030= "] ?
+choisir un parmi :"
+@-1031= "] ?
+[R]einstaller, co[N]server, [Q]uitter ou choisir un parmi :"
+@-1032= "INSTALLATION ECHOUEE A CAUSE D'ERREURS"
+@-1033= "INSTALLATION AVEC DES ALERTES"
+@-1034= "Souhaitez-vous afficher les instructions (ReadMe) ? [Y]Oui [N]on"
+@-1035= "Dans la langue"
+
+@-1036= "Saute le GROUPE ["
+@-1037= "] pour cause d'absence des pre-requis."
+
+@-1038= "dem[A]nder pour chaque composant, tout [S]auter, ou choisir une selection pre-definie :"
+@-1039= "dem[A]nder pour chaque composant, [R]einstaller la configuration courante, tout s[U]pprimer, tout [S]auter, ou choisir une selection pre-definie :"
+
+@-1040= "
+Veuillez choisir la langue dans laquelle vous souhaitez jouer au jeu.
+Si par la suite vous desirez jouer au jeu dans une langue differente, il vous
+faudra editer le fichier weidu.conf et reinstaller vos mods.
+"
+@-1041= "Tcheque"
+@-1042= "Allemand"
+@-1043= "Anglais"
+@-1044= "Espagnol"
+@-1045= "Francais"
+@-1046= "Italien"
+@-1047= "Polonais"
+@-1048= "Portugais"
+@-1049= "Turc"
+@-1050= "Japonais"
+@-1051= "Coreen"
+@-1052= "Chinois simplifie"
+@-1053= "Russe"
+@-1054= "Ukrainien"
+
+@-1060= "
+Ce jeu est disponible en plusieurs langues mais WeiDU ne sait pas laquelle a ete choisie quand ce mod a ete installe.
+
+Veuillez indiquer quelle langue du jeu a ete utilisee quand vous avez installe ce mod. Votre choix servira jusqu'a ce que WeiDU s'arrete mais ne sera pas memorise.
+"
+@-1061= "
+Utilisation de"
+@-1062= " et "
