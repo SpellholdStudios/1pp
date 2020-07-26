@@ -216,7 +216,7 @@ ACTION_FOR_EACH 1pp_proj IN 1axe05 1axe08 1axe09 1axe10 1axe16 BEGIN	// 1pp new 
 END
 
 // Throwing Axe +2
-ACTION_FOR_EACH axe IN ~ax1h05~ ~_ax1h05~ ~ax1h06~ ~ax1h0b5~ ~ax1h0b5~ BEGIN // Gwen fix: add IR compatibility
+ACTION_FOR_EACH axe IN ~ax1h05~ ~_ax1h05~ ~ax1h06~ ~ax1h05b~ ~ax1h06b~ BEGIN // Gwen fix: add IR compatibility
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.itm~) BEGIN
 		COPY_EXISTING ~%axe%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
