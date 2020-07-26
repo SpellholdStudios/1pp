@@ -1,0 +1,124 @@
+/* ============================================ *
+ *                                              *
+ *                 ALWAYS BLOCK                 *
+ *                                              *
+ * ============================================ */
+
+// Concept borrowed from DavidW's Immutability and encapsulation in mod design ( https://github.com/Gibberlings3/immutable )
+
+/* =================================================================== *
+ *  This code only runs once, even if you install lots of components.  *
+ * =================================================================== */
+
+ACTION_IF !VARIABLE_IS_SET always_once_section BEGIN
+
+	OUTER_SET always_once_section = 1
+	SILENT
+
+	/* ----------------------------------------- *
+	 *    Determines which game is installed.    *
+	 * ----------------------------------------- */
+
+	OUTER_SET is_tob   = (GAME_IS ~bgt tob ca~) ? 1 : 0			// based on vanilla ToB engine
+	OUTER_SET is_bg2   = (GAME_IS ~bg2~) ? 1 : 0				// based on vanilla SoA engine
+	OUTER_SET is_tutu  = (GAME_IS ~tutu tutu_totsc~) ? 1 : 0	// tutu
+	OUTER_SET is_iwd   = (GAME_IS ~totlm how~) ? 1 : 0			// iwd
+	OUTER_SET is_iwd2  = (GAME_IS ~iwd2~) ? 1 : 0				// iwd2
+
+
+	/* ------------------------ *
+	 *    Detects other mods    *
+	 * ------------------------ */
+
+	OUTER_SET is_tobex     = (FILE_EXISTS ~tobex_ini/tobexcore.ini~) ? 1 : 0		// ToBEx
+	OUTER_SET SR_INSTALLED = MOD_IS_INSTALLED ~setup-spell_rev.tp2~ 0				// ACTION_IF (FILE_EXISTS_IN_GAME ~dvsrv3.mrk~) BEGIN //SR fix
+/*TODO: What about this?
+COPY ~spell_rev\shared\dvimhere.mrk~      ~override~  // Used to detect if SR is installed
+COPY ~spell_rev\shared\dvsrv3.mrk~      ~override~  // Used to detect if SR V3 is installed
+COPY ~spell_rev\shared\dvsrv4here.mrk~      ~override~  // Used to detect if SR V4 is installed*/
+	OUTER_SET IR_INSTALLED = MOD_IS_INSTALLED ~setup-item_rev.tp2~ 0				// ACTION_IF (FILE_EXISTS_IN_GAME ~dvsrv3.mrk~) BEGIN
+	OUTER_SET IA_INSTALLED = (FILE_EXISTS_IN_GAME ~xdmc1a1.bam~) ? 1 : 0			// IA BG1 Animations for NPCs component (CLERIC_MALE_DWARF_LOW)
+	OUTER_SET is_bw_herbs  = ((MOD_IS_INSTALLED ~setup-bw_herbs_bg2.tp2~ ~0~)
+                           OR (MOD_IS_INSTALLED ~setup-bw_herbs.tp2~ ~0~)) ? 1 : 0	// Herbs & Potions add-in for Baldur's Gate II and BG1 version (for tutu and BGT).
+
+
+
+	/* --------------------------------------------- *
+	 *    General variables, macros and functions    *
+	 * --------------------------------------------- */
+
+	OUTER_SPRINT configuration-default "1pp-config-default.ini" // default configuration file to read initial variable options
+	OUTER_SPRINT configuration-user    "1pp-config-user.ini"    // user created file, not included inside mod archive. If exists, it will overwrite variable options from 1pp-config-default file
+
+	INCLUDE ~%MOD_FOLDER%/lib/1pp_functions.tpa~				// Loads macros and functions library dealing with tooltip appending and specific EE items descriptions.
+	INCLUDE ~%MOD_FOLDER%/lib/1pp_compatibility.tph~			// Loads functions restoring items coloration for EE games or if 1PP relevant components are installed.
+	INCLUDE ~%MOD_FOLDER%/lib/1pp_macros.tpa~					// Loads 1PP macros dealing with items coloring.
+	INCLUDE ~%MOD_FOLDER%/lib/1pp_read_configuration.tph~
+	LAM ~Locations~												// DEFINES location field values needed to alter items' colors.
+/* Uncomment this line for debugging purpose*/
+PRINT "-----------------------------------------------------------------------------------------------------------------------
+ CONTROL VARIABLES for DEBUGGING:
+ --------------------------------
+is_bg2 = %is_bg2% - is_tob = %is_tob% - is_tutu = %is_tutu% - is_iwd = %is_iwd% - is_iwd2 = %is_iwd2% - is_tobex = %is_tobex% - SR_INSTALLED = %SR_INSTALLED% - IR_INSTALLED = %IR_INSTALLED% - IA_INSTALLED = %IA_INSTALLED% - is_bw_herbs = %is_bw_herbs%
+configuration-default = %configuration-default% - configuration-user = %configuration-user%
+-----------------------------------------------------------------------------------------------------------------------"
+
+
+	/* -------------------------- *
+	 *    Creates a blank file    *
+	 * -------------------------- *
+
+	<<<<<<<< .../1pp-inline/blank
+
+>>>>>>>>*/
+
+
+	/* -------------------------------------- *
+	 *    Reading .ini configuration files    *
+	 * -------------------------------------- */
+
+	ACTION_IF (VARIABLE_IS_SET configuration-default) BEGIN
+		OUTER_SPRINT ini_to_read "%MOD_FOLDER%/%configuration-default%"
+	PRINT "ini_to_read = %ini_to_read%"
+		LAM ~GW_READ_INI_FILE~
+	END
+
+	ACTION_IF (VARIABLE_IS_SET configuration-user) BEGIN
+		OUTER_SPRINT ini_to_read "%MOD_FOLDER%/%configuration-user%"
+	PRINT "ini_to_read = %ini_to_read%"
+		LAM ~GW_READ_INI_FILE~
+	END
+
+	LAM ~GW_CHECK_CONFIG_VARIABLES~
+
+	PRINT @3 /* ~LIST OF CONFIGURATION OPTIONS SET FOR INSTALLATION:
+---------------------------------------------------
+	1pp_fdwarf = %1pp_fdwarf%
+	1pp_gui_soa = %1pp_gui_soa%
+	1pp_updated_fonts = %1pp_updated_fonts%
+	1pp_mixed_labels = %1pp_mixed_labels%
+	1pp_agannazar_scorcher = %1pp_agannazar_scorcher%
+	1pp_dispel_magic_effect = %1pp_dispel_magic_effect%
+	1pp_hammers_icons = %1pp_hammers_icons%
+	1pp_potions_icons = %1pp_potions_icons%
+	1pp_iwd_cause_wounds_icons = %1pp_iwd_cause_wounds_icons%
+	1pp_shields_shadows = %1pp_shields_shadows%
+	1pp_shields_appearance = %1pp_shields_appearance%
+	1pp_shields_scatter = %1pp_shields_scatter%
+	1pp_helmets_shadows = %1pp_helmets_shadows%
+	1pp_helmets_appearance = %1pp_helmets_appearance%
+	1pp_helmets_scatter = %1pp_helmets_scatter%
+	1pp_helmets_compatibility = %1pp_helmets_compatibility%
+	1pp_armours_appearance = %1pp_armours_appearance%
+	1pp_armours_scatter = %1pp_armours_scatter%
+	1pp_forced_item_colours = %1pp_forced_item_colours%
+	1pp_gemlore = %1pp_gemlore%
+	1pp_tutu_bg1_shields = %1pp_tutu_bg1_shields%
+	1pp_tutu_bg1_helmets = %1pp_tutu_bg1_helmets%
+	1pp_sleeper = %1pp_sleeper%
+	1pp_forced_item_colours_iwd = %1pp_forced_item_colours_iwd%
+	1pp_solar_weapons = %1pp_solar_weapons%
+---------------------------------------------------*/
+	SILENT
+
+END	// of ACTION_IF !VARIABLE_IS_SET always_once_section BEGIN

@@ -1,0 +1,150 @@
+/* =============================================================== *
+ *                                                                 *
+ *                 READING INI CONGIGURATION FILES                 *
+ *                                                                 *
+ * =============================================================== */
+
+
+/* ============================================================================================== *
+ *  MACRO GW_READ_INI_FILE : READS an .ini file (lit un fichier .ini).                            *
+ * ----------------------------------------------------------------------------------------+----- *
+ *  This WeiDU action macro reads the configuration options values set in "%ini_to_read.ini%"     *
+ *  file and writes them into GW_ini_var.                                                         *
+ *  ini key values are treated case-insensitive.                                                  *
+ *  (Wrote for AL|EN but borrowed from CamDawg's most efficient version).                         *
+ * ============================================================================================== */
+
+DEFINE_ACTION_MACRO ~GW_READ_INI_FILE~
+BEGIN
+
+	LOCAL_SPRINT key ""
+	ACTION_IF FILE_EXISTS "%ini_to_read%" BEGIN
+		COPY - ~%ini_to_read%~ ~override~
+	PATCH_PRINT "ini_to_read 3 = %ini_to_read%"
+			REPLACE_EVALUATE ~^\([^ %TAB%%WNL%]+\) *= *\([^%WNL%$]+\)~
+				BEGIN
+				// key must start line and cannot contain whitespace
+				// value is everything after the "=" until the newline/end
+					SPRINT key "%MATCH1%"
+					TO_LOWER key
+					TEXT_SPRINT $GW_ini_var(~%key%~) ~%MATCH2%~
+					PATCH_PRINT "CONTROL MATCH1 %MATCH1% ==> %key% = %MATCH2%"
+				END
+			~~
+		END
+PRINT "CONTROL FIN GW_READ_INI_FILE"
+END
+
+
+/* ============================================================== *
+ *  FUNCTION check_ini : CHECKS an ini value (case-insensitive).  *
+ * -------------------------------------------------------------- *
+ *  Borrowed from CamDawg.                                        *
+ * ============================================================== */
+
+DEFINE_PATCH_FUNCTION ~check_ini~
+	STR_VAR ini = ""
+	RET value
+BEGIN
+
+	TO_LOWER ini
+	PATCH_IF !VARIABLE_IS_SET $GW_ini_var(~%ini%~) BEGIN
+		SPRINT value 0
+//		SPRINT value 4
+	END ELSE BEGIN
+		SPRINT value $GW_ini_var(~%ini%~)
+	END
+
+END
+
+DEFINE_ACTION_FUNCTION ~check_ini~
+	STR_VAR ini = ""
+	RET value
+BEGIN
+
+	OUTER_PATCH "" BEGIN
+		LPF ~check_ini~ STR_VAR ini RET value END
+	END
+
+END
+
+
+/* ================================================================================================================== *
+ *  MACRO GW_CHECK_CONFIG_VARIABLES : CHECKS configuration options values validity.                                   *
+ *                                    VÉRIFIE la validité des options de configuration.                               *
+ * ------------------------------------------------------------------------------------------------------------------ *
+ *  Cette macro vérifie que la valeurs des options de configuration des fichiers %configuration-default%.ini et       *
+ *  %configuration-user%.ini sont présentes et conformes ; sinon, elle leur assigne leur valeur par défaut (définie   *
+ *  dans l'array 1pp_ini_variables_check).                                                                            *
+ * ------------------------------------------------------------------------------------------------------------------ *
+ *  This macro checks if configuration option values (in %configuration-default.ini% & %configuration-user.ini%) are  *
+ *  set and not mismatched. If not, it will revert them to their default values (1pp_ini_variables_check array).      *
+ * ================================================================================================================== */
+
+ACTION_CLEAR_ARRAY 1pp_ini_variables_check
+ACTION_DEFINE_ASSOCIATIVE_ARRAY 1pp_ini_variables_check BEGIN
+//  VARIABLE          VALUES : MAX  => DEFAULT
+	fdwarf,						2	=> 2
+	gui_soa,					2	=> 1
+	updated_fonts,				2	=> 2
+	mixed_labels,				2	=> 1
+	agannazar_scorcher,			2	=> 2
+	dispel_magic_effect,		2	=> 1
+	hammers_icons,				2	=> 1
+	potions_icons,				2	=> 2
+	iwd_cause_wounds_icons,		2	=> 1
+	shields_appearance,			4	=> 1
+	shields_scatter,			2	=> 1
+	shields_shadows,			2	=> 2
+	helmets_appearance,			4	=> 1
+	helmets_scatter,			2	=> 1
+	helmets_shadows,			2	=> 2
+	helmets_compatibility,		3	=> 1
+	armours_appearance,			4	=> 1
+	armours_scatter,			2	=> 1
+	forced_item_colours,		4	=> 1
+	gemlore,					2	=> 1
+	tutu_bg1_shields,			2	=> 1
+	tutu_bg1_helmets,			2	=> 1
+	sleeper,					2	=> 2
+	forced_item_colours_iwd,	2	=> 1
+	solar_weapons,				2	=> 1
+END
+
+DEFINE_ACTION_MACRO ~GW_CHECK_CONFIG_VARIABLES~
+BEGIN
+
+	ACTION_PHP_EACH 1pp_ini_variables_check AS variable => default BEGIN
+
+		ACTION_IF (VARIABLE_IS_SET $GW_ini_var(~1pp_%variable_0%~)) BEGIN
+
+			ACTION_IF (NOT(IS_AN_INT $GW_ini_var(~1pp_%variable_0%~)) || ($GW_ini_var(~1pp_%variable_0%~) < 0 ) || ($GW_ini_var(~1pp_%variable_0%~) > %variable_1%)) BEGIN
+				OUTER_TEXT_SPRINT wrong_value $GW_ini_var("1pp_%variable_0%")
+				OUTER_TEXT_SPRINT $GW_ini_var("1pp_%variable_0%") "%default%"
+				OUTER_SET value = $GW_ini_var("1pp_%variable_0%")
+				PRINT @1 // ~Configuration option 1pp_%variable_0% value (%wrong_value%) does not match its scope and has been reset to its default value (%default%).~
+			END ELSE BEGIN
+				OUTER_SET value = $GW_ini_var("1pp_%variable_0%")
+			END
+
+		END ELSE BEGIN	// variable is not set
+
+			OUTER_TEXT_SPRINT $GW_ini_var("1pp_%variable_0%") "%default%"
+			OUTER_SET value = $GW_ini_var("1pp_%variable_0%")
+			PRINT @2 // ~Configuration option %1pp_variable_0% does not exist and has been set to its default value (%default%).~
+
+		END
+
+//		OUTER_SPRINT value $GW_ini_var(~1pp_%variable_0%~)
+//		OUTER_SPRINT "%variable_0%" EVAL "%value%"
+
+		OUTER_SET EVAL "1pp_%variable_0%" = value
+
+//TODO remove
+LAF ~check_ini~ STR_VAR ini = EVAL "1pp_%variable_0%" RET var = value END
+PRINT "CONTROL check_ini 1pp_%variable_0% = %var%"
+
+	END	// of ACTION_PHP_EACH GW_ini_variables_check AS variable => default
+	ACTION_CLEAR_ARRAY 1pp_ini_variables_check
+
+END	// of DEFINE_ACTION_MACRO

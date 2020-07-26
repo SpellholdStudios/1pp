@@ -1,0 +1,466 @@
+/*===================================================== *
+ *                                                      *
+ *        F U N C T I O N S    &    M A C R O S         *
+ *                                                      *
+ *===================================================== */
+
+/* ================================================================================================================================================== *
+ * LIST of FUNCTIONS :                                                                                                                                *
+ * -------------------                                                                                                                                *
+ *  - FUNCTION GW_DEF_OFFSETS_FILE              : DÉFINITION des offsets généraux des fichiers SPL, ITM et CRE.                        => line #  25  *
+ *                                                DEFINES the main offsets used to patch SPL, ITM and CRE files.                                      *
+ *  - FUNCTION GW_CLEAR_DUPLICATED_OPCODES      : RECHERCHE de la présence d'un opcode dans un fichier et SUPPRESSION des doublons.    => line #  91  *
+ *                                                LOOKS for a specific opcode in a file and DELETES duplicated effects.                               *
+ *  - FUNCTION GW_MODIFY_PROJ                   : MODIFIE la valeur du projectile d'un objet ou d'un sort.                             => line # 279  *
+ *                                                MODIFIES an item's or spell's projectile.                                                           *
+ *  - MACRO GW_ADJUST_TOOLTIP                   : AJOUTE une ou plusieurs colonnes dans le fichier tooltip.2da.                        => line # 369  *
+ *                                                ADDS new columns in tooltip.2da file if needed.                                                     *
+ *  - MACRO GW_READ_COL_TOOLTIP                 : LIT le nombre de colonnes du fichier tooltip.2da.                                    => line # 405  *
+ *                                                READS tooltip.2da file number of columns.                                                           *
+ *  - FUNCTION GW_ADD_ITEM_TOOLTIPS             : AJOUTE une nouvelle ligne au fichier tooltip.2da.                                    => line # 422  *
+ *                                                ADDS a new line in tooltip.2da. file.                                                               *
+ * ================================================================================================================================================== */
+
+/* =============================================================================================== *
+ *  FUNCTION GW_DEF_OFFSETS_FILE : DÉFINITION des offsets généraux des fichiers SPL, ITM et CRE.   *
+ *                                 DEFINES the main offsets used to patch SPL, ITM and CRE files.  *
+ * ----------------------------------------------------------------------------------------------- *
+ * Lancée une seule fois avant de modifier une ou plusieurs fichiers.                              *
+ * Launched once before patching one or several files.                                             *
+ * =============================================================================================== */
+
+DEFINE_PATCH_FUNCTION ~GW_DEF_OFFSETS_FILE~ 
+	STR_VAR GW_file_sig = ""				// file type
+	RET GW_oe								// Extended Header offset
+        GW_oc								// Extended Header count
+        GW_al								// Extended Header length (ability length)
+        GW_fx								// Feature blocks offset
+        GW_fi								// Equipping-Casting feature blocks index
+        GW_fc								// Equipping Feature Blocks count
+        GW_min_size							// Minimum size
+BEGIN
+
+	PATCH_IF ("%GW_file_sig%" STRING_COMPARE_CASE "") BEGIN SPRINT sig EVAL "%GW_file_sig%" END ELSE BEGIN READ_ASCII 0 sig (3) END
+	PATCH_MATCH ~%sig%~ WITH
+		ITM	BEGIN	SET GW_oe = 0x64		// Extended Header offset
+					SET GW_oc = 0x68		// Extended Header count
+					SET GW_al = 0x38		// Extended Header length (ability length)
+					SET GW_fx = 0x6a		// Feature blocks offset
+					SET GW_fi = 0x6e		// Equipping feature blocks index
+					SET GW_fc = 0x70		// Equipping Feature Blocks count
+					SET GW_min_size = 0x71	// Minimum size
+		END
+		SPL	BEGIN	SET GW_oe = 0x64		// Extended Header offset
+					SET GW_oc = 0x68		// Extended Header count
+					SET GW_al = 0x28		// Extended Header length (ability length)
+					SET GW_fx = 0x6a		// Feature Block Table offset
+					SET GW_fi = 0x6e		// Casting Feature Block offset
+					SET GW_fc = 0x70		// Casting Feature Block count
+					SET GW_min_size = 0x71	// Minimum size
+		END
+		CRE BEGIN	SET GW_oe = 0			// Extended Header offset
+					SET GW_oc = 0			// Extended Header count
+					SET GW_al = 0			// Extended Header length (ability length)
+					SET GW_fx = 0x2c4		// Effects offset
+					SET GW_fi = 0			// Casting Feature Block offset
+					SET GW_fc = 0x2c8		// Effects count
+					SET GW_min_size = 0x2d3	// Minimum size
+		END
+		DEFAULT
+	END
+
+END	// of DEFINE_PATCH_FUNCTION
+
+DEFINE_ACTION_FUNCTION ~GW_DEF_OFFSETS_FILE~
+	STR_VAR GW_file_sig = ""				// file type
+	RET	GW_oe								// Extended Header offset
+		GW_oc								// Extended Header count
+		GW_al								// Extended Header length (ability length)
+		GW_fx								// Feature blocks offset
+		GW_fi								// Equipping-Casting feature blocks index
+		GW_fc								// Equipping-Casting Blocks count
+		GW_min_size							// Minimum size
+BEGIN
+	OUTER_PATCH "" BEGIN
+		LPF ~GW_DEF_OFFSETS_FILE~ STR_VAR GW_file_sig RET GW_oe GW_oc GW_al GW_fx GW_fi GW_fc GW_min_size END
+	END
+END
+
+
+/* ========================================================================================================================== *
+ *  FUNCTION GW_CLEAR_DUPLICATED_OPCODES : RECHERCHE de la présence d'un opcode dans un fichier et SUPPRESSION des doublons.  *
+ *                                         LOOKS for a specific opcode in a file and DELETES duplicated effects.              *
+ * -------------------------------------------------------------------------------------------------------------------------- *
+ *  INTEGER VARIABLES :                                                                                                       *
+ *      - GW_opcode_to_check = opcode to check (-99 = No check).                                                              *
+ *      - GW_effects_type    = which effects to check (0 = extended headers only - 1 = equipped effects only - 2 = both).     *
+ *  Cette fonction a été adaptée à 1PP pour vérifier la présence d'une protection contre le projectile SPEAR (55). Si oui,    *
+ *  retourne la variable %GW_param2_55% qui n'est pas nulle.                                                                  *
+ *  This function has been adapted for 1PP to check if the file grants protection from SPEAR projectile (55). Id true, it     *
+ *  returns variable %GW_param2_55% > 0.                                                                                      *
+ *  The function GW_DEF_OFFSETS_FILE must be run before launching GW_CLEAR_DUPLICATED_OPCODES.                                *
+ * ========================================================================================================================== */
+
+DEFINE_PATCH_FUNCTION ~GW_CLEAR_DUPLICATED_OPCODES~
+	INT_VAR GW_opcode_to_check = "-99"	// opcode to check (-99 = No check)
+            GW_effects_type    = 2		// 0 = extended headers only - 1 = equipped effects only - 2 = both
+	RET     GW_param2_55				// Protection from SPEAR = Is there a #83 or #197 opcode with paramater2 = 55 (0 = NO)?
+BEGIN
+
+	SET GW_param2_55 = 0
+	SET GW_opcode_extd_found = 0
+	SET GW_opcode_glob_found = 0
+
+	PATCH_IF ("%GW_opcode_to_check%" != "-99") BEGIN
+
+		PATCH_IF (GW_oe = 0) BEGIN												// Creatures : NO Extended Headers!
+			SET abil_off = 0
+			SET abil_num = 0
+		END ELSE BEGIN
+			READ_LONG  GW_oe abil_off
+			READ_SHORT GW_oc abil_num
+			READ_LONG  GW_fx fx_off
+		END
+		PATCH_MATCH ~%SOURCE_EXT%~ WITH
+			ITM BEGIN	SET GW_fx_type = 0 END									// ITM_V10_GEN_EFFECTS (0x6a 4 0x70 2 0x6e 2 0x30)
+			SPL	BEGIN	SET GW_fx_type = 0 END									// SPL_V10_GEN_EFFECTS (0x6a 4 0x70 2 0x6e 2 0x30)
+			DEFAULT		SET eq_eff_indx = 0	READ_BYTE 0x33 GW_fx_type ELSE 2	// CRE_V10_EFFECTS (0x2c4 4 0x2c8 4 0 0 0x108)
+		END
+		READ_LONG  GW_fx fx_off
+		READ_SHORT GW_fi eq_eff_indx											// Index into equipping feature blocks
+		READ_SHORT GW_fc eq_eff_count
+
+		// 1. Check if extended headers contain at least one GW_opcode_to_check effect
+		// ---------------------------------------------------------------------------
+		PATCH_IF ((GW_effects_type = 0) OR (GW_effects_type = 2)) BEGIN
+
+			FOR (i = 0 ; i < abil_num ; ++i) BEGIN								// Looping through headers
+				READ_SHORT (abil_off + 0x1e + GW_al*i) "abil_fx_num"
+				READ_SHORT (abil_off + 0x20 + GW_al*i) "abil_fx_idx"
+
+				FOR (j = 0 ; j < abil_fx_num ; ++j) BEGIN						// Looping through effects
+
+					PATCH_IF (GW_opcode_extd_found = 0) BEGIN
+						READ_SHORT (fx_off + (0x30 * (j + abil_fx_idx))) "opcode"
+						PATCH_IF (opcode = GW_opcode_to_check) BEGIN
+							SET GW_opcode_extd_found = 1
+							SET j = abil_fx_num
+//							PATCH_PRINT "DEBUG CONTROL %SOURCE_FILE%	-	opcode = %opcode%	-	header #%abil_num%	-	# effect = %j%."
+						END	// of PATCH_IF (opcode = "%GW_opcode_to_check%")
+					END		// of PATCH_IF (GW_opcode_checked = 0)
+
+				END			// of looping through effects
+			END				// of looping through headers
+		END
+
+		// 2. Check if there is at least one GW_opcode_to_check in global effects
+		// ----------------------------------------------------------------------
+		PATCH_IF ((GW_effects_type = 1) OR (GW_effects_type = 2)) BEGIN
+
+			FOR (k = 0 ; k < eq_eff_count ; ++k) BEGIN
+
+				PATCH_IF (GW_opcode_glob_found = 0) BEGIN
+					READ_SHORT (fx_off + (0x08 * GW_fx_type) + ((eq_eff_indx + k * (0x30 + (0xd8 * GW_fx_type))))) opcode ELSE 0
+					PATCH_IF (opcode = GW_opcode_to_check) BEGIN
+						SET GW_opcode_glob_found = 1
+						SET k = eq_eff_count
+//							PATCH_PRINT "DEBUG CONTROL %SOURCE_FILE%	-	opcode = %opcode%	-	# global effect = %k%."
+					END	// of PATCH_IF (opcode = "%GW_opcode_to_check%")
+				END		// of PATCH_IF (GW_opcode_checked = 0)
+
+			END			// of looping through effects
+		END
+
+	END		// of PATCH_IF ("%GW_opcode_to_check%" != "-99")
+
+
+	// 3. Delete duplicated extended effects
+	// -------------------------------------
+	PATCH_IF GW_opcode_extd_found = 1 BEGIN
+
+		FOR (i = 0 ; i < abil_num ; ++i) BEGIN								// Looping through headers
+
+			SPRINT GW_max_param2 EVAL "GW_max_param2_%i%"
+			SET GW_max_param2 = 0
+//			PATCH_PRINT "DEBUG CCONTROL GW_max_param2_%i% = %GW_max_param2%"
+			READ_SHORT (abil_off + 0x1e + GW_al*i) "abil_fx_num"
+			READ_SHORT (abil_off + 0x20 + GW_al*i) "abil_fx_idx"
+
+			FOR (j = 0 ; j < abil_fx_num ; ++j) BEGIN						 // Looping through effects
+
+				READ_SHORT (fx_off + (0x30 * (j + abil_fx_idx))) "opcode"
+
+				PATCH_IF (opcode = GW_opcode_to_check) BEGIN
+					READ_LONG (fx_off + 0x08 + (0x30 * (j + abil_fx_idx))) "param2"
+					PATCH_IF param2 > GW_max_param2 BEGIN SET GW_max_param2 = param2 END
+					PATCH_PRINT "DEBUG CONTROL %SOURCE_FILE%	-	header #%i%	-	 effet #%j%	-	opcode #%GW_opcode_to_check%	-	parameter2 = %param2%."
+					PATCH_IF NOT VARIABLE_IS_SET $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%i%~ ~%param2%~) BEGIN
+						SET $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%i%~ ~%param2%~) = 1
+					END ELSE BEGIN
+						SET $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%i%~ ~%param2%~) += 1
+					END
+				END	// of PATCH_IF ("%opcode%" = "%GW_opcode_to_check%")
+
+			END		// of looping through effects
+
+//			PATCH_PRINT "DEBUG CONTROL GW_max_param2_%i% = %GW_max_param2%"
+		END			// of looping through headers
+
+		FOR (i = 0 ; i < abil_num ; ++i) BEGIN								// Looping through headers
+
+			FOR (p2 = 0 ; p2 <= GW_max_param2 ; ++p2) BEGIN
+
+				PATCH_IF VARIABLE_IS_SET $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%i%~ ~%p2%~) AND ($GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%i%~ ~%p2%~) > 1) BEGIN
+					SPRINT nb_p2 EVAL "nb_p2_%i%"
+					SET nb_p2 = $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%i%~ ~%p2%~)
+//					PATCH_PRINT "DEBUG CONTROL %SOURCE_FILE%	-	header #%i%	-	 opcode #%GW_opcode_to_check%	-	parameter2 = %p2%	==> Nb = %nb_p2%."
+					LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_globals = 0 header = i multi_match = (nb_p2 - 1) match_opcode = GW_opcode_to_check match_parameter2 = p2 END
+					PATCH_PRINT "DEBUG CONTROL %SOURCE_FILE%	-	DELETE_EFFECT header #%i% - opcode #%GW_opcode_to_check% parameter2 = %p2% ==> (%nb_p2% - 1) deleted."
+				END
+
+			END
+
+			PATCH_IF VARIABLE_IS_SET $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%i%~ ~55~) BEGIN
+				SET GW_param2_55 = $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%i%~ ~55~)
+//				PATCH_PRINT "DEBUG CONTROL $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%i%~ ~55~) = %GW_param2_55%"
+			END
+
+		END	// of looping through headers
+//		PATCH_PRINT "DEBUG CONTROL %SOURCE_RES% - GW_param2_55 = %GW_param2_55%"
+	END // of Delete duplicated extended effects
+
+
+	// 4. Delete duplicated global effects
+	// -----------------------------------
+
+	PATCH_IF GW_opcode_glob_found = 1 BEGIN
+
+		SET GW_max_param2 = 0
+
+		FOR (k = 0 ; k < eq_eff_count ; ++k) BEGIN					// Looping through global effects
+
+			READ_SHORT (fx_off + (0x08 * GW_fx_type) + ((eq_eff_indx + k * (0x30 + (0xd8 * GW_fx_type))))) opcode ELSE 0
+
+			PATCH_IF (opcode = "%GW_opcode_to_check%") BEGIN
+				READ_LONG (fx_off + 0x08 + (0x10 * GW_fx_type) + ((eq_eff_indx + k) * (0x30 + (0xd8 * GW_fx_type)))) param2
+				PATCH_IF param2 > GW_max_param2 BEGIN SET GW_max_param2 = param2 END
+				PATCH_PRINT "DEBUG CONTROL %SOURCE_FILE%	-	effet #%k%	-	opcode #%GW_opcode_to_check%	-	parameter2 = %param2%."
+				PATCH_IF NOT VARIABLE_IS_SET $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%param2%~) BEGIN
+					SET $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%param2%~) = 1
+				END ELSE BEGIN
+					SET $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%param2%~) += 1
+				END
+			END	// of PATCH_IF ("%opcode%" = "%GW_opcode_to_check%")
+
+		END // of looping through headers
+//		PATCH_PRINT "DEBUG CONTROL GW_max_param2 = %GW_max_param2%"
+
+//		PATCH_PRINT "DEBUG CONTROL GW_max_param2 = %GW_max_param2%"
+		FOR (p2 = 0 ; p2 <= GW_max_param2 ; ++p2) BEGIN
+			PATCH_IF VARIABLE_IS_SET $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%p2%~) AND ($GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%p2%~) > 1) BEGIN
+				SET nb_p2 = $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%p2%~)
+//				PATCH_PRINT "DEBUG CONTROL %SOURCE_FILE%	-	opcode #%GW_opcode_to_check%	-	parameter2 = %p2%	==> Nb = %nb_p2%."
+				LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = (nb_p2 - 1) match_opcode = GW_opcode_to_check match_parameter2 = p2 END
+				PATCH_PRINT "DEBUG CONTROL %SOURCE_FILE%	-	DELETE_EFFECT opcode #%GW_opcode_to_check% parameter2 = %p2% ==> (%nb_p2% - 1) deleted."
+			END
+		END
+
+		PATCH_IF VARIABLE_IS_SET $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~55~) BEGIN
+			SET GW_param2_55 = $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~55~)
+			PATCH_PRINT "DEBUG CONTROL $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~55~) = %GW_param2_55%"
+		END
+
+	END // of Delete duplicated global effects
+		
+END		// of DEFINE_PATCH_FUNCTION
+
+
+/* ================================================================================================================================================== *
+ *  FUNCTION GW_MODIFY_PROJ : MODIFIE la valeur du projectile d'un objet ou d'un sort.                                                                *
+ *                            MODIFIES an item's or spell's projectile.                                                                               *
+ * -------------------------------------------------------------------------------------------------------------------------------------------------- *
+ *  Fichiers ITM & SPL : modifie le projectile %old_proj% par %new_proj%, et s'assure que les attaques de mêlée (ITM) n'utilisent pas de projectile.  *
+ *  ITM & SPL files: Modifies %old_proj% value with %new_proj% value, and makes sure that melee headers (ITM) don't use projectile value.             *
+ * ================================================================================================================================================== */
+// TODO ADD_SPELL_EFFECT OR/AND CLONE_EFFECT functions ???
+DEFINE_PATCH_FUNCTION ~GW_MODIFY_PROJ~
+	INT_VAR type_abi = 0					// 3 = magical type for items
+	STR_VAR old_proj = ""					// Projectile string to replace (e.g. ARROW)
+            new_proj = ""					// New Projectile string (e.g. 1arow01)
+BEGIN
+
+	READ_LONG  0x64 ao ELSE 0				// abilities offset
+	READ_SHORT 0x68 an ELSE 0				// abilities number
+
+	PATCH_IF (ao > 0x71) BEGIN
+// New
+		READ_ASCII 0 sig (3)
+		SET GW_al = ("%sig%" STRING_EQUAL_CASE "ITM") ? 0x38 : 0x28			// Extended Header length (ability length)
+		SET proj_off = ("%sig%" STRING_EQUAL_CASE "ITM") ? 0x2a : 0x26		// Projectile offset
+
+		FOR (i = 0 ; i < an ; ++i) BEGIN									// Looping through headers
+
+			PATCH_MATCH ~%sig%~ WITH
+				ITM	BEGIN	READ_BYTE (ao + (GW_al * i)) type END
+				SPL	BEGIN	SET type = 2 END
+				DEFAULT
+			END
+			READ_SHORT (ao + proj_off + (GW_al * i)) oldprojectile
+			LOOKUP_IDS_SYMBOL_OF_INT projectile projectl %oldprojectile% - 1
+//			PATCH_PRINT "DEBUG CONTROL %SOURCE_RES% - header #%i% - type #%type% - projectile = %projectile% (%oldprojectile%)"
+
+			PATCH_IF (type = 2) OR ((type = 3) AND (type_abi = 3)) BEGIN	// Item (Projectile or Magical) or spell
+				PATCH_IF (oldprojectile > 0) BEGIN
+					PATCH_IF ("%projectile%" STRING_EQUAL_CASE "%old_proj%") BEGIN
+						newprojectile = (IDS_OF_SYMBOL (projectl "%new_proj%") + 1)
+						PATCH_IF newprojectile > 0 BEGIN
+							PATCH_PRINT "DEBUG CONTROL %SOURCE_RES% - header #%i% - type #%type% - replaced old projectile %old_proj% (%oldprojectile%) with new projectile %new_proj% (%newprojectile%)"
+							WRITE_SHORT (ao + proj_off + (GW_al * i)) newprojectile
+//						END ELSE BEGIN
+//							PATCH_PRINT "DEBUG CONTROL Failed to patch %SOURCE_FILE% (header #%i%): new projectile (%new_proj%) does not exist or is not installed in your game."
+						END
+//					END ELSE BEGIN
+//						PATCH_PRINT "DEBUG CONTROL Failed to patch %SOURCE_FILE% : old projectile (%old_proj%) is not set in this header (#%i%) or is not installed in your game."
+					END
+				END
+			END ELSE BEGIN
+				PATCH_IF (type = 1) AND (oldprojectile > 1) BEGIN			// Type = Melee and old projectile <> NONE ==> needs to be fixed
+					WRITE_SHORT (ao + proj_off + (GW_al * i)) 1
+					PATCH_PRINT "DEBUG CONTROL %SOURCE_RES% - header #%i% - type #%type% - fix old projectile %old_proj% (%oldprojectile%) --> new projectile = None"
+				END
+			END
+
+		END	// of Looping through headers
+	END
+
+END		// of DEFINE_PATCH_FUNCTION
+/* EX = OK
+		FOR (i = 0 ; i < an ; ++i) BEGIN	// Looping through headers
+
+			READ_BYTE  (ao +        (0x38 * i)) type
+			READ_SHORT (ao + 0x2a + (0x38 * i)) oldprojectile
+			LOOKUP_IDS_SYMBOL_OF_INT projectile projectl %oldprojectile% - 1
+//			PATCH_PRINT "DEBUG CONTROLE %SOURCE_RES% - header #%i% - type #%type% - projectile = %projectile% - oldprojectile = %oldprojectile%"
+			PATCH_IF (type = 2) BEGIN		// Projectile
+				PATCH_IF (oldprojectile > 0) BEGIN
+					PATCH_IF ("%projectile%" STRING_EQUAL_CASE "%old_proj%") BEGIN
+						newprojectile = (IDS_OF_SYMBOL (projectl "%new_proj%") + 1)
+						PATCH_IF newprojectile > 0 BEGIN
+//							PATCH_PRINT "DEBUG CONTROLE %SOURCE_RES% - header #%i% - type #%type% - replace old projectile = %old_proj% (%oldprojectile%) with new projectile = %new_proj% (%newprojectile%)"
+							WRITE_SHORT (ao + 0x2a + (0x38 * i)) newprojectile
+						END ELSE BEGIN
+							PATCH_PRINT "DEBUG Failed to patch %SOURCE_FILE% : new projectile (%new_proj%) does not exist or is not installed in your game."
+						END
+					END ELSE BEGIN
+						PATCH_PRINT "DEBUG Failed to patch %SOURCE_FILE% : old projectile (%old_proj%) is not set in the file or is not installed in your game."
+					END
+				END
+			END ELSE BEGIN
+				PATCH_IF (type = 1) AND (oldprojectile > 1) BEGIN	// Type = Melee and old projectile <> NONE ==> needs to be fixed
+					WRITE_SHORT (ao + 0x2a + (0x38 * i)) 1
+//					PATCH_PRINT "DEBUG CONTROLE %SOURCE_RES% - header #%i% - type #%type% - fix old projectile = %old_proj% (%oldprojectile%) --> new projectile = None"
+				END
+			END
+
+		END	// of Looping through headers
+*/
+
+/* ============================================================================================ *
+ *  MACRO GW_ADJUST_COL_TOOLTIP: AJOUTE une ou plusieurs colonnes dans le fichier tooltip.2da.  *
+ *                               ADDS new columns in tooltip.2da file if needed.                *
+ * -------------------------------------------------------------------------------------------- *
+ *  CODE borrowed and adapted from Miloch's one.                                                *
+ * ============================================================================================ */
+
+// We need 4 columns in tooltip.2da for Narbucchad's Demise staves (400_update_bgii_staves2.tpa)
+DEFINE_ACTION_MACRO ~GW_ADJUST_COL_TOOLTIP~ BEGIN
+
+	COPY_EXISTING ~tooltip.2da~ ~override~
+		COUNT_2DA_COLS cl
+		COUNT_2DA_ROWS 1 rw
+		SPRINT cz ~~
+		SPRINT rx ~       ~ // 7
+		SPRINT ry ~-1~
+		SPRINT rz ~~
+		PATCH_IF cl < 5 BEGIN
+			SPRINT rz ~$ $ 4~
+			FOR (i = 0 ; i < (rw - 3) ; ++i) BEGIN	// Cycle through rows
+				SPRINT rz ~%rz%~ ^ ~%rx%~ ^ ~%ry%~
+			END
+		END ELSE BEGIN
+			FOR (j = 4 ; j < (cl - 1) ; ++j) BEGIN	// Cycle through columns
+				SPRINT cz ~%cz%~ ^ ~%rx%~ ^ ~%ry%~
+			END
+		END
+	BUT_ONLY
+
+	ACTION_IF cl < 5 BEGIN
+		APPEND_COL ~tooltip.2da~ ~%rz%~
+	END
+
+END	// of DEFINE_ACTION_MACRO
+
+
+/* ==================================================================================== *
+ *  MACRO GW_READ_COL_TOOLTIP: LIT le nombre de colonnes du fichier tooltip.2da.        *
+ *                             READS tooltip.2da file number of columns.                *
+ * ------------------------------------------------------------------------------------ *
+ *  RETOURNE la valeur %cols_tooltip% (utilisée par la fonction GW_ADD_ITEM_TOOLTIPS).  *
+ *  RETURNS %cols_tooltip% value (used by GW_ADD_ITEM_TOOLTIPS function).               *
+ * ==================================================================================== */
+
+DEFINE_ACTION_MACRO ~GW_READ_COL_TOOLTIP~ BEGIN
+
+	COPY_EXISTING - ~tooltip.2da~ ~override~
+		COUNT_2DA_COLS cols_tooltip
+		COUNT_2DA_ROWS 1 rows_tooltip
+
+END
+
+
+/* ==================================================================================================== *
+ *  FUNCTION GW_ADD_ITEM_TOOLTIPS: AJOUTE une nouvelle ligne au fichier tooltip.2da.                    *
+ *                                 ADDS a new line in tooltip.2da. file.                                *
+ * ---------------------------------------------------------------------------------------------------- *
+ *  ANALYSE la chaine de caractères %GW_tooltips% et ajoute une nouvelle ligne au fichier tooltip.2da.  *
+ *  PARSES %GW_tooltips% string chain and adds a new line in tooltip.2da.                               *
+ * ==================================================================================================== */
+
+DEFINE_ACTION_FUNCTION ~GW_ADD_ITEM_TOOLTIPS~
+	STR_VAR	GW_objet    = ~N~	// item code: ~sw1h01~
+			GW_tooltips	= ~~	// tooltips stringref list: ~@123 @124 6620~, accepts combination of tra refs and strrefs for as many abilities as you need to specify
+BEGIN
+
+	ACTION_IF ("%GW_objet%" STRING_COMPARE_CASE "N") BEGIN
+		ACTION_TO_UPPER GW_objet
+
+	// Generates a row to be added to tooltip.2da
+		OUTER_TEXT_SPRINT new_row ~%GW_objet%~
+		OUTER_PATCH ~ %GW_tooltips%~ BEGIN	// Extracts each tooltip from GW_tooltips string
+			COUNT_REGEXP_INSTANCES ~[ %TAB%]+\(@?-?[0-9]+\)~ num_tooltips
+			REPLACE_EVALUATE ~[ %TAB%]+\(@?-?[0-9]+\)~ BEGIN
+				PATCH_IF ((~%MATCH1%~ STRING_MATCHES_REGEXP ~@-?[0-9]+~) = 0) BEGIN // tra ref
+					INNER_PATCH_SAVE GW_tooltip ~%MATCH1%~ BEGIN
+						REPLACE_TEXTUALLY ~[@]~  ~~
+					END
+					SET GW_tool = RESOLVE_STR_REF ( (AT GW_tooltip) )
+					TEXT_SPRINT new_row ~%new_row% %GW_tool%~ 	// Adds to the new row
+				END ELSE BEGIN // strref
+					TEXT_SPRINT new_row ~%new_row% %MATCH1%~ 	// Adds to the new row
+				END
+				TEXT_SPRINT empty_cols ~~
+			END ~~
+		END
+
+		ACTION_IF num_tooltips < (cols_tooltip -1) BEGIN
+			OUTER_FOR (i = (cols_tooltip - 1) ; i > num_tooltips ; --i) BEGIN	// Generates -1 entries for the number of missing columns
+				OUTER_TEXT_SPRINT empty_cols ~%empty_cols% -1~
+			END
+		END
+
+		OUTER_TEXT_SPRINT new_row ~%new_row%%empty_cols%~
+		APPEND ~tooltip.2da~ ~%new_row%~ UNLESS ~^%GW_objet%~
+
+	END
+
+END	// of DEFINE_ACTION_FUNCTION

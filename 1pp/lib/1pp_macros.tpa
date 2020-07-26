@@ -1,0 +1,170 @@
+/*================================================================================= *
+ *                                                                                  *
+ *        1 P P   :   M A C R O S   S E T   f o r   I T E M   C O L O U R S         *
+ *                                                                                  *
+ *================================================================================= */
+
+/* ========================================================================================================================= *
+ *  LIST of MACROS :                                                                                                         *
+ *  ----------------                                                                                                         *
+ *  - MACRO Locations      : DEFINES location field values to alter items' colors.                            => line #  23  *
+ *                           DÉFINITION des variables de localisation des couleurs des objets.                               *
+ *  - MACRO clear          : REMOVES all existing items' coloration opcodes before setting new ones.          => line #  63  *
+ *                           SUPPRESSION des effets de coloration existants avant d'en définir de nouveaux.                  *
+ *  - MACRO colour         : ADDS a new item global effect (op#7: Set Character colours by Palette).          => line #  78  *
+ *                           AJOUTE un nouvel effet global de coloration (op#7).                                             *
+ *  - MACRO pulse          : ADDS a new item global effect (op#9: Glow Pulse).                                => line # 106  *
+ *                           AJOUTE un nouvel effet global de coloration (op#9).                                             *
+ *  - MACRO glow           : ADDS a new item global effect (op#8: Change by RGB).                             => line # 143  *
+ *                           AJOUTE un nouvel effet global de coloration (op#8).                                             *
+ * ========================================================================================================================= */
+
+/* ========================================================================= *
+ *  MACRO Locations : DEFINES location field values to alter items' colors.  *
+ * ========================================================================= */
+
+DEFINE_ACTION_MACRO ~Locations~ BEGIN
+// for weapons
+	OUTER_SET wgrey = 16	// Head/Blade/Staff major (Quillons or Crossguard)
+	OUTER_SET wteal = 17	// Staff minor
+	OUTER_SET wpink = 18	// Bolt-Mace-Staff (1PP and EE)
+	OUTER_SET wyellow = 19	// Unknown (and unused)
+	OUTER_SET wred = 20		// Grip (usually not visible as it's in the characters hand) / Staff minor (vanilla = whole staff)
+	OUTER_SET wblue = 21	// Head/Blade minor (Blade or major portion of weapon)
+	OUTER_SET wgreen = 22	// Unknown (and unused)
+// for helmets
+	OUTER_SET hgrey = 48	// Wings
+	OUTER_SET hteal = 49	// Detail
+	OUTER_SET hpink = 50	// Plume
+	OUTER_SET hyellow = 51	// Unknown (and unused)
+	OUTER_SET hred = 52		// Face
+	OUTER_SET hblue = 53	// Exterior (the main covering)
+	OUTER_SET hgreen = 54	// Unknown (and unused)
+// for shields
+	OUTER_SET sgrey = 32	// Hub
+	OUTER_SET steal = 33	// Interior
+	OUTER_SET spink = 34	// Panel
+	OUTER_SET syellow = 35	// Unknown (and unused)
+	OUTER_SET sred = 36		// Grip
+	OUTER_SET sblue = 37	// Body/trim
+	OUTER_SET sgreen = 38	// Unknown (and unused)
+// for armour
+	OUTER_SET agrey = 0		// Belt/Amulet (Belt Buckle on armor or amulets on robes) - entire body for some animations
+	OUTER_SET ateal = 1		// Minor color
+	OUTER_SET apink = 2		// Major color
+	OUTER_SET ayellow = 3	// Skin color
+	OUTER_SET ared = 4		// Strap/Leather (Strap on armor, or minor triming on robes (the center strip down a robe and the hem on some robes)
+	OUTER_SET ablue = 5		// Armor/Trimming (Armor & major triming on robe - cross trim & cape trim on robe of archmagi) 
+	OUTER_SET agreen = 6	// Hair
+END
+
+
+/* ============================================================================================================ *
+ *  MACRO GW_ITEM_COLOR_CLEAR : REMOVES all existing items' coloration opcodes before setting new ones.         *
+ *                              SUPPRESSION des effets de coloration existants avant d'en définir de nouveaux.  *
+ * ============================================================================================================ */
+
+DEFINE_PATCH_MACRO ~clear~ BEGIN
+	SET opcode_to_delete = 7	// Set Character colours by Palette
+	LPM DELETE_ITEM_EQEFFECT
+	SET opcode_to_delete = 8	// Change by RGB
+	LPM DELETE_ITEM_EQEFFECT
+	SET opcode_to_delete = 9	// Glow Pulse
+	LPM DELETE_ITEM_EQEFFECT
+END
+
+
+/* ============================================================================================================================ *
+ *  MACRO colour : ADDS a new item global effect (op#7: Set Character colours by Palette).                                      *
+ *                 AJOUTE un nouvel effet global de coloration (op#7).                                                          *
+ * ---------------------------------------------------------------------------------------------------------------------------- *
+ *  Alters the colour of the area specified by the 'location' field, to the colour gradient specified by the 'gradient' field.  *
+ *  Colore la partie de l'objet définie par la variable "location" avec la teinte définie par la variable "gradient".           *
+ * ============================================================================================================================ */
+
+DEFINE_PATCH_MACRO ~colour~ BEGIN
+	SET opcode = 7										// Set opcode
+	SET target = 1										// target type
+	SET timing = 2										// timing type
+	SET power = 0										// power
+	SET resist_dispel = 0								// dispel/resistance
+	SET duration = 0									// duration
+	SET probability1 = 100								// probability 1
+	SET probability2 = 0								// probability 2
+	SPRINT "resource" ""								// resource
+	SET dicenumber = 0									// dice number 
+	SET dicesize = 0									// dice size
+	SET savingthrow = 0									// saving throw
+	SET savebonus = 0									// saving throw bonus 
+	SET parameter1 = gradient							// set colour gradient
+	SET parameter2 = location							// set location
+	LAUNCH_PATCH_MACRO ADD_ITEM_EQEFFECT
+END
+
+
+/* ============================================================================================================================= *
+ *  MACRO pulse : ADDS a new item global effect (op#9: Glow Pulse).                                                              *
+ *                AJOUTE un nouvel effet global de coloration (op#9).                                                            *
+ * ----------------------------------------------------------------------------------------------------------------------------- *
+ *  Pulses the colour of the area specified by the 'settwo' field, to the colour gradient specified by the 'setrgb' field.       *
+ *  Fait pulser la partie de l'objet définie par la variable "settwo" avec la teinte définie par la variable "setrgb".           *
+ *  The 'RGB Colour' field (setrgb) is handled as follows:                                                                       *
+ *    - setr (0-255) = Red (second byte)     - setg (0-255) = Green (Third byte)     - setb (0-255) = Blue (Fourth byte)         *
+ *  The 'Location and Speed' field (settwo) is handled as follows:                                                               *
+ *    - location = First byte                - speed (0-255) = Third byte                                                        *
+ *  Notes: If the colour values are all set to 0, the glow effect only occurs if the creature is in darkness; outside at night,  *
+ *         inside a building, or standing in shadows.                                                                            *
+ *         A speed of 0 does not pulsate. A speed of 1 is fastest, and a speed of 255 is slowest.                                *
+ * ============================================================================================================================= */
+
+DEFINE_PATCH_MACRO ~pulse~ BEGIN
+	SET opcode = 9										// Set opcode
+	SET target = 1										// target type
+	SET timing = 2										// timing type
+	SET power = 0										// power
+	SET resist_dispel = 0								// dispel/resistance
+	SET duration = 0									// duration
+	SET probability1 = 100								// probability 1
+	SET probability2 = 0								// probability 2
+	SPRINT "resource" ""								// resource
+	SET dicenumber = 0									// dice number 
+	SET dicesize = 0									// dice size
+	SET savingthrow = 0									// saving throw
+	SET savebonus = 0									// saving throw bonus 
+	SET setrgb = (setb << 24)+(setg << 16)+(setr << 8)	// Set RGB
+	SET parameter1 = setrgb
+	SET settwo = (speed << 16)+(location) 				// Set location and speed
+	SET parameter2 = settwo
+	LAUNCH_PATCH_MACRO ADD_ITEM_EQEFFECT
+END
+
+
+/* ========================================================================================================================= *
+ *  MACRO glow : ADDS a new item global effect (op#8: Change by RGB).                                                        *
+ *               AJOUTE un nouvel effet global de coloration (op#8).                                                         *
+ * ------------------------------------------------------------------------------------------------------------------------- *
+ *  Alters the colour of the area specified by the 'location' field, to the RGB colour specified by the 'setrgb' field.      *
+ *  Fait rougeoyer la partie de l'objet définie par la variable "location" avec la teinte définie par la variable "setrgb".  *
+ *  The 'RGB Colour' field (setrgb) is handled as follows:                                                                   *
+ *    - setr (0-255) = Red (second byte)     - setg (0-255) = Green (Third byte)     - setb (0-255) = Blue (Fourth byte)     *
+ * ========================================================================================================================= */
+
+DEFINE_PATCH_MACRO ~glow~ BEGIN
+	SET opcode = 8										// Set opcode
+	SET target = 1										// target type
+	SET timing = 2										// timing type
+	SET power = 0										// power
+	SET resist_dispel = 0								// dispel/resistance
+	SET duration = 0									// duration
+	SET probability1 = 100								// probability 1
+	SET probability2 = 0								// probability 2
+	SPRINT "resource" ""								// resource
+	SET dicenumber = 0									// dice number 
+	SET dicesize = 0									// dice size
+	SET savingthrow = 0									// saving throw
+	SET savebonus = 0									// saving throw bonus 
+	SET setrgb = (setb << 24)+(setg << 16)+(setr << 8)	// Set RGB
+	SET parameter1 = setrgb
+	SET parameter2 = location							// set location
+	LAUNCH_PATCH_MACRO ADD_ITEM_EQEFFECT
+END
