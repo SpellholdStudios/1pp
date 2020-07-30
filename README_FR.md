@@ -1,7 +1,7 @@
 
 ![Dernière version](https://img.shields.io/github/v/release/SpellholdStudios/1pp?include_prereleases&color=darkred)<a name="top" id="top"> </a>
 ![Plateformes](https://img.shields.io/static/v1?label=platform&message=windows%20%7C%20linux&color=informational)
-![Langues](https://img.shields.io/static/v1?label=language&message=Anglais%20%7C%20Français&color=limegreen)
+![Langues](https://img.shields.io/static/v1?label=language&message=Anglais%20%7C%20Français%20%7C%20Russe&color=limegreen)
 <a href="README.md"><img align="right" src="1pp/documentation/files/images/uk-flag-32.png"></a>
 
 
@@ -16,8 +16,13 @@
 **Site internet du mod :** <a href="http://www.spellholdstudios.net/ie/1pp">Spellhold Studios</a>  
 **Forum du mod :** <a href="http://www.shsforums.net/forum/159-1pp/">One Pixel Productions</a>  
 
+## 
 
-[Read the mod's readme](https://spellholdstudios.github.io/readmes/1pp-readme-french.html)
+:warning: Readme writing in progress... Don't try to download and install this mod as it is a WIP version and its install will fail, because of missing files still in development or in beta testing
+
+## 
+
+[Read the mod's readme](https://spellholdstudios.github.io/readmes/1pp/documentation/1pp-readme-french.html)
 
 [Download the mod at Spellhold Studios](http://www.shsforums.net/files/file/1006-1pp/)<br>
 
@@ -330,7 +335,7 @@ Voici le tableau des options concernées :<br>
 	<tr>
 		<td><div align="center">1pp_sleeper</div></td>
 		<td>TRANSFORMER DORMEUSE EN UN FLÉAU<br><br>
-		Voulez-vous transformer l'étoile du matin +2 The Sleeper en fléau ?<br><br>
+		Voulez-vous transformer l'étoile du matin +2 Dormeuse en fléau ?<br><br>
 		1 = Oui [par défaut]<br>
 		2 = Non, mais installer quand même son icône d'inventaire alternative (IBLUN16B) comme ressource pour les moddeurs.</td>
 	</tr>
@@ -347,7 +352,7 @@ Voici le tableau des options concernées :<br>
 	</tr>
 	<tr>
 		<td><div align="center">1pp_forced_item_colours_iwd</div></td>
-		<td>ITEM COLOURS FOR NON-MAGICAL ITEMS IN IWD<br><br>
+		<td>COULEURS PRÉ-DÉFINIES DES OBJETS NON-MAGIQUES pour IWD<br><br>
 		Ce réglage détermine si les couleurs des boucliers et des casques non magiques portés par les personnages sont fixées et non modifiables. Par défaut, elles ne le sont pas, vous permettant de les personnaliser avec les couleurs de vos vêtements. Activer cette option définit les couleurs de tous les objets.<br><br>
 		1 = Non [par défaut]<br>
 		2 = Oui</td>
@@ -543,6 +548,10 @@ Disponible pour : SoA, ToB, tutu</br>
 <img src="1pp/documentation/files/images/200.jpg">
 
 Pour l'essentiel, ce composant reprend les modifications d'icônes d'inventaire des objets de 1ppv2. En d'autres termes, il améliore la qualité graphique des icônes dans BGII, particulièrement dans l'expansion ToB. Il met aussi à jour des icônes et les objets associés ajoutés par certains mods. Il constitue le socle sur lequel 1ppv4 a été conçu pour SoA/ToB.</br>
+.</br>
+
+###### &#10173; <em>Note : à partir de la version 4.2.0, l'option modifiant les icônes de potions (1pp_potions_icons) est configurée à 2 par défaut (2 = Surtout pas : TOUT sauf les potions !).</em></br>
+
 &#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/v2_readme-french.html">Consulter le readme d'origine</a></br>
 
 <div align="right"><a href="#components">Retour à la liste des composants</a></div>
@@ -706,8 +715,12 @@ Il s'agit du composant principal de mise à jour de 1ppv4. Avant de l'exécuter, a
 <img src="1pp/documentation/files/images/400ss.jpg"></div><br>
 
 Dans les versions précédentes, divers choix vous étaient proposés pendant d'installation (en fonction de votre jeu IE et des composants que vous avez installés).</br>
-Depuis la version 4.2.0, les options d'installation sont externalisés dans le fichier 1pp-config-default.ini. Si vous souhaitez les modifier, veuillez lire ce <a href="#config">chapitre</a>.</br></br>
-Pour avoir un aperçu complet des options, veuillez consulter le lien ci-dessous. Si vous souhaitez affecter des couleurs pré-définies aux objets non magiques, choisissez les options 2 ou 3 de l'option COULEURS DES OBJETS PRÉ-DÉFINIES.</br>
+Depuis la version 4.2.0, les options d'installation sont externalisés dans le fichier *1pp-config-default.ini*. Si vous souhaitez les modifier, veuillez lire ce <a href="#config">chapitre</a>.</br></br>
+
+###### &#10173; <em>Note : si vous ne souhaitez pas écraser l'icône des Marteaux des Runes, choisissez la valeur 2 pour l'option 1pp_hammers_icons [Par défaut = 1 (Oui)]. En réponse à de nombreuses demandes de joueurs, transformer l'étoile du matin +2 Dormeuse est désormais optionnel et géré par l'option 1pp_sleeper option [Par défaut = 2 (Non, mais installer quand même son icône d'inventaire alternative (IBLUN16B) comme ressource pour les moddeurs)].</em></br></br>
+
+###### &#10173; <em>Pour avoir un aperçu complet des options, veuillez consulter le lien ci-dessous. Si vous souhaitez affecter des couleurs pré-définies aux objets non magiques, choisissez les valeurs 2 (Oui pour tous les objets, qu'ils soient magiques ou pas) ou 3 (Oui pour tous les objets, qu'ils soient magiques ou pas, mais ne concerne pas les boucliers au graphisme de BG1) pour l'option COULEURS DES OBJETS PRÉ-DÉFINIES.</em></br>
+
 &#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/v4u_readme-french.html">Autres options d'installation</a></br>
 <div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
@@ -765,9 +778,11 @@ Pour toute question ou demande d'assistance, veuillez consulter le <a href="http
 
 - <a href="http://www.spellholdstudios.net/">Spellhold Studios</a> team for hosting the mod (<a href="http://www.shsforums.net">Forums</a>).
 - French translation: Gwendolyne (relecture par Luren).
-- ....
-- Composant Épées enflammées : Merci d'avance à Nythrun pour nous avoir laissés utiliser son code ! Enfin, nous l'espérons !
-- Premier programme d'installation: CamDawg..
+- Traduction russe : prozh.
+- Composant Épées enflammées : Merci d'avance à <a href="http://www.shsforums.net/user/6665-nythrun/">Nythrun</a> pour nous avoir laissés utiliser son code ! Enfin, nous l'espérons !
+- Composant Avatar intelligent & Changement d'armure : Merci à <a href="http://www.shsforums.net/user/1494-galactygon/">Galactygon</a> pour nous avoir laissés utiliser son code de Changement d'armure.
+- Merci au soutien inestimable de l'équipe de BG:EE, sans qui la réalisation de ce mod n'aurait probablement pas été possible, et à Trent Oster qui a été génial pour partager les vestiges du développement de ToB.
+- Premier programme d'installation : <a href="http://www.shsforums.net/user/1242-camdawg/">CamDawg</a>.
 - Everyone else from the <a href="http://gibberlings3.net/forums/">The Gibberlings Three</a>, <a href="http://www.shsforums.net/">Spellhold Studios</a> forums, and the other Infinity Engine gaming and modding communities who offered their help and support.
 
 ## 
@@ -832,6 +847,7 @@ Note du traducteur : l'historique n'est volontairement pas entièrement traduit a
   - Révision totale du composant Rendu des projectiles amélioré [401] : élimine les doublons des opcodes #83 and #197, clone les effets existants plutôt que d'en ajouter de nouveaux...
   - Re-formatage et mise à jour de tous les readme (1pp prend désormais en compte la documentation traduite).
   - Ajout de la traduction française (Gwendolyne).
+  - Ajout de la traduction russe (prozh).
   - Traification.
   - Suppression des fichiers inutiles.
   - Reorganisation de l'arborescence des répertoires du mod : creation de sous-répertoires pour classer les fichiers de paperdolls par type de créature.

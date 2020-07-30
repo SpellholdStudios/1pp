@@ -1,7 +1,7 @@
 
 ![Latest Release](https://img.shields.io/github/v/release/SpellholdStudios/1pp?include_prereleases&color=darkred)<a name="top" id="top"> </a>
 ![Platform](https://img.shields.io/static/v1?label=platform&message=windows%20%7C%20linux&color=informational)
-![Language](https://img.shields.io/static/v1?label=language&message=English%20%7C%20French&color=limegreen)
+![Language](https://img.shields.io/static/v1?label=language&message=English%20%7C%20French%20%7C%20Russian&color=limegreen)
 <a href="README_FR.md"><img align="right" src="1pp/documentation/files/images/fr-flag-32.png"></a>
 
 
@@ -22,7 +22,7 @@
 
 ## 
 
-[Read the mod's readme](https://spellholdstudios.github.io/readmes/1pp-readme-english.html)
+[Read the mod's readme](https://spellholdstudios.github.io/readmes/1pp/documentation/1pp-readme-english.html)
 
 [Download the mod at Spellhold Studios](http://www.shsforums.net/files/file/1006-1pp/)<br>
 
@@ -555,6 +555,9 @@ Supports: SoA, ToB, tutu</br>
 <div align="center"><img src="1pp/documentation/files/images/200.jpg"></div><br>
 
 This is essentially the inventory icon/item related patches of 1ppv2. In other words, lots of random icon improvements for BGII, especially on the ToB side of things, as well as some mod item patches and updates. It will form the basis on which 1ppv4 is built on SoA/ToB.</br>
+
+###### &#10173; <em>Note: as of v4.2.0, the option updating potions BAM files (1pp_potions_icons) is set to 2 by default (2 = Heavens no -- *Everything* but Potions!).</em></br>
+
 &#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/v2_readme.html">See original readme</a></br>
 
 <div align="right"><a href="#components">Back to components list</a></div>
@@ -718,9 +721,14 @@ This is the main 1ppv4 update component. Make sure you have all components you w
 <img src="1pp/documentation/files/images/400ss.jpg"></div><br>
 
 Before v4.2.0, various content choices were presented to you during installation (depending on which IE game you are installing for and installed components).</br>
-As of version 4.2.0, installation options are moved into 1pp-config-default.ini file. If you want to modify them, please read this <a href="#config">chapter</a>.</br></br>
-For a full, visual guide to choices see the link below. Consider choosing 'yes' to setting ITEM COLOURS FOR NON-MAGICAL ITEMS (setting 2/3).</br>
+As of version 4.2.0, installation options are moved into *1pp-config-default.ini* file. If you want to modify them, please read this <a href="#config">chapter</a>.</br></br>
+
+###### &#10173; <em>Note: if you don't want to overwrite the Runehammer icon, set 1pp_hammers_icons option to 2 [default value = 1 (Yes)]. In response to many players requests, turning The Sleeper into a flail is now optional and set by 1pp_sleeper option [default value = 2 (No, but install the alternate flail icon IBLUN16B as a new resource for modders)].</em></br></br>
+
+###### &#10173; <em>For a full, visual guide to choices see the link below. Consider choosing 'yes' to setting FORCED ITEM COLOURS [1pp_forced_item_colours = 2 (Yes for both magical and non-magical items) or 3 (Yes for both magical and non-magical items, but exclude BG1 legacy shields)].</em></br>
+
 &#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/v4u_readme.html">Alternative install choices</a></br>
+
 <div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
@@ -777,9 +785,11 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
 
 - <a href="http://www.spellholdstudios.net/">Spellhold Studios</a> team for hosting the mod (<a href="http://www.shsforums.net">Forums</a>).
 - French translation: Gwendolyne (Luren for proodreading).
-- ...
-- Flaming sword component: Thanks in advance especially to Nythrun for letting us use her code! We hope!
-- First installer: CamDawg.
+- Russian translation: prozh.
+- Flaming sword component: Thanks in advance especially to <a href="http://www.shsforums.net/user/6665-nythrun/">Nythrun</a> for letting us use her code! We hope!
+- Smart Avatar & Armour Switching component: Thanks in advance especially to <a href="http://www.shsforums.net/user/1494-galactygon/">Galactygon</a> for letting us use his avatar appearance tweak code.
+- Thanks to invaluable support from the BG:EE team, without who this likely would not have been possible, and Trent Oster who has been awesome for sharing ToB development leftovers.
+- First installer: <a href="http://www.shsforums.net/user/1242-camdawg/">CamDawg</a>.
 - Everyone else from the <a href="http://gibberlings3.net/forums/">The Gibberlings Three</a>, <a href="http://www.shsforums.net/">Spellhold Studios</a> forums, and the other Infinity Engine gaming and modding communities who offered their help and support.
 
 ## 
@@ -841,6 +851,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
     - Avoided copying and overwriting the same files again and again...
   - Re-formated and updated all readme files (1pp now supports translated readmes).
   - Added French translation (Gwendolyne).
+  - Added Russian translation (prozh).
   - Traification. Feel free to provide me with translations. I will include them as soon as possible.
   - TODO Removed unused files.
   - Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to creature types. 
@@ -931,9 +942,9 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
   - [400] 1ppv4: Core updates and item patches (400_1pp_update_bgii.tph)
     - Split this huge component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).
     - Replaced `READLN` action "*Do you want gems to require some lore to identify?*" with reading new setting (1pp_gemlore) from *1pp-config-default.ini* or *1pp-config-user.ini* [default value = 1 (Yes)].
-    - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers [TODOTODOTODOTODOTODO].
-    - Added a new setting (1pp_sleeper) allowing to make alternate the turning of The Sleeper into a flail. In any case, 1PP does not overwrites its original inventory bam with a new one, but installs a new icon (IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose [TODOTODOTODOTODOTODO].
-    - Replaced tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically writes values in tooltip.2da from the tra files.
+    - Added a new setting in *1pp-config-default.ini* or *1pp-config-user.ini* (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers [default value = 1 (Yes)].
+    - Added a new setting in *1pp-config-default.ini* or *1pp-config-user.ini* (1pp_sleeper) allowing to make alternate the turning of The Sleeper into a flail [default value = 2 (No, but install the alternate flail icon IBLUN16B as a new resource for modders)]. In any case, 1PP does not overwrites its original inventory bam with a new one, but installs a new icon (IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose.
+    - Replaced tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically write values in tooltip.2da from the tra files.
     - Integrated <a href=http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849">Lollorian's BWP Fixpack patch for Ashes of Embers compatibility</a> (400_1pp_update_bgii.tph.patch): renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">Source</a>.
     - Added ToBEx compatibility for circlets: item flag EE/Ex: Toggle critical hits flag (BIT25).
     - Gems sub-component: code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Build an array to define new gems lore values to identify. .Same library used for IWD and BG2 based games.
