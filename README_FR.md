@@ -837,7 +837,7 @@ Note du traducteur : l'historique n'est volontairement pas entièrement traduit a
   - Ajout de la librairie "*always.tpa*".
   - Ajout de commentaires dans les fichiers de code chaque fois que possible.
   - Remplacement des conditions `GAME_IS` par des variables afin d'accélérer la vitesse d'exécution du code.
-  - Les options d'installation ont été externalisés dans le fichier *1pp-config-default.ini* file. Si vous souhaitez les modifier, veuillez consulter ce <a href="#config">chapitre</a>.
+  - Les options de configuration d'installation ont été externalisés dans le fichier *1pp-config-default.ini* file. Si vous souhaitez les modifier, veuillez consulter ce <a href="#config">chapitre</a>.
   - Correction et intégration des patches correctifs de Lollorian et intégration des autres patches du BWP Fixpack fixes (merci à The Imp et aux autres !).
   - Découpage de l'énorme composant principal "*Mise à jour et modification des objets*" [400] en plus petits pour assurer une meilleure lecture et facilité sa maintenance (bien plus facile de vérifier 2500 ou 3000 lignes de code lorsque l'on cherche un bug ou une erreur dans plus de 16000 lignes de code !). :wink:
   - Ajout de la compatibilité avec le BG2 Fixpack et ToBEx.

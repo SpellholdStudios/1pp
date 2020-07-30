@@ -835,14 +835,14 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
 ##### Version 4.2.0 (Month day, 2020)
 
 <ins>a. General overhaul and re-looking</ins>
-  - TODO Added *1pp.ini* metadata file to support AL|EN's "Project Infinity".
+  - Added *1pp.ini* metadata file to support AL|EN's "Project Infinity".
   - Replaced `AUTHOR` keyword with `SUPPORT`.
   - Added missing `REQUIRE_PREDICATE` conditions to avoid installing components in inaccurate games or if required components are not installed.
   - Added components `DESIGNATED` numbers and `LABELS`.
   - Added "*always.tpa*" library.
   - Commented code as much as possible.
   - Replaced `GAME_IS` conditions with variables checks to speed up install time.
-  - TODO Installation options have been moved into *1pp-config-default.ini* file. If you want to modify them, please read this <a href="#config">chapter</a>.
+  - Configuration installation options have been moved into *1pp-config-default.ini* file. If you want to modify them, please read this <a href="#config">chapter</a>.
   - Integrated all BWP Fixpack fixes (thanks Lollorian, The Imp and others!).
   - Split huge [400] "*Core updates and item patches*" component into smaller ones for more comfortable readability and maintenance (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!). :wink:
   - Added BG2 Fixpack and ToBEx compatibility.

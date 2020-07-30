@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>1ppv3: Thieves Galore - README</title>
+	  
+	  <STYLE TYPE="text/css" MEDIA=screen>
+  body  { background: #101020; color:#545471; font-family: Garamond; font-size: 16px;}
+   h1  { color: #6F7A8C; text-align: center; margin-bottom: 40px; font-variant: small-caps; font-size: 30px; }
+  h2  { color: #7F8A9C; font-size: 25px; font-variant: small-caps; padding-top: 21px; padding-left: 12%; width: 80%; }
+  p { width: 80%; padding-left: 8%}
+  em { font-style: italic; font-variant: small-caps; color:#747481; padding-left: 1%;}
+  p img {margin-left:10%;}
+  a { color: #6F7A8C}
+  a:hover { color: #7F8A9C}
+  a:visited {color: #4F5A6C}
+  </STYLE>
+  </head>
+  <body>
+  <h1>1ppv3: Thieves Galore Readme</h1>
+  <h2>I. About</h2>
+  <p>This component will restore full thief animation avatar sequences.<br> 
+<br>
+<em><strong>Supported:</strong></em>
+<br>
+BGII SoA, BGII ToB, IWD HoW, IWD TotL, IWD II<br>
+<em>with Dwarven Female Avatars installed</em><br>
+<br>
+<em><strong>Install notes:</strong></em>
+<br>
+It is recommended to install the Avatar switching component after any other mods that alter or introduce items.
+<br><br>
+<a href="s2.html"><img src="1pp_thieves.png" alt="click for more" title="click for more"/></a><br>
+  </p>
+  <h2>II. Components</h2>
+  <p>
+  <em><strong>1ppv3: Unique Thief Avatars (patch)</strong></em><br>
+  <strong>This will patch your executable to support full thief animation sequences.</strong><br><br>
+  In standard BGII only one armour level of thieves had unique animations (leather armour). Any other armour level would revert to the default unarmoured animation. On the inventory, the first two armour levels had unique paperdolls, anything else would revert to the unarmoured paperdoll.<br><br>
+  In other words, you could not have unarmoured thieves that looked like thieves, and if you switched bards to use thief avatars, you could not have chain mail showing up properly.<br><br>
+  By contrast, in standard IWD, unarmoured thieves are supported, but chain mail is not - Bards use thief animations by default in IWD, so they could look okay for the first two armour levels, but you can't equip chain mail and have it look right. Note that the game content is directly copied from BGII so even if the first two armour levels *are* supported, their ingame animations are identical (as BGII only had the one).<br><br>
+  IWD II supports three armour levels for thieves natively, so this component is unnecessary for IWD II installs. Again the content was simply copied from BGII so the first two look identical to a BGII thief, with the third being the uniform chain mail animation.<br><br><br>
+  
+  <em><strong>1ppv3: Unique Thief Avatars (content)</strong></em><br>
+   <strong>This will install content for a full thief animation series (unarmoured to plate mail).</strong><br><br>
+  <em>Warning:</em> If the patch component is installed without this, your (BGII/IWD HoW) game will crash.<br><br>
+  Conversely, if the content is installed without the patch you'd experience:<br>
+  · Slight changes to the limited thief animation in BGII but nothing else<br>
+  · Unique thief animations for unarmoured and leather armour in IWD, with chain mail not showing up<br>
+  · Proper thief animation sequence in IWDII (patch not required)<br><br>
+  If installed with the patch, thieves will now have unique animations and paperdolls for the first three armour levels. The plate mail animations (and paperdolls) are copied from cleric and fighter animations (because let's face it, plate mail is not very subtle). 
+  <br><br><br>
+  
+  <em><strong>1ppv3: Improved Improved Galactygon's Avatar Switching</strong></em><br>
+  <strong>Like the name suggests, this is an improved version of my original improved version of Galactygon's avatar appearance tweak (to be found in the BGII Tweakpack).</strong><br><br>
+  Basically, what this does is it dynamically changes character animations to fit equipped armour (and then dynamically changes it back when unequipped!). While normally robes would not show up for fighter/cleric/thief animations, and armour would not show up for mage animations, this is circumvented by changing the character animation accordingly while such items are equipped. <br><br>
+  If you were using the BGII Tweakpack component, it should be uninstalled before installing this. The component is designed to work with the restored thief avatar series, so it is not recommended as a standalone install.<br><br>
+  Due to the properly working thief animations, this foregoes a lot of the scripting my old fix relied upon, while offering superior content.<br><br>
+  
+    <em><strong>1ppv3: IWD Avatar Switching</strong></em><br>
+<strong>This is an IWD HoW/TotL port of the avatar switching component. As far as I am aware this is the first mod that does this.</strong><br><br>
+Due to IWD's game engine, some parts have to be implemented differently. While the HoW engine supports .EFF files, it does not allow them to trigger spells. Neither can spells directly be linked to an item, because regardless of any parameters they seem to fire continuously (when you'd only want them to do so once). To make matters worse IWD has no main script that is constantly evaluated.<br><br>
+This implementation works around those issues by switching manually through item/innate abilities.<br><br>
+When you equip an item, your avatar will not switch automatically. Instead the item will give you an item ability (click on Item Abilities in the quickbar). If it's necessary to change character appearance (e.g. by equipping robes on a fighter), use this item ability to switch.<br><br>
+As soon as you have done this, an innate ability will appear that resets your character to their base type. The innate will stay available indefinitely until it is used or another armour is equipped and changed into. You can change into and out of the same armour as you desire while it is equipped.<br><br>
+It may not be as convenient as the BGII component but two clicks (about five seconds) definitely beats saving, closing your game, and editing your animation type in NI/Dalekeeper each time you equip a different type of armour.<br><br><br>
+
+<em><strong>1ppv3: IWDII Avatar Switching</strong></em><br>
+<strong>This is an IWDII port of the avatar switching component. </strong><br><br>
+IWDII's engine supports spells linked to items, so this component is about half-way between the BGII and IWD components.<br><br>
+Items change appearance automatically upon equipping, but due to lack of a persistent script will not change you back to your unarmoured state when you unequip (so if you equip robes on a fighter and unequip them, you'd be stuck with the unarmoured mage animation). <br><br>For you to be able to switch back, this adds an innate ability, working exactly like the ones in the IWD install. Exactly as in the IWD component as well, you don't have to use this if you switch from one armour to another.<br><br>
+    <br><br>
+  </p>
+  <br>
+  <br>
+  <br>
+  </body>
