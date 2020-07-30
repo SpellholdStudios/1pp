@@ -60,7 +60,6 @@ PRINT "-------------------------------------------------------------------------
  CONTROL VARIABLES for DEBUGGING:
  --------------------------------
 is_bg2 = %is_bg2% - is_tob = %is_tob% - is_tutu = %is_tutu% - is_iwd = %is_iwd% - is_iwd2 = %is_iwd2% - is_tobex = %is_tobex% - SR_INSTALLED = %SR_INSTALLED% - IR_INSTALLED = %IR_INSTALLED% - IA_INSTALLED = %IA_INSTALLED% - is_bw_herbs = %is_bw_herbs%
-configuration-default = %configuration-default% - configuration-user = %configuration-user%
 -----------------------------------------------------------------------------------------------------------------------"
 
 

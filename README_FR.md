@@ -61,6 +61,8 @@ Ce mod est conçu pour fonctionner sur les jeux Infinity Engine suivants :
 
 1pp est un mod WeiDU et devrait par conséquent être compatible avec n'importe quel mod WeiDU. Je ne peux cependant pas tous les tester. Si vous rencontrez des bugs, veuillez les signaler dans le <a href="http://www.shsforums.net/forum/159-1pp/">forum</a>, s'il vous plaît.<br>
 
+Les moddeurs souhaitant rendre leurs mods compatibles avec 1pp sont fortement invités à lire le document <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/1pp-note-for-modders.html">1pp Note for modders</a> qui les guidera à travers toutes les étapes nécessaires.<br>
+
 >Si vous jouez avec BG2-ToB ou BGT, je vous recommande fortement d'installer la dernière version du <a href="http://www.gibberlings3.net/bg2fixpack/">BG2 Fixpack</a> avant d'installer ce mod, bien qu'il ne soit pas requis pour faire correctement tourner 1pp.</br>
 <div align="right"><a href="#top">Retour en haut de page</a></div>
 
@@ -942,7 +944,7 @@ Note du traducteur : l'historique n'est volontairement pas entièrement traduit a
     - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers [TODOTODOTODOTODOTODO].
     - Added a new setting (1pp_sleeper) allowing to make alternate the turning of The Sleeper into a flail. In any case, 1PP does not overwrites its original inventory bam with a new one, but installs a new icon (IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose [TODOTODOTODOTODOTODO].
     - Replaced tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically writes values in tooltip.2da from the tra files.
-    - Integrated <a href=http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849">Lollorian's BWP Fixpack patch for Ashes of Embers compatibility</a> (400_1pp_update_bgii.tph.patch): renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">Source</a>.
+    - Integrated <a href="http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849">Lollorian's BWP Fixpack patch for Ashes of Embers compatibility</a> (400_1pp_update_bgii.tph.patch): renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">Source</a>.
     - Added ToBEx compatibility for circlets: item flag EE/Ex: Toggle critical hits flag (BIT25).
     - Gems sub-component: code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Build an array to define new gems lore values to identify. .Same library used for IWD and BG2 based games.
     - Code simplified or re-written with newer functions to provide automatic process:

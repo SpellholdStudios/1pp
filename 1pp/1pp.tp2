@@ -1,0 +1,380 @@
+// 1ppv4 MAIN INSTALLER
+
+BACKUP ~1pp/backup~
+AUTHOR ~dotdotdot~
+// maintained by Gwendolyne at SHS
+VERSION ~v4.2.0 beta~
+
+//README ~1pp/documentation/readme-%LANGUAGE%.html~ ~1pp/documentation/readme.html~
+
+ALWAYS
+
+	INCLUDE ~%MOD_FOLDER%/lib/always.tph~
+
+END
+
+
+//////////////////////////////   L A N G U A G E S   //////////////////////////////
+
+LANGUAGE ~English~
+         ~english~
+         ~1pp/lang/english/setup.tra~
+         ~1pp/lang/english/1pp.tra~
+
+LANGUAGE ~Francais (Traduction : Gwendolyne)~
+         ~french~
+         ~1pp/lang/french/setup.tra~
+         ~1pp/lang/french/1pp.tra~
+
+
+/* ============================================================================= *
+ *  I                                                                            *
+ *  I             {{{ Avatar related & core components }}}                       *
+ *       (IE avatar animations, their paperdolls and vanilla objects)            *
+ *                                                                               *
+ * ============================================================================= */
+
+/* ----------------------------------------- *
+ *  1ppv4: Core paperdolls (Main Component)  *
+ * ----------------------------------------- */
+BEGIN @101
+//INSTALL_BY_DEFAULT
+DESIGNATED 101 LABEL "1pp_core_paperdolls"
+REQUIRE_PREDICATE GAME_IS ~bg2 tob bgt tutu tutu_totsc ca totlm how iwd2~ @11	// ~This component is only compatible with BGII, ToB, Tutu, BGT, CA, TotLM, HoW and IWD2 installations.~
+
+//	ACTION_IF (GAME_IS ~bg2 bgt tob tutu tutu_totsc ca~) BEGIN
+	ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN
+		PRINT @1011 // ~Installing BGII variant.~
+		INCLUDE ~1pp/components/101_base.tph~
+	END
+
+	ACTION_IF (FILE_EXISTS_IN_GAME ~xdmc1a1.bam~) BEGIN // IA BG1 ANIMATIONS FOR NPCs component (CLERIC_MALE_DWARF_LOW)
+		PRINT @1012 // ~Detected Infinity Animations (legacy character animations).~
+		PRINT @1013 // ~Installing IA support...~
+		INCLUDE ~1pp/components/101_ia.tph~
+	END
+
+//	ACTION_IF (GAME_IS ~totlm how~) BEGIN
+	ACTION_IF (is_iwd) BEGIN
+		PRINT @1014 // ~Installing IWD HoW/TotLM variant.~
+		INCLUDE ~1pp/components/101_iwd.tph~
+	END
+
+	ACTION_IF (GAME_IS ~totlm how bg2 bgt tob tutu tutu_totsc ca~) BEGIN
+//	ACTION_IF NOT is_iwd2 BEGIN
+		PRINT @1015 // ~Installing paperdoll equipped objects.~
+		INCLUDE ~1pp/components/101_obj.tph~
+	END
+
+//	ACTION_IF (GAME_IS ~iwd2~) BEGIN
+	ACTION_IF (is_iwd2) BEGIN
+		PRINT @1016 // ~IWD2 - Skipping (placeholder component for compatibility).~
+	END
+
+
+/* --------------------------------- *
+ *  1ppv4: Extended palette entries  *
+ * --------------------------------- */
+BEGIN @102					// ~Compatibility install only~
+FORCED_SUBCOMPONENT @1020	// ~1ppv4: Extended palette entries~
+DESIGNATED 102 LABEL "1pp_extended_palette_entries_compatibility"
+REQUIRE_PREDICATE GAME_IS ~bg2 tob bgt tutu tutu_totsc ca totlm how iwd2~ @11	// ~This component is only compatible with BGII, ToB, Tutu, BGT, CA, TotLM, HoW and IWD2 installations.~
+
+	INCLUDE ~1pp/components/102_compat.tph~
+
+
+BEGIN @103					// ~Full install (recommended)~
+FORCED_SUBCOMPONENT @1020
+DESIGNATED 103 LABEL "1pp_extended_palette_entries_full"
+REQUIRE_PREDICATE GAME_IS ~bg2 tob bgt tutu tutu_totsc ca totlm how iwd2~ @11
+
+	INCLUDE ~1pp/components/103_extpal.tph~
+
+
+/* ------------------------------- *
+ *  1ppv4: GUI additions for BGII  *
+ * ------------------------------- */
+BEGIN @104
+DESIGNATED 104 LABEL "1pp_gui_additions_for_bgii"
+REQUIRE_PREDICATE GAME_IS ~bg2 tob bgt tutu tutu_totsc ca~ @1041 // ~Game is not BGII (skipping).~
+
+	INCLUDE ~1pp/components/104_core.tph~
+
+
+/* --------------------- *
+ *  1ppv4: Avatar fixes  *
+ * --------------------- */
+BEGIN @105
+DESIGNATED 105 LABEL "1pp_avatar_fixes"
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 101 @10 // ~This component requires the Core paperdolls component to be installed.~
+
+	INCLUDE ~1pp/components/105_avatars.tph~
+
+
+/* ----------------------- *
+ *  1ppv4: Female Dwarves  *
+ * ----------------------- */
+BEGIN @106                                                      // ~Separate Avatars for Female Dwarves - Baldur's Gate II~
+SUBCOMPONENT @1060 (GAME_IS ~bg2 tob bgt tutu tutu_totsc ca~)   // ~1ppv4: Female Dwarves~ 
+DESIGNATED 106 LABEL "1pp_female_dwarves_bg2"
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 101 @10            // ~This component requires the Core paperdolls component to be installed.~
+
+	INCLUDE ~1pp/components/106_f_dwarves_bg2.tph~
+
+
+BEGIN @107                                                      // ~Separate Avatars for Female Dwarves - Icewind Dale II~
+SUBCOMPONENT @1060 (GAME_IS ~iwd2~)
+DESIGNATED 107 LABEL "1pp_female_dwarves_iwd2"
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 101 @10
+
+	INCLUDE ~1pp/components/107_f_dwarves_iwd2.tph~
+
+
+BEGIN @108                                                      // ~Separate Avatars for Female Dwarves - Icewind Dale II EU~
+SUBCOMPONENT @1060 (GAME_IS ~iwd2~)
+DESIGNATED 108 LABEL "1pp_female_dwarves_iwd2_eu"
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 101 @10
+
+	INCLUDE ~1pp/components/108_f_dwarves_odd2.tph~
+
+
+BEGIN @109                                                      // ~Separate Avatars for Female Dwarves - Icewind Dale I HoW~
+SUBCOMPONENT @1060 (GAME_IS ~totlm how~)
+DESIGNATED 109 LABEL "1pp_female_dwarves_iwd"
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 101 @10
+
+	INCLUDE ~1pp/components/109_f_dwarves_iwd.tph~
+
+
+/* ----------------------- *
+ *  1ppv4: Thieves Galore  *
+ * ----------------------- */
+BEGIN @110                                                                                                          // ~IWD HoW/TotLM - Unique Thief Avatars~
+SUBCOMPONENT @1100 (GAME_IS ~totlm how~ AND (MOD_IS_INSTALLED ~1pp.tp2~ 109) AND (MOD_IS_INSTALLED ~1pp.tp2~ 101))  // ~1ppv4: Thieves Galore~
+DESIGNATED 110 LABEL "1pp_unique_thief_avatars_iwd"
+
+	INCLUDE ~1pp/components/110_thieves_iwd.tph~
+
+
+BEGIN @111 // ~BGII - Unique Thief Avatars~
+SUBCOMPONENT @1100 (GAME_IS ~bg2 tob tutu tutu_totsc ca~ AND (MOD_IS_INSTALLED ~1pp.tp2~ 106)  AND (MOD_IS_INSTALLED ~1pp.tp2~ 101))
+DESIGNATED 111 LABEL "1pp_unique_thief_avatars_bg2"
+
+	INCLUDE ~1pp/components/111_thieves_bg2.tph~
+
+
+BEGIN @112 // ~IWDII - Unique Thief Avatars~
+SUBCOMPONENT @1100 (GAME_IS ~iwd2~)
+DESIGNATED 112 LABEL "1pp_unique_thief_avatars_iwd2"
+
+	INCLUDE ~1pp/components/112_thieves_iwd2.tph~
+
+
+/* ---------------------------------------- *
+ *  1ppv4: Smart Avatar & Armour Switching  *
+ * ---------------------------------------- */
+BEGIN @113
+DESIGNATED 113 LABEL "1pp_smart_avatar_and_armour_switching"
+REQUIRE_PREDICATE GAME_IS ~bg2 tob bgt tutu tutu_totsc ca totlm how iwd2~ @11	// ~This component is only compatible with BGII, ToB, Tutu, BGT, CA, TotLM, HoW and IWD2 installations.~
+
+	INCLUDE ~1pp/components/113_switch.tph~
+
+
+/* ----------------------------- *
+ *  1ppv4: Softer Spell Effects  *
+ * ----------------------------- */
+BEGIN @114
+DESIGNATED 114 LABEL "1pp_softer_spell_effects" 
+REQUIRE_PREDICATE GAME_IS ~bg2 tob bgt tutu tutu_totsc ca totlm how iwd2~ @11	// ~This component is only compatible with BGII, ToB, Tutu, BGT, CA, TotLM, HoW and IWD2 installations.~
+
+	ACTION_IF (((FILE_EXISTS ~baldur.ini~) AND (FILE_CONTAINS ~baldur.ini~ ~3D Acceleration=1~)) 
+			OR ((FILE_EXISTS ~icewind.ini~) AND (FILE_CONTAINS ~icewind.ini~ ~3D Acceleration=1~)) 
+			OR ((FILE_EXISTS ~icewind2.ini~) AND (FILE_CONTAINS ~icewind2.ini~ ~3D Acceleration=1~)))
+	BEGIN
+		INCLUDE ~1pp/components/114_effects.tph~
+	END ELSE BEGIN
+		ABORT @1140 // ~WARNING: This component will only work properly with 3D support enabled (alpha blending). Installing this component on BG2 in software rendering mode IS NOT A GOOD IDEA.~
+	END
+
+
+
+/* ============================================================================= *
+ *  II                                                                           *
+ *  II                 {{{ Base/default item graphics}}}                         *
+ *           (.spl/.itm patches for otherwise vanilla game content)              *
+ *                               or so was the plan                              *
+ * ============================================================================= */
+
+/* ----------------------------- *
+ *  1ppv4: Core content patches  *
+ * ----------------------------- */
+BEGIN @200
+DESIGNATED 200 LABEL "1pp_core_content_patches"			// glEps_fpvpfpstm!
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 101 @10	// ~This component requires the Core paperdolls component to be installed.~
+
+//	ACTION_IF (GAME_IS ~bg2 tob bgt tutu tutu_totsc ca~) BEGIN
+	ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN
+		PRINT @2001 // Installing 1ppv2 base (adjusted).~
+		INCLUDE ~1pp/components/200_1ppv2_cut.tph~
+	END
+
+
+/* ------------------------------------------ *
+ *  1ppv4: Consistent spell and scroll icons  *
+ * ------------------------------------------ */
+BEGIN @201
+DESIGNATED 201 LABEL "1pp_consistent_spell_and_scroll_icons"
+REQUIRE_PREDICATE GAME_IS ~bg2 tob bgt tutu tutu_totsc ca~ @1041 // ~Game is not BGII (skipping).~
+
+	INCLUDE ~1pp/components/201_spellsandscrolls.tph~
+
+
+/* --------------------- *
+ *  1ppv4: Spell tweaks  *
+ * --------------------- */
+BEGIN @202
+DESIGNATED 202 LABEL "1pp_spell_tweaks"
+REQUIRE_PREDICATE GAME_IS ~bg2 tob bgt tutu tutu_totsc ca~ @1041 // ~Game is not BGII (skipping).~
+
+	INCLUDE ~1pp/components/202_spelltweaks.tph~
+
+
+/* ---------------------------------------- *
+ *  1ppv4: Restored flame sword animations  *
+ * ---------------------------------------- */
+BEGIN @203
+DESIGNATED 203 LABEL "1pp_restored_flame_sword_animations"
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 101 @10 // ~This component requires the Core paperdolls component to be installed.~
+
+	INCLUDE ~1pp/components/203_fslong.tph~
+
+
+/* --------------------------------- *
+ *  1ppv4: Colourable Quarterstaves  *
+ * --------------------------------- */
+BEGIN @204
+DESIGNATED 204 LABEL "1pp_colourable_quarterstaves"
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 101 @10 // ~This component requires the Core paperdolls component to be installed.~
+
+	INCLUDE ~1pp/components/204_qsbase.tph~
+
+
+/* ----------------------- *
+ *  1ppv4: Legacy Shields  *
+ * ----------------------- */
+BEGIN @205
+DESIGNATED 205 LABEL "1pp_legacy_shields"
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 101 @10 // ~This component requires the Core paperdolls component to be installed.~
+
+	INCLUDE ~1pp/components/205_s_legacy.tph~
+
+
+/* -------------------------------------------- *
+ *  1ppv4: Additional Shield Animations (core)  *
+ * -------------------------------------------- */
+BEGIN @206
+DESIGNATED 206 LABEL "1pp_add_shield_animations"
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 101 @10 // ~This component requires the Core paperdolls component to be installed.~
+
+	INCLUDE ~1pp/components/206_v4_shields.tph~
+
+
+/* ------------------------------- *
+ *  1ppv4: Wizards' Staves (core)  *
+ * ------------------------------- */
+BEGIN @207
+DESIGNATED 207 LABEL "1pp_wizards_staves"
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 101 @10 // ~This component requires the Core paperdolls component to be installed.~
+
+	INCLUDE ~1pp/components/207_v4_staves.tph~
+
+
+/* -------------------------------------------- *
+ *  1ppv4: Additional Helmet Animations (core)  *
+ * -------------------------------------------- */
+BEGIN @208
+DESIGNATED 208 LABEL "1pp_add_helmet_animations"
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 101 @10 // ~This component requires the Core paperdolls component to be installed.~
+
+	INCLUDE ~1pp/components/208_v4_helmets.tph~
+
+
+/* -------------------------------- *
+ *  1ppv4: Attachable wings (core)  *
+ * -------------------------------- */
+BEGIN @209
+DESIGNATED 209 LABEL "1pp_attachable_wings"
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 101 @10 // ~This component requires the Core paperdolls component to be installed.~
+
+	INCLUDE ~1pp/components/209_v4_wings.tph~
+
+
+/* -------------------------------------------------- *
+ *  1ppv4: Increased paperdoll object variety (core)  *
+ * -------------------------------------------------- */
+BEGIN @210
+DESIGNATED 210 LABEL "1pp_increased_paperdoll_object_variety"
+REQUIRE_PREDICATE GAME_IS ~totlm how bg2 tob bgt tutu tutu_totsc ca~ @2100  // ~Game does not have paperdolls (skipping).~
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 101 @10                        // ~This component requires the Core paperdolls component to be installed.~
+
+	INCLUDE ~1pp/components/210_v4_ppd_variety.tph~
+
+
+/* -------------------------------------- *
+ *  1ppv4: Core updates and item patches  *
+ * -------------------------------------- */
+BEGIN @400
+DESIGNATED 400 LABEL "1pp_core_updates_and_item_patches"
+
+	ACTION_IF (GAME_IS ~bg2 tob bgt tutu tutu_totsc ca~ AND MOD_IS_INSTALLED ~1pp.tp2~ 200) BEGIN
+		PRINT @4000 // ~Installing 1ppv4 for BGII.~
+		INCLUDE ~1pp/components/400_1pp_update_bgii.tph~
+	END
+
+//	ACTION_IF (GAME_IS ~totlm how~) BEGIN // component 101 ???
+	ACTION_IF (is_iwd) BEGIN
+		PRINT @4001 // ~Installing 1ppv4 for IWD.~
+		INCLUDE ~1pp/components/400_1pp_update_iwd.tph~
+	END
+
+/* ------------------------------------ *
+ *  1ppv4: Improved projectile effects  *
+ * ------------------------------------ */
+BEGIN @401
+DESIGNATED 401 LABEL "1pp_improved_projectile_effects"
+REQUIRE_PREDICATE GAME_IS ~bg2 tob bgt tutu tutu_totsc ca~ @12  // ~This component is only available for games based on BGII engine (skipping.~
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 200 @13            // ~This component requires the Core content patch component to be installed.~
+
+
+	ACTION_IF (GAME_IS ~bg2 tob bgt tutu tutu_totsc ca~ AND MOD_IS_INSTALLED ~1pp.tp2~ 200) BEGIN // and component 400 ???
+		PRINT @4010 // ~Installing improved projectiles for BGII.~
+		INCLUDE ~1pp/components/401_projectiles.tph~
+	END
+
+
+
+/* ============================================================================= *
+ *  III                                                                          *
+ *  III               {{{ Extras & Game Content Fixes }}}                        *
+ *              (unrelated to player characters, paperdolls, etc.)               *
+ *                                                                               *
+ * ============================================================================= */
+
+/* --------------------------------------------------- *
+ *  1ppv4: Fixed animations for solars and elementals  *
+ * --------------------------------------------------- */
+BEGIN @300
+DESIGNATED 300 LABEL "1pp_fixed_animations_for_solars_and_elementals"
+REQUIRE_PREDICATE GAME_IS ~tob bgt tutu tutu_totsc ca~ @3000 // ~Game is not ToB-based (skipping)~
+
+	INCLUDE ~1pp/components/300_solar_fix.tph~
+
+
+/* ------------------------------------ *
+ *  1ppv4: Miscellaneous content fixes  *
+ * ------------------------------------ */
+BEGIN @301
+DESIGNATED 301 LABEL "1pp_miscellaneous_content_fixes"
+REQUIRE_PREDICATE GAME_IS ~bg2 tob bgt tutu tutu_totsc ca totlm how iwd2~ @11	// ~This component is only compatible with BGII, ToB, Tutu, BGT, CA, TotLM, HoW and IWD2 installations.~
+
+	INCLUDE ~1pp/components/301_misc_fixes.tph~

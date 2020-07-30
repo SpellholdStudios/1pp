@@ -61,6 +61,8 @@ This mod is designed to work on the following classical Infinity Engine games:
 
 1PP is a WeiDU mod, and therefore should be compatible with all WeiDU mods. However, we cannot test every single one. If you encounter any bugs, please <a href="http://www.shsforums.net/forum/159-1pp/">report them on the forum!</a><br>
 
+Modders who wish to make their mods compatible with 1pp are strongly recommended to read the <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/1pp-note-for-modders.html">1pp Note for modders</a> which guide them through each step of accomplishing particular modding tasks without breaking compatibility.<br>
+
 >Although it is not required for the 1PP mod to function properly, BG2 and TOB players are strongly recommended to download and install the latest version of the <a href="http://www.gibberlings3.net/bg2fixpack/">BG2 Fixpack</a> before proceeding with the installation of this mod.<br>
 <div align="right"><a href="#top">Back to top</a></div>
 
@@ -125,7 +127,7 @@ If you want to define your own customized installation, you have to edit the fil
 
 The installation process will read both ini files and prioritize user's options values. If a value is not set or mismatched in 1pp-config-user.ini, any installation failure will be prevented by reverting it back to its default value.
 
-Please read the *1pp-config-language.txt* file (with 'language' being the installation language you chose) to check the options names and their meanings.
+[TODO OR NOT? Please read the *1pp-config-language.txt* file (with 'language' being the installation language you chose) to check the options names and their meanings.]
 
 Here is a chart listing the options related to the installation process:</br></br>
 
@@ -197,9 +199,9 @@ Here is a chart listing the options related to the installation process:</br></b
 	<tr>
 		<td><div align="center">1pp_hammers_icons</div></td>
 		<td>RUNEHAMMER INVENTORY ICONS<br><br>
-		This component overwrites the vanilla Runnehammer icon and sets it to Borok's Fist +2, then assigns Borok's Fist's icon to Runehammer. Do you want to apply those changes?<br><br>
+		This component overwrites the vanilla Runehammer icon and sets it to Borok's Fist +2, then assigns Borok's Fist's icon to Runehammer. Do you want to apply those changes?<br><br>
 		1 = Yes [default]<br>
-		2 = No, assign the new icon to Borok's Fist, but keep Runnehammer icon for their respective hammers.</td>
+		2 = No, assign the new icon to Borok's Fist, but keep Runehammer icon for their respective hammers.</td>
 	</tr>
 	<tr>
 		<td><div align="center">1pp_potions_icons</div></td>
@@ -832,7 +834,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
 <ins>a. General overhaul and re-looking</ins>
   - TODO Added *1pp.ini* metadata file to support AL|EN's "Project Infinity".
   - TODO Replaced `AUTHOR` keyword with `SUPPORT`.
-  - TODO Added components `DESIGNATED` numbers and `LABELS`.
+  - Added components `DESIGNATED` numbers and `LABELS`.
   - Added "*always.tpa*" library.
   - Commented code as much as possible.
   - Replaced `GAME_IS` conditions with variables checks to speed up install time.
@@ -840,7 +842,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
   - Integrated all BWP Fixpack fixes (thanks Lollorian, The Imp and others!).
   - Split huge [400] "*Core updates and item patches*" component into smaller ones for more comfortable readability and maintenance (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!). :wink:
   - Added BG2 Fixpack and ToBEx compatibility.
-  - TODO Added partial <a href="https://www.gibberlings3.net/files/file/969-item-revisions/">Item Revisions</a>, <a href="https://www.gibberlings3.net/files/file/970-spell-revisions/">Spell Revisions</a> and <a href="https://www.gibberlings3.net/files/file/948-iwdification/">IWDification</a> compatibility in a rather soft way: As SR, IR and IWDification are still beta versions, I gave up trying to write a plain compatibility with them. It would be certainly obsolete in a few months, therefore a waste of time. :wink:
+  - Added partial <a href="https://www.gibberlings3.net/files/file/969-item-revisions/">Item Revisions</a>, <a href="https://www.gibberlings3.net/files/file/970-spell-revisions/">Spell Revisions</a> and <a href="https://www.gibberlings3.net/files/file/948-iwdification/">IWDification</a> compatibility in a rather soft way: As SR, IR and IWDification are still beta versions, I gave up trying to write a plain compatibility with them. It would be certainly obsolete in a few months, therefore a waste of time. :wink:
   - Added and/or improved 1PP crossmods compatibility (BG1 NPC Project, Bolsa, Improved HaerDalis Swords, Rolles, Ruad, Song and Silence, Stuff of the Magi, The Unusual Oddities Shop).
   - Fixed typos and misspellings preventing a few items to be patched (or patching wrong ones...).
   - Coding simplification:
@@ -855,7 +857,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
   - Traification. Feel free to provide me with translations. I will include them as soon as possible.
   - TODO Removed unused files.
   - Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to creature types. 
-  - TODO Lower cased files.
+  - Lower cased files.
   - Updated WeiDU installer to v246.
   - Uploaded mod to official Spellhold Studios GitHub mirror account.
 
@@ -945,7 +947,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
     - Added a new setting in *1pp-config-default.ini* or *1pp-config-user.ini* (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers [default value = 1 (Yes)].
     - Added a new setting in *1pp-config-default.ini* or *1pp-config-user.ini* (1pp_sleeper) allowing to make alternate the turning of The Sleeper into a flail [default value = 2 (No, but install the alternate flail icon IBLUN16B as a new resource for modders)]. In any case, 1PP does not overwrites its original inventory bam with a new one, but installs a new icon (IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose.
     - Replaced tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically write values in tooltip.2da from the tra files.
-    - Integrated <a href=http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849">Lollorian's BWP Fixpack patch for Ashes of Embers compatibility</a> (400_1pp_update_bgii.tph.patch): renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">Source</a>.
+    - Integrated <a href="http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849">Lollorian's BWP Fixpack patch for Ashes of Embers compatibility</a> (400_1pp_update_bgii.tph.patch): renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">Source</a>.
     - Added ToBEx compatibility for circlets: item flag EE/Ex: Toggle critical hits flag (BIT25).
     - Gems sub-component: code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Build an array to define new gems lore values to identify. .Same library used for IWD and BG2 based games.
     - Code simplified or re-written with newer functions to provide automatic process:
