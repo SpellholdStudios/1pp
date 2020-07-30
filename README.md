@@ -22,7 +22,7 @@
 
 ## 
 
-[Read the mod's readme](https://spellholdstudios.github.io/readmes/1pp/documentation/1pp-readme-english.html)
+[Read the mod's readme](https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/1pp-readme-english.html)
 
 [Download the mod at Spellhold Studios](http://www.shsforums.net/files/file/1006-1pp/)<br>
 
@@ -472,6 +472,9 @@ Supports: SoA, ToB, Tutu (if using the BG2 GUI)</br>
 <div align="center"><img src="1pp/documentation/files/images/104.jpg"></div><br>
 
 A reworked graphical user interface for Baldur's Gate II SoA/ToB. This aims to get rid of a lot of the rough edges present in the original while maintaining a similar feel. Major changes include a time dial that is not just a box, getting rid of 'infinite parchment' (see additional screenshots) and an optional choice of updated fonts.</br>
+
+###### &#10173; <em>Note: as of v4.2.0, the option installing updated fonts (1pp_updated_fonts) is set to 2 by default (2 = Keep fonts unchanged) because it may cause issues with languages using different font .BAMs.</em></br>
+
 &#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/gui_readme.html">See more</a></br>
 
 <div align="right"><a href="#components">Back to components list</a></div>
@@ -834,6 +837,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
 <ins>a. General overhaul and re-looking</ins>
   - TODO Added *1pp.ini* metadata file to support AL|EN's "Project Infinity".
   - Replaced `AUTHOR` keyword with `SUPPORT`.
+  - Added missing `REQUIRE_PREDICATE` conditions to avoid installing components in inaccurate games or if required components are not installed.
   - Added components `DESIGNATED` numbers and `LABELS`.
   - Added "*always.tpa*" library.
   - Commented code as much as possible.

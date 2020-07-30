@@ -163,7 +163,7 @@ DESIGNATED 110 LABEL "1pp_unique_thief_avatars_iwd"
 
 
 BEGIN @111 // ~BGII - Unique Thief Avatars~
-SUBCOMPONENT @1100 (GAME_IS ~bg2 tob tutu tutu_totsc ca~ AND (MOD_IS_INSTALLED ~1pp.tp2~ 106)  AND (MOD_IS_INSTALLED ~1pp.tp2~ 101))
+SUBCOMPONENT @1100 (GAME_IS ~bg2 tob tutu tutu_totsc ca~ AND (MOD_IS_INSTALLED ~1pp.tp2~ 106) AND (MOD_IS_INSTALLED ~1pp.tp2~ 101))
 DESIGNATED 111 LABEL "1pp_unique_thief_avatars_bg2"
 
 	INCLUDE ~1pp/components/111_thieves_bg2.tph~
@@ -331,6 +331,7 @@ REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 101 @10                        // ~
  * -------------------------------------- */
 BEGIN @400
 DESIGNATED 400 LABEL "1pp_core_updates_and_item_patches"
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 101 @10                        // ~This component requires the Core paperdolls component to be installed.~
 
 	ACTION_IF (GAME_IS ~bg2 tob bgt tutu tutu_totsc ca~ AND MOD_IS_INSTALLED ~1pp.tp2~ 200) BEGIN
 		PRINT @4000 // ~Installing 1ppv4 for BGII.~

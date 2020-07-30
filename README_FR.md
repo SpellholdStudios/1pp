@@ -22,7 +22,7 @@
 
 ## 
 
-[Read the mod's readme](https://spellholdstudios.github.io/readmes/1pp/documentation/1pp-readme-french.html)
+[Read the mod's readme](https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/1pp-readme-french.html)
 
 [Download the mod at Spellhold Studios](http://www.shsforums.net/files/file/1006-1pp/)<br>
 
@@ -128,7 +128,7 @@ Si vous souhaitez choisir d'autres options d'installation, il vous suffit de mod
 
 Le programme d'installation lira les valeurs des variables dans les deux fichiers ini et donnera la priorité aux vôtres. Si le fichier 1pp-config-user.ini contient une valeur d'option non conforme, ou si une variable est manquante, il la remplacera par sa valeur par défaut (celle correspondant à l'installation « _standard_ »).
 
-Vous trouverez la liste des options et leur signification dans le fichier <a href="1pp/1pp-config-french.txt">1pp-config-language.txt</a> (« language » correspondant à la langue d'installation du mod). Voici le tableau des options concernées :</br></br>
+[TODO Vous trouverez la liste des options et leur signification dans le fichier <a href="1pp/1pp-config-french.txt">1pp-config-language.txt</a> (« language » correspondant à la langue d'installation du mod).] Voici le tableau des options concernées :</br></br>
 
 Voici le tableau des options concernées :<br>
 
@@ -465,6 +465,9 @@ Disponible pour : SoA, ToB, Tutu (si vous utilisez l'interface classique de BG2)
 <div align="center"><img src="1pp/documentation/files/images/104.jpg"></div><br>
 
 Cette interface retravaillée pour Baldur's Gate II SoA/ToB a pour but d'adoucir les arêtes trop prononcées des écrans sans s'éloigner du design d'origine. Parmi les modifications majeures, une horloge remplace la « boîte » d'origine, les «&#160;parchemins sans bords » de nombreux écrans font place à des parchemins plus réalistes (voir les captures d'écran dans le lien plus bas), et une option permet de modifier les polices de caractères.</br>
+
+###### &#10173; <em>Note : à partir de la version 4.2.0, l'option installant les polices de caractères modifiées (1pp_updated_fonts) est configurée à 2 par défaut (2 = Ne pas modifier les polices de caractères) car elle peut poser problème avec les langues utilisant d'autres fichiers BAM de polices.</em></br>
+
 &#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/gui_readme-french.html">Plus d'images</a></br>
 
 <div align="right"><a href="#components">Retour à la liste des composants</a></div>
@@ -829,6 +832,7 @@ Note du traducteur : l'historique n'est volontairement pas entièrement traduit a
 <ins>a. Refonte générale du mod :</ins>
   - Ajout du fichier de metadata <em>1pp.ini</em> pour soutenir "Project Infinity" d'AL|EN.
   - Remplacement du mot-clé `AUTHOR` par `SUPPORT`.
+  - Ajout des conditions `REQUIRE_PREDICATE` manquantes pour ne pas installer les composants dans des jeux inappropriés ou si d'autres composants pré-requis ne le sont pas.
   - Attribution à chaque component d'un nombre `DESIGNATED` et d'un `LABELS`.
   - Ajout de la librairie "*always.tpa*".
   - Ajout de commentaires dans les fichiers de code chaque fois que possible.
