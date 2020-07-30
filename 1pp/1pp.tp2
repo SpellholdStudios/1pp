@@ -2,7 +2,7 @@
 
 BACKUP ~1pp/backup~
 //AUTHOR ~dotdotdot~
-SUPPORT ~Fwendolyne and Spellhold Studios Staff at http://www.shsforums.net/forum/159-1pp/~
+SUPPORT ~Gwendolyne and Spellhold Studios Staff at http://www.shsforums.net/forum/159-1pp/~
 
 VERSION ~v4.2.0 beta~
 
@@ -81,18 +81,20 @@ REQUIRE_PREDICATE GAME_IS ~bg2 tob bgt tutu tutu_totsc ca totlm how iwd2~ @11	//
 /* --------------------------------- *
  *  1ppv4: Extended palette entries  *
  * --------------------------------- */
-BEGIN @102					// ~Compatibility install only~
-FORCED_SUBCOMPONENT @1020	// ~1ppv4: Extended palette entries~
+BEGIN @102                                                                     // ~Compatibility install only~
+FORCED_SUBCOMPONENT @1020 (MOD_IS_INSTALLED ~1pp.tp2~ 101)                     // ~1ppv4: Extended palette entries~
 DESIGNATED 102 LABEL "1pp_extended_palette_entries_compatibility"
-REQUIRE_PREDICATE GAME_IS ~bg2 tob bgt tutu tutu_totsc ca totlm how iwd2~ @11	// ~This component is only compatible with BGII, ToB, Tutu, BGT, CA, TotLM, HoW and IWD2 installations.~
+REQUIRE_PREDICATE GAME_IS ~bg2 tob bgt tutu tutu_totsc ca totlm how iwd2~ @11  // ~This component is only compatible with BGII, ToB, Tutu, BGT, CA, TotLM, HoW and IWD2 installations.~
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 101 @10                           // ~This component requires the Core paperdolls component to be installed.~
 
 	INCLUDE ~1pp/components/102_compat.tph~
 
 
-BEGIN @103					// ~Full install (recommended)~
-FORCED_SUBCOMPONENT @1020
+BEGIN @103                                                                     // ~Full install (recommended)~
+FORCED_SUBCOMPONENT @1020 (MOD_IS_INSTALLED ~1pp.tp2~ 101)
 DESIGNATED 103 LABEL "1pp_extended_palette_entries_full"
 REQUIRE_PREDICATE GAME_IS ~bg2 tob bgt tutu tutu_totsc ca totlm how iwd2~ @11
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~1pp.tp2~ 101 @10
 
 	INCLUDE ~1pp/components/103_extpal.tph~
 
