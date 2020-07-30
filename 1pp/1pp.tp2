@@ -1,8 +1,9 @@
 // 1ppv4 MAIN INSTALLER
 
 BACKUP ~1pp/backup~
-AUTHOR ~dotdotdot~
-// maintained by Gwendolyne at SHS
+//AUTHOR ~dotdotdot~
+SUPPORT ~Fwendolyne and Spellhold Studios Staff at http://www.shsforums.net/forum/159-1pp/~
+
 VERSION ~v4.2.0 beta~
 
 //README ~1pp/documentation/readme-%LANGUAGE%.html~ ~1pp/documentation/readme.html~
@@ -25,6 +26,11 @@ LANGUAGE ~Francais (Traduction : Gwendolyne)~
          ~french~
          ~1pp/lang/french/setup.tra~
          ~1pp/lang/french/1pp.tra~
+
+LANGUAGE ~Russian (translation by prozh)~
+         ~russian~
+         ~1pp/lang/russian/setup.tra~
+         ~1pp/lang/russian/1pp.tra~
 
 
 /* ============================================================================= *

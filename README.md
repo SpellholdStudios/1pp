@@ -833,7 +833,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
 
 <ins>a. General overhaul and re-looking</ins>
   - TODO Added *1pp.ini* metadata file to support AL|EN's "Project Infinity".
-  - TODO Replaced `AUTHOR` keyword with `SUPPORT`.
+  - Replaced `AUTHOR` keyword with `SUPPORT`.
   - Added components `DESIGNATED` numbers and `LABELS`.
   - Added "*always.tpa*" library.
   - Commented code as much as possible.
