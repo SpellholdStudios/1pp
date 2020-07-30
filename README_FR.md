@@ -393,7 +393,7 @@ Le programme d'installation comprend les composants suivants. Chacun possède un 
 ><span style="margin-left: 50px;"><a href="#113">[113] 1ppv4 : Avatar intelligent & Changement d'armure</a></span></br>
 ><span style="margin-left: 50px;"><a href="#114">[114] 1ppv4 1ppv4 : Rendu des sorts nuancé</a></span></br>
 
-&#10173; **<strong>Modifications d'objets, ajouts et implémentation**</br>
+&#10173; **Modifications d'objets, ajouts et implémentation**</br>
 
 ><span style="margin-left: 50px;"><a href="#200">[200] 1ppv4 : Corrections de base</a></br>
 ><span style="margin-left: 50px;"><a href="#201">[201] 1ppv4 : Icônes de sorts et de parchemins uniformes</a></span></br>
@@ -410,7 +410,7 @@ Le programme d'installation comprend les composants suivants. Chacun possède un 
 ><span style="margin-left: 50px;"><a href="#400">[400] 1ppv4 : Mise à jour et modification des objets</a> <em>&nbsp;&nbsp;&nbsp;[composant de mise à jour principal de 1ppv4]</em></br>
 ><span style="margin-left: 50px;"><a href="#401">[401] 1ppv4 : Rendu des projectiles amélioré</a></span></br>
 
-&#10173; **<strong>Correctifs supplémentaires ne concernant pas les personnages**</br>
+&#10173; **Correctifs supplémentaires ne concernant pas les personnages**</br>
 
 ><span style="margin-left: 50px;"><a href="#300">[300] 1ppv4 : Correction des animations des solaires et des élémentaires</a></span></br>
 ><span style="margin-left: 50px;"><a href="#301">[301] 1ppv4 : Correction d'autres éléments divers</a></span>
@@ -433,7 +433,7 @@ C'est le composant qui est à l'origine de ce projet. Il convertit les paperdolls
 
 ### <a name="102" id="102"></a>[102-103] 1ppv4 : Couleurs de palette étendues
 
-<strong>Composant obligatoire</strong></br>
+**Composant obligatoire**</br>
 Disponible pour : SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/images/102.jpg"></div><br>
@@ -476,7 +476,7 @@ Cette interface retravaillée pour Baldur's Gate II SoA/ToB a pour but d'adoucir 
 
 ### <a name="105" id="105"></a>[105] 1ppv4 : Corrections d'avatars
 
-<strong>Composant pré-requis : <a href="#101">[101]</a></strong></br>
+**Composant pré-requis : <a href="#101">[101]</a>**</br>
 Disponible pour : SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/images/105.jpg"></div><br>
@@ -490,7 +490,7 @@ Ce composant corrige et améliore plusieurs séries d'animations d'avatars de pers
 
 ### <a name="106" id="106"></a>[106-109] 1ppv4 : Avatars de femmes naines
 
-<strong>Composant pré-requis : <a href="#101">[101]</a></strong></br>
+**Composant pré-requis : <a href="#101">[101]</a>**</br>
 Disponible pour : SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/images/106.jpg"></div><br>
@@ -504,7 +504,7 @@ Ce composant modifie le moteur du jeu de Baldur's Gate II pour qu'il utilise des
 
 ### <a name="110" id="110"></a>[110-112] 1ppv4 : Des voleurs en pagaille
 
-<strong>Composants pré-requis : <a href="#101">[101]</a> <a href="#106">[106-109]</a></strong>
+**Composants pré-requis : <a href="#101">[101]</a> <a href="#106">[106-109]</a>**
 Disponible pour : SoA, ToB, tutu, HoW, IWDII</br>
 ###### Note : La manière dont ce composant est codé provoquera l'échec de son installation si le mod Infinity Animations est déjà installé. Pour éviter ce problème, installez IA après lui.
 
@@ -533,7 +533,7 @@ Ce composant permet d'afficher correctement les armures et les robes lorsque les
 
 ### <a name="114" id="114"></a>[114] 1ppv4 : Rendu des sorts nuancé
 
-<strong>Nécessite l'activation de l'accélération 3D</strong></br>
+**Nécessite l'activation de l'accélération 3D**</br>
 Disponible pour : SoA (partial), ToB, tutu, HoW, IWDII (placeholder)</br>
 
 <img src="1pp/documentation/files/images/114.jpg">
@@ -547,7 +547,7 @@ Ce composant améliore sensiblement certains effets visuels de sorts des jeux IE 
 
 ### <a name="200" id="200"></a>[200] 1ppv4 : Corrections de base
 
-<strong>Composant pré-requis : <a href="#101">[101]</a></strong></br>
+**Composant pré-requis : <a href="#101">[101]</a>**</br>
 Disponible pour : SoA, ToB, tutu</br>
 
 <img src="1pp/documentation/files/images/200.jpg">
@@ -590,7 +590,7 @@ Des ajustements mineurs de sorts pour SoA/ToB, comme l'attribution d'effets visu
 
 ### <a name="203" id="203"></a>[203] 1ppv4 : Rétablissement des animations d'épées enflammées
 
-<strong>Composant pré-requis : <a href="#101">[101]</a></strong></br>
+**Composant pré-requis : <a href="#101">[101]</a>**</br>
 Disponible pour : SoA, ToB, tutu, HoW, IWDII</br>
 
 <img src="1pp/documentation/files/images/203.jpg">
@@ -604,7 +604,7 @@ Ce composant rétablit les animations spécifiques des épées enflammées pour Baldu
 
 ### <a name="204" id="204"></a>[204] 1ppv4 : Coloration des bâtons
 
-<strong>Composant pré-requis : <a href="#101">[101]</a></strong></br>
+**Composant pré-requis : <a href="#101">[101]</a>**</br>
 Disponible pour : SoA, ToB, tutu, HoW, IWDII</br>
 
 <img src="1pp/documentation/files/images/204.jpg">
@@ -618,7 +618,7 @@ Ce composant permet de personnaliser l'apparence des bâtons en les colorant par 
 
 ### <a name="205" id="205"></a>[205] 1ppv4: Boucliers de BG1 v2
 
-<strong>Composant pré-requis : <a href="#101">[101]</a></strong></br>
+**Composant pré-requis : <a href="#101">[101]</a>**</br>
 Disponible pour : SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/images/205.jpg"></div><br>
@@ -631,7 +631,7 @@ Ce composant remplace les animations classiques de boucliers par celles de Baldu
 
 ### <a name="206" id="206"></a>[206] 1ppv4 : Animations supplémentaires de boucliers (fichiers de base)
 
-<strong>Composant pré-requis : <a href="#101">[101]</a></strong></br>
+**Composant pré-requis : <a href="#101">[101]</a>**</br>
 Disponible pour : SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/images/206a.jpg">
@@ -647,7 +647,7 @@ Ce composant installe des versions modifiées des animations de boucliers de Bald
 
 ### <a name="207" id="207"></a>[207] 1ppv4 : Bâtons de magiciens (fichiers de base)
 
-<strong>Composant pré-requis : <a href="#101">[101]</a></strong></br>
+**Composant pré-requis : <a href="#101">[101]</a>**</br>
 Disponible pour : SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/images/207.jpg"></div><br>
@@ -662,7 +662,7 @@ Ce composant installe une nouvelle animation de bâton (le bâton du magicien), ai
 
 ### <a name="208" id="208"></a>[208] 1ppv4 : Animations supplémentaires de casques (fichiers de base)
 
-<strong>Composant pré-requis : <a href="#101">[101]</a></strong></br>
+**Composant pré-requis : <a href="#101">[101]</a>**</br>
 Disponible pour : SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/images/208a.jpg">
@@ -678,7 +678,7 @@ Ce composant améliore les animations de casques de Baldur's Gate II original, et
 
 ### <a name="209" id="209"></a>[209] 1ppv4 Ailes amovibles (fichiers de base)
 
-<strong>Composant pré-requis : <a href="#101">[101]</a></strong></br>
+**Composant pré-requis : <a href="#101">[101]</a>**</br>
 Disponible pour : SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/images/209.jpg"></div><br>
@@ -694,7 +694,7 @@ Ce composant ajoute des ailes dont les personnages elfes peuvent s'équiper (avec
 
 ### <a name="210" id="210"></a>[210] 1ppv4 : Plus de diversité de paperdolls d'objets (fichiers de base)
 
-<strong>Composant pré-requis : <a href="#101">[101]</a></strong></br>
+**Composant pré-requis : <a href="#101">[101]</a>**</br>
 Disponible pour : SoA, ToB, tutu, HoW, IWDII</br>
 
 <div align="center"><img src="1pp/documentation/files/images/210.jpg"></div><br>
@@ -709,8 +709,8 @@ Ce composant augmente la variété de paperdolls disponibles en ajoutant des varia
 
 ### <a name="400" id="400"></a>[400] 1ppv4: Mise à jour et modification des objets
 
-<strong>Composants pré-requis : <a href="#101">[101]</a> <a href="#200">[200]</a> (pour SoA/ToB/Tutu)</strong></br>
-<strong>Composants recommandés : <a href="#203">[203]</a> <a href="#204">[204]</a> <a href="#205">[205]</a> <a href="#206">[206]</a> <a href="#207">[207]</a> <a href="#208">[208]</a> <a href="#209">[209]</a> <a href="#210">[210]</a></strong></br>
+**Composants pré-requis : <a href="#101">[101]</a> <a href="#200">[200]</a> (pour SoA/ToB/Tutu)**</br>
+**Composants recommandés : <a href="#203">[203]</a> <a href="#204">[204]</a> <a href="#205">[205]</a> <a href="#206">[206]</a> <a href="#207">[207]</a> <a href="#208">[208]</a> <a href="#209">[209]</a> <a href="#210">[210]</a>**</br>
 Disponible pour : SoA, ToB, tutu, HoW</br>
 
 Il s'agit du composant principal de mise à jour de 1ppv4. Avant de l'exécuter, assurez-vous d'avoir installé tous les composants que vous souhaitez utiliser (les composants recommandés offriront des choix d'installation et du contenu supplémentaires). Les captures d'écran suivantes illustrent les options d'installation par défaut, sauf indication contraire.</br>
@@ -733,7 +733,7 @@ Depuis la version 4.2.0, les options d'installation sont externalisés dans le fi
 
 ### <a name="401" id="401"></a>[401] 1ppv4: Rendu des projectiles amélioré
 
-<strong>Composants pré-requis : <a href="#200">[200]</a> <a href="#400">[400]</a></strong></br>
+**Composants pré-requis : <a href="#200">[200]</a> <a href="#400">[400]</a>**</br>
 Disponible pour : SoA, ToB, tutu</br>
 
 <div align="center"><img src="1pp/documentation/files/images/401.jpg">
@@ -842,7 +842,7 @@ Note du traducteur : l'historique n'est volontairement pas entièrement traduit a
   - Découpage de l'énorme composant principal "*Mise à jour et modification des objets*" [400] en plus petits pour assurer une meilleure lecture et facilité sa maintenance (bien plus facile de vérifier 2500 ou 3000 lignes de code lorsque l'on cherche un bug ou une erreur dans plus de 16000 lignes de code !). :wink:
   - Ajout de la compatibilité avec le BG2 Fixpack et ToBEx.
   - Ajout d'une compatibilité partielle avec les mods <a href="https://www.gibberlings3.net/files/file/969-item-revisions/">Item Revisions</a>, <a href="https://www.gibberlings3.net/files/file/970-spell-revisions/">Spell Revisions</a> et <a href="https://www.gibberlings3.net/files/file/948-iwdification/">IWDification</a> : comme ces mods sont toujours publiés en version beta, J'ai abandonné toute velléité de fournir un code totalement compatible avec eux. Ce serait une perte de temps puisqu'il serait sans aucun doute obsolète dans quelques semaines. :wink:
-  - Ajout et/ou amélioration de compatibilités inter mods (BG1 NPC Project, Bolsa, Improved HaerDalis Swords, Rolles, Ruad, Song and Silence, Stuff of the Magi, The Unusual Oddities Shop).
+  - Ajout et/ou amélioration de compatibilités de 1PP avec d'autres mods (BG1 NPC Project, Bolsa, Improved HaerDalis Swords, Rolles, Ruad, Song and Silence, Stuff of the Magi, The Unusual Oddities Shop).
   - Correction de fautes de frappe qui empêchaient la modification de certains objets (ou modifiaient d'autres objets à leur place...).
   - Simplification du code :
     - Remplacement des macros par des fonctions quand c'est pertinent.

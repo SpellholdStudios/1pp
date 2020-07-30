@@ -450,7 +450,7 @@ PLEASE ENTER 1 OR 2~*/
 // -------------------------------
 @210000 = ~Creating mirror animations...~
 @210001 = ~Patching creatures for weapon overlays.~
-@210002 = ~Patching cre files.~
+@210002 = ~Patching .CRE files...~
 
 
 /* ============================================ *

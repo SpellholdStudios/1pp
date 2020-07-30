@@ -452,7 +452,7 @@ VEUILLEZ ENTRER 1 ou 2~*/
 // -------------------------------
 @210000 = ~Cree des animations clonees...~
 @210001 = ~Installe des clones d'armes pour les creatures.~
-@210002 = ~Patche les fichiers .CRE~
+@210002 = ~Patche les fichiers .CRE...~
 
 
 /* ============================================ *
