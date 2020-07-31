@@ -1,0 +1,151 @@
+/* ====================================================================== *
+ *                              Improvements                              *
+ * ====================================================================== */
+
+- Remove all DEBUGGING CONTROL PATCH_LOG messages before release.
+- Add a new component to install new items in EE games?
+- ???
+
+/* ====================================================================== *
+ *                              Useless files                             *
+ * ====================================================================== */
+
+==> Keeping or removing them?
+	- additions/obj_anim : D1, D2 and D3 sub-folders
+	- additions/solars/superglowy/ maslg1bw, maslg1s1, maslg2bw and maslg2s1 bam files.
+	- core/obj/act
+	- core/1pp_iwd, core/1pp_iwd_thieves and core/1pp_thieves_galore/files/inv
+
+/* ====================================================================== *
+ *                             Core paperdolls                            *
+ * ====================================================================== */
+
+- 101_ia.tph: Create 1pp/core/ia_bg1 sub-folders to sort paperdolls .BAM files according to the creature types?
+
+- 101_iwd.tph: The code is copying twice human female paperdolls. Is it a mistake or must we change them with other paperdolls (gnome or half-orc). ==> NEEDS TO BE CHECKD IN-GAME.
+
+
+/* ====================================================================== *
+ *               Extended palette entries (103_extpal.tph)                *
+ * ====================================================================== */
+
+- IWD2 alternate patch seems to be ineffective because variable tryweird = 1 is never true! Unless I missed something...
+
+
+/* ====================================================================== *
+ *                 Softer Spell Effects (114_effects.tph)                 *
+ * ====================================================================== */
+
+- Check warning messages when patching wrong bgmain.exe.
+- FIRE EFFECTS AND HITS: supposed to patch only ToB engine based games ???
+- Must we append clearair.2da with new fog projectiles ?
+
+
+/* ====================================================================== *
+ *                Core content patches (200_1ppv2_cut.tph)                *
+ * ====================================================================== */
+
+- 1pp_hammers_icons: set default value to 2 (No, assign the new icon to Borok's Fist, but keep the Runehammer icon for their respective hammers) instead of overwriting ihamm10 icon.
+- BW Herbs and Potions add-in mod: copy all BAM files at once ? As WeiDU cmp command detects no change between 1pp and the mod itm files, why copying 1pp itm files and not patching existing ones?
+
+
+/* ====================================================================== *
+ *                   Spell tweaks (202_spelltweaks.tph)                   *
+ * ====================================================================== */
+
+- Sort SPELL.IDS after intall ???
+- Check SR and IWDIfication in-game
+- SR compatibility:
+	- What about sppr510.spl (Cause Mortal Wounds)?
+	- Old Cause Critical Wounds - disabled: uses sppr414d spell.
+
+
+/* ====================================================================== *
+ *            Restored flame sword animations (203_fslong.tph)            *
+ * ====================================================================== */
+
+- Check all Chloe's weapons abilities. Why not patching existing files instead of overwriting them?
+- Add other mods swords. DONE: Improved HaerDalis Swords
+
+
+/* ====================================================================== *
+ *               Colourable Quarterstaves (204_qsbase.tph)                *
+ * ====================================================================== */
+
+- Add other mods staves. ALREADY DONE: Bolsa, Rolles, Ruad, Stuff of the Magi and The Unusual Oddities Shop
+
+
+/* ====================================================================== *
+ *                Attachable wings core (209_v4_wings.tph)                *
+ * ====================================================================== */
+
+- Add commented code for installing elf male wings. Might be useful for modders.
+
+
+/* ====================================================================== *
+ *    Increased paperdoll object variety core (210_v4_ppd_variety.tph)    *
+ * ====================================================================== */
+
+- Sword of Balduran (sw1h18) : remove silver flag (BIT8) in tutu games?
+- Remove DEBUGGING CONTROL PATCH_LOG messages.
+- Remove ACTION_IF (is_iwd2)? this component should not be available for IWD games....
+
+
+/* ====================================================================== *
+ *        Core updates and item patches (400_1pp_update.tph files)        *
+ * ====================================================================== */
+
+- When a stable version of IR will be officially released, provide a compatibility code for new items.
+
+- 400_update_bgii_shields.tpa:
+	- Add other mods shields. ALREADY DONE: BG1 NPC Project, Rolles, Song and Silence, The Unusual Oddities Shop
+	- Group Sentinel +4: shld22.itm and chalshld.itm ???
+	- Reflection Shield +1 (shld24.itm): Fix tower shield animation (note: having to use its original small shield animation here for the time being, because there isn't really a suitable buckler icon for it - still erroneous, but nearly as bad as the tower shield!)
+//	- Saving Grace +3 : invert shld27 and shld27a ?
+	- Polished Shield +1: add full immunity to petrification.
+	- Ask Jastev about Ilvastarr Family Shield (The BG1 NPC Project mod)
+	- Gorm's Arm +3 : an extra +1 vs. missile attacks not used by BG:EE.
+	- Buckler +2: replace "Armor Class: +3, +4 vs missiles" with "no protection vs. piercing and missiles" as every buckler.
+
+- 400_update_bgii_helmets.tpa:
+	- Eilistraee's Boon +1: harmonize with EE (Magic resistance opcode (166) instead of Magic damage Resistance) ?
+	- Add other mods helmets. ALREADY DONE: Stuff of the Magi
+
+- 400_update_bgii_launchers.tpa:
+	- what about tutu ???
+	- Add other mods launchers. ALREADY DONE: Rolles
+
+- 400_update_bgii_weapons.tpa (axes, daggers, hammers, spears, halberds):
+	- Add other mods weapons. ALREADY DONE: Rolles, Ruad, The Unusual Oddities Shop
+
+- 400_update_bgii_swords.tpa:
+	- Add other mods swords. ALREADY DONE: Rolles, Ruad
+
+- 400_update_bgii_blunt.tpa:
+	- Add other mods blunt weapons. ALREADY DONE: Rolles, Ruad
+
+- 400_update_bgii_bows.tpa:
+	- Add other mods bows. ALREADY DONE: Rolles, Ruad
+
+- 400_update_bgii_staves.tpa:
+	- What about tutu staves?
+	- Add other mods staves. ALREADY DONE: Bolsa, Rolles, Ruad, Stuff of the Magi and The Unusual Oddities Shop
+
+- 400_update_bgii_armors.tpa:
+	- Add other mods armors. ALREADY DONE: Rolles, Ruad
+
+- 400_update_bgii_scatter.tpa:
+	- 1PP is currently patching Copper Coronet hendak.sto and lehtinan.sto, but I don't think they are ever used in the game. Are those patches useful?
+	- Why not patching stores in one go instead of patching them twice?
+
+
+/* ====================================================================== *
+ *           Improved projectile effects (401_projectiles.tph)            *
+ * ====================================================================== */
+
+- Check IR and SR compatibility in game.
+- Add other mods items. ALREADY DONE: Rolles, Ruad, Stuff of the Magi
+- Add 1dagg16.pro to PfNM? Unfortunately, it is used by a mod for a magical dagger...
+- Add Firetooth +4/+5 (xb8x15 and xboxw16)? Which projectile?
+- potn38 : add protection from new gaze projectile?
+- dagg16b.itm ?
