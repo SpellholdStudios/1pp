@@ -84,6 +84,10 @@
 			1pp est un mod <acronym title="Weimer Dialogue Utility">WeiDU</acronym> et devrait par conséquent être compatible avec n'importe quel mod WeiDU. Je ne peux cependant pas tous les tester. Si vous rencontrez des bugs, veuillez les signaler dans le <a href="http://www.shsforums.net/forum/159-1pp/">forum</a>, s'il vous plaît.
 		</p>
 
+ 		<p>
+			Les moddeurs souhaitant rendre leurs mods compatibles avec 1pp sont fortement invités à lire le document <a href="1pp-note-for-modders.html">1pp Note for modders</a> qui les guidera à travers toutes les étapes nécessaires.
+		</p>
+
 		<p>
 			Si vous jouez avec BG2-ToB ou BGT, je vous recommande fortement d'installer la dernière version du <a href="http://www.gibberlings3.net/bg2fixpack/">BG2 Fixpack</a> avant d'installer ce mod, bien qu'il ne soit pas requis pour faire correctement tourner 1pp.
 		</p><br>
@@ -137,7 +141,7 @@
 
 		<h3>Mac OS X</h3>
 
-		<p>
+		<p style="margin-top:2%;">
 			Malheureusement, ce mod n'est pour l'instant pas compatible avec le système d'exploitation OS X car certains de ses composants modifiant l'exécutable ne fonctionnent pas sur OS X. Si vous souhaitez vous en charger, veuillez manifester votre intérêt sur le <a href="http://www.shsforums.net/forum/159-1pp/">forum</a>. (Si vous disposez de competences techniques, étudier l'exécutable du jeu et de ce patch dans un éditeur pourrait vous être utile.)
 		</p></br>
 
@@ -406,7 +410,7 @@
 			<tr>
 				<td style="border: 1px solid #781808; text-align: center; ">1pp_sleeper</td>
 				<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">TRANSFORMER DORMEUSE EN UN FLÉAU<br><br>
-				Voulez-vous transformer l'étoile du matin +2 The Sleeper en fléau ?<br><br>
+				Voulez-vous transformer l'étoile du matin +2 Dormeuse en fléau ?<br><br>
 				<span style="color: #781808; padding-left:20px">1 = Oui [par défaut]</span><br>
 				<span style="padding-left:20px;">2 = Non, mais installer quand même son icône d'inventaire alternative (IBLUN16B) comme ressource pour les moddeurs.</span></td>
 			</tr>
@@ -424,7 +428,7 @@
 			</tr>
 			<tr>
 				<td style="border: 1px solid #781808; text-align: center; ">1pp_forced_item_colours_iwd</td>
-				<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">COULEURS RÉ-DÉFINIES DES OBJETS NON-MAGIQUES pour IWD<br><br>
+				<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">COULEURS PRÉ-DÉFINIES DES OBJETS NON-MAGIQUES pour IWD<br><br>
 				Ce réglage détermine si les couleurs des boucliers et des casques non magiques portés par les personnages sont fixées et non modifiables. Par défaut, elles ne le sont pas, vous permettant de les personnaliser avec les couleurs de vos vêtements. Activer cette option définit les couleurs de tous les objets.<br><br>
 				<span style="color: #781808; padding-left:20px">1 = Non [par défaut]</span><br>
 				<span style="padding-left:20px;">2 = Oui</span></td>
@@ -574,6 +578,7 @@
 		<p class="screen" title="" style="background-image:url(files/images/104.jpg)"><img src="files/images/104.jpg"></p></br>
 		<p>
 			Cette interface graphique retravaillée pour Baldur's Gate II SoA/ToB a pour but d'adoucir les arêtes trop prononcées des écrans sans s'éloigner du design d'origine. Parmi les modifications majeures, une horloge remplace la « boîte » d'origine, les « parchemins sans bords » de nombreux écrans font place à des parchemins plus réalistes (voir les captures d'écran dans le lien plus bas), et une option permet de modifier les polices de caractères.</br></br>
+			&#10173; <span style="font-size:90%"><em>Note : à partir de la version 4.2.0, l'option installant les polices de caractères modifiées (1pp_updated_fonts) est configurée à 2 par défaut (2 = Ne pas modifier les polices de caractères) car elle peut poser problème avec les langues utilisant d'autres fichiers BAM de polices.</em></span></br></br>
 			<a href="files/gui_readme-french.html">&#9755; Plus d'images</a></br></br>
 		</p>
 
@@ -717,6 +722,7 @@
 		<p class="screen" title="Survolez l'image avec le curseur de la souris pour afficher la version originale." style="background-image:url(files/images/200a.jpg)"><img src="files/images/200.jpg"></p></br>
 		<p>
 			Pour l'essentiel, ce composant reprend les modifications d'icônes d'inventaire des objets de 1ppv2. En d'autres termes, il améliore la qualité graphique des icônes dans BGII, particulièrement dans l'expansion ToB. Il met aussi à jour des icônes et les objets associés ajoutés par certains mods. Il constitue le socle sur lequel 1ppv4 a été conçu pour SoA/ToB.</br></br>
+			&#10173; <span style="font-size:90%"><em>Note : à partir de la version 4.2.0, l'option modifiant les icônes de potions (1pp_potions_icons) est configurée à 2 par défaut (2 = Surtout pas : TOUT sauf les potions !).</em></span></br></br>
 			<a href="files/v2_readme-french.html">&#9755; Consulter le readme d'origine</a></br></br>
 		</p>
 
@@ -979,7 +985,8 @@
 		<p>
 			Dans les versions précédentes, divers choix vous étaient proposés pendant d'installation (en fonction de votre jeu IE et des composants que vous avez installés).</br>
 			Depuis la version 4.2.0, les options d'installation sont externalisés dans le fichier 1pp-config-default.ini. Si vous souhaitez les modifier, veuillez lire ce <a href="#config">chapitre</a>.</br></br>
-			Pour avoir un aperçu complet des options, veuillez consulter le lien ci-dessous. Si vous souhaitez affecter des couleurs pré-définies aux objets non magiques, choisissez les options 2 ou 3 de l'option COULEURS DES OBJETS PRÉ-DÉFINIES.</br></br>
+			&#10173; <span style="font-size:90%"><em>Note : si vous ne souhaitez pas écraser l'icône des Marteaux des Runes, choisissez la valeur 2 pour l'option 1pp_hammers_icons [Par défaut = 1 (Oui)]. En réponse à de nombreuses demandes de joueurs, transformer l'étoile du matin +2 Dormeuse est désormais optionnel et géré par l'option 1pp_sleeper option [Par défaut = 2 (Non, mais installer quand même son icône d'inventaire alternative (IBLUN16B) comme ressource pour les moddeurs)].</em></span></br></br>
+			&#10173; <span style="font-size:90%"><em>Pour avoir un aperçu complet des options, veuillez consulter le lien ci-dessous. Si vous souhaitez affecter des couleurs pré-définies aux objets non magiques, choisissez les valeurs 2 (Oui pour tous les objets, qu'ils soient magiques ou pas) ou 3 (Oui pour tous les objets, qu'ils soient magiques ou pas, mais ne concerne pas les boucliers au graphisme de BG1) pour l'option COULEURS DES OBJETS PRÉ-DÉFINIES.</em></span></br></br>
 			<a href="files/v4u_readme-french.html">&#9755; Autres options d'installation</a>
 		</p></br>
 
@@ -1078,9 +1085,11 @@
  		  <ul class="version-list c1">
 			<li>L'équipe de <a href="http://www.spellholdstudios.net/">Spellhold Studios</a> pour l'hébergement de ce mod.</li>
 			<li>Traduction française : Gwendolyne (relecture par Luren).</li>
-			<li>...</li>
-			<li>Composant Épées enflammées : Merci d'avance à Nythrun pour nous avoir laissés utiliser son code ! Enfin, nous l'espérons !</li>
-			<li>Premier programme d'installation: CamDawg.</li>
+			<li>Traduction russe : prozh.</li>
+			<li>Composant Épées enflammées : Merci d'avance à <a href="http://www.shsforums.net/user/6665-nythrun/">Nythrun</a> pour nous avoir laissés utiliser son code ! Enfin, nous l'espérons !</li>
+			<li>Composant Avatar intelligent & Changement d'armure : Merci à <a href="http://www.shsforums.net/user/1494-galactygon/">Galactygon</a> pour nous avoir laissés utiliser son code de Changement d'armure.</li>
+			<li>Merci au soutien inestimable de l'équipe de BG:EE, sans qui la réalisation de ce mod n'aurait probablement pas été possible, et à Trent Oster qui a été génial pour partager les vestiges du développement de ToB.</li>
+			<li>Premier programme d'installation : <a href="http://www.shsforums.net/user/1242-camdawg/">CamDawg</a>.</li>
 			<li>Merci à toutes les personnes des forums de <a href="https://www.baldursgateworld.fr">La Couronne de Cuivre</a>, <a href="https://www.gibberlings3.net/forums/">The Gibberlings Three</a>, <a href="http://www.shsforums.net/">Spellhold Studios</a> forums, et des autres communautés de joueurs et de moddeurs IE qui ont offert leur aide.</li>
 		  </ul><br>
 
@@ -1145,12 +1154,12 @@
 			<li>Ajout de la librairie "<em>always.tpa</em>".</li>
 			<li>Ajout de commentaires dans les fichiers de code chaque fois que possible.</li>
 			<li>Remplacement des conditions <span class="tp2">GAME_IS</span> par des variables afin d'accélérer la vitesse d'exécution du code.</li>
-			<li>Les options d'installation ont été externalisés dans le fichier <em>1pp-config-default.ini</em>. Si vous souhaitez les modifier, veuillez consulter ce <a href="#config">chapitre</a>.</li>
+			<li>Les options de configuraton d'installation ont été externalisés dans le fichier <em>1pp-config-default.ini</em>. Si vous souhaitez les modifier, veuillez consulter ce <a href="#config">chapitre</a>.</li>
 			<li>Correction et intégration des patches correctifs de Lollorian et intégration des autres patches du BWP Fixpack fixes (merci à The Imp et aux autres !).</li>
 			<li>Découpage de l'énorme composant principal "<em>Mise à jour et modification des objets</em>" [400] en plus petits pour assurer une meilleure lecture et facilité sa maintenance (bien plus facile de vérifier 2500 ou 3000 lignes de code lorsque l'on cherche un bug ou une erreur dans plus de 16000 lignes de code !). &#128521;</li>
 			<li>Ajout de la compatibilité avec le BG2 Fixpack et ToBEx.</li>
 			<li>Ajout d'une compatibilité partielle avec les mods <a href="https://www.gibberlings3.net/files/file/969-item-revisions/">Item Revisions</a>, <a href="https://www.gibberlings3.net/files/file/970-spell-revisions/">Spell Revisions</a> et <a href="https://www.gibberlings3.net/files/file/948-iwdification/">IWDification</a> : comme ces mods sont toujours publiés en version beta, J'ai abandonné toute velléité de fournir un code totalement compatible avec eux. Ce serait une perte de temps puisqu'il serait sans aucun doute obsolète dans quelques semaines. &#128521;</li>
-			<li>Ajout et/ou amélioration de compatibilités inter mods (BG1 NPC Project, Bolsa, Improved HaerDalis Swords, Rolles, Ruad, Song and Silence, Stuff of the Magi, The Unusual Oddities Shop).</li>
+			<li>Ajout et/ou amélioration de compatibilités de 1PP avec d'autres mods (BG1 NPC Project, Bolsa, Improved HaerDalis Swords, Rolles, Ruad, Song and Silence, Stuff of the Magi, The Unusual Oddities Shop).</li>
 			<li>Correction de fautes de frappe qui empêchaient la modification de certains objets (ou modifiaient d'autres objets à leur place...).</li>
 			<li>Simplification du code :</li>
 			  <ul>
@@ -1162,14 +1171,13 @@
 			  </ul>
 			<li>Re-formatage et mise à jour de tous les readme (1pp prend désormais en compte la documentation traduite).</li>
 			<li>Ajout de la traduction française (Gwendolyne).</li>
+			<li>Ajout de la traduction russe (prozh).</li>
 			<li>Traification.</li>
 			<li>Suppression des fichiers inutiles.</li>
 			<li>Reorganisation de l'arborescence des répertoires du mod : creation de sous-répertoires pour classer les fichiers de paperdolls par type de créature.</li>
 			<li>Passage en minuscules des noms de fichiers.</li>
 			<li>Mise à jour de <acronym title="Weimer Dialogue Utility">WeiDU</acronym> (v246).</li>
 			<li>Téléversement du mod dans le compte GitHub officiel de Spellhold Studios.</li>
-			<li>...</li>
-			<li>Révision totale du composant Rendu des projectiles amélioré [401] : élimine les doublons des opcodes #83 and #197, clone les effets existants plutôt que d'en ajouter de nouveaux...</li>
 		  </ul>
 
 		<h5>Modifications relatives à chaque composant :</h5>
@@ -1353,7 +1361,7 @@
 					<li style="margin-left:-8%; margin-right:-8%;">sw1h41.itm (Long Sword +2): as 1PP (Core content patches) sets its icon to SW1H06 (Varscona +2 icon), but EE does not validate this change, this version reverts to its original inventory icon ISW1H41. Then, this component removes its re-colorisation and sets it to SW1H73 (Long Sword +3) that deserves those settings.</li>
 					<li style="margin-left:-8%; margin-right:-8%;">sw2h06.itm and sw1h13.itm (Spider's Bane +2): harmonized both versions. Now they get the same icon and coloration (no change from vanilla SW1H13 as its colors fit the new icon installed by 1PP).</li>
 					<li style="margin-left:-8%; margin-right:-8%;">sw2h07.itm (Harbinger +3): does not overwrite Harbinger's icon and copy an alternate resource for modding purpose. This way, Harbinger keeps its golden icon which fits to its colors settings.</li>
-					<li style="margin-left:-8%; margin-right:-8%;">sw1p01.itm (Viper's Edge +2): removed the op#134 global effect (Petrification) otherwise it would be impossible to wield the sword. Fixed wrong coding (the extended effects were not implemented) and modified the cursed effects probabilities, so that they don't stack when not necessary (e.g. why should you be poisoned when petrified?).</li>
+					<li style="margin-left:-8%; margin-right:-8%;">sw1p01.itm (Viper's Edge +2): removed the op#134 global effect (Petrification) otherwise it would be impossible to wield the sword. &#128521; Fixed wrong coding (the extended effects were not implemented) and modified the cursed effects probabilities, so that they don't stack when not necessary (e.g. why should you be poisoned when petrified?).</li>
 				  </ul>
 
 				<li style="margin-left:-4%">blunt weapons specific fixes (400_update_bgii_blunt.tpa):</li>

@@ -6,7 +6,7 @@ SUPPORT ~Gwendolyne and Spellhold Studios Staff at http://www.shsforums.net/foru
 
 VERSION ~v4.2.0 beta~
 
-//README ~1pp/documentation/readme-%LANGUAGE%.html~ ~1pp/documentation/readme.html~
+README ~1pp/documentation/1pp-readme-%LANGUAGE%.html~ ~1pp/documentation/1pp-readme-english.html~
 
 ALWAYS
 

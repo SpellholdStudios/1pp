@@ -81,11 +81,15 @@
 
 
 		<p>
-			1PP is a <acronym title="Weimer Dialogue Utility">WeiDU</acronym> mod, and therefore should be compatible with all WeiDU mods. However, we cannot test every single one. If you encounter any bugs, please <a href="http://www.shsforums.net/forum/159-1pp/">report them on the forum!</a>
+			1pp is a <acronym title="Weimer Dialogue Utility">WeiDU</acronym> mod, and therefore should be compatible with all WeiDU mods. However, we cannot test every single one. If you encounter any bugs, please <a href="http://www.shsforums.net/forum/159-1pp/">report them on the forum!</a>
 		</p>
 
 		<p>
-			Although it is not required for the 1PP mod to function properly, BG2 and TOB players are strongly recommended to download and install the latest version of the <a href="http://www.gibberlings3.net/bg2fixpack/">BG2 Fixpack</a> before proceeding with the installation of this mod.
+			Modders who wish to make their mods compatible with 1pp are strongly recommended to read the <a href="1pp-note-for-modders.html">1pp Note for modders</a> which guide them through each step of accomplishing particular modding tasks without breaking compatibility.
+		</p>
+
+		<p>
+			Although it is not required for the 1pp mod to function properly, BG2 and TOB players are strongly recommended to download and install the latest version of the <a href="http://www.gibberlings3.net/bg2fixpack/">BG2 Fixpack</a> before proceeding with the installation of this mod.
 		</p><br>
 
 
@@ -137,7 +141,7 @@
 
 		<h3>Mac OS X</h3>
 
-		<p>
+		<p style="margin-top:2%;">
 			Unfortunately, this mod is not currently fully compatible with OS X because a few components patching exe file do not support OS X. If you wish to make it so, please post your interest in the <a href="http://www.shsforums.net/forum/159-1pp/">forum</a>. (It may help to examine your game launcher and the contents of the existing patch in an editor if you have any technical expertise.)
 		</p></br>
 
@@ -569,6 +573,7 @@
 		<p class="screen" title="" style="background-image:url(files/images/104.jpg)"><img src="files/images/104.jpg"></p></br>
 		<p>
 			A reworked graphical user interface for Baldur's Gate II SoA/ToB. This aims to get rid of a lot of the rough edges present in the original while maintaining a similar feel. Major changes include a time dial that is not just a box, getting rid of 'infinite parchment' (see additional screenshots) and an optional choice of updated fonts.</br></br>
+			&#10173; <span style="font-size:90%"><em>Note: as of v4.2.0, the option installing updated fonts (1pp_updated_fonts) is set to 2 by default (2 = Keep fonts unchanged) because it may cause issues with languages using different font .BAMs.</em></span></br></br>
 			<a href="files/gui_readme.html">&#9755; See more</a></br></br>
 		</p>
 
@@ -700,6 +705,7 @@
 		<p class="screen" title="hover to show original content" style="background-image:url(files/images/200a.jpg)"><img src="files/images/200.jpg"></p></br>
 		<p>
 			This is essentially the inventory icon/item related patches of 1ppv2. In other words, lots of random icon improvements for BGII, especially on the ToB side of things, as well as some mod item patches and updates. It will form the basis on which 1ppv4 is built on SoA/ToB.</br></br>
+			&#10173; <span style="font-size:90%"><em>Note: as of v4.2.0, the option updating potions BAM files (1pp_potions_icons) is set to 2 by default (2 = Heavens no -- *Everything* but Potions!)</em></span>.</br></br>
 			<a href="files/v2_readme.html">&#9755; See original readme</a></br></br>
 		</p>
 
@@ -939,12 +945,11 @@
 			<p class="screen" title="" style="background-image:url(files/images/400ss.jpg)"><img src="files/images/400ss.jpg"></p></br>
 		<p>
 			Before v4.2.0, various content choices were presented to you during installation (depending on which IE game you are installing for and installed components).</br>
-			As of version 4.2.0, installation options are moved into 1pp-config-default.ini file. If you want to modify them, please read this <a href="#config">chapter</a>.</br></br>
-			For a full, visual guide to choices see the link below. Consider choosing 'yes' to setting ITEM COLOURS FOR NON-MAGICAL ITEMS (setting 2/3).</br></br>
+			As of version 4.2.0, installation options are moved into <em>1pp-config-default.ini</em> file. If you want to modify them, please read this <a href="#config">chapter</a>.</br></br>
+			&#10173; <span style="font-size:90%"><em>Note: if you don't want to overwrite the Runehammer icon, set 1pp_hammers_icons option to 2 [default value = 1 (Yes)]. In response to many players requests, turning The Sleeper into a flail is now optional and set by 1pp_sleeper option [default value = 2 (No, but install the alternate flail icon IBLUN16B as a new resource for modders)].</em></span></br></br>
+			&#10173; <span style="font-size:90%"><em>For a full, visual guide to choices see the link below. Consider choosing 'yes' to setting FORCED ITEM COLOURS [1pp_forced_item_colours = 2 (Yes for both magical and non-magical items) or 3 (Yes for both magical and non-magical items, but exclude BG1 legacy shields)].</em></span></br></br>
 			<a href="files/v4u_readme.html">&#9755; Alternative install choices</a>
 		</p></br>
-
-			<li></li>
 
 		<address>
 			<span class="footer">1ppv4 &gt; Component 400</span> &#8226;<a href="#cindex">BACK TO INDEX</a>
@@ -1035,9 +1040,11 @@
  		  <ul class="version-list c1">
 			<li><a href="http://www.spellholdstudios.net/">Spellhold Studios</a> team for hosting the mod (<a href="http://www.shsforums.net">Forums</a>).</li>
 			<li>French translation: Gwendolyne (Luren for proofreading).</li>
-			<li>...</li>
-			<li>Flaming sword component: Thanks in advance especially to Nythrun for letting us use her code! We hope!</li>
-			<li>First installer: CamDawg.</li>
+			<li>Russian translation: prozh.</li>
+			<li>Flaming sword component: Thanks in advance especially to <a href="http://www.shsforums.net/user/6665-nythrun/">Nythrun</a> for letting us use her code! We hope!</li>
+			<li>Smart Avatar & Armour Switching component: Thanks in advance especially to <a href="http://www.shsforums.net/user/1494-galactygon/">Galactygon</a> for letting us use his avatar appearance tweak code.</li>
+			<li>Thanks to invaluable support from the BG:EE team, without who this likely would not have been possible, and Trent Oster who has been awesome for sharing ToB development leftovers.</li>
+			<li>First installer: <a href="http://www.shsforums.net/user/1242-camdawg/">CamDawg</a>.</li>
 			<li>Everyone else from the <a href="https://www.baldursgateworld.fr">La Couronne de Cuivre</a>, <a href="https://www.gibberlings3.net/forums/">The Gibberlings Three</a>, <a href="http://www.shsforums.net/">Spellhold Studios</a> forums, and the other Infinity Engine gaming and modding communities who offered their help and support.</li>
 		  </ul><br>
 
@@ -1096,11 +1103,10 @@
 			<li>Replaced <span class="tp2">AUTHOR</span> keyword with <span class="tp2">SUPPORT</span>.</li>
 			<li>Added components <span class="tp2">DESIGNATED</span> numbers and <span class="tp2">LABELS</span>.</li>
 			<li>Added "<em>always.tpa</em>" library.</li>
-
 			<li>Commented code as much as possible.</li>
 			<li>Replaced <span class="tp2">GAME_IS</span> conditions with variables checks to speed up install time.</li>
 
-			<li>Installation options have been moved into <em>1pp-config-default.ini</em> file. If you want to modify them, please read this <a href="#config">chapter</a>.</li>
+			<li>Configuration installation options have been moved into <em>1pp-config-default.ini</em> file. If you want to modify them, please read this <a href="#config">chapter</a>.</li>
 			<li>Integrated all BWP Fixpack fixes (thanks Lollorian, The Imp and others!).</li>
 			<li>Split huge [400] "<em>Core updates and item patches</em>" component into smaller ones for more comfortable readability and maintenance (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!). &#128521;</li>
 			<li>Added BG2 Fixpack and ToBEx compatibility.</li>
@@ -1112,11 +1118,12 @@
 				<li style="margin-left:-4%">Replaced macros with functions whenever possible.</li>
 				<li style="margin-left:-4%">Copied entire folders instead of infinite lines of code.</li>
 				<li style="margin-left:-4%">Grouped actions or patches with <span class="tp2">ACTION_FOR_EACH</span> and <span class="tp2">PATCH_FOR_EACH</span> whenever possible.</li>
-				<li style="margin-left:-4%; margin-right:-1%;">Used new and more efficient <acronym title="Weimer Dialogue Utility">WeiDU</acronym> functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize the coding (e.g. <span class="tp2">ADD_ITEM_EQEFFECT</span>, <span class="tp2">ALTER_EFFECT</span> and <span class="tp2">ALTER_ITEM_HEADER</span> replace so many lines of codes!).</li>
+				<li style="margin-left:-4%; margin-right:-1%;">Used new and more efficient <acronym title="Weimer Dialogue Utility">WeiDU</acronym> functions (not released when Erephine wrote this mod) and Gwendolyne's patch functions to optimize coding (e.g. <span class="tp2">ADD_ITEM_EQEFFECT</span>, <span class="tp2">ALTER_EFFECT</span> and <span class="tp2">ALTER_ITEM_HEADER</span> replace so many lines of codes!).</li>
 				<li style="margin-left:-4%">Avoided copying and overwriting the same files again and again...</li>
 			  </ul>
 			<li>Re-formated and updated all readme files (1pp now supports translated readmes).</li>
 			<li>Added French translation (Gwendolyne).</li>
+			<li>Added Russian translation (prozh).</li>
 			<li>Traification. Feel free to provide me with translations. I will include them as soon as possible.</li>
 			<li>Removed unused files.</li>
 
@@ -1251,9 +1258,9 @@
 			  <ul style="padding-top: 4px">
 				<li style="margin-left:-4%">Split this huge component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).</li>
 				<li style="margin-left:-4%">Replaced <span class="tp2">READLN</span> action "<em>Do you want gems to require some lore to identify?</em>" with reading new setting (1pp_gemlore) from <em>1pp-config-default.ini</em> or <em>1pp-config-user.ini</em> [default value = 1 (Yes)].</li>
-				<li style="margin-left:-4%">Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers.</li>
-				<li style="margin-left:-4%">Added a new setting (1pp_sleeper) allowing to make alternate the turning of The Sleeper into a flail. In any case, 1PP does not overwrites its original inventory bam with a new one, but installs a new icon (IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose.</li>
-				<li style="margin-left:-4%">Replaced tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically writes values in tooltip.2da from the tra file.</li>
+				<li style="margin-left:-4%">Added a new setting (1pp_hammers_icons) in <em>1pp-config-default.ini</em> or <em>1pp-config-user.ini</em> allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers [default value = 1 (Yes)].</li>
+				<li style="margin-left:-4%">Added a new setting (1pp_sleeper) in <em>1pp-config-default.ini</em> or <em>1pp-config-user.ini</em> allowing to make alternate the turning of The Sleeper into a flail [default value = 2 (No, but install the alternate flail icon IBLUN16B as a new resource for modders)]. In any case, 1PP does not overwrites its original inventory bam with a new one, but installs a new icon (IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose.</li>
+				<li style="margin-left:-4%">Replaced tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically write values in tooltip.2da from the tra file.</li>
 				<li style="margin-left:-4%">Integrated <a href="http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849">Lollorian's BWP Fixpack patch for Ashes of Embers compatibility</a> (400_1pp_update_bgii.tph.patch): renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">Source</a>.</li>
 				<li style="margin-left:-4%">Added ToBEx compatibility for circlets: item flag EE/Ex: Toggle critical hits flag (BIT25).</li>
 				<li style="margin-left:-4%">Gems sub-component: code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Build an array to define new gems lore values to identify. Same tph used for IWD and BG2 games.</li>
@@ -1307,7 +1314,7 @@
 					<li style="margin-left:-8%; margin-right:-8%;">sw1h41.itm (Long Sword +2): as 1PP (Core content patches) sets its icon to SW1H06 (Varscona +2 icon), but EE does not validate this change, this version reverts to its original inventory icon ISW1H41. Then, this component removes its re-colorisation and sets it to SW1H73 (Long Sword +3) that deserves those settings.</li>
 					<li style="margin-left:-8%; margin-right:-8%;">sw2h06.itm and sw1h13.itm (Spider's Bane +2): harmonized both versions. Now they get the same icon and coloration (no change from vanilla SW1H13 as its colors fit the new icon installed by 1PP).</li>
 					<li style="margin-left:-8%; margin-right:-8%;">sw2h07.itm (Harbinger +3): does not overwrite Harbinger's icon and copy an alternate resource for modding purpose. This way, Harbinger keeps its golden icon which fits to its colors settings.</li>
-					<li style="margin-left:-8%; margin-right:-8%;">sw1p01.itm (Viper's Edge +2): removed the op#134 global effect (Petrification) otherwise it would be impossible to wield the sword. Fixed wrong coding (the extended effects were not implemented) and modified the cursed effects probabilities, so that they don't stack when not necessary (e.g. why should you be poisoned when petrified?).</li>
+					<li style="margin-left:-8%; margin-right:-8%;">sw1p01.itm (Viper's Edge +2): removed the op#134 global effect (Petrification) otherwise it would be impossible to wield the sword. &#128521; Fixed wrong coding (the extended effects were not implemented) and modified the cursed effects probabilities, so that they don't stack when not necessary (e.g. why should you be poisoned when petrified?).</li>
 				  </ul>
 
 				<li style="margin-left:-4%">blunt weapons specific fixes (400_update_bgii_blunt.tpa):</li>
