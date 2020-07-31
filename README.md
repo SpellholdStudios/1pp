@@ -2,7 +2,7 @@
 ![Latest Release](https://img.shields.io/github/v/release/SpellholdStudios/1pp?include_prereleases&color=darkred)<a name="top" id="top"> </a>
 ![Platform](https://img.shields.io/static/v1?label=platform&message=windows%20%7C%20linux&color=informational)
 ![Language](https://img.shields.io/static/v1?label=language&message=English%20%7C%20French%20%7C%20Russian&color=limegreen)
-<a href="README_FR.md"><img align="right" src="1pp/documentation/files/images/fr-flag-32.png"></a>
+<a href="README_FR.md"><img align="right" src="1pp/documentation/files/images/fr-flag-32.png" title="Readme français"></a>
 
 
 <div align="center"><h1>1pp (One Pixel Productions) - WIP</h1>
