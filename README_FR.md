@@ -2,7 +2,7 @@
 ![Dernière version](https://img.shields.io/github/v/release/SpellholdStudios/1pp?include_prereleases&color=darkred)<a name="top" id="top"> </a>
 ![Plateformes](https://img.shields.io/static/v1?label=platform&message=windows%20%7C%20linux&color=informational)
 ![Langues](https://img.shields.io/static/v1?label=language&message=Anglais%20%7C%20Français%20%7C%20Russe&color=limegreen)
-<a href="README.md"><img align="right" src="1pp/documentation/files/images/uk-flag-32.png"></a>
+<a href="README.md"><img align="right" src="1pp/documentation/files/images/uk-flag-32.png title="English Readme""></a>
 
 
 <div align="center"><h1>1pp (One Pixel Productions) - WIP</h1>
@@ -684,6 +684,9 @@ Disponible pour : SoA, ToB, tutu, HoW, IWDII</br>
 <div align="center"><img src="1pp/documentation/files/images/209.jpg"></div><br>
 
 Ce composant ajoute des ailes dont les personnages elfes peuvent s'équiper (avec quelques restrictions d'usage).</br>
+
+###### &#10173; <em>Note : à partir de la version 4.2.0, les ailes pour les elfes masculins sont installées par défaut.</em></br>
+
 &#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/wings_readme-french.html">Consulter le readme d'origine &amp; les notes de développement</a></br>
 
 ###### <em>N'oubliez-pas qu'il s'agit d'un composant basique : il ne modifie aucun objet. Son installation permettra aux composants suivants de vous proposer des options supplémentaires lors de la mise à jour des objets et des sorts.</em></br>
@@ -936,6 +939,9 @@ Note du traducteur : l'historique n'est volontairement pas entièrement traduit a
 
   - [208] 1ppv4: Additional Helmet Animations (208_v4_helmets.tph)
     - Integrated <a href="http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/page-12#entry561441">Lollorian's BWP Fixpack JC Helm animation crash fix for IA BG1 animation compatibility</a> (patch <a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/208_v4_helmets.tph.patch">208_v4_helmets.tph.patch</a>): 1ppv4's helmet component seems to cause crashes when helmets using the JC animation are equipped by NPCs using BG1 animations from Infinity Animations. <a ref="http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/?p=561441">Source</a>.
+
+  - [209] 1ppv4: Attachable wings (209_v4_wings.tph)
+    - Added automatic installation of male elves wings by default.
 
   - [210] 1ppv4: Increased paperdoll object variety (210_v4_ppd_variety.tph)
     - Simplified codes creating undroppable clones of weapons (in particular with tutu_var) replacing primary weapon with undroppable clone and moving it to inventory.

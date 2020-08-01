@@ -61,7 +61,7 @@ This mod is designed to work on the following classical Infinity Engine games:
 
 1pp is a WeiDU mod, and therefore should be compatible with all WeiDU mods. However, we cannot test every single one. If you encounter any bugs, please <a href="http://www.shsforums.net/forum/159-1pp/">report them on the forum!</a><br>
 
-Modders who wish to make their mods compatible with 1pp are strongly recommended to read the <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/1pp-note-for-modders.html">1pp Note for modders</a> which guide them through each step of accomplishing particular modding tasks without breaking compatibility.<br>
+Modders who wish to make their mods compatible with 1pp are strongly recommended to read the <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/1pp-note-for-modders.html">1pp Note for modders</a> which guides them through each step of accomplishing particular modding tasks without breaking compatibility.<br>
 
 >Although it is not required for the 1pp mod to function properly, BG2 and TOB players are strongly recommended to download and install the latest version of the <a href="http://www.gibberlings3.net/bg2fixpack/">BG2 Fixpack</a> before proceeding with the installation of this mod.<br>
 <div align="right"><a href="#top">Back to top</a></div>
@@ -690,6 +690,9 @@ Supports: SoA, ToB, tutu, HoW, IWDII</br>
 <div align="center"><img src="1pp/documentation/files/images/209.jpg"></div><br>
 
 This component adds equippable wings for elven characters (with some restrictions).</br>
+
+###### &#10173; <em>Note: as of v4.2.0, male elves wings are installed by default.</em></br>
+
 &#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/wings_readme.html">See readme &amp; developer notes</a></br>
 
 ###### <em>Note that this is a core component; by itself it does not contain any item patches. If installed, the content will instead be used by following 1ppv4 components to give you more options when updating.</em></br>
@@ -939,6 +942,9 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
 
   - [208] 1ppv4: Additional Helmet Animations (208_v4_helmets.tph)
     - Integrated <a href="http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/page-12#entry561441">Lollorian's BWP Fixpack JC Helm animation crash fix for IA BG1 animation compatibility</a> (patch <a href="https://github.com/BigWorldProject/Big-World-Fixpack/blob/16c96e60c38248266038639301b320af3b4318b7/Big%20World%20Fixpack/1pp/208_v4_helmets.tph.patch">208_v4_helmets.tph.patch</a>): 1ppv4's helmet component seems to cause crashes when helmets using the JC animation are equipped by NPCs using BG1 animations from Infinity Animations. <a ref="http://www.shsforums.net/topic/55047-1ppv410-release-download-discussion/?p=561441">Source</a>.
+
+  - [209] 1ppv4: Attachable wings (209_v4_wings.tph)
+    - Added automatic installation of male elves wings by default.
 
   - [210] 1ppv4: Increased paperdoll object variety (210_v4_ppd_variety.tph)
     - Simplified codes creating undroppable clones of weapons (in particular with tutu_var) replacing primary weapon with undroppable clone and moving it to inventory.

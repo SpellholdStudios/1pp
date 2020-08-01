@@ -79,7 +79,7 @@
  *                Attachable wings core (209_v4_wings.tph)                *
  * ====================================================================== */
 
-- Add commented code for installing elf male wings. Might be useful for modders.
+- Add commented code for installing elf male wings. Might be useful for modders. ==> DONE : Included automatic install of male version of the wings.
 
 
 /* ====================================================================== *
