@@ -53,7 +53,7 @@
  *                   Spell tweaks (202_spelltweaks.tph)                   *
  * ====================================================================== */
 
-- Sort SPELL.IDS after intall ???
+- Sort SPELL.IDS after installation??
 - Check SR and IWDIfication in-game
 - SR compatibility:
 	- What about sppr510.spl (Cause Mortal Wounds)?
