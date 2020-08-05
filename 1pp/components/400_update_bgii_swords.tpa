@@ -10,8 +10,8 @@
  *      - Coding simplification:                                                                                                                                                    *
  *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                              *
  *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                   *
- *          Replaced macros with functions whenever possible.                                                                                                                         *
- *          Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (Rolles, Ruad).                                                                           *
+ *          Replaced macros with functions whenever possible.                                                                                                                       *
+ *          Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (Darron, Rolles, Ruad).                                                                   *
  *                                                                                                                                                                                  *
  *  specific fixes:                                                                                                                                                                 *
  *  ---------------                                                                                                                                                                 *
@@ -21,18 +21,18 @@
  *                  this change. Then switched back its colorisation with Daystar (400_1pp_update).                                                                                 *
  *      - #557  ==> sw1h41.itm (Long Sword +2): reverted to its original inventory icon ISW1H41. 1PP (Core content patches) sets it to SW1H06 (Varscona +2 icon), but EE does not   *
  *                   validate this change. Then removed the colorisation modified by 400_1pp_update and sets it to SW1H73 (Long Sword +3) that deserves those settings.             *
- *      - #1039 ==> sw2h06.itm and sw1h13.itm (Spider's Bane +2): harmonized both versions. Now they get the same icon and coloration (no change from vanilla SW2H13 as its colors  *
+ *      - #1028 ==> sw2h06.itm and sw1h13.itm (Spider's Bane +2): harmonized both versions. Now they get the same icon and coloration (no change from vanilla SW2H13 as its colors  *
  *                  fit the new icon installed by 1PP).                                                                                                                             *
- *      - #1188 ==> sw1p01.itm (Viper's Edge +2): a lot of modifications to make this new sword efficient!                                                                          *
+ *      - #1177 ==> sw1p01.itm (Viper's Edge +2): a lot of modifications to make this new sword efficient!                                                                          *
  * ================================================================================================================================================================================ */
 
 // ----------------------------- //
 //     ITEMS               line  //
 // ----------------------------- //
 //  ONE-HANDED SWORDS    #   39  //
-//  TWO-HANDED SWORDS    #  996  //
-//  NEW SWORD            # 1182  //
-//  MOD SWORDS           # 1253  //
+//  TWO-HANDED SWORDS    #  985  //
+//  NEW SWORD            # 1171  //
+//  MOD SWORDS           # 1242  //
 // ----------------------------- //
 
 /* =================================== *
@@ -612,18 +612,7 @@ END
 // Katana +1
 ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h44.itm~) BEGIN
 	COPY_EXISTING ~sw1h44.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET gradient = 25				// sets colour index 25 DARK_PURE_GOLD
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 5 MEDIUM_SILVER
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-			SET gradient = 33				// sets colour index 33 CHROME_MAGENTA
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-		END
+		LPF ~1pp_sw1h44~ END
 	BUT_ONLY
 END
 
@@ -1255,6 +1244,18 @@ END
 
 PRINT @400015 // ~Patching mod items (if found)...~
 SILENT
+
+/* ------------ *
+ *  Darron mod  *
+ * ------------ */
+
+// Katana +3 Dragon Fury
+ACTION_IF (FILE_EXISTS_IN_GAME ~esliswo1.itm~) BEGIN
+	COPY_EXISTING ~esliswo1.itm~ ~override~
+		LPF ~1pp_sw1h44~ END
+	BUT_ONLY
+END
+
 
 /* ------------ *
  *  Rolles mod  *

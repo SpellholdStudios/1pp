@@ -253,6 +253,40 @@ DEFINE_PATCH_FUNCTION ~1pp_ax1h13~ BEGIN
 	END
 END
 
+// The Grave Binder +2
+// -------------------
+DEFINE_PATCH_FUNCTION ~1pp_dagg04~ BEGIN
+	PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+		LPM ~clear~
+		SET gradient = 248				// 248 OGRE_MAJOR-BATTLESHIP_GRAY replaces colour index 5 MEDIUM_SILVER
+		SET location = wgrey			// location (Head/Blade/Staff major)
+		LPM ~colour~
+		SET gradient = 225				// 225 DROW_MINOR-CORNSILK replaces colour index 63 LIGHT_GRAY
+		SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
+		LPM ~colour~
+		SET gradient = 249				// 249 OGRE_MINOR-METALLIC_SLATE replaces colour index 5 MEDIUM_SILVER
+		SET location = wblue			// location (Head/Blade minor)
+		LPM ~colour~
+	END
+END
+
+// Soultaker Dagger
+// ----------------
+DEFINE_PATCH_FUNCTION ~1pp_dagg10~ BEGIN
+	PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+		LPM ~clear~
+		SET gradient = 236				// 236 CLERIC_GOOD_MINOR-DARK_PINE replaces colour index 30 LIGHT_IRON_GRAY
+		SET location = wgrey			// location (Head/Blade/Staff major)
+		LPM ~colour~
+		SET gradient = 227				// 227 METAL_WILD-CORAL replaces colour index 93 DARK_CEMENT_GRAY
+		SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
+		LPM ~colour~
+		SET gradient = 5				// 5 MEDIUM_SILVER replaces colour index 27 GRAY
+		SET location = wblue			// location (Head/Blade minor)
+		LPM ~colour~
+	END
+END
+
 // Throwing Dagger
 // ---------------
 DEFINE_PATCH_FUNCTION ~1pp_dagg15~ BEGIN
@@ -390,6 +424,23 @@ DEFINE_PATCH_FUNCTION ~1pp_sw1h40~ BEGIN
 		SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
 		LPM ~colour~
 		END
+END
+
+// Katana +1
+// ---------
+DEFINE_PATCH_FUNCTION ~1pp_sw1h44~ BEGIN
+	PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+		LPM ~clear~
+		SET gradient = 25				// sets colour index 25 DARK_PURE_GOLD
+		SET location = wgrey			// location (Head/Blade/Staff major)
+		LPM ~colour~
+		SET gradient = 226				// 226 METAL_NORMAL-EIGENGRAU replaces colour index 5 MEDIUM_SILVER
+		SET location = wblue			// location (Head/Blade minor)
+		LPM ~colour~
+		SET gradient = 33				// sets colour index 33 CHROME_MAGENTA
+		SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
+		LPM ~colour~
+	END
 END
 
 // Carsomyr +5

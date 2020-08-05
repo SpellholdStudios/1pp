@@ -13,14 +13,14 @@
  *      - Coding simplification:                                                                                                                                                    *
  *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                              *
  *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                   *
- *          Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (Rolles, Ruad, The Unusual Oddities Shop).                                                *
+ *          Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (Darron, Rolles, Ruad, The Unusual Oddities Shop).                                        *
  *                                                                                                                                                                                  *
  *  specific fixes:                                                                                                                                                                 *
  *  ---------------                                                                                                                                                                 *
- *      - #495  ==> dagg12.itm (Firetooth +3): fixed typos in LPM ~pulse~ macro (redundant setr set to 152 and 189 should be setg and setb, otherwise they overwrite the setr       *
+ *      - #487  ==> dagg12.itm (Firetooth +3): fixed typos in LPM ~pulse~ macro (redundant setr set to 152 and 189 should be setg and setb, otherwise they overwrite the setr       *
  *                  value and don't set the correct setg and setb values).                                                                                                          *
- *      - #986  ==> hamm10.itm & hamm11.itm (Runehammers): 1pp_hammers_icons setting gives the choice to assign them, or not, the Borok's Fist's icon.                              *
- *      - #1487 ==> halb08.itm (Duskblade +2): fixed a typo patching halb06 instead of halb08.                                                                                      *
+ *      - #978  ==> hamm10.itm & hamm11.itm (Runehammers): 1pp_hammers_icons setting gives the choice to assign them, or not, the Borok's Fist's icon.                              *
+ *      - #1479 ==> halb08.itm (Duskblade +2): fixed a typo patching halb06 instead of halb08.                                                                                      *
  * ================================================================================================================================================================================ */
 
 // ----------------------------- //
@@ -28,9 +28,9 @@
 // ----------------------------- //
 //  AXES                 #   37  //
 //  DAGGERS              #  331  //
-//  HAMMERS              #  717  //
-//  SPEARS               # 1111  //
-//  HALBERDS             # 1323  //
+//  HAMMERS              #  709  //
+//  SPEARS               # 1103  //
+//  HALBERDS             # 1315  //
 // ----------------------------- //
 
 /* ====================== *
@@ -398,20 +398,16 @@ END
 ACTION_FOR_EACH dagger IN ~dagg04~ ~_dagg04~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
 		COPY_EXISTING ~%dagger%.itm~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				LPM ~clear~
-				SET gradient = 248				// 248 OGRE_MAJOR-BATTLESHIP_GRAY replaces colour index 5 MEDIUM_SILVER
-				SET location = wgrey			// location (Head/Blade/Staff major)
-				LPM ~colour~
-				SET gradient = 225				// 225 DROW_MINOR-CORNSILK replaces colour index 63 LIGHT_GRAY
-				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-				LPM ~colour~
-				SET gradient = 249				// 249 OGRE_MINOR-METALLIC_SLATE replaces colour index 5 MEDIUM_SILVER
-				SET location = wblue			// location (Head/Blade minor)
-				LPM ~colour~
-			END
+			LPF ~1pp_dagg04~ END
 		BUT_ONLY
 	END
+END
+
+// Dagger +1 Scorpion Sting (Darron mod)
+ACTION_IF (FILE_EXISTS_IN_GAME ~eslidag0.itm~) BEGIN
+	COPY_EXISTING ~eslidag0.itm~ ~override~
+		LPF ~1pp_dagg04~ END
+	BUT_ONLY
 END
 
 // Throwing Dagger
@@ -458,20 +454,16 @@ END
 ACTION_FOR_EACH dagger IN ~dagg10~ ~_dagg10~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
 		COPY_EXISTING ~%dagger%.itm~ ~override~
-			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-				LPM ~clear~
-				SET gradient = 236				// 236 CLERIC_GOOD_MINOR-DARK_PINE replaces colour index 30 LIGHT_IRON_GRAY
-				SET location = wgrey			// location (Head/Blade/Staff major)
-				LPM ~colour~
-				SET gradient = 227				// 227 METAL_WILD-CORAL replaces colour index 93 DARK_CEMENT_GRAY
-				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-				LPM ~colour~
-				SET gradient = 5				// 5 MEDIUM_SILVER replaces colour index 27 GRAY
-				SET location = wblue			// location (Head/Blade minor)
-				LPM ~colour~
-			END
+			LPF ~1pp_dagg10~ END
 		BUT_ONLY
 	END
+END
+
+// Death Dagger +2 (Darron mod)
+ACTION_IF (FILE_EXISTS_IN_GAME ~eslidag1.itm~) BEGIN
+	COPY_EXISTING ~eslidag1.itm~ ~override~
+		LPF ~1pp_dagg10~ END
+	BUT_ONLY
 END
 
 // Boomerang Dagger +2

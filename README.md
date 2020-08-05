@@ -786,16 +786,18 @@ Contains the following fixes: dog animations (corrupted palette), sitting static
 For support or questions, please visit the <a href="http://www.shsforums.net/forum/159-1pp/">mod forum</a>.
 
 #### Author: <a href="http://www.shsforums.net/user/2954-erephine/">Erephine</a>
+#### Maintainer: <a href="http://www.shsforums.net/user/24495-gwendolyne/">Gwendolyne</a>
 
 ## 
 
 #### Special Acknowledgements to:
 
 - <a href="http://www.spellholdstudios.net/">Spellhold Studios</a> team for hosting the mod (<a href="http://www.shsforums.net">Forums</a>).
-- French translation: Gwendolyne (Luren for proodreading).
-- Russian translation: prozh.
-- Flaming sword component: Thanks in advance especially to <a href="http://www.shsforums.net/user/6665-nythrun/">Nythrun</a> for letting us use her code! We hope!
-- Smart Avatar & Armour Switching component: Thanks in advance especially to <a href="http://www.shsforums.net/user/1494-galactygon/">Galactygon</a> for letting us use his avatar appearance tweak code.
+- *Extended palette entries* component: Thanks to <a href="http://www.shsforums.net/user/41045-skellytz/">skellytz</a> for his Random color entries in character customization fix.
+- French translation: <a href="http://www.shsforums.net/user/24495-gwendolyne/">Gwendolyne</a> (<a href="http://www.shsforums.net/user/16735-luren/">Luren</a> for proodreading).
+- Russian translation: <a href="http://www.shsforums.net/user/38456-prozh/">prozh</a>.
+- *Flaming sword* component: Thanks in advance especially to <a href="http://www.shsforums.net/user/6665-nythrun/">Nythrun</a> for letting us use her code! We hope!
+- *Smart Avatar & Armour Switching* component: Thanks in advance especially to <a href="http://www.shsforums.net/user/1494-galactygon/">Galactygon</a> for letting us use his avatar appearance tweak code.
 - Thanks to invaluable support from the BG:EE team, without who this likely would not have been possible, and Trent Oster who has been awesome for sharing ToB development leftovers.
 - First installer: <a href="http://www.shsforums.net/user/1242-camdawg/">CamDawg</a>.
 - Everyone else from the <a href="http://gibberlings3.net/forums/">The Gibberlings Three</a>, <a href="http://www.shsforums.net/">Spellhold Studios</a> forums, and the other Infinity Engine gaming and modding communities who offered their help and support.
@@ -875,6 +877,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
 
   - [102-103] 1ppv4: Extended palette entries (102_compat.tph and 103_extpal.tph)
     - Copied entire folders instead of infinite lines of code.
+    - Fixed random color entries in character customization (thanks skellytz!): Now all hair, skin, major/minor colors you pick in the character customization will stick on game load (i.e., the colors aren't from the random range anymore).
 
   - [104] 1ppv4: GUI additions for BGII (104_core.tph)
     - Copied entire folders instead of infinite lines.
@@ -964,7 +967,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
       - Grouped actions or patches with `ACTION_FOR_EACH` and `PATCH_FOR_EACH` whenever possible.
       - Replaced macros with functions whenever possible.
       - Replaced `WRITE_LONG 0x3E 0` and `WRITE_ASCII 0x3A ~ISHLDS01~` with `WRITE_ASCII 0x3A ~ISHLDS01~ #8`. Id. with offsets 0x48 0x44, and 0x5C 0x58.
-      - Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (BG1 NPC Project, Rolles, Ruad, Song and Silence, Stuff of the Magi, The Unusual Oddities Shop).
+      - Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (BG1 NPC Project, Darron, Rolles, Ruad, Song and Silence, Stuff of the Magi, The Unusual Oddities Shop).
     - shields specific fixes (400_update_bgii_shields.tpa):
       - shld02.itm (Small Shield +1): `LPM ~clear~` was missing, and the code stacked op#7 global effects.
       - shld31a.itm (Gorm's Arm +3): fixed wrong coding (`WRITE_SHORT` instead of `WRITE_BYTE` for Minimum strength value).

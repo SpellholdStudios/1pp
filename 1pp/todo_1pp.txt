@@ -3,7 +3,7 @@
  * ====================================================================== */
 
 - Remove all DEBUGGING CONTROL PATCH_LOG messages before release.
-- Add a new component to install new items in EE games?
+- Add a new component to install new items in EE games?	==> Rather externalize it into a 1pp fixpack for EE mod.
 - ???
 
 /* ====================================================================== *
@@ -57,7 +57,7 @@
 - Check SR and IWDIfication in-game
 - SR compatibility:
 	- What about sppr510.spl (Cause Mortal Wounds)?
-	- Old Cause Critical Wounds - disabled: uses sppr414d spell.
+	- Old "Cause Critical Wounds - disabled": uses sppr414d spell.
 
 
 /* ====================================================================== *
@@ -116,10 +116,10 @@
 	- Add other mods launchers. ALREADY DONE: Rolles
 
 - 400_update_bgii_weapons.tpa (axes, daggers, hammers, spears, halberds):
-	- Add other mods weapons. ALREADY DONE: Rolles, Ruad, The Unusual Oddities Shop
+	- Add other mods weapons. ALREADY DONE: Darron, Rolles, Ruad, The Unusual Oddities Shop
 
 - 400_update_bgii_swords.tpa:
-	- Add other mods swords. ALREADY DONE: Rolles, Ruad
+	- Add other mods swords. ALREADY DONE: Darron, Rolles, Ruad
 
 - 400_update_bgii_blunt.tpa:
 	- Add other mods blunt weapons. ALREADY DONE: Rolles, Ruad
