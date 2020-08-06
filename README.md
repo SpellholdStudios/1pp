@@ -314,8 +314,8 @@ Here is a chart listing the options related to the installation process:</br></b
 		<td><div align="center">1pp_gemlore</div></td>
 		<td>GEMS LORE<br><br>
 		Do you want gems to require some lore to identify?<br><br>
-		1 = Yes [default]<br>
-		2 = No</td>
+		1 = Yes<br>
+		2 = No [default]</td>
 	</tr>
 	<tr>
 		<td><div align="center">1pp_tutu_bg1_shields<br><br>
@@ -348,8 +348,8 @@ Here is a chart listing the options related to the installation process:</br></b
 		<td><div align="center">1pp_gemlore</div></td>
 		<td>GEMS LORE<br><br>
 		Do you want gems to require some lore to identify?<br><br>
-		1 = Yes [default]<br>
-		2 = No</td>
+		1 = Yes<br>
+		2 = No [default]</td>
 	</tr>
 	<tr>
 		<td><div align="center">1pp_forced_item_colours_iwd</div></td>
@@ -733,6 +733,8 @@ As of version 4.2.0, installation options are moved into *1pp-config-default.ini
 
 ###### &#10173; <em>Note: if you don't want to overwrite the Runehammer icon, set 1pp_hammers_icons option to 2 [default value = 1 (Yes)]. In response to many players requests, turning The Sleeper into a flail is now optional and set by 1pp_sleeper option [default value = 2 (No, but install the alternate flail icon IBLUN16B as a new resource for modders)].</em></br></br>
 
+###### &#10173; <em>As many players complained to be annoyed by having to identify every gem in the game, Gems lore to identify is now disabled by default. If you wand to re-enable it, set its 1pp_gemlore option to 1 (Yes).</em></br></br>
+
 ###### &#10173; <em>For a full, visual guide to choices see the link below. Consider choosing 'yes' to setting FORCED ITEM COLOURS [1pp_forced_item_colours = 2 (Yes for both magical and non-magical items) or 3 (Yes for both magical and non-magical items, but exclude BG1 legacy shields)].</em></br>
 
 &#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/v4u_readme.html">Alternative install choices</a></br>
@@ -852,7 +854,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
   - Split huge [400] "*Core updates and item patches*" component into smaller ones for more comfortable readability and maintenance (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!). :wink:
   - Added BG2 Fixpack and ToBEx compatibility.
   - Added partial <a href="https://www.gibberlings3.net/files/file/969-item-revisions/">Item Revisions</a>, <a href="https://www.gibberlings3.net/files/file/970-spell-revisions/">Spell Revisions</a> and <a href="https://www.gibberlings3.net/files/file/948-iwdification/">IWDification</a> compatibility in a rather soft way: As SR, IR and IWDification are still beta versions, I gave up trying to write a plain compatibility with them. It would be certainly obsolete in a few months, therefore a waste of time. :wink:
-  - Added and/or improved 1PP crossmods compatibility (BG1 NPC Project, Bolsa, Improved HaerDalis Swords, Rolles, Ruad, Song and Silence, Stuff of the Magi, The Unusual Oddities Shop).
+  - Added and/or improved 1PP crossmods compatibility (BG1 NPC Project, Bolsa, Darron, Improved HaerDalis Swords, Rolles, Ruad, Song and Silence, Stuff of the Magi, The Unusual Oddities Shop).
   - Fixed typos and misspellings preventing a few items to be patched (or patching wrong ones...).
   - Coding simplification:
     - Replaced macros with functions whenever possible.
@@ -956,7 +958,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
 
   - [400] 1ppv4: Core updates and item patches (400_1pp_update_bgii.tph)
     - Split this huge component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).
-    - Replaced `READLN` action "*Do you want gems to require some lore to identify?*" with reading new setting (1pp_gemlore) from *1pp-config-default.ini* or *1pp-config-user.ini* [default value = 1 (Yes)].
+    - Replaced `READLN` action "*Do you want gems to require some lore to identify?*" with reading new setting (1pp_gemlore) from *1pp-config-default.ini* or *1pp-config-user.ini* [default value = 2 (No)].
     - Added a new setting in *1pp-config-default.ini* or *1pp-config-user.ini* (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers [default value = 1 (Yes)].
     - Added a new setting in *1pp-config-default.ini* or *1pp-config-user.ini* (1pp_sleeper) allowing to make alternate the turning of The Sleeper into a flail [default value = 2 (No, but install the alternate flail icon IBLUN16B as a new resource for modders)]. In any case, 1PP does not overwrites its original inventory bam with a new one, but installs a new icon (IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose.
     - Replaced tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically write values in tooltip.2da from the tra files.

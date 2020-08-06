@@ -315,8 +315,8 @@ Voici le tableau des options concernées :<br>
 		<td><div align="center">1pp_gemlore</div></td>
 		<td>IDENTIFICATION OBLIGATOIRE DES GEMMES<br><br>
 		Voulez-vous que les gemmes doivent être obligatoirement identifiées ?<br><br>
-		1 = Oui [par défaut]<br>
-		2 = Non</td>
+		1 = Oui<br>
+		2 = Non [par défaut]</td>
 	</tr>
 	<tr>
 		<td><div align="center">1pp_tutu_bg1_shields<br><br>
@@ -349,8 +349,8 @@ Voici le tableau des options concernées :<br>
 		<td><div align="center">1pp_gemlore</div></td>
 		<td>IDENTIFICATION OBLIGATOIRE DES GEMMES<br><br>
 		Voulez-vous que les gemmes doivent être obligatoirement identifiées ?<br><br>
-		1 = Oui [par défaut]<br>
-		2 = Non</td>
+		1 = Oui<br>
+		2 = Non [par défaut]</td>
 	</tr>
 	<tr>
 		<td><div align="center">1pp_forced_item_colours_iwd</div></td>
@@ -727,6 +727,8 @@ Depuis la version 4.2.0, les options d'installation sont externalisés dans le fi
 
 ###### &#10173; <em>Note : si vous ne souhaitez pas écraser l'icône des Marteaux des Runes, choisissez la valeur 2 pour l'option 1pp_hammers_icons [Par défaut = 1 (Oui)]. En réponse à de nombreuses demandes de joueurs, transformer l'étoile du matin +2 Dormeuse est désormais optionnel et géré par l'option 1pp_sleeper option [Par défaut = 2 (Non, mais installer quand même son icône d'inventaire alternative (IBLUN16B) comme ressource pour les moddeurs)].</em></br></br>
 
+###### &#10173; <em>De nombreux joueurs s'étant plaints de devoir identifier toutes les gemmes du jeu, l'option Identification obligatoire des gemmes est désormais désactivée par défault. Si vous souhaitez la réactiver, attribuez la valeur 1 (Oui) à la variable 1pp_gemlore.</em></br>
+
 ###### &#10173; <em>Pour avoir un aperçu complet des options, veuillez consulter le lien ci-dessous. Si vous souhaitez affecter des couleurs pré-définies aux objets non magiques, choisissez les valeurs 2 (Oui pour tous les objets, qu'ils soient magiques ou pas) ou 3 (Oui pour tous les objets, qu'ils soient magiques ou pas, mais ne concerne pas les boucliers au graphisme de BG1) pour l'option COULEURS DES OBJETS PRÉ-DÉFINIES.</em></br>
 
 &#9755; <a href="https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/files/v4u_readme-french.html">Autres options d'installation</a></br>
@@ -846,7 +848,7 @@ Note du traducteur : l'historique n'est volontairement pas entièrement traduit a
   - Découpage de l'énorme composant principal "*Mise à jour et modification des objets*" [400] en plus petits pour assurer une meilleure lecture et facilité sa maintenance (bien plus facile de vérifier 2500 ou 3000 lignes de code lorsque l'on cherche un bug ou une erreur dans plus de 16000 lignes de code !). :wink:
   - Ajout de la compatibilité avec le BG2 Fixpack et ToBEx.
   - Ajout d'une compatibilité partielle avec les mods <a href="https://www.gibberlings3.net/files/file/969-item-revisions/">Item Revisions</a>, <a href="https://www.gibberlings3.net/files/file/970-spell-revisions/">Spell Revisions</a> et <a href="https://www.gibberlings3.net/files/file/948-iwdification/">IWDification</a> : comme ces mods sont toujours publiés en version beta, J'ai abandonné toute velléité de fournir un code totalement compatible avec eux. Ce serait une perte de temps puisqu'il serait sans aucun doute obsolète dans quelques semaines. :wink:
-  - Ajout et/ou amélioration de compatibilités de 1PP avec d'autres mods (BG1 NPC Project, Bolsa, Improved HaerDalis Swords, Rolles, Ruad, Song and Silence, Stuff of the Magi, The Unusual Oddities Shop).
+  - Ajout et/ou amélioration de compatibilités de 1PP avec d'autres mods (BG1 NPC Project, Bolsa, Darron, Improved HaerDalis Swords, Rolles, Ruad, Song and Silence, Stuff of the Magi, The Unusual Oddities Shop).
   - Correction de fautes de frappe qui empêchaient la modification de certains objets (ou modifiaient d'autres objets à leur place...).
   - Simplification du code :
     - Remplacement des macros par des fonctions quand c'est pertinent.
@@ -950,11 +952,11 @@ Note du traducteur : l'historique n'est volontairement pas entièrement traduit a
     - CRE files: used `READ_LONG 0x28` instead of `READ_SHORT 0x28` (dword!).
     - ITM files: used `WRITE_LONG 0x18 (THIS BAND BNOT BIT2)` to remove droppable flag instead of writing the offset new value.
 
-  - [400] 1ppv4 : Mise à jour et modification des objets (400_1pp_update_bgii.tph)
+  - [400] 1ppv4: Core updates and item patches (400_1pp_update_bgii.tph)
     - Split this huge component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).
-    - Replaced `READLN` action "*Do you want gems to require some lore to identify?*" with reading new setting (1pp_gemlore) from *1pp-config-default.ini* or *1pp-config-user.ini* [default value = 1 (Yes)].
-    - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers [TODOTODOTODOTODOTODO].
-    - Added a new setting (1pp_sleeper) allowing to make alternate the turning of The Sleeper into a flail. In any case, 1PP does not overwrites its original inventory bam with a new one, but installs a new icon (IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose [TODOTODOTODOTODOTODO].
+    - Replaced `READLN` action "*Do you want gems to require some lore to identify?*" with reading new setting (1pp_gemlore) from *1pp-config-default.ini* or *1pp-config-user.ini* [default value = 2 (No)].
+    - Added a new setting in *1pp-config-default.ini* or *1pp-config-user.ini* (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers [default value = 1 (Yes)].
+    - Added a new setting in *1pp-config-default.ini* or *1pp-config-user.ini* (1pp_sleeper) allowing to make alternate the turning of The Sleeper into a flail [default value = 2 (No, but install the alternate flail icon IBLUN16B as a new resource for modders)]. In any case, 1PP does not overwrites its original inventory bam with a new one, but installs a new icon (IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose.
     - Replaced tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically writes values in tooltip.2da from the tra files.
     - Integrated <a href="http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849">Lollorian's BWP Fixpack patch for Ashes of Embers compatibility</a> (400_1pp_update_bgii.tph.patch): renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">Source</a>.
     - Added ToBEx compatibility for circlets: item flag EE/Ex: Toggle critical hits flag (BIT25).
