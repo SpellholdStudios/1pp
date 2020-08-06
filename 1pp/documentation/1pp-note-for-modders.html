@@ -1,0 +1,1014 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+/*<![CDATA[*/
+<!-- 
+	body {
+		margin: 0;
+		padding: 0;
+		cursor: default;
+		text-align: center;
+		color: #000;
+		background: #e3e3db url('images/shsbkgd.jpg');
+	}
+
+	#wrap {
+		text-align: left;
+		margin: 0 auto;
+		margin-top: 20px;
+		width: 88%;
+		font-family: Verdana, Tahoma, Arial, sans-serif;
+		font-size: 12px;
+		color: #333;
+	}
+
+	#header {
+		text-align: center;
+		background: #e5e5e5;
+		border: 1px solid #781808;
+		border-top: 5px solid #781808;
+		border-bottom: 5px solid #781808;
+		padding: 5px 0 13px 0;
+		box-shadow: 6px 6px 9px rgba(0,0,0,.3);
+	}
+	#header .about {
+		margin: 7px 0 0 0;
+		padding: 0;
+		font-style: italic;
+		color: #555;
+	}
+	#header .menu {
+		font-weight: bold;
+		margin: 0;
+		color: #999;
+	}
+	#header .menu a:link,
+	#header .menu a:visited {
+		color: #333;
+	}
+
+	#footer {
+		text-align: center;
+		background: #e5e5e5;
+		border: 1px solid #781808;
+		border-top: 5px solid #781808;
+		border-bottom: 5px solid #781808;
+		font-size: 75%;
+		padding: 5px 0 13px 0;
+	}
+
+	#maindiv {
+		margin: 0 auto;
+		margin-top: -20px;
+	}
+
+	#maindiv .content {
+		counter-increment: kman;
+		counter-reset: h2;
+		background-color: #e8e8e6;
+		padding: 0 0 25px 0;
+		margin: 50px auto;
+		border-width: 1px 1px 4px 10px;
+		border-style: solid;
+		border-color: #781808;
+		width: 90%;
+		position: relative;
+		display: block;
+		box-shadow: 6px 6px 9px rgba(0,0,0,.3);
+	}
+	#maindiv .content::before {
+		content: counter(kman, lower-roman);
+		font-size: 100%;
+		font-weight: bold;
+		text-align: center;
+		color: #eee;
+		background-color: #781808;
+		width: 50px;
+		top: 0px;
+		left: 0px;
+		display: block;
+	}
+
+	#maindiv .important {
+		font-size: 95%;
+		font-family: Verdana;
+		text-align: left;
+		background-color: #deded9;
+		border-width: 1px 4px 1px 4px;
+		border-style: solid;
+		border-color: #781808;
+		padding: 10px;
+		margin: 10px auto;
+		width: 80%;
+		line-height: 160%;
+	}
+	#maindiv .important::before {
+		display: none;
+	}
+	#maindiv .important p {
+		width: 100%;
+		font-size: 100%;
+		text-indent: 0px;
+		margin: 5px 0 10px 0;
+	}
+	#maindiv .important ol {
+		margin: -10px 0 0 20px;
+	}
+	#maindiv .important ul {
+		margin: -10px 0 0 15px;
+	}
+
+	#maindiv p {
+		font-size: 100%;
+		font-style: normal;
+		text-align: justify;
+		line-height: 150%;
+		padding: 0px;
+		margin: 10px auto;
+		width: 90%;
+		display: block;
+	}
+
+	#maindiv address {
+		font-size: 95%;
+		font-style: normal;
+		font-weight: bold;
+		text-decoration: none;
+		color: #BBB;
+		background-color: #781808;
+		padding: 3px 0px 0px;
+		margin: 0px;
+		width: 100%;
+		position: absolute;
+		bottom: -1px;
+		left: 0px;
+		display: block;
+		text-align: right;
+	}
+	#maindiv address a:active {
+		color: #fff;
+		text-decoration: line-through;
+		border: none;
+	}
+	#maindiv address a:focus,
+	#maindiv address a:hover {
+		text-decoration: none;
+		color: #F1F1F1;
+		border: 0;
+	}
+	#maindiv address a:link,
+	#maindiv address a:visited {
+		font-weight: bold;
+		text-decoration: underline;
+		background-color: transparent;
+		color: #eaeaea !important;
+		padding-right: 5px;
+		padding-left: 6px;
+	}
+/*
+	body {
+		counter-reset:kman;
+		color: #000;
+		margin-top: 20px;
+		margin-bottom: -20px;
+	}
+	.tocplus{
+		counter-increment:hman;
+	}
+	.toc::before {
+		content: counter(hman, lower-roman) '.';
+		counter-increment:hman;
+		font-size: 100%;
+		color: #781808;
+		font-style:italic;
+		position:absolute
+	}*/
+
+	/*	Lists  */
+	#maindiv ol {
+		margin: -10px 0 0 35px;
+		*margin-left: 70px;
+	}
+	#maindiv ol li {
+		line-height: 150%;
+	}
+	#maindiv ul {
+		line-height: 170%;
+		margin-left: 4%;
+		width: 87%;
+	}
+	#maindiv ul li {
+		line-height: 150%;
+	}
+	#maindiv ul li ul {
+		margin: 0px;
+		width: 96%;
+	}
+	#maindiv ul li ul li {
+	}
+	#maindiv ul li a:link,
+	#maindiv ul li a:visited,
+	#maindiv ul li ul li a:link,
+	#maindiv ul li ul li a:visited {
+		color: #781808;
+		text-decoration: none;
+		font-weight: normal;
+	}
+
+	/*	Lists
+	#maindiv ul li ul li ul {
+		margin-left: -1%;
+		width: 98%;
+	}
+	#maindiv ul li ul li ul li {
+	}
+	ul.c1 {margin-left: 32px;}  */
+
+
+	/*	Liens internet  */
+	a:hover,
+	a:active {
+		color: #222;
+		border-bottom: 1px solid black;
+	}
+	a:link,
+	a:visited {
+		color: #781808;
+		font-weight: bold;
+		text-decoration: none;
+	}
+
+
+	/*	Sections  Titles  */
+	h1 {
+		font-size: 250%; /* 225 */
+		color: #444;
+		padding: 10px 0 15px 0; /* 5 0 5 0 */
+		margin: 0;
+		width: 100%;
+	}
+
+	h2 {
+		display: block;
+		font-family: Verdana, Trebuchet MS, Arial, serif;
+		text-align: left;
+		text-indent: 30px;
+		padding: 0px;
+		margin: 20px 0 0 0;
+		border-bottom: dotted 2px #d0d0d0;
+		border-top: dotted 2px #d0d0d0;
+		background: #deded9;
+		font-size: 160%;
+	}
+	h2::first-letter {
+		color: #781808;
+		background-color: transparent;
+	}
+/*	h2 .com {
+		color: #781808;
+		background-color: transparent;
+		margin-right:30px;
+	}*/
+	h3,
+	h4,
+	h5 {
+		margin: 10px 40px 10px 40px;
+		padding: 0;
+	}
+
+	h3 {
+		font-size: 125%;
+		font-style: italic;
+	}
+	h4 {
+		font-size: 125%;
+	}
+	h5 {
+		font-size: 100%;
+	}
+/*
+	h3 {
+		font-size: 125%;
+		font-style: italic;
+		margin: 10px 40px 10px 40px;
+		padding: 0;
+	}*/
+
+/*	h5 {
+		margin: 10px 40px 10px 40px;
+		padding: 0;
+		font-size: 100%;
+	}*/
+
+	h6 {
+		width: 100%;
+		margin: 10px 0 15px 0;
+		background-color: #ECECEC;
+		text-align: left;
+		text-indent: 30px;
+		font-size: 100%;
+		font-style: italic;
+		padding-top: 1px;
+		padding-bottom: 1px;
+		border-bottom: solid 1px #bbb;
+		border-top: solid 1px #bbb;
+	}
+/*
+	.com {
+		color: #781808;
+		background-color: transparent;
+	}*/
+
+
+	/* Additional stuff */
+
+	.t1 {
+		font-weight: bold;
+		width: 26%;
+		text-align: right;
+		clear: right;
+		float: left;
+		line-height: 22px;
+	}
+	.t2 {
+		text-align: left;
+		width: 73%;
+		float: right;
+		line-height: 22px;
+	}
+
+	.tp2 {
+		font-family: Courier New;
+		font-size: 100%;
+		color: #781808;
+	}
+
+	.screen {background-size:contain;background-repeat:no-repeat}
+	.screen img{max-width:100%; opacity:1;transition: opacity 1.25s ease-in-out;
+		-moz-transition: opacity 1.25s ease-in-out;
+		-webkit-transition: opacity 1.25s ease-in-out;
+	}
+	.screen img:hover{max-width:100%; opacity:0}
+
+-->
+/*]]>*/
+	</style>
+	<title>
+		Spellhold Studios - One Pixel Productions: Note for modders
+	</title>
+	<link href="files/images/shsweb.ico" rel="icon" type="bmp" />
+  </head>
+
+  <body>
+	<div id="wrap">
+	  <a name="top" id="top"></a>
+	  <div id="header">
+
+		<h1 style="color: #781808;text-shadow: 0.1rem 0.1rem 0.25rem #807559;">One Pixel Productions - Note for modders</h1>
+
+		<span style="font-style: italic;"><strong>A Spellhold Studios mod for Infinity Engine games.</strong></span>
+		<hr style="margin: 10px 0 10px 0; padding: 0; height: 1px; border: 0; color: #aaa; background-color: #aaa;" />
+
+		<p class="about">
+			Author: Gwendolyne
+		</p>
+		<p class="about">
+			<a href="http://www.spellholdstudios.net/ie/1pp">Mod Website</a> &#8226; <a href="http://www.shsforums.net/forum/159-1pp/">Mod Forum</a> &#8226; <a href="http://www.shsforums.net/files/file/1006-1ppv410/">Download</a> &#8226; <a href="https://github.com/SpellholdStudios/1pp">GitHub</a> &#8226; Version: 4.2.0
+		</p>
+		<hr style="margin: 10px 0 10px 0; padding: 0; height: 1px; border: 0; color: #aaa; background-color: #aaa;" />
+
+		<p class="menu">
+			<a href="#intro">Overview</a> &#x2B25; <a href="#palette">Modding with the extended palette</a> &#x2B25; <a href="#patching">Patching Items and Spells</a>
+		</p>
+	  </div>
+
+	<div id="maindiv">
+<!-- ================== I n t r o d u c t i o n ================== -->
+	  <a name="intro" id="intro"></a>
+	  <div class="content">
+
+		<h2>Overview</h2><br>
+
+		<p>
+			1pp Note for modders is intended for modders who wish to make their mods compatible with 1pp. This document is organized using a tutorial approach, in which you are guided through each step of accomplishing particular modding tasks without breaking compatibility.
+		</p><br>
+
+		<address>
+			<span class="footer">1ppv4: Note for modders &gt; Overview</span> &#8226;<a href="#top">BACK TO TOP</a>
+		</address>
+	  </div>
+
+<!-- ======================= P a l e t t e ======================= -->
+	  <a name="palette" id="palette"></a>
+	  <div class="content">
+
+		<h2>Modding with the extended palette</h2><br>
+
+		<p>
+			[102] 1ppv4 Extended palette entries component adds new colour gradients to Infinity Engine games, raising the count of available colours from 116 to 256. It also includes a new random colour table making use of them for Baldur's Gate II and new colour set files for Icewind Dale II, giving you more skin/hair colour choices for the various races.<br><br>
+			Keep in mind that if you include a new entry in a mod (120+) it *will* crash installs that do not have extended <em>MPALETTE</em> and <em>MPAL256</em> files (the 1pp palette tool will also warn you if you are setting new gradients).<br><br>
+			Since the content of these files is not touched by any other mods (that I am aware of) and replacing them is as non-intrusive as it gets the easiest way to avoid this is to include them with your mod and install them.<br><br>
+			To avoid unnecessary overwriting of the files it would be best to add a simple file size check. If the file sizes are 9,272 bytes (MPALETTE) and 196,664 bytes (MPAL256) they already contain a full 256 colour set and need no further patching:
+		</p>
+
+		<div class="important" style="background-color: #F1F1F1;">
+			<p><pre>
+      ACTION_FOR_EACH GWPalette IN MPALETTE MPAL256 BEGIN
+
+          ACTION_IF FILE_EXISTS_IN_GAME ~%GWPalette%.bmp~ BEGIN
+
+              COPY_EXISTING - ~%GWPalette%.bmp~	~override~
+                  PATCH_MATCH ~%GWPalette%~ WITH
+                      MPALETTE BEGIN  SET size1PP = 9272 END
+                      DEFAULT         SET size1PP = 196664
+                  END
+              OUTER_SET sizePal = %SOURCE_SIZE%
+              PRINT ~CONTROL %GWPalette%.bmp palette size = %sizePal% - 1PP = %size1PP%~
+
+              ACTION_IF (sizePal != %size1PP%) BEGIN
+                  PRINT ~Copying 1PP extended palette file %SOURCE_FILE%.~
+                  COPY ~%MY_MOD%/resources/%GWPalette%.bmp~ ~override~
+              END
+
+          END
+
+      END</pre>
+			</p>
+		</div><br>
+		<p>
+			Of course, if you use them for a major character colour (and this is the only situation where it would be noticeable) this will not fix the dialogue font colour.
+		</p><br>
+
+		<address>
+			<span class="footer">1ppv4: Note for modders &gt; Modding with the extended palette</span> &#8226;<a href="#top">BACK TO TOP</a>
+		</address>
+	  </div>
+
+<!-- ================ P a t c h i n g   I t e m s ================ -->
+	  <a name="patching" id="patching"></a>
+	  <div class="content">
+
+		<h2>Patching Items and Spells</h2><br>
+
+		<p>
+			As of v4.2.0, the main 1pp update component [400] includes improved compatibility with third party mods. Modders are strongly recommended to borrow this simple way of coding to provide compatibility with 1pp, as Bolsa, Improved HaerDalis Swords, Rolles, Ruad, Song and Silence, Stuff of the Magi and The Unusual Oddities Shop mods already do.<br>
+			Below is a brief step by step process to complete it.
+		</p><br>
+
+		<p>
+			&#9888;&#65039; Warning: It will only work fine if 1pp components needed by your mod are installed.
+		</p><br>
+
+		<p>
+		<span style="padding-left:50px">&#10173;&nbsp;&nbsp;&nbsp;<a href="#1">1. Detect 1pp</a></span></br>
+		<span style="padding-left:50px">&#10173;&nbsp;&nbsp;&nbsp;<a href="#2">2. Load macros and functions</a></span></br>
+		<span style="padding-left:50px">&#10173;&nbsp;&nbsp;&nbsp;<a href="#3">3. Patch an item</a></span></br>
+			<span style="margin-left: 7%;">a. Define its own colors.</span></br>
+			<span style="margin-left: 7%;">b. Use 1pp Staff of the Magi settings.</span></br>
+			<span style="margin-left: 7%;">c. Use 1pp Glowing Staff of the Magi settings</span></br>
+		<span style="padding-left:50px">&#10173;&nbsp;&nbsp;&nbsp;<a href="#4">4. Customize 1pp_compatibility library</a></span></br>
+		<span style="padding-left:50px">&#10173;&nbsp;&nbsp;&nbsp;<a href="#5">5. Use new 1pp projectiles</a></span></br>
+			<span style="margin-left: 7%;">a. Setting a new 1pp projectile to your itm or your spl if 1pp is installed</span></br>
+			<span style="margin-left: 7%;">b. Updating protection from projectiles with new 1pp projectiles</span></br>
+		<span style="padding-left:50px">&#10173;&nbsp;&nbsp;&nbsp;<a href="#6">6. Use Smart Avatar & Armour Switching component</a></span>
+		</p><br>
+
+
+		<hr style="width: 90%; color: #781808; background-color: #781808; "><br>
+
+		<a name="1" id="1"></a><p style="font-size: 130%;"><strong>1. Detect 1pp</strong></p>
+
+		<p style="margin-top:1%;">
+			As 1pp update component patches items and provides additional content depending on which components are installed, detecting if 1pp is installed is not enough and you need to detect which components are installed to fine tune compatibility. Copy the following code in your <span class="tp2">ALWAYS</span> block:
+		</p>
+		<div class="important" style="background-color: #F1F1F1;">
+			<p><pre>
+      // 1ppv4: Additional Helmet Animations (core)
+      OUTER_SET is_1pp_helmet =  (MOD_IS_INSTALLED ~1pp.tp2~ ~208~) ? 1 : 0
+      // 1ppv4: Additional Helmet Animations (core)
+      OUTER_SET is_1pp_helmet  = (MOD_IS_INSTALLED ~1pp.tp2~ ~208~) ? 1 : 0
+      // 1ppv4: Increased paperdoll object variety (core) with Additional Shield Animations (core)
+      OUTER_SET is_1pp_shld    = ((MOD_IS_INSTALLED ~1pp.tp2~ ~206~) AND (MOD_IS_INSTALLED ~1pp.tp2~ ~400~)) ? 1 : 0
+      // 1ppv4: Restored flame sword animations is installed
+      OUTER_SET is_1pp_fswords = (MOD_IS_INSTALLED ~1pp.tp2~ ~203~) ? 1 : 0
+      // 1ppv4: Wizards' Staves (core)
+      OUTER_SET is_1pp_staff   = ((MOD_IS_INSTALLED ~1pp.tp2~ ~207~) AND (MOD_IS_INSTALLED ~1pp.tp2~ ~400~)) ? 1 : 0
+      // 1ppv4: Colourable Quarterstaves without 1ppv4: Wizards' Staves (core)
+      OUTER_SET is_1pp_staff0  = ((MOD_IS_INSTALLED ~1pp.tp2~ ~204~) AND (is_1pp_staff = 0)) ? 1 : 0
+      // 1ppv4: Increased paperdoll object variety (core)
+      OUTER_SET is_1pp_swblbw  = ((MOD_IS_INSTALLED ~1pp.tp2~ ~210~) AND (MOD_IS_INSTALLED ~1pp.tp2~ ~400~)) ? 1 : 0
+      // 1ppv4: Core updates and item patches
+      OUTER_SET is_1pp_400     = (MOD_IS_INSTALLED ~1pp.tp2~ ~400~) ? 1 : 0                                           
+      // 1ppv4: Improved projectile effects
+      OUTER_SET is_1pp_401     =  (MOD_IS_INSTALLED ~1pp.tp2~ ~401~) ? 1 : 0
+      // 1ppv4: Smart Avatar & Armour Switching
+      OUTER_SET is_1pp_switch  =  (MOD_IS_INSTALLED ~1pp.tp2~ ~113~) ? 1 : 0</pre>
+			</p>
+		</div><br>
+
+
+		<hr style="width: 90%; color: #781808; background-color: #781808; "><br>
+
+		<a name="2" id="2"></a><p style="font-size: 130%;"><strong>2. Load macros and functions</strong></p>
+
+		<p style="margin-top:1%;">
+			Once it is done, you must load 3 libraries that will do the job:
+		</p>
+		<div class="important" style="background-color: #F1F1F1;">
+			<p><pre>
+      ACTION_IF (is_1pp_helmet OR is_1pp_shld OR is_1pp_staff OR is_1pp_staff0 OR is_1pp_fswords OR is_1pp_swblbw OR is_1pp_400 OR is_1pp_401) BEGIN
+          INCLUDE ~%MOD_FOLDER%/lib/1pp_macros.tpa~
+          LAM ~Locations~                  // DEFINES location field values to alter items' colors <span style="font-size: 150%">&#10234;</span> MUST BE RUN ONLY ONCE
+          INCLUDE ~%MOD_FOLDER%/lib/1pp_compatibility.tph~
+          INCLUDE ~%MOD_FOLDER%/lib/1pp_functions.tpa~
+      END</pre>
+			</p>
+		</div>
+
+		<p>with</p>
+		<ul>
+			<li>1pp_macros.tpa: list of macros dealing with items coloring.</li>
+			<li>1pp_compatibility.tph: Loads functions restoring items coloration for EE games or if 1PP relevant components are installed.</li>
+			<li>1pp_functions.tpa: Loads miscellaneous macros and functions library used by 1pp v4.2.0.</li>
+		</ul><br>
+
+
+		<hr style="width: 90%; color: #781808; background-color: #781808; "><br>
+
+		<a name="3" id="3"></a><p style="font-size: 130%;"><strong>3. Patch an item</strong></p>
+
+		<p style="margin-top:1%;">
+			Now comes the real part. If you want to create an item using 1pp features, let's say a special Staff of the Magi, the process is fairly simple: First, create it as a "normal" Staff of the Magi, and install it with your tp2:
+		</p>
+
+		<div class="important" style="background-color: #F1F1F1;">
+			<p><pre>
+      COPY ~%MY_MOD%/itm/mystaff.itm~ ~override~
+          SAY NAME1 @1
+          SAY NAME2 @2
+          SAY UNIDENTIFIED_DESC @3
+          SAY DESC @4</pre>
+			</p>
+		</div><br>
+
+		<p>Then you have three choices: modify its colors to fit your new icon or use the 1pp Staff of the Magi setting (using 1pp ISTAF11 icon).</p></br>
+
+		<hr style="width: 90%; height: 1px; border: 0; color: #781808; background-color: #781808;" /></br>
+
+		<p><strong>a. Define its own colors</strong></p>
+
+		<p style="margin-top:1%;">It is very easy: use 1pp homemade functions defined in 1pp_macros.tpa library.</p>
+
+		<div class="important" style="background-color: #F1F1F1;">
+			<p><pre>
+      COPY ~%MY_MOD%/itm/mystaff.itm~ ~override~
+          SAY NAME1 @1
+          SAY NAME2 @2
+          SAY UNIDENTIFIED_DESC @3
+          SAY DESC @4
+          PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+              PATCH_IF (is_1pp_staff0 OR is_1pp_staff) BEGIN
+                  LPM ~clear~           // REMOVES all existing items' coloration opcodes before setting new ones
+                  SET gradient = 112    // 112 SEA_FOAM
+                  SET location = wgrey  // location (Head/Blade/Staff major)
+                  LPM ~colour~          // ADDS a new item global effect (op#7: Set Character colours by Palette)
+                  SET gradient = 113    // sets colour index 113 FOG
+                  SET location = wteal  // location (Staff minor)
+                  LPM ~colour~
+                  SET gradient = 93     // sets colour index 93 DARK_CEMENT_GRAY
+                  SET location = wpink  // location (Bolt-Mace-Staff)
+                  LPM ~colour~
+                  SET gradient = 98     // sets colour index 98 LEAF_GREEN
+                  SET location = wblue  // location (Head/Blade minor)
+                  LPM ~colour~
+                  SET gradient = 27     // sets colour index 27 GRAY
+                  SET location = wred   // location * compatibility
+                  LPM ~colour~
+              END
+          END
+     BUT_ONLY </pre>
+			</p>
+		</div><br>
+
+		<hr style="width: 90%; height: 1px; border: 0; color: #781808; background-color: #781808;" /></br>
+
+		<p><strong>b. Use 1pp Staff of the Magi settings</strong></p>
+
+		<p style="margin-top:1%;">It is very easy: use 1pp homemade functions defined in 1pp_compatibility.tph library.</p>
+
+		<div class="important" style="background-color: #F1F1F1;">
+			<p><pre>
+      COPY ~%MY_MOD%/itm/mystaff.itm~ ~override~
+          SAY NAME1 @1
+          SAY NAME2 @2
+          SAY UNIDENTIFIED_DESC @3
+          SAY DESC @4
+          PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+              PATCH_IF (is_1pp_staff0) BEGIN
+                  LPF ~1pp_staf11_0~ END      // Uses 1pp Colourable Quarterstaves settings (component 204)
+              END
+          END
+     BUT_ONLY </pre>
+			</p>
+		</div>
+
+		<p>with</p>
+
+		<div style="margin: 10px auto;width: 90%; border-style: solid; border-width: 1px; border-color: #781808; margin-top: 20px; padding: 6px;">
+			<div class="quotetitle">
+				<em>&nbsp;&nbsp;&#x25BA; 1pp_staf11_0 function (defined in 1pp_compatibility.tph library)</em>:
+				<input value="Show" style="color: #e3e3db; margin: 0px; padding: 0px; width: 60px; background:#781808;"
+				onclick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = ''; this.innerText = ''; this.value = 'Hide'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerText = ''; this.value = 'Show'; }" type="button" >
+			</div>
+			<div class="quotecontent">
+				<div style="display: none; ">
+					<div class="important" style="background-color: #F1F1F1;">
+						<p><pre>
+DEFINE_PATCH_FUNCTION ~1pp_staf11_0~ BEGIN
+    PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+        SET opcode_to_delete = 7
+        LPM DELETE_ITEM_EQEFFECT
+        SET opcode_to_delete = 8
+        LPM DELETE_ITEM_EQEFFECT
+        SET gradient = 112      // 112 SEA_FOAM replaces colour index 25 DARK_PURE_GOLD
+        SET location = wgrey    // location (Head/Blade/Staff major)
+        LPM ~colour~
+        SET gradient = 113      // sets colour index 113 FOG
+        SET location = wteal    // location (Staff minor)
+        LPM ~colour~
+        SET gradient = 93      // sets colour index 93 DARK_CEMENT_GRAY
+        SET location = wpink   // location (Bolt-Mace-Staff)
+        LPM ~colour~
+        SET gradient = 98      // sets colour index 98 LEAF_GREEN
+        SET location = wblue   // location (Head/Blade minor)
+        LPM ~colour~
+        SET gradient = 27      // sets colour index 27 GRAY
+        SET location = wred    // location * compatibility
+        LPM ~colour~
+    END
+END </pre>
+						</p>
+					</div><br>
+				</div>
+			</div>
+		</div><br>
+
+		<hr style="width: 90%; height: 1px; border: 0; color: #781808; background-color: #781808;" /></br>
+
+		<p><strong>c. Use 1pp Glowing Staff of the Magi settings</strong></p>
+
+		<p style="margin-top:1%;">Always with 1pp homemade functions defined in 1pp_compatibility.tph library.</p>
+
+		<div class="important" style="background-color: #F1F1F1;">
+			<p><pre>
+      COPY ~%MY_MOD%/itm/mystaff.itm~ ~override~
+          SAY NAME1 @1
+          SAY NAME2 @2
+          SAY UNIDENTIFIED_DESC @3
+          SAY DESC @4
+          PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+              PATCH_IF (is_1pp_staff) BEGIN
+                  LPF ~1pp_staf11~ END        // Uses 1pp Wizards' Staves settings (component 207)
+              END
+          END
+     BUT_ONLY </pre>
+			</p>
+		</div>
+
+		<p>with</p>
+
+		<div style="margin: 10px auto;width: 90%; border-style: solid; border-width: 1px; border-color: #781808; margin-top: 20px; padding: 6px;">
+			<div class="quotetitle">
+				<em>&nbsp;&nbsp;&#x25BA; 1pp_staf11 function (defined in 1pp_compatibility.tph library)</em>:
+				<input value="Show" style="color: #e3e3db; margin: 0px; padding: 0px; width: 60px; background:#781808;"
+				onclick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = ''; this.innerText = ''; this.value = 'Hide'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerText = ''; this.value = 'Show'; }" type="button" >
+			</div>
+			<div class="quotecontent">
+				<div style="display: none; ">
+					<div class="important" style="background-color: #F1F1F1;">
+						<p><pre>
+DEFINE_PATCH_FUNCTION ~1pp_staf11~ BEGIN
+    PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+        WRITE_ASCII 0x22 ~GS~           // Glowing staff
+        WRITE_ASCII 0x44 ~1GSTAFGS~ #8  // replaces GSTAF01
+        LPM ~clear~
+        SET gradient = 127              // sets colour index 93 DARK_CEMENT_GRAY
+        SET location = wpink            // location (Bolt-Mace-Staff)
+        LPM ~colour~
+        SET gradient = 207              // sets colour index 207 NOBLE_MINOR2-CHROME_GOLD
+        SET location = wteal            // location (Staff minor)
+        LPM ~colour~
+        SET gradient = 192              // 192 CHROME_TEAL replaces colour index 25 DARK_PURE_GOLD
+        SET location = wgrey            // location (Head/Blade/Staff major)
+        LPM ~colour~
+        SET setr = 0
+        SET setg = 0
+        SET setb = 0
+        SET location = wblue            // location (Head/Blade minor)
+        LPM ~glow~
+        SET gradient = 250              // sets colour index 250 SHADOW_DRUID_MAJOR-YELLOW_ORANGE
+        SET location = wblue            // location (Head/Blade minor)
+        LPM ~colour~
+        SET gradient = 220              // 220 ELF_MAJOR-MIDNIGHT_BLUE replaces colour index 27 GRAY
+        SET location = wred            // location (Grip/Staff minor - vanilla = whole staff)
+        LPM ~colour~
+    END
+END </pre>
+						</p>
+					</div><br>
+				</div>
+			</div>
+		</div><br>
+
+		<p>Note: you can mix the last two options and even add EE compatibility:</p>
+		<div class="important" style="background-color: #F1F1F1;">
+			<p><pre>
+      COPY ~%MY_MOD%/itm/mystaff.itm~ ~override~
+          SAY NAME1 @1
+          SAY NAME2 @2
+          SAY UNIDENTIFIED_DESC @3
+          SAY DESC @4
+          PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+              PATCH_IF (is_ee OR is_1pp_staff) BEGIN
+                  LPF ~1pp_staf11~ END               // Uses 1pp Wizards' Staves settings (component 207)
+              END
+              PATCH_IF (is_1pp_staff0) BEGIN
+                  LPF ~1pp_staf11_0~ END             // Uses 1pp Colourable Quarterstaves settings (component 204)
+              END
+          END
+     BUT_ONLY </pre>
+			</p>
+		</div>
+
+		<p>with is_ee defined like this in your <span class="tp2">ALWAYS</span> block:</p>
+
+		<div style="margin: 10px auto;width: 90%; border-style: solid; border-width: 1px; border-color: #781808; margin-top: 20px; padding: 6px;">
+			<div class="quotetitle">
+				<em>&nbsp;&nbsp;&#x25BA; is_ee variable</em>:
+				<input value="Show" style="color: #e3e3db; margin: 0px; padding: 0px; width: 60px; background:#781808;"
+				onclick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = ''; this.innerText = ''; this.value = 'Hide'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerText = ''; this.value = 'Show'; }" type="button" >
+			</div>
+			<div class="quotecontent">
+				<div style="display: none; ">
+					<div class="important" style="background-color: #F1F1F1;">
+						<p><pre>
+OUTER_SET is_ee = (GAME_IS ~bgee bg2ee eet~) ? 1 : 0 // EE game</pre>
+						</p>
+					</div><br>
+				</div>
+			</div>
+		</div><br>
+
+
+		<hr style="width: 90%; color: #781808; background-color: #781808; "><br>
+
+		<a name="4" id="4"></a><p style="font-size: 130%;"><strong>4. Customize 1pp_compatibility library</strong></p>
+
+		<p style="margin-top:1%;">
+			As 1pp_compatibility library has been written to improve 1pp compatibility with a few mods installed before it (if ever!), it does not contain all patches and you may need to customize it to fit your needs.
+		</p>
+		<p>
+			Let's say you want to create an upgraded version or another version of Celestial Fury +3. All you have to do is to check the code used in 400_update_bgii_swords.tpa and copy-paste it in 1pp_compatibility.tph, like this:
+		</p>
+
+		<div class="important" style="background-color: #F1F1F1;">
+			<p><pre>
+      // Celestial Fury +3
+      DEFINE_PATCH_FUNCTION ~1pp_sw1h51~ BEGIN
+          PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+              LPM ~clear~
+              SET gradient = 25       // sets colour index 25 DARK_PURE_GOLD
+              SET location = wgrey    // location (Head/Blade/Staff major)
+              LPM ~colour~
+              SET gradient = 223      // 223 DROW_SKIN-MOSS_GREEN replaces colour index 16 SILVERISH_GOLD
+              SET location = wblue    // location (Head/Blade minor)
+              LPM ~colour~
+              SET gradient = 47       // sets colour index 47 PURE_DARK_RED
+              SET location = wred     // location (Grip/Staff minor - vanilla = whole staff)
+              LPM ~colour~
+          END
+      END </pre>
+			</p>
+		</div>
+
+		<p>And install your sword like this:</p>
+
+		<div class="important" style="background-color: #F1F1F1;">
+			<p><pre>
+      COPY ~%MY_MOD%/itm/mysword.itm~ ~override~
+          SAY NAME1 @1
+          SAY NAME2 @2
+          SAY UNIDENTIFIED_DESC @3
+          SAY DESC @4
+          PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+              PATCH_IF (is_ee OR is_1pp_swblbw) BEGIN
+                  LPF ~1pp_sw1h51~ END
+              END
+          END
+     BUT_ONLY </pre>
+			</p>
+		</div><br>
+
+
+		<hr style="width: 90%; color: #781808; background-color: #781808; "><br>
+
+		<a name="5" id="5"></a><p style="font-size: 130%;"><strong>5. Use new 1pp projectiles</strong></p>
+
+		<p style="margin-top:1%;">
+			And now comes the easiest part of all: make your spells or items either using 1pp new projectiles or protecting from projectiles compatible with 1pp. In both cases, you can either use innate WeiDU functions or use 1pp_functions.tpa library that was written specially for 1pp Improved projectile effects component [401]. It includes:
+		</p>
+		<ul>
+			<li>Function <span class="tp2">GW_DEF_OFFSETS_FILE</span>: DEFINES the main offsets used to patch SPL, ITM and CRE files.</li>
+			<li>Function <span class="tp2">GW_CLEAR_DUPLICATED_OPCODES</span>: LOOKS for a specific opcode in a file and DELETES duplicated effects.</li>
+			<li>Function <span class="tp2">GW_MODIFY_PROJ</span>: MODIFIES an item's or spell's projectile.</li>
+		</ul><br>
+ 
+		<hr style="width: 90%; height: 1px; border: 0; color: #781808; background-color: #781808;" /></br>
+
+		<p><strong>a. Setting a new 1pp projectile to your itm or your spl if 1pp is installed</strong></p>
+
+		<p style="margin-top:1%;">You can use the way Rolles mod adds 1pp compatibility:</p>
+
+		<div class="important" style="background-color: #F1F1F1;">
+			<p><pre>
+      // Sling +4 Arla's Dragonbane
+      COPY ~rolles/itm/s#slng01.itm~ ~override~
+          SAY NAME2 @1000
+          SAY DESC @1001
+          PATCH_IF (is_ee OR is_1pp_401) BEGIN
+              LPF ALTER_ITEM_HEADER INT_VAR projectile = (IDS_OF_SYMBOL (projectl 1bull06) + 1) END
+          END
+          PATCH_IF (is_ee OR is_1pp_400) BEGIN
+              LPF ~1pp_slng05~ END
+          END
+      BUT_ONLY
+
+      // Battle Axe +4 Ice and Fire
+      COPY ~rolles/itm/s#ax1h01.itm~ ~override~
+          SAY NAME2 @1012
+          SAY DESC @1013
+          PATCH_IF (is_ee OR is_1pp_401) BEGIN
+              LPF ALTER_ITEM_HEADER INT_VAR header_type = 2 projectile = (IDS_OF_SYMBOL (projectl 1axe08) + 1) END
+          END
+          PATCH_IF (is_ee OR is_1pp_400) BEGIN
+              LPF ~1pp_ax1h13~ END
+          END
+      BUT_ONLY</pre>
+			</p>
+		</div>
+
+		<p>or install them a la mode 1pp:</p>
+
+		<div class="important" style="background-color: #F1F1F1;">
+			<p><pre>
+      COPY ~%MY_MOD%/items/mydagger.itm~ ~override~
+          PATCH_IF (is_ee OR is_1pp_401) BEGIN
+              PATCH_IF (SOURCE_SIZE > 0x71) BEGIN  // protects against invalid files
+                  LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = "DAGGER" new_proj = "1dagg16" END
+              END
+          END
+      BUT_ONLY
+
+      COPY ~%MY_MOD%/spells/myspell.spl~ ~override~
+          PATCH_IF (is_ee OR is_1pp_401) BEGIN
+              PATCH_IF (SOURCE_SIZE > 0x71) BEGIN  // protects against invalid files
+                  LPF ~GW_MODIFY_PROJ~ STR_VAR old_proj = CLOUDKIL new_proj = 1pgspore END
+              END
+          END
+      BUT_ONLY</pre>
+			</p>
+		</div><br>
+
+		<hr style="width: 90%; height: 1px; border: 0; color: #781808; background-color: #781808;" /></br>
+
+		<p><strong>b. Updating protection from projectiles with new 1pp projectiles</strong></p>
+
+		<p style="margin-top:1%;">Once again, you can use 1pp homemade functions defined in 1pp_functions.tpa library:</p>
+
+		<div class="important" style="background-color: #F1F1F1;">
+			<p><pre>
+      // Added missing protections from new normal 1pp amo projectiles.
+      COPY ~%MOD_FOLDER%/items/%item%.itm~ ~override~
+          LPF ~GW_DEF_OFFSETS_FILE~ RET GW_oe GW_oc GW_al GW_fx GW_fi GW_fc GW_min_size END
+          PATCH_IF (is_ee OR is_1pp_401) BEGIN
+              LPF ~GW_CLEAR_DUPLICATED_OPCODES~ INT_VAR GW_opcode_to_check = 83 GW_effects_type = 2 RET GW_param2_55 END
+              PATCH_FOR_EACH proj IN 1arow01 1bolt01 1dagg05 1dart01 BEGIN
+                  SET projnb = IDS_OF_SYMBOL (~projectl~ ~%proj%~)
+                  PATCH_IF projnb > 0 BEGIN
+                    LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 83 parameter2 = projnb STR_VAR insert = last END
+                  END
+              END
+              // Special case: SPEAR (55) needs a special treatment because some items do not bestow protection from spear projectile (used by the new javelin weapon).
+              PATCH_IF GW_param2_55 = 0 BEGIN
+                  LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 83 parameter2 = 55 STR_VAR insert = last END
+              END
+			END
+         END
+      BUT_ONLY
+
+      // Physical Mirror - Gwen fix: cleared duplicate entries and added SR compatibility (SR replaces opcode #197 with opcode #83).
+      COPY_EXISTING ~sppr613.spl~ ~override~
+          LPF ~GW_DEF_OFFSETS_FILE~ RET GW_oe GW_oc GW_al GW_fx GW_fi GW_fc GW_min_size END
+          PATCH_IF (is_ee OR is_1pp_401) BEGIN
+              PATCH_FOR_EACH GW_opcode IN 83 197 BEGIN
+                  LPF ~GW_CLEAR_DUPLICATED_OPCODES~ INT_VAR GW_opcode_to_check = GW_opcode GW_effects_type = 2 RET GW_param2_55 END
+                  PATCH_FOR_EACH proj IN      // 1pp new projectiles
+                      1arow01 1arow02 1arow03 1arow04 1arow05 1arow07 1arow10 1arow11 1arow15 1axe05 1axe08 1axe09 1axe10 1axe16
+                      1bolt01 1bolt02 1bolt03 1bolt04 1bolt05 1bolt06 1bolt09 1bull02 1bull03 1bull04 1bull05 1bull06
+                      1dagg05 1dagg11 1dagg12 1dagg16 1dart01 1dart02 1dart03 1dart04 1dart05 1dart08 BEGIN
+                      SET projnb = IDS_OF_SYMBOL (~projectl~ ~%proj%~)
+                      PATCH_IF projnb > 0 BEGIN
+                          LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 multi_match = 1 match_opcode = GW_opcode parameter2 = projnb STR_VAR insert = last END
+                      END
+                  END
+                  // Special case fix: SPEAR (55) needs a special treatment.
+                  PATCH_IF GW_param2_55 = 0 BEGIN
+                      LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 multi_match = 1 match_opcode = GW_opcode parameter2 = 55 STR_VAR insert = last END
+                  END
+              END
+          END
+      BUT_ONLY</pre>
+			</p>
+		</div>
+
+		<p>or use innate WeiDU functions:</p>
+
+		<div class="important" style="background-color: #F1F1F1;">
+			<p><pre>
+      // Enhanced Shield of Balduran (Rolles mod)
+      COPY ~rolles/itm/s#shld01.itm~ ~override~
+          SAY NAME2 @1002
+          SAY DESC @1003
+          PATCH_IF (is_ee OR is_1pp_401) BEGIN
+              PATCH_FOR_EACH proj IN      // 1pp new projectiles
+                  1arow01 1arow02 1arow03 1arow04 1arow05 1arow07 1arow10 1arow11 1arow15 1axe05 1axe08 1axe09 1axe10 1axe16
+                  1bolt01 1bolt02 1bolt03 1bolt04 1bolt05 1bolt06 1bolt09 1bull02 1bull03 1bull04 1bull05 1bull06
+                  1dagg05 1dagg11 1dagg12 1dagg16 1dart01 1dart02 1dart03 1dart04 1dart05 1dart08 BEGIN
+                  SET projnb = IDS_OF_SYMBOL (~projectl~ ~%proj%~)
+                  PATCH_IF projnb > 0 BEGIN
+                      LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 197 parameter2 = projnb STR_VAR insert = above END
+                  END
+             END
+         END
+          PATCH_IF (is_ee OR is_1pp_shld) BEGIN
+              LPF ~1pp_wa2shiel~ END
+          END
+          PATCH_IF (is_1pp_shld0) BEGIN
+              LPF ~1pp_shld27_0~ END
+          END
+      BUT_ONLY
+
+      // Girdle of the Magi (Stuff of the Magi mod)
+      COPY ~%MOD_FOLDER%/items/wzrdbelt.itm~ ~override~
+          SAY NAME2 @141
+          SAY DESC @143
+          PATCH_IF (is_ee OR is_1pp_401) BEGIN
+              PATCH_FOR_EACH proj IN 1arow01 1bolt01 1dagg05 1dart01  // 1pp new projectiles
+                   SET projnb = IDS_OF_SYMBOL (~projectl~ ~%proj%~)
+                  PATCH_IF projnb > 0 BEGIN
+                      LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 83 parameter2 = projnb STR_VAR insert = last END
+                  END
+             END
+         END
+      BUT_ONLY</pre>
+			</p>
+		</div><br>
+
+		<hr style="width: 90%; color: #781808; background-color: #781808; "><br>
+
+		<a name="6" id="6"></a><p style="font-size: 130%;"><strong>6. Use Smart Avatar & Armour Switching component</strong></p>
+
+		<p style="margin-top:1%;">
+			If you want your robes and armors benefit from this component which allows armour and robes to properly show up for characters of any class when equipped, use the following code (from Darron mod):
+		</p>
+
+		<div class="important" style="background-color: #F1F1F1;">
+			<p><pre>
+      // Aurumvorax Armor +2
+      COPY ~darron/item/esliarm0.itm~ ~override~
+          SAY NAME12 @108
+          SAY DESC @110
+          PATCH_IF (is_1pp_switch) BEGIN
+              // armor spell effect
+              LPF ADD_ITEM_EQEFFECT INT_VAR insert_point = "-1" opcode = 146 target = 1 timing = 2 parameter1 = 1 parameter2 = 1 STR_VAR resource = lcarmor END
+          END
+      BUT_ONLY</pre>
+			</p>
+		</div><br>
+
+		<hr style="width: 90%; color: #781808; background-color: #781808; "><br>
+
+		<p>I guess now it's time to... Enjoy! &#128521;</p><br>
+
+		<address>
+			<span class="footer">1ppv4: Note for modders &gt; Patching Items and Spells</span> &#8226;<a href="#top">BACK TO TOP</a>
+		</address>
+	  </div>
+
+	</div>
+	</div>
+  </body>
+</html>
