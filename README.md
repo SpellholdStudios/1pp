@@ -731,9 +731,9 @@ This is the main 1ppv4 update component. Make sure you have all components you w
 Before v4.2.0, various content choices were presented to you during installation (depending on which IE game you are installing for and installed components).</br>
 As of version 4.2.0, installation options are moved into *1pp-config-default.ini* file. If you want to modify them, please read this <a href="#config">chapter</a>.</br></br>
 
-###### &#10173; <em>Note: if you don't want to overwrite the Runehammer icon, set 1pp_hammers_icons option to 2 [default value = 1 (Yes)]. In response to many players requests, turning The Sleeper into a flail is now optional and set by 1pp_sleeper option [default value = 2 (No, but install the alternate flail icon IBLUN16B as a new resource for modders)].</em></br></br>
+###### &#10173; <em>Note: if you don't want to overwrite the Runehammer icon, set 1pp_hammers_icons option to 2 [default value = 1 (Yes)]. In response to many players requests, turning The Sleeper into a flail is now optional and set by 1pp_sleeper option [default value = 2 (No, but install the alternate flail icon IBLUN16B as a new resource for modders)].</em></br>
 
-###### &#10173; <em>As many players complained to be annoyed by having to identify every gem in the game, Gems lore to identify is now disabled by default. If you wand to re-enable it, set its 1pp_gemlore option to 1 (Yes).</em></br></br>
+###### &#10173; <em>As many players complained to be annoyed by having to identify every gem in the game, Gems lore to identify is now disabled by default. If you wand to re-enable it, set its 1pp_gemlore option to 1 (Yes).</em></br>
 
 ###### &#10173; <em>For a full, visual guide to choices see the link below. Consider choosing 'yes' to setting FORCED ITEM COLOURS [1pp_forced_item_colours = 2 (Yes for both magical and non-magical items) or 3 (Yes for both magical and non-magical items, but exclude BG1 legacy shields)].</em></br>
 
@@ -839,7 +839,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
 
 ## <a name="version" id="version"></a>Version History
 
-##### Version 4.2.0 (Month day, 2020)
+##### Version 4.2.0 (Augysr , 2020)
 
 <ins>a. General overhaul and re-looking</ins>
   - Added *1pp.ini* metadata file to support AL|EN's "Project Infinity".
@@ -964,7 +964,7 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
     - Replaced tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically write values in tooltip.2da from the tra files.
     - Integrated <a href="http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849">Lollorian's BWP Fixpack patch for Ashes of Embers compatibility</a> (400_1pp_update_bgii.tph.patch): renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">Source</a>.
     - Added ToBEx compatibility for circlets: item flag EE/Ex: Toggle critical hits flag (BIT25).
-    - Gems sub-component: code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Build an array to define new gems lore values to identify. .Same library used for IWD and BG2 based games.
+    - Gems sub-component: code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Build an array to define new gems lore values to identify. Same library used for IWD and BG2 based games.
     - Code simplified or re-written with newer functions to provide automatic process:
       - Grouped actions or patches with `ACTION_FOR_EACH` and `PATCH_FOR_EACH` whenever possible.
       - Replaced macros with functions whenever possible.
@@ -985,7 +985,9 @@ For support or questions, please visit the <a href="http://www.shsforums.net/for
       - xoband03.itm (Eilistraee's Boon +1): same fixes for opcodes #33, 34, 35, 36 & 37. Fixed wrong coding op#31: parameter1 originally set to 110, should be 10, and parameter2 switched from 2 to 0 to match item description (+10% magic damage resistance).
       - xoband04.itm (Circlet of the Archmagi): same fixes for opcodes #33, 34, 35, 36 & 37. Added one missing equipped effects (`LPM ADD_ITEM_EQEFFECT #19`).
     - weapons specific fixes (400_update_bgii_weapons.tpa):
+      - Added IR compatibility for throwing axes, daggers and hammers if variant a and/or b items are detected: ax1h08.itm (Hangard's Axe +2), ax1h09.itm (Rifthome Axe +3), ax1h10.itm (Azuredge +3), ax1h16.itm (K'logarath +4), dagg11.itm (Boomerang Dagger +2), dagg12.itm (Firetooth +3), hamm06.itm (Dwarven Thrower +3) and hamm09.itm (Crom Faeyr +5).
       - dagg12.itm (Firetooth +3): fixed typos in `LPM ~pulse~` macro (redundant setr variable set to 152 and 189 should be setg and setb, otherwise they overwrite the setr value and don't set the correct setg and setb values).
+      - dagg21.itm & dagg22.itm (Daggers of the Star): restored their original colors as component #200 reverted to their original inventory icon IDAGG21, this patch would give them wrong colors.
       - halb08.itm (Duskblade +2): fixed a typo patching halb06 instead of halb08.
       - hamm10.itm & hamm11.itm (Runehammers): new 1pp_hammers_icons setting gives the choice to assign it, or not, the Borok's Fist's icon.
     - miscellaneous specific fixes (400_update_bgii_misc.tpa):

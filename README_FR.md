@@ -2,7 +2,7 @@
 ![Dernière version](https://img.shields.io/github/v/release/SpellholdStudios/1pp?include_prereleases&color=darkred)<a name="top" id="top"> </a>
 ![Plateformes](https://img.shields.io/static/v1?label=platform&message=windows%20%7C%20linux&color=informational)
 ![Langues](https://img.shields.io/static/v1?label=language&message=Anglais%20%7C%20Français%20%7C%20Russe&color=limegreen)
-<a href="README.md"><img align="right" src="1pp/documentation/files/images/uk-flag-32.png title="English Readme""></a>
+<a href="README.md"><img align="right" src="1pp/documentation/files/images/uk-flag-32.png title="English Readme"></a>
 
 
 <div align="center"><h1>1pp (One Pixel Productions) - WIP</h1>
@@ -725,9 +725,9 @@ Il s'agit du composant principal de mise à jour de 1ppv4. Avant de l'exécuter, a
 Dans les versions précédentes, divers choix vous étaient proposés pendant d'installation (en fonction de votre jeu IE et des composants que vous avez installés).</br>
 Depuis la version 4.2.0, les options d'installation sont externalisés dans le fichier *1pp-config-default.ini*. Si vous souhaitez les modifier, veuillez lire ce <a href="#config">chapitre</a>.</br></br>
 
-###### &#10173; <em>Note : si vous ne souhaitez pas écraser l'icône des Marteaux des Runes, choisissez la valeur 2 pour l'option 1pp_hammers_icons [Par défaut = 1 (Oui)]. En réponse à de nombreuses demandes de joueurs, transformer l'étoile du matin +2 Dormeuse est désormais optionnel et géré par l'option 1pp_sleeper option [Par défaut = 2 (Non, mais installer quand même son icône d'inventaire alternative (IBLUN16B) comme ressource pour les moddeurs)].</em></br></br>
+###### &#10173; <em>Note : si vous ne souhaitez pas écraser l'icône des Marteaux des Runes, choisissez la valeur 2 pour l'option 1pp_hammers_icons [Par défaut = 1 (Oui)]. En réponse à de nombreuses demandes de joueurs, transformer l'étoile du matin +2 Dormeuse est désormais optionnel et géré par l'option 1pp_sleeper option [Par défaut = 2 (Non, mais installer quand même son icône d'inventaire alternative (IBLUN16B) comme ressource pour les moddeurs)].</em></br>
 
-###### &#10173; <em>De nombreux joueurs s'étant plaints de devoir identifier toutes les gemmes du jeu, l'option Identification obligatoire des gemmes est désormais désactivée par défault. Si vous souhaitez la réactiver, attribuez la valeur 1 (Oui) à la variable 1pp_gemlore.</em></br>
+###### &#10173; <em>De nombreux joueurs s'étant plaints de devoir identifier toutes les gemmes du jeu, l'option Identification obligatoire des gemmes est désormais désactivée par défault. Si vous souhaitez la réactiver, attribuez la valeur 1 (Oui) à la variable 1pp_gemlore.</em>
 
 ###### &#10173; <em>Pour avoir un aperçu complet des options, veuillez consulter le lien ci-dessous. Si vous souhaitez affecter des couleurs pré-définies aux objets non magiques, choisissez les valeurs 2 (Oui pour tous les objets, qu'ils soient magiques ou pas) ou 3 (Oui pour tous les objets, qu'ils soient magiques ou pas, mais ne concerne pas les boucliers au graphisme de BG1) pour l'option COULEURS DES OBJETS PRÉ-DÉFINIES.</em></br>
 
@@ -831,7 +831,7 @@ Pour toute question ou demande d'assistance, veuillez consulter le <a href="http
 
 ## Historique des versions
 
-##### Version 4.2.0 - jour mois 2019
+##### Version 4.2.0 (Août 2020)
 
 Note du traducteur : l'historique n'est volontairement pas entièrement traduit afin de faciliter la mise à jour continue du mod.</br>
 
@@ -960,7 +960,7 @@ Note du traducteur : l'historique n'est volontairement pas entièrement traduit a
     - Replaced tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically writes values in tooltip.2da from the tra files.
     - Integrated <a href="http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849">Lollorian's BWP Fixpack patch for Ashes of Embers compatibility</a> (400_1pp_update_bgii.tph.patch): renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">Source</a>.
     - Added ToBEx compatibility for circlets: item flag EE/Ex: Toggle critical hits flag (BIT25).
-    - Gems sub-component: code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Build an array to define new gems lore values to identify. .Same library used for IWD and BG2 based games.
+    - Gems sub-component: code simplified and re-written to avoid overwriting files when selecting option no lore needed for identification (1pp_gemlore = 2). Build an array to define new gems lore values to identify. Same library used for IWD and BG2 based games.
     - Code simplified or re-written with newer functions to provide automatic process:
       - Grouped actions or patches with `ACTION_FOR_EACH` and `PATCH_FOR_EACH` whenever possible.
       - Replaced macros with functions whenever possible.
@@ -981,7 +981,9 @@ Note du traducteur : l'historique n'est volontairement pas entièrement traduit a
       - xoband03.itm (Eilistraee's Boon +1): same fixes for opcodes #33, 34, 35, 36 & 37. Fixed wrong coding op#31: parameter1 originally set to 110, should be 10, and parameter2 switched from 2 to 0 to match item description (+10% magic damage resistance).
       - xoband04.itm (Circlet of the Archmagi): same fixes for opcodes #33, 34, 35, 36 & 37. Added one missing equipped effects (`LPM ADD_ITEM_EQEFFECT #19`).
     - weapons specific fixes (400_update_bgii_weapons.tpa):
+      - Added IR compatibility for throwing axes, daggers and hammers if variant a and/or b items are detected: ax1h08.itm (Hangard's Axe +2), ax1h09.itm (Rifthome Axe +3), ax1h10.itm (Azuredge +3), ax1h16.itm (K'logarath +4), dagg11.itm (Boomerang Dagger +2), dagg12.itm (Firetooth +3), hamm06.itm (Dwarven Thrower +3) and hamm09.itm (Crom Faeyr +5).
       - dagg12.itm (Firetooth +3): fixed typos in `LPM ~pulse~` macro (redundant setr variable set to 152 and 189 should be setg and setb, otherwise they overwrite the setr value and don't set the correct setg and setb values).
+      - dagg21.itm & dagg22.itm (Daggers of the Star): restored their original colors as component #200 reverted to their original inventory icon IDAGG21, this patch would give them wrong colors.
       - halb08.itm (Duskblade +2): fixed a typo patching halb06 instead of halb08.
       - hamm10.itm & hamm11.itm (Runehammers): new 1pp_hammers_icons setting gives the choice to assign it, or not, the Borok's Fist's icon.
     - miscellaneous specific fixes (400_update_bgii_misc.tpa):
@@ -1035,14 +1037,14 @@ Note du traducteur : l'historique n'est volontairement pas entièrement traduit a
   - [300] 1ppv4: 1ppv4: Fixed animations for solars and elementals (300_solar_fix.tph)
     - Integrated <a href="http://www.shsforums.net/topic/58208-planetar-animation-glitch/">The Imp's BWP Fixpack fix for Solar swords without graphic artifacts</a>: fixed MASLG1S1.BAM and MSOLG2S1.BAM files. Source: <a href="https://github.com/omni-axa/BiG-World-Fixpack/commit/de7b3ce8439d8efa8e7427d1ad66efd0f48e547e">commit</a>.
 
-##### Version 4.1.0 - 12 novembre 2012
+##### Version 4.1.0 (12 novembre 2012)
 
 - Les boucliers en écaille ont désormais leurs propres animations.
-- cônes de descriptions améliorées importées de BG I.
+- Icônes de descriptions améliorées importées de BG I.
 - Correction du chevauchement de l'interface graphique à basse résolution.
 
 
-##### Version 4.0.0 - 6 août 2012
+##### Version 4.0.0 (6 août 2012)
 
 - Sortie initiale.
 <div align="right"><a href="#components">Retour en haut de page</a></div>

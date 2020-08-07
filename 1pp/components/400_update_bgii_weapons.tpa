@@ -10,6 +10,7 @@
  *      - Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon   *
  *        as IHAMM05B), and not to set Borok's Fist's icon to Runehammers (#853).                                                                                                   *
  *      - Replaced macros with functions whenever possible.                                                                                                                         *
+ *      - Added partial IR compatibility in a rather softer way.                                                                                                                    *
  *      - Coding simplification:                                                                                                                                                    *
  *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                              *
  *          Grouped actions or patches with ACTION_FOR_EACH and PATCH_FOR_EACH whenever possible.                                                                                   *
@@ -17,20 +18,26 @@
  *                                                                                                                                                                                  *
  *  specific fixes:                                                                                                                                                                 *
  *  ---------------                                                                                                                                                                 *
- *      - #487  ==> dagg12.itm (Firetooth +3): fixed typos in LPM ~pulse~ macro (redundant setr set to 152 and 189 should be setg and setb, otherwise they overwrite the setr       *
+ *      - #140  ==> ax1h08.itm (Hangard's Axe +2), ax1h09.itm (Rifthome Axe +3), ax1h10.itm (Azuredge +3) & ax1h16.itm (K'logarath +4): added IR compatibility (patches itemB and   *
+ *                   itemA files if they are detected).                                                                                                                             *
+ *      - #484  ==> dagg11.itm (Boomerang Dagger +2) and dagg12.itm (Firetooth +3): added IR compatibility (patches itemB and itemA files if they are detected).                    *
+ *      - #504  ==> dagg12.itm (Firetooth +3): fixed typos in LPM ~pulse~ macro (redundant setr set to 152 and 189 should be setg and setb, otherwise they overwrite the setr       *
  *                  value and don't set the correct setg and setb values).                                                                                                          *
- *      - #978  ==> hamm10.itm & hamm11.itm (Runehammers): 1pp_hammers_icons setting gives the choice to assign them, or not, the Borok's Fist's icon.                              *
- *      - #1479 ==> halb08.itm (Duskblade +2): fixed a typo patching halb06 instead of halb08.                                                                                      *
+ *      - #670  ==> dagg21.itm & dagg22.itm (Daggers of the Star): restored their original colors as component #200 reverted to their original inventory icon IDAGG21 (1PP set it   *
+ *                  them to IDAGG18 - Shadow Thief Dagger icon-, but EE does not validate this change, this patch would give them wrong colors.                                     *
+ *      - #908  ==> hamm06.itm (Dwarven Thrower +3) and hamm09.itm (Crom Faeyr +5): added IR compatibility (patches itemB and itemA files if they are detected).                    *
+ *      - #1003 ==> hamm10.itm & hamm11.itm (Runehammers): 1pp_hammers_icons setting gives the choice to assign them, or not, the Borok's Fist's icon.                              *
+ *      - #1504 ==> halb08.itm (Duskblade +2): fixed a typo patching halb06 instead of halb08.                                                                                      *
  * ================================================================================================================================================================================ */
 
 // ----------------------------- //
 //  WEAPONS                line  //
 // ----------------------------- //
-//  AXES                 #   37  //
-//  DAGGERS              #  331  //
-//  HAMMERS              #  709  //
-//  SPEARS               # 1103  //
-//  HALBERDS             # 1315  //
+//  AXES                 #   44  //
+//  DAGGERS              #  346  //
+//  HAMMERS              #  730  //
+//  SPEARS               # 1128  //
+//  HALBERDS             # 1340  //
 // ----------------------------- //
 
 /* ====================== *
@@ -130,76 +137,82 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h07.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Hangard's Axe +2
-ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h08.itm~) BEGIN
-	COPY_EXISTING ~ax1h08.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 96 CHROME_BLUE
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 99				// 99 GOLDEN_BROWN replaces colour index 23 LIGHT_COPPER
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-			SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 96 CHROME_BLUE
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-		END
-	BUT_ONLY
+// Hangard's Axe +2 - Gwen fix: add IR compatibility
+ACTION_FOR_EACH axe IN ~ax1h08~ ~ax1h08a~ ~ax1h08b~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.itm~) BEGIN
+		COPY_EXISTING ~%axe%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 96 CHROME_BLUE
+				SET location = wgrey			// location (Head/Blade/Staff major)
+				LPM ~colour~
+				SET gradient = 99				// 99 GOLDEN_BROWN replaces colour index 23 LIGHT_COPPER
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
+				LPM ~colour~
+				SET gradient = 202				// 202 HAIR2-LIBERTY_BLUE replaces colour index 96 CHROME_BLUE
+				SET location = wblue			// location (Head/Blade minor)
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
 END
 
-// Rifthome Axe +3
-ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h09.itm~) BEGIN
-	COPY_EXISTING ~ax1h09.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET gradient = 245				// 245 MAGE_MAJOR-CHROME_SEA_GRAY replaces colour index 96 CHROME_BLUE
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 229				// 229 KOBOLD_SKIN-ULTRAVIOLET replaces colour index 96 CHROME_BLUE
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-			SET gradient = 231				// 231 KOBOLD_MINOR-CHROME_COOL_GRAY replaces colour index 96 CHROME_BLUE
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-		END
-	BUT_ONLY
+// Rifthome Axe +3 - Gwen fix: add IR compatibility
+ACTION_FOR_EACH axe IN ~ax1h09~ ~ax1h09a~ ~ax1h09b~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.itm~) BEGIN
+		COPY_EXISTING ~%axe%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 245				// 245 MAGE_MAJOR-CHROME_SEA_GRAY replaces colour index 96 CHROME_BLUE
+				SET location = wgrey			// location (Head/Blade/Staff major)
+				LPM ~colour~
+				SET gradient = 229				// 229 KOBOLD_SKIN-ULTRAVIOLET replaces colour index 96 CHROME_BLUE
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
+				LPM ~colour~
+				SET gradient = 231				// 231 KOBOLD_MINOR-CHROME_COOL_GRAY replaces colour index 96 CHROME_BLUE
+				SET location = wblue			// location (Head/Blade minor)
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
 END
 
-// Azuredge +3
-ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h10.itm~) BEGIN
-	COPY_EXISTING ~ax1h10.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET setr = 255
-			SET setg = 76
-			SET setb = 106
-			SET speed = 0x14
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~pulse~
-			SET setr = 122					// replaces colour index 255
-			SET setg = 35					// replaces colour index 76
-			SET setb = 50					// replaces colour index 106
-			SET speed = 0x14
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~pulse~
-			SET setr = 0					// replaces colour index 255
-			SET setg = 0					// replaces colour index 76
-			SET setb = 0					// replaces colour index 106
-			SET speed = 0x14
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~pulse~
-			SET gradient = 247				// 247 OGRE_SKIN-CHROME_CRIMSON replaces colour index 101 METALLIC_RED
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 210				// 210 MERCHANT_MAJOR-AMBER replaces colour index 101 METALLIC_RED
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-			SET gradient = 227				// 227 METAL_WILD-CORAL replaces colour index 101 METALLIC_RED
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-		END
-	BUT_ONLY
+// Azuredge +3 - Gwen fix: add IR compatibility
+ACTION_FOR_EACH axe IN ~ax1h10~ ~ax1h10a~ ~ax1h10b~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.itm~) BEGIN
+		COPY_EXISTING ~%axe%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET setr = 255
+				SET setg = 76
+				SET setb = 106
+				SET speed = 0x14
+				SET location = wgrey			// location (Head/Blade/Staff major)
+				LPM ~pulse~
+				SET setr = 122					// replaces colour index 255
+				SET setg = 35					// replaces colour index 76
+				SET setb = 50					// replaces colour index 106
+				SET speed = 0x14
+				SET location = wblue			// location (Head/Blade minor)
+				LPM ~pulse~
+				SET setr = 0					// replaces colour index 255
+				SET setg = 0					// replaces colour index 76
+				SET setb = 0					// replaces colour index 106
+				SET speed = 0x14
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
+				LPM ~pulse~
+				SET gradient = 247				// 247 OGRE_SKIN-CHROME_CRIMSON replaces colour index 101 METALLIC_RED
+				SET location = wgrey			// location (Head/Blade/Staff major)
+				LPM ~colour~
+				SET gradient = 210				// 210 MERCHANT_MAJOR-AMBER replaces colour index 101 METALLIC_RED
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
+				LPM ~colour~
+				SET gradient = 227				// 227 METAL_WILD-CORAL replaces colour index 101 METALLIC_RED
+				SET location = wblue			// location (Head/Blade minor)
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
 END
 
 // Battle Axe +2
@@ -290,22 +303,24 @@ ACTION_FOR_EACH axe IN ~ax1h14~ ~ax1h15~ BEGIN
 	END
 END
 
-// K'logarath +4
-ACTION_IF (FILE_EXISTS_IN_GAME ~ax1h16.itm~) BEGIN
-	COPY_EXISTING ~ax1h16.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET gradient = 225				// 225 DROW_MINOR-CORNSILK replaces colour index 29 RED-TINTED_BLACK
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 51				// 51 DARK_OLIVE_GREEN replaces colour index 95 LIGHT_DIRTISH_BROWN
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-			SET gradient = 254				// 254 EBONY replaces colour index 27 GRAY
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-		END
-	BUT_ONLY
+// K'logarath +4 - Gwen fix: add IR compatibility
+ACTION_FOR_EACH axe IN ~ax1h16~ ~ax1h16a~ ~ax1h16b~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.itm~) BEGIN
+		COPY_EXISTING ~%axe%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 225				// 225 DROW_MINOR-CORNSILK replaces colour index 29 RED-TINTED_BLACK
+				SET location = wgrey			// location (Head/Blade/Staff major)
+				LPM ~colour~
+				SET gradient = 51				// 51 DARK_OLIVE_GREEN replaces colour index 95 LIGHT_DIRTISH_BROWN
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
+				LPM ~colour~
+				SET gradient = 254				// 254 EBONY replaces colour index 27 GRAY
+				SET location = wblue			// location (Head/Blade minor)
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
 END
 
 // Battle Axe +3
@@ -466,46 +481,50 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~eslidag1.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Boomerang Dagger +2
-ACTION_IF (FILE_EXISTS_IN_GAME ~dagg11.itm~) BEGIN
-	COPY_EXISTING ~dagg11.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 25 DARK_PURE_GOLD
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 225				// 225 DROW_MINOR-CORNSILK replaces colour index 99 GOLDEN_BROWN
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-			SET gradient = 248				// 248 OGRE_MAJOR-BATTLESHIP_GRAY replaces colour index 30 LIGHT_IRON_GRAY
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-		END
-	BUT_ONLY
+// Boomerang Dagger +2 - Gwen fix: add IR compatibility
+ACTION_FOR_EACH dagger IN ~dagg11~ ~dagg11a~ ~dagg11b~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
+		COPY_EXISTING ~%dagger%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET gradient = 232				// 232 HOBGOBLIN_SKIN-CINDER_GRAY replaces colour index 25 DARK_PURE_GOLD
+				SET location = wgrey			// location (Head/Blade/Staff major)
+				LPM ~colour~
+				SET gradient = 225				// 225 DROW_MINOR-CORNSILK replaces colour index 99 GOLDEN_BROWN
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
+				LPM ~colour~
+				SET gradient = 248				// 248 OGRE_MAJOR-BATTLESHIP_GRAY replaces colour index 30 LIGHT_IRON_GRAY
+				SET location = wblue			// location (Head/Blade minor)
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
 END
 
-// Firetooth +3
-ACTION_IF (FILE_EXISTS_IN_GAME ~dagg12.itm~) BEGIN
-	COPY_EXISTING ~dagg12.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET setr = 242
-			SET setg = 152					// Gwen fix typo: redondant setr should be setg
-			SET setb = 189					// Gwen fix typo: redondant setr should be setb
-			SET speed = 0x78
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~pulse~
-			SET gradient = 195				// 195 CHROME_RED replaces colour index 47 PURE_DARK_RED
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 47				// 47 PURE_DARK_RED replaces colour index 47 PURE_DARK_RED
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-			SET gradient = 70				// 70 LIGHT_METALLIC_RED replaces colour index 33 CHROME_MAGENTA
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-		END
-	BUT_ONLY
+// Firetooth +3 - Gwen fix: add IR compatibility
+ACTION_FOR_EACH dagger IN ~dagg12~ ~dagg12a~ ~dagg12b~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
+		COPY_EXISTING ~%dagger%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET setr = 242
+				SET setg = 152					// Gwen fix typo: redondant setr should be setg
+				SET setb = 189					// Gwen fix typo: redondant setr should be setb
+				SET speed = 0x78
+				SET location = wblue			// location (Head/Blade minor)
+				LPM ~pulse~
+				SET gradient = 195				// 195 CHROME_RED replaces colour index 47 PURE_DARK_RED
+				SET location = wgrey			// location (Head/Blade/Staff major)
+				LPM ~colour~
+				SET gradient = 47				// 47 PURE_DARK_RED replaces colour index 47 PURE_DARK_RED
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
+				LPM ~colour~
+				SET gradient = 70				// 70 LIGHT_METALLIC_RED replaces colour index 33 CHROME_MAGENTA
+				SET location = wblue			// location (Head/Blade minor)
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
 END
 
 // Pixie Prick +3
@@ -649,6 +668,8 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~dagg20.itm~) BEGIN
 END
 
 // Dagger of the Star +4 and +5
+// Gwen fix: as component #200 reverts to their original inventory icon IDAGG21 (1PP set them to IDAGG18 - Shadow Thief Dagger icon-, but EE does not validate this change, this patch would give them wrong colors.
+/* DEPRECATED as of v4.2.0
 ACTION_FOR_EACH dagger IN ~dagg21~ ~dagg22~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
 		COPY_EXISTING ~%dagger%.itm~ ~override~
@@ -666,7 +687,7 @@ ACTION_FOR_EACH dagger IN ~dagg21~ ~dagg22~ BEGIN
 			END
 		BUT_ONLY
 	END
-END
+END*/
 
 // Ixil's Spike
 ACTION_IF (FILE_EXISTS_IN_GAME ~dagg23.itm~) BEGIN
@@ -884,11 +905,13 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~hamm05.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Dwarven Thrower +3
-ACTION_IF (FILE_EXISTS_IN_GAME ~hamm06.itm~) BEGIN
-	COPY_EXISTING ~hamm06.itm~ ~override~
-		LPF ~1pp_hamm06~ END
-	BUT_ONLY
+// Dwarven Thrower +3 - Gwen fix: add IR compatibility
+ACTION_FOR_EACH hammer IN ~hamm06~ ~hamm06a~ ~hamm06b~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%hammer%.itm~) BEGIN
+		COPY_EXISTING ~%hammer%.itm~ ~override~
+			LPF ~1pp_hamm06~ END
+		BUT_ONLY
+	END
 END
 
 // Dwarven Thrower +4 and Universal Thrower +5 (Rolles mod)
@@ -946,33 +969,35 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~hamm08.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Crom Faeyr +5
-ACTION_IF (FILE_EXISTS_IN_GAME ~hamm09.itm~) BEGIN
-	COPY_EXISTING ~hamm09.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
-			LPM ~clear~
-			SET setr = 99
-			SET setg = 199
-			SET setb = 222
-			SET speed = 0x32
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~pulse~
-			SET setr = 0
-			SET setg = 0
-			SET setb = 0
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~glow~
-			SET gradient = 235				// 235 CLERIC_GOOD_MAJOR-GLAUCOUS_GRAY replaces colour index 97 LIGHT_MINTY_BLUE
-			SET location = wgrey			// location (Head/Blade/Staff major)
-			LPM ~colour~
-			SET gradient = 249				// 249 OGRE_MINOR-METALLIC_SLATE replaces colour index 40 DARK_DIRTY_COPPER
-			SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
-			LPM ~colour~
-			SET gradient = 231				// 231 KOBOLD_MINOR-CHROME_COOL_GRAY replaces colour index 97 LIGHT_MINTY_BLUE
-			SET location = wblue			// location (Head/Blade minor)
-			LPM ~colour~
-		END
-	BUT_ONLY
+// Crom Faeyr +5 - Gwen fix: add IR compatibility
+ACTION_FOR_EACH hammer IN ~hamm09~ ~hamm09a~ BEGIN
+	ACTION_IF (FILE_EXISTS_IN_GAME ~%hammer%.itm~) BEGIN
+		COPY_EXISTING ~%hammer%.itm~ ~override~
+			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
+				LPM ~clear~
+				SET setr = 99
+				SET setg = 199
+				SET setb = 222
+				SET speed = 0x32
+				SET location = wblue			// location (Head/Blade minor)
+				LPM ~pulse~
+				SET setr = 0
+				SET setg = 0
+				SET setb = 0
+				SET location = wgrey			// location (Head/Blade/Staff major)
+				LPM ~glow~
+				SET gradient = 235				// 235 CLERIC_GOOD_MAJOR-GLAUCOUS_GRAY replaces colour index 97 LIGHT_MINTY_BLUE
+				SET location = wgrey			// location (Head/Blade/Staff major)
+				LPM ~colour~
+				SET gradient = 249				// 249 OGRE_MINOR-METALLIC_SLATE replaces colour index 40 DARK_DIRTY_COPPER
+				SET location = wred				// location (Grip/Staff minor - vanilla = whole staff)
+				LPM ~colour~
+				SET gradient = 231				// 231 KOBOLD_MINOR-CHROME_COOL_GRAY replaces colour index 97 LIGHT_MINTY_BLUE
+				SET location = wblue			// location (Head/Blade minor)
+				LPM ~colour~
+			END
+		BUT_ONLY
+	END
 END
 
 // Gwen fix: adds a new setting allowing to make alternate the overwriting of the Runehammer icon and not to set Borok's Fist's icon to Runehammers.

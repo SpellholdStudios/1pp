@@ -215,8 +215,8 @@ ACTION_FOR_EACH 1pp_proj IN 1axe05 1axe08 1axe09 1axe10 1axe16 BEGIN	// 1pp new 
 
 END
 
-// Throwing Axe +2
-ACTION_FOR_EACH axe IN ~ax1h05~ ~_ax1h05~ ~ax1h06~ ~ax1h05b~ ~ax1h06b~ BEGIN // Gwen fix: add IR compatibility
+// Throwing Axe +2 - Gwen fix: add IR compatibility
+ACTION_FOR_EACH axe IN ~ax1h05~ ~_ax1h05~ ~ax1h06~ ~ax1h05b~ ~ax1h06b~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.itm~) BEGIN
 		COPY_EXISTING ~%axe%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -226,8 +226,8 @@ ACTION_FOR_EACH axe IN ~ax1h05~ ~_ax1h05~ ~ax1h06~ ~ax1h05b~ ~ax1h06b~ BEGIN // 
 	END
 END
 
-// Hangard's Axe +2
-ACTION_FOR_EACH axe IN ~ax1h08~ ~ax1h08b~ BEGIN		// Gwen fix: add IR compatibility
+// Hangard's Axe +2 - Gwen fix: add IR compatibility
+ACTION_FOR_EACH axe IN ~ax1h08~ ~ax1h08b~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.itm~) BEGIN
 		COPY_EXISTING ~%axe%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -246,8 +246,8 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~s#ax1h01.itm~) BEGIN
 	BUT_ONLY
 END
 
-// Rifthome Axe +3
-ACTION_FOR_EACH axe IN ~ax1h09~ ~ax1h09b~ BEGIN		// Gwen fix: add IR compatibility
+// Rifthome Axe +3 - Gwen fix: add IR compatibility
+ACTION_FOR_EACH axe IN ~ax1h09~ ~ax1h09b~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.itm~) BEGIN
 		COPY_EXISTING ~%axe%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -257,8 +257,8 @@ ACTION_FOR_EACH axe IN ~ax1h09~ ~ax1h09b~ BEGIN		// Gwen fix: add IR compatibili
 	END
 END
 
-// Azuredge +3
-ACTION_FOR_EACH axe IN ~ax1h10~ ~ax1h10b~ BEGIN		// Gwen fix: add IR compatibility
+// Azuredge +3 - Gwen fix: add IR compatibility
+ACTION_FOR_EACH axe IN ~ax1h10~ ~ax1h10b~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.itm~) BEGIN
 		COPY_EXISTING ~%axe%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -268,8 +268,8 @@ ACTION_FOR_EACH axe IN ~ax1h10~ ~ax1h10b~ BEGIN		// Gwen fix: add IR compatibili
 	END
 END
 
-// K'logarath +4
-ACTION_FOR_EACH axe IN ~ax1h16~ ~ax1h16b~ BEGIN		// Gwen fix: add IR compatibility
+// K'logarath +4 - Gwen fix: add IR compatibility
+ACTION_FOR_EACH axe IN ~ax1h16~ ~ax1h16b~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%axe%.itm~) BEGIN
 		COPY_EXISTING ~%axe%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -555,8 +555,8 @@ ACTION_FOR_EACH 1pp_proj IN 1dagg05 1dagg11 1dagg12 1dagg16 BEGIN	// 1pp new dag
 
 END
 
-// Throwing Dagger
-ACTION_FOR_EACH dagger IN ~dagg05~ ~_dagg05~ ~dagg05b~ BEGIN	// Gwen fix: added IR compatibility
+// Throwing Dagger - Gwen fix: added IR compatibility
+ACTION_FOR_EACH dagger IN ~dagg05~ ~_dagg05~ ~dagg05b~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
 		COPY_EXISTING ~%dagger%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -566,8 +566,8 @@ ACTION_FOR_EACH dagger IN ~dagg05~ ~_dagg05~ ~dagg05b~ BEGIN	// Gwen fix: added 
 	END
 END
 
-// Boomerang Dagger +2
-ACTION_FOR_EACH dagger IN ~dagg11~ ~dagg11b~ BEGIN	// Gwen fix: added IR compatibility
+// Boomerang Dagger +2 - Gwen fix: added IR compatibility
+ACTION_FOR_EACH dagger IN ~dagg11~ ~dagg11b~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
 		COPY_EXISTING ~%dagger%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
@@ -577,8 +577,8 @@ ACTION_FOR_EACH dagger IN ~dagg11~ ~dagg11b~ BEGIN	// Gwen fix: added IR compati
 	END
 END
 
-// Firetooth +3
-ACTION_FOR_EACH dagger IN ~dagg12~ ~dagg12b~ BEGIN	// Gwen fix: added IR compatibility
+// Firetooth +3 - Gwen fix: added IR compatibility
+ACTION_FOR_EACH dagger IN ~dagg12~ ~dagg12b~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%dagger%.itm~) BEGIN
 		COPY_EXISTING ~%dagger%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files

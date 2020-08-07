@@ -947,7 +947,8 @@
 		<p>
 			Before v4.2.0, various content choices were presented to you during installation (depending on which IE game you are installing for and installed components).</br>
 			As of version 4.2.0, installation options are moved into <em>1pp-config-default.ini</em> file. If you want to modify them, please read this <a href="#config">chapter</a>.</br></br>
-			&#10173; <span style="font-size:90%"><em>Note: if you don't want to overwrite the Runehammer icon, set 1pp_hammers_icons option to 2 [default value = 1 (Yes)]. In response to many players requests, turning The Sleeper into a flail is now optional and set by 1pp_sleeper option [default value = 2 (No, but install the alternate flail icon IBLUN16B as a new resource for modders)].</em></span></br></br>
+			&#10173; <span style="font-size:90%"><em>Notes: if you don't want to overwrite the Runehammer icon, set 1pp_hammers_icons option to 2 [default value = 1 (Yes)]. In response to many players requests, turning The Sleeper into a flail is now optional and set by 1pp_sleeper option [default value = 2 (No, but install the alternate flail icon IBLUN16B as a new resource for modders)].</em></span></br></br>
+			&#10173; <span style="font-size:90%"><em>As many players complained to be annoyed by having to identify every gem in the game, Gems lore to identify is now disabled by default. If you wand to re-enable it, set its 1pp_gemlore option to 1 (Yes).</em></span></br></br>
 			&#10173; <span style="font-size:90%"><em>For a full, visual guide to choices see the link below. Consider choosing 'yes' to setting FORCED ITEM COLOURS [1pp_forced_item_colours = 2 (Yes for both magical and non-magical items) or 3 (Yes for both magical and non-magical items, but exclude BG1 legacy shields)].</em></span></br></br>
 			<a href="files/v4u_readme.html">&#9755; Alternative install choices</a>
 		</p></br>
@@ -1302,7 +1303,9 @@
 
 				<li style="margin-left:-4%">weapons specific fixes (400_update_bgii_weapons.tpa):</li>
 				  <ul>
+					<li style="margin-left:-8%; margin-right:-8%;">Added IR compatibility for throwing axes, daggers and hammers if variant a and/or b items are detected: ax1h08.itm (Hangard's Axe +2), ax1h09.itm (Rifthome Axe +3), ax1h10.itm (Azuredge +3), ax1h16.itm (K'logarath +4), dagg11.itm (Boomerang Dagger +2), dagg12.itm (Firetooth +3), hamm06.itm (Dwarven Thrower +3) and hamm09.itm (Crom Faeyr +5).</li>
 					<li style="margin-left:-8%; margin-right:-8%;">dagg12.itm (Firetooth +3): fixed typos in <span class="tp2">LPM ~pulse~</span> macro (redundant setr variable set to 152 and 189 should be setg and setb, otherwise they overwrite the setr value and don't set the correct setg and setb values).</li>
+					<li style="margin-left:-8%; margin-right:-8%;">dagg21.itm & dagg22.itm (Daggers of the Star): restored their original colors as component #200 reverted to their original inventory icon IDAGG21, this patch would give them wrong colors.</li>
 					<li style="margin-left:-8%; margin-right:-8%;">halb08.itm (Duskblade +2): fixed a typo patching halb06 instead of halb08.</li>
 					<li style="margin-left:-8%; margin-right:-8%;">hamm10.itm & hamm11.itm (Runehammers): new 1pp_hammers_icons setting gives the choice to assign them, or not, the Borok's Fist's icon.</li>
 				  </ul>

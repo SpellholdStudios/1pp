@@ -987,6 +987,7 @@
 			Dans les versions précédentes, divers choix vous étaient proposés pendant d'installation (en fonction de votre jeu IE et des composants que vous avez installés).</br>
 			Depuis la version 4.2.0, les options d'installation sont externalisés dans le fichier 1pp-config-default.ini. Si vous souhaitez les modifier, veuillez lire ce <a href="#config">chapitre</a>.</br></br>
 			&#10173; <span style="font-size:90%"><em>Note : si vous ne souhaitez pas écraser l'icône des Marteaux des Runes, choisissez la valeur 2 pour l'option 1pp_hammers_icons [Par défaut = 1 (Oui)]. En réponse à de nombreuses demandes de joueurs, transformer l'étoile du matin +2 Dormeuse est désormais optionnel et géré par l'option 1pp_sleeper option [Par défaut = 2 (Non, mais installer quand même son icône d'inventaire alternative (IBLUN16B) comme ressource pour les moddeurs)].</em></span></br></br>
+			&#10173; <span style="font-size:90%"><em>De nombreux joueurs s'étant plaints de devoir identifier toutes les gemmes du jeu, l'option Identification obligatoire des gemmes est désormais désactivée par défault. Si vous souhaitez la réactiver, attribuez la valeur 1 (Oui) à la variable 1pp_gemlore.</em></span></br></br>
 			&#10173; <span style="font-size:90%"><em>Pour avoir un aperçu complet des options, veuillez consulter le lien ci-dessous. Si vous souhaitez affecter des couleurs pré-définies aux objets non magiques, choisissez les valeurs 2 (Oui pour tous les objets, qu'ils soient magiques ou pas) ou 3 (Oui pour tous les objets, qu'ils soient magiques ou pas, mais ne concerne pas les boucliers au graphisme de BG1) pour l'option COULEURS DES OBJETS PRÉ-DÉFINIES.</em></span></br></br>
 			<a href="files/v4u_readme-french.html">&#9755; Autres options d'installation</a>
 		</p></br>
@@ -1349,7 +1350,9 @@
 
 				<li style="margin-left:-4%">weapons specific fixes (400_update_bgii_weapons.tpa):</li>
 				  <ul>
+					<li style="margin-left:-8%; margin-right:-8%;">Added IR compatibility for throwing axes, daggers and hammers if variant a and/or b items are detected: ax1h08.itm (Hangard's Axe +2), ax1h09.itm (Rifthome Axe +3), ax1h10.itm (Azuredge +3), ax1h16.itm (K'logarath +4), dagg11.itm (Boomerang Dagger +2), dagg12.itm (Firetooth +3), hamm06.itm (Dwarven Thrower +3) and hamm09.itm (Crom Faeyr +5).</li>
 					<li style="margin-left:-8%; margin-right:-8%;">dagg12.itm (Firetooth +3): fixed typos in <span class="tp2">LPM ~pulse~</span> macro (redundant setr variable set to 152 and 189 should be setg and setb, otherwise they overwrite the setr value and don't set the correct setg and setb values).</li>
+					<li style="margin-left:-8%; margin-right:-8%;">dagg21.itm & dagg22.itm (Daggers of the Star): restored their original colors as component #200 reverted to their original inventory icon IDAGG21, this patch would give them wrong colors.</li>
 					<li style="margin-left:-8%; margin-right:-8%;">halb08.itm (Duskblade +2): fixed a typo patching halb06 instead of halb08.</li>
 					<li style="margin-left:-8%; margin-right:-8%;">hamm10.itm & hamm11.itm (Runehammers): new 1pp_hammers_icons setting gives the choice to assign them, or not, the Borok's Fist's icon.</li>
 				  </ul>
