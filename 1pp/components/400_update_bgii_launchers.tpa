@@ -11,13 +11,17 @@
  *          Replaced macros with functions whenever possible.                                                                                                                       *
  *          Replaced WRITE_LONG 0x3E 0 and WRITE_ASCII 0x3A ~ISHLDS01~ with WRITE_ASCII 0x3A ~ISHLDS01~ #8. Id. with offsets 0x48 0x44, and 0x5C 0x58.                              *
  *          Used new 1pp_compatibility.tph library to improve 1PP crossmods compatibility (Rolles).                                                                                 *
+ *                                                                                                                                                                                  *
+ *  specific fixes:                                                                                                                                                                 *
+ *  ---------------                                                                                                                                                                 *
+ *      - #411  ==> xbow15.itm & xbow16.itm (Firetooth +4/+5): added bolt location color (wpink) to reflect the fire bolt on character paperdoll.                                   *
  * ================================================================================================================================================================================ */
 
 // ----------------------------- //
 //     ITEMS               line  //
 // ----------------------------- //
-//  SLINGS               #   24  //
-//  CROSSBOWS            #  183  //
+//  SLINGS               #   28  //
+//  CROSSBOWS            #  187  //
 // ----------------------------- //
 
 /* ======================== *
@@ -404,6 +408,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~xbow14.itm~) BEGIN
 	BUT_ONLY
 END
 
+// Gwen fix: added bolt location color (wpink) to reflect the fire bolt on character paperdoll.
 // Firetooth +4
 ACTION_IF (FILE_EXISTS_IN_GAME ~xbow15.itm~) BEGIN
 	COPY_EXISTING ~xbow15.itm~ ~override~
@@ -422,6 +427,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~xbow15.itm~) BEGIN
 	BUT_ONLY
 END
 
+// Gwen fix: added bolt location color (wpink) to reflect the fire bolt on character paperdoll.
 // Firetooth +5
 ACTION_IF (FILE_EXISTS_IN_GAME ~xbow16.itm~) BEGIN
 	COPY_EXISTING ~xbow16.itm~ ~override~
