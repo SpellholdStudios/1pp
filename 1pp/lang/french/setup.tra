@@ -516,7 +516,7 @@ VEUILLEZ ENTRER 1 ou 2~*/
 @400073 = ~Repartit les armures alternatives disponibles dans les zones du jeu...~
 @400074 = ~Repartit les nouveaux objets dans les zones du jeu...~
 
-@400075 = ~Applique le reglage des visuels des boucliers à ceux de Tutu/BG1.
+@400075 = ~Applique le reglage des visuels des boucliers a ceux de Tutu/BG1.
 (attention : cela remplacera les boucliers par defaut de Tutu)...~
 @400076 = ~Applique vos choix d'icones d'inventaire pour les casques de BGII a ceux de Tutu/BG1.
 (attention : cela remplacera les casques par defaut de Tutu)...~

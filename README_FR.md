@@ -823,7 +823,7 @@ Ce composant apporte des corrections aux éléments suivants : animations de chien
 
 #### Informations sur les droits d'auteur
 
-###### Ce mod a été créé pour être librement apprécié par tous les joueurs de Baldur's Gate 2. Cependant, il ne doit pas être vendu, publié, compilé ou redistribué sous quelque forme que ce soit sans le consentement d'Erephine. Le premier programme d'installation par WeiDU a été réalisé par CamDawg. Les illustrations et les graphiques originaux sont &copy;2004 Erephine.</br></br>
+###### Ce mod a été créé pour être librement apprécié par tous les joueurs de Baldur's Gate 2. Cependant, il ne doit pas être vendu, publié, compilé ou redistribué sous quelque forme que ce soit sans le consentement d'Erephine. Le premier programme d'installation par WeiDU a été réalisé par CamDawg, le dernier par Gwendolyne. Les illustrations et les graphiques originaux sont &copy;2004 Erephine.</br></br>
 <div align="right"><a href="#top">Retour en haut de page</a></div>
 
 
@@ -832,9 +832,9 @@ Ce composant apporte des corrections aux éléments suivants : animations de chien
 
 ## Historique des versions
 
-##### Version 4.2.0 (Août 2020)
+##### Version 4.2.0 (15 Août 2020)
 
-Note du traducteur : l'historique n'est volontairement pas entièrement traduit afin de faciliter la mise à jour continue du mod.</br>
+###### Note du traducteur : l'historique n'est volontairement pas entièrement traduit afin de faciliter la mise à jour continue du mod.</br>
 
 &#9755; <ins>a. Refonte générale du mod :</ins>
   - Ajout du fichier de metadata <em>1pp.ini</em> pour soutenir "Project Infinity" d'AL|EN.

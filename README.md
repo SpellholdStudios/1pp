@@ -831,7 +831,7 @@ Contains the following fixes: dog animations (corrupted palette), sitting static
 
 #### Copyrights Information
 
-###### This mod was created to be freely enjoyed by all Baldur's Gate 2 players. However, it should not be sold, published, compiled or redistributed in any form without the consent of Erephine. First WeiDU packaging was done by CamDawg. The original artwork and graphics are &copy;2004 Erephine.</br></br>
+###### This mod was created to be freely enjoyed by all Baldur's Gate 2 players. However, it should not be sold, published, compiled or redistributed in any form without the consent of Erephine. First WeiDU packaging was done by CamDawg, last one by Gwendolyne. The original artwork and graphics are &copy;2004 Erephine.</br></br>
 <div align="right"><a href="#top">Back to top</a></div>
 
 
@@ -840,7 +840,7 @@ Contains the following fixes: dog animations (corrupted palette), sitting static
 
 ## <a name="version" id="version"></a>Version History
 
-##### Version 4.2.0 (Augysr , 2020)
+##### Version 4.2.0 (August 15, 2020)
 
 &#9755; <ins>a. General overhaul and re-looking</ins>
   - Added *1pp.ini* metadata file to support AL|EN's "Project Infinity".
