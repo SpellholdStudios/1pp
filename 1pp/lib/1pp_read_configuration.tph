@@ -90,7 +90,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY 1pp_ini_variables_check BEGIN
 	mixed_labels,				2	=> 1
 	agannazar_scorcher,			2	=> 2
 	dispel_magic_effect,		2	=> 1
-	hammers_icons,				2	=> 1
+	hammers_icons,				2	=> 2
 	potions_icons,				2	=> 2
 	iwd_cause_wounds_icons,		2	=> 1
 	shields_appearance,			4	=> 1
