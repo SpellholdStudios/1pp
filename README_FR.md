@@ -832,9 +832,9 @@ Ce composant apporte des corrections aux éléments suivants : animations de chien
 
 ## Historique des versions
 
-##### Version 4.2.0 (15 Août 2020)
-
 ###### Note du traducteur : l'historique n'est volontairement pas entièrement traduit afin de faciliter la mise à jour continue du mod.</br>
+
+##### Version 4.2.0 (27 Août 2020)
 
 &#9755; <ins>a. Refonte générale du mod :</ins>
   - Ajout du fichier de metadata <em>1pp.ini</em> pour soutenir "Project Infinity" d'AL|EN.
@@ -1039,12 +1039,15 @@ Ce composant apporte des corrections aux éléments suivants : animations de chien
   - [300] 1ppv4: 1ppv4: Fixed animations for solars and elementals (300_solar_fix.tph)
     - Integrated <a href="http://www.shsforums.net/topic/58208-planetar-animation-glitch/">The Imp's BWP Fixpack fix for Solar swords without graphic artifacts</a>: fixed MASLG1S1.BAM and MSOLG2S1.BAM files. Source: <a href="https://github.com/omni-axa/BiG-World-Fixpack/commit/de7b3ce8439d8efa8e7427d1ad66efd0f48e547e">commit</a>.
 
+## 
+
 ##### Version 4.1.0 (12 novembre 2012)
 
 - Les boucliers en écaille ont désormais leurs propres animations.
 - Icônes de descriptions améliorées importées de BG I.
 - Correction du chevauchement de l'interface graphique à basse résolution.
 
+## 
 
 ##### Version 4.0.0 (6 août 2012)
 

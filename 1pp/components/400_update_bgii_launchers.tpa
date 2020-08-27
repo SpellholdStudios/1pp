@@ -414,6 +414,9 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~xbow15.itm~) BEGIN
 	COPY_EXISTING ~xbow15.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
+			SET gradient = 214				// 214 GYPSY_MAJOR-BRIGHT_GOLDENROD
+			SET location = wpink			// location (Bolt-Mace-Staff)
+			LPM ~colour~
 			SET gradient = 209				// 209 ATH_PEASANT_MINOR-ASH_GRAY replaces colour index 27 GRAY
 			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~
@@ -433,6 +436,9 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~xbow16.itm~) BEGIN
 	COPY_EXISTING ~xbow16.itm~ ~override~
 		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 			LPM ~clear~
+			SET gradient = 214				// 214 GYPSY_MAJOR-BRIGHT_GOLDENROD
+			SET location = wpink			// location (Bolt-Mace-Staff)
+			LPM ~colour~
 			SET gradient = 29				// 29 RED-TINTED_BLACK replaces colour index 27 GRAY
 			SET location = wgrey			// location (Head/Blade/Staff major)
 			LPM ~colour~

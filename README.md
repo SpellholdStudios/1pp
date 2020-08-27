@@ -22,7 +22,7 @@
 
 [Download the mod at Spellhold Studios](http://www.shsforums.net/files/file/1006-1pp/)<br>
 
-&nbsp;
+## 
 
 <div align="center">
 <a href="#intro">Overview</a> &#x2B25; <a href="#compat">Compatibility</a> &#x2B25; <a href="#installation">Installation</a> &#x2B25; <a href="#components">Components</a> &#x2B25; <a href="#101">Mod Details</a> &#x2B25; <a href="#credits">Credits</a> &#x2B25; <a href="#version">Version History</a></br>
@@ -426,7 +426,7 @@ The component that essentially started it all, this is a port of Baldur's Gate I
 
 ###### <em>Note that this component does not update icon graphics or item colours, so it is not recommended to be installed by itself. It is, however, required for most of the components that follow.</em></br>
 
-<div align="right"><a href="#components">Back to components list</a></div><br>
+<div align="right"><a href="#components">Back to components list</a></div>
 
 ------------------------
 
@@ -834,7 +834,7 @@ Contains the following fixes: dog animations (corrupted palette), sitting static
 
 ## <a name="version" id="version"></a>Version History
 
-##### Version 4.2.0 (August 15, 2020)
+##### Version 4.2.0 (August 27, 2020)
 
 &#9755; <ins>a. General overhaul and re-looking</ins>
   - Added *1pp.ini* metadata file to support AL|EN's "Project Infinity".
