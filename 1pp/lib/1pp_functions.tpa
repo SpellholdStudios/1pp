@@ -193,7 +193,7 @@ BEGIN
 				PATCH_IF (opcode = GW_opcode_to_check) BEGIN
 					READ_LONG (fx_off + 0x08 + (0x30 * (j + abil_fx_idx))) "param2"
 					PATCH_IF param2 > GW_max_param2 BEGIN SET GW_max_param2 = param2 END
-					PATCH_PRINT "DEBUG CONTROL %SOURCE_FILE%	-	header #%i%	-	 effet #%j%	-	opcode #%GW_opcode_to_check%	-	parameter2 = %param2%."
+//					PATCH_PRINT "DEBUG CONTROL %SOURCE_FILE%	-	header #%i%	-	 effet #%j%	-	opcode #%GW_opcode_to_check%	-	parameter2 = %param2%."
 					PATCH_IF NOT VARIABLE_IS_SET $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%i%~ ~%param2%~) BEGIN
 						SET $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%i%~ ~%param2%~) = 1
 					END ELSE BEGIN
@@ -215,7 +215,7 @@ BEGIN
 					SET nb_p2 = $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%i%~ ~%p2%~)
 //					PATCH_PRINT "DEBUG CONTROL %SOURCE_FILE%	-	header #%i%	-	 opcode #%GW_opcode_to_check%	-	parameter2 = %p2%	==> Nb = %nb_p2%."
 					LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_globals = 0 header = i multi_match = (nb_p2 - 1) match_opcode = GW_opcode_to_check match_parameter2 = p2 END
-					PATCH_PRINT "DEBUG CONTROL %SOURCE_FILE%	-	DELETE_EFFECT header #%i% - opcode #%GW_opcode_to_check% parameter2 = %p2% ==> (%nb_p2% - 1) deleted."
+//					PATCH_PRINT "DEBUG CONTROL %SOURCE_FILE%	-	DELETE_EFFECT header #%i% - opcode #%GW_opcode_to_check% parameter2 = %p2% ==> (%nb_p2% - 1) deleted."
 				END
 
 			END
@@ -244,7 +244,7 @@ BEGIN
 			PATCH_IF (opcode = "%GW_opcode_to_check%") BEGIN
 				READ_LONG (fx_off + 0x08 + (0x10 * GW_fx_type) + ((eq_eff_indx + k) * (0x30 + (0xd8 * GW_fx_type)))) param2
 				PATCH_IF param2 > GW_max_param2 BEGIN SET GW_max_param2 = param2 END
-				PATCH_PRINT "DEBUG CONTROL %SOURCE_FILE%	-	effet #%k%	-	opcode #%GW_opcode_to_check%	-	parameter2 = %param2%."
+//				PATCH_PRINT "DEBUG CONTROL %SOURCE_FILE%	-	effet #%k%	-	opcode #%GW_opcode_to_check%	-	parameter2 = %param2%."
 				PATCH_IF NOT VARIABLE_IS_SET $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%param2%~) BEGIN
 					SET $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%param2%~) = 1
 				END ELSE BEGIN
@@ -261,13 +261,13 @@ BEGIN
 				SET nb_p2 = $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~%p2%~)
 //				PATCH_PRINT "DEBUG CONTROL %SOURCE_FILE%	-	opcode #%GW_opcode_to_check%	-	parameter2 = %p2%	==> Nb = %nb_p2%."
 				LPF ~DELETE_EFFECT~ INT_VAR silent = 1 check_headers = 0 multi_match = (nb_p2 - 1) match_opcode = GW_opcode_to_check match_parameter2 = p2 END
-				PATCH_PRINT "DEBUG CONTROL %SOURCE_FILE%	-	DELETE_EFFECT opcode #%GW_opcode_to_check% parameter2 = %p2% ==> (%nb_p2% - 1) deleted."
+//				PATCH_PRINT "DEBUG CONTROL %SOURCE_FILE%	-	DELETE_EFFECT opcode #%GW_opcode_to_check% parameter2 = %p2% ==> (%nb_p2% - 1) deleted."
 			END
 		END
 
 		PATCH_IF VARIABLE_IS_SET $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~55~) BEGIN
 			SET GW_param2_55 = $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~55~)
-			PATCH_PRINT "DEBUG CONTROL $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~55~) = %GW_param2_55%"
+//			PATCH_PRINT "DEBUG CONTROL $GW_p2(~%SOURCE_RES%~ ~%GW_opcode_to_check%~ ~55~) = %GW_param2_55%"
 		END
 
 	END // of Delete duplicated global effects
@@ -314,7 +314,7 @@ BEGIN
 					PATCH_IF ("%projectile%" STRING_EQUAL_CASE "%old_proj%") BEGIN
 						newprojectile = (IDS_OF_SYMBOL (projectl "%new_proj%") + 1)
 						PATCH_IF newprojectile > 0 BEGIN
-							PATCH_PRINT "DEBUG CONTROL %SOURCE_RES% - header #%i% - type #%type% - replaced old projectile %old_proj% (%oldprojectile%) with new projectile %new_proj% (%newprojectile%)"
+//							PATCH_PRINT "DEBUG CONTROL %SOURCE_RES% - header #%i% - type #%type% - replaced old projectile %old_proj% (%oldprojectile%) with new projectile %new_proj% (%newprojectile%)"
 							WRITE_SHORT (ao + proj_off + (GW_al * i)) newprojectile
 //						END ELSE BEGIN
 //							PATCH_PRINT "DEBUG CONTROL Failed to patch %SOURCE_FILE% (header #%i%): new projectile (%new_proj%) does not exist or is not installed in your game."
@@ -326,7 +326,7 @@ BEGIN
 			END ELSE BEGIN
 				PATCH_IF (type = 1) AND (oldprojectile > 1) BEGIN			// Type = Melee and old projectile <> NONE ==> needs to be fixed
 					WRITE_SHORT (ao + proj_off + (GW_al * i)) 1
-					PATCH_PRINT "DEBUG CONTROL %SOURCE_RES% - header #%i% - type #%type% - fix old projectile %old_proj% (%oldprojectile%) --> new projectile = None"
+//					PATCH_PRINT "DEBUG CONTROL %SOURCE_RES% - header #%i% - type #%type% - fix old projectile %old_proj% (%oldprojectile%) --> new projectile = None"
 				END
 			END
 

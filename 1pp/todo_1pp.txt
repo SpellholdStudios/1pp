@@ -2,19 +2,21 @@
  *                              Improvements                              *
  * ====================================================================== */
 
-- Remove all DEBUGGING CONTROL PATCH_LOG messages before release.
+// DONE: Remove all DEBUGGING CONTROL LOG messages before release.
 - Add a new component to install new items in EE games?	==> Rather externalize it into a 1pp fixpack for EE mod.
-- ???
+- Add 1pp HQ music mods in the same package.
+
 
 /* ====================================================================== *
  *                              Useless files                             *
  * ====================================================================== */
 
-==> Keeping or removing them?
+- Keeping or removing them?		==> Will be done in next update.
 	- additions/obj_anim : D1, D2 and D3 sub-folders
 	- additions/solars/superglowy/ maslg1bw, maslg1s1, maslg2bw and maslg2s1 bam files.
-	- core/obj/act
+	- core/obj/alt
 	- core/1pp_iwd, core/1pp_iwd_thieves and core/1pp_thieves_galore/files/inv
+
 
 /* ====================================================================== *
  *                             Core paperdolls                            *
@@ -45,8 +47,8 @@
  *                Core content patches (200_1ppv2_cut.tph)                *
  * ====================================================================== */
 
-- 1pp_hammers_icons: set default value to 2 (No, assign the new icon to Borok's Fist, but keep the Runehammer icon for their respective hammers) instead of overwriting ihamm10 icon.
-- BW Herbs and Potions add-in mod: copy all BAM files at once ? As WeiDU cmp command detects no change between 1pp and the mod itm files, why copying 1pp itm files and not patching existing ones?
+//DONE: 1pp_hammers_icons: set default value to 2 ("No, assign the new icon to Borok's Fist, but keep the Runehammer icon for their respective hammers") instead of overwriting ihamm10 icon.
+- BW Herbs and Potions add-in mod: copy all BAM files at once? As WeiDU cmp command detects no change between 1pp and the mod itm files, why copying 1pp itm files and not patching existing ones?
 
 
 /* ====================================================================== *
@@ -103,7 +105,7 @@
 	- Reflection Shield +1 (shld24.itm): Fix tower shield animation (note: having to use its original small shield animation here for the time being, because there isn't really a suitable buckler icon for it - still erroneous, but nearly as bad as the tower shield!)
 //	- Saving Grace +3 : invert shld27 and shld27a ?
 	- Polished Shield +1: add full immunity to petrification.
-	- Ask Jastev about Ilvastarr Family Shield (The BG1 NPC Project mod)
+	- Wait for Jastev customizes Ilvastarr Family Shield (The BG1 NPC Project mod).
 	- Gorm's Arm +3 : an extra +1 vs. missile attacks not used by BG:EE.
 	- Buckler +2: replace "Armor Class: +3, +4 vs missiles" with "no protection vs. piercing and missiles" as every buckler.
 
@@ -112,7 +114,8 @@
 	- Add other mods helmets. ALREADY DONE: Stuff of the Magi
 
 - 400_update_bgii_launchers.tpa:
-	- what about tutu ???
+	- Add bolt location color (wpink) on character paperdoll whenever relevant (as per xbow15 and xbow16).
+	- what about tutu slings and crossbows???
 	- Add other mods launchers. ALREADY DONE: Rolles
 
 - 400_update_bgii_weapons.tpa (axes, daggers, hammers, spears, halberds):
@@ -120,6 +123,7 @@
 
 - 400_update_bgii_swords.tpa:
 	- Add other mods swords. ALREADY DONE: Darron, Rolles, Ruad
+	- Add a new setting to make optional the installation of sw1p01.itm (Viper's Edge +2).
 
 - 400_update_bgii_blunt.tpa:
 	- Add other mods blunt weapons. ALREADY DONE: Rolles, Ruad
@@ -146,6 +150,6 @@
 - Check IR and SR compatibility in game.
 - Add other mods items. ALREADY DONE: Rolles, Ruad, Stuff of the Magi
 - Add 1dagg16.pro to PfNM? Unfortunately, it is used by a mod for a magical dagger...
-- Add Firetooth +4/+5 (xb8x15 and xboxw16)? Which projectile?
+// DONE: Add Firetooth +4/+5 (xbowx15 and xboxw16)? Which projectile?
 - potn38 : add protection from new gaze projectile?
 - dagg16b.itm ?

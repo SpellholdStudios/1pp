@@ -20,7 +20,7 @@ BEGIN
 	LOCAL_SPRINT key ""
 	ACTION_IF FILE_EXISTS "%ini_to_read%" BEGIN
 		COPY - ~%ini_to_read%~ ~override~
-	PATCH_PRINT "ini_to_read 3 = %ini_to_read%"
+//		PATCH_PRINT "CONTROL DEBUG file ini_to_read 3 = %ini_to_read%"
 			REPLACE_EVALUATE ~^\([^ %TAB%%WNL%]+\) *= *\([^%WNL%$]+\)~
 				BEGIN
 				// key must start line and cannot contain whitespace
@@ -28,11 +28,11 @@ BEGIN
 					SPRINT key "%MATCH1%"
 					TO_LOWER key
 					TEXT_SPRINT $GW_ini_var(~%key%~) ~%MATCH2%~
-					PATCH_PRINT "CONTROL MATCH1 %MATCH1% ==> %key% = %MATCH2%"
+//					PATCH_PRINT "CONTROL DEBUG MATCH1 %MATCH1% ==> %key% = %MATCH2%"
 				END
 			~~
 		END
-PRINT "CONTROL FIN GW_READ_INI_FILE"
+//	PRINT "CONTROL DEBUG FIN GW_READ_INI_FILE"
 END
 
 
@@ -122,7 +122,7 @@ BEGIN
 				OUTER_TEXT_SPRINT wrong_value $GW_ini_var("1pp_%variable_0%")
 				OUTER_TEXT_SPRINT $GW_ini_var("1pp_%variable_0%") "%default%"
 				OUTER_SET value = $GW_ini_var("1pp_%variable_0%")
-				PRINT @1 // ~Configuration option 1pp_%variable_0% value (%wrong_value%) does not match its scope and has been reset to its default value (%default%).~
+				PRINT @1 // ~Configuration option 1pp_%variable_0% value (%wrong_value%) does not match its scope and has been reset to its default value (%value%).~
 			END ELSE BEGIN
 				OUTER_SET value = $GW_ini_var("1pp_%variable_0%")
 			END
@@ -131,7 +131,7 @@ BEGIN
 
 			OUTER_TEXT_SPRINT $GW_ini_var("1pp_%variable_0%") "%default%"
 			OUTER_SET value = $GW_ini_var("1pp_%variable_0%")
-			PRINT @2 // ~Configuration option %1pp_variable_0% does not exist and has been set to its default value (%default%).~
+			PRINT @2 // ~Configuration option %1pp_variable_0% does not exist and has been set to its default value (%value%).~
 
 		END
 
@@ -140,7 +140,7 @@ BEGIN
 
 		OUTER_SET EVAL "1pp_%variable_0%" = value
 
-//TODO remove
+//TODO remove (only used during development)
 LAF ~check_ini~ STR_VAR ini = EVAL "1pp_%variable_0%" RET var = value END
 PRINT "CONTROL check_ini 1pp_%variable_0% = %var%"
 
