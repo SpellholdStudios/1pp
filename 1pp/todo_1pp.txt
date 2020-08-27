@@ -5,6 +5,7 @@
 // DONE: Remove all DEBUGGING CONTROL LOG messages before release.
 - Add a new component to install new items in EE games?	==> Rather externalize it into a 1pp fixpack for EE mod.
 - Add 1pp HQ music mods in the same package.
+- Add 1pp IWD animation fixpack in the same package.
 
 
 /* ====================================================================== *
@@ -16,6 +17,19 @@
 	- additions/solars/superglowy/ maslg1bw, maslg1s1, maslg2bw and maslg2s1 bam files.
 	- core/obj/alt
 	- core/1pp_iwd, core/1pp_iwd_thieves and core/1pp_thieves_galore/files/inv
+
+
+/* ====================================================================== *
+ *                              Readme files                              *
+ * ====================================================================== */
+
+- Translate 1pp config-default.ini file in 1pp-config-language.txt.
+.MD
+[TODO Please read the *1pp-config-language.txt* file (with 'language' being the installation language you chose) to check the options names and their meanings.]
+[TODO Vous trouverez la liste des options et leur signification dans le fichier <a href="1pp/1pp-config-french.txt">1pp-config-language.txt</a> (« language » correspondant à la langue d'installation du mod).] 
+.HTML
+[Please read the <a href="../1pp-config-english.txt">1pp-config-language.txt</a> file (with 'language' being the installation language you chose) to check the variables names and their meanings. ]
+{Vous trouverez la liste des options et leur signification dans le fichier <a href="../1pp-config-french.txt">1pp-config-language.txt</a> (« language » correspondant à la langue d'installation du mod). ]
 
 
 /* ====================================================================== *
@@ -47,7 +61,7 @@
  *                Core content patches (200_1ppv2_cut.tph)                *
  * ====================================================================== */
 
-//DONE: 1pp_hammers_icons: set default value to 2 ("No, assign the new icon to Borok's Fist, but keep the Runehammer icon for their respective hammers") instead of overwriting ihamm10 icon.
+// DONE: 1pp_hammers_icons: set default value to 2 ("No, assign the new icon to Borok's Fist, but keep the Runehammer icon for their respective hammers") instead of overwriting ihamm10 icon.
 - BW Herbs and Potions add-in mod: copy all BAM files at once? As WeiDU cmp command detects no change between 1pp and the mod itm files, why copying 1pp itm files and not patching existing ones?
 
 

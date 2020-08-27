@@ -128,7 +128,7 @@ Si vous souhaitez choisir d'autres options d'installation, il vous suffit de mod
 
 Le programme d'installation lira les valeurs des variables dans les deux fichiers ini et donnera la priorité aux vôtres. Si le fichier 1pp-config-user.ini contient une valeur d'option non conforme, ou si une variable est manquante, il la remplacera par sa valeur par défaut (celle correspondant à l'installation « _standard_ »).
 
-[TODO Vous trouverez la liste des options et leur signification dans le fichier <a href="1pp/1pp-config-french.txt">1pp-config-language.txt</a> (« language » correspondant à la langue d'installation du mod).] Voici le tableau des options concernées :</br></br>
+Voici le tableau des options concernées :</br></br>
 
 Voici le tableau des options concernées :<br>
 

@@ -18,10 +18,6 @@
 
 ## 
 
-:warning: Readme writing in progress... Don't try to download and install this mod as it is a WIP version and its install will fail, because of missing files still in development or in beta testing
-
-## 
-
 [Read the mod's readme](https://gwendolynefreddy.github.io/docs/spellholdstudios/1pp/documentation/1pp-readme-english.html)
 
 [Download the mod at Spellhold Studios](http://www.shsforums.net/files/file/1006-1pp/)<br>
@@ -56,7 +52,7 @@ This mod is designed to work on the following classical Infinity Engine games:
 
 - The original Baldur's Gate II (BG2, or just SoA), with or without the Throne of Bhaal (ToB) expansion.
 - The conversion projects <a href="http://www.shsforums.net/forum/261-bgt-weidu/">Baldur's Gate Trilogy (BGT)</a> and <a href="http://www.pocketplane.net/mambo/index.php?option=com_content&task=blogcategory&id=143&Itemid=98">Baldur's Gate Tutu</a> (Tutu).
-- The original Icewind Dale (IWD) with either of its expansions, Heart of Winter (HoW) and Trials of the Luremaster (TotLM).
+- The original Icewind Dale (IWD) with either one of its expansions, Heart of Winter (HoW) and Trials of the Luremaster (TotLM).
 - Icewind Dale II (IWD2).
 
 1pp is a WeiDU mod, and therefore should be compatible with all WeiDU mods. However, we cannot test every single one. If you encounter any bugs, please <a href="http://www.shsforums.net/forum/159-1pp/">report them on the forum!</a><br>
@@ -126,8 +122,6 @@ The previous version interrupted installation with plain text prompts allowing p
 If you want to define your own customized installation, you have to edit the file **_1pp-config-default.ini_** with Notepad or another text editor, then save it as **_1pp-config-user.ini_**. Each line consists of a configuration option, then '=', then a number. The only thing you should edit is the number.
 
 The installation process will read both ini files and prioritize user's options values. If a value is not set or mismatched in 1pp-config-user.ini, any installation failure will be prevented by reverting it back to its default value.
-
-[TODO OR NOT? Please read the *1pp-config-language.txt* file (with 'language' being the installation language you chose) to check the options names and their meanings.]
 
 Here is a chart listing the options related to the installation process:</br></br>
 
