@@ -5,7 +5,7 @@
 <a href="README.md"><img align="right" src="1pp/documentation/files/images/uk-flag-32.png" title="English Readme"></a>
 
 
-<div align="center"><h1>1pp (One Pixel Productions) - WIP</h1>
+<div align="center"><h1>1pp (One Pixel Productions)</h1>
 
 <h3>Un mod de Spellhold Studios pour les jeux Infinity Engine<h3>
 
@@ -26,7 +26,7 @@
 
 [Download the mod at Spellhold Studios](http://www.shsforums.net/files/file/1006-1pp/)<br>
 
-&nbsp;
+## 
 
 <div align="center">
 <a href="#intro">Présentation</a> &#x2B25; <a href="#compat">Compatibilité</a> &#x2B25; <a href="#installation">Installation</a> &#x2B25; <a href="#components">Composants</a> &#x2B25; <a href="#101">Détail des composants</a> &#x2B25; <a href="#credits">Remerciements</a> &#x2B25; <a href="#version">Historique des versions</a></br>
@@ -440,7 +440,7 @@ Disponible pour : SoA, ToB, tutu, HoW, IWDII</br>
 
 Ce composant ajoute de nouvelles nuances de couleurs aux jeux Infinity Engine, en faisant passer le nombre de couleurs disponibles de 116 à 256. Il implante aussi une nouvelle table de couleurs aléatoires utilisables par Baldur's Gate II et de nouveaux fichiers de jeux de couleurs pour Icewind Dale II, offrant un choix plus important de couleurs pour définir la peau et les cheveux des différentes races.</br>
 Il corrige aussi quelques problèmes mineurs liés aux nuances standard.</br>
-&#9755; <a href="https://spellholdstudios.github.io/readmes/1pp/documentation/files/extpal_readme-french.html">Pour en savoir plus »</a></br>
+&#9755; <a href="https://spellholdstudios.github.io/readmes/1pp/documentation/files/extpal_readme-french.html">Pour en savoir plus</a></br>
 
 ## 
 
@@ -496,7 +496,7 @@ Disponible pour : SoA, ToB, tutu, HoW, IWDII</br>
 <div align="center"><img src="1pp/documentation/files/images/106.jpg"></div><br>
 
 Ce composant modifie le moteur du jeu de Baldur's Gate II pour qu'il utilise des animations d'avatar différenciées pour les femmes naines et les magiciennes des races de petite taille, et installe le contenu nécessaire pour qu'elles soient opérationnelles dans le jeu.</br>
-&#9755; <a href="https://spellholdstudios.github.io/readmes/1pp/documentation/files/dwarf_readme-french.html">Plus de captures d'écran »</a></br>
+&#9755; <a href="https://spellholdstudios.github.io/readmes/1pp/documentation/files/dwarf_readme-french.html">Plus de captures d'écran</a></br>
 
 <div align="right"><a href="#components">Retour à la liste des composants</a></div>
 
@@ -727,7 +727,7 @@ Depuis la version 4.2.0, les options d'installation sont externalisés dans le fi
 
 ###### &#10173; <em>Note : si vous souhaitez écraser l'icône des Marteaux des Runes, choisissez la valeur 1 pour l'option 1pp_hammers_icons [Par défaut = 2 (Non, on attribue la nouvelle icône au marteau Poing de Borock, et on laisse aux Marteaux des Runes leur icône originale.)]. En réponse à de nombreuses demandes de joueurs, transformer l'étoile du matin +2 Dormeuse est désormais optionnel et géré par l'option 1pp_sleeper option [Par défaut = 2 (Non, mais installer quand même son icône d'inventaire alternative (IBLUN16B) comme ressource pour les moddeurs)].</em></br>
 
-###### &#10173; <em>De nombreux joueurs s'étant plaints de devoir identifier toutes les gemmes du jeu, l'option Identification obligatoire des gemmes est désormais désactivée par défault. Si vous souhaitez la réactiver, attribuez la valeur 1 (Oui) à la variable 1pp_gemlore.</em>
+###### &#10173; <em>De nombreux joueurs s'étant plaints de devoir identifier toutes les gemmes du jeu, l'option Identification obligatoire des gemmes est désormais désactivée par défault. Si vous souhaitez la réactiver, attribuez la valeur 1 (Oui) à la variable 1pp_gemlore.</em></br>
 
 ###### &#10173; <em>Pour avoir un aperçu complet des options, veuillez consulter le lien ci-dessous. Si vous souhaitez affecter des couleurs pré-définies aux objets non magiques, choisissez les valeurs 2 (Oui pour tous les objets, qu'ils soient magiques ou pas) ou 3 (Oui pour tous les objets, qu'ils soient magiques ou pas, mais ne concerne pas les boucliers au graphisme de BG1) pour l'option COULEURS DES OBJETS PRÉ-DÉFINIES.</em></br>
 
@@ -779,6 +779,8 @@ Ce composant apporte des corrections aux éléments suivants : animations de chien
 ## Crédits et remerciements
 
 &#9755; Pour toute question ou demande d'assistance, veuillez consulter le <a href="http://www.shsforums.net/forum/159-1pp/">forum du mod</a>.
+
+## 
 
 #### Auteure : <a href="http://www.shsforums.net/user/2954-erephine/">Erephine</a>
 

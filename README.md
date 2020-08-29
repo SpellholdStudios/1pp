@@ -5,7 +5,7 @@
 <a href="README_FR.md"><img align="right" src="1pp/documentation/files/images/fr-flag-32.png" title="Readme français"></a>
 
 
-<div align="center"><h1>1pp (One Pixel Productions) - WIP</h1>
+<div align="center"><h1>1pp (One Pixel Productions)</h1>
 
 <h3>A Spellhold Studios mod for Infinity Engine games<h3>
 
@@ -780,6 +780,8 @@ Contains the following fixes: dog animations (corrupted palette), sitting static
 ## <a name="credits" id="credits"></a>Credits and Acknowledgements
 
 &#9755; For support or questions, please visit the <a href="http://www.shsforums.net/forum/159-1pp/">mod forum</a>.
+
+## 
 
 #### Author: <a href="http://www.shsforums.net/user/2954-erephine/">Erephine</a>
 #### Maintainer: <a href="http://www.shsforums.net/user/24495-gwendolyne/">Gwendolyne</a>

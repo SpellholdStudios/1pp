@@ -140,9 +140,9 @@ BEGIN
 
 		OUTER_SET EVAL "1pp_%variable_0%" = value
 
-//TODO remove (only used during development)
+/*TODO remove (only used during development)
 LAF ~check_ini~ STR_VAR ini = EVAL "1pp_%variable_0%" RET var = value END
-PRINT "CONTROL check_ini 1pp_%variable_0% = %var%"
+PRINT "CONTROL check_ini 1pp_%variable_0% = %var%"*/
 
 	END	// of ACTION_PHP_EACH GW_ini_variables_check AS variable => default
 	ACTION_CLEAR_ARRAY 1pp_ini_variables_check
