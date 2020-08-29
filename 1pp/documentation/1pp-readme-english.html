@@ -72,7 +72,7 @@
 		<ul>
 			<li>The original Baldur's Gate II (BG2, or just SoA), with or without the Throne of Bhaal (ToB) expansion.</li>
 			<li>The conversion projects <a href="http://www.shsforums.net/forum/261-bgt-weidu/">Baldur's Gate Trilogy (BGT)</a> and <a href="http://www.pocketplane.net/mambo/index.php?option=com_content&task=blogcategory&id=143&Itemid=98">Baldur's Gate Tutu (<acronym title="Baldur's Gate 'To Two'">Tutu</acronym>)</a>.</li>
-			<li>The original Icewind Dale (IWD) with either of its expansions, Heart of Winter (HoW) and Trials of the Luremaster (TotLM).</li>
+			<li>The original Icewind Dale (IWD) with either one of its expansions, Heart of Winter (HoW) and Trials of the Luremaster (TotLM).</li>
 			<li>Icewind Dale II (IWD2).</li>
 		</ul></br>
 
@@ -197,7 +197,7 @@
 			The installation process will read both ini files and prioritize user's option values. If a value is not set or mismatched in 1pp-config-user.ini, any installation failure will be prevented by reverting it back to its default value.
 		</p>
 		<p>
-			Please read the <a href="../1pp-config-english.txt">1pp-config-language.txt</a> file (with 'language' being the installation language you chose) to check the variables names and their meanings. Here is a chart listing the options related to the installation process:
+			Here is a chart listing the options related to the installation process:
 		</p><br>
 
 
@@ -273,8 +273,8 @@
 				<td style="border: 1px solid #781808; text-align: center; ">1pp_hammers_icons</td>
 				<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">RUNEHAMMER INVENTORY ICONS<br><br>
 				This component overwrites the vanilla Runnehammer icon and sets it to Borok's Fist +2, then assigns Borok's Fist's icon to Runehammer. Do you want to apply those changes?<br><br>
-				<span style="color: #781808; padding-left:20px;">1 = Yes [default]</span><br>
-				<span style="padding-left:20px;">2 = No, assign the new icon to Borok's Fist, but keep Runnehammer icon for their respective hammers.</span></td>
+				<span style="padding-left:20px;">1 = Yes</span><br>
+				<span style="color: #781808; padding-left:20px;">2 = No, assign the new icon to Borok's Fist, but keep Runnehammer icon for their respective hammers. [default]</span></td>
 			</tr>
 			<tr>
 				<td style="border: 1px solid #781808; text-align: center; ">1pp_potions_icons</td>
@@ -411,8 +411,8 @@
 				<td style="border: 1px solid #781808; text-align: center; ">1pp_sleeper</td>
 				<td style="border: 1px solid #781808; padding-left:5px; padding-right:5px">TURN THE SLEEPER INTO A FLAIL<br><br>
 				Do you want to turn the morningstar +2 The Sleeper into a flail?<br><br>
-				<span style="color: #781808; padding-left:20px">1 = Yes [default]</span><br>
-				<span style="padding-left:20px;">2 = No, but install the alternate flail icon IBLUN16B as a new resource for modders.</span></td>
+				<span style="padding-left:20px">1 = Yes</span><br>
+				<span style="color: #781808; padding-left:20px;">2 = No, but install the alternate flail icon IBLUN16B as a new resource for modders. [default]</span></td>
 			</tr>
 
 			<tr>
@@ -947,7 +947,7 @@
 		<p>
 			Before v4.2.0, various content choices were presented to you during installation (depending on which IE game you are installing for and installed components).</br>
 			As of version 4.2.0, installation options are moved into <em>1pp-config-default.ini</em> file. If you want to modify them, please read this <a href="#config">chapter</a>.</br></br>
-			&#10173; <span style="font-size:90%"><em>Notes: if you don't want to overwrite the Runehammer icon, set 1pp_hammers_icons option to 2 [default value = 1 (Yes)]. In response to many players requests, turning The Sleeper into a flail is now optional and set by 1pp_sleeper option [default value = 2 (No, but install the alternate flail icon IBLUN16B as a new resource for modders)].</em></span></br></br>
+			&#10173; <span style="font-size:90%"><em>Notes: if you want to overwrite the Runehammer icon, set 1pp_hammers_icons option to 1 [default value = 2 (No, assign the new icon to Borok's Fist, but keep the Runehammer icon for their respective hammers.)]. In response to many players requests, turning The Sleeper into a flail is now optional and set by 1pp_sleeper option [default value = 2 (No, but install the alternate flail icon IBLUN16B as a new resource for modders)].</em></span></br></br>
 			&#10173; <span style="font-size:90%"><em>As many players complained to be annoyed by having to identify every gem in the game, Gems lore to identify is now disabled by default. If you wand to re-enable it, set its 1pp_gemlore option to 1 (Yes).</em></span></br></br>
 			&#10173; <span style="font-size:90%"><em>For a full, visual guide to choices see the link below. Consider choosing 'yes' to setting FORCED ITEM COLOURS [1pp_forced_item_colours = 2 (Yes for both magical and non-magical items) or 3 (Yes for both magical and non-magical items, but exclude BG1 legacy shields)].</em></span></br></br>
 			<a href="files/v4u_readme.html">&#9755; Alternative install choices</a>
@@ -1033,7 +1033,11 @@
 
 		<div class="important">
 			<p style="text-align: center;"><em>"Anecdotal evidence indicates you are not reading this sentence."</em></p>
-		</div><br><br>
+		</div><br>
+
+		<p>
+			<span style="color: #781808;">&#9755;</span> For support or questions, please visit the <a href="http://www.shsforums.net/forum/159-1pp/">mod forum</a>.
+		</p></br>
 
 		<hr style="width: 90%;"/><br>
 
@@ -1042,6 +1046,7 @@
  		  <ul class="version-list c1">
 			<li><a href="http://www.spellholdstudios.net/">Spellhold Studios</a> team for hosting the mod (<a href="http://www.shsforums.net">Forums</a>).</li>
 			<li><em>Extended palette entries</em> component: Thanks to <a href="http://www.shsforums.net/user/41045-skellytz/">skellytz</a> for his Random color entries in character customization fix.</li>
+			<li><a href="http://www.shsforums.net/user/13218-bartimaeus/">Bartimaeus</a> and <a href="http://www.shsforums.net/user/10485-sam/">Sam</a>: thanks for their testing feedback and suggestions of improvements.</li>
 			<li>French translation: <a href="http://www.shsforums.net/user/24495-gwendolyne/">Gwendolyne</a> (<a href="http://www.shsforums.net/user/16735-luren/">Luren</a> for proofreading).</li>
 			<li>Russian translation: <a href="http://www.shsforums.net/user/38456-prozh/">prozh</a>.</li>
 			<li><em>Flaming sword component</em>: Thanks in advance especially to <a href="http://www.shsforums.net/user/6665-nythrun/">Nythrun</a> for letting us use her code! We hope!</li>
@@ -1050,10 +1055,6 @@
 			<li>First installer: <a href="http://www.shsforums.net/user/1242-camdawg/">CamDawg</a>.</li>
 			<li>Everyone else from the <a href="https://www.baldursgateworld.fr">La Couronne de Cuivre</a>, <a href="https://www.gibberlings3.net/forums/">The Gibberlings Three</a>, <a href="http://www.shsforums.net/">Spellhold Studios</a> forums, and the other Infinity Engine gaming and modding communities who offered their help and support.</li>
 		  </ul><br>
-
-		<p>
-			<span style="color: #781808;">&#9755;</span> For support or questions, please visit the <a href="http://www.shsforums.net/forum/159-1pp/">mod forum</a>.
-		</p></br>
 
 		<hr style="width: 90%;"/><br>
 
@@ -1084,7 +1085,7 @@
 		<h5>Copyrights Information</h5>
 
 		  <div class="important">
-			<p>This mod was created to be freely enjoyed by all Baldur's Gate 2 players. However, it should not be sold, published, compiled or redistributed in any form without the consent of Erephine. First WeiDU packaging was done by CamDawg. The original artwork and graphics are &copy;2004 Erephine.</p>
+			<p>This mod was created to be freely enjoyed by all Baldur's Gate 2 players. However, it should not be sold, published, compiled or redistributed in any form without the consent of Erephine. First WeiDU packaging was done by CamDawg, last one by Gwendolyne. The original artwork and graphics are &copy;2004 Erephine.</p>
 		  </div><br>
 
 		<address>
@@ -1098,23 +1099,23 @@
 
 		<h2>Version History</h2><br>
 
-		<h6>Version 4.2.0 &nbsp;(July, 2020)</h6>
+		<h6>Version 4.2.0 &nbsp;(August 29, 2020)</h6>
 
-		<h5>General overhaul and re-looking:</h5>
+		<h5>&#9755; General overhaul and re-looking:</h5>
 		  <ul style="width: 92%">
 			<li>Added <em>1pp.ini</em> metadata file to support AL|EN's "Project Infinity".</li>
 			<li>Replaced <span class="tp2">AUTHOR</span> keyword with <span class="tp2">SUPPORT</span>.</li>
+			<li>Added missing <span class="tp2">REQUIRE_PREDICATE</span> conditions to avoid installing components in inaccurate games or if required components are not installed.</li>
 			<li>Added components <span class="tp2">DESIGNATED</span> numbers and <span class="tp2">LABELS</span>.</li>
 			<li>Added "<em>always.tpa</em>" library.</li>
 			<li>Commented code as much as possible.</li>
 			<li>Replaced <span class="tp2">GAME_IS</span> conditions with variables checks to speed up install time.</li>
-
 			<li>Configuration installation options have been moved into <em>1pp-config-default.ini</em> file. If you want to modify them, please read this <a href="#config">chapter</a>.</li>
-			<li>Integrated all BWP Fixpack fixes (thanks Lollorian, The Imp and others!).</li>
+			<li>Integrated and improved all BWP Fixpack fixes (thanks Lollorian, The Imp and others!).</li>
 			<li>Split huge [400] "<em>Core updates and item patches</em>" component into smaller ones for more comfortable readability and maintenance (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!). &#128521;</li>
 			<li>Added BG2 Fixpack and ToBEx compatibility.</li>
 			<li>Added partial <a href="https://www.gibberlings3.net/files/file/969-item-revisions/">Item Revisions</a>, <a href="https://www.gibberlings3.net/files/file/970-spell-revisions/">Spell Revisions</a> and <a href="https://www.gibberlings3.net/files/file/948-iwdification/">IWDification</a> compatibility in a rather soft way: As SR, IR and IWDification are still beta versions, I gave up trying to write a plain compatibility with them. It would be certainly obsolete in a few months, therefore a waste of time. &#128521;</li>
-			<li>Added and/or improved 1PP crossmods compatibility (BG1 NPC Project, Bolsa, Improved HaerDalis Swords, Rolles, Ruad, Song and Silence, Stuff of the Magi, The Unusual Oddities Shop).</li>
+			<li>Added and/or improved 1PP crossmods compatibility (BG1 NPC Project, Bolsa, Darron, Improved HaerDalis Swords, Rolles, Ruad, Song and Silence, Stuff of the Magi, The Unusual Oddities Shop).</li>
 			<li>Fixed typos and misspellings preventing a few items to be patched (or patching wrong ones...).</li>
 			<li>Coding simplification:</li>
 			  <ul>
@@ -1129,14 +1130,13 @@
 			<li>Added Russian translation (prozh).</li>
 			<li>Traification. Feel free to provide me with translations. I will include them as soon as possible.</li>
 			<li>Removed unused files.</li>
-
 			<li>Reorganized folder architecture tree: created sub-folders to sort paperdolls .BAM files according to creature types.</li>
 			<li>Lower cased files.</li>
 			<li>Updated <acronym title="Weimer Dialogue Utility">WeiDU</acronym> installer to v246.</li>
 			<li>Uploaded mod to official Spellhold Studios GitHub mirror account.</li>
 		  </ul><br>
 
-		<h5>Components specific changes and fixes:</h5>
+		<h5>&#9755; Components specific changes and fixes:</h5>
 		  <ul style="width: 92%">
 			<li><span style="color: #781808;">[101] 1ppv4: Core paperdolls (composant principal)</span> (101_base.tph, 101_ia.tph, 101_iwd.tph, 101_obj.tph)</li>
 			  <ul style="padding-top: 4px">
@@ -1195,7 +1195,7 @@
 
 			<li><span style="color: #781808;">[200] 1ppv4: Core content patches</span> (200_1ppv2_cut.tph)</li>
 			  <ul style="padding-top: 4px">
-				<li style="margin-left:-4%; margin-right:-1%;">Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers [default value = 1 (Yes)].</li>
+				<li style="margin-left:-4%; margin-right:-1%;">Added a new setting (1pp_hammers_icons) allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers [default value = 2 (No, assign the new icon to Borok's Fist, but keep the Runehammer icon for their respective hammers.)].</li>
 				<li style="margin-left:-4%; margin-right:-1%;">Replaced <span class="tp2">READLN</span> action "<em>Do you want to include updated potion graphics?</em>" with reading new setting (1pp_potions_icons) from <em>1pp-config-default.ini</em> or <em>1pp-config-user.ini</em> [default value = 2 (Heavens no -- *Everything* but Potions!)].</li>
 				<li style="margin-left:-4%">Code simplified or re-written with newer functions to provide automatic process:</li>
 				  <ul>
@@ -1263,11 +1263,11 @@
 				<li style="margin-left:-4%">Simplified codes creating undroppable clones of weapons (in particular with tutu_var) replacing primary weapon with undroppable clone and moving it to inventory.</li>
 			  </ul><br>
 
-			<li><span style="color: #781808;">[400] 1ppv4: Core updates and item patches</span> (400_1pp_update_bgii.tph)</li>
+			<li><span style="color: #781808;">[400] 1ppv4: Core updates and item patches</span> (400_1pp_update_bgii.tph and 400_1pp_update_iwd.tph)</li>
 			  <ul style="padding-top: 4px">
 				<li style="margin-left:-4%">Split this huge component into smaller ones (checking 2500 or 3000 lines is easier when you search a glitch or a bug in more than 16000 lines of code!).</li>
 				<li style="margin-left:-4%">Replaced <span class="tp2">READLN</span> action "<em>Do you want gems to require some lore to identify?</em>" with reading new setting (1pp_gemlore) from <em>1pp-config-default.ini</em> or <em>1pp-config-user.ini</em> [default value = 2 (No)].</li>
-				<li style="margin-left:-4%">Added a new setting (1pp_hammers_icons) in <em>1pp-config-default.ini</em> or <em>1pp-config-user.ini</em> allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers [default value = 1 (Yes)].</li>
+				<li style="margin-left:-4%">Added a new setting (1pp_hammers_icons) in <em>1pp-config-default.ini</em> or <em>1pp-config-user.ini</em> allowing to make alternate the overwriting of the Runehammer icon (saves vanilla IHAMM10 icon and installs new IHAMM10 1pp icon as IHAMM05B), and not to set Borok's Fist's icon to Runehammers [default value = 2 (No, assign the new icon to Borok's Fist, but keep the Runehammer icon for their respective hammers.)].</li>
 				<li style="margin-left:-4%">Added a new setting (1pp_sleeper) in <em>1pp-config-default.ini</em> or <em>1pp-config-user.ini</em> allowing to make alternate the turning of The Sleeper into a flail [default value = 2 (No, but install the alternate flail icon IBLUN16B as a new resource for modders)]. In any case, 1PP does not overwrites its original inventory bam with a new one, but installs a new icon (IBLUN16B) as an alternate, and saves the vanilla icon for compatibility with other mods purpose.</li>
 				<li style="margin-left:-4%">Replaced tooltip section with two new functions that 1) add a fourth column if needed, 2) automatically write values in tooltip.2da from the tra file.</li>
 				<li style="margin-left:-4%">Integrated <a href="http://www.shsforums.net/topic/56643-1pp-circlets-and-bg2tweaks-issue/?p=561849">Lollorian's BWP Fixpack patch for Ashes of Embers compatibility</a> (400_1pp_update_bgii.tph.patch): renames 1PPv4 BAND0X.ITMs to XOBAND0X.ITMs, using Lollorian's prefix (according to BWL: XO, submitted by Chaplain, 11.03.2010, Prefix owner also known as Lollorian). <a href="https://github.com/BigWorldProject/Big-World-Fixpack/commit/1126bae51bf116fb82d8ad8d82882173cdb1a0d3">Source</a>.</li>
@@ -1299,6 +1299,11 @@
 					<li style="margin-left:-8%; margin-right:-8%;">xoband02.itm (Silver Circlet): fixed wrong coding opcodes #33, 34 & 35 (parameter2 originally set to 1 should be 0) and added opcodes #36 & 37 to match item description (+1 to Saving Throws).</li>
 					<li style="margin-left:-8%; margin-right:-8%;">xoband03.itm (Eilistraee's Boon +1): same fixes for opcodes #33, 34, 35, 36 & 37. Fixed wrong coding op#31: parameter1 originally set to 110, should be 10, and parameter2 switched from 2 to 0 to match item description (+10% magic damage resistance).</li>
 					<li style="margin-left:-8%; margin-right:-8%;">xoband04.itm (Circlet of the Archmagi): same fixes for opcodes #33, 34, 35, 36 & 37. Added one missing equipped effects (<span class="tp2">LPM ADD_ITEM_EQEFFECT #19</span>).</li>
+				  </ul>
+
+				<li style="margin-left:-4%">launchers specific fixes (400_update_bgii_launchers.tpa):</li>
+				  <ul>
+					<li style="margin-left:-8%; margin-right:-8%;">xbow15.itm & xbow16.itm (Firetooth +4/+5): added bolt location color (wpink) to reflect the fire bolt on character paperdoll.</li>
 				  </ul>
 
 				<li style="margin-left:-4%">weapons specific fixes (400_update_bgii_weapons.tpa):</li>

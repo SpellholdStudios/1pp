@@ -408,7 +408,7 @@
 		<h2>Modding with the extended palette</h2><br>
 
 		<p>
-			[102] 1ppv4 Extended palette entries component adds new colour gradients to Infinity Engine games, raising the count of available colours from 116 to 256. It also includes a new random colour table making use of them for Baldur's Gate II and new colour set files for Icewind Dale II, giving you more skin/hair colour choices for the various races.<br><br>
+			1ppv4 Extended palette entries component [102] adds new colour gradients to Infinity Engine games, raising the count of available colours from 116 to 256. It also includes a new random colour table making use of them for Baldur's Gate II and new colour set files for Icewind Dale II, giving you more skin/hair colour choices for the various races.<br><br>
 			Keep in mind that if you include a new entry in a mod (120+) it *will* crash installs that do not have extended <em>MPALETTE</em> and <em>MPAL256</em> files (the 1pp palette tool will also warn you if you are setting new gradients).<br><br>
 			Since the content of these files is not touched by any other mods (that I am aware of) and replacing them is as non-intrusive as it gets the easiest way to avoid this is to include them with your mod and install them.<br><br>
 			To avoid unnecessary overwriting of the files it would be best to add a simple file size check. If the file sizes are 9,272 bytes (MPALETTE) and 196,664 bytes (MPAL256) they already contain a full 256 colour set and need no further patching:
@@ -454,7 +454,7 @@
 		<h2>Patching Items and Spells</h2><br>
 
 		<p>
-			As of v4.2.0, the main 1pp update component [400] includes improved compatibility with third party mods. Modders are strongly recommended to borrow this simple way of coding to provide compatibility with 1pp, as Bolsa, Improved HaerDalis Swords, Rolles, Ruad, Song and Silence, Stuff of the Magi and The Unusual Oddities Shop mods already do.<br>
+			As of v4.2.0, the main 1pp update component [400] includes improved compatibility with third party mods. Modders are strongly recommended to borrow this simple way of coding to provide compatibility with 1pp, as Bolsa, Darron, Improved HaerDalis Swords, Rolles, Ruad, Song and Silence, Stuff of the Magi and The Unusual Oddities Shop mods already do.<br>
 			Below is a brief step by step process to complete it.
 		</p><br>
 
@@ -463,23 +463,23 @@
 		</p><br>
 
 		<p>
-		<span style="padding-left:50px">&#10173;&nbsp;&nbsp;&nbsp;<a href="#1">1. Detect 1pp</a></span></br>
-		<span style="padding-left:50px">&#10173;&nbsp;&nbsp;&nbsp;<a href="#2">2. Load macros and functions</a></span></br>
-		<span style="padding-left:50px">&#10173;&nbsp;&nbsp;&nbsp;<a href="#3">3. Patch an item</a></span></br>
-			<span style="margin-left: 7%;">a. Define its own colors.</span></br>
-			<span style="margin-left: 7%;">b. Use 1pp Staff of the Magi settings.</span></br>
-			<span style="margin-left: 7%;">c. Use 1pp Glowing Staff of the Magi settings</span></br>
-		<span style="padding-left:50px">&#10173;&nbsp;&nbsp;&nbsp;<a href="#4">4. Customize 1pp_compatibility library</a></span></br>
-		<span style="padding-left:50px">&#10173;&nbsp;&nbsp;&nbsp;<a href="#5">5. Use new 1pp projectiles</a></span></br>
-			<span style="margin-left: 7%;">a. Setting a new 1pp projectile to your itm or your spl if 1pp is installed</span></br>
-			<span style="margin-left: 7%;">b. Updating protection from projectiles with new 1pp projectiles</span></br>
-		<span style="padding-left:50px">&#10173;&nbsp;&nbsp;&nbsp;<a href="#6">6. Use Smart Avatar & Armour Switching component</a></span>
+		<span style="padding-left:50px">&#10173;&nbsp;&nbsp;&nbsp;<a href="#1">1. Detecting 1pp</a></span></br>
+		<span style="padding-left:50px">&#10173;&nbsp;&nbsp;&nbsp;<a href="#2">2. Loading macros and functions</a></span></br>
+		<span style="padding-left:50px">&#10173;&nbsp;&nbsp;&nbsp;<a href="#3">3. Patching an item</a></span></br>
+			<span style="margin-left: 7%;">a. Defining its own colors.</span></br>
+			<span style="margin-left: 7%;">b. Using 1pp Staff of the Magi settings.</span></br>
+			<span style="margin-left: 7%;">c. Using 1pp Glowing Staff of the Magi settings.</span></br>
+		<span style="padding-left:50px">&#10173;&nbsp;&nbsp;&nbsp;<a href="#4">4. Customizing 1pp_compatibility library</a></span></br>
+		<span style="padding-left:50px">&#10173;&nbsp;&nbsp;&nbsp;<a href="#5">5. Using new 1pp projectiles</a></span></br>
+			<span style="margin-left: 7%;">a. Setting a new 1pp projectile to your itm or your spl if 1pp is installed.</span></br>
+			<span style="margin-left: 7%;">b. Updating protection from projectiles with new 1pp projectiles.</span></br>
+		<span style="padding-left:50px">&#10173;&nbsp;&nbsp;&nbsp;<a href="#6">6. Using Smart Avatar & Armour Switching component</a></span>
 		</p><br>
 
 
 		<hr style="width: 90%; color: #781808; background-color: #781808; "><br>
 
-		<a name="1" id="1"></a><p style="font-size: 130%;"><strong>1. Detect 1pp</strong></p>
+		<a name="1" id="1"></a><p style="font-size: 130%;"><strong>1. Detecting 1pp</strong></p>
 
 		<p style="margin-top:1%;">
 			As 1pp update component patches items and provides additional content depending on which components are installed, detecting if 1pp is installed is not enough and you need to detect which components are installed to fine tune compatibility. Copy the following code in your <span class="tp2">ALWAYS</span> block:
@@ -512,7 +512,7 @@
 
 		<hr style="width: 90%; color: #781808; background-color: #781808; "><br>
 
-		<a name="2" id="2"></a><p style="font-size: 130%;"><strong>2. Load macros and functions</strong></p>
+		<a name="2" id="2"></a><p style="font-size: 130%;"><strong>2. Loading macros and functions</strong></p>
 
 		<p style="margin-top:1%;">
 			Once it is done, you must load 3 libraries that will do the job:
@@ -538,7 +538,7 @@
 
 		<hr style="width: 90%; color: #781808; background-color: #781808; "><br>
 
-		<a name="3" id="3"></a><p style="font-size: 130%;"><strong>3. Patch an item</strong></p>
+		<a name="3" id="3"></a><p style="font-size: 130%;"><strong>3. Patching an item</strong></p>
 
 		<p style="margin-top:1%;">
 			Now comes the real part. If you want to create an item using 1pp features, let's say a special Staff of the Magi, the process is fairly simple: First, create it as a "normal" Staff of the Magi, and install it with your tp2:
@@ -558,7 +558,7 @@
 
 		<hr style="width: 90%; height: 1px; border: 0; color: #781808; background-color: #781808;" /></br>
 
-		<p><strong>a. Define its own colors</strong></p>
+		<p><strong>a. Defining its own colors.</strong></p>
 
 		<p style="margin-top:1%;">It is very easy: use 1pp homemade functions defined in 1pp_macros.tpa library.</p>
 
@@ -595,7 +595,7 @@
 
 		<hr style="width: 90%; height: 1px; border: 0; color: #781808; background-color: #781808;" /></br>
 
-		<p><strong>b. Use 1pp Staff of the Magi settings</strong></p>
+		<p><strong>b. Using 1pp Staff of the Magi settings.</strong></p>
 
 		<p style="margin-top:1%;">It is very easy: use 1pp homemade functions defined in 1pp_compatibility.tph library.</p>
 
@@ -658,7 +658,7 @@ END </pre>
 
 		<hr style="width: 90%; height: 1px; border: 0; color: #781808; background-color: #781808;" /></br>
 
-		<p><strong>c. Use 1pp Glowing Staff of the Magi settings</strong></p>
+		<p><strong>c. Using 1pp Glowing Staff of the Magi settings.</strong></p>
 
 		<p style="margin-top:1%;">Always with 1pp homemade functions defined in 1pp_compatibility.tph library.</p>
 
@@ -765,7 +765,7 @@ OUTER_SET is_ee = (GAME_IS ~bgee bg2ee eet~) ? 1 : 0 // EE game</pre>
 
 		<hr style="width: 90%; color: #781808; background-color: #781808; "><br>
 
-		<a name="4" id="4"></a><p style="font-size: 130%;"><strong>4. Customize 1pp_compatibility library</strong></p>
+		<a name="4" id="4"></a><p style="font-size: 130%;"><strong>4. Customizing 1pp_compatibility library</strong></p>
 
 		<p style="margin-top:1%;">
 			As 1pp_compatibility library has been written to improve 1pp compatibility with a few mods installed before it (if ever!), it does not contain all patches and you may need to customize it to fit your needs.
@@ -815,7 +815,7 @@ OUTER_SET is_ee = (GAME_IS ~bgee bg2ee eet~) ? 1 : 0 // EE game</pre>
 
 		<hr style="width: 90%; color: #781808; background-color: #781808; "><br>
 
-		<a name="5" id="5"></a><p style="font-size: 130%;"><strong>5. Use new 1pp projectiles</strong></p>
+		<a name="5" id="5"></a><p style="font-size: 130%;"><strong>5. Using new 1pp projectiles</strong></p>
 
 		<p style="margin-top:1%;">
 			And now comes the easiest part of all: make your spells or items either using 1pp new projectiles or protecting from projectiles compatible with 1pp. In both cases, you can either use innate WeiDU functions or use 1pp_functions.tpa library that was written specially for 1pp Improved projectile effects component [401]. It includes:
@@ -828,7 +828,7 @@ OUTER_SET is_ee = (GAME_IS ~bgee bg2ee eet~) ? 1 : 0 // EE game</pre>
  
 		<hr style="width: 90%; height: 1px; border: 0; color: #781808; background-color: #781808;" /></br>
 
-		<p><strong>a. Setting a new 1pp projectile to your itm or your spl if 1pp is installed</strong></p>
+		<p><strong>a. Setting a new 1pp projectile to your itm or your spl if 1pp is installed.</strong></p>
 
 		<p style="margin-top:1%;">You can use the way Rolles mod adds 1pp compatibility:</p>
 
@@ -884,7 +884,7 @@ OUTER_SET is_ee = (GAME_IS ~bgee bg2ee eet~) ? 1 : 0 // EE game</pre>
 
 		<hr style="width: 90%; height: 1px; border: 0; color: #781808; background-color: #781808;" /></br>
 
-		<p><strong>b. Updating protection from projectiles with new 1pp projectiles</strong></p>
+		<p><strong>b. Updating protection from projectiles with new 1pp projectiles.</strong></p>
 
 		<p style="margin-top:1%;">Once again, you can use 1pp homemade functions defined in 1pp_functions.tpa library:</p>
 
@@ -979,7 +979,7 @@ OUTER_SET is_ee = (GAME_IS ~bgee bg2ee eet~) ? 1 : 0 // EE game</pre>
 
 		<hr style="width: 90%; color: #781808; background-color: #781808; "><br>
 
-		<a name="6" id="6"></a><p style="font-size: 130%;"><strong>6. Use Smart Avatar & Armour Switching component</strong></p>
+		<a name="6" id="6"></a><p style="font-size: 130%;"><strong>6. Using Smart Avatar & Armour Switching component</strong></p>
 
 		<p style="margin-top:1%;">
 			If you want your robes and armors benefit from this component which allows armour and robes to properly show up for characters of any class when equipped, use the following code (from Darron mod):
