@@ -24,7 +24,7 @@ SILENT
 // Composite Longbow
 ACTION_FOR_EACH bow IN ~bow01~ ~_bow01~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%bow%.itm~) BEGIN
-		COPY_EXISTING ~%bow%.itm~ ~ovveride~
+		COPY_EXISTING ~%bow%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN	// protects against invalid files
 				LPM ~clear~
 				SET gradient = 13				// 13 LIGHT_PINKISH_SILVER replaces colour index 13 LIGHT_PINKISH_SILVER
