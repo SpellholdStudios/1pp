@@ -45,7 +45,7 @@ END
  *  IWD  *
  * ===== */
 
-ACTION_IF (is iwd) BEGIN // GAME_IS ~totlm how~
+ACTION_IF (is_iwd) BEGIN // GAME_IS ~totlm how~
 
 	// IWD style for female dwarf paperdolls
 	ACTION_IF (1pp_fdwarf = 1) BEGIN
