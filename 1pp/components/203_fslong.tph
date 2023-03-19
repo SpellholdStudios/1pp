@@ -35,7 +35,7 @@ COPY ~1pp/additions/obj_anim/fs~ ~override~
 PRINT @203002 // ~Patching...~
 SILENT
 
-ACTION_FOR_EACH ~item~ IN ~blakblad~ ~bonedag~ ~morsword~ ~rodsword~ ~sw1h98~ ~_sw1h98~ BEGIN
+ACTION_FOR_EACH ~item~ IN ~blakblad~ ~bonedag~ ~morsword~ ~rodsword~ BEGIN
 	ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
 		COPY_EXISTING ~%item%.itm~ ~override~
 			PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
@@ -240,15 +240,6 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h39.itm~) BEGIN
 			SET setb = 0x0B				// Set Blue
 			SET location = wred			// location (Grip/Staff minor - vanilla = whole staff)
 			LPM ~glow~
-		END
-	BUT_ONLY
-END
-
-// Short Sword +1
-ACTION_IF (FILE_EXISTS_IN_GAME ~sw1h98.itm~) BEGIN
-	COPY_EXISTING ~sw1h98.itm~ ~override~
-		PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
-			WRITE_ASCII 0x22 ~SS~		// SS Short sword - replaces FS Flaming sword
 		END
 	BUT_ONLY
 END
