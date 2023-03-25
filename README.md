@@ -836,6 +836,11 @@ Contains the following fixes: dog animations (corrupted palette), sitting static
 
 ## <a name="version" id="version"></a>Version History
 
+##### Version 4.2.1 (March 25, 2023)
+
+  - Fixed typos causing installation errors.
+  - Restored Phoenix Guard's flaming sword animation.
+
 ##### Version 4.2.0 (August 29, 2020)
 
 &#9755; <ins>a. General overhaul and re-looking</ins>

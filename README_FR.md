@@ -18,10 +18,6 @@
 
 ## 
 
-:warning: Readme writing in progress... Don't try to download and install this mod as it is a WIP version and its install will fail, because of missing files still in development or in beta testing
-
-## 
-
 [Read the mod's readme](https://spellholdstudios.github.io/readmes/1pp/documentation/1pp-readme-french.html)
 
 [Download the mod at Spellhold Studios](http://www.shsforums.net/files/file/1006-1pp/)<br>
@@ -836,7 +832,12 @@ Ce composant apporte des corrections aux éléments suivants : animations de chien
 
 ###### Note du traducteur : l'historique n'est volontairement pas entièrement traduit afin de faciliter la mise à jour continue du mod.</br>
 
-##### Version 4.2.0 (29 Août 2020)
+##### Version 4.2.1 (25 mars 2023)
+
+  - Correction des fautes de frappe causant des erreurs d'installation.
+  - Restauré l'animation de l'épée enflammée de Phénix Garde.
+
+##### Version 4.2.0 (29 août 2020)
 
 &#9755; <ins>a. Refonte générale du mod :</ins>
   - Ajout du fichier de metadata <em>1pp.ini</em> pour soutenir "Project Infinity" d'AL|EN.
