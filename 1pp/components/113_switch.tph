@@ -59,7 +59,7 @@ ACTION_IF (is_bg2 OR is_tob OR is_tutu) BEGIN // GAME_IS ~bg2 tob tutu tutu_tots
 	SILENT
 	COPY_EXISTING_REGEXP GLOB ~^.+\.itm$~ ~override~
 		READ_SHORT 0x1c "itemtype" ELSE 0
-		PATCH_IF (itemtype = 2) BEGIN
+		PATCH_IF (itemtype = 2) AND ("%SOURCE_RES%" STRING_COMPARE_CASE ~PLAT98~) BEGIN
 			READ_ASCII 0x22 "anim" (2)
 			PATCH_IF (("%anim%" STRING_COMPARE_CASE "2w" = 0) OR
 					  ("%anim%" STRING_COMPARE_CASE "3w" = 0) OR
