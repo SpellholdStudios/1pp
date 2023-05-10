@@ -974,11 +974,17 @@ COPY ~1pp/item/v2_copy/sw1hwk.itm~		~override~
  *          POTIONS          *
  * ========================= */
 
-ACTION_IF (1pp_potions_icons = 2) BEGIN
+ACTION_IF (1pp_potions_icons = 1) BEGIN
 	PRINT @200001 // ~Copying...~
 	SILENT
 	COPY ~1pp/item/v2_copy/ipotn52.bam~ ~override~
+	COPY_EXISTING ~potn52.itm~ ~override~
+	  WRITE_ASCII 0x58 ~cpotn02~ #8
+	BUT_ONLY
 	COPY ~1pp/item/v2_copy/ipotn55.bam~ ~override~
+	COPY_EXISTING ~potn55.itm~ ~override~
+	  WRITE_ASCII 0x58 ~cpotn41~ #8
+	BUT_ONLY
 END
 
 
