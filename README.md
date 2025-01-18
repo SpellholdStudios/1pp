@@ -1,6 +1,6 @@
 <hr>
 
-:warning: **The maintenance and support of this project has been moved to https://github.com/Spellhold-Studios/1pp**
+:warning: **The maintenance and support of this project has been moved to a [new repository](https://github.com/Spellhold-Studios/1pp).**
 
 <hr><br>
 
