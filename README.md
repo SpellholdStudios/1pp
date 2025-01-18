@@ -1,8 +1,13 @@
+<hr>
+
+:warning: **The maintenance and support of this project has been moved to https://github.com/Spellhold-Studios/1pp**
+
+<hr><br>
 
 ![Latest Release](https://img.shields.io/github/v/release/SpellholdStudios/1pp?include_prereleases&color=darkred)<a name="top" id="top"> </a>
 ![Platform](https://img.shields.io/static/v1?label=platform&message=windows%20%7C%20linux&color=informational)
 ![Language](https://img.shields.io/static/v1?label=language&message=English%20%7C%20French%20%7C%20Russian&color=limegreen)
-<a href="README_FR.md"><img align="right" src="1pp/documentation/files/images/fr-flag-32.png" title="Readme français"></a>
+<a href="README_FR.md"><img align="right" src="1pp/documentation/files/images/fr-flag-32.png" title="Readme franÃ§ais"></a>
 
 
 <div align="center"><h1>1pp (One Pixel Productions)</h1>
@@ -453,7 +458,7 @@ For installs that do not support the binary patch (OSX), this installs the basic
 
 Complete install patching the game executable, enabling full use of the extended colour entries.</br>
 When installing the full version, extra choices for skin and hair colour will automatically become available from the ingame selection.</br>
-As for clothing colours, during character creation and from the inventory the standard complement of 34 primary and secondary colours will be offered. To access more clothing colours, choose 'customise' » 'colours' from the character sheet to gain access to yet another set of 34 colours.</br>
+As for clothing colours, during character creation and from the inventory the standard complement of 34 primary and secondary colours will be offered. To access more clothing colours, choose 'customise' Â» 'colours' from the character sheet to gain access to yet another set of 34 colours.</br>
 
 <div align="right"><a href="#components">Back to components list</a></div>
 
